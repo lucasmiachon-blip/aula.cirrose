@@ -1,57 +1,185 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GRADE — Aula Magna</title>
+  <title>GRADE — Plano C</title>
 </head>
-<body>
-
+<body class="stage-c">
 <div class="reveal">
   <div class="slides">
+<section id="s-01" data-background-color="var(--bg-navy)">
+  <div class="slide-inner slide-title">
+    <p class="section-tag">AULA CORE</p>
+    <h1>CORE <span style="color: var(--warning);">GRADE</span></h1>
+    <p class="subtitle">A coragem na incerteza</p>
+    <p style="margin-top: 1rem; font-size: var(--text-body); color: var(--text-on-dark-muted);">
+      Aplicação: CAC + decisão clínica (SBC 2025)
+    </p>
+    <div style="position: absolute; bottom: 3.5%; left: 0; right: 0; text-align: center;">
+      <div style="font-size: var(--text-body); color: var(--text-on-dark-muted);">Hildebrando Neto · Lucas Miachon</div>
+      <div style="font-size: var(--text-small); color: var(--text-on-dark-muted);">Diretriz Brasileira de Dislipidemias e Prevenção da Aterosclerose — SBC 2025</div>
+    </div>
+  </div>
+  <aside class="notes">
+[0:00-0:30] Título. Apresentação da aula GRADE.
+  </aside>
+</section>
 
-    <!-- SLIDE 1: HOOK -->
-    <section data-background-color="#0d1a2d">
-      <div class="slide-inner slide-navy">
-        <span class="section-tag">O estado atual</span>
-        <div data-animate="fadeUp">
-          <h2>[TBD] Asserção clínica do hook</h2>
+<section id="s-02" data-background-color="var(--bg-navy)">
+  <div class="slide-inner archetype-comparison">
+    <p class="section-tag">INTRODUÇÃO — O QUE ESTÁ EM JOGO</p>
+    <h2 class="slide-headline">A zona cinzenta é a regra.</h2>
+    <div class="comparison-grid">
+      <div class="comparison-panel">
+        <p class="lead" style="color: var(--text-on-dark-muted);">
+          Diretrizes orientam, mas muitas recomendações ainda nascem com evidência limitada.
+          O que muda a prática é tornar o julgamento <strong>explícito</strong>.
+        </p>
+        <div style="padding: 1.5rem; border-radius: var(--radius-md); background: oklch(0% 0 0 / 0.05); border: 1px solid oklch(100% 0 0 / 0.1); margin-top: 1rem;">
+          <p class="text-serif" style="font-size: var(--text-h2); color: var(--text-on-dark);">"Navegar é preciso; viver não é preciso."</p>
+          <p style="margin-top: 0.5rem; font-size: var(--text-body); color: var(--text-on-dark-muted);">Fernando Pessoa</p>
+          <p style="margin-top: 0.8rem; font-size: var(--text-body); color: var(--text-on-dark-muted);">Na medicina, a travessia é diária: decidir <strong>mesmo sem certeza total</strong>.</p>
         </div>
       </div>
-      <aside class="notes">
-        [0:00-0:30] Hook — número de impacto.
-        PAUSA 3s.
-        [DATA] Fonte: [TBD] | Verificado: [TBD]
-      </aside>
-    </section>
-
-    <!-- APÊNDICE (hidden = removido do DOM em congress) -->
-    <section class="appendix" data-visibility="hidden">
-      <div class="slide-inner">
-        <span class="section-tag">Apêndice · Conceitos Fundamentais</span>
-        <h2>O que é o sistema GRADE?</h2>
+      <div class="comparison-panel">
+        <p style="font-size: var(--text-small); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-on-dark-muted); font-weight: 800;">Um retrato das diretrizes</p>
+        <div style="margin-top: 1rem;">
+          <div style="display: flex; gap: 1rem; align-items: flex-end;">
+            <span class="text-serif" style="font-size: var(--text-hero); font-weight: 900; color: var(--warning);">≈42%</span>
+            <p style="font-size: var(--text-body);">Recomendações com <strong>LOE C</strong> (evidência limitada/indireta)</p>
+          </div>
+          <div style="height: 1px; background: oklch(100% 0 0 / 0.12); margin: 1rem 0;"></div>
+          <div style="display: flex; gap: 1rem; align-items: flex-end;">
+            <span class="text-serif" style="font-size: var(--text-hero); font-weight: 900; color: var(--text-on-dark);">≈8,5%</span>
+            <p style="font-size: var(--text-body);">Recomendações com <strong>LOE A</strong> (alta qualidade)</p>
+          </div>
+        </div>
+        <p class="source-tag" style="margin-top: 1rem;">Fanaroff et al., JAMA 2019 — análise de 51 diretrizes ACC/AHA.</p>
       </div>
-      <aside class="notes">
-        [Modo residência] Explicar do básico.
-      </aside>
-    </section>
+    </div>
+    <p class="source-tag">Fanaroff et al., JAMA 2019;321(11):1069-80. Fernando Pessoa.</p>
+  </div>
+  <aside class="notes">
+[0:00-0:45] Zona cinzenta. 42% LOE C, 8,5% LOE A. Tornar julgamento explícito.
+  </aside>
+</section>
 
+<section id="s-03" data-background-color="var(--bg-navy)">
+  <div class="slide-inner archetype-comparison">
+    <p class="section-tag">FUNDAMENTO — O PONTO-CHAVE DO GRADE</p>
+    <h2 class="slide-headline">O grande divisor: certeza ≠ força</h2>
+    <p class="lead" style="color: var(--text-on-dark-muted);">
+      <strong>Certeza</strong> fala sobre a confiança no efeito.
+      <strong>Força</strong> fala sobre o quão firme é o conselho clínico.
+    </p>
+    <div class="comparison-grid" style="margin-top: 1rem;">
+      <div style="padding: 1rem; background: oklch(0% 0 0 / 0.05); border: 1px solid oklch(100% 0 0 / 0.12); border-radius: var(--radius-md);">
+        <p style="font-size: var(--text-small); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-on-dark-muted); font-weight: 800;">Certeza da evidência</p>
+        <p style="font-size: var(--text-body); margin-top: 0.5rem;"><strong>Pergunta:</strong> quão confiante estou no efeito?</p>
+        <p style="font-size: var(--text-body); margin-top: 0.8rem;">Alta ⊕⊕⊕⊕ · Moderada ⊕⊕⊕◯ · Baixa ⊕⊕◯◯ · Muito baixa ⊕◯◯◯</p>
+        <p style="font-size: var(--text-body); margin-top: 0.8rem;"><strong>Domínios:</strong> viés, inconsistência, indireção, imprecisão, viés de publicação. É propriedade da <strong>evidência</strong>.</p>
+      </div>
+      <div style="padding: 1rem; background: oklch(0% 0 0 / 0.05); border: 1px solid oklch(100% 0 0 / 0.12); border-radius: var(--radius-md);">
+        <p style="font-size: var(--text-small); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-on-dark-muted); font-weight: 800;">Força da recomendação</p>
+        <p style="font-size: var(--text-body); margin-top: 0.5rem;"><strong>Pergunta:</strong> o que eu recomendo fazer?</p>
+        <p style="font-size: var(--text-body); margin-top: 0.8rem;">Forte a favor · Fraca a favor · Fraca contra · Forte contra</p>
+        <p style="font-size: var(--text-body); margin-top: 0.8rem;"><strong>EtD:</strong> valores, preferências, custos, acesso, equidade, aceitabilidade. É propriedade da <strong>decisão</strong>.</p>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; padding: 0.7rem 1rem; background: oklch(0% 0 0 / 0.08); border-radius: var(--radius-sm);">
+      <span style="font-size: var(--text-caption); font-weight: 800; color: var(--warning); letter-spacing: 0.08em; text-transform: uppercase;">Resumo</span>
+      <span style="font-size: var(--text-body); margin-left: 0.5rem;">Evidência informa; a <strong>decisão</strong> acontece na conversa clínica. Certeza alta + contexto desfavorável = <strong>condicional</strong>.</span>
+    </div>
+  </div>
+  <aside class="notes">
+[0:00-1:00] Certeza vs Força. Fórmula mental. Dois eixos independentes.
+  </aside>
+</section>
+
+<section id="s-04" data-background-color="var(--bg-navy)">
+  <div class="slide-inner archetype-flow">
+    <p class="section-tag">MÉTODO — DO ESTUDO À CERTEZA</p>
+    <h2 class="slide-headline">O motor do GRADE</h2>
+    <p class="lead" style="color: var(--text-on-dark-muted); max-width: 90%;">
+      Comece pelo desenho do estudo, ajuste com os domínios — e declare a certeza.
+    </p>
+    <div class="flow-cascade" style="display: grid; grid-template-columns: 1.2fr 0.85fr 0.75fr; gap: 1.3rem; margin-top: 1rem;">
+      <div style="padding: 1rem; background: oklch(0% 0 0 / 0.05); border: 1px solid oklch(100% 0 0 / 0.1); border-radius: var(--radius-md);">
+        <p style="font-size: var(--text-small); font-weight: 800; color: var(--warning); margin-bottom: 0.5rem;">↓ DOWNGRADES (5 domínios)</p>
+        <p style="font-size: var(--text-body);">Risco de viés · Inconsistência · Indireção · Imprecisão · Viés de publicação. Cada domínio avaliado <strong>independentemente</strong>.</p>
+      </div>
+      <div style="padding: 1rem; background: oklch(0% 0 0 / 0.05); border: 1px solid oklch(100% 0 0 / 0.1); border-radius: var(--radius-md);">
+        <p style="font-size: var(--text-small); font-weight: 800; color: var(--safe); margin-bottom: 0.5rem;">↑ UPGRADES (só observacionais)</p>
+        <p style="font-size: var(--text-body);">Grande efeito · Dose–resposta · Confundimento reduziria efeito. O objetivo é <strong>explicar</strong>, não pontuar.</p>
+      </div>
+      <div style="padding: 1rem; background: oklch(60% 0.13 85 / 0.08); border: 1px solid oklch(60% 0.13 85 / 0.25); border-radius: var(--radius-md);">
+        <p style="font-size: var(--text-small); font-weight: 800; color: var(--text-on-dark-muted); margin-bottom: 0.5rem;">RESULTADO FINAL</p>
+        <p style="font-size: var(--text-body);">Alta ⊕⊕⊕⊕ · Moderada ⊕⊕⊕◯ · Baixa ⊕⊕◯◯ · Muito baixa ⊕◯◯◯. Certeza é <strong>por desfecho</strong>, não por estudo.</p>
+      </div>
+    </div>
+    <p class="source-tag" style="position: absolute; bottom: 4%; left: 6%;">Baseado no framework GRADE — Guyatt et al., BMJ 2004; J Clin Epidemiol 2011.</p>
+  </div>
+  <aside class="notes">
+[0:00-1:30] Ponto de partida RCT vs Observacional. Downgrades, upgrades, resultado.
+  </aside>
+</section>
+
+<section id="s-05">
+  <div class="slide-inner archetype-comparison">
+    <p class="section-tag">CASO-ÂNCORA — CAC (SBC 2025)</p>
+    <h2 class="slide-headline">CAC reclassifica risco e muda a meta</h2>
+    <p class="lead">
+      O CAC não "prescreve". Ele altera contexto: <strong>risco → meta → benefício absoluto → decisão</strong>.
+    </p>
+    <div class="comparison-grid" style="margin-top: 1rem;">
+      <div style="padding: 1.5rem; border-left: 4px solid var(--bg-navy);">
+        <p style="font-size: var(--text-small); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-weight: 900; margin-bottom: 1rem;">O que o CAC muda na prática</p>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <p><strong>1.</strong> Reclassifica risco (principalmente ↑) — Ex.: intermediário → alto se CAC &gt; 100 (SBC 2025).</p>
+          <p><strong>2.</strong> Define meta LDL‑c pela categoria — meta vem do risco, não do número. Risco alto = &lt; 70 mg/dL; muito alto = &lt; 50 mg/dL.</p>
+          <p><strong>3.</strong> Muda benefício absoluto (NNT) — e, portanto, muda o peso do EtD. Maior risco basal → menor NNT → maior peso no EtD a favor.</p>
+        </div>
+      </div>
+      <div style="padding: 1.5rem; border-left: 4px solid var(--safe); background: oklch(40% 0.12 170 / 0.03);">
+        <p style="font-size: var(--text-small); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-weight: 900; margin-bottom: 1rem;">SBC 2025 — recomendações</p>
+        <div style="margin-bottom: 1rem;">
+          <p style="font-size: var(--text-small); font-weight: 800;">FORTE ⊕⊕⊕◯ · Risco intermediário</p>
+          <p style="font-size: var(--text-body); border-left: 3px solid var(--safe); padding-left: 0.75rem; margin-top: 0.4rem;">"O CAC pode ser útil para decidir sobre a necessidade e a intensidade da terapia hipolipemiante."</p>
+        </div>
+        <div>
+          <p style="font-size: var(--text-small); font-weight: 800;">CONDICIONAL ⊕⊕⊕◯ · Baixo risco + história familiar</p>
+          <p style="font-size: var(--text-body); border-left: 3px solid var(--safe); padding-left: 0.75rem; margin-top: 0.4rem;">"Em indivíduos com histórico familiar de DCVA prematura… o escore de cálcio é razoável."</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; padding: 1rem 1.5rem; background: var(--bg-navy); border-radius: var(--radius-md);">
+      <span style="font-size: var(--text-small); font-weight: 800; color: var(--warning);">LEITURA GRADE</span>
+      <span style="font-size: var(--text-body); margin-left: 0.8rem; color: var(--text-on-dark);">Quando diretrizes divergem com evidência parecida, o diferencial é o <strong>EtD</strong>.</span>
+    </div>
+    <p class="source-tag">Fonte: Diretriz Brasileira de Dislipidemias e Prevenção da Aterosclerose — SBC 2025.</p>
+  </div>
+  <aside class="notes">
+[0:00-1:30] CAC reclassifica. SBC 2025 recomendações. EtD como diferencial.
+  </aside>
+</section>
 
   </div>
 </div>
-
 <script type="module">
   import Reveal from 'reveal.js';
   import Notes from 'reveal.js/plugin/notes/notes.esm.js';
   import gsap from 'gsap';
   import 'reveal.js/dist/reveal.css';
   import '../../shared/css/base.css';
+  import './grade.css';
+  import './archetypes.css';
   import { initAula, createAnimationDispatcher } from '../../shared/js/engine.js';
 
-  const deck = await initAula(Reveal, gsap, { plugins: [Notes] });
+  const deck = await initAula(Reveal, gsap, { plugins: [Notes], width: 1280, height: 720 });
+  window.Reveal = Reveal;
   const anim = createAnimationDispatcher(Reveal, gsap);
   anim.connect();
 </script>
-
 </body>
 </html>

@@ -46,7 +46,7 @@ Você é o pesquisador de evidências clínicas do pipeline Aulas Magnas. Busca,
 |-------------|---------|
 | Reference Manager | Citation struct: {PMID, DOI, AMA, tier, GRADE, relevance} |
 | Slide Builder | Evidence summary + slide-ready assertion |
-| Notion References DB | Registro completo (2b24bb6c) |
+| Notion References DB | Registro completo (IDs em `docs/SYNC-NOTION-REPO.md`) |
 
 ## Regras de Decisão
 

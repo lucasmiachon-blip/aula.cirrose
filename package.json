@@ -18,8 +18,11 @@
     "export:pdf": "node scripts/export-pdf.js",
     "export:screenshots": "node scripts/export-screenshots.js",
     "qa:a11y": "node scripts/qa-accessibility.js",
-    "qa:screenshots:cirrose": "node scripts/qa-screenshots-cirrose.js",
-    "transcribe": "node scripts/transcribe-lecture.js"
+    "qa:screenshots:cirrose": "node scripts/qa-screenshots-stage-c.js",
+    "build:cirrose": "powershell -ExecutionPolicy Bypass -File aulas/cirrose/scripts/build-html.ps1",
+    "build:grade": "powershell -ExecutionPolicy Bypass -File aulas/grade/scripts/build-html.ps1",
+    "transcribe": "node scripts/transcribe-lecture.js",
+    "zip:ia": "./scripts/build-zip-limpo-ia.ps1"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.39.0",

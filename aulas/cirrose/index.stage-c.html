@@ -1092,109 +1092,13 @@ PAUSA 2s.
   import { ClickReveal } from '../../shared/js/click-reveal.js';
   import { CasePanel } from '../../shared/js/case-panel.js';
   import { MeldCalc } from '../../shared/js/interactions/meld-calc.js';
+  import { wireAll } from './slide-registry.js';
 
   const deck = await initAula(Reveal, gsap, { plugins: [Notes], width: 1280, height: 720 });
-  window.Reveal = Reveal;        // expose for QA scripts (qa-screenshots-stage-c.js)
+  window.Reveal = Reveal;
   const anim = createAnimationDispatcher(Reveal, gsap);
   anim.connect();
-
-  // HOOK (index 1): stagger framework + case, countUp via data-animate
-  anim.registerCustom('s-hook', (slide, gsap) => {
-    const frameworkItems = slide.querySelectorAll('.framework-item');
-    const dataItems = slide.querySelectorAll('.case-data .data-item');
-    gsap.set([...frameworkItems, ...dataItems], { visibility: 'visible' });
-    if (frameworkItems.length) {
-      gsap.fromTo(frameworkItems,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.3, ease: 'power2.out' }
-      );
-    }
-    if (dataItems.length) {
-      gsap.fromTo(dataItems,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, delay: 0.8, ease: 'power2.out' }
-      );
-    }
-  });
-
-  // ============================================
-  // CASE PANEL
-  // ============================================
-  const panelEl = document.getElementById('case-panel');
-  if (panelEl) {
-    const panel = new CasePanel(panelEl, gsap);
-
-    panel.registerState('s-hook', {
-      severity: 'neutral',
-      values: { fib4: '3,2', lsm: '—', plq: '118k', meld: '—', albumin: '3,6', stage: '?' },
-      events: []
-    });
-    panel.registerState('s-cp1', {
-      severity: 'caution',
-      values: { fib4: '3,2', lsm: '21 kPa', plq: '118k', meld: '~10', albumin: '3,6', stage: 'cACLD → CSPH' },
-      events: ['Elastografia realizada']
-    });
-    panel.registerState('s-cp2', {
-      severity: 'danger',
-      values: { fib4: '3,2', lsm: '32 kPa', plq: '89k', meld: '28', albumin: '2,4', stage: 'dACLD' },
-      events: ['Ascite +++', 'PBE', 'HRS-AKI', 'Cr 3,1']
-    });
-    panel.registerState('s-cp3', {
-      severity: 'hope',
-      values: { fib4: '2,1', lsm: '18 kPa', plq: '132k', meld: '12', albumin: '3,8', stage: 'Recompensando' },
-      events: ['Abstinente 10m', 'Sem ascite 8m', 'SVR confirmado']
-    });
-    panel.registerState('s-close', {
-      severity: 'resolved',
-      showTimeline: true
-    });
-
-    panel.connect(document.querySelector('.slides'));
-    Reveal.on('slidechanged', (event) => {
-      panel.onSlideChanged(event.currentSlide);
-    });
-
-    // Initialize panel for current slide (sync — 'ready' already fired)
-    panel.onSlideChanged(Reveal.getCurrentSlide());
-  }
-
-  // ============================================
-  // CLICK-REVEAL  (init sync — 'ready' already fired after await initAula)
-  // ============================================
-  const revealers = new Map();
-
-  document.querySelectorAll('.slides > section').forEach((section, index) => {
-    const revealEls = section.querySelectorAll('[data-reveal]');
-    if (revealEls.length > 0) {
-      revealers.set(section.id, new ClickReveal(section, gsap));
-    }
-  });
-
-  // Intercept ArrowRight/Space: click-reveal consumes before Reveal navigates
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'ArrowRight' && e.key !== ' ') return;
-    const revealer = revealers.get(Reveal.getCurrentSlide()?.id);
-    if (revealer && revealer.hasMore) {
-      e.preventDefault();
-      e.stopPropagation();
-      revealer.next();
-    }
-    // If no reveals left, let Reveal handle navigation normally
-  }, true);  // capture phase — runs before Reveal's listener
-
-  // Reset reveals when entering a slide
-  Reveal.on('slidechanged', (event) => {
-    const revealer = revealers.get(event.currentSlide?.id);
-    if (revealer) revealer.reset();
-  });
-
-  // ============================================
-  // MELD CALCULATOR  (init sync — same reason)
-  // ============================================
-  const meldContainer = document.querySelector('[data-interaction="meld-calc"]');
-  if (meldContainer) {
-    new MeldCalc(meldContainer);
-  }
+  wireAll(Reveal, gsap, { anim, CasePanel, ClickReveal, MeldCalc });
 </script>
 </body>
 </html>

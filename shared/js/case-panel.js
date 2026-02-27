@@ -6,11 +6,9 @@
 export class CasePanel {
   /**
    * @param {HTMLElement} containerEl — the .case-panel element
-   * @param {object} gsapRef — GSAP instance
    */
-  constructor(containerEl, gsapRef) {
+  constructor(containerEl) {
     this.el = containerEl;
-    this.gsap = gsapRef;
     this.states = new Map();       // Map<slideId, state>
     this.slideOrder = new Map();   // Map<slideId, domIndex>
     this.firstStatePos = Infinity;
@@ -150,14 +148,19 @@ export class CasePanel {
     });
   }
 
+  /**
+   * Renders timeline steps on CLOSE slide.
+   * Colors via .timeline-dot[data-severity] in archetypes.css (var(--severity-*-dot)).
+   * No inline HEX — refactored 27/fev/2026.
+   */
   renderTimeline() {
     if (!this.fieldsEl || !this.eventsEl) return;
 
     const steps = [
-      { color: '#888899', label: 'Apresentação: FIB-4 3,2' },
-      { color: '#c4960a', label: 'Elastografia: CSPH' },
-      { color: '#c03030', label: 'Descompensação: MELD 28' },
-      { color: '#2a8a6a', label: 'Recompensação: abstinente' },
+      { severity: 'neutral', label: 'Apresentação: FIB-4 3,2' },
+      { severity: 'caution', label: 'Elastografia: CSPH' },
+      { severity: 'danger', label: 'Descompensação: MELD 28' },
+      { severity: 'hope', label: 'Recompensação: abstinente' },
     ];
 
     this.fieldsEl.innerHTML = '';
@@ -169,10 +172,14 @@ export class CasePanel {
     steps.forEach(step => {
       const stepEl = document.createElement('div');
       stepEl.className = 'timeline-step';
-      stepEl.innerHTML = `
-        <span class="timeline-dot" style="background:${step.color}"></span>
-        <span class="timeline-label">${step.label}</span>
-      `;
+      const dot = document.createElement('span');
+      dot.className = 'timeline-dot';
+      dot.dataset.severity = step.severity;
+      const label = document.createElement('span');
+      label.className = 'timeline-label';
+      label.textContent = step.label;
+      stepEl.appendChild(dot);
+      stepEl.appendChild(label);
       timeline.appendChild(stepEl);
     });
 
@@ -183,11 +190,13 @@ export class CasePanel {
     if (!this.visible) return;
     this.visible = false;
     this.el.classList.add('hidden');
+    this.el.closest('.reveal')?.classList.remove('has-panel');
   }
 
   show() {
     if (this.visible) return;
     this.visible = true;
     this.el.classList.remove('hidden');
+    this.el.closest('.reveal')?.classList.add('has-panel');
   }
 }

@@ -90,10 +90,16 @@ export class MeldCalc {
   }
 
   calculate() {
-    const bil = parseFloat(this.container.querySelector('[data-field="bil"]').value);
-    const cr = parseFloat(this.container.querySelector('[data-field="cr"]').value);
-    const inr = parseFloat(this.container.querySelector('[data-field="inr"]').value);
-    const na = parseFloat(this.container.querySelector('[data-field="na"]').value);
+    const bilEl = this.container.querySelector('[data-field="bil"]');
+    const crEl = this.container.querySelector('[data-field="cr"]');
+    const inrEl = this.container.querySelector('[data-field="inr"]');
+    const naEl = this.container.querySelector('[data-field="na"]');
+    if (!bilEl || !crEl || !inrEl || !naEl) return;
+
+    const bil = parseFloat(bilEl.value);
+    const cr = parseFloat(crEl.value);
+    const inr = parseFloat(inrEl.value);
+    const na = parseFloat(naEl.value);
 
     if ([bil, cr, inr, na].some(isNaN)) return;
 
@@ -158,10 +164,10 @@ export class MeldCalc {
         actionText.style.color = 'var(--danger, #d64545)';
       }
     } else {
-      if (bar) bar.style.background = '#1a1a2e';
+      if (bar) bar.style.background = 'var(--bg-navy)';
       if (actionText) {
         actionText.textContent = '\u2b1b Janela curta \u2014 URG\u00caNCIA';
-        actionText.style.color = '#1a1a2e';
+        actionText.style.color = 'var(--bg-navy)';
       }
     }
   }

@@ -1,8 +1,11 @@
 # AUDIT-VISUAL — Cirrose Plan C (25/fev/2026)
 
-> Auditoria visual implacável de 28 slides (`index.stage-c.html`).
+> Auditoria visual implacável de 28 slides.
 > Agente: Claude Code (Opus 4.6) · Método: preview_screenshot 1280×720 + force-reveal
 > Referência: AASLD/EASL Postgraduate Course slides
+>
+> **Nota (27/fev/2026):** Slides agora modulares em `slides/*.html`. Scores ainda válidos.
+> Editar slide individual e rodar `npm run build:cirrose` para validar.
 
 ---
 

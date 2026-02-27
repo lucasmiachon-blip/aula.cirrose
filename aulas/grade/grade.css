@@ -1,0 +1,52 @@
+/**
+ * grade.css — Overrides para aula GRADE
+ * OKLCH only. Sem !important. Sem remendos.
+ * Adapta tokens de base.css: --warning (gold), --safe (teal), --danger
+ */
+
+/* GRADE aliases (base.css tokens) */
+.grade-slide {
+  --gold: var(--warning);
+  --teal: var(--safe);
+}
+
+/* Section tag / label */
+.section-tag,
+.label-gold {
+  color: var(--ui-accent-on-dark, var(--warning-on-dark));
+  font-size: var(--text-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+/* Serif display */
+.text-serif {
+  font-family: var(--font-display);
+}
+
+/* Lead text */
+.lead {
+  font-size: var(--text-body);
+  line-height: 1.4;
+  max-width: 56ch;
+}
+
+/* Title slide */
+.slide-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+.slide-title h1 {
+  font-size: var(--text-hero);
+  font-weight: 800;
+}
+.slide-title .subtitle {
+  font-size: var(--text-h3);
+  color: var(--text-on-dark-muted);
+  margin-top: 1rem;
+}

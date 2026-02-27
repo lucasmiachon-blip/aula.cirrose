@@ -41,7 +41,7 @@ Você é o arquiteto pedagógico do pipeline Aulas Magnas. Aplica Backward Desig
 |-------------|---------|
 | Narrative Designer | Tabela: conceitos → evidências de compreensão → sequência → assessments |
 | Planner | Recomendação de cortes se tempo insuficiente |
-| Notion | Blueprint estruturado (staging area 30adfe68) |
+| Notion | Blueprint estruturado (IDs em `docs/SYNC-NOTION-REPO.md`) |
 
 ## Regras de Decisão
 

@@ -4,8 +4,10 @@ node_modules/
 # Build output
 dist/
 
-# Exports (PDFs, screenshots)
+# Exports (PDFs, screenshots, ZIP limpo)
 exports/
+exports/aulas-magnas-ia-*.zip
+exports/aulas-magnas-*-ia-*.zip
 
 # Vite
 .vite/

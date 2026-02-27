@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRADE — Plano C</title>
+</head>
+<body class="stage-c">
+<div class="reveal">
+  <div class="slides">
+%%SLIDES%%
+  </div>
+</div>
+<script type="module">
+  import Reveal from 'reveal.js';
+  import Notes from 'reveal.js/plugin/notes/notes.esm.js';
+  import gsap from 'gsap';
+  import 'reveal.js/dist/reveal.css';
+  import '../../shared/css/base.css';
+  import './grade.css';
+  import './archetypes.css';
+  import { initAula, createAnimationDispatcher } from '../../shared/js/engine.js';
+
+  const deck = await initAula(Reveal, gsap, { plugins: [Notes], width: 1280, height: 720 });
+  window.Reveal = Reveal;
+  const anim = createAnimationDispatcher(Reveal, gsap);
+  anim.connect();
+</script>
+</body>
+</html>

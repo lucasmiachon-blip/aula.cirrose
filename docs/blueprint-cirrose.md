@@ -60,7 +60,9 @@
 
 ---
 
-## 📍 Status (atualizado 25/fev/2026 — pós-auditoria narrativa)
+## 📍 Status (atualizado 27/fev/2026)
+
+> Estado operacional detalhado → ver `aulas/cirrose/HANDOFF.md`
 
 | Etapa | Status |
 |-------|--------|
@@ -71,19 +73,19 @@
 | Popular Slides DB | ✅ 28 registros ativos • 3 DEPRECATED |
 | Auditoria PMIDs | ✅ 27 PMIDs verificados • 2 DOI-only |
 | References DB | ⚠️ 15 refs pendentes de popular |
-| HTML (Reveal.js) | ✅ 28/28 implementados (20 core + 8 APP) — Plan C. Plan A/B desatualizados |
+| HTML (Reveal.js) | ✅ 28/28 modularizados em `slides/*.html` (FASE 0-4, 27/fev). Plan A/B desatualizados |
 | Auditoria Visual | ✅ 2.7/5.0 média — FAIL. Case panel + fill ratio = fixes sistêmicos |
 | Auditoria Narrativa | ✅ 3.0/5.0 média — WARN. Andragogia fraca, Duarte descrita não sentida |
 | Speaker Notes PT | ✅ Todas em PT. 10 pérolas ausentes identificadas |
 
-**Summary:** ✅ Blueprint v4 completo. 28/28 slides HTML implementados.
-⚠️ Auditorias concluídas: Visual (2.7/5) + Narrativa (3.0/5) = WARN. Precisa de cirurgia narrativa + fix CSS sistêmico.
+**Summary:** ✅ Blueprint v4 completo. 28/28 slides modulares (`slides/*.html`).
+⚠️ Auditorias concluídas: Visual (2.7/5) + Narrativa (3.0/5) = WARN. Refatoração arquitetural completa (FASE 0-4). Próximo: refatoração visual slide a slide.
 
 **Próximos passos:** (1) Lucas decide posição HOOK, (2) Separar checkpoints em 2 slides, (3) Fix CSS sistêmico (panel + fill), (4) Integrar 10 pérolas nas notes, (5) Sincronizar Plans A/B.
 
-**Ordem definitiva v3:**
-TITLE(1) → A1-01(2) → A1-02(3) → HOOK(4) → A1-03(5) → ... → CLOSE(20) → APP-01(21)...APP-08(28)
-3 DEPRECATED: A1-02-OLD, CIRR-04-01, A2-04-OLD
+**Ordem definitiva v4 (sincronizado com _manifest.js 27/fev):**
+TITLE(1) → HOOK(2) → A1-01(3) → A1-02(4) → A1-03(5) → ... → CLOSE(20) → APP-01(21)...APP-08(28)
+2 DEPRECATED: CIRR-A2-04-OLD (pos 99). CIRR-04-01 renomeado → CIRR-A1-01.
 
 ---
 

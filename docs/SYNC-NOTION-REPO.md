@@ -1,6 +1,7 @@
 # Sync Notion ↔ Repo
 
-> Protocolo para manter Slides DB, Blueprint e HTML alinhados. Usar MCP Notion + Cursor.
+> Protocolo para manter Slides DB, Blueprint e HTML alinhados. MCP Notion + Cursor.
+> **IDs Notion:** única referência no repo — outros MDs apontam aqui.
 
 ## IDs
 
@@ -8,7 +9,9 @@
 |---------|-----|
 | Slides DB | `c6713964-0b31-454f-83f5-4b287911a01b` |
 | Blueprint Cirrose | `30adfe68-59a8-815a-abf5-c817cd705b29` |
+| Blueprint Meta-análise | `30adfe68-59a8-81d2-b1f6-c81c59e3e12d` |
 | References DB | `2b24bb6c-91be-42c0-ae28-908a794e5cf5` |
+| Bíblia Narrativa | `311dfe68-59a8-816b-b9c0-ec10eccfb235` |
 
 ## Direções
 

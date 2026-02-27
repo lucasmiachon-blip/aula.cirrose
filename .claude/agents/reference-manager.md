@@ -31,7 +31,7 @@ PMID inválido → STOP, flag. Retração → remoção + alerta. Escolha de pap
 
 ## Notion References DB
 
-ID: `2b24bb6c-91be-42c0-ae28-908a794e5cf5`
+IDs: `docs/SYNC-NOTION-REPO.md`
 
 Campos obrigatórios: Name, PMID, DOI, AMA Citation, Tier, GRADE Certainty, Relevance (1-5), Slide (relation), Year, Study Type, Verified Date.
 

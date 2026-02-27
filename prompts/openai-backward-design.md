@@ -41,7 +41,7 @@ Responda em português.
 
 1. Revisar output com Lucas
 2. Alimentar Narrative Designer (role 04) com conceitos + sequência aprovados
-3. Registrar no Notion staging area (30adfe68)
+3. Registrar no Notion (IDs em `docs/SYNC-NOTION-REPO.md`)
 
 ## Referência completa
 

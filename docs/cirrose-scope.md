@@ -1,4 +1,7 @@
 # Cirrose: Manejo Global (Compensada + Descompensada)
+
+> **⚠️ SUPERSEDED** — Escopo antigo. Ver `docs/blueprint-cirrose.md` (v4, 90 min, gastro gerais).
+
 ## Escopo da Aula
 
 ### Metadados
@@ -40,6 +43,6 @@ Co-criação colaborativa (não AI-gerada):
 4. Criar slides com objetivo e mensagem claros
 
 ### Slides DB
-28 registros em `c6713964-0b31-454f-83f5-4b287911a01b` (20 core + 8 APP)
+28 registros (IDs em `docs/SYNC-NOTION-REPO.md`)
 
 ### Status: 28/28 SLIDES HTML IMPLEMENTADOS — QA VISUAL OK (24/fev/2026)

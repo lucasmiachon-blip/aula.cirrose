@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Slide Individual</title>
+  <style>
+    /* Debug bar */
+    #debug-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: oklch(15% 0 0 / 0.95);
+      color: oklch(80% 0.15 145);
+      font: 13px/1.6 'JetBrains Mono', monospace;
+      padding: 6px 16px;
+      z-index: 99999;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    #debug-bar .label { color: oklch(60% 0 0); }
+    #debug-bar a { color: oklch(70% 0.12 258); text-decoration: none; }
+    #debug-bar a:hover { text-decoration: underline; }
+    #debug-bar a.active-stage {
+      color: oklch(90% 0.15 145);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* Slide index (when no ?slide= param) */
+    .slide-index {
+      max-width: 800px;
+      margin: 2rem auto;
+      font-family: system-ui, sans-serif;
+      color: oklch(20% 0 0);
+      padding: 0 1rem;
+    }
+    .slide-index h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid oklch(85% 0 0);
+      padding-bottom: 0.5rem;
+    }
+    .slide-index a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      margin: 0.25rem 0;
+      text-decoration: none;
+      color: oklch(30% 0.08 258);
+      border-radius: 6px;
+      transition: background 150ms;
+      font-size: 0.9rem;
+    }
+    .slide-index a:hover { background: oklch(95% 0.02 258); }
+    .slide-index .act-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: oklch(50% 0 0);
+      margin-top: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .slide-index code {
+      font-size: 0.75rem;
+      color: oklch(45% 0 0);
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+  <!-- Case Panel — mesma estrutura do template -->
+  <div class="case-panel hidden" id="case-panel" data-severity="neutral">
+    <div class="panel-header">
+      <div class="panel-dot"></div>
+      <span class="panel-name">Seu Antônio, 55a</span>
+    </div>
+    <div class="panel-fields"></div>
+    <div class="panel-events"></div>
+  </div>
+
+  <div class="slides" id="slide-target">
+    <!-- Slide injetado aqui ou index renderizado -->
+  </div>
+</div>
+
+<div id="debug-bar">
+  <span><span class="label">Slide:</span> <span id="dbg-slide">—</span></span>
+  <span><span class="label">Viewport:</span> <span id="dbg-vp">—</span></span>
+  <span><span class="label">Stage:</span> <span id="dbg-stage">—</span></span>
+  <span><span class="label">Reveal:</span> <span id="dbg-reveal">—</span></span>
+  <span><span class="label">Stage:</span>
+  <a href="#" onclick="switchStage('a'); return false;" id="btn-a">A</a>
+  <a href="#" onclick="switchStage('b'); return false;" id="btn-b">B</a>
+  <a href="#" onclick="switchStage('c'); return false;" id="btn-c">C</a></span>
+  <a href="?">← Index</a>
+</div>
+
+<script>
+function switchStage(s) {
+  const url = new URL(location.href);
+  url.searchParams.set('stage', s);
+  location.href = url.toString();
+}
+</script>
+<script type="module">
+  import Reveal from 'reveal.js';
+  import Notes from 'reveal.js/plugin/notes/notes.esm.js';
+  import gsap from 'gsap';
+  import 'reveal.js/dist/reveal.css';
+  import '../../shared/css/base.css';
+  import './cirrose.css';
+  import './archetypes.css';
+  import { initAula, createAnimationDispatcher } from '../../shared/js/engine.js';
+  import { ClickReveal } from '../../shared/js/click-reveal.js';
+  import { CasePanel } from '../../shared/js/case-panel.js';
+  import { MeldCalc } from '../../shared/js/interactions/meld-calc.js';
+  import { panelStates, customAnimations } from './slide-registry.js';
+
+  // Stage switching via ?stage= param (default: c)
+  const stageParam = new URLSearchParams(location.search).get('stage') || 'c';
+  const stageClass = stageParam === 'a' ? 'stage-a'
+                   : stageParam === 'b' ? 'stage-bad'
+                   : 'stage-c';
+  document.body.className = stageClass;
+  const stageBtn = document.getElementById(`btn-${stageParam}`);
+  if (stageBtn) stageBtn.classList.add('active-stage');
+
+  // --- Parse query param ---
+  const params = new URLSearchParams(location.search);
+  const slideName = params.get('slide');
+
+  const dbgSlide  = document.getElementById('dbg-slide');
+  const dbgVp     = document.getElementById('dbg-vp');
+  const dbgStage  = document.getElementById('dbg-stage');
+  const dbgReveal = document.getElementById('dbg-reveal');
+
+  function updateDebug() {
+    dbgVp.textContent = `${window.innerWidth}×${window.innerHeight}`;
+    dbgStage.textContent = document.body.className || 'none';
+  }
+  window.addEventListener('resize', updateDebug);
+  updateDebug();
+
+  if (!slideName) {
+    // ========== INDEX MODE ==========
+    document.querySelector('.reveal').style.display = 'none';
+    dbgSlide.textContent = 'INDEX';
+
+    // Fetch manifest to build clickable list
+    const resp = await fetch('./slides/_manifest.js');
+    const text = await resp.text();
+
+    // Parse slide entries from manifest
+    const entries = [];
+    const re = /id:\s*'([^']+)',\s*file:\s*'([^']+)',\s*act:\s*([^,]+),\s*archetype:\s*'([^']+)'[^}]*headline:\s*'([^']+)'/g;
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      entries.push({
+        id: m[1],
+        file: m[2],
+        act: m[3].trim().replace(/'/g, ''),
+        archetype: m[4],
+        headline: m[5]
+      });
+    }
+
+    const index = document.createElement('div');
+    index.className = 'slide-index';
+
+    let currentAct = null;
+    let html = '<h1>Preview — Slides Individuais</h1>';
+    html += `<p style="color: oklch(50% 0 0); font-size: 0.85rem; margin-bottom: 1.5rem;">${entries.length} slides encontrados no manifest</p>`;
+
+    for (const e of entries) {
+      const act = e.act === 'null' ? 'CORE' : e.act;
+      if (act !== currentAct) {
+        currentAct = act;
+        html += `<div class="act-label">${act}</div>`;
+      }
+      const name = e.file.replace('.html', '');
+      html += `<a href="?slide=${name}">${e.headline} <code>[${e.archetype}] ${e.id}</code></a>`;
+    }
+
+    index.innerHTML = html;
+    document.body.prepend(index);
+
+  } else {
+    // ========== SLIDE MODE ==========
+    dbgSlide.textContent = slideName;
+
+    try {
+      const resp = await fetch(`./slides/${slideName}.html`);
+      if (!resp.ok) throw new Error(`${resp.status} — ${slideName}.html não encontrado`);
+      const html = await resp.text();
+
+      document.getElementById('slide-target').innerHTML = html;
+
+      // Init Reveal
+      const deck = await initAula(Reveal, gsap, {
+        plugins: [Notes],
+        width: 1280,
+        height: 720
+      });
+      window.Reveal = Reveal;
+      dbgReveal.textContent = Reveal.VERSION ? `v${Reveal.VERSION} ✓` : '✓';
+
+      // Animation dispatcher
+      const anim = createAnimationDispatcher(Reveal, gsap);
+      anim.connect();
+
+      // Register custom animations for this slide
+      const currentSection = document.querySelector('.slides > section');
+      const slideId = currentSection?.id;
+
+      if (slideId && customAnimations[slideId]) {
+        anim.registerCustom(slideId, customAnimations[slideId]);
+      }
+
+      // Case Panel
+      const panelEl = document.getElementById('case-panel');
+      if (panelEl) {
+        const panel = new CasePanel(panelEl);
+        for (const [id, state] of Object.entries(panelStates)) {
+          panel.registerState(id, state);
+        }
+        panel.connect(document.querySelector('.slides'));
+        if (currentSection) panel.onSlideChanged(currentSection);
+      }
+
+      // Click-reveal
+      if (currentSection?.querySelectorAll('[data-reveal]').length > 0) {
+        const revealer = new ClickReveal(currentSection, gsap);
+        document.addEventListener('keydown', (e) => {
+          if (e.key !== 'ArrowRight' && e.key !== ' ') return;
+          if (revealer.hasMore) { e.preventDefault(); e.stopPropagation(); revealer.next(); }
+        }, true);
+      }
+
+      // MELD calculator
+      const meldContainer = document.querySelector('[data-interaction="meld-calc"]');
+      if (meldContainer) new MeldCalc(meldContainer);
+
+    } catch (err) {
+      document.getElementById('slide-target').innerHTML = `
+        <section>
+          <div style="display:grid; place-items:center; height:80vh; text-align:center;">
+            <div>
+              <h2 style="color: var(--danger, #d64545); font-size: 1.5rem;">Erro ao carregar slide</h2>
+              <p style="font-family: monospace; margin-top: 1rem; font-size: 0.9rem;">${err.message}</p>
+              <p style="margin-top: 2rem;"><a href="?" style="color: var(--ui-accent);">← Voltar ao índice</a></p>
+            </div>
+          </div>
+        </section>`;
+      dbgReveal.textContent = 'ERROR';
+    }
+  }
+</script>
+
+</body>
+</html>
