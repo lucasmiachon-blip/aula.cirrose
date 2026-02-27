@@ -7,12 +7,6 @@
   padding: 40px 64px;
 }
 
-/* --- Section tag spacing --- */
-.section-tag {
-  margin-top: 0;
-  margin-bottom: var(--space-sm);
-}
-
 /* --- Title slide (capa centrada) --- */
 .slide-title {
   justify-content: center;
@@ -34,7 +28,6 @@
 .slide-headline {
   font-size: var(--text-h2);
   color: var(--text-on-dark);
-  max-width: 32ch;
   margin-bottom: var(--space-md);
   line-height: 1.15;
 }
@@ -783,5 +776,128 @@
     opacity: 1 !important;
     transform: none !important;
     visibility: visible !important;
+  }
+}
+
+/* ===========================================
+   TITLE SLIDE — s-title
+   Always dark navy regardless of stage mode.
+   =========================================== */
+.slide-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  gap: 0;
+  padding: 2rem;
+}
+
+/* Logo */
+.title-logo {
+  margin-bottom: 1.5rem;
+}
+
+.title-logo-img {
+  height: clamp(48px, 6vw, 80px);
+  width: auto;
+  opacity: 0.9;
+  /* Invert dark logo to white on dark bg */
+  filter: invert(1) brightness(1.1);
+}
+
+/* Hero title */
+.title-hero {
+  font-family: var(--font-display, 'Instrument Serif', serif);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 400;
+  color: var(--text-on-dark, oklch(95% 0 0));
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Pillar subtitle */
+.title-pillars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 0 2rem 0;
+}
+
+.title-pillars .pillar {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: 500;
+  color: var(--text-on-dark-muted, oklch(70% 0 0));
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.title-pillars .pillar-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ui-accent-light, oklch(60% 0.12 258));
+  flex-shrink: 0;
+}
+
+/* Divider line */
+.title-divider {
+  width: clamp(60px, 8vw, 120px);
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ui-accent-light, oklch(55% 0.10 258)),
+    transparent
+  );
+  margin: 0 0 1.5rem 0;
+}
+
+/* Identity */
+.title-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title-author {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: clamp(16px, 1.8vw, 22px);
+  font-weight: 600;
+  color: var(--text-on-dark, oklch(90% 0 0));
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.title-affiliation {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: clamp(12px, 1.4vw, 16px);
+  font-weight: 400;
+  color: var(--text-on-dark-muted, oklch(60% 0 0));
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* --- Stage overrides --- */
+
+/* Stage A (dark 1920×1080): logo já é invertido, tudo ok */
+/* Stage B (backup branco): forçar dark bg via data-background-color,
+   mas se o Reveal não processar, fallback: */
+.stage-bad .slide-title {
+  background: var(--bg-navy, #162032);
+}
+
+/* Print: ensure visibility */
+@media print {
+  .slide-title {
+    background: #162032 !important;
+  }
+  .title-logo-img {
+    filter: invert(1) !important;
   }
 }
