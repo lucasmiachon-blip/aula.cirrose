@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-02-27 — Fixes AUDIT (I1–I5)
+
+- s-a1-01: headline encurtada (continuum 1% a 57%/ano)
+- s-hook: case-data .data-item gap + align-items baseline
+- Headline max-width: 65ch → 85ch (archetypes.css)
+- Case panel: 230px → 140px (AUDIT I1)
+- _manifest.js: headline s-a1-01 atualizada
+
+---
+
 ## 2026-02-27 — Redesign s-title (capa)
 
 - Brasão USP, hierarquia visual, identidade autor

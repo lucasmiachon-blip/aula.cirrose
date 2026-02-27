@@ -189,6 +189,8 @@
 .case-data .data-item {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem;
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
   background: var(--bg-surface);
