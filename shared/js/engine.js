@@ -345,6 +345,30 @@ export async function initAula(Reveal, gsap, config = {}) {
   initNoJs();
   initHighContrastToggle(Reveal); // Must be after init
 
+  // ── Hook beat interception ──────────────────────────
+  // Advance: ArrowRight/Space/PageDown (ArrowDown removido — causava "texto desce")
+  // Retreat: ArrowLeft/ArrowUp quando currentBeat > 0
+  function tryHookAdvance() {
+    const currentSlide = Reveal.getCurrentSlide();
+    if (currentSlide && currentSlide.__hookAdvance) return currentSlide.__hookAdvance();
+    return false;
+  }
+  function tryHookRetreat() {
+    const currentSlide = Reveal.getCurrentSlide();
+    if (currentSlide && currentSlide.__hookRetreat) return currentSlide.__hookRetreat();
+    return false;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      if (tryHookAdvance()) { e.preventDefault(); e.stopImmediatePropagation(); }
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      if (tryHookRetreat()) { e.preventDefault(); e.stopImmediatePropagation(); }
+    }
+  }, true);
+  document.querySelector('.reveal .slides')?.addEventListener('click', (e) => {
+    if (tryHookAdvance()) { e.preventDefault(); e.stopPropagation(); }
+  });
+
   // QA mode: force final state AFTER Reveal is ready (ready event already fired)
   if (isQaMode()) {
     document.querySelectorAll('.slides section').forEach(s => forceAnimFinalState(s));

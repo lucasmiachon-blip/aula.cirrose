@@ -102,20 +102,19 @@
 
 ---
 
-### Slide 4: s-hook — "5 números classificaram. 3 decisões salvaram."
+### Slide 4: s-hook — "Caso Seu Antônio · Qual é o próximo passo?" (v4 · 28/fev)
+
+> **Nota (28/fev):** s-hook v4: 3 beats (Caso → Labs → Pergunta), progress 1✓·2✓·3, retreatBeat(), ArrowDown removido.
 
 | H | T | E | C | V | K | S | M | Média |
 |---|---|---|---|---|---|---|---|-------|
-| 2 | 3 | 2 | 3 | 3 | 3 | 2 | 3 | **2.6** |
+| 4 | 3 | 3 | 4 | 3 | 4 | 4 | 4 | **3.6** |
 
-**Veredicto:** ⚠️ WARN
-**Issues:**
-1. [E] "3 decisões" quase invisível — texto ghostly, stagger animation não completou
-2. [V] Case card mostra "Albumina3,6" (faltando espaço) — bug de dados
-3. [E] Metade direita inferior completamente vazia
-4. [H] Framework items ("Classificar", "Intervir", "Reverter") sem destaque visual — todos mesmo peso
-
-**Fix:** Corrigir stagger para "3 decisões". Fix "Albumina 3,6" spacing. Framework items precisam de ícones ou cores semânticas para diferenciar os 3 atos.
+**Veredicto:** ⚠️ WARN (melhorou)
+**Melhorias v4:** 3 estágios com sucesso, retreatBeat (ERRO-010), ArrowDown removido (ERRO-011), place-content center (ERRO-013), affordance de navegação.
+**Reconfig v4 (28/fev):** Título + progress no header; fill ratio beat 2 melhorado.
+**Issues pendentes:**
+1. [E] Case panel redundante (ERRO-008)
 
 ---
 

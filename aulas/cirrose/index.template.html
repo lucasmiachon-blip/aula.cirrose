@@ -37,8 +37,8 @@
   const deck = await initAula(Reveal, gsap, { plugins: [Notes], width: 1280, height: 720 });
   window.Reveal = Reveal;
   const anim = createAnimationDispatcher(Reveal, gsap);
-  anim.connect();
   wireAll(Reveal, gsap, { anim, CasePanel, ClickReveal, MeldCalc });
+  anim.connect();
 </script>
 </body>
 </html>

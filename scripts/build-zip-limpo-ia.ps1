@@ -68,7 +68,7 @@ foreach ($lecture in $Lectures) {
 
 # Fallback: qa-screenshots (cirrose stage-c)
 if ($Lectures -contains "cirrose") {
-    $QaStageC = Join-Path $ProjectRoot "qa-screenshots\stage-c-floating"
+    $QaStageC = Join-Path $ProjectRoot "aulas\cirrose\qa-screenshots\stage-c"
     $DestShots = Join-Path $TempDir "aulas\cirrose\screenshots-pos-efeitos"
     if ((Test-Path $QaStageC) -and !(Test-Path $DestShots)) {
         New-Item -ItemType Directory -Path $DestShots -Force | Out-Null

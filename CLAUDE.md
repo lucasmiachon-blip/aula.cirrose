@@ -1,7 +1,7 @@
 # CLAUDE.md — Aulas Magnas · Cirrose
 
 > Contexto para Claude Code (terminal). Atualizado 27/fev/2026.
-> Para Claude.ai (web): colar HANDOFF-REDESIGN-27fev.md no Project Knowledge.
+> Para Claude.ai (web): colar `aulas/cirrose/HANDOFF-CLAUDE-AI.md` no Project Knowledge.
 > Este arquivo SUBSTITUI o CLAUDE.md anterior e absorve regras do AGENTS.md.
 
 ---
@@ -75,14 +75,8 @@ Plan C = default (light, 1280×720, GSAP ativo).
 
 ## 🔄 HANDOFF LOOP (INVIOLÁVEL)
 
-**Ao final de toda sessão, atualizar `aulas/cirrose/HANDOFF.md` com:**
-1. Batch executado, commit hash, data
-2. Sections implementadas (lista ordenada)
-3. Wiring changes (slide-registry.js / _manifest.js)
-4. Pendências
-5. `git add HANDOFF.md` no commit
-
-**Claude.ai lê este arquivo para saber o que você fez.** Sem ele, specs futuras ficam erradas.
+**Ao final de toda sessão, atualizar `aulas/cirrose/HANDOFF.md` com pendências.**
+Detalhes verbosos → CHANGELOG.md. Claude.ai usa HANDOFF-CLAUDE-AI.md (paths + pendências).
 
 ---
 
@@ -133,9 +127,15 @@ shared/js/interactions/meld-calc.js → MELD-Na calculator
 shared/assets/fonts/             → WOFF2 self-hosted (Instrument Serif, DM Sans, JetBrains Mono)
 aulas/cirrose/slides/            → 1 HTML per slide (source of truth: _manifest.js)
 aulas/cirrose/slide-registry.js  → Custom anims per slide + wiring
-aulas/cirrose/_manifest.js       → Slide order (canonical)
 aulas/cirrose/scripts/           → build-html.ps1, split-slides.js, qa-screenshots
-aulas/cirrose/HANDOFF.md         → Session handoff (see HANDOFF LOOP above)
+aulas/cirrose/HANDOFF.md         → Pendências projeto
+aulas/cirrose/HANDOFF-CLAUDE-AI.md → Claude.ai (paths + pendências)
+aulas/grade/slides/              → 58 slides (migrados de Aulas_core)
+aulas/grade/scripts/             → build-html.ps1
+aulas/grade/HANDOFF.md           → Estado migração GRADE
+aulas/osteoporose/slides/        → 70 slides (migrados de Aulas_core)
+aulas/osteoporose/scripts/       → build-html.ps1
+aulas/osteoporose/HANDOFF.md     → Estado migração Osteoporose
 docs/SYNC-NOTION-REPO.md         → Notion IDs + sync protocol (única referência)
 tasks/todo.md                    → Current task plan
 tasks/lessons.md                 → Self-improvement patterns

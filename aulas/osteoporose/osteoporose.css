@@ -1,0 +1,21 @@
+/**
+ * osteoporose.css — Overrides para aula Osteoporose
+ * OKLCH only. Sem !important. Sem remendos.
+ * Adapta tokens de base.css: --warning (gold), --safe (teal), --danger
+ */
+
+/* Osteoporose aliases */
+.section-tag,
+.label-gold {
+  color: var(--ui-accent-on-dark, var(--warning-on-dark));
+  font-size: var(--text-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.lead {
+  font-size: var(--text-body);
+  line-height: 1.4;
+  max-width: 56ch;
+}

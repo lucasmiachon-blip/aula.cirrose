@@ -1,0 +1,83 @@
+<section id="s-70" data-background-color="var(--bg-navy)">
+  <div class="slide-inner archetype-comparison">
+
+  <h1 style="font-family: Inter, sans-serif; font-size: 36px; font-weight: 700; color: var(--text-on-dark); line-height: 1.15; margin: 0 0 10px 0;">Monitoramento: LSC define mudança real</h1>
+  <p style="font-family: Inter, sans-serif; font-size: 16px; font-weight: 400; font-style: italic; color: var(--muted); margin: 0 0 14px 0;">Least Significant Change -- o limiar para interpretar variações de DMO</p>
+
+  <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 22px; margin-bottom: 14px; align-items: start;">
+    <!-- Esquerda: Fórmula e interpretação -->
+    <div>
+      <!-- Fórmula LSC -->
+      <div style="background: var(--text-on-dark); border: 3px solid var(--blue); border-radius: 12px; padding: 22px; margin-bottom: 18px;">
+        <p style="font-family: Inter, sans-serif; font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; margin: 0 0 10px 0; text-transform: uppercase;">FÓRMULA ISCD (95% DE CONFIANÇA)</p>
+        <p style="font-family: Inter, sans-serif; font-size: 28px; font-weight: 700; color: var(--text-on-dark); text-align: center; line-height: 1.25; margin: 0 0 10px 0;">
+          LSC = <span style="color: var(--blue);">2,77</span> x erro de precisão do seu serviço
+        </p>
+        <p style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 400; font-style: italic; color: var(--muted); text-align: center; margin: 0;">
+          Erro de precisão = CV% ou SD absoluto, calculado em 30 pacientes 2x ou 15 pacientes 3x
+        </p>
+      </div>
+
+      <!-- Como interpretar -->
+      <div style="background: var(--text-on-dark); border: 2px solid oklch(22% 0.042 258 / 0.20); border-radius: 12px; padding: 22px;">
+        <h2 class="slide-headline" style="font-family: Inter, sans-serif; font-size: 22px; font-weight: 700; color: var(--text-on-dark); margin: 0 0 14px 0;">Como interpretar a mudança de DMO</h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <!-- Significativa -->
+          <div style="background: oklch(40% 0.12 170 / 0.12); border: 2px solid var(--safe); border-radius: 10px; padding: 14px; text-align: center;">
+            <p style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; color: var(--muted); margin: 0 0 8px 0;">Mudança &gt;= LSC</p>
+            <p style="font-family: Inter, sans-serif; font-size: 18px; font-weight: 800; color: var(--safe); margin: 0;">✓ Significativa</p>
+          </div>
+
+          <!-- Pode ser ruído -->
+          <div style="background: oklch(60% 0.13 85 / 0.18); border: 2px solid var(--warning); border-radius: 10px; padding: 14px; text-align: center;">
+            <p style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; color: var(--muted); margin: 0 0 8px 0;">Mudança &lt; LSC</p>
+            <p style="font-family: Inter, sans-serif; font-size: 18px; font-weight: 800; color: var(--text-on-dark); margin: 0;">∅ Pode ser ruído</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direita: Placeholder para exemplo -->
+    <div style="background: oklch(40% 0.12 170 / 0.08); border: 2px solid var(--safe); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 280px;">
+      <div style="background: var(--text-on-dark); width: 112px; height: 112px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; box-shadow: 0 10px 24px rgba(0,0,0,0.12);">
+        <svg aria-hidden="true" viewBox="0 0 24 24" style="width:64px;height:64px;display:block;color:oklch(22% 0.042 258 / 0.45);"><path fill="currentColor" d="M4 7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.17l-.59-1.17A2 2 0 0 0 14.41 5H9.59a2 2 0 0 0-1.83 1.17L7.17 7H4zm8 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg>
+      </div>
+      <p style="font-family: Inter, sans-serif; font-size: 18px; font-weight: 800; color: var(--text-on-dark); text-align: center; margin: 0 0 10px 0;">Figura: Relatório DXA</p>
+      <p style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 400; font-style: italic; color: var(--muted); text-align: center; line-height: 1.55; margin: 0;">
+        Exemplo de relatório DXA com: LSC do serviço / variação (%) / interpretação
+      </p>
+    </div>
+  </div>
+
+  <!-- 3 pontos práticos -->
+  <div style="background: oklch(60% 0.13 85 / 0.16); border-left: 4px solid var(--warning); border-radius: 10px; padding: 14px;">
+    <h2 class="slide-headline" style="font-family: Inter, sans-serif; font-size: 18px; font-weight: 800; color: var(--text-on-dark); margin: 0 0 10px 0;">
+      <span style="color: var(--warning);">[!]</span> 3 pontos práticos para o clínico
+    </h2>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+      <div>
+        <p style="font-family: Inter, sans-serif; font-size: 15px; font-weight: 800; color: var(--text-on-dark); margin: 0 0 6px 0;">Sem LSC, você mede ruído.</p>
+        <p style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 400; color: var(--muted); margin: 0;">Cada serviço deve calcular seu próprio LSC.</p>
+      </div>
+
+      <div>
+        <p style="font-family: Inter, sans-serif; font-size: 15px; font-weight: 800; color: var(--blue); margin: 0 0 6px 0;">Use o mesmo aparelho e protocolo.</p>
+        <p style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 400; color: var(--muted); margin: 0;">Mudança de DXA requer cross-calibração.</p>
+      </div>
+
+      <div>
+        <p style="font-family: Inter, sans-serif; font-size: 15px; font-weight: 800; color: var(--blue); margin: 0 0 6px 0;">Intervalo e individualizado.</p>
+        <p style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 400; color: var(--muted); margin: 0;">Repetir quando pode mudar conduta.</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-family: Inter, sans-serif; font-size: 11px; font-weight: 400; font-style: italic; color: var(--muted); line-height: 1.4; margin: 8px 0 0 0;">
+    ISCD Official Positions 2023 * ISCD Precision Calculator (iscd.org) * Glüer CC et al. J Bone Miner Res 1995
+  </p>
+
+  </div>
+  <aside class="notes">[TBD]</aside>
+</section>

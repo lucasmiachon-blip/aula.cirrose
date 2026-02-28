@@ -1,0 +1,299 @@
+<section id="s-14" data-background-color="var(--bg-navy)">
+  <div class="slide-inner archetype-comparison">
+
+  <div style="height: 100%; display: flex; flex-direction: column">
+    <h1
+      style="
+        font-size: 38px;
+        font-weight: 800;
+        color: var(--text-on-dark);
+        line-height: 1.1;
+        margin: 0 0 6px 0;
+        letter-spacing: -0.01em;
+      "
+    >
+      Caso Clínico
+    </h1>
+    <p style="font-size: 15px; font-weight: 600; color: var(--muted); margin: 0 0 14px 0">
+      Interatividade: escolha A/B/C/D em 20 segundos — depois discutimos.
+    </p>
+
+    <!-- Grid principal -->
+    <div style="flex: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 20px; min-height: 0">
+      <!-- COLUNA ESQUERDA: caso + DXA -->
+      <div style="display: flex; flex-direction: column; gap: 12px; min-height: 0">
+        <!-- Box do caso -->
+        <div
+          style="
+            background: var(--text-on-dark);
+            border: 1.5px solid var(--border);
+            border-left: 6px solid var(--warning);
+            border-radius: 14px;
+            padding: 20px 22px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          "
+        >
+          <h2 class="slide-headline" style="font-size: 23px; font-weight: 800; color: var(--text-on-dark); margin: 0 0 12px 0">
+            Dona Marlene, 68 anos
+            <span style="font-size: 14px; font-weight: 700; color: var(--gold-dark)">· caucasiana</span>
+          </h2>
+
+          <div style="display: grid; gap: 8px">
+            <div>
+              <div style="font-size: 16px; font-weight: 700; color: var(--text-on-dark)">• DM2 há 15 anos</div>
+              <div style="font-size: 14px; font-weight: 500; color: var(--muted); margin: 1px 0 0 16px">
+                metformina + insulina · HbA1c 8,2%
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 16px; font-weight: 700; color: var(--text-on-dark)">• Neuropatia periférica</div>
+              <div style="font-size: 14px; font-weight: 500; color: var(--muted); margin: 1px 0 0 16px">
+                parestesias · 2 quedas/ano
+              </div>
+            </div>
+            <div style="font-size: 15px; font-weight: 600; color: var(--text-on-dark)">• Mãe: fratura de quadril aos 74a</div>
+            <div style="font-size: 15px; font-weight: 600; color: var(--text-on-dark)">• Sem fratura prévia própria</div>
+            <div style="font-size: 15px; font-weight: 600; color: var(--text-on-dark)">• Não tabagista · sem corticoide</div>
+            <div style="font-size: 15px; font-weight: 600; color: var(--text-on-dark)">
+              •
+              <strong style="color: var(--gold-dark)">57 kg</strong>
+              · 1,58 m · IMC 22,8
+            </div>
+          </div>
+        </div>
+
+        <!-- Box DXA -->
+        <div
+          style="
+            background: oklch(60% 0.13 85 / 0.06);
+            border: 2px solid oklch(60% 0.13 85 / 0.25);
+            border-radius: 14px;
+            padding: 18px 22px;
+          "
+        >
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px">
+            <h3 style="font-size: 20px; font-weight: 800; color: var(--gold-dark); margin: 0">DXA</h3>
+            <p
+              style="
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin: 0;
+              "
+            >
+              T-score
+            </p>
+          </div>
+          <div style="display: grid; gap: 8px">
+            <div style="display: flex; justify-content: space-between; align-items: baseline">
+              <span style="font-size: 15px; color: var(--text-on-dark)">Coluna L1–L4</span>
+              <span style="font-size: 20px; font-weight: 900; color: var(--text-on-dark)">−1,6</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline">
+              <span style="font-size: 15px; color: var(--text-on-dark)">Colo femoral</span>
+              <span style="font-size: 20px; font-weight: 900; color: var(--gold-dark)">−2,0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline">
+              <span style="font-size: 15px; color: var(--text-on-dark)">Quadril total</span>
+              <span style="font-size: 20px; font-weight: 900; color: var(--text-on-dark)">−1,4</span>
+            </div>
+          </div>
+          <p style="font-size: 12px; font-weight: 500; color: var(--muted); margin: 10px 0 0 0">
+            Ferramenta:
+            <a
+              href="https://abrasso.org.br/frax-brasil"
+              target="_blank"
+              rel="noopener"
+              style="color: var(--gold-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 2px"
+            >
+              FRAX Brasil 2.0 ↗
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- COLUNA DIREITA: pergunta + opções -->
+      <div style="display: flex; flex-direction: column; gap: 12px; min-height: 0">
+          <!-- Pergunta -->
+          <div
+            style="
+              background: var(--text-on-dark);
+              border-radius: 14px;
+              padding: 18px 20px;
+              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            "
+          >
+            <h2 class="slide-headline" style="font-size: 22px; font-weight: 800; color: var(--text-on-dark); margin: 0 0 5px 0; text-align: center">
+              QUAL SUA CONDUTA?
+            </h2>
+            <p
+              style="
+                font-size: 14px;
+                font-weight: 500;
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0;
+                text-align: center;
+                line-height: 1.35;
+              "
+            >
+              Você iniciaria tratamento? Por quê?
+            </p>
+          </div>
+
+          <!-- Opções -->
+          <div
+            style="background: var(--text-on-dark); border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 18px"
+          >
+            <h3 style="font-size: 16px; font-weight: 800; color: var(--text-on-dark); margin: 0 0 10px 0">Escolha A/B/C/D</h3>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  align-items: flex-start;
+                  padding: 8px 10px;
+                  border-radius: 10px;
+                  background: oklch(22% 0.042 258 / 0.03);
+                  border: 1px solid rgba(var(--border-rgb), 0.5);
+                "
+              >
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    background: var(--text-on-dark);
+                    color: var(--text-on-dark);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 900;
+                    font-size: 14px;
+                    flex-shrink: 0;
+                  "
+                >
+                  A
+                </div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 800; color: var(--text-on-dark)">Não tratar agora</div>
+                  <div style="font-size: 12px; color: var(--muted); line-height: 1.35">
+                    Medidas gerais + reavaliar em 1–2 anos
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  align-items: flex-start;
+                  padding: 8px 10px;
+                  border-radius: 10px;
+                  background: oklch(22% 0.042 258 / 0.03);
+                  border: 1px solid rgba(var(--border-rgb), 0.5);
+                "
+              >
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    background: var(--text-on-dark);
+                    color: var(--text-on-dark);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 900;
+                    font-size: 14px;
+                    flex-shrink: 0;
+                  "
+                >
+                  B
+                </div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 800; color: var(--text-on-dark)">Tratar como risco elevado</div>
+                  <div style="font-size: 12px; color: var(--muted); line-height: 1.35">
+                    Iniciar terapia farmacológica
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  align-items: flex-start;
+                  padding: 8px 10px;
+                  border-radius: 10px;
+                  background: oklch(22% 0.042 258 / 0.03);
+                  border: 1px solid rgba(var(--border-rgb), 0.5);
+                "
+              >
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    background: var(--text-on-dark);
+                    color: var(--text-on-dark);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 900;
+                    font-size: 14px;
+                    flex-shrink: 0;
+                  "
+                >
+                  C
+                </div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 800; color: var(--text-on-dark)">Pedir dado adicional</div>
+                  <div style="font-size: 12px; color: var(--muted); line-height: 1.35">
+                    TBS/FRAXplus, avaliação de quedas, causas secundárias
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  align-items: flex-start;
+                  padding: 8px 10px;
+                  border-radius: 10px;
+                  background: oklch(22% 0.042 258 / 0.03);
+                  border: 1px solid rgba(var(--border-rgb), 0.5);
+                "
+              >
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    background: var(--text-on-dark);
+                    color: var(--text-on-dark);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 900;
+                    font-size: 14px;
+                    flex-shrink: 0;
+                  "
+                >
+                  D
+                </div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 800; color: var(--text-on-dark)">Outra conduta</div>
+                  <div style="font-size: 12px; color: var(--muted); line-height: 1.35">Justifique em 1 frase</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+  <aside class="notes">[TBD]</aside>
+</section>

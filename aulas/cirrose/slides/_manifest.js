@@ -5,8 +5,8 @@
  */
 
 export const slides = [
-  { id: 's-title', file: '00-title.html', act: null, archetype: 'title', sectionTag: null, headline: 'Cirrose Hepática', panelState: 'hidden', clickReveals: 0, customAnim: null, timing: null },
-  { id: 's-hook', file: '01-hook.html', act: null, archetype: 'hook', sectionTag: null, headline: 'Classifique com 5 números e decida em 3 pontos para mudar o desfecho', panelState: 'neutral', clickReveals: 0, customAnim: 's-hook', timing: 150 },
+  { id: 's-title', file: '00-title.html', act: null, archetype: 'title', sectionTag: null, headline: 'Cirrose Hepática', panelState: 'hidden', clickReveals: 0, customAnim: null, timing: null, subItems: ['brasão', 'título', 'pilares'] },
+  { id: 's-hook', file: '01-hook.html', act: null, archetype: 'hook', sectionTag: null, headline: 'Caso Antônio · Qual a próxima conduta?', panelState: 'neutral', clickReveals: 1, customAnim: 's-hook', timing: 90, subItems: [{ label: 'beat 0: Antônio', beat: 0 }, { label: 'beat 1: labs+pergunta', beat: 1 }] },
   { id: 's-a1-01', file: '02-a1-continuum.html', act: 'A1', archetype: 'figure', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Cirrose é continuum — mortalidade 1% a 57%/ano, sem fronteiras', panelState: null, clickReveals: 1, customAnim: null, timing: null },
   { id: 's-a1-02', file: '03-a1-fib4.html', act: 'A1', archetype: 'figure', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'FIB-4 → elastografia → CSPH: 3 exames substituem a biópsia', panelState: null, clickReveals: 0, customAnim: null, timing: null },
   { id: 's-a1-03', file: '04-a1-meld.html', act: 'A1', archetype: 'interactive', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'MELD-Na é o GPS do cirrótico — e tem um semáforo', panelState: null, clickReveals: 0, customAnim: null, timing: null },

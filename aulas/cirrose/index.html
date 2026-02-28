@@ -20,12 +20,10 @@
 <section id="s-title" data-background-color="var(--bg-navy, #162032)">
     <div class="slide-inner slide-title">
 
-      <!-- Brasão -->
-      <div class="title-logo">
-        <img src="./assets/brasao-usp.png"
-             alt="Brasão da Universidade de São Paulo"
-             class="title-logo-img">
-      </div>
+      <!-- Brasão USP — white on transparent, positioned top-right -->
+      <img src="./assets/brasao-usp-white.png"
+           alt="Brasão da Universidade de São Paulo"
+           class="title-brasao">
 
       <!-- Título principal -->
       <h1 class="title-hero">Cirrose Hepática</h1>
@@ -58,50 +56,86 @@ PAUSA 3s. Deixar a pergunta pairar.
     </aside>
 </section>
 
-<section id="s-hook" data-timing="150">
-    <div class="slide-inner split-50-50">
-      <div class="col-left">
-        <h2 class="slide-headline">Classifique com 5 números e decida em 3 pontos para mudar o desfecho</h2>
-        <div class="framework-box">
-          <div class="framework-item">
-            <span class="label">5 números</span>
-            <span class="value">FIB-4 · LSM · PLQ · MELD-Na · D'Amico</span>
-          </div>
-          <div class="framework-item">
-            <span class="label">3 decisões</span>
-            <span class="value">Carvedilol? · Albumina? · Encaminhar?</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-right">
-        <div class="case-card">
-          <h3>Seu Antônio, 55 anos</h3>
-          <div class="case-data">
-            <div class="data-item"><span class="data-label">FIB-4</span><span class="data-value" data-animate="countUp" data-target="3.2">0</span></div>
-            <div class="data-item"><span class="data-label">AST</span><span class="data-value">58</span></div>
-            <div class="data-item"><span class="data-label">ALT</span><span class="data-value">42</span></div>
-            <div class="data-item"><span class="data-label">PLQ</span><span class="data-value">118k</span></div>
-            <div class="data-item"><span class="data-label">Albumina</span><span class="data-value">3,6</span></div>
-          </div>
-          <p class="case-question">Sem queixas. O que você faz?</p>
-        </div>
+<!-- ============================================================
+     s-hook — Caso Antônio (congresso, formal)
+     Archetype: Custom hook (v5 — 2 beats, sem título)
+     Beat 0: Antônio + história (centro) → Beat 1: Labs + pergunta abaixo
+     Reversível: ArrowLeft/Up. Background: navy.
+     ============================================================ -->
+<section id="s-hook"
+         class="slide-navy"
+         data-timing="90"
+         data-background-color="#162032"
+         data-panel-state="neutral">
+
+  <div class="hook-stage">
+
+    <!-- ━━ BEAT 0: Antônio + história (centro) ━━━━━━━━━━━━━━━ -->
+    <div class="hook-beat hook-beat--active" data-hook-beat="0">
+      <div class="hook-patient">
+        <h3 class="hook-patient-name">Antônio, 55 anos</h3>
+        <p class="hook-patient-desc">
+          Caminhoneiro · IMC 31 · DM2<br>
+          Etilismo 40 g/dia há 20 anos
+        </p>
+        <p class="hook-patient-ref">
+          Encaminhado pelo clínico geral para avaliação hepática
+        </p>
       </div>
     </div>
 
-    <aside class="notes">
-[0:00-1:00 FRAMEWORK]
-"Se vocês saírem daqui com esses 5 números na cabeça e essas 3 decisões no reflexo, a aula cumpriu o objetivo."
-5 números: FIB-4, LSM (kPa), plaquetas, MELD-Na, estágio D'Amico.
-3 decisões: Carvedilol? Albumina? Encaminhar?
-PAUSA 2s.
+    <!-- ━━ BEAT 1: Labs + pergunta abaixo (Click 1) ━━━━━━━━━━━ -->
+    <div class="hook-beat hook-beat--hidden" data-hook-beat="1">
+      <div class="hook-labs-row">
+        <div class="hook-lab hook-lab--flag">
+          <span class="hook-lab-label">FIB-4</span>
+          <span class="hook-lab-value" data-animate="countUp" data-target="3.2" data-decimals="1">0</span>
+          <span class="hook-lab-ref">&gt; 2,67</span>
+        </div>
+        <div class="hook-lab">
+          <span class="hook-lab-label">AST</span>
+          <span class="hook-lab-value">58</span>
+          <span class="hook-lab-ref">U/L</span>
+        </div>
+        <div class="hook-lab">
+          <span class="hook-lab-label">ALT</span>
+          <span class="hook-lab-value">42</span>
+          <span class="hook-lab-ref">U/L</span>
+        </div>
+        <div class="hook-lab hook-lab--flag">
+          <span class="hook-lab-label">PLQ</span>
+          <span class="hook-lab-value">118<small>k</small></span>
+          <span class="hook-lab-ref">&lt; 150k</span>
+        </div>
+        <div class="hook-lab">
+          <span class="hook-lab-label">Albumina</span>
+          <span class="hook-lab-value">3,6</span>
+          <span class="hook-lab-ref">g/dL</span>
+        </div>
+      </div>
+      <p class="hook-question-lead">Sem queixas.</p>
+      <h2 class="hook-question">Qual a próxima conduta?</h2>
+    </div>
 
-[1:00-2:30 CASO]
-"Seu Antônio. 55 anos. Motorista de caminhão. IMC 31, DM2, etilismo 40g/dia há 20 anos."
-"Clínico geral pediu FIB-4 = 3,2. AST 58, ALT 42, plaquetas 118k, albumina 3,6."
-"Sem queixas. Encaminhou para vocês. E agora?"
-PAUSA 3s. Deixar a pergunta pairar.
-    </aside>
-  </section>
+  </div>
+
+  <aside class="notes">
+[BEAT 0 · auto] Caso
+"Antônio. 55 anos. Caminhoneiro.
+IMC 31, diabético tipo 2, etilista — 40 gramas por dia há 20 anos.
+O clínico geral pediu exames e encaminhou."
+
+[BEAT 1 · click] Labs + pergunta
+"Olhem os números: FIB-4 de 3,2 — acima do corte de 2,67.
+Plaquetas 118 mil — abaixo de 150. AST 58, ALT 42, albumina 3,6.
+Sem queixas. Qual a próxima conduta?"
+← seta esquerda/cima volta para caso.
+PAUSA 5s.
+"Temos esses números. Para interpretá-los, precisamos conhecer
+a história natural da doença hepática como um continuum."
+→ avançar para s-a1-01 (D'Amico staging)
+  </aside>
+</section>
 
 <section id="s-a1-01">
     <div class="slide-inner archetype-figure">
@@ -1126,8 +1160,8 @@ PAUSA 2s.
   const deck = await initAula(Reveal, gsap, { plugins: [Notes], width: 1280, height: 720 });
   window.Reveal = Reveal;
   const anim = createAnimationDispatcher(Reveal, gsap);
-  anim.connect();
   wireAll(Reveal, gsap, { anim, CasePanel, ClickReveal, MeldCalc });
+  anim.connect();
 </script>
 </body>
 </html>

@@ -4,9 +4,10 @@
 
 | Item | Valor |
 |------|-------|
-| Slides | 5/58 (Batch 1) |
+| Slides | 58/58 (Batch 1+2 completo) |
 | Arquivo de trabalho | `index.html` (gerado) — editar `slides/*.html` |
 | Build | `npm run build:grade` |
+| Assets | `assets/figures/` (copiado de Aulas_core) |
 
 ## Slide map (ordem = _manifest.js)
 
@@ -14,12 +15,17 @@
 |---|-----|------|-----------|
 | 1 | s-01 | 01.html | title |
 | 2 | s-02 | 02.html | comparison |
-| 3 | s-03 | 03.html | comparison |
-| 4 | s-04 | 04.html | flow |
-| 5 | s-05 | 05.html | comparison |
+| 3 | s-05 | 04.html | flow |
+| 4 | s-06 | 05.html | comparison |
+| 5 | s-03 | 03.html | comparison |
+| 6 | s-09 | 06.html | comparison |
+| 7 | s-36 | 07.html | comparison |
+| 8 | s-08 | 08.html | comparison |
+| 9 | s-11 | 09.html | comparison |
+| 10 | s-10 | 10.html | comparison |
 
 ## Pendências
 
-- 53 slides restantes (S06, S09, S36, S08, ... conforme _list.txt Aulas_core)
+- Nenhuma — GRADE migração completa
 - preview.html (stage-c only)
 - qa:screenshots:grade script

@@ -1,0 +1,102 @@
+<section id="s-10" data-background-color="var(--bg-navy)">
+  <div class="slide-inner archetype-comparison">
+
+
+  <!-- Inner wrapper (print-safe): garante ancoragem vertical em @media print (onde .slide vira block) -->
+  <div style="height: 100%; display: flex; flex-direction: column;">
+
+<h1 style="font-family: Inter, sans-serif; font-size: 42px; font-weight: 700; color: var(--text-on-dark); margin: 0 0 18px 0; text-align: left;">
+        QALY por risco: por que o risco basal muda tudo?
+    </h1>
+<p style="font-family: Inter, sans-serif; font-size: 18px; font-weight: 600; color: oklch(22% 0.042 258 / 0.78); text-align: left; margin: 0 0 24px 0;">
+        Quanto maior o risco, maior o benefício absoluto → menor custo por QALY
+    </p>
+  <!-- Conteúdo principal (flex:1) + mensagem-chave no rodapé -->
+  <div style="flex: 1 1 auto; display: flex; flex-direction: column;">
+
+<div style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 24px; align-items: stretch;">
+<!-- ESQUERDA: lógica -->
+<div style="height: 100%; background: var(--text-on-dark); border: 1px solid var(--border); border-radius: 16px; padding: 18px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+<h2 class="slide-headline" style="font-family: Inter, sans-serif; font-size: 22px; font-weight: 700; color: var(--text-on-dark); margin: 0 0 12px 0;">
+                A conta por trás do “value”
+            </h2>
+<div style="display: grid; gap: 12px;">
+<div style="border-left: 6px solid oklch(22% 0.042 258 / 0.78); padding-left: 12px;">
+<p style="font-family: Inter, sans-serif; font-size: 16px; color: var(--text-on-dark); margin: 0;">
+<strong>1) Risco basal</strong> define quantas fraturas acontecem sem tratar
+                    </p>
+</div>
+<div style="border-left: 6px solid var(--warning); padding-left: 12px;">
+<p style="font-family: Inter, sans-serif; font-size: 16px; color: var(--text-on-dark); margin: 0;">
+<strong>2) Fraturas evitadas</strong> = risco basal × eficácia do tratamento
+                    </p>
+</div>
+<div style="border-left: 6px solid var(--warning); padding-left: 12px;">
+<p style="font-family: Inter, sans-serif; font-size: 16px; color: var(--text-on-dark); margin: 0;">
+<strong>3) QALYs ganhos</strong> = fraturas evitadas × perda média de utilidade por fratura
+                    </p>
+</div>
+<div style="background: rgba(var(--border-rgb), 0.55); border-radius: 12px; padding: 12px;">
+<p style="font-family: Inter, sans-serif; font-size: 15px; color: var(--text-on-dark); margin: 0;">
+<strong>ICER</strong> ≈ (custo do tratamento) ÷ (QALYs ganhos)
+                    </p>
+<p style="font-family: Inter, sans-serif; font-size: 13px; color: var(--muted); margin: 6px 0 0 0; line-height: 1.3;">
+                        Se o risco basal sobe, o denominador (QALYs ganhos) cresce → o ICER cai.
+                    </p>
+</div>
+</div>
+</div>
+<!-- DIREITA: exemplo real -->
+<div style="height: 100%; display: flex; flex-direction: column;">
+<div style="flex: 1 1 auto; background: var(--text-on-dark); border-radius: 16px; padding: 18px; color: var(--text-on-dark); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+<h2 class="slide-headline" style="font-family: Inter, sans-serif; font-size: 22px; font-weight: 700; margin: 0 0 12px 0;">
+                    Exemplo (modelo NOF/USA)
+                </h2>
+<p style="font-family: Inter, sans-serif; font-size: 16px; margin: 0 0 10px 0; line-height: 1.45;">
+                    No modelo do comitê da National Osteoporosis Foundation:
+                </p>
+<div style="display:flex;flex-direction:column;gap:0.3rem;">
+<p style="margin:0 0 0.3rem 0;">WTP: <strong>$60.000 por QALY</strong> (critério de custo-efetividade)</p>
+<p style="margin:0 0 0.3rem 0;">Custo anual do fármaco no cenário-base: <strong>$600/ano</strong></p>
+<p style="margin:0 0 0.3rem 0;">Mulher branca, 60 anos: risco médio de quadril em 10 anos = <strong>1,79%</strong></p>
+<p style="margin:0 0 0.3rem 0;">Limiar “custo-efetivo” corresponde a risco de quadril em 10 anos ≈ <strong>3,0%</strong></p>
+</div>
+<div style="margin-top: 14px; background: rgba(255,255,255,0.10); border: 1px solid oklch(60% 0.13 85 / 0.6); border-radius: 12px; padding: 12px;">
+<p style="font-family: Inter, sans-serif; font-size: 14px; margin: 0; line-height: 1.4;">
+<strong>Interpretação prática:</strong> “tratar” não é binário (T-score). <br/>
+                        É uma decisão de <strong>risco</strong> sob um <strong>limiar de custo/QALY</strong>.
+                    </p>
+</div>
+</div>
+<div style="margin-top: 14px; background: rgba(var(--border-rgb), 0.55); border-left: 6px solid oklch(22% 0.042 258 / 0.78); border-radius: 12px; padding: 14px;">
+<p style="font-family: Inter, sans-serif; font-size: 12px; color: var(--text-on-dark); margin: 0; line-height: 1.4;">
+<strong>Fonte (Tier 1):</strong> Tosteson ANA et al. (2008) — NOF Guide Committee. <br/>
+                    Exemplo de limiar: risco de quadril 1,79% → 3,0% para ICER ≤ $60k/QALY.
+                </p>
+</div>
+</div>
+</div>
+</div>
+
+  <!-- Mensagem-chave (ancorada no rodapé, reduz o vazio visual sem mudar CSS global) -->
+  <div style="margin-top: auto; padding-top: 16px; display: flex; justify-content: center;">
+    <div style="width: 100%; max-width: 1100px; background: oklch(60% 0.13 85 / 0.12); border: 1px solid oklch(60% 0.13 85 / 0.30); border-radius: 14px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+      <div style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 800; color: var(--text-on-dark);">Regra de bolso:</div>
+      <div style="flex: 1; display: flex; align-items: center; gap: 10px;">
+        <span style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 700; color: var(--text-on-dark); background: oklch(22% 0.042 258 / 0.06); border: 1px solid oklch(22% 0.042 258 / 0.14); padding: 6px 10px; border-radius: 999px; white-space: nowrap;">Risco basal ↑</span>
+        <span style="font-family: Inter, sans-serif; font-size: 14px; color: oklch(22% 0.042 258 / 0.7);">→</span>
+        <span style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 700; color: var(--text-on-dark); background: oklch(22% 0.042 258 / 0.06); border: 1px solid oklch(22% 0.042 258 / 0.14); padding: 6px 10px; border-radius: 999px; white-space: nowrap;">QALYs ganhos ↑</span>
+        <span style="font-family: Inter, sans-serif; font-size: 14px; color: oklch(22% 0.042 258 / 0.7);">→</span>
+        <span style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 800; color: var(--text-on-dark); background: oklch(60% 0.13 85 / 0.20); border: 1px solid oklch(60% 0.13 85 / 0.40); padding: 6px 10px; border-radius: 999px; white-space: nowrap;">ICER ↓</span>
+      </div>
+      <div style="font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; color: oklch(22% 0.042 258 / 0.68); text-align: right;">O “value” nasce do benefício absoluto.<br/>A mesma eficácia rende mais quando o risco é alto.</div>
+    </div>
+  </div>
+
+  </div>
+
+</div>
+
+  </div>
+  <aside class="notes">[TBD]</aside>
+</section>

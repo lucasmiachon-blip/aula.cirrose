@@ -13,7 +13,7 @@ Sem exceções. Sem "faço depois". Sem "não mudou nada relevante".
 Se tocou em HTML, CSS, JS, ou assets → atualiza HANDOFF.md → inclui no commit.
 
 ### Por quê?
-Claude.ai (o co-planner) lê este arquivo no início de cada sessão para saber o que você fez. Se não atualizar, ele vai produzir specs baseadas em estado errado e o ciclo diverge.
+Claude.ai usa `HANDOFF-CLAUDE-AI.md` (paths + pendências). Projeto usa `HANDOFF.md` (só pendências). Se não atualizar, ele vai produzir specs baseadas em estado errado e o ciclo diverge.
 
 ### Formato obrigatório:
 

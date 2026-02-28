@@ -62,7 +62,7 @@
 
 ## 📍 Status (atualizado 27/fev/2026)
 
-> Estado operacional detalhado → ver `aulas/cirrose/HANDOFF.md`
+> Pendências → `aulas/cirrose/HANDOFF.md` · Claude.ai → `HANDOFF-CLAUDE-AI.md`
 
 | Etapa | Status |
 |-------|--------|

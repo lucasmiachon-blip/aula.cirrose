@@ -42,9 +42,10 @@
 ## Documentação (ordem de leitura)
 
 1. **CLAUDE.md** ← você está aqui (regras)
-2. **HANDOFF.md** — Estado atual + pendências (source of truth operacional)
+2. **HANDOFF.md** — Pendências projeto · **HANDOFF-CLAUDE-AI.md** — Claude.ai (paths)
 3. **CHANGELOG.md** — Histórico de batches (read-only, append-only)
-4. **AUDIT-VISUAL.md** — Auditoria visual 28 slides × 8 dimensões
+4. **ERROR-LOG.md** — Erros por sessão → regras (atualizar a cada sessão)
+5. **AUDIT-VISUAL.md** — Auditoria visual 28 slides × 8 dimensões
 
 ## Regras invioláveis
 

@@ -6,15 +6,26 @@
 |------|-------------|-----------|--------|
 | **Cirrose** | 28/28 (20 core + 8 APP) | ✅ 24/fev — 28/28 OK | HTML completo, speaker notes PT pendente |
 | **Meta-análise** | 0/16 | — | Blueprint v2 no Notion, sem HTML |
-| **GRADE** | 5/58 (Batch 1) | — | Migração Aulas_core em curso |
+| **GRADE** | 58/58 | — | Migração completa (Aulas_core → aulas-magnas) |
+| **Osteoporose** | 70/70 | — | Migração completa (Aulas_core → aulas-magnas) |
 
-## GRADE — Último estado (2026-02-26)
+## GRADE — Último estado (2026-02-27)
 
-- **Arquivos:** `aulas/grade/slides/*.html` (5 arquivos modulares, ordem S01 S02 S05 S06 S03)
+- **Arquivos:** `aulas/grade/slides/*.html` (58 arquivos modulares)
 - **Build:** `npm run build:grade` → gera `index.html` a partir de `_manifest.js` + template
-- **Manifest:** `slides/_manifest.js` (source of truth)
-- **CSS:** `grade.css` + `archetypes.css` (copiado de cirrose)
+- **Manifest:** `slides/_manifest.js` (source of truth, ordem _list.txt Aulas_core)
+- **CSS:** `grade.css` + `archetypes.css`
+- **Script migração:** `scripts/migrate-grade-slides.js`
 - **Ver:** `aulas/grade/HANDOFF.md`
+
+## Osteoporose — Último estado (2026-02-27)
+
+- **Arquivos:** `aulas/osteoporose/slides/*.html` (70 arquivos modulares)
+- **Build:** `npm run build:osteoporose` → gera `index.html` a partir de `_manifest.js` + template
+- **Manifest:** `slides/_manifest.js` (46 main + 25 appendix)
+- **CSS:** `osteoporose.css` + `archetypes.css`
+- **Script migração:** `scripts/migrate-osteoporose-slides.js`
+- **Ver:** `aulas/osteoporose/HANDOFF.md`
 
 ## Cirrose — Último estado
 
@@ -25,7 +36,7 @@
 - **Sections:** 28 (20 core + 8 APP)
 - **QA Visual:** 28/28 screenshots OK (24/fev). Média 2.7/5.0 — redesign slide-a-slide pendente.
 - **CSS:** `cirrose.css` + `archetypes.css` (consolidado FASE 2)
-- **Refatoração:** FASE 0-4 concluídas (27/fev). Ver `aulas/cirrose/HANDOFF.md` para detalhes.
+- **Cirrose:** Pendências → `aulas/cirrose/HANDOFF.md` · Claude.ai → `aulas/cirrose/HANDOFF-CLAUDE-AI.md`
 
 ## MCPs acadêmicos (2026-02-26)
 
@@ -53,11 +64,10 @@ Ver `docs/MCP-ENV-VARS.md` para variáveis necessárias.
 3. Slides DB: sincronizar pipeline status (muitos ainda em `draft` ou `html-ready` — deveriam ser `qa-passed`)
 4. Ghost text em transições: avaliar `transition: none` ou workaround
 5. Meta-análise: iniciar implementação HTML
-6. GRADE: 53 slides restantes (Batch 2+)
 
 ## Notion
 
 `docs/SYNC-NOTION-REPO.md`
 
 ---
-*Atualizado 27/02/2026 — refatoração FASE 0-4. Deletados: CONFLITOS-CIRROSE-BATCHES.md, PLANO-CIRROSE-BATCHES.md (obsoletos).*
+*Atualizado 27/02/2026 — Migração GRADE (58) + Osteoporose (70) de Aulas_core concluída.*
