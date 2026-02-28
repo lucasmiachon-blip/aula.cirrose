@@ -66,6 +66,17 @@
       color: oklch(45% 0 0);
       margin-left: 0.5rem;
     }
+    .slide-subitems {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1rem;
+      margin: 0.25rem 0 0.5rem 1.5rem;
+      font-size: 0.75rem;
+      color: oklch(45% 0 0);
+    }
+    .slide-subitems .subitem { text-decoration: none; color: inherit; }
+    .slide-subitems .subitem:hover { text-decoration: underline; }
+    .slide-subitems .subitem + .subitem::before { content: ' · '; }
   </style>
 </head>
 <body>
@@ -117,7 +128,7 @@ function switchStage(s) {
   import { ClickReveal } from '../../shared/js/click-reveal.js';
   import { CasePanel } from '../../shared/js/case-panel.js';
   import { MeldCalc } from '../../shared/js/interactions/meld-calc.js';
-  import { panelStates, customAnimations } from './slide-registry.js';
+  import { panelStates, customAnimations, wireAll } from './slide-registry.js';
 
   // Stage switching via ?stage= param (default: c)
   const stageParam = new URLSearchParams(location.search).get('stage') || 'c';
@@ -149,39 +160,34 @@ function switchStage(s) {
     document.querySelector('.reveal').style.display = 'none';
     dbgSlide.textContent = 'INDEX';
 
-    // Fetch manifest to build clickable list
-    const resp = await fetch('./slides/_manifest.js');
-    const text = await resp.text();
-
-    // Parse slide entries from manifest
-    const entries = [];
-    const re = /id:\s*'([^']+)',\s*file:\s*'([^']+)',\s*act:\s*([^,]+),\s*archetype:\s*'([^']+)'[^}]*headline:\s*'([^']+)'/g;
-    let m;
-    while ((m = re.exec(text)) !== null) {
-      entries.push({
-        id: m[1],
-        file: m[2],
-        act: m[3].trim().replace(/'/g, ''),
-        archetype: m[4],
-        headline: m[5]
-      });
-    }
+    // Import manifest
+    const { slides: manifestSlides } = await import('./slides/_manifest.js');
 
     const index = document.createElement('div');
     index.className = 'slide-index';
 
     let currentAct = null;
     let html = '<h1>Preview — Slides Individuais</h1>';
-    html += `<p style="color: oklch(50% 0 0); font-size: 0.85rem; margin-bottom: 1.5rem;">${entries.length} slides encontrados no manifest</p>`;
+    html += `<p style="color: oklch(50% 0 0); font-size: 0.85rem; margin-bottom: 1.5rem;">${manifestSlides.length} slides</p>`;
 
-    for (const e of entries) {
-      const act = e.act === 'null' ? 'CORE' : e.act;
+    for (const e of manifestSlides) {
+      const act = e.act === null ? 'CORE' : e.act;
       if (act !== currentAct) {
         currentAct = act;
         html += `<div class="act-label">${act}</div>`;
       }
       const name = e.file.replace('.html', '');
-      html += `<a href="?slide=${name}">${e.headline} <code>[${e.archetype}] ${e.id}</code></a>`;
+      const stageQ = stageParam !== 'c' ? `&stage=${stageParam}` : '';
+      html += `<a href="?slide=${name}${stageQ}">${e.headline} <code>[${e.archetype}] ${e.id}</code></a>`;
+      if (e.subItems?.length) {
+        html += '<div class="slide-subitems">';
+        for (const sub of e.subItems) {
+          const label = typeof sub === 'string' ? sub : sub.label;
+          const href = sub.beat !== undefined ? `?slide=${name}&beat=${sub.beat}${stageQ}` : null;
+          html += href ? `<a href="${href}" class="subitem">${label}</a>` : `<span class="subitem">${label}</span>`;
+        }
+        html += '</div>';
+      }
     }
 
     index.innerHTML = html;
@@ -198,7 +204,12 @@ function switchStage(s) {
 
       document.getElementById('slide-target').innerHTML = html;
 
-      // Init Reveal
+      const beatParam = params.get('beat');
+      const section = document.querySelector('.slides > section');
+      if (section && beatParam !== null && section.id === 's-hook') {
+        section.dataset.initialBeat = beatParam;
+      }
+
       const deck = await initAula(Reveal, gsap, {
         plugins: [Notes],
         width: 1280,
@@ -207,41 +218,27 @@ function switchStage(s) {
       window.Reveal = Reveal;
       dbgReveal.textContent = Reveal.VERSION ? `v${Reveal.VERSION} ✓` : '✓';
 
-      // Animation dispatcher
       const anim = createAnimationDispatcher(Reveal, gsap);
+      wireAll(Reveal, gsap, { anim, CasePanel, ClickReveal, MeldCalc });
       anim.connect();
 
-      // Register custom animations for this slide
-      const currentSection = document.querySelector('.slides > section');
-      const slideId = currentSection?.id;
-
-      if (slideId && customAnimations[slideId]) {
-        anim.registerCustom(slideId, customAnimations[slideId]);
-      }
-
-      // Case Panel
-      const panelEl = document.getElementById('case-panel');
-      if (panelEl) {
-        const panel = new CasePanel(panelEl);
-        for (const [id, state] of Object.entries(panelStates)) {
-          panel.registerState(id, state);
+      // Preview: aplicar beat estático para s-hook (customAnim pode ter perdido ready)
+      if (section?.id === 's-hook' && beatParam !== null) {
+        const idx = parseInt(beatParam, 10);
+        const beats = section.querySelectorAll('.hook-beat');
+        beats.forEach((b, i) => {
+          b.classList.toggle('hook-beat--active', i === idx);
+          b.classList.toggle('hook-beat--hidden', i !== idx);
+        });
+        if (idx === 1) {
+          section.querySelectorAll('.hook-lab, .hook-question-lead, .hook-question').forEach(el => {
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+          });
+          const fib4 = section.querySelector('[data-target="3.2"]');
+          if (fib4) fib4.textContent = '3,2';
         }
-        panel.connect(document.querySelector('.slides'));
-        if (currentSection) panel.onSlideChanged(currentSection);
       }
-
-      // Click-reveal
-      if (currentSection?.querySelectorAll('[data-reveal]').length > 0) {
-        const revealer = new ClickReveal(currentSection, gsap);
-        document.addEventListener('keydown', (e) => {
-          if (e.key !== 'ArrowRight' && e.key !== ' ') return;
-          if (revealer.hasMore) { e.preventDefault(); e.stopPropagation(); revealer.next(); }
-        }, true);
-      }
-
-      // MELD calculator
-      const meldContainer = document.querySelector('[data-interaction="meld-calc"]');
-      if (meldContainer) new MeldCalc(meldContainer);
 
     } catch (err) {
       document.getElementById('slide-target').innerHTML = `

@@ -8,6 +8,7 @@ alwaysApply: true
 
 ## Documentação
 - Toda mudança de código → atualizar `CHANGELOG.md`
+- Correção de bug em aula → também `ERROR-LOG.md` (ERRO-NNN, root cause, regra)
 - Mudanças de estrutura → atualizar `README.md`
 
 ## CSS Mínimo

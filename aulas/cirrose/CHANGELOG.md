@@ -4,6 +4,130 @@
 
 ---
 
+## 2026-02-28 — Preview: fix beat 0/beat 1 (DOM local)
+
+### Solução final
+- **Subitens beat 0 e beat 1 mostram estados distintos** — customAnim perde ready no preview; fix: aplicar beat estático via DOM local após init (classes + labs visibility), sem depender do dispatcher.
+- **ERRO-017** corrigido.
+
+### Arquivos alterados
+- `preview.html` — bloco pós-connect: setBeat + labs visibility para s-hook quando `?beat=` presente
+
+---
+
+## 2026-02-28 — Consolidação docs + s-hook v5
+
+### Documentação
+- **ERROR-LOG:** Reescrito de forma compreensiva — ERRO-001 a ERRO-016 com severidade, root cause, regra derivada e status (corrigido/pendente). Tabela resumo por severidade. Seção final "Raw code" com trechos de slide-registry.js, cirrose.css, index.template.html, 01-hook.html.
+- **HANDOFF projeto:** `HANDOFF.md` — só pendências.
+- **HANDOFF Claude.ai:** `HANDOFF-CLAUDE-AI.md` — paths + pendências (colar no Project Knowledge).
+
+### s-hook v5 — mudanças de conteúdo e UX
+- **"Seu" removido:** "Seu Antônio" → "Antônio" (formal, congresso).
+- **"Caminhoneiro":** Simplificado (sem "de longa distância").
+- **Sem título/header:** Removido hook-header com título e progress 1✓·2✓·3; conteúdo centralizado.
+- **2 beats:** Beat 0 = Antônio + história (centro). Beat 1 = Labs + "Sem queixas." + "Qual a próxima conduta?" abaixo dos números.
+- **Pergunta:** "Qual é o próximo passo?" → "Qual a próxima conduta?".
+
+### s-hook v5 — animações e interação
+- **Reversível:** retreatBeat() implementado; ArrowLeft/ArrowUp voltam ao beat anterior (engine.js intercept).
+- **ArrowDown removido** da interceptação do hook (evita "texto desce").
+- **Sombra pré-stagger corrigida:** Beat 1 content (labs, lead, question) com `opacity: 0; visibility: hidden` em CSS até GSAP animar; resetBeat1Content() no retreat para consistência ao voltar.
+- **Transição Antônio:** Lógica simples no retreat (sem killTweensOf/gsap.set agressivos); overwrite: 'auto' no fromTo.
+- **Interação sumindo (ERRO-016):** wireAll() passou a rodar ANTES de anim.connect() em index.template.html — customAnimations precisam estar registrados antes do dispatcher conectar; caso contrário __hookAdvance nunca era definido e clique/setas não funcionavam.
+
+### Arquivos alterados
+- `slides/01-hook.html` — 2 beats, sem header, texto atualizado
+- `slide-registry.js` — advanceBeat, retreatBeat, resetBeat1Content, runLabsStagger (stagger imediato, visibility no fromTo)
+- `cirrose.css` — s-hook v5: beat 1 opacity/visibility, sem hook-header
+- `index.template.html` — wireAll antes anim.connect
+- `slides/_manifest.js` — clickReveals: 1, headline "Caso Antônio · Qual a próxima conduta?"
+- `scripts/qa-screenshots-stage-c.js` — TOTAL_BEATS = 2, delay 1,5s
+
+---
+
+## 2026-02-28 — Re-análise PNG + HANDOFF Claude.ai
+
+- **DIAGNOSTIC-HOOK-28fev.md:** Re-análise pós-fix — texto descentralizado, melhorias confirmadas, problemas persistentes
+- **HANDOFF-CLAUDE-AI.md:** Handoff para Claude.ai — fase, raw changes, ERROR-LOG, próximos passos
+- **ERROR-LOG:** ERRO-013 (texto descentralizado)
+- **AUDIT-VISUAL.md:** `aulas/cirrose/AUDIT-VISUAL.md` (28 slides, s-hook = Slide 4)
+
+---
+
+## 2026-02-28 — Diagnóstico s-hook + fix contraste
+
+- **DIAGNOSTIC-HOOK-28fev.md:** Análise UI/UX/tipografia/slideologia baseada em PNGs
+- **Fix contraste:** #s-hook override para stage-c — cores literais (#f0f2f5, #b8c4d4, #9ca8b8) para vencer var(--text-on-dark) remapeado
+- **Lab refs:** font-size 0.85rem, cor #a0acc0
+- **ERROR-LOG:** ERRO-009 (contraste beat 1), ERRO-010 (anim sem retorno), ERRO-011 (texto desce), ERRO-012 (QA timing)
+- **Plano de mudanças:** 4 fases (contraste → retorno → ArrowDown → polish)
+
+---
+
+## 2026-02-28 — s-hook v3 (Monolítico)
+
+- 5 beats → 2 beats (caso+labs → pergunta)
+- Removido: cold open, framework, emoji
+- Navy bg forçado: `#s-hook { background: #162032 !important }` + `data-background-color="#162032"`
+- Labs em linha única: `grid-template-columns: repeat(5, 1fr)`, `hook-lab--flag` para FIB-4/PLQ
+- slide-registry: advanceBeat com 1 click, revealAll removido
+- qa-screenshots: TOTAL_BEATS = 2
+- ERROR-LOG.md criado: path `aulas/cirrose/ERROR-LOG.md`, workflow por sessão
+
+---
+
+## 2026-02-27 — Transições: pointer + ArrowRight/ArrowDown
+
+- Hook e ClickReveal: clique no slide OU teclas ArrowRight, ArrowDown, Space, PageDown
+- engine.js: tryHookAdvance + listener de click em .slides
+- slide-registry.js: tryRevealNext + ArrowDown + listener de click
+
+---
+
+## 2026-02-27 — QA screenshots: transições capturadas corretamente
+
+- Script usa `__hookAdvance()` em vez de ArrowRight (que avançava slide)
+- 5 PNGs do hook refletem as 5 transições reais
+- HANDOFF-QA-ANIMATIONS.md e README atualizados
+
+---
+
+## 2026-02-27 — QA screenshots: 3 pastas (stage-a, stage-b, stage-c)
+
+- Só 3 pastas: `stage-a`, `stage-b`, `stage-c` em `aulas/cirrose/qa-screenshots/`
+- Deletado: `animations/`, `hook-beats/`, `stage-c-floating/`
+- Batch atual stage-c: 5 PNGs do hook (`02-s-hook-beat-00.png` … `02-s-hook-beat-04.png`)
+- Script unificado: `qa-screenshots-stage-c.js` (só hook neste batch)
+- build-zip-limpo-ia.ps1: `stage-c` em `aulas/cirrose/qa-screenshots/`
+
+---
+
+## 2026-02-27 — s-hook Redesign (Cold Open Cinematográfico)
+
+- 5 beats: cold open → Seu Antônio → labs → pergunta → framework
+- Beats substituem (não acumulam), 4 cliques
+- Beat system em slide-registry, keydown interception em engine.js
+- CSS hook-stage, hook-beat, hook-card, hook-labs, hook-thesis
+
+---
+
+## 2026-02-27 — Brasão USP v2 (PNG transparente)
+
+- brasao-usp-white.png (white on transparent) para navy
+- Stage-c/bad: filter invert(1) para versão escura
+- Sem filter no default — PNG limpo, sem caixa
+
+---
+
+## 2026-02-27 — Fix brasão s-title (canto sup. direito)
+
+- Brasão absoluto top-right, monocromático branco (navy) / preto sutil (stage-c)
+- Removido .title-logo wrapper
+- Print: var(--bg-navy) em vez de HEX
+
+---
+
 ## 2026-02-27 — Fixes AUDIT (I1–I5)
 
 - s-a1-01: headline encurtada (continuum 1% a 57%/ano)
