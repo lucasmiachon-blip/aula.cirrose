@@ -118,7 +118,7 @@ export class CasePanel {
       plq: 'PLQ',
       meld: 'MELD-Na',
       albumin: 'Albumina',
-      stage: 'Estágio'
+      stage: 'Estádio'
     };
 
     for (const [key, val] of Object.entries(values)) {

@@ -18,7 +18,7 @@
 | `slide-registry.js` | Wiring centralizado (custom anims, panel, click-reveal, meld) |
 | `index.template.html` | Template com `%%SLIDES%%` placeholder |
 | `index.html` | **Gerado** — `npm run build:cirrose` ou `.\scripts\build-html.ps1` |
-| `index.stage-c.html` | Referência monolítica (legado — também usa slide-registry.js) |
+| `index.stage-c.html` | DEPRECATED — usar index.html (build modular) |
 | `index.stage-b.html` | Plan B (light, sem animação) — NÃO ATUALIZADO |
 | `cirrose.css` | Estilos específicos desta aula |
 | `archetypes.css` | Layout archetypes |

@@ -51,14 +51,13 @@ Claude.ai usa `HANDOFF-CLAUDE-AI.md` (paths + pendências). Projeto usa `HANDOFF
 
 ## 📐 Design System
 
-### Tri-Mode (3 arquivos por aula)
+### Tri-Mode
 | Arquivo | Mode | Theme | Resolução | Animação |
 |---------|------|-------|-----------|----------|
-| index.html | Plan A | Dark | 1920×1080 | GSAP |
+| index.html | Plan C (default) | Light | 1280×720 | GSAP |
 | index.stage-b.html | Plan B | Light | 1280×720 | Nenhuma |
-| **index.stage-c.html** | **Plan C** | **Light** | **1280×720** | **GSAP** |
 
-**Plan C é o DEFAULT.** Em caso de dúvida, implemente em stage-c primeiro.
+**index.html** = build de `slides/*` + template. Plan C default. PORT 3000.
 
 ### Tokens (base.css)
 ```
@@ -136,9 +135,8 @@ highlight → data-highlight-row (tables)
 
 ```
 aulas/{slug}/
-  index.html            # Plan A
-  index.stage-b.html    # Plan B
-  index.stage-c.html    # Plan C (default)
+  index.html            # Build: slides/* + template (Plan C default)
+  slides/               # 1 HTML por slide
   {slug}.css            # CSS específico
   CLAUDE.md             # Contexto para Claude Code
   HANDOFF.md            # ← ATUALIZAR SEMPRE
@@ -152,8 +150,7 @@ aulas/{slug}/
 ```bash
 git log --oneline -5
 git status
-grep -c '<section' aulas/cirrose/index.stage-c.html
-grep -oP 'id="s-[^"]*"' aulas/cirrose/index.stage-c.html
+grep -c '<section' aulas/cirrose/index.html
 cat aulas/cirrose/HANDOFF.md
 ```
 

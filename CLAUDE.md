@@ -266,10 +266,9 @@ npm run lint:slides      # Assertion-evidence linter
 npm run build:cirrose    # Concatena slides → index.html via _manifest.js
 ```
 
-## Known Issues (as of 27/fev/2026)
+## Known Issues (as of 28/fev/2026)
 
 1. **case-panel.js:** `renderTimeline()` has hardcoded HEX colors — migrate to `var(--severity-*)` tokens.
 2. **meld-calc.js:** Literal `#1a1a2e` for bg — migrate to `var(--bg-navy)`. Missing null checks on inputs.
-3. **qa-screenshots-stage-c.js:** Targets PORT 5173 (should be 3000). Targets monolithic `index.stage-c.html` (should be modular `index.html`). Backlogged for Phase 5.
-4. **vite.config.js:** Unused `globSync` import. Dev server opens `grade/` instead of `cirrose/`.
-5. **.gitignore:** `*.png` pattern ignores QA screenshots in `qa-screenshots/` dir.
+3. **.gitignore:** `*.png` pattern ignores QA screenshots in `qa-screenshots/` dir.
+4. **index.stage-c.html:** Deprecated; index.html (modular) é fonte. qa-screenshots usa index.html + PORT 3000.

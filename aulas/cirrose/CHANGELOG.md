@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-02-28 — Diagnóstico P0/P1: configs, deprecar, docs
+
+- **vite.config:** Removido globSync; open → cirrose
+- **index.stage-c.html:** Deprecated (comentário); index.html = fonte
+- **s-app-04:** source-tag com [PMID pendente] explícito
+- **CLAUDE/CURSOR/SYNC-NOTION:** index.html, PORT 3000, estrutura atualizada
+- **REPO-DIAGNOSTIC, DIAGNOSTIC-27fev:** → docs/archive/
+
+---
+
 ## 2026-02-28 — Preview: fix beat 0/beat 1 (DOM local)
 
 ### Solução final

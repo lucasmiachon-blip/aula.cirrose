@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { globSync } from 'node:fs';
 import { readdirSync, statSync } from 'node:fs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -36,7 +35,7 @@ export default defineConfig({
   base: './',
   server: {
     port: 3000,
-    open: '/aulas/grade/index.html'
+    open: '/aulas/cirrose/index.html'
   },
   build: {
     target: 'esnext',

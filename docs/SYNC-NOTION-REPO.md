@@ -19,7 +19,7 @@
 
 1. **Query Slides DB** (por Slug, Posição, Pipeline Status)
 2. **Ler specs** (Headline PT, Evidence, Citation, Speaker Notes, Animação)
-3. **Atualizar** `aulas/cirrose/index.stage-c.html` ou gerar handoff
+3. **Atualizar** `aulas/cirrose/slides/*.html` (build → index.html) ou gerar handoff
 
 **Quando:** Após mudar specs no Notion, pedir "sincroniza Notion → repo para slide X"
 
