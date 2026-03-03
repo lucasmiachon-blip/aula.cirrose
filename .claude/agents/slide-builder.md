@@ -68,6 +68,7 @@ git add -A && git commit -m "[AULA] batch N — desc"
 
 ## Escalação
 
-- Spec incompleta → devolver ao Planner
-- Layout complexo → flag CSS Specialist
-- Figura indisponível → placeholder `[TBD]`
+- Spec incompleta → STOP. Output: listar campos faltantes. Aguardar instrução do Lucas.
+- Layout impossível com tokens existentes → STOP. Output: descrever limitação + sugestão. Aguardar instrução.
+- Figura indisponível → placeholder `[TBD]` + flag no relatório de entrega.
+- Dado clínico parece errado → STOP. Output: discrepância encontrada + fonte. NUNCA corrigir dado médico.
