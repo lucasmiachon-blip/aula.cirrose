@@ -10,5 +10,61 @@
       "Bash(rm -rf *)",
       "Bash(git push --force*)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/check-evidence-db.sh",
+            "timeout": 15,
+            "statusMessage": "Verificando evidence-db..."
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/guard-evidence-db.sh",
+            "timeout": 5,
+            "statusMessage": "Verificando permissão evidence-db..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/build-monitor.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/build-monitor.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/subagent-stop-log.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }
