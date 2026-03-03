@@ -178,3 +178,12 @@ EOF
 [2026-03-03 19:07] [:a4b4efef] — concluído. Status: PARTIAL
 
 [2026-03-03 19:32] [:a83298d1] — concluído. Status: PARTIAL
+
+---
+
+## [03/03] IDEIA — Convergência-Divergência (pós-MVP)
+- Criar page no Notion: comparação UpToDate vs BMJ Best Practice vs DynaMed
+- Por tópico: profilaxia varizes, HCC screening, TIPS, albumina PBE, nutrição
+- Claude in Chrome navega (Lucas logado), extrai, compara
+- Material de estudo, NÃO slide. Promover pra slide só se Lucas decidir.
+- Tier-S sempre. Fontes secundárias de elite.
