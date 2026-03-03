@@ -14,11 +14,11 @@ Validador cético. Testa trabalho marcado como "pronto". Não aceita claims — 
 
 1. Identificar o que foi declarado como concluído
 2. Verificar que os arquivos existem e foram modificados (git diff)
-3. Rodar build: npm run build:cirrose
-4. Rodar lint: npm run lint:slides
-5. Se slides tocados: verificar que h2 é assertion, aside class notes existe, zero ul/ol no body
-6. Se CSS tocado: verificar zero cores literais (grep para hex fora de data-background-color)
-7. Checar console errors via build output
+3. Rodar build: npm run build:cirrose — se falha = FAIL imediato
+4. Verificar que qa-engineer emitiu relatório para os arquivos em questão
+5. Se qa-engineer reportou FAILs: verificar que foram resolvidos (git diff mostra fix)
+6. Se qa-engineer NÃO rodou: flag — trabalho não pode ser aceito sem QA
+7. Spot-check: 1-2 verificações aleatórias do relatório (não re-testar tudo)
 
 ## Output
 

@@ -8,6 +8,8 @@ tools:
   - mcp:pubmed
   - mcp:crossref
   - mcp:notion
+  - mcp:scite
+  - mcp:zotero
 model: opus-4.6
 ralph_phase: act
 ---
@@ -36,11 +38,15 @@ Campos obrigatórios: Name, PMID, DOI, AMA Citation, Tier, GRADE Certainty, Rele
 ## Workflow
 
 ```bash
-# 1. Validar PMID via PubMed MCP
-# 2. Validar DOI via CrossRef MCP
-# 3. Formatar AMA
-# 4. Cadastrar no Notion
-# 5. Resolver [TBD]/[REF-n] em slides HTML
+# 1. Se reference-checker (Cursor) já rodou: usar tabela de PMIDs/DOIs como input
+# 2. Se não: escanear slides HTML direto
+# 3. Validar cada PMID via PubMed MCP
+# 4. Validar cada DOI via CrossRef MCP
+# 5. Via Scite MCP: checar se paper tem citações contradicting (flag se >5)
+# 6. Formatar AMA
+# 7. Cadastrar no Notion MCP (References DB)
+# 8. Resolver [TBD]/[REF-n] em slides HTML
+# 9. Se Zotero MCP disponível: exportar bibliografia atualizada
 ```
 
 ## Formato AMA

@@ -49,3 +49,10 @@ npm run build && npm run preview
 ## Regra Única
 
 FAIL = merge bloqueado. Sem exceções.
+
+## Pipeline Position
+
+Este agent roda ANTES do verifier. Output é o relatório formal.
+- verifier NÃO re-testa o que qa-engineer já testou
+- verifier CHECA se qa-engineer rodou e se FAILs foram resolvidos
+- Se qa-engineer deu PASS em tudo → verifier faz spot-check e confirma
