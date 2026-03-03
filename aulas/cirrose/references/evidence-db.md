@@ -15,7 +15,7 @@
 | ANSWER | Caraceni | Lancet 2018 | 29861076 | Albumina longo prazo em ascite | 9 (morte 18m) | ⊕⊕⊕◯ |
 | ATTIRE | China | NEJM 2021 | 33657293 | Albumina em ACLF — **NÃO funciona** | ∞ | ⊕⊕⊕⊕ |
 | Bass | Bass | NEJM 2010 | 20335583 | Rifaximina previne HE recorrente | 4 (HE 6m) | ⊕⊕⊕⊕ |
-| Baveno VII | de Franchis | J Hepatol 2022 | 35431106 | Consensus: CSPH, recompensação | — | ⊕⊕⊕◯ |
+| Baveno VII | de Franchis | J Hepatol 2022 | 35120736 | Consensus: CSPH, recompensação | — | ⊕⊕⊕◯ |
 
 ## D'Amico Staging — 6 DOIs verificados (PubMed)
 
@@ -73,7 +73,7 @@
 | PEG-3350 (HELP) | Rahimi | JAMA Int Med 2014 | 25243839 | 91% vs 52% melhora 24h |
 | D'Amico staging | D'Amico | J Hepatol 2006 | 16298014 | 4 estágios: 1% → 57% mortalidade |
 | Early transplant ALD | Mathurin | NEJM 2011 | 22070476 | 77% vs 23% sobrevida 6m |
-| Recompensação | Baveno VII | J Hepatol 2022 | 35431106 | ≥12m sem descomp + labs melhorados |
+| Recompensação | Baveno VII | J Hepatol 2022 | 35120736 | ≥12m sem descomp + labs melhorados |
 | Recompensação expandida | Tonon 2025 | [TBD] | [TBD] | 7% strict, 37,6% expanded |
 
 ## Literatura Tier-1 — Referências mestras
@@ -95,7 +95,7 @@
 | s-a1-01 | Further decomp: ~60% progridem, dobra mortalidade | D'Amico 2024 (PMID 37916970) |
 | s-a1-01 | HVPG non-response prediz further decomp | Garcia-Guix 2024 (PMID 38634685) |
 | s-a1-01 | Continuum compensada → descomp → further decomp → recompensação | Villanueva 2025 fig1 + D'Amico 2024 |
-| s-a1-02 | FIB-4 → elastografia → CSPH muda conduta | Baveno VII (PMID 35431106) |
+| s-a1-02 | FIB-4 → elastografia → CSPH muda conduta | Baveno VII (PMID 35120736) |
 | s-a1-03 | MELD-Na: semáforo da cirrose | Fórmula UNOS padrão |
 | s-a1-04 | Infecção = 33% das internações | PREDICT study |
 | s-a1-05 | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
@@ -105,7 +105,7 @@
 | s-a2-04 | PBE: PMN ≥250 = tratar | EASL CPG 2024 |
 | s-a2-05 | HRS-AKI: terlipressina NNT 7 / NNH 11 | CONFIRM (PMID 33657294) |
 | s-a2-06 | Encefalopatia: rifaximina NNT 4 | Bass (PMID 20335583) |
-| s-a3-01 | Recompensação: Baveno VII definição + Tonon 2025 | PMID 35431106 + [TBD] |
+| s-a3-01 | Recompensação: Baveno VII definição + Tonon 2025 | PMID 35120736 + [TBD] |
 | s-a3-02 | SVR ≠ cura CSPH (53% persistem) | Baveno VII + Lens et al |
 | s-a3-03 | Vigilância HCC a cada 6 meses | EASL/AASLD guidelines |
 | s-app-01 | ACLF grau 3: mortalidade 28d >70% | EASL-CLIF |

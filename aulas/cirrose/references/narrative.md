@@ -23,7 +23,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | Nome | Antônio, 55a | Humaniza; audiência se conecta |
 | Profissão | Caminhoneiro | Risco ocupacional → encefalopatia = não pode dirigir |
 | IMC | 31 | DM2, síndrome metabólica |
-| Etiologia | Etilismo 40g/dia há 20a | Fator reversível (abstinência) |
+| Etiologia | Etilismo 60g/dia há 20a | Fator reversível (abstinência) |
 | FIB-4 | 3,2 | Descoberta na UBS, gatilho do encaminhamento |
 | AST/ALT | 58/42 | AST>ALT = pista alcoólica |
 | PLQ | 118k | Marcador de hipertensão portal |
@@ -135,4 +135,4 @@ Ex: s-a2-01 a s-a2-06 mantêm `caution` (herdado do CP1).
    - "LSM 32→18" → recompensação (s-cp3) é o arco completo do Seu Antônio
 5. **Cinematic blackouts** (planejados, não implementados): slides navy puro com 1 pergunta, zero UI. Candidatos: antes de cada checkpoint.
 6. **Dados clínicos são sagrados.** Antes de refatorar qualquer slide com NNT, HR, ou p-value, executar `grep "s-{id}" references/evidence-db.md` e verificar PMID. Nunca arredondar, inventar, ou omitir IC 95%.
-7. **Dados do Antônio são canônicos no repo.** Idade 55a, IMC 31, AST 58/ALT 42, PLQ 118k, Alb 3,6, etilismo 40g/dia há 20a. Não usar dados da Bíblia Narrativa Notion quando divergirem.
+7. **Dados do Antônio são canônicos no repo.** Idade 55a, IMC 31, AST 58/ALT 42, PLQ 118k, Alb 3,6, etilismo 60g/dia há 20a. Não usar dados da Bíblia Narrativa Notion quando divergirem.
