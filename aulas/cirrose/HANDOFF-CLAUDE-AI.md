@@ -13,16 +13,23 @@
 
 ---
 
+## Prioridades (ordem — HTML por último)
+
+1. **Loops seguros** — Viabilidade: QA slides, mudanças, Perplexity/pesquisa em bg, melhora narrativa, sync Notion (enquanto Lucas estuda)
+2. Verbosity — AUDIT-VISUAL.md (404 linhas)
+3. Biblia narrativa — docs/biblia-narrativa.md (302 linhas)
+4. Alinhamento Notion — SYNC-NOTION-REPO, References DB
+5. Conflitos — redundâncias .cursor vs .claude
+6. HTML — ERRO-008, AUDIT fixes, speaker notes PT (só após 1–5)
+
 ## Pendências
 
-1. ERRO-008 — Case panel redundante em s-hook
-2. AUDIT — Fixes I2–I10 (AUDIT-VISUAL.md)
-3. Speaker notes EN → PT
-4. Merge refactor/floating-panel → main
+- ERRO-008, AUDIT I2–I10, speaker notes EN→PT
+- NNT IC 95%: 4 slides [TBD] — tasks/NNT-IC95-REPORT.md
 
 ## Próxima sessão
 
-Rodar projeto inteiro em batches: inconsistências, redundâncias, boas práticas. Ver HANDOFF.md.
+Ver HANDOFF.md. Offline: build, lint, preview funcionam.
 
 ---
 

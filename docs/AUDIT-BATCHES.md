@@ -67,16 +67,16 @@
 
 ### Violações P1 (dados clínicos — NNT sem IC 95%)
 
-| Slide | NNT | Ação |
-|-------|-----|------|
-| 08-a2-carvedilol | NNT 9 | Adicionar IC 95% e time frame em source-tag ou notes |
-| 09-a2-tips | NNT 4 | Idem |
-| 10-a2-albumina | NNT 5 | Idem |
-| 11-a2-pbe | NNT 5 (notes) | Verificar Sort 1999 |
-| 12-a2-hrs | NNT 7 | Idem |
-| 21-app-tips | NNT 4 | Idem |
+| Slide | NNT | Ação | Status |
+|-------|-----|------|--------|
+| 08-a2-carvedilol | NNT 9 | IC 95% não reportado no paper (PREDESCI) | [TBD] — ver tasks/NNT-IC95-REPORT.md |
+| 09-a2-tips | NNT 4 | IC 95% 2,1–50 (García-Pagán 2010) | ✅ Aplicado |
+| 10-a2-albumina | NNT 5 | Sort 1999 não reporta IC NNT | [TBD] |
+| 11-a2-pbe | NNT 5 | Sort 1999 | [TBD] |
+| 12-a2-hrs | NNT 7 | CONFIRM não reporta IC NNT | [TBD] |
+| 21-app-tips | NNT 4 | IC 95% 2,1–50 (García-Pagán 2010) | ✅ Aplicado |
 
-Regra: medical-data.mdc — "NNT deve incluir IC 95% e time frame obrigatoriamente". Corrigir em batch futuro.
+Regra: medical-data.mdc — "NNT deve incluir IC 95% e time frame obrigatoriamente". Relatório: tasks/NNT-IC95-REPORT.md.
 
 ---
 

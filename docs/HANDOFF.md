@@ -57,17 +57,24 @@ Ver `docs/MCP-ENV-VARS.md` para variáveis necessárias.
 - **Output:** `exports/aulas-magnas-ia-YYYYMMDD.zip`
 - **Inclui:** código + screenshots PNG. **Exclui:** node_modules, dist, fontes, imagens pesadas
 
-## Próxima sessão
+## Próxima sessão — Prioridades (ordem)
 
-**Auditoria batches concluída.** Ver `docs/AUDIT-BATCHES.md`. Próximo:
-- NNT com IC 95%: 6 slides (08, 09, 10, 11, 12, 21)
-- Conteúdo/criação de slides somente após resolver pendências
+**Regra:** HTML só depois de todo o resto perfeito e funcionando.
+
+| # | Prioridade | Escopo |
+|---|------------|--------|
+| 1 | **Loops seguros** | Viabilidade de loops rodando enquanto Lucas estuda: QA slides, mudanças, Perplexity/pesquisa em bg, melhora narrativa, sync Notion, etc. |
+| 2 | **Verbosity** | AUDIT-VISUAL.md (404 linhas) — split ou index |
+| 3 | **Biblia narrativa** | docs/biblia-narrativa.md (302 linhas) — index ou split |
+| 4 | **Alinhamento Notion** | SYNC-NOTION-REPO, References DB, Slides DB status |
+| 5 | **Conflitos** | Redundâncias .cursor vs .claude, paths |
+| 6 | **HTML** | Só após 1–5: ERRO-008, AUDIT fixes, speaker notes PT |
 
 ## Pendências globais
 
 1. Speaker notes: converter EN → PT em todos os 28 slides
 2. References DB: 15 refs pendentes de popular no Notion
-3. Slides DB: sincronizar pipeline status (muitos ainda em `draft` ou `html-ready` — deveriam ser `qa-passed`)
+3. Slides DB: sincronizar pipeline status (draft/html-ready → qa-passed)
 4. Ghost text em transições: avaliar `transition: none` ou workaround
 5. Meta-análise: iniciar implementação HTML
 
@@ -75,5 +82,9 @@ Ver `docs/MCP-ENV-VARS.md` para variáveis necessárias.
 
 `docs/SYNC-NOTION-REPO.md`
 
+## Offline
+
+`npm run build:cirrose`, `npm run lint:slides`, `npm run preview` — funcionam offline.
+
 ---
-*Atualizado 03/03/2026 — Auditoria batches concluída. docs/AUDIT-BATCHES.md, tasks/lessons.md. Próximo: NNT IC 95%.*
+*Atualizado 03/03/2026 — Prioridades: verbosity, biblia, Notion, conflitos. HTML por último.*

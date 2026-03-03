@@ -1,6 +1,6 @@
 # Skills — Melhores Práticas
 
-> Baseado em: [Cursor Docs — Agent Skills](https://cursor.com/docs/context/skills), [create-skill SKILL](~/.cursor/skills-cursor/create-skill/SKILL.md), plano v6.
+> Baseado em: [Cursor Docs — Agent Skills](https://cursor.com/docs/context/skills) (skills globais em ~/.cursor/skills/), plano v6.
 
 ---
 

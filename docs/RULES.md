@@ -1,6 +1,6 @@
 # Rules — Melhores Práticas
 
-> Baseado em: [Cursor Docs — Rules](https://cursor.com/docs/context/rules), [create-rule SKILL](~/.cursor/skills-cursor/create-rule/SKILL.md), plano v6.
+> Baseado em: [Cursor Docs — Rules](https://cursor.com/docs/context/rules), Cursor Docs — Rules (rules globais opcionais), plano v6.
 
 ---
 

@@ -29,6 +29,8 @@
 
 ## GitHub (lucasmiachon-blip)
 
+> Paths são exemplos — ajustar ao seu ambiente.
+
 | Repo         | Path local                   | Conteúdo                                    |
 | ------------ | ---------------------------- | ------------------------------------------- |
 | aulas_core   | C:\Dev\Projetos\Aulas_core   | Origem migração                             |

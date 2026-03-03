@@ -1,6 +1,6 @@
 # CLAUDE.md — Aulas Magnas · Cirrose
 
-> Contexto para Claude Code (terminal). Atualizado 27/fev/2026.
+> Contexto para Claude Code (terminal). Última atualização: ver git log.
 > Para Claude.ai (web): colar `aulas/cirrose/HANDOFF-CLAUDE-AI.md` no Project Knowledge.
 > Este arquivo SUBSTITUI o CLAUDE.md anterior e absorve regras do AGENTS.md.
 
@@ -270,7 +270,7 @@ npm run lint:slides      # Assertion-evidence linter
 npm run build:cirrose    # Concatena slides → index.html via _manifest.js
 ```
 
-## Known Issues (as of 28/fev/2026)
+## Known Issues (Atualizado recentemente)
 
 1. **case-panel.js:** `renderTimeline()` has hardcoded HEX colors — migrate to `var(--severity-*)` tokens.
 2. **meld-calc.js:** Literal `#1a1a2e` for bg — migrate to `var(--bg-navy)`. Missing null checks on inputs.

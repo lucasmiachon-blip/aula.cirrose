@@ -49,7 +49,7 @@
 | Doc | Uso |
 |-----|-----|
 | [ZIP-LIMPO-PROTOCOLO.md](ZIP-LIMPO-PROTOCOLO.md) | Protocolo export ZIP |
-| [archive/](archive/) | Diagnósticos antigos (REPO-DIAGNOSTIC, DIAGNOSTIC-27fev) |
+| [archive/](archive/README.md) | Diagnósticos antigos (REPO-DIAGNOSTIC, DIAGNOSTIC-27fev) |
 
 ---
 

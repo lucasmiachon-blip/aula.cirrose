@@ -6,7 +6,8 @@ O Claude Desktop NÃO lê o `.mcp.json` do projeto.
 Ele usa um arquivo global do sistema operacional.
 
 ### macOS
-Abra: `~/Library/Application Support/Claude/claude_desktop_config.json`
+Abra: `~/Library/Application Support/Claude/claude_desktop_config.json`  
+Windows: `%APPDATA%\Claude\` ou equivalente.
 
 ```bash
 # Se o arquivo não existir, crie:
@@ -112,7 +113,8 @@ Abra: `%APPDATA%\Claude\claude_desktop_config.json`
 3. Deve listar: pubmed, playwright, semantic-scholar
 
 ### Debug
-Logs em: `~/Library/Logs/Claude/mcp.log`
+Logs em: `~/Library/Logs/Claude/mcp.log`  
+Windows: `%APPDATA%\Claude\` ou equivalente.
 
 ---
 

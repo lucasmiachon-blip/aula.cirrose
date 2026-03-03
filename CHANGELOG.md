@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 ### Added
+- `tasks/PLAN-AUDIT-PENDING.md` — Plano execução paralela (4 tracks)
+- `tasks/NNT-IC95-REPORT.md` — Relatório IC 95% NNT (6 slides)
 - `docs/AUDIT-BATCHES.md` — Relatório auditoria em batches
 - `docs/README.md` — Índice docs por propósito
 - `tasks/lessons.md` — Padrões aprendidos
@@ -42,6 +44,11 @@
 - `.cursor/rules/design-principles.mdc` — Description com referência docs
 - `.cursor/skills/medical-slide/SKILL.md` — Referência docs/SKILLS.md
 - `.cursor/skills/visual-qa/SKILL.md` — Referência docs/SKILLS.md
+- docs/SKILLS.md, RULES.md: links ~/.cursor/ substituídos por nota (paths externos)
+- docs/README.md: archive/ → archive/README.md
+- .claude/skills/docs-audit/: stub, fonte canônica em .cursor
+- CLAUDE.md, docs/SETUP.md, docs/ECOSYSTEM.md: datas/paths generalizados
+- 09-a2-tips, 21-app-tips: NNT 4 com IC 95% 2,1–50 (García-Pagán 2010)
 
 ### Fixed
 - lint:slides — 6 erros (NOTES preview, COLOR base.css) resolvidos
