@@ -5,7 +5,7 @@ tools:
   - Read
   - Bash
   - mcp:playwright
-model: opus-4.6
+model: fast
 ralph_phase: learn
 ---
 
