@@ -1,7 +1,38 @@
 # Evidence DB — Cirrose Masterclass
 
 > Dados clínicos canônicos. NUNCA modificar sem PMID verificado.
-> Atualizado: 01/mar/2026 — D'Amico 2014-2024 + Garcia-Guix 2024 adicionados.
+> Atualizado: 03/mar/2026 — tier classification + GBD refs + BAVENO VII PMID corrigido (35120736).
+
+---
+
+## Classificação de Evidência (canônico)
+
+| Tier | Critério | Exemplos |
+|------|---------|---------|
+| **Tier-1** | RCT multicêntrico, meta-análise Cochrane, guideline com GRADE | BAVENO VII, PREDESCI, CONFIRM, GBD Collaborators |
+| **Tier-2** | RCT single-center, coorte prospectiva >500, meta-análise não-Cochrane | CLEARED, Llamosas-Falcón 2023, Paik 2020 |
+| **Tier-3** | Coorte retrospectiva, série de casos, expert opinion | — |
+
+**Regra:** Na dúvida entre tiers → classificar no MENOR. Lucas decide promoção.
+
+---
+
+## GBD — Burden Global de Cirrose (Tier-1)
+
+| Paper | PMID | Journal/Ano | Dado-chave |
+|-------|------|-------------|-----------|
+| GBD 2017 Cirrhosis Collaborators | **31981519** | Lancet Gastroenterol Hepatol 2020 | 1,32M mortes/ano · 8ª causa global · trajetória 1990-2017 por etiologia |
+| GBD 2023 Causes of Death Collaborators | **41092928** | Lancet 2025 | Atualização mais recente: 292 causas, 204 países, 1990-2023 |
+| GBD 2023 Disease and Injury Collaborators | **41092926** | Lancet 2025 | DALYs + YLDs + healthy life expectancy, 1990-2023 |
+
+## Trajetória de Etiologias (Tier-2)
+
+| Paper | PMID | Journal/Ano | Dado-chave |
+|-------|------|-------------|-----------|
+| Paik JM et al. | **32043613** | Hepatology 2020 | MASLD subindo enquanto HCV cai pós-DAA (2012-2017) |
+| Llamosas-Falcón L et al. | **37684424** | Hepatol Int 2023 | Dose-resposta álcool → cirrose: meta-análise |
+| Owrangi S et al. | **39697043** | Aliment Pharmacol Ther 2024 | Meta-análise MASLD → cirrose: prevalência + mortalidade |
+| Cao Z, Wong F et al. (CLEARED) | **39243795** | Lancet Gastroenterol Hepatol 2024 | Infecção hospitalar = principal complicação aguda globalmente |
 
 ---
 

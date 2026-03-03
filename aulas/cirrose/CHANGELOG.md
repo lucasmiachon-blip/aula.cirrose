@@ -4,6 +4,38 @@
 
 ---
 
+## 2026-03-03 — Etapa 2: fix PMIDs + Case Antônio 60g/dia
+
+- **evidence-db.md**: BAVENO VII `35431106` → `35120736` (artigo original; 35431106 era errata) — 4 ocorrências
+- **CONFIRM / D'Amico**: já corretos no arquivo — nenhuma mudança
+- **Case Antônio**: `40g/dia` → `60g/dia` em todos os arquivos: `slides/01-hook.html`, `index.html` (rebuild), `index.stage-c.html`, `index.stage-b.html`, `references/narrative.md`
+- Commit: `798f99c`
+
+---
+
+## 2026-03-03 — Etapa 1: scan de evidência + NOTES.md criado
+
+- Scan completo de 28 slides + evidence-db.md via PubMed MCP + CrossRef MCP
+- 14 PMIDs validados OK; 2 erros críticos em evidence-db.md identificados (corrigidos na Etapa 2)
+- BAVENO VII PMID canônico determinado: `35120736`
+- 21 referências `[TBD]` catalogadas em NOTES.md
+- Case Antônio divergência 40g/dia (visual) vs 60g/dia (notes cp1) — resolvido: canon = 60g/dia
+- **`aulas/cirrose/NOTES.md` criado** com relatório completo auditável
+- Commit: `28ac27f` (batch 10 hooks) + scan result em NOTES.md
+
+---
+
+## 2026-03-03 — Batch 10: runtime hooks configurados
+
+- `.claude/hooks/check-evidence-db.sh` — PreToolUse/Write: BLOCK slides sem evidence-db lido
+- `.claude/hooks/guard-evidence-db.sh` — PreToolUse/Write: WARN ao editar evidence-db.md
+- `.claude/hooks/build-monitor.sh` — PostToolUse+Failure/Bash: log build em NOTES.md
+- `.claude/hooks/subagent-stop-log.sh` — SubagentStop: log resumo subagent em NOTES.md
+- `.claude/settings.json` atualizado com seção `hooks`
+- Commit: `28ac27f`
+
+---
+
 ## 2026-02-28 — Diagnóstico P0/P1: configs, deprecar, docs
 
 - **vite.config:** Removido globSync; open → cirrose

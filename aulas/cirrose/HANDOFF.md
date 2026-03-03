@@ -28,6 +28,11 @@
 - AUDIT — Fixes I2–I10 (AUDIT-VISUAL.md)
 - Speaker notes EN → PT
 - NNT IC 95%: 4 slides [TBD] (08, 10, 11, 12) — ver tasks/NNT-IC95-REPORT.md
+- **21 referências [TBD]** catalogadas em NOTES.md (linha 100-122) — buscar PMIDs
+- **Narrativa: novo arco aprovado** — hook DM2 → GBD burden → FIB-4 como pivot
+  - Refs GBD prontas: PMIDs 31981519, 41092928, 41092926 (evidence-db.md)
+  - Pendente: slide de burden global + slide DM2/screening guidelines (EASL 2024, ADA 2024)
+- **Tier classification** adicionado ao topo de evidence-db.md — Tier 1/2/3 com regra
 
 ---
 
@@ -68,5 +73,5 @@
 reference-checker → reference-manager → slide-builder → qa-engineer → verifier
 
 ### Conflitos pendentes (resolver quando iniciar conteúdo)
-- BAVENO VII: PMID 35431106 vs 35120736
-- Case Antônio: repo=40g/dia, Notion=60g/dia
+- ~~BAVENO VII: PMID 35431106 vs 35120736~~ **RESOLVIDO** — canon = 35120736 (artigo original)
+- ~~Case Antônio: repo=40g/dia, Notion=60g/dia~~ **RESOLVIDO** — canon = 60g/dia em todos os arquivos
