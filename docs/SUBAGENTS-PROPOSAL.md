@@ -45,16 +45,18 @@
 
 | Subagent | Local | Papel | Conflito? |
 |----------|-------|-------|-----------|
-| reference-checker | .cursor/agents/ | Verifica PMIDs/DOIs em slides | Não |
+| reference-checker | .cursor/agents/ | Extrai PMIDs/DOIs de slides (scan-only, sem MCP). Verificação real → reference-manager. | Não |
 | qa-engineer | .claude/agents/ | Lint, a11y, screenshots | Não — agents/ é pipeline humano |
 | slide-builder | .claude/agents/ | Cria slides HTML por spec | Não |
 | reference-manager | .claude/agents/ | Valida refs, formata citações | Não |
 
-### Adicionar (Opus best practice)
+### Já implementado
 
-| Subagent | Local | Papel |
-|----------|-------|-------|
-| **verifier** | .cursor/agents/, .claude/agents/ | Valida trabalho "pronto" — testa, não aceita claim. model: fast. |
+| Subagent | Local | Status |
+|----------|-------|--------|
+| **verifier** | .claude/agents/ | Implementado (batch 1, 2026-03-03). model: fast. Pipeline: git diff → build → lint → report. |
+
+Nota: verifier só existe no Claude Code (precisa bash/build). Versão Cursor foi descartada por não ter acesso a terminal.
 
 ### Clarificar
 
