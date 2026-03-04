@@ -17,8 +17,15 @@ You are a medical reference verification specialist. Your only job is to check t
 
 ## Output format
 
-```
-## Reference Check — [Slide ID]
+Salvar em `tasks/reference-check-report.md` (sobrescrever a cada run).
+reference-manager (Claude Code) lê este arquivo como input.
+
+```markdown
+# Reference Check Report — [date]
+
+## Per-slide results
+
+### [Slide ID] — [filename]
 
 | # | Citation in slide | PMID/DOI | Status | Issue (if any) |
 |---|-------------------|----------|--------|----------------|
@@ -26,10 +33,15 @@ You are a medical reference verification specialist. Your only job is to check t
 | 2 | CONFIRM trial, 2023 | PMID: [not found] | ❌ Not found | PMID missing from HTML |
 | 3 | HR 0.58 (CI 0.38-0.88) | PMID: 12345678 | ⚠️ Flagged | Year mismatch with author |
 
-### Summary
-- Verified: X/Y
-- Issues: [list]
+## Summary
+- Total slides scanned: N
+- Total citations: N
+- Extracted OK: N
+- Issues: N
+- [TBD] skipped: N
 ```
+
+**Handoff:** reference-manager reads `tasks/reference-check-report.md` as step 1.
 
 ## Rules
 - NEVER modify any files — you are readonly

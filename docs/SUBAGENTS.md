@@ -23,7 +23,7 @@ Subagents são agentes especializados com contexto próprio. Cursor: `.cursor/ag
 | **slide-builder** | .claude/agents/ | Criar slides HTML |
 | **reference-manager** | .claude/agents/ | Validar PMIDs/DOIs |
 | **reference-checker** | .cursor/agents/ | Extrair PMIDs/DOIs de slides (scan-only). Verificação → reference-manager |
-| **verifier** | .claude/agents/ | Validar trabalho "pronto" (Opus best practice) |
+| **verifier** | .claude/agents/ | Validar trabalho "pronto" (model: sonnet) |
 
 ---
 

@@ -12,6 +12,9 @@ ralph_phase: act
 
 # Slide Builder (Claude Code Subagent)
 
+> **Escopo:** Claude Code terminal (sem Notion MCP direto). Recebe spec manual.
+> **Cursor:** Usar `.cursor/skills/medical-slide/` (tem Notion MCP, lê spec do DB).
+
 ## RALPH Gate (Act)
 
 Spec incompleta → STOP. Listar campos faltantes, aguardar Lucas. Dado parece errado → STOP. Reportar discrepância + fonte, aguardar Lucas. Layout impossível com tokens existentes → STOP. Descrever limitação, aguardar Lucas.

@@ -3,7 +3,10 @@ name: medical-slide
 description: Use when creating, implementing, or modifying medical presentation slides. Covers the full workflow from Notion spec to HTML with assertion-evidence structure, tri-mode verification, and clinical data safety. See docs/SKILLS.md for best practices.
 ---
 
-# Medical Slide Builder
+# Medical Slide Builder (Cursor)
+
+> **Escopo:** Cursor (com Notion MCP). Lê spec do Slides DB.
+> **Claude Code:** Usar `.claude/agents/slide-builder.md` (spec manual, sem Notion).
 
 ## When to use
 - User says "crie um slide", "implemente slide", "faça o HTML do slide X"

@@ -38,8 +38,8 @@ Campos obrigatórios: Name, PMID, DOI, AMA Citation, Tier, GRADE Certainty, Rele
 ## Workflow
 
 ```bash
-# 1. Se reference-checker (Cursor) já rodou: usar tabela de PMIDs/DOIs como input
-# 2. Se não: escanear slides HTML direto
+# 1. Ler tasks/reference-check-report.md (output do reference-checker). Se não existe: escanear slides HTML direto.
+# 2. Parse da tabela de PMIDs/DOIs como input
 # 3. Validar cada PMID via PubMed MCP
 # 4. Validar cada DOI via CrossRef MCP
 # 5. Via Scite MCP: checar se paper tem citações contradicting (flag se >5)

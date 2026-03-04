@@ -81,11 +81,11 @@ description: O que faz e quando usar. Max 1024 chars.
 
 | Skill | Local | Papel |
 |-------|-------|-------|
-| medical-slide | .cursor | Cursor: Notion→HTML, tri-mode, execução |
+| medical-slide | .cursor | Cursor: Notion→HTML, tri-mode, execução. Ver `.claude/agents/slide-builder.md` para Claude Code |
 | visual-qa | .cursor | Cursor: Playwright, a11y, screenshots |
-| docs-audit | .cursor + .claude | Cursor: subagent. Claude Code: auditoria MD (sem conflito — superfície diferente) |
-| assertion-evidence | .claude | Claude: validação formato (não executa HTML) |
-| medical-data | .claude | Claude: verificação dados (complementar) |
+| docs-audit | .cursor (canônico) | Cursor: execução direta. Claude Code: redirect em `.claude/skills/docs-audit/` delega via subagent |
+| assertion-evidence | .claude | Claude: **validação** formato (não cria — usar slide-builder para criar) |
+| medical-data | .claude | Claude: verificação dados (complementar a reference-manager) |
 
 ## Papéis — Sem conflito
 

@@ -1,10 +1,10 @@
-# HANDOFF — Projeto Aulas Magnas (atualizado 2026-02-27)
+# HANDOFF — Projeto Aulas Magnas (atualizado 2026-03-04)
 
 ## Estado geral
 
 | Aula | Slides HTML | QA Visual | Status |
 |------|-------------|-----------|--------|
-| **Cirrose** | 28/28 (20 core + 8 APP) | ✅ 24/fev — 28/28 OK | HTML completo, speaker notes PT pendente |
+| **Cirrose** | 28/28 (20 core + 8 APP) + D'Amico em progresso | ✅ 24/fev base; D'Amico QA 04/mar | HTML completo, D'Amico slide WIP, speaker notes PT pendente |
 | **Meta-análise** | 0/16 | — | Blueprint v2 no Notion, sem HTML |
 | **GRADE** | 58/58 | — | Migração completa (Aulas_core → aulas-magnas) |
 | **Osteoporose** | 70/70 | — | Migração completa (Aulas_core → aulas-magnas) |
@@ -34,7 +34,7 @@
 - **Manifest:** `slides/_manifest.js` (source of truth para ordem e panel states)
 - **Wiring:** `slide-registry.js` (custom anims, panel, click-reveal, meld)
 - **Sections:** 28 (20 core + 8 APP)
-- **QA Visual:** 28/28 screenshots OK (24/fev). Média 2.7/5.0 — redesign slide-a-slide pendente.
+- **QA Visual:** 28/28 screenshots OK (24/fev). D'Amico slide QA 4 estados (04/mar). Média 2.7/5.0 — redesign slide-a-slide pendente.
 - **CSS:** `cirrose.css` + `archetypes.css` (consolidado FASE 2)
 - **Cirrose:** Pendências → `aulas/cirrose/HANDOFF.md` · Claude.ai → `aulas/cirrose/HANDOFF-CLAUDE-AI.md`
 
@@ -66,17 +66,19 @@ Ver `docs/MCP-ENV-VARS.md` para variáveis necessárias.
 | 1 | **Loops seguros** | Viabilidade de loops rodando enquanto Lucas estuda: QA slides, mudanças, Perplexity/pesquisa em bg, melhora narrativa, sync Notion, etc. |
 | 2 | **Verbosity** | AUDIT-VISUAL.md (404 linhas) — split ou index |
 | 3 | **Biblia narrativa** | docs/biblia-narrativa.md (302 linhas) — index ou split |
-| 4 | **Alinhamento Notion** | SYNC-NOTION-REPO, References DB, Slides DB status |
-| 5 | **Conflitos** | Redundâncias .cursor vs .claude, paths |
+| 4 | ~~**Alinhamento Notion**~~ | ✅ DONE (03/mar) — References DB schema + must-read trials |
+| 5 | ~~**Conflitos**~~ | ✅ DONE (04/mar) — Auditoria .cursor vs .claude, README atualizado, handoff format definido |
 | 6 | **HTML** | Só após 1–5: ERRO-008, AUDIT fixes, speaker notes PT |
 
 ## Pendências globais
 
 1. Speaker notes: converter EN → PT em todos os 28 slides
 2. References DB: 15 refs pendentes de popular no Notion
-3. Slides DB: sincronizar pipeline status (draft/html-ready → qa-passed)
+3. Slides DB: 24 slides pendentes update Pipeline Status → qa-passed no Notion
 4. Ghost text em transições: avaliar `transition: none` ou workaround
 5. Meta-análise: iniciar implementação HTML
+6. D'Amico slide: 7 pendências — ver `aulas/cirrose/HANDOFF.md`
+7. 21 referências [TBD] — PMIDs a buscar (catalogadas em `aulas/cirrose/NOTES.md`)
 
 ## Notion
 
@@ -87,4 +89,4 @@ Ver `docs/MCP-ENV-VARS.md` para variáveis necessárias.
 `npm run build:cirrose`, `npm run lint:slides`, `npm run preview` — funcionam offline.
 
 ---
-*Atualizado 03/03/2026 — Prioridades: verbosity, biblia, Notion, conflitos. HTML por último.*
+*Atualizado 04/03/2026 — Prioridades 4-5 concluídas. Próximo: loops seguros, verbosity, biblia, HTML.*

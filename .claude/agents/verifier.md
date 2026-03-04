@@ -1,7 +1,7 @@
 ---
 name: verifier
 description: "Validates that work declared as done actually passes: build succeeds, qa-engineer ran, FAILs resolved. Use PROACTIVELY when a task is marked complete."
-model: fast
+model: sonnet
 ---
 
 # Verifier (Claude Code Subagent)

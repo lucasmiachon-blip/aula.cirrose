@@ -1,6 +1,6 @@
 ---
 name: assertion-evidence
-description: Cria e valida slides médicos no formato Assertion-Evidence — título como afirmação clínica verificável (max 2 linhas) + evidência visual dominante no corpo. Ativar ao criar, editar ou revisar qualquer HTML em aulas/*/index.html.
+description: Valida slides médicos no formato Assertion-Evidence — título como afirmação clínica verificável (max 2 linhas) + evidência visual dominante no corpo. Ativar ao editar ou revisar qualquer HTML em aulas/*/slides/*.html. Não cria slides (usar slide-builder para isso).
 ---
 
 ## Formato obrigatório

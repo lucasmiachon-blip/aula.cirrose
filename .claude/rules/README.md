@@ -1,17 +1,35 @@
-# .claude/rules — Deprecation Notice
+# .claude/rules — Relação com .cursor/rules
 
-> **Fonte canônica:** `.cursor/rules/` (formato .mdc, frontmatter)
+> `.cursor/rules/` e `.claude/rules/` são **complementares, não redundantes**.
 
-As regras nesta pasta foram migradas ou consolidadas em `.cursor/rules/`:
+## Uso por superfície
 
-| .claude | .cursor | Status |
-|---------|---------|--------|
-| medical-data.md | medical-data.mdc | .cursor canônico; .claude mantido como referência |
-| slide-editing.md | slide-editing.mdc | .cursor canônico |
-| design-principles.md | design-principles.mdc | .cursor canônico |
-| css-errors.md | css-errors.mdc | .cursor canônico |
-| design-system.md | design-system.mdc, cirrose-design.mdc | .cursor canônico |
-| motion-qa.md | motion-qa.mdc | Migrado |
-| reveal-patterns.md | reveal-patterns.mdc | Migrado |
+| Superfície | Diretório | Papel |
+|------------|-----------|-------|
+| **Cursor** | `.cursor/rules/*.mdc` | Quick reference com frontmatter (globs, alwaysApply) |
+| **Claude Code** | `.claude/rules/*.md` | Referência completa (clusters detalhados, princípios expandidos, workflows 5-tier) |
+| **Claude.ai** | `.claude/rules/*.md` | Upload manual para Project Knowledge |
 
-**Uso:** Para Cursor/Claude Code, preferir `.cursor/rules/`. Arquivos aqui mantidos para Claude.ai (web) ou referência legada.
+## Status por par
+
+| .claude | .cursor | Quem é mais completo |
+|---------|---------|---------------------|
+| medical-data.md | medical-data.mdc | **.claude** (tabela Tier 1, checklist E21, WebSearch fallback) |
+| slide-editing.md | slide-editing.mdc | **Ambos** (.cursor: tri-mode; .claude: E-codes, batch workflow) |
+| design-principles.md | design-principles.mdc | **.claude** (27 princípios vs 11 — faltam Andragogia, F-pattern, Fill Ratio) |
+| css-errors.md | css-errors.mdc | **.claude** (5 clusters detalhados, E30 regex, reincidências) |
+| design-system.md | design-system.mdc + cirrose-design.mdc | **Split OK** (falta tabela WCAG no .cursor) |
+| motion-qa.md | motion-qa.mdc | **.claude** (workflow 5 tiers, Gemini prompt, adequação por tipo) |
+| reveal-patterns.md | reveal-patterns.mdc | **Ambos** (.claude: fragments, events, viewDistance; .cursor: GSAP timeline) |
+
+## Regras sem par
+
+| Arquivo | Existe em | Observação |
+|---------|-----------|------------|
+| core-constraints.mdc | .cursor only | Context window thresholds (70/85/95%) |
+| plan-mode.mdc | .cursor only | Escalação por complexidade |
+| notion-mcp.mdc | .cursor only | Workflow Notion + IDs |
+
+## Regra
+
+**Em caso de conflito:** conteúdo mais detalhado prevalece, independente do diretório.
