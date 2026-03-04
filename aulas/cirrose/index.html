@@ -10,7 +10,7 @@
   <div class="case-panel hidden" id="case-panel" data-severity="neutral">
     <div class="panel-header">
       <div class="panel-dot"></div>
-      <span class="panel-name">Seu Antônio, 55a</span>
+      <span class="panel-name">Antônio, 55a</span>
     </div>
     <div class="panel-fields"></div>
     <div class="panel-events"></div>
@@ -50,7 +50,8 @@
 
     <aside class="notes">
 [0:00-0:20] Micro-hook projetado enquanto audiência se acomoda.
-"Homem, 55 anos. FIB-4: 3,2. Plaquetas: 118 mil. O que você faz na segunda-feira?"
+"Homem, 55 anos. Diabético. Bebe 60 gramas por dia. Sem queixas.
+O que os exames de rotina estão escondendo?"
 PAUSA 3s. Deixar a pergunta pairar.
 [TRANSIÇÃO] Título aparece. Passar para HOOK.
     </aside>
@@ -76,22 +77,17 @@ PAUSA 3s. Deixar a pergunta pairar.
         <h3 class="hook-patient-name">Antônio, 55 anos</h3>
         <p class="hook-patient-desc">
           Caminhoneiro · IMC 31 · DM2<br>
-          Etilismo 60 g/dia há 20 anos
+          ~5 latas de cerveja/dia há 20 anos (60 g álcool)
         </p>
         <p class="hook-patient-ref">
-          Encaminhado pelo clínico geral para avaliação hepática
+          Encaminhado da atenção primária
         </p>
       </div>
     </div>
 
     <!-- ━━ BEAT 1: Labs + pergunta abaixo (Click 1) ━━━━━━━━━━━ -->
     <div class="hook-beat hook-beat--hidden" data-hook-beat="1">
-      <div class="hook-labs-row">
-        <div class="hook-lab hook-lab--flag">
-          <span class="hook-lab-label">FIB-4</span>
-          <span class="hook-lab-value" data-animate="countUp" data-target="3.2" data-decimals="1">0</span>
-          <span class="hook-lab-ref">&gt; 2,67</span>
-        </div>
+      <div class="hook-labs-row" data-animate="stagger" data-stagger="0.15">
         <div class="hook-lab">
           <span class="hook-lab-label">AST</span>
           <span class="hook-lab-value">58</span>
@@ -102,19 +98,23 @@ PAUSA 3s. Deixar a pergunta pairar.
           <span class="hook-lab-value">42</span>
           <span class="hook-lab-ref">U/L</span>
         </div>
-        <div class="hook-lab hook-lab--flag">
+        <div class="hook-lab">
           <span class="hook-lab-label">PLQ</span>
           <span class="hook-lab-value">118<small>k</small></span>
-          <span class="hook-lab-ref">&lt; 150k</span>
+          <span class="hook-lab-ref">/mm³</span>
         </div>
         <div class="hook-lab">
           <span class="hook-lab-label">Albumina</span>
           <span class="hook-lab-value">3,6</span>
           <span class="hook-lab-ref">g/dL</span>
         </div>
+        <div class="hook-lab">
+          <span class="hook-lab-label" style="text-transform:none">HbA1c</span>
+          <span class="hook-lab-value" data-animate="countUp" data-target="7.0" data-decimals="1">0</span>
+          <span class="hook-lab-ref">%</span>
+        </div>
       </div>
-      <p class="hook-question-lead">Sem queixas.</p>
-      <h2 class="hook-question">Qual a próxima conduta?</h2>
+      <p class="hook-punchline">Sem queixas.</p>
     </div>
 
   </div>
@@ -123,92 +123,310 @@ PAUSA 3s. Deixar a pergunta pairar.
 [BEAT 0 · auto] Caso
 "Antônio. 55 anos. Caminhoneiro.
 IMC 31, diabético tipo 2, etilista — 60 gramas por dia há 20 anos.
-O clínico geral pediu exames e encaminhou."
+Exames de rotina na atenção primária. Encaminharam."
 
-[BEAT 1 · click] Labs + pergunta
-"Olhem os números: FIB-4 de 3,2 — acima do corte de 2,67.
-Plaquetas 118 mil — abaixo de 150. AST 58, ALT 42, albumina 3,6.
-Sem queixas. Qual a próxima conduta?"
-← seta esquerda/cima volta para caso.
+[BEAT 1 · click] Labs
+"Olhem os números: AST 58, ALT 42 — reparem, AST maior que ALT.
+Plaquetas 118 mil — abaixo de 150. Albumina 3,6.
+HbA1c 7 — diabético mal controlado.
+Sem queixas."
 PAUSA 5s.
-"Temos esses números. Para interpretá-los, precisamos conhecer
-a história natural da doença hepática como um continuum."
-→ avançar para s-a1-01 (D'Amico staging)
+"Vamos voltar ao caso do Antônio várias vezes ao longo da aula.
+Esses números parecem quase normais. Quase."
+→ avançar para próximo slide
   </aside>
 </section>
 
-<section id="s-a1-01">
-    <div class="slide-inner archetype-figure">
-      <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-      <h2 class="slide-headline">Cirrose é continuum — mortalidade 1% a 57%/ano, sem fronteiras</h2>
+<!-- ============================================================
+     s-a1-01 — Burden global de cirrose
+     Archetype: hero-stat (state machine)
+     States: 0=hero countUp, 1=iceberg bars, 2=source
+     ============================================================ -->
+<section id="s-a1-01"
+         data-timing="90"
+         data-panel-state="neutral">
 
-      <div class="figure-split">
-        <figure class="slide-figure">
-          <img src="./assets/villanueva-2025-fig1.png"
-               alt="Continuum da doença hepática crônica avançada: cACLD → CSPH → dACLD">
-        </figure>
+  <div class="slide-inner archetype-hero-stat">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Cirrose mata 1,32 milhão por ano — e a epidemia silenciosa está crescendo</h2>
 
-        <div class="hero-stat">
-          <div class="hero-value">
-            <span class="hero-number" data-animate="countUp" data-target="57">0</span><span class="hero-unit">%</span>
-          </div>
-          <p class="hero-label">mortalidade/ano<br>na descompensação</p>
-          <p class="hero-context">vs 1% compensado</p>
+    <!-- Hero block — repositions to top on click 1 -->
+    <div class="burden-hero">
+      <span class="hero-number" data-color="danger" data-animate="countUp" data-target="1.32" data-decimals="2">0</span>
+      <span class="hero-unit">milhão mortes/ano</span>
+      <p class="hero-label">8ª causa de morte global</p>
+      <p class="hero-context">GBD 2017 Cirrhosis Collaborators · Lancet Gastroenterol Hepatol 2020</p>
+      <div class="burden-pulse" aria-hidden="true"></div>
+    </div>
+
+    <!-- Iceberg: compensados vs descompensados (click 1) -->
+    <div class="burden-iceberg">
+      <div class="burden-bar-row">
+        <div class="burden-bar-track">
+          <div class="burden-bar-fill burden-bar-fill--comp"></div>
+        </div>
+        <div class="burden-bar-meta">
+          <span class="burden-bar-value burden-bar-value--safe"><span class="burden-bar-icon">✓</span> <span data-countup-target="112">0</span>M</span>
+          <span class="burden-bar-label">compensados</span>
         </div>
       </div>
 
-      <p class="source-tag" data-reveal="1">D'Amico et al. J Hepatol 2006 · Villanueva et al. Nat Rev Gastroenterol Hepatol 2025</p>
-    </div>
-
-    <aside class="notes">
-[0:00-0:30] Olhem para este espectro. À esquerda, compensado — o paciente que sorri na sua frente.
-À direita, descompensado — o paciente que chega de ambulância.
-No meio, o limiar. HVPG 10 — hipertensão portal clinicamente significativa.
-A partir daqui, tudo muda.
-
-[0:30-1:00] D'Amico descreveu 5 estágios. O que importa pra vocês: a mortalidade salta de 1%
-para 57% quando o paciente cruza o limiar da descompensação. PAUSA 3s.
-
-[1:00-1:30] Um detalhe que o slide não mostra: na MASLD, a causa número 1 de morte
-NÃO é hepática — é cardiovascular. Só passa a ser hepática quando a fibrose chega
-ao estágio 2 ou mais. O fígado é silencioso até que não é mais.
-
-[1:30-2:00] E uma nota sobre o Seu Antônio: ele é motorista, tá sorrindo, enzimas "normais".
-Mas o FIB-4 dele é 3,2. Ele já está neste espectro. Onde exatamente, a gente vai descobrir agora.
-
-[DATA] Fonte: D'Amico et al. J Hepatol 2006, Fig.1 | Verificado: 2026-02-26
-    </aside>
-  </section>
-
-<section id="s-a1-02">
-    <div class="slide-inner">
-      <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-      <div data-animate="stagger" data-stagger="0.25">
-        <h2 class="slide-headline">FIB-4 → elastografia → CSPH: 3 exames substituem a biópsia</h2>
-
-        <figure class="slide-figure">
-        <img src="./assets/villanueva-2025-fig2a.png"
-             alt="Diagnóstico de CSPH por testes não invasivos: rule out (LSM ≤15 + plaquetas ≥150K), zona cinzenta (LSM 15-20 + plaquetas &lt;110K), rule in (LSM >20 + plaquetas &lt;150K ou LSM ≥25)">
-        </figure>
+      <div class="burden-bar-row">
+        <div class="burden-bar-track">
+          <div class="burden-bar-fill burden-bar-fill--decomp"></div>
+        </div>
+        <div class="burden-bar-meta">
+          <span class="burden-bar-value burden-bar-value--danger"><span class="burden-bar-icon">✕</span> <span data-countup-target="10.6">0</span>M</span>
+          <span class="burden-bar-label">descompensados</span>
+        </div>
       </div>
 
-      <p class="source-tag">Villanueva et al. Nat Rev Gastroenterol Hepatol 2025 — baseado em Baveno VII</p>
+      <div class="burden-trend">
+        <span class="burden-trend-value">⚠ ↑ 17%</span>
+        <span class="burden-trend-label">incidência/década</span>
+      </div>
     </div>
 
-    <aside class="notes">
-[0:00-1:00 PIPELINE]
-"FIB-4 é o filtro no consultório. Custo zero. ≥1,3 = encaminhar para elastografia."
-"Rule-of-5: LSM &lt;10 descarta. 10-15 zona cinza. 15-20 cACLD confirmado. ≥25 CSPH."
+    <p class="source-tag" style="opacity:0">GBD 2017 Cirrhosis Collaborators (PMID 31981519) · 195 países · 1990–2017</p>
+  </div>
 
-[1:00-2:00 BAVENO VII]
-"Esse pipeline vem do Baveno VII 2022, validado em >10.000 pacientes."
-"Sterling 2024 (AASLD NILDA): codificou LSM + PLQ para CSPH, Rule-of-5, dispensar EDA de screening."
+  <aside class="notes">
+[0:00-0:30] "Antes de classificar, vamos dimensionar."
+"Um milhão e 320 mil mortes por ano. Só por cirrose."
+PAUSA 3s.
+"Dado do GBD — Global Burden of Disease — 195 países, publicado no Lancet.
+É a 8ª causa de morte no mundo. Mais que câncer de rim. Mais que leucemia."
 
-[2:00-3:20 CAVEAT MASLD]
-"ATENÇÃO para pacientes obesos com MASLD: IPD meta-análise Bañares 2025 mostrou que LSM ≥25 tem PPV de apenas 0,67 em obesos (vs 0,92 geral). Considerar modelo ANTICIPATE±NASH (≥75% threshold → PPV 0,83)."
-"Seu Antônio: IMC 31, MASLD — esse caveat se aplica diretamente."
-    </aside>
-  </section>
+[0:30-1:00] click → escala e tendência
+"Olhem a escala: 112 milhões com cirrose compensada — muitos sem saber.
+10 milhões e 600 mil já descompensados.
+E a incidência subiu 17% em uma década — MASLD subindo enquanto hepatite C cai pós-antivirais."
+
+[1:00-1:30] click → source, ponte para D'Amico
+"Mas esses 122 milhões não morrem da mesma forma.
+A diferença entre compensado e descompensado é um abismo de mortalidade.
+Vamos ver exatamente onde está esse abismo."
+→ avançar
+
+[DATA] GBD 2017 Cirrhosis Collaborators, Lancet Gastroenterol Hepatol 2020 (PMID 31981519) | 1.32M mortes, 112M comp, 10.6M decomp | Verificado: 2026-03-04
+[DATA] Incidência +16.7% (2009-2019): GBD 2019 analysis, Ann Med 2024 | Verificado: 2026-03-04
+[DATA] MASLD trend: Paik JM et al., Hepatology 2020 (PMID 32043613) | Verificado: 2026-03-04
+  </aside>
+</section>
+
+<!-- ============================================================
+     s-a1-damico — D'Amico staging (2006→2014→2024)
+     Archetype: pathway (4+1 blocos, state machine)
+     States: 0=auto 4 stages, 1=+stage 5, 2=overlay, 3=source
+     ============================================================ -->
+<section id="s-a1-damico"
+         data-timing="150"
+         data-panel-state="neutral">
+
+  <div class="slide-inner archetype-pathway">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">D'Amico redefiniu o prognóstico da cirrose 3 vezes em 18 anos</h2>
+
+    <span class="damico-badge damico-badge--context">D'Amico 2006 · 118 estudos · mortalidade/ano</span>
+
+    <div class="pathway-track">
+
+      <!-- Estádio 1: Compensado, sem CSPH -->
+      <div class="pathway-stage">
+        <span class="pathway-number">Estádio 1</span>
+        <span class="pathway-value" data-target="1" data-countup>0</span>
+        <span class="pathway-unit">%/ano</span>
+        <span class="pathway-label">Compensado sem varizes</span>
+        <div class="pathway-divider pathway-divider--csph" aria-hidden="true">
+          <span class="pathway-divider-label">CSPH</span>
+        </div>
+      </div>
+
+      <!-- Estádio 2: Compensado, com CSPH -->
+      <div class="pathway-stage">
+        <span class="pathway-number">Estádio 2</span>
+        <span class="pathway-value" data-target="3.4" data-countup>0</span>
+        <span class="pathway-unit">%/ano</span>
+        <span class="pathway-label">Compensado com varizes</span>
+        <div class="pathway-divider" aria-hidden="true">
+          <span class="pathway-divider-label">Descompensação</span>
+        </div>
+      </div>
+
+      <!-- Estádio 3: Ascite (D'Amico 2006 separou de hemorragia) -->
+      <div class="pathway-stage">
+        <span class="pathway-number">Estádio 3</span>
+        <span class="pathway-value" data-target="20" data-countup>0</span>
+        <span class="pathway-unit">%/ano</span>
+        <span class="pathway-label">Ascite</span>
+      </div>
+
+      <!-- Estádio 4: Hemorragia varicosa -->
+      <div class="pathway-stage">
+        <span class="pathway-number">Estádio 4</span>
+        <span class="pathway-value" data-target="57" data-countup>0</span>
+        <span class="pathway-unit">%/ano</span>
+        <span class="pathway-label">Hemorragia varicosa</span>
+      </div>
+
+      <!-- Estádio 5: collapsed, revealed on click 1 -->
+      <div class="pathway-stage pathway-stage--collapsed">
+        <span class="damico-badge">D'Amico 2014</span>
+        <span class="pathway-number">Estádio 5</span>
+        <span class="pathway-value" data-target="88" data-countup>0</span>
+        <span class="pathway-unit">%/5 anos</span>
+        <span class="pathway-label">Infecção ou AKI</span>
+        <span class="pathway-ref">PMID 24654740 · n=494</span>
+      </div>
+
+      <!-- Further decompensation overlay (state 2) -->
+      <div class="damico-further">
+        <span class="damico-further-stat">Ascite: pior prognóstico que HDA</span>
+        <span class="damico-further-detail">30% vs 20% em 5 anos (D'Amico 2014)</span>
+        <span class="damico-further-stat">60% progridem para further decompensation</span>
+        <span class="damico-further-hr">HR 1,46</span>
+        <span class="damico-further-ci">(IC 95%: 1,23–1,71)</span>
+        <span class="damico-further-ref">D'Amico 2024 · n=2.028 · PMID 37916970</span>
+      </div>
+
+    </div>
+
+    <p class="source-tag" style="opacity:0">D'Amico G et al. J Hepatol 2006; Aliment Pharmacol Ther 2014; Hepatology 2024 · Baveno VII, J Hepatol 2022</p>
+  </div>
+
+  <aside class="notes">
+[0:00-0:40] D'Amico 2006 — blocos aparecem com stagger
+"4 estádios. D'Amico publicou em 2006 — uma meta-análise de 118 estudos, a maior da época."
+"Olhem as duas linhas. A primeira — CSPH, hipertensão portal clinicamente significativa.
+Baveno VII definiu os critérios não-invasivos pra essa fronteira."
+"A segunda — descompensação. Aqui D'Amico separou: ascite é estádio 3, hemorragia é estádio 4."
+"1% por ano à esquerda. 57% à direita. Essa é a escala de mortalidade."
+PAUSA 3s.
+
+[0:40-1:10] click → D'Amico 2014
+"8 anos depois, o mesmo D'Amico voltou — agora com dados de 494 pacientes acompanhados 25 anos."
+"Adicionou o 5º estádio: quando a descompensação se complica com infecção ou lesão renal aguda."
+"Mortalidade em 5 anos: 88%. Quase 9 em 10."
+ÊNFASE: "E fez uma mudança que poucos perceberam: reordenou os estádios.
+Na revisão de 2014, ascite isolada tem mortalidade PIOR que sangramento isolado.
+30% vs 20% em 5 anos. Ascite mata mais — e isso muda a prioridade clínica."
+
+[1:10-1:40] click → D'Amico 2024
+"E em 2024, D'Amico publicou o estudo mais recente — 2028 pacientes, multicêntrico."
+"60% dos que descompensam progridem para further decompensation.
+Isso DOBRA a mortalidade. HR 1,46 — e o intervalo de confiança não cruza 1."
+PAUSA 2s.
+"Três publicações do mesmo autor, ao longo de 18 anos, redefiniram como a gente
+classifica e prognostica a cirrose. É essa evolução que sustenta o Baveno VII."
+
+[1:40-2:00] click → source
+Ponte para caso:
+"E o Seu Antônio? FIB-4 de 3,2, plaquetas 118k. Ele está do lado esquerdo ou direito dessas linhas?"
+"Precisamos de 3 exames pra responder."
+→ avançar para FIB-4/elastografia
+
+[DATA] D'Amico 2006: J Hepatol (PMID 16298014) | 118 estudos | 4 estádios: 1=sem varizes 1%/a, 2=varizes 3.4%/a, 3=ascite 20%/a, 4=HDA 57%/a | Verificado: 2026-03-04
+[DATA] D'Amico 2014: Aliment Pharmacol Ther (PMID 24654740) | 494 pts | Estádio 5 (88%/5a), reordenação ascite>HDA (30% vs 20%/5a) | Verificado: 2026-03-04
+[DATA] D'Amico 2024: Hepatology (PMID 37916970) | 2028 pts | Further decomp 60%, HR 1.46 (1.23-1.71) | Verificado: 2026-03-04
+[DATA] Baveno VII: J Hepatol 2022 (PMID 35120736) | CSPH, cACLD, NITs | Verificado: 2026-03-04
+  </aside>
+</section>
+
+<!-- ============================================================
+     s-a1-02 — Paradigma cACLD/dACLD (SplitText + Rule-of-5)
+     Archetype: flow (state machine)
+     States: 0=auto dissolve "Cirrose", 1=Rule-of-5, 2=Antônio, 3=source
+     ============================================================ -->
+<section id="s-a1-02"
+         data-timing="120"
+         data-panel-state="neutral">
+
+  <div class="slide-inner archetype-flow">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">De "cirrose" a cACLD/dACLD — testes não invasivos substituem a biópsia</h2>
+
+    <div class="paradigm-container">
+
+      <!-- Old term: dissolves via SplitText -->
+      <div class="paradigm-old" aria-hidden="true">Cirrose</div>
+
+      <!-- New spectrum: cACLD ━━━ dACLD -->
+      <div class="paradigm-spectrum">
+        <span class="paradigm-term paradigm-term--cacld">cACLD</span>
+        <div class="paradigm-bar" aria-hidden="true"></div>
+        <span class="paradigm-term paradigm-term--dacld">dACLD</span>
+      </div>
+      <span class="paradigm-ref">Baveno VII, J Hepatol 2022</span>
+
+      <!-- Rule-of-5 scale (click 1) -->
+      <div class="rule-of-5">
+        <div class="rule-scale">
+          <div class="rule-zone" data-zone-idx="0">
+            <span class="rule-zone-range">&lt;10</span>
+            <span class="rule-zone-label">cACLD excluído</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="1">
+            <span class="rule-zone-range">10–15</span>
+            <span class="rule-zone-label">Zona cinzenta</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="2">
+            <span class="rule-zone-range">15–20</span>
+            <span class="rule-zone-label">cACLD provável</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="3">
+            <span class="rule-zone-range">20–25</span>
+            <span class="rule-zone-label">cACLD + CSPH provável</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="4">
+            <span class="rule-zone-range">≥25</span>
+            <span class="rule-zone-label">CSPH rule-in</span>
+          </div>
+        </div>
+        <p class="rule-axis-label">Rule-of-5 · Elastografia hepática (kPa)</p>
+      </div>
+
+      <!-- Antônio plotted (click 2) -->
+      <div class="antonio-plot">
+        <p class="antonio-data">Antônio: LSM 21 kPa · PLQ 118k</p>
+        <p class="antonio-conclusion">
+          <span class="cacld-tag">cACLD confirmado.</span>
+          <span class="csph-tag">CSPH não descartado.</span>
+        </p>
+      </div>
+
+    </div>
+
+    <p class="source-tag" style="opacity:0">Baveno VII (PMID 35120736) · Sterling 2024 AASLD NILDA · Villanueva 2025 NRGHE</p>
+  </div>
+
+  <aside class="notes">
+[0:00-0:30] Auto: "Cirrose" dissolve → espectro cACLD/dACLD
+"Esqueçam a palavra 'cirrose'. Baveno VII em 2022 enterrou esse rótulo binário."
+"Agora pensamos em espectro: cACLD — compensated advanced chronic liver disease.
+E dACLD — decompensated."
+"Não é sim-ou-não. É um continuum."
+PAUSA 2s.
+
+[0:30-1:00] Click 1 → Rule-of-5
+"E a ferramenta-chave pra posicionar o paciente nesse espectro é a elastografia.
+Rule-of-5: a cada 5 kPa, muda o estágio."
+"Abaixo de 10: descartado. 10 a 15: zona cinza, investigar. 15 a 20: cACLD provável.
+20 a 25: CSPH provável. Acima de 25: CSPH confirmado."
+
+[1:00-1:40] Click 2 → Antônio plotado
+"Seu Antônio: LSM 21 kPa. Zona 20-25."
+"Plaquetas 118 mil — abaixo de 150k, não conseguimos descartar CSPH."
+"cACLD confirmado. CSPH não descartado. Isso já muda a conduta:
+precisa de rastreio de varizes, considerar NSBB."
+
+[1:40-2:00] Click 3 → source
+→ avançar para MELD
+
+[DATA] Baveno VII: J Hepatol 2022 (PMID 35120736) | cACLD, CSPH, NITs, Rule-of-5 | Verificado: 2026-03-04
+[DATA] Sterling 2024: Hepatology (AASLD NILDA) | LSM + PLQ thresholds | Verificado: 2026-03-04
+[DATA] Antônio: LSM 21 kPa, PLQ 118k, FIB-4 3.2 | Caso fictício
+  </aside>
+</section>
 
 <section id="s-a1-03">
     <div class="slide-inner archetype-interactive">
@@ -1147,6 +1365,8 @@ PAUSA 2s.
   import Reveal from 'reveal.js';
   import Notes from 'reveal.js/plugin/notes/notes.esm.js';
   import gsap from 'gsap';
+  import { SplitText } from 'gsap/SplitText';
+  gsap.registerPlugin(SplitText);
   import 'reveal.js/dist/reveal.css';
   import '../../shared/css/base.css';
   import './cirrose.css';

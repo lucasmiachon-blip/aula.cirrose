@@ -53,14 +53,16 @@ function animCountUp(gsap, el) {
     return;
   }
   const isDecimal = raw.includes('.');
+  const decimals = parseInt(el.dataset.decimals, 10);
+  const fractionDigits = !isNaN(decimals) ? decimals : (isDecimal ? 1 : 0);
   const obj = { val: 0 };
   gsap.to(obj, {
     val: target,
     duration: 1.5,
     ease: 'power2.out',
     onUpdate: () => {
-      el.textContent = isDecimal
-        ? obj.val.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+      el.textContent = fractionDigits > 0
+        ? obj.val.toLocaleString('pt-BR', { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits })
         : Math.round(obj.val).toLocaleString('pt-BR');
     }
   });
@@ -70,8 +72,11 @@ function animCountUpFinal(el) {
   const raw = (el.dataset.target || '').replace(',', '.');
   const num = parseFloat(raw);
   if (isNaN(num)) return;
-  el.textContent = raw.includes('.')
-    ? num.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+  const isDecimal = raw.includes('.');
+  const decimals = parseInt(el.dataset.decimals, 10);
+  const fractionDigits = !isNaN(decimals) ? decimals : (isDecimal ? 1 : 0);
+  el.textContent = fractionDigits > 0
+    ? num.toLocaleString('pt-BR', { minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits })
     : Math.round(num).toLocaleString('pt-BR');
 }
 

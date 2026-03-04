@@ -1,29 +1,95 @@
-<section id="s-a1-02">
-    <div class="slide-inner">
-      <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-      <div data-animate="stagger" data-stagger="0.25">
-        <h2 class="slide-headline">FIB-4 → elastografia → CSPH: 3 exames substituem a biópsia</h2>
+<!-- ============================================================
+     s-a1-02 — Paradigma cACLD/dACLD (SplitText + Rule-of-5)
+     Archetype: flow (state machine)
+     States: 0=auto dissolve "Cirrose", 1=Rule-of-5, 2=Antônio, 3=source
+     ============================================================ -->
+<section id="s-a1-02"
+         data-timing="120"
+         data-panel-state="neutral">
 
-        <figure class="slide-figure">
-        <img src="./assets/villanueva-2025-fig2a.png"
-             alt="Diagnóstico de CSPH por testes não invasivos: rule out (LSM ≤15 + plaquetas ≥150K), zona cinzenta (LSM 15-20 + plaquetas &lt;110K), rule in (LSM >20 + plaquetas &lt;150K ou LSM ≥25)">
-        </figure>
+  <div class="slide-inner archetype-flow">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">De "cirrose" a cACLD/dACLD — testes não invasivos substituem a biópsia</h2>
+
+    <div class="paradigm-container">
+
+      <!-- Old term: dissolves via SplitText -->
+      <div class="paradigm-old" aria-hidden="true">Cirrose</div>
+
+      <!-- New spectrum: cACLD ━━━ dACLD -->
+      <div class="paradigm-spectrum">
+        <span class="paradigm-term paradigm-term--cacld">cACLD</span>
+        <div class="paradigm-bar" aria-hidden="true"></div>
+        <span class="paradigm-term paradigm-term--dacld">dACLD</span>
+      </div>
+      <span class="paradigm-ref">Baveno VII, J Hepatol 2022</span>
+
+      <!-- Rule-of-5 scale (click 1) -->
+      <div class="rule-of-5">
+        <div class="rule-scale">
+          <div class="rule-zone" data-zone-idx="0">
+            <span class="rule-zone-range">&lt;10</span>
+            <span class="rule-zone-label">cACLD excluído</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="1">
+            <span class="rule-zone-range">10–15</span>
+            <span class="rule-zone-label">Zona cinzenta</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="2">
+            <span class="rule-zone-range">15–20</span>
+            <span class="rule-zone-label">cACLD provável</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="3">
+            <span class="rule-zone-range">20–25</span>
+            <span class="rule-zone-label">cACLD + CSPH provável</span>
+          </div>
+          <div class="rule-zone" data-zone-idx="4">
+            <span class="rule-zone-range">≥25</span>
+            <span class="rule-zone-label">CSPH rule-in</span>
+          </div>
+        </div>
+        <p class="rule-axis-label">Rule-of-5 · Elastografia hepática (kPa)</p>
       </div>
 
-      <p class="source-tag">Villanueva et al. Nat Rev Gastroenterol Hepatol 2025 — baseado em Baveno VII</p>
+      <!-- Antônio plotted (click 2) -->
+      <div class="antonio-plot">
+        <p class="antonio-data">Antônio: LSM 21 kPa · PLQ 118k</p>
+        <p class="antonio-conclusion">
+          <span class="cacld-tag">cACLD confirmado.</span>
+          <span class="csph-tag">CSPH não descartado.</span>
+        </p>
+      </div>
+
     </div>
 
-    <aside class="notes">
-[0:00-1:00 PIPELINE]
-"FIB-4 é o filtro no consultório. Custo zero. ≥1,3 = encaminhar para elastografia."
-"Rule-of-5: LSM &lt;10 descarta. 10-15 zona cinza. 15-20 cACLD confirmado. ≥25 CSPH."
+    <p class="source-tag" style="opacity:0">Baveno VII (PMID 35120736) · Sterling 2024 AASLD NILDA · Villanueva 2025 NRGHE</p>
+  </div>
 
-[1:00-2:00 BAVENO VII]
-"Esse pipeline vem do Baveno VII 2022, validado em >10.000 pacientes."
-"Sterling 2024 (AASLD NILDA): codificou LSM + PLQ para CSPH, Rule-of-5, dispensar EDA de screening."
+  <aside class="notes">
+[0:00-0:30] Auto: "Cirrose" dissolve → espectro cACLD/dACLD
+"Esqueçam a palavra 'cirrose'. Baveno VII em 2022 enterrou esse rótulo binário."
+"Agora pensamos em espectro: cACLD — compensated advanced chronic liver disease.
+E dACLD — decompensated."
+"Não é sim-ou-não. É um continuum."
+PAUSA 2s.
 
-[2:00-3:20 CAVEAT MASLD]
-"ATENÇÃO para pacientes obesos com MASLD: IPD meta-análise Bañares 2025 mostrou que LSM ≥25 tem PPV de apenas 0,67 em obesos (vs 0,92 geral). Considerar modelo ANTICIPATE±NASH (≥75% threshold → PPV 0,83)."
-"Seu Antônio: IMC 31, MASLD — esse caveat se aplica diretamente."
-    </aside>
-  </section>
+[0:30-1:00] Click 1 → Rule-of-5
+"E a ferramenta-chave pra posicionar o paciente nesse espectro é a elastografia.
+Rule-of-5: a cada 5 kPa, muda o estágio."
+"Abaixo de 10: descartado. 10 a 15: zona cinza, investigar. 15 a 20: cACLD provável.
+20 a 25: CSPH provável. Acima de 25: CSPH confirmado."
+
+[1:00-1:40] Click 2 → Antônio plotado
+"Seu Antônio: LSM 21 kPa. Zona 20-25."
+"Plaquetas 118 mil — abaixo de 150k, não conseguimos descartar CSPH."
+"cACLD confirmado. CSPH não descartado. Isso já muda a conduta:
+precisa de rastreio de varizes, considerar NSBB."
+
+[1:40-2:00] Click 3 → source
+→ avançar para MELD
+
+[DATA] Baveno VII: J Hepatol 2022 (PMID 35120736) | cACLD, CSPH, NITs, Rule-of-5 | Verificado: 2026-03-04
+[DATA] Sterling 2024: Hepatology (AASLD NILDA) | LSM + PLQ thresholds | Verificado: 2026-03-04
+[DATA] Antônio: LSM 21 kPa, PLQ 118k, FIB-4 3.2 | Caso fictício
+  </aside>
+</section>

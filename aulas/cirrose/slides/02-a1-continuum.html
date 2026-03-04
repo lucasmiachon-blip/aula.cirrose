@@ -1,42 +1,76 @@
-<section id="s-a1-01">
-    <div class="slide-inner archetype-figure">
-      <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-      <h2 class="slide-headline">Cirrose é continuum — mortalidade 1% a 57%/ano, sem fronteiras</h2>
+<!-- ============================================================
+     s-a1-01 — Burden global de cirrose
+     Archetype: hero-stat (state machine)
+     States: 0=hero countUp, 1=iceberg bars, 2=source
+     ============================================================ -->
+<section id="s-a1-01"
+         data-timing="90"
+         data-panel-state="neutral">
 
-      <div class="figure-split">
-        <figure class="slide-figure">
-          <img src="./assets/villanueva-2025-fig1.png"
-               alt="Continuum da doença hepática crônica avançada: cACLD → CSPH → dACLD">
-        </figure>
+  <div class="slide-inner archetype-hero-stat">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Cirrose mata 1,32 milhão por ano — e a epidemia silenciosa está crescendo</h2>
 
-        <div class="hero-stat">
-          <div class="hero-value">
-            <span class="hero-number" data-animate="countUp" data-target="57">0</span><span class="hero-unit">%</span>
-          </div>
-          <p class="hero-label">mortalidade/ano<br>na descompensação</p>
-          <p class="hero-context">vs 1% compensado</p>
+    <!-- Hero block — repositions to top on click 1 -->
+    <div class="burden-hero">
+      <span class="hero-number" data-color="danger" data-animate="countUp" data-target="1.32" data-decimals="2">0</span>
+      <span class="hero-unit">milhão mortes/ano</span>
+      <p class="hero-label">8ª causa de morte global</p>
+      <p class="hero-context">GBD 2017 Cirrhosis Collaborators · Lancet Gastroenterol Hepatol 2020</p>
+      <div class="burden-pulse" aria-hidden="true"></div>
+    </div>
+
+    <!-- Iceberg: compensados vs descompensados (click 1) -->
+    <div class="burden-iceberg">
+      <div class="burden-bar-row">
+        <div class="burden-bar-track">
+          <div class="burden-bar-fill burden-bar-fill--comp"></div>
+        </div>
+        <div class="burden-bar-meta">
+          <span class="burden-bar-value burden-bar-value--safe"><span class="burden-bar-icon">✓</span> <span data-countup-target="112">0</span>M</span>
+          <span class="burden-bar-label">compensados</span>
         </div>
       </div>
 
-      <p class="source-tag" data-reveal="1">D'Amico et al. J Hepatol 2006 · Villanueva et al. Nat Rev Gastroenterol Hepatol 2025</p>
+      <div class="burden-bar-row">
+        <div class="burden-bar-track">
+          <div class="burden-bar-fill burden-bar-fill--decomp"></div>
+        </div>
+        <div class="burden-bar-meta">
+          <span class="burden-bar-value burden-bar-value--danger"><span class="burden-bar-icon">✕</span> <span data-countup-target="10.6">0</span>M</span>
+          <span class="burden-bar-label">descompensados</span>
+        </div>
+      </div>
+
+      <div class="burden-trend">
+        <span class="burden-trend-value">⚠ ↑ 17%</span>
+        <span class="burden-trend-label">incidência/década</span>
+      </div>
     </div>
 
-    <aside class="notes">
-[0:00-0:30] Olhem para este espectro. À esquerda, compensado — o paciente que sorri na sua frente.
-À direita, descompensado — o paciente que chega de ambulância.
-No meio, o limiar. HVPG 10 — hipertensão portal clinicamente significativa.
-A partir daqui, tudo muda.
+    <p class="source-tag" style="opacity:0">GBD 2017 Cirrhosis Collaborators (PMID 31981519) · 195 países · 1990–2017</p>
+  </div>
 
-[0:30-1:00] D'Amico descreveu 5 estágios. O que importa pra vocês: a mortalidade salta de 1%
-para 57% quando o paciente cruza o limiar da descompensação. PAUSA 3s.
+  <aside class="notes">
+[0:00-0:30] "Antes de classificar, vamos dimensionar."
+"Um milhão e 320 mil mortes por ano. Só por cirrose."
+PAUSA 3s.
+"Dado do GBD — Global Burden of Disease — 195 países, publicado no Lancet.
+É a 8ª causa de morte no mundo. Mais que câncer de rim. Mais que leucemia."
 
-[1:00-1:30] Um detalhe que o slide não mostra: na MASLD, a causa número 1 de morte
-NÃO é hepática — é cardiovascular. Só passa a ser hepática quando a fibrose chega
-ao estágio 2 ou mais. O fígado é silencioso até que não é mais.
+[0:30-1:00] click → escala e tendência
+"Olhem a escala: 112 milhões com cirrose compensada — muitos sem saber.
+10 milhões e 600 mil já descompensados.
+E a incidência subiu 17% em uma década — MASLD subindo enquanto hepatite C cai pós-antivirais."
 
-[1:30-2:00] E uma nota sobre o Seu Antônio: ele é motorista, tá sorrindo, enzimas "normais".
-Mas o FIB-4 dele é 3,2. Ele já está neste espectro. Onde exatamente, a gente vai descobrir agora.
+[1:00-1:30] click → source, ponte para D'Amico
+"Mas esses 122 milhões não morrem da mesma forma.
+A diferença entre compensado e descompensado é um abismo de mortalidade.
+Vamos ver exatamente onde está esse abismo."
+→ avançar
 
-[DATA] Fonte: D'Amico et al. J Hepatol 2006, Fig.1 | Verificado: 2026-02-26
-    </aside>
-  </section>
+[DATA] GBD 2017 Cirrhosis Collaborators, Lancet Gastroenterol Hepatol 2020 (PMID 31981519) | 1.32M mortes, 112M comp, 10.6M decomp | Verificado: 2026-03-04
+[DATA] Incidência +16.7% (2009-2019): GBD 2019 analysis, Ann Med 2024 | Verificado: 2026-03-04
+[DATA] MASLD trend: Paik JM et al., Hepatology 2020 (PMID 32043613) | Verificado: 2026-03-04
+  </aside>
+</section>

@@ -22,6 +22,30 @@
 
 ---
 
+## D'Amico slide (s-a1-damico) — em progresso
+
+**Feito (sessão 04/mar):**
+- Headline: "D'Amico redefiniu o prognóstico da cirrose 3 vezes em 18 anos"
+- Badge "D'Amico 2006 · 118 estudos" + grid row extra
+- Overlay opaco com dados further decomp (HR 1.46, ascite>HDA)
+- Terminologia "Estádio" (correto) em todo slide
+- PMID fix: 16364498→16298014
+- Busy guard no state machine (race condition)
+- QA 4 estados via Playwright
+
+**Pendente (próxima sessão):**
+1. **Estádio 5 label ERRADO** — diz "Infecção ou AKI", D'Amico 2014 define como "any second decompensating event". Corrigir.
+2. **Headline** — verificar se cabe sem quebrar
+3. **Referências** — padronizar formato, reduzir font-size
+4. **Overlay** — sobreposição de texto reportada
+5. **State machine JS** — problemas com clicks (sequência avanço/retrocesso)
+6. **Badge vermelho** — revisar tamanho do overlay
+7. **Further decomp** — NÃO é estádio 6. É conceito prognóstico (Baveno VII). Ajustar framing.
+
+Ver detalhes em `NOTES.md` (seção 2026-03-04).
+
+---
+
 ## Pendências (detalhe)
 
 - ERRO-008 — Case panel redundante em s-hook

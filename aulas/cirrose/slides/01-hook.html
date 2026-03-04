@@ -18,22 +18,17 @@
         <h3 class="hook-patient-name">Antônio, 55 anos</h3>
         <p class="hook-patient-desc">
           Caminhoneiro · IMC 31 · DM2<br>
-          Etilismo 60 g/dia há 20 anos
+          ~5 latas de cerveja/dia há 20 anos (60 g álcool)
         </p>
         <p class="hook-patient-ref">
-          Encaminhado pelo clínico geral para avaliação hepática
+          Encaminhado da atenção primária
         </p>
       </div>
     </div>
 
     <!-- ━━ BEAT 1: Labs + pergunta abaixo (Click 1) ━━━━━━━━━━━ -->
     <div class="hook-beat hook-beat--hidden" data-hook-beat="1">
-      <div class="hook-labs-row">
-        <div class="hook-lab hook-lab--flag">
-          <span class="hook-lab-label">FIB-4</span>
-          <span class="hook-lab-value" data-animate="countUp" data-target="3.2" data-decimals="1">0</span>
-          <span class="hook-lab-ref">&gt; 2,67</span>
-        </div>
+      <div class="hook-labs-row" data-animate="stagger" data-stagger="0.15">
         <div class="hook-lab">
           <span class="hook-lab-label">AST</span>
           <span class="hook-lab-value">58</span>
@@ -44,19 +39,23 @@
           <span class="hook-lab-value">42</span>
           <span class="hook-lab-ref">U/L</span>
         </div>
-        <div class="hook-lab hook-lab--flag">
+        <div class="hook-lab">
           <span class="hook-lab-label">PLQ</span>
           <span class="hook-lab-value">118<small>k</small></span>
-          <span class="hook-lab-ref">&lt; 150k</span>
+          <span class="hook-lab-ref">/mm³</span>
         </div>
         <div class="hook-lab">
           <span class="hook-lab-label">Albumina</span>
           <span class="hook-lab-value">3,6</span>
           <span class="hook-lab-ref">g/dL</span>
         </div>
+        <div class="hook-lab">
+          <span class="hook-lab-label" style="text-transform:none">HbA1c</span>
+          <span class="hook-lab-value" data-animate="countUp" data-target="7.0" data-decimals="1">0</span>
+          <span class="hook-lab-ref">%</span>
+        </div>
       </div>
-      <p class="hook-question-lead">Sem queixas.</p>
-      <h2 class="hook-question">Qual a próxima conduta?</h2>
+      <p class="hook-punchline">Sem queixas.</p>
     </div>
 
   </div>
@@ -65,16 +64,16 @@
 [BEAT 0 · auto] Caso
 "Antônio. 55 anos. Caminhoneiro.
 IMC 31, diabético tipo 2, etilista — 60 gramas por dia há 20 anos.
-O clínico geral pediu exames e encaminhou."
+Exames de rotina na atenção primária. Encaminharam."
 
-[BEAT 1 · click] Labs + pergunta
-"Olhem os números: FIB-4 de 3,2 — acima do corte de 2,67.
-Plaquetas 118 mil — abaixo de 150. AST 58, ALT 42, albumina 3,6.
-Sem queixas. Qual a próxima conduta?"
-← seta esquerda/cima volta para caso.
+[BEAT 1 · click] Labs
+"Olhem os números: AST 58, ALT 42 — reparem, AST maior que ALT.
+Plaquetas 118 mil — abaixo de 150. Albumina 3,6.
+HbA1c 7 — diabético mal controlado.
+Sem queixas."
 PAUSA 5s.
-"Temos esses números. Para interpretá-los, precisamos conhecer
-a história natural da doença hepática como um continuum."
-→ avançar para s-a1-01 (D'Amico staging)
+"Vamos voltar ao caso do Antônio várias vezes ao longo da aula.
+Esses números parecem quase normais. Quase."
+→ avançar para próximo slide
   </aside>
 </section>

@@ -779,6 +779,37 @@
     transform: none !important;
     visibility: visible !important;
   }
+
+  /* Burden */
+  .burden-iceberg,
+  .burden-trend { opacity: 1 !important; }
+  .burden-bar-fill { width: 100% !important; }
+
+  /* D'Amico */
+  .pathway-stage--collapsed {
+    flex: 1 !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    padding: var(--space-sm) var(--space-xs) !important;
+    width: auto !important;
+  }
+  .damico-further {
+    opacity: 1 !important;
+    position: relative !important;
+    width: 100% !important;
+    background: var(--danger-light) !important;
+  }
+  .damico-further-stat,
+  .damico-further-hr { color: var(--danger) !important; }
+  .damico-further-detail { color: var(--text-secondary) !important; }
+  .damico-badge--context { opacity: 1 !important; }
+
+  /* Paradigma */
+  .paradigm-old { display: none !important; }
+  .paradigm-spectrum,
+  .paradigm-ref,
+  .rule-of-5,
+  .antonio-plot { opacity: 1 !important; }
 }
 
 /* ===========================================
@@ -913,6 +944,511 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   s-a1-01 — BURDEN (hero + iceberg bars)
+   State machine: 0=hero, 1=iceberg bars, 2=source
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+#s-a1-01 .archetype-hero-stat {
+  grid-template-rows: auto auto 1fr auto;
+}
+
+/* Hero wrapper — centred by default, repositions to top-left on click 1 */
+.burden-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  align-self: center;
+  justify-self: center;
+  transition: none; /* GSAP controls */
+}
+
+/* Compact state after hero repositions */
+.burden-hero--compact {
+  flex-direction: row;
+  gap: var(--space-md);
+  align-items: baseline;
+}
+.burden-hero--compact .hero-number {
+  font-size: clamp(36px, 4vw, 56px);
+}
+.burden-hero--compact .hero-unit {
+  font-size: clamp(18px, 1.5vw, 24px);
+}
+.burden-hero--compact .hero-label {
+  font-size: var(--text-small);
+  margin-top: 0;
+}
+.burden-hero--compact .hero-context { display: none; }
+
+/* Pulse bar — ambient severity indicator */
+.burden-pulse {
+  width: 60%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--danger);
+  margin-top: var(--space-sm);
+}
+
+@property --pulse-opacity {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0.4;
+}
+.burden-pulse {
+  animation: burden-pulse-anim 2.5s ease-in-out infinite;
+}
+@keyframes burden-pulse-anim {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Iceberg container — hidden until click 1 */
+.burden-iceberg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 700px;
+  align-self: center;
+  justify-self: center;
+  opacity: 0;
+}
+
+.burden-bar-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.burden-bar-track {
+  height: 40px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.burden-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  width: 0; /* animated by GSAP */
+}
+
+.burden-bar-fill--comp { background: var(--safe); }
+.burden-bar-fill--decomp { background: var(--danger); }
+
+.burden-bar-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  min-width: 100px;
+}
+
+.burden-bar-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  font-weight: 700;
+}
+.burden-bar-value--safe { color: var(--safe); }
+.burden-bar-value--danger { color: var(--danger); }
+
+.burden-bar-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+}
+
+.burden-bar-icon {
+  font-size: var(--text-small);
+  margin-right: 4px;
+}
+
+.burden-trend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  justify-content: center;
+  opacity: 0;
+}
+
+.burden-trend-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--warning-on-light);
+}
+
+.burden-trend-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+}
+
+/* Failsafe: no-js / stage-bad = everything visible */
+.no-js .burden-iceberg,
+.stage-bad .burden-iceberg {
+  opacity: 1;
+}
+.no-js .burden-bar-fill,
+.stage-bad .burden-bar-fill {
+  width: 100%;
+}
+.no-js .burden-trend,
+.stage-bad .burden-trend {
+  opacity: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   s-a1-damico — D'Amico staging (state machine)
+   States: 0=4 stages, 1=+stage 5, 2=overlay, 3=source
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+#s-a1-damico .archetype-pathway {
+  grid-template-rows: auto auto auto 1fr auto;
+}
+
+/* Decompensation stages (3+4) = danger, not warning */
+#s-a1-damico .pathway-stage:nth-child(3) {
+  background: var(--danger-light);
+  border-bottom: 3px solid var(--danger);
+}
+
+/* CSPH divider — BAVENO VII boundary (teal, not red) */
+.pathway-divider--csph {
+  background: var(--safe) !important;
+}
+.pathway-divider--csph .pathway-divider-label {
+  color: var(--safe) !important;
+}
+
+/* 5th stage: collapsed by default, revealed via GSAP flex animation */
+.pathway-stage--collapsed {
+  flex: 0;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  min-width: 0;
+}
+
+/* Failsafe */
+.no-js .pathway-stage--collapsed,
+.stage-bad .pathway-stage--collapsed {
+  flex: 1;
+  opacity: 1;
+  overflow: visible;
+  padding: var(--space-sm) var(--space-xs);
+  width: auto;
+}
+
+/* Year badge */
+.damico-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--ui-accent);
+  background: var(--ui-accent-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Context badge above pathway track (state 0 — fades in with stages) */
+.damico-badge--context {
+  display: block;
+  text-align: left;
+  margin-bottom: var(--space-xs);
+  opacity: 0; /* animated in by slide-registry.js */
+}
+
+.damico-badge--danger {
+  color: var(--danger);
+  background: oklch(from var(--danger) l c h / 0.12);
+}
+
+/* Further decompensation overlay — positioned over the pathway track */
+.damico-further {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  background: oklch(45% 0.12 25);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  opacity: 0;
+  z-index: 3;
+}
+
+.damico-further-stat {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.damico-further-detail {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: oklch(90% 0 0 / 0.85);
+  text-align: center;
+  line-height: 1.3;
+  margin-top: calc(-1 * var(--space-xs) / 2);
+}
+
+.damico-further-hr {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: #fff;
+}
+
+.damico-further-ci {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: oklch(90% 0 0 / 0.8);
+}
+
+.damico-further-ref {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: oklch(90% 0 0 / 0.7);
+}
+
+/* Failsafe: show overlay content */
+.no-js .damico-further,
+.stage-bad .damico-further {
+  opacity: 1;
+  position: relative;
+  width: 100%;
+  background: var(--danger-light);
+}
+.no-js .damico-further-stat,
+.no-js .damico-further-hr,
+.stage-bad .damico-further-stat,
+.stage-bad .damico-further-hr {
+  color: var(--danger);
+}
+.no-js .damico-further-detail,
+.stage-bad .damico-further-detail {
+  color: var(--text-secondary);
+}
+.no-js .damico-badge--context,
+.stage-bad .damico-badge--context {
+  opacity: 1;
+}
+
+/* Pathway track needs position:relative for the overlay */
+#s-a1-damico .pathway-track {
+  position: relative;
+  padding-top: 28px; /* space for divider labels (CSPH, Descompensação) above cards */
+}
+
+/* Danger glow pulse on stages 3-5 (state 2) */
+@keyframes damico-danger-glow {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(50% 0.10 25 / 0.2); }
+  50% { box-shadow: 0 0 8px 1px oklch(50% 0.10 25 / 0.25); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   s-a1-02 — PARADIGMA cACLD/dACLD (SplitText + Rule-of-5)
+   States: 0=dissolve, 1=rule-of-5, 2=Antônio, 3=source
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Paradigm container */
+.paradigm-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  align-self: center;
+  width: 100%;
+}
+
+/* Old term — fixed dims for SplitText stability */
+.paradigm-old {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 6vw, 96px);
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.1;
+  /* Fixed dimensions prevent layout jump during SplitText */
+  width: 8ch;
+  height: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Failsafe: no-js hides old term and shows spectrum */
+.no-js .paradigm-old { display: none; }
+
+/* Spectrum: cACLD ━━━ dACLD */
+.paradigm-spectrum {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  opacity: 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.paradigm-term {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.paradigm-term--cacld { color: var(--safe); }
+.paradigm-term--dacld { color: var(--danger); }
+
+.paradigm-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--safe), var(--warning), var(--danger));
+}
+
+.paradigm-ref {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  opacity: 0;
+}
+
+.no-js .paradigm-spectrum,
+.stage-bad .paradigm-spectrum {
+  opacity: 1;
+}
+.no-js .paradigm-ref,
+.stage-bad .paradigm-ref {
+  opacity: 1;
+}
+
+/* Rule-of-5 scale — 5 zones grid */
+.rule-of-5 {
+  width: 100%;
+  max-width: 750px;
+  opacity: 0;
+}
+
+.rule-scale {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-bottom: var(--space-xs);
+}
+
+.rule-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: var(--space-sm) var(--space-xs);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  min-height: 80px;
+  position: relative;
+  transition: box-shadow 0.4s ease;
+}
+
+/* Zone colors — progressive severity */
+.rule-zone:nth-child(1) { background: var(--safe-light); border-bottom: 3px solid var(--safe); }
+.rule-zone:nth-child(2) { background: var(--bg-card); border-bottom: 3px solid var(--border); }
+.rule-zone:nth-child(3) { background: var(--warning-light); border-bottom: 3px solid var(--warning); }
+.rule-zone:nth-child(4) { background: oklch(from var(--warning) l c h / 0.20); border-bottom: 3px solid var(--warning-on-light); }
+.rule-zone:nth-child(5) { background: var(--danger-light); border-bottom: 3px solid var(--danger); }
+
+.rule-zone-range {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.rule-zone-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+  line-height: 1.3;
+  max-width: 12ch;
+}
+
+.rule-axis-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.no-js .rule-of-5,
+.stage-bad .rule-of-5 {
+  opacity: 1;
+}
+
+/* Antônio marker + conclusion */
+.antonio-plot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 750px;
+  opacity: 0;
+}
+
+/* Pin marker on zone */
+.antonio-pin {
+  font-size: var(--text-h3);
+  line-height: 1;
+}
+
+/* Zone highlight pulse */
+@keyframes zone-highlight {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(60% 0.13 85 / 0.4); }
+  50% { box-shadow: 0 0 8px 2px oklch(60% 0.13 85 / 0.3); }
+}
+.rule-zone--highlighted {
+  animation: zone-highlight 2s ease infinite;
+}
+
+.antonio-data {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.antonio-conclusion {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+}
+.antonio-conclusion .cacld-tag { color: var(--warning-on-light); }
+.antonio-conclusion .csph-tag { color: var(--danger); }
+
+.no-js .antonio-plot,
+.stage-bad .antonio-plot {
+  opacity: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-hook v5 — Caso Antônio (congresso, formal)
    2 beats: Antônio+história (centro) → Labs+pergunta abaixo.
    Reversível: ArrowLeft/Up. Sem título.
@@ -927,10 +1463,11 @@
 /* Override stage-c token remap: .slide-navy uses var(--text-on-dark) which
    in stage-c = dark. Force light colors for legibility on navy. */
 #s-hook .hook-patient-name,
-#s-hook .hook-question { color: #f0f2f5; }
+#s-hook .hook-question,
+#s-hook .hook-punchline { color: #f0f2f5; }
 #s-hook .hook-patient-desc,
 #s-hook .hook-question-lead { color: #b8c4d4; }
-#s-hook .hook-patient-ref { color: #8a98ac; }
+#s-hook .hook-patient-ref { color: #9aa8bc; }
 #s-hook .hook-lab-label { color: #9ca8b8; }
 #s-hook .hook-lab-value { color: #e8ecf1; }
 #s-hook .hook-lab-ref { color: #a0acc0; }
@@ -983,19 +1520,22 @@
   inset: auto;
 }
 
-/* Beat 1: labs e pergunta invisíveis até a animação (evita sombra pré-stagger) */
+/* Beat 1: labs e punchline invisíveis até a animação (evita sombra pré-stagger) */
 .hook-beat[data-hook-beat="1"] .hook-lab,
 .hook-beat[data-hook-beat="1"] .hook-question-lead,
-.hook-beat[data-hook-beat="1"] .hook-question {
+.hook-beat[data-hook-beat="1"] .hook-question,
+.hook-beat[data-hook-beat="1"] .hook-punchline {
   opacity: 0;
   visibility: hidden;
 }
 .failsafe-gsap .hook-beat[data-hook-beat="1"] .hook-lab,
 .failsafe-gsap .hook-beat[data-hook-beat="1"] .hook-question-lead,
 .failsafe-gsap .hook-beat[data-hook-beat="1"] .hook-question,
+.failsafe-gsap .hook-beat[data-hook-beat="1"] .hook-punchline,
 .no-js .hook-beat[data-hook-beat="1"] .hook-lab,
 .no-js .hook-beat[data-hook-beat="1"] .hook-question-lead,
-.no-js .hook-beat[data-hook-beat="1"] .hook-question {
+.no-js .hook-beat[data-hook-beat="1"] .hook-question,
+.no-js .hook-beat[data-hook-beat="1"] .hook-punchline {
   opacity: 1;
   visibility: visible;
 }
@@ -1018,7 +1558,7 @@
 .hook-patient-desc {
   font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-  color: #a0aab8;
+  color: #b8c4d4;
   line-height: 1.6;
   margin: 0 0 0.5rem 0;
 }
@@ -1026,7 +1566,7 @@
 .hook-patient-ref {
   font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: clamp(0.8rem, 1.2vw, 0.95rem);
-  color: #6b7a8d;
+  color: #9aa8bc;
   margin: 0;
   font-style: italic;
 }
@@ -1061,7 +1601,7 @@
   font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: 0.7rem;
   font-weight: 500;
-  color: #7b8a9e;
+  color: #9ca8b8;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -1079,7 +1619,7 @@
 }
 
 .hook-lab--flag .hook-lab-value {
-  color: var(--warning-on-light, oklch(0.88 0.14 75));
+  color: var(--warning-on-dark, oklch(0.88 0.14 75));
 }
 
 .hook-lab-value small {
@@ -1115,4 +1655,15 @@
   line-height: 1.15;
   margin: 0;
   max-width: 90%;
+}
+
+/* ── Punchline (Beat 1 — replaces question when no pergunta) ── */
+.hook-punchline {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: var(--text-h3, 1.5rem);
+  font-weight: 500;
+  color: #f0f2f5;
+  text-align: center;
+  letter-spacing: 0.02em;
+  margin-top: var(--space-lg, 40px);
 }

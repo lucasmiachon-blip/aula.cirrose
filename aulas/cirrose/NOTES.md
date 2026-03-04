@@ -1,5 +1,38 @@
 # NOTES — Cirrose
 
+[2026-03-04] [slide-edit] — D'Amico slide content + CSS polish
+
+## Decisões (v2 — após QA)
+- Headline (v2): "D'Amico redefiniu o prognóstico da cirrose 3 vezes em 18 anos"
+- Terminologia: "Estádio" (correto médico — estadiamento), não "Estágio" (internship). Verificado: Aurélio, Michaelis, Rezende.
+- Estádio 3: "Ascite" (D'Amico 2006 separou ascite de HDA — eram estádios distintos, não agrupados)
+- Badge: "D'Amico 2006 · 118 estudos · mortalidade/ano" acima do pathway-track (grid row extra)
+- Overlay: "Ascite: pior prognóstico que HDA — 30% vs 20%/5a (D'Amico 2014)" + further decomp data
+- Overlay bg: oklch(45% 0.12 25) OPACO — semi-transparente causava bleed-through dos stages
+- PMID 16364498 CORRIGIDO → 16298014 (o antigo apontava para artigo de fMRI sobre binge eating)
+- Source tag: formato journal ("D'Amico G et al. J Hepatol 2006; Aliment Pharmacol Ther 2014; Hepatology 2024")
+- State machine: busy guard adicionado — impede overlay antes dos cards em cliques rápidos
+- D'Amico 2014 (PMID 24654740) é a fonte da reordenação ascite>HDA (stage 3=bleeding 20%, stage 4=ascites 30%)
+- D'Amico 2024 (PMID 37916970) confirma further decomp HR 1.46 mas NÃO estratifica ascite vs bleeding diretamente
+- Contraste badge: 7.3:1 (AAA). Overlay white-on-dark: 9.24:1. Labels: 6.7:1 (pré-existente, AA ok).
+- QA 4 estados: s0 (4 estádios), s1 (+estádio 5), s2 (overlay opaco), s3 (source + overlay). Retreat OK.
+
+## Correção necessária (verificação PubMed 2026-03-04)
+- **Estádio 5 label ERRADO**: slide diz "Infecção ou AKI" — D'Amico 2014 define como "any second decompensating event" (qualquer 2º evento). Corrigir label.
+- **Further decompensation NÃO é estádio 6**: D'Amico 2024 usa modelo de transição de 4 estados (1st decomp → further decomp → transplante → morte). Não numera como estádio 6. É conceito prognóstico do Baveno VII.
+- **D'Amico 2014 stages reais**: 1=compensado sem varizes, 2=compensado com varizes, 3=bleeding sem outras complicações, 4=1ª descompensação não-bleeding (ascite/icterícia/EH), 5=qualquer 2º evento descompensante (88%/5a)
+
+## Pendências slide D'Amico (próxima sessão)
+- Corrigir label estádio 5: "Infecção ou AKI" → "2º evento descompensante" (ou equivalente clínico PT)
+- Headline: verificar se cabe sem quebrar em diferentes viewports
+- Referências: padronizar formato + reduzir font-size (source-tag, overlay ref, stage 5 ref)
+- Overlay: resolver sobreposição de texto reportada pelo Lucas
+- State machine JS: problemas com clicks reportados — investigar sequência de avanço/retrocesso
+- Badge vermelho (overlay): revisar tamanho
+- Notion: páginas por slide com conteúdo expandido para estudo pré-apresentação (solicitado pelo Lucas)
+
+---
+
 [2026-03-03] [reference-scan] — Etapa 1 scan evidência
 
 ## Contexto
@@ -187,3 +220,95 @@ EOF
 - Claude in Chrome navega (Lucas logado), extrai, compara
 - Material de estudo, NÃO slide. Promover pra slide só se Lucas decidir.
 - Tier-S sempre. Fontes secundárias de elite.
+
+[2026-03-03 20:37] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 20:40] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 20:44] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 20:46] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 20:53] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 20:55] [:a53b40c6] — concluído. Status: PARTIAL
+
+[2026-03-03 21:01] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 21:10] [Explore:a284ba22] — concluído. Status: PASS
+
+[2026-03-03 21:24] [general-purpose:a39650b1] — concluído. Status: PASS
+
+[2026-03-03 21:33] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 21:40] [:a6fc1a19] — concluído. Status: PASS
+
+[2026-03-03 21:41] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 21:46] [Explore:a85d768d] — concluído. Status: PARTIAL
+
+[2026-03-03 21:46] [:af75fa98] — concluído. Status: PARTIAL
+
+[2026-03-03 21:46] [:adfd2b9f] — concluído. Status: PARTIAL
+
+[2026-03-03 21:46] [Explore:aa25c8d7] — concluído. Status: PASS
+
+[2026-03-03 21:46] [Explore:adac1e91] — concluído. Status: PARTIAL
+
+[2026-03-03 21:54] [Plan:aa24d5fd] — concluído. Status: PASS
+
+[2026-03-03 22:08] [BUILD] OK — cd "C:/Dev/Projetos/aulas-magnas" && npm run build:cirrose 2>&1
+
+---
+
+## [04/03] Interações Avançadas — Act 1 (3 slides)
+
+### Implementado
+- **s-a1-01 (Burden)**: state machine 3 estados — hero countUp → iceberg bars (91%/9%) → source
+- **s-a1-damico (D'Amico)**: state machine 4 estados — 4 stages stagger+countUp → 5º bloco cresce → overlay further decomp → source
+- **s-a1-02 (Paradigma)**: state machine 4 estados — SplitText dissolve "Cirrose" → espectro cACLD/dACLD → Rule-of-5 → Antônio plotado → source
+- Padrão: `__hookAdvance` / `__hookRetreat` (sem data-reveal), SplitText importado
+- CSS: burden-*, damico-*, paradigm-*, rule-* em cirrose.css
+- Failsafe: .no-js, .stage-bad, @media print — tudo visível
+- QA visual: todos estados OK em Playwright
+
+### Feedback do usuário (pendente)
+1. **D'Amico: o próprio D'Amico mudou** — enfatizar que o sistema evoluiu ao longo dos estudos dele
+2. **D'Amico: ascite pior que bleeding** para mortalidade e progressão — conceito novo e importante do D'Amico 2024. Incorporar no conteúdo/notes.
+3. **FIB-4 calculadora** (sessão futura): calcula no box esquerdo, revela informações no box direito (cutoffs, limitações, situações especiais, fontes Tier 1)
+4. **Paradigma slide** — conteúdo OK, ordem OK (após D'Amico)
+5. **Próxima fase**: conteúdo, ordem de slides, ajustes CSS — entrar em plan mode
+
+[2026-03-03 22:19] [:a315657c] — concluído. Status: PARTIAL
+
+[2026-03-03 22:20] [Explore:aa96829c] — concluído. Status: PASS
+
+[2026-03-03 22:20] [Explore:adba0c9e] — concluído. Status: PASS
+
+[2026-03-03 22:20] [Explore:a10700ad] — concluído. Status: PASS
+
+[2026-03-03 22:41] [general-purpose:a241b73a] — concluído. Status: PARTIAL
+
+[2026-03-03 22:46] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 22:47] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 22:56] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1 && npm run lint:slides 2>&1
+
+[2026-03-03 23:03] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 23:06] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 23:09] [BUILD] OK — cd /c/Dev/Projetos/aulas-magnas && npm run build:cirrose 2>&1
+
+[2026-03-03 23:12] [:af09e59b] — concluído. Status: PARTIAL
+
+[2026-03-03 23:13] [general-purpose:a16bebb7] — concluído. Status: PARTIAL
+
+[2026-03-04 14:41] [Explore:a23cee09] — concluído. Status: PASS
+
+[2026-03-04 14:41] [:a6206e1c] — concluído. Status: PARTIAL
+
+[2026-03-04 14:41] [Explore:ac74f9ba] — concluído. Status: PARTIAL
+
+[2026-03-04 14:42] [Explore:a7e5bc5a] — concluído. Status: PASS
