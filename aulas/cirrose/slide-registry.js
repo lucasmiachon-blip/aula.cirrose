@@ -56,14 +56,13 @@ export const customAnimations = {
 
       if (state === 1) {
         // Hero compresses to top, iceberg appears
+        hero.classList.add('burden-hero--compact'); // instant layout, then GSAP slides up
+        if (pulse) gsap.to(pulse, { opacity: 0, duration: 0.2, onComplete() { pulse.style.display = 'none'; } });
         gsap.to(hero, {
-          scale: 0.6,
-          y: -80,
-          duration: 0.6,
+          y: -60,
+          duration: 0.5,
           ease: 'power2.out',
-          onComplete() { hero.classList.add('burden-hero--compact'); }
         });
-        if (pulse) gsap.to(pulse, { opacity: 0, duration: 0.3 });
 
         gsap.to(iceberg, { opacity: 1, duration: 0.4, delay: 0.3 });
 
@@ -95,8 +94,8 @@ export const customAnimations = {
 
       if (state === 1) {
         hero.classList.remove('burden-hero--compact');
-        gsap.to(hero, { scale: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-        if (pulse) gsap.to(pulse, { opacity: 1, duration: 0.3, delay: 0.3 });
+        gsap.to(hero, { y: 0, duration: 0.5, ease: 'power2.out' });
+        if (pulse) { pulse.style.display = ''; gsap.to(pulse, { opacity: 1, duration: 0.3, delay: 0.3 }); }
         gsap.to(iceberg, { opacity: 0, duration: 0.3 });
         gsap.to(compFill, { width: '0%', duration: 0.3 });
         gsap.to(decompFill, { width: '0%', duration: 0.3 });
@@ -707,11 +706,22 @@ export function wireAll(Reveal, gsap, { anim, CasePanel, ClickReveal, MeldCalc, 
   document.querySelector('.reveal .slides')?.addEventListener('click', (e) => {
     if (tryRevealNext()) { e.preventDefault(); e.stopPropagation(); }
   });
-  Reveal.on('slidechanged', (e) => { const r = revealers.get(e.currentSlide?.id); if (r) r.reset(); });
+  const fib4Container = document.getElementById('panel-fib4');
+  if (fib4Container) new Fib4Calc(fib4Container);
+
+  const FIB4_SLIDE = 's-a1-02';
+  function syncFib4Visibility(slideId) {
+    fib4Container?.classList.toggle('fib4-visible', slideId === FIB4_SLIDE);
+  }
+
+  Reveal.on('slidechanged', (e) => {
+    const id = e.currentSlide?.id;
+    const r = revealers.get(id);
+    if (r) r.reset();
+    syncFib4Visibility(id);
+  });
+  syncFib4Visibility(Reveal.getCurrentSlide()?.id);
 
   const meldContainer = document.querySelector('[data-interaction="meld-calc"]');
   if (meldContainer) new MeldCalc(meldContainer);
-
-  const fib4Container = document.getElementById('panel-fib4');
-  if (fib4Container) new Fib4Calc(fib4Container);
 }

@@ -278,10 +278,10 @@ npm run lint:slides      # Assertion-evidence linter
 npm run build:cirrose    # Concatena slides → index.html via _manifest.js
 ```
 
-## Known Issues (Atualizado recentemente)
+## Known Issues (Atualizado 2026-03-05)
 
-1. **case-panel.js:** `renderTimeline()` has hardcoded HEX colors — migrate to `var(--severity-*)` tokens.
-2. **meld-calc.js:** Literal `#1a1a2e` for bg — migrate to `var(--bg-navy)`. Missing null checks on inputs.
+1. ~~**case-panel.js:** hardcoded HEX~~ — Verified: no HEX colors found. Already uses CSS tokens.
+2. ~~**meld-calc.js:** hardcoded colors~~ — Fixed: zone classes renamed to semantic (`-safe/-warning/-danger/-urgent`), CSS migrated to `var(--text-muted)`/`var(--divider)`.
 3. **.gitignore:** `*.png` pattern ignores QA screenshots in `qa-screenshots/` dir.
 
 ---

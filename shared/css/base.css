@@ -318,6 +318,7 @@
 /* Source tag */
 .stage-c .source-tag {
   color: var(--text-muted);
+  font-size: clamp(10px, 0.55vw, 11px);
 }
 
 /* Cards — subtle elevation */

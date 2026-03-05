@@ -4,6 +4,26 @@
 
 ---
 
+## 2026-03-05 — s-a1-01: bug fix animação + dados GBD atualizados
+
+- **Bug transição**: `burden-hero--compact` agora aplicado ANTES do `gsap.to` (antes: `onComplete` causava jump de layout column→row após a animação); removido `scale: 0.6`, y reduzido para -60
+- **GBD 2021**: mortes 1,32M → **1,43M** (Tham et al. PMID 39927433, Liver Int 2025); incidência +17% → **+18%** (2010–2021); hero-label "8ª causa" → "Top 10 causas"; trend-label atualizado com "MASH lidera"
+- **Fonte padrão referências**: `"Author Journal Year · Dataset · n países · PMID XXXXXXX"` — PMID ao final, sem parênteses no meio. Aplicar como padrão em todos os slides.
+
+## 2026-03-05 — s-hook: contraste fix + FIB-4 visibility
+
+- **Contraste**: `var(--text-on-dark/muted)` → OKLCH explícito no `#s-hook` (tokens stage-c remapeiam para escuro — variáveis não podem ser usadas em slides que forçam navy no stage-c)
+- **FIB-4 visibilidade**: `#panel-fib4` oculto por padrão (`display:none`); `syncFib4Visibility()` em `slide-registry.js` mostra apenas em `s-a1-02` via `fib4-visible` class + `slidechanged` listener
+
+## 2026-03-05 — s-hook: grid fix + cor + flagging clínico
+
+- **Grid**: `repeat(5, 1fr)` → `repeat(7, 1fr)` + `max-width: 880px` — 7 labs em linha única (antes: 5+2, segunda linha desalinhada)
+- **Cards**: `rgba(255,255,255,0.04→0.07)` bg + `0.08→0.15` border — mais visíveis no navy
+- **Cores**: hex frios substituídos por OKLCH tokens (`var(--text-on-dark)`, `var(--text-on-dark-muted)`, `oklch(62% 0.022 258)`) — hierarquia clara: valores brancos, labels médio, refs dim
+- **Flagging**: PLQ 112k + HbA1c 7.0 com `hook-lab--flag` — achados clínicos centrais em âmbar
+
+---
+
 ## 2026-03-03 — Etapa 2: fix PMIDs + Case Antônio 60g/dia
 
 - **evidence-db.md**: BAVENO VII `35431106` → `35120736` (artigo original; 35431106 era errata) — 4 ocorrências

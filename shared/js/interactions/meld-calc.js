@@ -41,10 +41,10 @@ export class MeldCalc {
         <div class="meld-bar">
           <div class="meld-bar-fill"></div>
           <div class="meld-bar-zones">
-            <span class="meld-zone meld-zone-green" style="width:37.5%">&lt;15 Acompanhar</span>
-            <span class="meld-zone meld-zone-yellow" style="width:12.5%">15-19</span>
-            <span class="meld-zone meld-zone-red" style="width:12.5%">20-24</span>
-            <span class="meld-zone meld-zone-black" style="width:37.5%">\u226525 Urg\u00eancia</span>
+            <span class="meld-zone meld-zone-safe" style="width:37.5%">&lt;15 Acompanhar</span>
+            <span class="meld-zone meld-zone-warning" style="width:12.5%">15-19</span>
+            <span class="meld-zone meld-zone-danger" style="width:12.5%">20-24</span>
+            <span class="meld-zone meld-zone-urgent" style="width:37.5%">\u226525 Urg\u00eancia</span>
           </div>
         </div>
         <div class="meld-action-text"></div>

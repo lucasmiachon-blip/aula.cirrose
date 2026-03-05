@@ -35,10 +35,12 @@
 /* --- Source tag (reference footer) --- */
 .source-tag {
   font-family: var(--font-body);
-  font-size: var(--text-caption);
+  font-size: clamp(10px, 0.55vw, 11px);
   color: var(--text-on-dark-muted);
   margin-top: auto;
   padding-bottom: var(--space-xs);
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* --- Figure slide (paper image) --- */
@@ -1044,6 +1046,7 @@
   font-size: var(--text-small);
   margin-top: 0;
 }
+.burden-hero--compact .hero-label,
 .burden-hero--compact .hero-context { display: none; }
 
 /* Pulse bar — ambient severity indicator */
@@ -1527,15 +1530,16 @@
 
 /* Override stage-c token remap: .slide-navy uses var(--text-on-dark) which
    in stage-c = dark. Force light colors for legibility on navy. */
+/* stage-c remap --text-on-dark → dark; hook forces navy, so explicit OKLCH needed */
 #s-hook .hook-patient-name,
 #s-hook .hook-question,
-#s-hook .hook-punchline { color: #f0f2f5; }
+#s-hook .hook-punchline { color: oklch(95% 0.005 258); }
 #s-hook .hook-patient-desc,
-#s-hook .hook-question-lead { color: #b8c4d4; }
-#s-hook .hook-patient-ref { color: #9aa8bc; }
-#s-hook .hook-lab-label { color: #9ca8b8; }
-#s-hook .hook-lab-value { color: #e8ecf1; }
-#s-hook .hook-lab-ref { color: #a0acc0; }
+#s-hook .hook-question-lead { color: oklch(79% 0.018 258); }
+#s-hook .hook-patient-ref { color: oklch(63% 0.02 258); }
+#s-hook .hook-lab-label { color: oklch(62% 0.022 258); }
+#s-hook .hook-lab-value { color: oklch(95% 0.005 258); }
+#s-hook .hook-lab-ref { color: oklch(57% 0.018 258); }
 #s-hook .hook-lab--flag .hook-lab-label { color: #e8b84d; }
 #s-hook .hook-lab--flag .hook-lab-value { color: #f5d88a; }
 #s-hook .hook-lab--flag .hook-lab-ref { color: #d4a84d; }
@@ -1639,10 +1643,10 @@
 /* ── Labs row (always single line) ── */
 .hook-labs-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.65rem;
   width: 100%;
-  max-width: 720px;
+  max-width: 880px;
 }
 
 .hook-lab {
@@ -1652,8 +1656,8 @@
   gap: 0.2rem;
   padding: 1rem 0.5rem;
   border-radius: 0.6rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hook-lab--flag {
@@ -1666,7 +1670,7 @@
   font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: 0.7rem;
   font-weight: 500;
-  color: #9ca8b8;
+  color: oklch(62% 0.022 258);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -1695,7 +1699,7 @@
 .hook-lab-ref {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.85rem;
-  color: #a0acc0;
+  color: oklch(57% 0.018 258);
 }
 
 .hook-lab--flag .hook-lab-ref {

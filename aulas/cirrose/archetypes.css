@@ -469,8 +469,8 @@
   font-family: var(--font-body);
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.5);
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--text-muted);
+  border-right: 1px solid var(--divider);
 }
 
 .meld-zone:last-child {
@@ -626,6 +626,8 @@
 
 /* --- FIB-4 Calculator (panel-calc) --- */
 .panel-calc { border-top: 1px solid var(--border, oklch(88% 0.005 258)); padding-top: 6px; margin-top: 4px; }
+#panel-fib4 { display: none; }
+#panel-fib4.fib4-visible { display: block; }
 .fib4-toggle { width: 100%; background: none; border: none; cursor: pointer; text-align: left; font-family: var(--font-body); font-size: 11px; font-weight: 600; color: var(--text-secondary); padding: 2px 0; }
 .fib4-body { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
 .fib4-row { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-muted); gap: 4px; }
@@ -892,10 +894,12 @@ section[id^="s-app"] .slide-inner {
 
 .archetype-hero-stat {
   grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 1fr;
   align-items: center;
   justify-items: center;
   text-align: center;
 }
+.archetype-hero-stat .source-tag { justify-self: stretch; }
 
 .archetype-hero-stat .hero-block {
   display: flex;
