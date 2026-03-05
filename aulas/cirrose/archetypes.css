@@ -2,6 +2,8 @@
  * Archetypes CSS — Batch 0 Foundation
  * 4 reusable slide layouts + case panel + click-reveal states
  * Imports AFTER cirrose.css (overrides where archetype class present)
+ *
+ * Z-INDEX MAP: case-panel=20 | burden=3 | scoring-badge/panel-tab=2 | badge-focus=1
  */
 
 /* --- Panel-aware layout --- */
@@ -24,7 +26,6 @@
 
 .archetype-figure,
 .archetype-metrics,
-.archetype-interactive,
 .archetype-checkpoint,
 .archetype-pathway,
 .archetype-flow,
@@ -227,58 +228,9 @@
 }
 
 /* ============================================
-   ARCHETYPE 3: INTERACTIVE — Assertion + Area
+   ARCHETYPE 3 (removed): archetype-interactive retired 2026-03-05
+   MELD calc moved to case-panel sidebar (renderMeld)
    ============================================ */
-
-.archetype-interactive {
-  grid-template-rows: auto auto 1fr auto auto;
-}
-
-.archetype-interactive .interactive-area {
-  background: var(--bg-surface, oklch(95% 0.005 258));
-  border-radius: var(--radius-sm, 8px);
-  padding: 20px;
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.archetype-interactive .interactive-controls {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.archetype-interactive .ctrl-btn {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 12px;
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.archetype-interactive .ctrl-primary {
-  background: var(--ui-accent, oklch(35% 0.12 258));
-  color: #fff;
-}
-
-.archetype-interactive .ctrl-primary:hover {
-  background: oklch(30% 0.12 258);
-}
-
-.archetype-interactive .ctrl-secondary {
-  background: transparent;
-  border: 1px solid var(--border, oklch(88% 0.005 258));
-  color: var(--text-secondary);
-}
-
-.archetype-interactive .ctrl-secondary:hover {
-  background: oklch(93% 0.005 258);
-}
 
 /* ============================================
    ARCHETYPE 4: CHECKPOINT — Case + Decision
@@ -789,7 +741,10 @@ section[id^="s-app"] .slide-inner {
    ============================================ */
 
 @media print {
-  [data-reveal] {
+  [data-reveal],
+  .archetype-pathway [data-animate] > *,
+  .archetype-hero-stat [data-animate],
+  .archetype-checklist .checklist-item {
     opacity: 1 !important;
     transform: none !important;
     pointer-events: auto !important;
@@ -1639,19 +1594,6 @@ section[id^="s-app"] .slide-inner {
    PRINT-PDF: New archetypes
    ============================================ */
 @media print {
-  .archetype-pathway [data-animate] > *,
-  .archetype-flow [data-reveal],
-  .archetype-hero-stat [data-animate],
-  .archetype-timeline [data-reveal],
-  .archetype-decision-tree [data-reveal],
-  .archetype-comparison [data-reveal],
-  .archetype-checklist [data-reveal],
-  .archetype-checklist .checklist-item {
-    opacity: 1 !important;
-    transform: none !important;
-    pointer-events: auto !important;
-  }
-
   .archetype-checklist .checklist-check {
     border-color: var(--safe) !important;
     color: var(--safe) !important;
