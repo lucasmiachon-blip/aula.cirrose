@@ -6,41 +6,28 @@
 
 ## Prioridades — PRÓXIMA SESSÃO
 
-> Todas as tarefas de docs estão DONE. Foco agora é Bloco 1 HTML + limpeza de screenshots.
+> Bloco 1 fixes concluídos (05/mar noite). Foco agora é interatividade (C) e Bloco 2/3.
 
-### 🔴 URGENTE — Limpar screenshots do repo (git fica pesado)
-- Deletar ~75 `qa-*.png` espalhados no root do projeto
-- Deletar 17 screenshots em `.playwright-mcp/`
-- Deletar 9 screenshots em `qa-screenshots/` (root)
-- Manter apenas `aulas/cirrose/qa-screenshots/stage-c/` (3 screenshots de referência)
-- Adicionar ao `.gitignore`: `qa-*.png`, `.playwright-mcp/`
+### ✅ DONE (05/mar noite) — Limpeza + Bloco 1 Fixes
+- Screenshots já ausentes do repo; `.playwright-mcp/` adicionado ao `.gitignore` (commit 38c6246)
+- **I3** `05-a1-infeccao.html`: `archetype-metrics` + stagger 0.3→0.2. 3 barras PREDICT visíveis ✅
+- **I4** `06-a1-etiologias.html`: redesign → `etio-grid` 10 etiologias em 2×5 compacto ✅
+- **S3** `05` e `06`: `archetype-metrics` adicionado em ambos ✅
+- **S4** `02-a1-continuum.html`: já estava correto (`archetype-hero-stat .hero-number` = `clamp(72px, 8vw, 140px)`) ✅
+- Commit: `44dcac8`
 
-### 🔴 ALTA — Bloco 1 HTML Fixes (8 slides: s-a1-01 a s-cp1)
+### 🔴 ALTA — Interatividade Checkpoints (Bloco C — nova sessão)
 
-**QA screenshots tirados nesta sessão (localhost:3000):**
-- s-a1-01 (continuum): fill ratio ~45%, hero "1,32" bom mas barras embaixo deixam vazio no meio
-- s-a1-05 (etiologias): só 3/10 linhas na tabela — fix I4 urgente
-- s-a2-03 (albumina): todos 4 cards visíveis ✅ (fix 04/mar funcionou)
-- s-a1-damico (D'Amico): CSS fix aplicado hoje (descendant selector) — QA pós-fix pendente
-
-**Fixes prioritários Bloco 1:**
-- **I3** — `05-a1-infeccao.html`: barra "Álcool" ausente (stagger incompleto). Verificar engine.js stagger + force-reveal
-- **I4** — `06-a1-etiologias.html`: tabela mostra só 3 linhas de 10. Provavelmente `cirrose.css` tem `overflow: hidden` ou `max-height` limitando
-- **S3** — Todos os slides Bloco 1: fill ratio ~40-50%. Padding dos archetypes `1.5rem 2rem` → verificar se está aplicando (archetypes.css linha 39)
-- **S4** — `02-a1-continuum.html`: hero "1,32" está em `--text-h1`, deveria ser `--text-hero`
-
-**QA pós-fix:** Rodar `npm run build:cirrose` e tirar screenshots via Playwright dos 8 slides do Bloco 1
-
-### 🟡 MÉDIA — Insights de interação de `C:\Dev\Teste\index.html`
-
-Arquivo analisado nesta sessão. Insights prontos para aplicar:
+Padrão `handlePoll` documentado em `docs/insights-html-cirrose-2026.md`.
 
 1. **handlePoll pattern** — para CP1/CP2/CP3: opções de conduta com feedback imediato (verde=certo, opaco=errado, mensagem aparece). JS simples, zero dependência
 2. **EMR sidebar phase sync** — `syncSidebar(phase)` já existe no nosso `case-panel.js` mas sem `scrollIntoView`. Adicionar scroll suave ao activar fase
 3. **In-sidebar FIB-4** — Calculadora FIB-4 no painel lateral (já temos MELD calculator no slide; FIB-4 faz mais sentido no painel junto com os labs)
 4. **Baveno VII checklist** — `checkBaveno()`: 3 checkboxes no painel para CP3 (recompensação). Animação `gsap.fromTo` com `back.out(2)` ao completar
 
-Todos os trials citados nesse HTML precisam PMID antes de usar. Ver `docs/insights-html-cirrose-2026.md`.
+Todos os trials citados precisam PMID antes de usar. Ver `docs/insights-html-cirrose-2026.md`.
+
+### 🟡 MÉDIA — Bloco 2 e 3 fixes (após C ok)
 
 ### 🟢 BAIXA — Slides Bloco 2 e 3 (após Bloco 1 ok)
 - Bloco 2 (s-a2-01 a s-cp2): I5, I6, I7 fixes + S3 fill
