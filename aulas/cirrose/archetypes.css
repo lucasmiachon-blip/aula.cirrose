@@ -10,12 +10,12 @@
 :root {
   --panel-width: 0px;
 }
-.reveal.has-panel {
+#deck.has-panel {
   --panel-width: 200px;
 }
 
 /* When panel is visible, left-align archetype containers to avoid overlap */
-.reveal.has-panel .slide-inner {
+#deck.has-panel .slide-inner {
   max-width: calc(100% - var(--panel-width) - 3rem);
   margin: 0 0 0 2rem;
 }
@@ -617,7 +617,7 @@
 .case-panel.has-calc {
   width: 220px;
 }
-.reveal.has-panel.has-calc-panel {
+#deck.has-panel.has-calc-panel {
   --panel-width: 260px;
 }
 
@@ -758,7 +758,7 @@ section[id^="s-app"] .slide-inner {
     display: none !important;
   }
 
-  .reveal.panel-active {
+  #deck.panel-active {
     grid-template-columns: 1fr !important;
   }
 }
