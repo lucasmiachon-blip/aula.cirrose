@@ -13,6 +13,8 @@ ralph_phase: learn
 
 ## RALPH Gate (Learn)
 
+Antes de qualquer tarefa: ler `aulas/cirrose/references/CASE.md` para obter dados canônicos do paciente (Seu Antônio).
+
 Issue encontrado → REPORTAR com severidade + fix sugerido. NUNCA corrigir.
 FAIL = merge bloqueado. Output = relatório estruturado, NUNCA "tá bom".
 

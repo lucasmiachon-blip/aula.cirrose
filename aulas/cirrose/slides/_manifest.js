@@ -98,7 +98,7 @@ export const panelStates = {
   },
   's-cp1': {
     severity: 'caution',
-    values: { fib4: '5,91', lsm: '21 kPa', plq: '112k', meld: '~10', albumin: '3,6', stage: 'cACLD/CSPH' },
+    values: { fib4: '5,91', lsm: '21 kPa', plq: '118k', meld: '~10', albumin: '3,6', stage: 'cACLD/CSPH' },
     events: ['Elastografia realizada'],
     calc: 'meld',
   },

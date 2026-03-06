@@ -17,6 +17,18 @@ Caso clínico: Seu Antônio, 55a, caminhoneiro, obeso (IMC 31), DM2, etilista 60
 Labs canônicos: AST 67 / ALT 31 (ratio 2,16) / PLQ 112k / GGT 210 / Alb 3,6 / Bili 1,3 / INR 1,2 / FIB-4 5,91.
 Plan C = default (light, 1280×720, GSAP ativo).
 
+## Hierarquia de Referências (ordem de autoridade)
+
+| # | Arquivo | Responsabilidade |
+|---|---------|-----------------|
+| 1 | `aulas/cirrose/references/CASE.md` | Dados do paciente (Seu Antônio) — labs, evolução, armadilhas |
+| 2 | `aulas/cirrose/references/evidence-db.md` | Literatura e trials — PMIDs, NNTs, tier |
+| 3 | `aulas/cirrose/references/narrative.md` | Arco narrativo — pacing, emoção, Chekhov's guns |
+| 4 | `aulas/cirrose/slides/_manifest.js` | Estrutura de slides — ordem, archetypes, panel states |
+
+**Regra de conflito:** o arquivo de maior autoridade (# menor) prevalece.
+**Duplicação proibida:** dados do paciente só em CASE.md. Outros arquivos referenciam com `ver CASE.md`.
+
 ---
 
 ## Workflow Orchestration
