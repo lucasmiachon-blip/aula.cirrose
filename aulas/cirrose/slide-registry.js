@@ -48,7 +48,8 @@ export const customAnimations = {
     const decompFill = slide.querySelector('.burden-bar-fill--decomp');
     const compNum = slide.querySelector('[data-countup-target="112"]');
     const decompNum = slide.querySelector('[data-countup-target="10.6"]');
-    const trend = slide.querySelector('.burden-trend');
+    const badge = slide.querySelector('.burden-badge');
+    const asymmetry = slide.querySelector('.burden-asymmetry');
     const sourceTag = slide.querySelector('.source-tag');
 
     function advance() {
@@ -56,27 +57,19 @@ export const customAnimations = {
       state++;
 
       if (state === 1) {
-        // Hero compresses to top, iceberg appears
-        hero.classList.add('burden-hero--compact'); // instant layout, then GSAP slides up
+        hero.classList.add('burden-hero--compact');
         if (pulse) gsap.to(pulse, { opacity: 0, duration: 0.2, onComplete() { pulse.style.display = 'none'; } });
-        gsap.to(hero, {
-          y: -60,
-          duration: 0.5,
-          ease: 'power2.out',
-        });
-
+        gsap.to(hero, { y: -60, duration: 0.5, ease: 'power2.out' });
         gsap.to(iceberg, { opacity: 1, duration: 0.4, delay: 0.3 });
 
-        // Bars grow
-        gsap.to(compFill, { width: '91%', duration: 1, delay: 0.5, ease: 'power2.out' });
-        gsap.to(decompFill, { width: '9%', duration: 1, delay: 0.6, ease: 'power2.out' });
+        gsap.to(compFill, { width: '100%', duration: 0.8, delay: 0.5, ease: 'power2.out' });
+        if (compNum) inlineCountUp(gsap, compNum, 112, 1.0, 0.5);
 
-        // CountUp on bar values
-        if (compNum) inlineCountUp(gsap, compNum, 112, 1.2, 0.5);
-        if (decompNum) inlineCountUp(gsap, decompNum, 10.6, 1.2, 0.6);
+        gsap.to(decompFill, { scaleX: 1, duration: 1.0, delay: 1.0, ease: 'power2.out' });
+        if (decompNum) inlineCountUp(gsap, decompNum, 10.6, 1.0, 1.0);
 
-        // Trend fadeUp
-        gsap.to(trend, { opacity: 1, y: 0, duration: 0.5, delay: 1.2, ease: 'power2.out' });
+        if (badge) gsap.to(badge, { opacity: 1, y: 0, duration: 0.5, delay: 1.8, ease: 'power2.out' });
+        if (asymmetry) gsap.to(asymmetry, { opacity: 1, y: 0, duration: 0.6, delay: 2.2, ease: 'power2.out' });
       }
 
       if (state === 2) {
@@ -99,8 +92,9 @@ export const customAnimations = {
         if (pulse) { pulse.style.display = ''; gsap.to(pulse, { opacity: 1, duration: 0.3, delay: 0.3 }); }
         gsap.to(iceberg, { opacity: 0, duration: 0.3 });
         gsap.to(compFill, { width: '0%', duration: 0.3 });
-        gsap.to(decompFill, { width: '0%', duration: 0.3 });
-        gsap.to(trend, { opacity: 0, duration: 0.3 });
+        gsap.to(decompFill, { scaleX: 0, duration: 0.3 });
+        if (badge) gsap.to(badge, { opacity: 0, duration: 0.3 });
+        if (asymmetry) gsap.to(asymmetry, { opacity: 0, duration: 0.3 });
         if (compNum) compNum.textContent = '0';
         if (decompNum) decompNum.textContent = '0';
       }
@@ -109,8 +103,7 @@ export const customAnimations = {
       return true;
     }
 
-    // Initial state
-    gsap.set(trend, { y: 12 });
+    gsap.set([badge, asymmetry].filter(Boolean), { y: 12 });
 
     slide.__hookAdvance = advance;
     slide.__hookRetreat = retreat;
