@@ -103,6 +103,13 @@
     "chrome-devtools": {
       "command": "npx",
       "args": ["-y", "chrome-devtools-mcp"]
+    },
+    "frontend-review": {
+      "command": "npx",
+      "args": ["-y", "frontend-review-mcp"],
+      "env": {
+        "HYPERBOLIC_API_KEY": "${HYPERBOLIC_API_KEY}"
+      }
     }
   }
 }
