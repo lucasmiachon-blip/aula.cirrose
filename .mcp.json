@@ -63,6 +63,17 @@
     "fetch": {
       "command": "npx",
       "args": ["-y", "@anthropic-ai/mcp-server-fetch"]
+    },
+    "ui-ux-pro": {
+      "command": "npx",
+      "args": ["-y", "ui-ux-pro-mcp"]
+    },
+    "frontend-review": {
+      "command": "npx",
+      "args": ["frontend-review-mcp"],
+      "env": {
+        "HYPERBOLIC_API_KEY": "${HYPERBOLIC_API_KEY}"
+      }
     }
   }
 }

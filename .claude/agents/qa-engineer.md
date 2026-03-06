@@ -1,6 +1,6 @@
 ---
 name: qa-engineer
-description: "Runs QA perfection loop on slides: audit → fix → re-audit until ALL 13 criteria ≥ 9/10. Criteria: assertion-evidence, typography, contrast, fill ratio, density, visual impact, interactions, CSS tokens, clinical data, a11y (Lighthouse+axe), cognitive load (Sweller CLT), adult learning (Knowles+Miller), narrative arc (Duarte+Alley). Tools: playwright, lighthouse, eslint, perplexity_reason, axe-core. Use PROACTIVELY after any slide is created or modified."
+description: "Runs QA perfection loop on slides: audit → fix → re-audit until ALL 13 criteria ≥ 9/10. Criteria: assertion-evidence, typography, contrast, fill ratio, density, visual impact, interactions, CSS tokens, clinical data, a11y (Lighthouse+axe), cognitive load (Sweller CLT), adult learning (Knowles+Miller), narrative arc (Duarte+Alley). Tools: playwright, lighthouse, eslint, perplexity_reason, axe-core, ui-ux-pro (UX guidelines), frontend-review (before/after visual diff), attention-insight (clarity+cognitive load score). Use PROACTIVELY after any slide is created or modified."
 tools:
   - Read
   - Write
@@ -10,6 +10,8 @@ tools:
   - mcp:lighthouse
   - mcp:eslint
   - mcp:perplexity
+  - mcp:ui-ux-pro
+  - mcp:frontend-review
 model: sonnet
 ralph_phase: learn
 ---
@@ -44,6 +46,9 @@ MAX 3 iterações por slide. Se não atingir após 3 → escalar para Lucas com 
 | `mcp:lighthouse run_audit(url, ['accessibility'])` | Score Lighthouse a11y |
 | `mcp:eslint lint-files` | Qualidade JS |
 | `mcp:perplexity perplexity_reason` | Avaliação pedagógica (CLT, Mayer, Knowles, Miller) |
+| `mcp:ui-ux-pro` | Padrões UX: tipografia, espaçamento, cores, landing patterns (103 styles, 170 UX guidelines) |
+| `mcp:frontend-review reviewEdit` | Comparar before/after screenshots — valida se CSS edit atingiu objetivo |
+| `Bash: node scripts/attention-insight.js <png> --json` | Clarity score + cognitive load (sharp fallback; API real com ATTENTION_INSIGHT_API_KEY) |
 | `Bash: npm run lint:slides` | Assertion-evidence lint |
 | `Bash: npm run build:cirrose` | Build check |
 | `Bash: grep` | HEX literals, px font-size, ul/ol |
