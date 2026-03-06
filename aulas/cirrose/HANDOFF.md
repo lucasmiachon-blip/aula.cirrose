@@ -125,17 +125,56 @@ JS funciona (confirmado no browser). Redundâncias visuais e CSS ainda presentes
 
 ---
 
-## QA Stack — Ferramentas de Alto ROI
+## QA + Research Stack — Ferramentas de Alto ROI (pesquisa 2026-03-05)
 
-Instaladas em `.cursor/mcp.json` + `.mcp.json`. Status e como ativar:
+Instaladas em `.cursor/mcp.json` + `.mcp.json`. Pesquisa exaustiva de MCPs disponíveis até março/2026.
 
-| # | Ferramenta | ROI | Custo | Status | Como ativar |
-|---|-----------|-----|-------|--------|-------------|
-| 1 | `ui-ux-pro-mcp` | ★★★★★ | **GRÁTIS** | ✅ Funcionando agora | Nenhuma ação — já ativo no MCP |
-| 2 | `perplexity` | ★★★★★ | ~$5/mo | ✅ Funcionando agora | `PERPLEXITY_API_KEY` já no `.env` |
-| 3 | `mcp:attention-insight` (fallback) | ★★★☆☆ | **GRÁTIS** | ✅ Funcionando via sharp | Nenhuma — roda agora com proxy heurístico |
-| 4 | `mcp:attention-insight` (API real) | ★★★★★ | **14 dias grátis** → €119/mo Pro | ⏳ Requer signup | Signup em [app.attentioninsight.com](https://app.attentioninsight.com/auth/signup), pegar API key nas settings, adicionar `ATTENTION_INSIGHT_API_KEY=<key>` no `.env` |
-| 5 | `frontend-review-mcp` | ★★★★☆ | **Créditos grátis** no signup | ⏳ Requer API key | Signup em [app.hyperbolic.xyz](https://app.hyperbolic.xyz), copiar API key, adicionar `HYPERBOLIC_API_KEY=<key>` no `.env` |
+### Tier 1 — Funcionando agora (GRÁTIS, zero config)
+
+| Ferramenta | ROI | O que faz |
+|-----------|-----|-----------|
+| `ui-ux-pro-mcp` | ★★★★★ | 170 UX guidelines, 103 styles, typography, colors — base objetiva para critérios 2,4,6 do QA |
+| `perplexity` | ★★★★★ | Avaliação pedagógica (CLT, Mayer, Knowles, Miller, Duarte) — critérios 11-13 |
+| `playwright` | ★★★★★ | Screenshots 1280×720, clicks, keyboard, axe-core via evaluate — base de todo QA visual |
+| `lighthouse` | ★★★★★ | Score a11y, performance, best practices — critério 10 |
+| `a11y-mcp-server` | ★★★★☆ | WCAG AA/AAA via axe-core — critério 3 (contraste) |
+| `clinicaltrials` | ★★★★★ | **NOVO** ClinicalTrials.gov v2: busca por NCT ID, patient profile match, outcomes, adverse events. Resolve os 21 [TBD] de PREDESCI/CANONIC/ANSWER |
+| `design-comparison` | ★★★★☆ | **NOVO** Pixel diff CSS before/after. GRÁTIS, sem API key. Valida se fix funcionou |
+| `page-design-guide` | ★★★☆☆ | **NOVO** Typography hierarchy, layout patterns (F/Z/Bento), animation principles, responsive — 8 ferramentas |
+| `mcp:attention-insight` (sharp) | ★★★☆☆ | Clarity + focus score proxy via sharp. Sem API key, ~60% accuracy |
+| `scite`, `biomcp`, `pubmed`, `crossref` | ★★★★☆ | Literatura científica verificada — base para critério 9 (dados clínicos) |
+
+### Tier 2 — Requer signup (free credits disponíveis)
+
+| Ferramenta | ROI | Custo | Como ativar |
+|-----------|-----|-------|-------------|
+| `mcp:attention-insight` (API real) | ★★★★★ | 14 dias grátis → €119/mo | Signup: [app.attentioninsight.com](https://app.attentioninsight.com/auth/signup) → Settings → API Key → `.env`: `ATTENTION_INSIGHT_API_KEY=ai_...` |
+| `floto` | ★★★★☆ | **1.000 créditos grátis** no signup (~50 audits) | Signup: [test-app.floto.ai](https://test-app.floto.ai) → API Key → `.env`: `FLOTO_API_KEY=...` Faz smart diff semântico (além de pixels) |
+| `frontend-review-mcp` | ★★★★☆ | Créditos grátis no signup | Signup: [app.hyperbolic.xyz](https://app.hyperbolic.xyz) → `.env`: `HYPERBOLIC_API_KEY=...` |
+
+### O que NÃO existe como MCP (2026)
+
+- **Eye-tracking real como MCP**: não existe pacote npm. Attention Insight é a melhor opção via API REST.
+- **Saliency maps locais**: sem MCP. O `scripts/mcp-attention-insight.js` faz proxy via sharp como fallback.
+- **Figma MCP oficial**: Figma tem plugin API mas não MCP stdio. Floto e frontend-review cobrem o gap.
+
+### Mapeamento ferramentas → critérios qa-engineer
+
+| Critério | Ferramentas primárias |
+|---------|----------------------|
+| 1. Assertion-Evidence | `npm run lint:slides`, `playwright` DOM |
+| 2. Tipografia | `ui-ux-pro`, `page-design-guide` |
+| 3. Contraste WCAG | `a11y-mcp`, `playwright axe-core`, `lighthouse` |
+| 4. Fill ratio | `playwright` screenshot 1280×720 |
+| 5. Densidade | `playwright` word count DOM |
+| 6. Impacto visual | `attention-insight`, `floto` |
+| 7. Interações | `playwright` Space/Arrow + hook check |
+| 8. CSS tokens | `grep` HEX/px literals |
+| 9. Dados clínicos | `scite`, `biomcp`, `clinicaltrials` |
+| 10. a11y Lighthouse | `lighthouse`, `a11y-mcp` |
+| 11. Carga cognitiva | `perplexity_reason` + `attention-insight` |
+| 12. Aprendizagem adulto | `perplexity_reason` |
+| 13. Arco narrativo | `perplexity_reason` |
 
 ### O que cada uma traz ao QA
 

@@ -81,6 +81,25 @@
       "env": {
         "ATTENTION_INSIGHT_API_KEY": "${ATTENTION_INSIGHT_API_KEY}"
       }
+    },
+    "clinicaltrials": {
+      "command": "npx",
+      "args": ["-y", "clinicaltrialsgov-mcp-server"]
+    },
+    "design-comparison": {
+      "command": "npx",
+      "args": ["-y", "mcp-design-comparison"]
+    },
+    "page-design-guide": {
+      "command": "npx",
+      "args": ["-y", "page-design-guide-mcp"]
+    },
+    "floto": {
+      "command": "npx",
+      "args": ["@floto/mcp-server", "run"],
+      "env": {
+        "FLOTO_API_KEY": "${FLOTO_API_KEY}"
+      }
     }
   }
 }

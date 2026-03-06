@@ -13,6 +13,8 @@ tools:
   - mcp:ui-ux-pro
   - mcp:frontend-review
   - mcp:attention-insight
+  - mcp:design-comparison
+  - mcp:floto
 model: sonnet
 ralph_phase: learn
 ---
@@ -50,6 +52,8 @@ MAX 3 iterações por slide. Se não atingir após 3 → escalar para Lucas com 
 | `mcp:ui-ux-pro` | Padrões UX: tipografia, espaçamento, cores, landing patterns (103 styles, 170 UX guidelines) |
 | `mcp:frontend-review reviewEdit` | Comparar before/after screenshots — valida se CSS edit atingiu objetivo |
 | `mcp:attention-insight analyze_attention(image_path)` | Clarity score + Focus score + Cognitive load (sharp fallback sem API key; API real com ATTENTION_INSIGHT_API_KEY) |
+| `mcp:design-comparison compare(before, after)` | Pixel diff GRATUITO — before/after CSS fixes, % de diferença, imagem diff |
+| `mcp:floto compare_design(design, impl)` | Smart diff semântico — AI detecta discrepâncias visuais além de pixels (requer FLOTO_API_KEY) |
 | `Bash: npm run lint:slides` | Assertion-evidence lint |
 | `Bash: npm run build:cirrose` | Build check |
 | `Bash: grep` | HEX literals, px font-size, ul/ol |
