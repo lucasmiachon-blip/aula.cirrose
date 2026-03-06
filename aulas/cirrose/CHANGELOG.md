@@ -4,6 +4,69 @@
 
 ---
 
+## 2026-03-05 — Restructure Act 1: dados canônicos + 9 slides reestruturados (branch restructure/act1)
+
+Branch: `restructure/act1` · Commits: `8058052`→`3b71873` · Build: 33 slides ✅
+
+### Dados canônicos Antônio (commit `8058052`)
+- Labs definidos uma vez: ALT 31 U/L · AST 67 · PLQ 112k · GGT 210 · Alb 3,6 · Bili 1,3 · INR 1,2 · FIB-4 5,91
+- FIB-4 calculado: `(55 × 67) / (112 × √31) = 5,91` — documentado em narrative.md + evidence-db.md
+- Armadilha clínica registrada: ALT normal em hepatócito burnt-out; AST/ALT = 2,16 padrão alcoólico avançado
+
+### s-hook (`2c116b1`)
+- 8-card lab grid (7 labs + FIB-4 como último card)
+- FIB-4 card: borda warning, label "calculado"
+- ALT card: borda success, label "normal ✓" — armadilha pedagógica
+- `.hook-punchline` "Sem queixas." fadeUp após stagger, font-display, centralizado
+- HEX literals substituídos por custom properties scoped `#s-hook { --hook-* }`
+
+### s-a1-01 Burden (`0102bf0`)
+- Headline: "1,43 milhão morre por ano" (GBD 2021, PMID 39927433)
+- Iceberg invertido: barra comp cinza primeiro → barra decomp cresce via scaleX(0→1)
+- `.burden-badge` "+18% MASH": background + border-left warning (não texto solto)
+
+### s-a1-vote — NOVO (`563af33`)
+- Slide de votação interativa: "Esse paciente tem cirrose?"
+- 3 opções clicáveis (A/B/C); click em qualquer opção → reveal FIB-4 5,91 countUp
+- Cards A e C escurecem; card B recebe borda success + checkmark
+- Adicionado ao `_manifest.js` após s-a1-01
+
+### s-a1-damico (`07db52a`)
+- Cortado de 6 eras para 3: CTP → MELD-Na → D'Amico pathway
+- PREDESCI removido daqui → migrado para s-a1-classify
+- MELD 3.0 removido → mover para apêndice se necessário
+- Era 0: pills A/B/C stagger. Era 1: fórmula termo a termo + c-stat countUp. Era 2: pathway scaleX
+
+### s-a1-baveno + s-a1-elasto fundidos (`6804609`)
+- `s-a1-elasto.html` deletado, removido do manifest
+- Conteúdo fundido em `s-a1-baveno.html`: dissolve "Cirrose"→espectro + pathway 3-step
+- Pathway: [FIB-4] → [Elastografia] (AUROC 0,90 badge) → [Rule of 5], stagger vertical
+
+### s-a1-fib4 (`581106e`)
+- H2 novo: "4 dados. 1 número. 1 decisão."
+- Hero number 5,91 countUp, cor danger, font-size var(--text-display)
+- 4 input cards: Idade 55 / AST 67 / PLQ 112k / ALT 31✓ (armadilha de novo)
+- Archetype trocado para hero-stat; calculadora panel width 280px
+
+### s-a1-rule5 (`2c4893b`)
+- Gray zone 10-25 kPa: label explícito + borda tracejada warning
+- Pin Antônio: translateY(-40px→0) + bounce
+- Nuances CSPH: 2 linhas ("inflamação aguda, ICC, obesidade" / "Jejum 2h, IQR/mediana")
+- Zonas entram com scaleY(0→1), transform-origin: bottom
+
+### s-a1-meld (`d243fb2`)
+- H2: "MELD-Na: o GPS da fila"
+- Emojis 🟢🟡🟠🔴 nas bandas (funcionais, não decorativos)
+- `.meld-threshold` "MELD ≥18" anima width 0→100% após bandas
+
+### s-a1-classify (`55b10c7`)
+- Estado 0 removido (redundante com hook)
+- H2: "Classificar muda conduta"
+- 3 assertion cards com dado de desfecho (compensado / 1ª descomp / 2ª descomp)
+- PREDESCI HR 0,51 countUp hero centralizado aqui
+
+---
+
 ## 2026-03-05 — Calc redesign: split layout, hero score, shared CSS
 
 - **Layout split**: calculadoras FIB-4 e MELD-Na redesenhadas — 2 colunas (inputs 2x2 grid | hero score panel)
