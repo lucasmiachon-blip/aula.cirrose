@@ -286,17 +286,15 @@ export const customAnimations = {
     if (document.body.classList.contains('stage-bad')) return;
 
     let state = 0;
-    const maxState = 5;
+    const maxState = 2;
     let busy = false;
 
     const eras = slide.querySelectorAll('.scores-era');
     const sourceTag = slide.querySelector('.source-tag');
 
-    // Reset all eras on slide entry (GSAP inline opacity overrides CSS on re-entry)
     eras.forEach((era, i) => gsap.set(era, { opacity: i === 0 ? 1 : 0 }));
     if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
 
-    // Helpers: swap visible era
     function showEra(idx, onComplete) {
       eras.forEach(e => {
         if (parseFloat(getComputedStyle(e).opacity) > 0.01) {
@@ -311,145 +309,68 @@ export const customAnimations = {
       });
     }
 
-    // Era 0 auto: stagger boxes
-    const era0Boxes = slide.querySelectorAll('.scores-era[data-era="0"] .scores-era-box');
-    gsap.set(era0Boxes, { opacity: 0, y: 16 });
-    gsap.to(era0Boxes, { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, delay: 0.3, ease: 'power2.out' });
-
-    // Pre-set limitation elements for era 1 so they start hidden (Plan A/C only)
-    const limitations = slide.querySelectorAll('.scores-era[data-era="1"] .limitation');
-    gsap.set(limitations, { opacity: 0, x: -16 });
+    // Era 0 auto: CTP classes stagger
+    const ctpClasses = slide.querySelectorAll('.scores-era[data-era="0"] .ctp-class');
+    gsap.set(ctpClasses, { opacity: 0, y: 12 });
+    gsap.to(ctpClasses, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.4, ease: 'power2.out' });
 
     function runEra1Anims() {
-      // CTP boxes stagger
-      const ctp = slide.querySelectorAll('.scores-era[data-era="1"] .scores-era-box');
-      gsap.set(ctp, { opacity: 0, y: 12 });
-      gsap.to(ctp, { opacity: 1, y: 0, duration: 0.35, stagger: 0.1, delay: 0.1, ease: 'power2.out' });
-      // CTP classes
-      const classes = slide.querySelectorAll('.scores-era[data-era="1"] .ctp-class');
-      gsap.set(classes, { opacity: 0 });
-      gsap.to(classes, { opacity: 1, duration: 0.3, stagger: 0.12, delay: 0.6, ease: 'power2.out' });
-      // Limitations stagger: cada limitação é uma revelação pedagógica separada
-      // Justificativa: professor diz "quatro problemas" → lista aparece um a um, sem correr
-      gsap.to(limitations, {
-        opacity: 1, x: 0, duration: 0.4, stagger: 0.28, delay: 0.9, ease: 'power2.out',
-      });
-      // Transição narrativa no final
-      const transition = slide.querySelector('.scores-transition');
-      if (transition) {
-        gsap.to(transition, { opacity: 1, duration: 0.4, delay: 0.9 + limitations.length * 0.28 + 0.3 });
-      }
-    }
-
-    function runEra2Anims() {
-      const terms = slide.querySelectorAll('.scores-era[data-era="2"] .formula-term');
+      const terms = slide.querySelectorAll('.scores-era[data-era="1"] .formula-term');
       gsap.set(terms, { opacity: 0, y: 10 });
       gsap.to(terms, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.1, ease: 'power2.out' });
-      const cstatEl = slide.querySelector('.scores-era[data-era="2"] .scores-cstat-value');
+
+      const sodiumTerm = slide.querySelector('[data-meldna-sodium]');
+      if (sodiumTerm) {
+        gsap.fromTo(sodiumTerm,
+          { backgroundColor: 'transparent' },
+          { backgroundColor: 'var(--ui-accent-light)', color: 'var(--ui-accent)', duration: 0.6, delay: 0.8, ease: 'power2.out' }
+        );
+      }
+
+      const cstatEl = slide.querySelector('.scores-era[data-era="1"] .scores-cstat-value');
       if (cstatEl) {
         inlineCountUp(gsap, cstatEl, parseFloat(cstatEl.dataset.target), 1.2, 0.8);
       }
     }
 
-    function runEra3Anims() {
-      // Highlight no termo sódio: justificativa = o único termo NOVO no MELD-Na
-      const sodiumTerm = slide.querySelector('[data-meldna-sodium]');
-      if (sodiumTerm) {
-        gsap.fromTo(sodiumTerm,
-          { backgroundColor: 'transparent' },
-          { backgroundColor: 'var(--ui-accent-light)', color: 'var(--ui-accent)', duration: 0.6, delay: 0.4, ease: 'power2.out' }
-        );
-      }
-    }
+    function runEra2Anims() {
+      const stages = slide.querySelectorAll('.scores-era[data-era="2"] .pathway-stage');
+      gsap.set(stages, { scaleX: 0, transformOrigin: 'left' });
+      gsap.to(stages, { scaleX: 1, duration: 0.6, stagger: 0.15, delay: 0.2, ease: 'power2.out' });
 
-    function runEra4Anims() {
-      const terms = slide.querySelectorAll('.scores-era[data-era="4"] .formula-term--new');
-      gsap.set(terms, { opacity: 0, y: 10 });
-      gsap.to(terms, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.1, ease: 'power2.out' });
-      // Dual CountUp: MELD 3.0 vs MELD-Na — comparação visual simultânea
-      const cstatEls = slide.querySelectorAll('.scores-era[data-era="4"] .cstat-value');
-      cstatEls.forEach((el, i) => {
-        const t = parseFloat(el.dataset.target);
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: t, duration: 1.2, delay: 0.4 + i * 0.15, ease: 'power2.out',
-          onUpdate() {
-            el.textContent = obj.val.toLocaleString('pt-BR', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
-          },
-        });
+      const vals = slide.querySelectorAll('.scores-era[data-era="2"] .pathway-value[data-target]');
+      vals.forEach((el, i) => {
+        inlineCountUp(gsap, el, parseFloat(el.dataset.target), 1, 0.4 + i * 0.15);
       });
-    }
 
-    function runEra5Anims(preFlipState) {
-      const datasets = slide.querySelectorAll('.scores-era[data-era="5"] .damico-dataset');
+      const further = slide.querySelector('.damico-further-decomp');
+      if (further) gsap.fromTo(further, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.2, ease: 'power2.out' });
 
-      function fireCountUps() {
-        // CountUp em todos os pathway-value[data-target] da era 5
-        const vals = slide.querySelectorAll('.scores-era[data-era="5"] .pathway-value[data-target]');
-        vals.forEach((el, i) => {
-          inlineCountUp(gsap, el, parseFloat(el.dataset.target), 1, 0.15 + i * 0.08);
-        });
-        if (sourceTag) gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 0.9 });
-      }
-
-      if (preFlipState) {
-        // Flip.from: datasets animam DE onde estava a fórmula do Era 4 PARA suas posições naturais
-        Flip.from(preFlipState, {
-          targets: datasets,
-          duration: 0.5,
-          ease: 'power2.inOut',
-          stagger: 0.15,
-          onComplete: fireCountUps,
-        });
-      } else {
-        // Fallback: stagger simples (Plan B retorna cedo, este branch é safety net para Plan C sem preFlipState)
-        gsap.from(datasets, {
-          opacity: 0, y: 20, stagger: 0.15, duration: 0.4, ease: 'power2.out',
-          onComplete: fireCountUps,
-        });
-      }
+      if (sourceTag) gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 1.5 });
     }
 
     function advance() {
       if (busy || state >= maxState) return false;
       state++;
       busy = true;
-
-      const eraAnimMap = [null, runEra1Anims, runEra2Anims, runEra3Anims, runEra4Anims, runEra5Anims];
-      const postAnim = eraAnimMap[state];
-
-      // Capture Era 4 formula layout BEFORE showEra fades it out (needed for Flip.from in Era 5)
-      // captura pré-fade — crítico para Flip.from: executa sync no mesmo call stack do keydown,
-      // antes que slide:changed dispare e inicie qualquer transição CSS.
-      let preFlipState = null;
-      if (state === 5) {
-        const formulaBlock = slide.querySelector('.scores-era[data-era="4"] .scores-formula');
-        if (formulaBlock) preFlipState = Flip.getState(formulaBlock);
-      }
-
+      const postAnim = state === 1 ? runEra1Anims : state === 2 ? runEra2Anims : null;
       showEra(state, () => {
         busy = false;
-        if (postAnim) postAnim(preFlipState);
+        if (postAnim) postAnim();
       });
-
       return true;
     }
 
     function retreat() {
       if (busy || state <= 0) return false;
-
-      if (state === 5) {
+      if (state === 2) {
         if (sourceTag) gsap.to(sourceTag, { opacity: 0, duration: 0.2 });
-        // Reset pathway values so CountUp re-animates correctly on next advance
-        slide.querySelectorAll('.scores-era[data-era="5"] .pathway-value[data-target]')
+        slide.querySelectorAll('.scores-era[data-era="2"] .pathway-value[data-target]')
           .forEach(el => { gsap.killTweensOf(el); el.textContent = '0'; });
       }
-
       state--;
       busy = true;
-
       showEra(state, () => { busy = false; });
-
       return true;
     }
 

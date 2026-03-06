@@ -2345,9 +2345,35 @@
   border-radius: var(--radius-sm);
   min-width: 0;
 }
-/* Compact era 5 to fit both 2006 + 2014 datasets in 720px */
-.scores-era[data-era="5"] { gap: 4px; }
 .damico-dataset .pathway-value { font-size: var(--text-small); font-weight: 700; }
+
+.damico-further-decomp {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: oklch(50% 0.18 25 / 0.08);
+  border-left: 3px solid var(--danger);
+  opacity: 0;
+}
+.damico-further-icon {
+  font-size: var(--text-h3);
+  color: var(--danger);
+}
+.damico-further-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+}
+.damico-further-source {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  margin-left: auto;
+}
+.no-js .damico-further-decomp,
+.stage-bad .damico-further-decomp { opacity: 1; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    CTP Limitações — Estado 1 do novo 02b
