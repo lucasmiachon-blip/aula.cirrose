@@ -60,8 +60,8 @@ PAUSA 3s. Deixar a pergunta pairar.
 
 <!-- ============================================================
      s-hook — Caso Antônio (congresso, formal)
-     Archetype: Custom hook (v5 — 2 beats, sem título)
-     Beat 0: Antônio + história (centro) → Beat 1: Labs + pergunta abaixo
+     Archetype: Custom hook (v6 — 2 beats, 8 lab cards + punchline)
+     Beat 0: Antônio + bio (centro) → Beat 1: 8 cards + "Sem queixas."
      Reversível: ArrowLeft/Up. Background: navy.
      ============================================================ -->
 <section id="s-hook"
@@ -72,13 +72,13 @@ PAUSA 3s. Deixar a pergunta pairar.
 
   <div class="hook-stage">
 
-    <!-- ━━ BEAT 0: Antônio + história (centro) ━━━━━━━━━━━━━━━ -->
+    <!-- ━━ BEAT 0: Antônio + bio (centro) ━━━━━━━━━━━━━━━ -->
     <div class="hook-beat hook-beat--active" data-hook-beat="0">
       <div class="hook-patient">
         <h3 class="hook-patient-name">Antônio, 55 anos</h3>
         <p class="hook-patient-desc">
-          Caminhoneiro · IMC 31 · DM2<br>
-          ~5 latas de cerveja/dia há 20 anos (60 g álcool)
+          Caminhoneiro · obeso (IMC 31) · DM2<br>
+          5 latas de cerveja/dia há 20 anos (60 g álcool)
         </p>
         <p class="hook-patient-ref">
           Encaminhado da atenção primária
@@ -86,18 +86,19 @@ PAUSA 3s. Deixar a pergunta pairar.
       </div>
     </div>
 
-    <!-- ━━ BEAT 1: Labs + pergunta abaixo (Click 1) ━━━━━━━━━━━ -->
+    <!-- ━━ BEAT 1: 8 lab cards + punchline (Click 1) ━━━━━━━ -->
     <div class="hook-beat hook-beat--hidden" data-hook-beat="1">
-      <div class="hook-labs-row" data-animate="stagger" data-stagger="0.15">
+      <div class="hook-labs-grid">
         <div class="hook-lab">
           <span class="hook-lab-label">AST</span>
-          <span class="hook-lab-value">72</span>
+          <span class="hook-lab-value">67</span>
           <span class="hook-lab-ref">U/L</span>
         </div>
-        <div class="hook-lab">
+        <div class="hook-lab hook-lab--success">
           <span class="hook-lab-label">ALT</span>
-          <span class="hook-lab-value">48</span>
+          <span class="hook-lab-value">31</span>
           <span class="hook-lab-ref">U/L</span>
+          <span class="hook-lab-tag">normal ✓</span>
         </div>
         <div class="hook-lab">
           <span class="hook-lab-label">PLQ</span>
@@ -105,24 +106,30 @@ PAUSA 3s. Deixar a pergunta pairar.
           <span class="hook-lab-ref">/mm³</span>
         </div>
         <div class="hook-lab">
+          <span class="hook-lab-label">GGT</span>
+          <span class="hook-lab-value">210</span>
+          <span class="hook-lab-ref">U/L</span>
+        </div>
+        <div class="hook-lab">
           <span class="hook-lab-label">Albumina</span>
-          <span class="hook-lab-value">3,5</span>
+          <span class="hook-lab-value">3,6</span>
           <span class="hook-lab-ref">g/dL</span>
+        </div>
+        <div class="hook-lab">
+          <span class="hook-lab-label">Bili</span>
+          <span class="hook-lab-value">1,3</span>
+          <span class="hook-lab-ref">mg/dL</span>
         </div>
         <div class="hook-lab">
           <span class="hook-lab-label" style="text-transform:none">INR</span>
           <span class="hook-lab-value">1,2</span>
           <span class="hook-lab-ref"></span>
         </div>
-        <div class="hook-lab">
-          <span class="hook-lab-label">Bili</span>
-          <span class="hook-lab-value">1,5</span>
-          <span class="hook-lab-ref">mg/dL</span>
-        </div>
-        <div class="hook-lab">
-          <span class="hook-lab-label" style="text-transform:none">HbA1c</span>
-          <span class="hook-lab-value" data-animate="countUp" data-target="7.0" data-decimals="1">0</span>
-          <span class="hook-lab-ref">%</span>
+        <div class="hook-lab hook-lab--warning">
+          <span class="hook-lab-label" style="text-transform:none">FIB-4</span>
+          <span class="hook-lab-value" data-animate="countUp" data-target="5.91" data-decimals="2">0</span>
+          <span class="hook-lab-ref"></span>
+          <span class="hook-lab-tag">calculado</span>
         </div>
       </div>
       <p class="hook-punchline">Sem queixas.</p>
@@ -133,17 +140,21 @@ PAUSA 3s. Deixar a pergunta pairar.
   <aside class="notes">
 [BEAT 0 · auto] Caso
 "Antônio. 55 anos. Caminhoneiro.
-IMC 31, diabético tipo 2, etilista — 60 gramas por dia há 20 anos.
+Obeso, IMC 31, diabético tipo 2.
+5 latas por dia há 20 anos — 60 gramas de álcool.
 Exames de rotina na atenção primária. Encaminharam."
 
 [BEAT 1 · click] Labs
-"Olhem os números: AST 72, ALT 48 — reparem, AST maior que ALT.
-Plaquetas 112 mil — abaixo de 150. Albumina 3,5.
-HbA1c 7 — diabético mal controlado.
-Sem queixas."
+"Olhem os números: AST 67, ALT 31. Reparem — ALT normal.
+A maioria de vocês nem olharia duas vezes.
+Plaquetas 112 mil. GGT 210 — marcador de álcool crônico.
+Albumina 3,6 — limítrofe. Bilirrubina e INR quase normais."
+PAUSA 3s.
+"Agora o FIB-4: 5,91. Calculado com esses mesmos números.
+A ALT no denominador — quanto mais baixa, pior o FIB-4.
+Hepatócito burnt-out: o fígado parou de inflamar porque parou de funcionar."
 PAUSA 5s.
-"Vamos voltar ao caso do Antônio várias vezes ao longo da aula.
-Esses números parecem quase normais. Quase."
+"Sem queixas. Esse é o problema."
 → avançar para próximo slide
   </aside>
 </section>
@@ -151,7 +162,7 @@ Esses números parecem quase normais. Quase."
 <!-- ============================================================
      s-a1-01 — Burden global de cirrose
      Archetype: hero-stat (state machine)
-     States: 0=hero countUp, 1=iceberg bars, 2=source
+     States: 0=hero countUp, 1=iceberg bars + badge, 2=source
      ============================================================ -->
 <section id="s-a1-01"
          data-timing="90"
@@ -159,7 +170,7 @@ Esses números parecem quase normais. Quase."
 
   <div class="slide-inner archetype-hero-stat">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Cirrose mata 1,43 milhão por ano — e a epidemia silenciosa está crescendo</h2>
+    <h2 class="slide-headline">1,43 milhão morre por ano</h2>
 
     <!-- Hero block — repositions to top on click 1 -->
     <div class="burden-hero">
@@ -170,32 +181,32 @@ Esses números parecem quase normais. Quase."
       <div class="burden-pulse" aria-hidden="true"></div>
     </div>
 
-    <!-- Iceberg: compensados vs descompensados (click 1) -->
+    <!-- Iceberg: compensados (fundo) vs descompensados (cresce sobre) -->
     <div class="burden-iceberg">
       <div class="burden-bar-row">
         <div class="burden-bar-track">
           <div class="burden-bar-fill burden-bar-fill--comp"></div>
+          <div class="burden-bar-fill burden-bar-fill--decomp"></div>
         </div>
-        <div class="burden-bar-meta">
+        <div class="burden-bar-meta burden-bar-meta--comp">
           <span class="burden-bar-value burden-bar-value--safe"><span class="burden-bar-icon">✓</span> <span data-countup-target="112">0</span>M</span>
           <span class="burden-bar-label">compensados</span>
         </div>
       </div>
 
-      <div class="burden-bar-row">
-        <div class="burden-bar-track">
-          <div class="burden-bar-fill burden-bar-fill--decomp"></div>
-        </div>
-        <div class="burden-bar-meta">
+      <div class="burden-bar-row burden-bar-row--decomp">
+        <div class="burden-bar-meta burden-bar-meta--decomp">
           <span class="burden-bar-value burden-bar-value--danger"><span class="burden-bar-icon">✕</span> <span data-countup-target="10.6">0</span>M</span>
           <span class="burden-bar-label">descompensados</span>
         </div>
       </div>
 
-      <div class="burden-trend">
-        <span class="burden-trend-value">⚠ ↑ 18%</span>
-        <span class="burden-trend-label">casos 2010–2021 · MASH lidera</span>
+      <div class="burden-badge">
+        <span class="burden-badge-value">⚠ +18% MASH</span>
+        <span class="burden-badge-label">casos 2010–2021</span>
       </div>
+
+      <p class="burden-asymmetry">10% descompensa — 90% não sabe que tem</p>
     </div>
 
     <p class="source-tag" style="opacity:0">Tham et al. Liver Int 2025 · GBD 2021 · 204 países · PMID 39927433</p>
@@ -208,10 +219,11 @@ PAUSA 3s.
 "Dado do GBD 2021 — 204 países. Top 10 causas de morte global.
 A taxa ajustada por idade caiu — mas o número absoluto subiu porque tem mais gente com a doença."
 
-[0:30-1:00] click → escala e tendência
-"Olhem a escala: 112 milhões com cirrose compensada — muitos sem saber.
-10 milhões e 600 mil já descompensados.
-Incidência subiu 18% entre 2010 e 2021 — MASH lidera o crescimento enquanto hepatite C cai pós-antivirais."
+[0:30-1:00] click → iceberg e tendência
+"112 milhões com cirrose compensada — a maioria sem saber.
+Olhem: 10 milhões e 600 mil descompensados.
+A incidência subiu 18% entre 2010 e 2021 — MASH lidera o crescimento.
+10% descompensa. 90% não sabe que tem."
 
 [1:00-1:30] click → source, ponte para classificação
 "Mas esses 122 milhões não morrem da mesma forma.
@@ -220,139 +232,125 @@ Vamos ver exatamente onde está esse abismo."
 → avançar
 
 [DATA] Tham EKJ et al., Liver Int 2025 (PMID 39927433) · GBD 2021 · 1,425,142 mortes (95%UI 1,308,121–1,563,089) · +18% casos 2010-2021 · Verificado: 2026-03-05
-[DATA] Prevalência 112M comp + 10,6M decomp: GBD 2017 Cirrhosis Collaborators, Lancet Gastroenterol Hepatol 2020 (PMID 31981519) · manter para contexto iceberg
+[DATA] Prevalência 112M comp + 10,6M decomp: GBD 2017 Cirrhosis Collaborators, Lancet Gastroenterol Hepatol 2020 (PMID 31981519)
   </aside>
 </section>
 
 <!-- ============================================================
-     s-a1-damico — Escores Prognósticos (state machine, 6 eras)
-     Archetype: flow  |  Timing: 180s
+     s-a1-vote — Votação interativa: "Esse paciente tem cirrose?"
+     Archetype: poll (custom, based on hero-stat)
+     States: 0=pergunta+labs+3 opções, 1=reveal FIB-4 + resposta
+     ============================================================ -->
+<section id="s-a1-vote"
+         data-timing="120"
+         data-panel-state="neutral">
+
+  <div class="slide-inner archetype-hero-stat">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Esse paciente tem cirrose?</h2>
+
+    <div class="vote-patient-summary">
+      <span class="vote-bio">Caminhoneiro · 55a · obeso · DM2</span>
+      <div class="vote-labs-row">
+        <span class="vote-lab">AST 67</span>
+        <span class="vote-lab vote-lab--success">ALT 31 <small>normal ✓</small></span>
+        <span class="vote-lab">PLQ 112k</span>
+        <span class="vote-lab">GGT 210</span>
+        <span class="vote-lab">Alb 3,6</span>
+        <span class="vote-lab">Bili 1,3</span>
+        <span class="vote-lab">INR 1,2</span>
+      </div>
+    </div>
+
+    <div class="vote-options">
+      <button class="vote-option" data-vote="A">
+        <span class="vote-option-letter">A</span>
+        <span class="vote-option-text">Não — assintomático, ALT normal</span>
+      </button>
+      <button class="vote-option" data-vote="B">
+        <span class="vote-option-letter">B</span>
+        <span class="vote-option-text">Sim — suspeita clínica alta</span>
+      </button>
+      <button class="vote-option" data-vote="C">
+        <span class="vote-option-letter">C</span>
+        <span class="vote-option-text">Preciso de mais dados</span>
+      </button>
+    </div>
+
+    <p class="vote-instruction">Levante a mão para sua resposta</p>
+
+    <!-- Reveal: shown after click -->
+    <div class="vote-reveal">
+      <div class="vote-hero-fib4">
+        <span class="vote-hero-label">FIB-4</span>
+        <span class="vote-hero-number" data-countup-target="5.91">0</span>
+      </div>
+      <p class="vote-verdict">A maioria errou. Ele também.</p>
+      <p class="vote-explanation">ALT normal em doença avançada — hepatócito burnt-out</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+[0:00-0:30] "Vou fazer uma pergunta. E quero ver as mãos."
+"Esse paciente: caminhoneiro, 55 anos, obeso, diabético.
+Olhem os exames. ALT 31, normal.
+Ele tem cirrose?"
+PAUSA 10s — esperar plateia votar.
+
+[0:30-1:00] click → reveal
+"A maioria escolheu A — não, assintomático, ALT normal.
+Vocês não estão sozinhos. O residente da UBS também não pediu mais.
+Mas olhem: FIB-4 = 5,91.
+Calculado com os mesmos números que vocês acabaram de ver.
+A ALT no denominador — quanto mais baixa, maior o FIB-4.
+Ele não sente nada. O fígado já parou de gritar."
+
+[1:00-2:00] ponte
+"Quem calculou mentalmente? Ninguém. É isso.
+Sem rastreamento automatizado, esse paciente fica invisível."
+→ avançar
+
+[DATA] FIB-4 calculado: (55 × 67) / (112 × √31) = 5,91 | Verificado: 2026-03-05
+  </aside>
+</section>
+
+<!-- ============================================================
+     s-a1-damico — Escores Prognósticos (state machine, 3 eras)
+     Archetype: flow  |  Timing: 120s
      Eras (controladas por data-era):
-       0 = Child-Turcotte 1964 (auto) — pioneiro, 5 critérios, sem PMID
-       1 = CTP 1973 (click 1) — padronização + 4 limitações em stagger
-       2 = MELD 2001 (click 2) — 1º score 100% laboratorial, c-stat 0,87
-       3 = MELD-Na 2006 (click 3) — adiciona sódio, highlight no termo
-       4 = MELD 3.0 2021 (click 4) — corrige sexo + albumina, dual CountUp
-       5 = D'Amico (click 5) — estágio ≠ score, 2 datasets com labels obrigatórios
-     REGRA: D'Amico 2006 (ANUAL) ≠ D'Amico 2014 (5 ANOS) — NÃO comparar diretamente.
-     PMIDs verificados: 4541913 · 11172350 · 16697729 · 34481845
-     PMIDs do evidence-db.md: 16298014 · 24654740 · 37916970
-     PMID CTP interobserver: [TBD — ver evidence-db.md]
+       0 = CTP 1973 (auto) — pills A/B/C, menção oral de limitações
+       1 = MELD-Na (click 1) — fórmula, c-stat 0,87, padrão UNOS
+       2 = D'Amico pathway (click 2) — 4 blocos mortalidade, further decomp
+     PREDESCI removido — vai para s-a1-classify.
+     MELD 3.0 removido — mover para apêndice se necessário.
      ============================================================ -->
 <section id="s-a1-damico"
-         data-timing="180"
+         data-timing="120"
          data-panel-state="neutral">
   <div class="slide-inner archetype-flow">
 
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Três gerações de escores</h2>
 
-    <!-- TÍTULO: afirmação verificável — Alley model obrigatório -->
-    <h2 class="slide-headline">
-      De Child a MELD 3.0 — cada geração corrigiu o que a anterior não via
-    </h2>
-
-    <!-- ERA TRACK: state machine, uma era por vez (Plan A/C: absolute stacking) -->
     <div class="scores-era-track">
 
-      <!-- ─── ERA 0: Child-Turcotte 1964 (auto) ─── -->
-      <!-- Sem PMID formal — livro: Child CG, Turcotte JG. Surgery. 1964 -->
-      <!-- Pedagógico: pioneiro — mas critérios sem padronização numérica -->
+      <!-- ─── ERA 0: CTP 1973 (auto) ─── -->
       <div class="scores-era" data-era="0">
-        <span class="scores-era-badge">1964</span>
-        <h3 class="scores-era-title">Child-Turcotte</h3>
-        <div class="scores-era-boxes">
-          <div class="scores-era-box">Bilirrubina</div>
-          <div class="scores-era-box">Albumina</div>
-          <div class="scores-era-box">Estado Nutricional</div>
-          <div class="scores-era-box scores-era-box--clinical">⚠ Ascite</div>
-          <div class="scores-era-box scores-era-box--clinical">⚠ Encefalopatia</div>
-        </div>
-        <span class="scores-era-tag">Pioneiro — mas sem padronização numérica</span>
-        <span class="scores-era-source">[sem PMID — livro: Child CG, Turcotte JG. Surgery of the Liver. 1964]</span>
-      </div>
-
-      <!-- ─── ERA 1: Child-Turcotte-Pugh 1973 (click 1) ─── -->
-      <!-- PMID 4541913 — Pugh RNH et al. Br J Surg. 1973;60(8):646-9 -->
-      <!-- Pedagógico: padroniza escores 1-3, adiciona INR, cria classes A/B/C -->
-      <div class="scores-era" data-era="1">
         <span class="scores-era-badge">1973</span>
-        <h3 class="scores-era-title">Child-Turcotte-Pugh (CTP)</h3>
-        <div class="scores-era-boxes">
-          <div class="scores-era-box">Bilirrubina</div>
-          <div class="scores-era-box scores-era-box--new">⊕ INR/TP</div>
-          <div class="scores-era-box">Albumina</div>
-          <div class="scores-era-box scores-era-box--clinical">⚠ Ascite</div>
-          <div class="scores-era-box scores-era-box--clinical">⚠ Encefalopatia</div>
-        </div>
+        <h3 class="scores-era-title">Child-Turcotte-Pugh</h3>
         <div class="scores-ctp-classes">
           <span class="ctp-class ctp-class--a">✓ A 5–6</span>
           <span class="ctp-class ctp-class--b">⚠ B 7–9</span>
           <span class="ctp-class ctp-class--c">✕ C 10–15</span>
         </div>
+        <span class="scores-era-tag">5 critérios · A/B/C — mas subjetividade limita</span>
         <span class="scores-era-source">PMID 4541913 · Pugh RNH, Br J Surg 1973</span>
-
-        <!-- LIMITAÇÕES CTP — stagger sequencial. NÃO fadeUp genérico -->
-        <!-- Pedagógico: cada limitação motivou a geração seguinte -->
-        <div class="scores-limitations">
-
-          <!-- LIMITAÇÃO 1: Variabilidade interobservador -->
-          <!-- PMID: [TBD — buscar "Child-Pugh interobserver variability" — ver evidence-db.md] -->
-          <!-- Dado buscado: concordância ~60-70% ascite grau 1-2 + West Haven -->
-          <div class="limitation" data-limitation="interobserver">
-            ⚠ Variabilidade interobservador
-            <span class="limitation-detail">
-              Ascite leve e encefalopatia grau 1-2 — concordância estimada ~60–70%
-              entre examinadores
-              <span class="limitation-source">[TBD — PMID não verificado]</span>
-            </span>
-          </div>
-
-          <!-- LIMITAÇÃO 2: Colinearidade albumina × ascite -->
-          <!-- Princípio estatístico — sem PMID específico necessário -->
-          <!-- Pedagógico: hipoalbuminemia CAUSA ascite → penaliza 2× a mesma disfunção -->
-          <div class="limitation" data-limitation="collinearity">
-            ⚠ Colinearidade albumina × ascite
-            <span class="limitation-detail">
-              Hipoalbuminemia causa ascite — o score penaliza duas vezes
-              a mesma disfunção orgânica
-            </span>
-          </div>
-
-          <!-- LIMITAÇÃO 3: Variáveis ordinais somadas como intervalar -->
-          <!-- Pedagógico: A→B ≠ B→C em magnitude biológica real -->
-          <!-- Ordinal ≠ intervalar: aritmética do score assume espaçamento igual -->
-          <div class="limitation" data-limitation="discrete">
-            ⚠ Variáveis ordinais somadas como intervalar
-            <span class="limitation-detail">
-              Saltar de A para B não é o mesmo "tamanho" que B para C —
-              a aritmética do score assume que é
-            </span>
-          </div>
-
-          <!-- LIMITAÇÃO 4: Teto — não discrimina dentro da Classe C -->
-          <!-- Pedagógico: CTP-C 10 vs CTP-C 15 → mortalidades distintas, mesmo rótulo -->
-          <!-- MELD nasceu exatamente para resolver isso em lista de transplante -->
-          <div class="limitation" data-limitation="ceiling">
-            ⚠ Teto não discrimina dentro da Classe C
-            <span class="limitation-detail">
-              CTP-C 10 vs CTP-C 15: mortalidades distintas, mesmo rótulo —
-              MELD nasceu para resolver isso
-            </span>
-          </div>
-        </div>
-
-        <!-- Transição narrativa → motiva Era 2 (MELD) -->
-        <p class="scores-transition" style="opacity:0">
-          "Essas limitações não são trivia — cada uma forçou a geração seguinte."
-        </p>
       </div>
 
-      <!-- ─── ERA 2: MELD original 2001 (click 2) ─── -->
-      <!-- PMID 11172350 — Kamath PS et al. Hepatology. 2001;33(2):464-70 -->
-      <!-- Pedagógico: 1º score 100% laboratorial — elimina a subjetividade clínica -->
-      <div class="scores-era" data-era="2">
-        <span class="scores-era-badge">2001</span>
-        <h3 class="scores-era-title">MELD original</h3>
+      <!-- ─── ERA 1: MELD-Na (click 1) ─── -->
+      <div class="scores-era" data-era="1">
+        <span class="scores-era-badge">2001 → UNOS 2016</span>
+        <h3 class="scores-era-title">MELD-Na</h3>
         <div class="scores-formula">
           <span class="formula-term">3,78 × ln(Bili)</span>
           <span class="formula-op">+</span>
@@ -360,265 +358,112 @@ Vamos ver exatamente onde está esse abismo."
           <span class="formula-op">+</span>
           <span class="formula-term">9,57 × ln(Cr)</span>
           <span class="formula-op">+</span>
-          <span class="formula-term">6,43</span>
+          <span class="formula-term" data-meldna-sodium>1,59 × (135 − Na)</span>
         </div>
-        <!-- c-stat 0,87: pacientes hospitalizados (Kamath 2001) — NÃO generalizar -->
-        <!-- NÃO é RR — é c-statistic (AUC da curva ROC) -->
         <div class="scores-cstat-block">
           <span class="scores-cstat-label">c-statistic</span>
           <span class="scores-cstat-value" data-target="0.87">0</span>
-          <span class="scores-cstat-ctx">(pacientes hospitalizados)</span>
+          <span class="scores-cstat-ctx">(hospitalizados · Kamath 2001)</span>
         </div>
-        <span class="scores-era-tag">pela primeira vez — só laboratório</span>
-        <span class="scores-era-limitation">⚠ Ignora hiponatremia. Cr penaliza mulheres.</span>
-        <span class="scores-era-source">PMID 11172350 · Kamath PS, Hepatology 2001</span>
+        <span class="scores-era-tag">100% laboratorial — padrão para alocação</span>
+        <span class="scores-era-source">PMID 11172350 · PMID 16697729</span>
       </div>
 
-      <!-- ─── ERA 3: MELD-Na 2006 (click 3) ─── -->
-      <!-- PMID 16697729 — Biggins SW et al. Gastroenterology. 2006;130(6):1652-60 -->
-      <!-- Pedagógico: adiciona sódio, melhora predição em pacientes com hiponatremia -->
-      <!-- Adotado pela UNOS em 2016 — padrão atual para alocação de transplante -->
-      <div class="scores-era" data-era="3">
-        <span class="scores-era-badge">2006 → adotado UNOS 2016</span>
-        <h3 class="scores-era-title">MELD-Na</h3>
-        <div class="scores-formula">
-          <span class="formula-term">MELD</span>
-          <span class="formula-op">+</span>
-          <!-- Termo sódio: highlight via GSAP no state 3 — data-meldna-sodium -->
-          <span class="formula-term" data-meldna-sodium>1,59 × (135 − Na)</span>
-        </div>
-        <span class="scores-era-limitation">⚠ Disparidade de sexo persiste.</span>
-        <span class="scores-era-source">PMID 16697729 · Biggins SW, Gastroenterology 2006</span>
-      </div>
+      <!-- ─── ERA 2: D'Amico pathway (click 2) ─── -->
+      <div class="scores-era" data-era="2">
+        <h3 class="scores-era-title">D'Amico — progressão no tempo</h3>
+        <span class="scores-era-tag">scores medem gravidade pontual; D'Amico mede estágio clínico</span>
 
-      <!-- ─── ERA 4: MELD 3.0 — 2021 (click 4) ─── -->
-      <!-- PMID 34481845 — Kim WR et al. Gastroenterology. 2021;161(5):1887-95 -->
-      <!-- Pedagógico: corrige disparidade de sexo (não existia no MELD original) -->
-      <!-- c-stat MELD 3.0: 0,869; c-stat MELD-Na: 0,862 — diferença pequena mas reclassifica -->
-      <!-- ALERTA: validação externa ainda em curso — EASL recomenda MELDNa em muitos contextos -->
-      <div class="scores-era" data-era="4">
-        <span class="scores-era-badge scores-era-badge--alert">2021 ⚠ validação externa em curso</span>
-        <h3 class="scores-era-title">MELD 3.0</h3>
-        <div class="scores-formula">
-          <span class="formula-term formula-term--new">+1,33 (sexo ♀)</span>
-          <span class="formula-op">+</span>
-          <span class="formula-term formula-term--new">albumina</span>
-          <span class="formula-op">+</span>
-          <span class="formula-term">Cr (cap 3,0)</span>
-          <span class="formula-op">+</span>
-          <span class="formula-term">ln(Bili) + ln(INR)</span>
-        </div>
-        <!-- Dual CountUp: MELD 3.0 vs MELD-Na — PMID 34481845 -->
-        <!-- NÃO é HR nem RR — é c-statistic de 90 dias de mortalidade -->
-        <div class="scores-cstat-compare">
-          <div class="cstat-item">
-            <span class="cstat-label">MELD 3.0</span>
-            <span class="cstat-value cstat-value--new" data-target="0.869">0</span>
-          </div>
-          <span class="cstat-vs">vs</span>
-          <div class="cstat-item">
-            <span class="cstat-label">MELD-Na</span>
-            <span class="cstat-value" data-target="0.862">0</span>
-          </div>
-        </div>
-        <!-- Reclassificação: 8,8% dos óbitos para tier mais alto — PMID 34481845 -->
-        <span class="scores-era-tag">reclassificou 8,8% dos óbitos para tier mais alto</span>
-        <div class="scores-alert-box">
-          <span aria-hidden="true">⚠</span>
-          EASL 2024 ainda recomenda MELDNa em muitos contextos — não adotar sem validação local
-        </div>
-        <!-- Conexão Antônio: MELD-Na ~10 → compensado, mas CSPH presente → PREDESCI elegível -->
-        <!-- PMID 30910320 — PREDESCI, Villanueva 2019, HR 0,51 (IC 95% 0,26–0,97) -->
-        <!-- HR = Hazard Ratio (NÃO RR) do endpoint composto de descompensação -->
-        <p class="screening-predesci-pill">
-          ✓ Antônio: MELD-Na ~10 → semáforo verde, CSPH → PREDESCI elegível (HR 0,51)
-        </p>
-        <span class="scores-era-source">PMID 34481845 · Kim WR, Gastroenterology 2021</span>
-      </div>
-
-      <!-- ─── ERA 5: D'Amico — estágio ≠ gravidade individual (click 5) ─── -->
-      <!-- Pedagógico: scores medem gravidade PONTUAL; D'Amico mede PROGRESSÃO no tempo -->
-      <!-- REGRA OBRIGATÓRIA: D'Amico 2006 = ANUAL; D'Amico 2014 = 5 ANOS — NÃO comparar -->
-      <div class="scores-era" data-era="5">
-        <h3 class="scores-era-title">D'Amico — estágio ≠ gravidade individual</h3>
-        <span class="scores-era-tag">scores medem gravidade pontual; D'Amico mede progressão no tempo</span>
-
-        <!-- DATASET 2006 — mortalidade ANUAL — PMID 16298014 -->
-        <!-- LABEL OBRIGATÓRIO: 2006 (ANUAL) — NÃO comparar com 2014 (5 anos) -->
         <div class="damico-dataset" data-dataset="2006-anual">
-          <span class="damico-dataset-label">D'Amico 2006 · ANUAL</span>
-          <span class="damico-dataset-source">PMID 16298014</span>
+          <span class="damico-dataset-label">D'Amico 2006 · mortalidade ANUAL</span>
           <div class="pathway-track">
-            <div class="pathway-stage">
+            <div class="pathway-stage pathway-stage--safe">
               <span class="pathway-value" data-target="1">0</span>
               <span class="pathway-unit">%/ano</span>
-              <span class="pathway-label">Est. 1<br>Comp. s/ varizes</span>
+              <span class="pathway-label">Compensado</span>
             </div>
-            <div class="pathway-stage">
-              <span class="pathway-value" data-target="3.4">0</span>
+            <div class="pathway-stage pathway-stage--warning">
+              <span class="pathway-value" data-target="5">0</span>
               <span class="pathway-unit">%/ano</span>
-              <span class="pathway-label">Est. 2<br>Comp. c/ varizes</span>
+              <span class="pathway-label">1ª Descomp.</span>
             </div>
-            <div class="pathway-stage">
+            <div class="pathway-stage pathway-stage--danger">
               <span class="pathway-value" data-target="20">0</span>
               <span class="pathway-unit">%/ano</span>
-              <span class="pathway-label">Est. 3<br>Ascite</span>
+              <span class="pathway-label">2ª Descomp.</span>
             </div>
-            <div class="pathway-stage">
+            <div class="pathway-stage pathway-stage--critical">
               <span class="pathway-value" data-target="57">0</span>
               <span class="pathway-unit">%/ano</span>
-              <span class="pathway-label">Est. 4<br>Hemorragia</span>
+              <span class="pathway-label">Óbito</span>
             </div>
           </div>
         </div>
 
-        <!-- DATASET 2014 — mortalidade em 5 ANOS — PMID 24654740 -->
-        <!-- LABEL OBRIGATÓRIO: 2014 (5 ANOS) — NÃO comparar com 2006 (anual) -->
-        <div class="damico-dataset" data-dataset="2014-5anos">
-          <span class="damico-dataset-label">D'Amico 2014 · 5 ANOS</span>
-          <span class="damico-dataset-source">PMID 24654740</span>
-          <div class="pathway-track">
-            <div class="pathway-stage">
-              <span class="pathway-value" data-target="1.5">0</span>
-              <span class="pathway-unit">%/5a</span>
-              <span class="pathway-label">Est. 1<br>Comp. s/ varizes</span>
-            </div>
-            <div class="pathway-stage">
-              <span class="pathway-value" data-target="10">0</span>
-              <span class="pathway-unit">%/5a</span>
-              <span class="pathway-label">Est. 2<br>Comp. c/ varizes</span>
-            </div>
-            <div class="pathway-stage">
-              <span class="pathway-value" data-target="20">0</span>
-              <span class="pathway-unit">%/5a</span>
-              <span class="pathway-label">Est. 3<br>Ascite</span>
-            </div>
-            <div class="pathway-stage">
-              <span class="pathway-value" data-target="30">0</span>
-              <span class="pathway-unit">%/5a</span>
-              <span class="pathway-label">Est. 4<br>Sangramento</span>
-            </div>
-            <div class="pathway-stage">
-              <span class="pathway-value" data-target="88">0</span>
-              <span class="pathway-unit">%/5a</span>
-              <span class="pathway-label">Est. 5<br>2ª Descompensação</span>
-            </div>
-          </div>
+        <div class="damico-further-decomp">
+          <span class="damico-further-icon">✕</span>
+          <span class="damico-further-text">Further decompensation: ~60% progridem · dobra mortalidade</span>
+          <span class="damico-further-source">PMID 37916970 · D'Amico 2024</span>
         </div>
 
-        <!-- Aviso visual obrigatório: métricas diferentes, não comparar -->
-        <div class="scores-alert-box" role="note">
-          <span aria-hidden="true">⚠</span>
-          Métricas diferentes — não comparar 2006 (anual) com 2014 (5 anos)
-        </div>
-
-        <!-- Further decompensation = conceito prognóstico Baveno VII, NÃO estádio 6 -->
-        <!-- PMID 37916970 — D'Amico 2024, J Hepatol -->
-        <span class="scores-era-tag scores-era-tag--danger">
-          ✕ Further decompensation (Baveno VII — conceito prognóstico, não estádio):
-          ~60% progridem · dobra mortalidade · HR 1,46 (IC 95% 1,23–1,71) [PMID 37916970]
-        </span>
-        <span class="scores-era-source">
-          PMID 16298014 (D'Amico 2006) · PMID 24654740 (D'Amico 2014) · PMID 37916970 (D'Amico 2024)
-        </span>
+        <span class="scores-era-source">PMID 16298014 (2006) · PMID 24654740 (2014) · PMID 37916970 (2024)</span>
       </div>
 
-    </div><!-- end .scores-era-track -->
+    </div>
 
-    <!-- Source tag global — visível no estado final (Plan B: sempre visível) -->
     <p class="source-tag" style="opacity:0">
-      Child-Turcotte 1964 [livro] · PMID 4541913 (Pugh 1973) · PMID 11172350 (Kamath 2001) ·
-      PMID 16697729 (Biggins 2006) · PMID 34481845 (Kim 2021) ·
-      PMID 16298014 + 24654740 + 37916970 (D'Amico 2006/2014/2024)
+      PMID 4541913 (Pugh 1973) · PMID 11172350 (Kamath 2001) ·
+      PMID 16697729 (Biggins 2006) · PMID 16298014 + 37916970 (D'Amico)
     </p>
 
   </div>
 
   <aside class="notes">
-[0:00-0:40] [ERA 0 — auto, Child 1964]
-"1964. Child e Turcotte publicam um capítulo de livro."
-Boxes aparecem em stagger.
-"Cinco critérios — três laboratoriais, dois clínicos."
-"O problema: dois médicos examinam o mesmo paciente com ascite leve e chegam
-a scores diferentes. Mas foi pioneiro. Pela primeira vez, a gravidade tinha
-uma linguagem comum."
+[0:00-0:15] [ERA 0 — auto, CTP 1973]
+"Pugh, 1973. Child-Turcotte-Pugh."
+Classes A/B/C aparecem em stagger.
+"Cinco critérios, três classes. Simples. Mas subjetivo —
+ascite e encefalopatia variam entre examinadores."
 PAUSA 2s.
 
-[0:40-1:30] [CLICK → era 1, CTP 1973]
-"Pugh padroniza. Adiciona o INR. Cria as classes A, B e C."
-Boxes CTP aparecem. Classes A/B/C surgem.
-"A lógica é elegante — um número integra cinco variáveis."
-PAUSA 2s. "Mas tem quatro problemas estruturais."
-Limitações aparecem uma a uma em stagger.
-"Primeiro: variabilidade. O mesmo paciente, dois médicos — scores diferentes."
-"Segundo: colinearidade. Albumina baixa causa ascite — penaliza duas vezes."
-"Terceiro: a aritmética assume que A→B é igual a B→C. Não é."
-"Quarto — e este motivou o MELD: Classe C tem 6 pontos de amplitude."
-"CTP-C 10 vs CTP-C 15: mortalidades muito diferentes, mesmo rótulo."
-Transição: "Essas limitações não são trivia — cada uma forçou a geração seguinte."
-PMID 4541913.
-
-[1:30-2:00] [CLICK → era 2, MELD 2001]
-"2001. Kamath publica o MELD. Pela primeira vez — só laboratório."
-Termos da fórmula aparecem em stagger.
-"Sem ascite, sem encefalopatia, sem julgamento clínico."
+[0:15-0:45] [CLICK → era 1, MELD-Na]
+"2001: MELD. Pela primeira vez — só laboratório."
+Fórmula constrói termo a termo.
+"Bilirrubina, INR, creatinina. E em 2006, sódio."
 CountUp c-statistic: 0 → 0,87.
-"C-statistic de 0,87 em pacientes hospitalizados."
-"Duas limitações: ignora hiponatremia. E a creatinina penaliza mulheres."
-PMID 11172350.
+"C-statistic 0,87. Padrão UNOS desde 2016."
 
-[2:00-2:20] [CLICK → era 3, MELD-Na 2006]
-"2006. Biggins adiciona o sódio."
-Fórmula aparece. Highlight no novo termo sódio.
-"Um ponto e vírgula: 1,59 vezes o déficit de sódio abaixo de 135."
-"Adotado pela UNOS em 2016. É o que usamos hoje para alocação."
-"A disparidade de sexo persiste."
-PMID 16697729.
+[0:45-1:30] [CLICK → era 2, D'Amico]
+"Scores medem gravidade num ponto. D'Amico mapeia progressão."
+4 blocos entram com scaleX — gradiente safe→danger.
+"Compensado: 1% por ano. Primeira descompensação: 5%.
+Segunda descompensação: 20%. Mortalidade geral: 57%."
+PAUSA 3s.
+"60% progridem para further decompensation. Dobra a mortalidade."
+Further decomp overlay expande.
+→ avançar
 
-[2:20-2:50] [CLICK → era 4, MELD 3.0 2021]
-"2021. Kim publica o MELD 3.0."
-Termos novos destacados.
-"Dois avanços: ponto fixo para sexo feminino, albumina na fórmula."
-Dual CountUp: MELD 3.0 = 0,869 vs MELD-Na = 0,862.
-"Melhora modesta no c-stat. Mas reclassificou 8,8% dos óbitos para tier mais alto."
-ALERTA: "EASL 2024 ainda recomenda MELDNa em muitos contextos."
-"Antônio: MELD-Na ~10 — semáforo verde. Mas CSPH presente → PREDESCI."
-PMID 34481845. HR 0,51 = Hazard Ratio — não RR.
-
-[2:50-3:10] [CLICK → era 5, D'Amico]
-"Scores medem gravidade pontual. D'Amico mede progressão."
-Dois datasets aparecem com labels OBRIGATÓRIOS.
-"2006: mortalidade ANUAL. De 1% a 57%. PMID 16298014."
-"2014: mortalidade em 5 ANOS. De 1,5% a 88%. PMID 24654740."
-ATENÇÃO: "Métricas diferentes — não comparar diretamente."
-"2024: 60% progridem para further decompensation. HR 1,46 — não RR."
-PAUSA 2s. → avançar para screening e FIB-4.
-
-[DATA] Child-Turcotte 1964: livro [sem PMID] | 5 critérios | pioneiro
-[DATA] CTP 1973: PMID 4541913 | Pugh RNH, Br J Surg 1973 | Classes A/B/C | Verificado
-[DATA] CTP interobserver: [TBD] | concordância ~60-70% estimada | ver evidence-db.md
-[DATA] MELD 2001: PMID 11172350 | Kamath PS, Hepatology 2001 | c-stat 0.87 hospitalizados | Verificado
-[DATA] MELD-Na 2006: PMID 16697729 | Biggins SW, Gastroenterology 2006 | +1,59×(135-Na) | Verificado
-[DATA] MELD 3.0 2021: PMID 34481845 | Kim WR, Gastroenterology 2021 | c-stat 0.869 vs 0.862 | Verificado
-[DATA] D'Amico 2006: PMID 16298014 | 4 estágios ANUAIS | Verificado: evidence-db.md
-[DATA] D'Amico 2014: PMID 24654740 | 5 estágios 5 ANOS | Verificado: evidence-db.md
-[DATA] D'Amico 2024: PMID 37916970 | further decomp ~60%, HR 1,46 (IC 95% 1,23–1,71) | Verificado
+[DATA] CTP 1973: PMID 4541913 | Verificado
+[DATA] MELD 2001: PMID 11172350 | c-stat 0,87 hospitalizados | Verificado
+[DATA] MELD-Na 2006: PMID 16697729 | Verificado
+[DATA] D'Amico 2006: PMID 16298014 | 4 estágios, mortalidade anual | Verificado
+[DATA] D'Amico 2024: PMID 37916970 | further decomp ~60% | Verificado
   </aside>
 </section>
 
 <!-- ============================================================
-     s-a1-baveno — Paradigma Baveno VII: cACLD/dACLD
+     s-a1-baveno — Paradigma Baveno VII + pathway diagnóstico
      Archetype: hero-stat (state machine)
-     States: 0=auto SplitText dissolve "Cirrose" → espectro, 1=source
-     Extraido de s-a1-02 (mega-slide) state 0
+     States: 0=auto SplitText dissolve, 1=pathway 3-step, 2=source
+     Fundido: antigo s-a1-baveno + s-a1-elasto
      ============================================================ -->
 <section id="s-a1-baveno"
-         data-timing="90"
+         data-timing="120"
          data-panel-state="neutral">
 
   <div class="slide-inner archetype-hero-stat">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Baveno VII e o novo paradigma de classificação</h2>
+    <h2 class="slide-headline">Baveno VII redefiniu classificação</h2>
 
     <div class="paradigm-container">
 
@@ -633,32 +478,69 @@ PAUSA 2s. → avançar para screening e FIB-4.
       </div>
       <span class="paradigm-ref">Baveno VII, J Hepatol 2022</span>
 
-      <p class="paradigm-expert">NITs substituem biópsia — LSM e PLQ definem o espectro e guiam conduta</p>
+      <!-- Click 1: pathway diagnostic (merged from elasto) -->
+      <p class="paradigm-question">Se não biópsia — como?</p>
+
+      <div class="elasto-pathway">
+        <div class="elasto-step elasto-step--triagem">
+          <span class="elasto-step-num">1</span>
+          <div class="elasto-step-content">
+            <span class="elasto-step-title">FIB-4</span>
+            <span class="elasto-step-detail">FIB-4 >2,67 → elastografia</span>
+          </div>
+          <span class="elasto-step-arrow" aria-hidden="true">→</span>
+        </div>
+        <div class="elasto-step elasto-step--confirma">
+          <span class="elasto-step-num">2</span>
+          <div class="elasto-step-content">
+            <span class="elasto-step-title">Elastografia</span>
+            <span class="elasto-step-detail">AUROC 0,90 para F≥3</span>
+          </div>
+          <span class="elasto-step-badge">AUROC 0,90</span>
+          <span class="elasto-step-arrow" aria-hidden="true">→</span>
+        </div>
+        <div class="elasto-step elasto-step--estadia">
+          <span class="elasto-step-num">3</span>
+          <div class="elasto-step-content">
+            <span class="elasto-step-title">Rule of 5</span>
+            <span class="elasto-step-detail">kPa define estágio e conduta</span>
+          </div>
+        </div>
+      </div>
 
     </div>
 
-    <p class="source-tag" style="opacity:0">de Franchis et al. J Hepatol 2022 · PMID 35120736</p>
+    <p class="source-tag" style="opacity:0">de Franchis et al. J Hepatol 2022 (PMID 35120736) · Duarte-Rojo, Hepatology 2025 (PMID 38489521)</p>
   </div>
 
   <aside class="notes">
 [0:00-0:30] Auto: "Cirrose" dissolve via SplitText → espectro cACLD/dACLD
-"Esqueçam a palavra 'cirrose'. Baveno VII em 2022 enterrou esse rotulo binario."
+"Esqueçam a palavra 'cirrose'. Baveno VII em 2022 enterrou esse rótulo binário."
 "Agora pensamos em espectro: cACLD — compensated advanced chronic liver disease.
 E dACLD — decompensated."
-"Nao e sim-ou-nao. E um continuum."
+"Não é sim-ou-não. É um continuum."
 PAUSA 2s.
 
-[0:30-0:50] Click 1 → source
-"Baveno VII, de Franchis et al., J Hepatol 2022."
-→ avancar para Rule-of-5
+[0:30-1:00] Click 1 → pathway
+"Se não biópsia — como classificar?"
+Pergunta aparece fadeUp. Pathway 3-step stagger vertical.
+"Sequência: FIB-4 triagem — se acima de 2,67, elastografia.
+AUROC 0,90 para fibrose avançada. Substitui biópsia na maioria dos casos.
+E Rule of 5 — que vamos ver no próximo slide — define estágio e conduta."
 
-[DATA] Baveno VII: J Hepatol 2022 (PMID 35120736) | cACLD/dACLD definicao | Verificado: 2026-03-04
+[1:00-1:30] Click 2 → source
+"Baveno VII, de Franchis et al., 2022. Duarte-Rojo e Sterling, 2025."
+→ avançar para FIB-4
+
+[DATA] Baveno VII: PMID 35120736 | cACLD/dACLD + NITs pathway | Verificado: 2026-03-04
+[DATA] Duarte-Rojo & Sterling: PMID 38489521 | AUROC 0,90 F≥3 | Verificado: 2026-03-05
   </aside>
 </section>
 
 <!-- ============================================================
-     s-a1-fib4 — FIB-4: triagem com 4 variáveis do prontuário
-     Archetype: hero-stat (formula hero + cutoff zones)
+     s-a1-fib4 — "4 dados. 1 número. 1 decisão."
+     Archetype: hero-stat (state machine)
+     States: 0=formula+cutoffs, 1=Antonio's inputs+hero countUp, 2=source
      Calc: sidebar panel (case-panel.js renderFib4)
      ============================================================ -->
 <section id="s-a1-fib4"
@@ -667,9 +549,10 @@ PAUSA 2s.
 
   <div class="slide-inner archetype-hero-stat">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">FIB-4 estratifica risco com 4 variáveis do prontuário</h2>
+    <h2 class="slide-headline">4 dados. 1 número. 1 decisão.</h2>
 
-    <div class="hero-block">
+    <!-- State 0: formula + cutoff zones -->
+    <div class="fib4-formula-block">
       <div class="fib4s-formula">
         <span class="fib4s-formula-text">(Idade &times; AST) / (PLQ &times; &radic;ALT)</span>
       </div>
@@ -677,123 +560,81 @@ PAUSA 2s.
       <div class="fib4-cutoffs">
         <div class="fib4-cutoff fib4-cutoff--safe">
           <span class="fib4-cutoff-val">&lt; 1,30</span>
-          <span class="fib4-cutoff-lbl">&check; Baixo risco — manter APS</span>
+          <span class="fib4-cutoff-lbl">✓ Baixo risco</span>
         </div>
         <div class="fib4-cutoff fib4-cutoff--warning">
-          <span class="fib4-cutoff-val">1,30 &ndash; 2,67</span>
-          <span class="fib4-cutoff-lbl">&#x26A0; Indeterminado — elastografia</span>
+          <span class="fib4-cutoff-val">1,30 – 2,67</span>
+          <span class="fib4-cutoff-lbl">⚠ Indeterminado</span>
         </div>
         <div class="fib4-cutoff fib4-cutoff--danger">
           <span class="fib4-cutoff-val">&gt; 2,67</span>
-          <span class="fib4-cutoff-lbl">&#x2717; Alto risco — encaminhar</span>
+          <span class="fib4-cutoff-lbl">✕ Alto risco</span>
         </div>
       </div>
     </div>
 
-    <p class="source-tag">Sterling RK et al. Hepatology 2006 PMID 16729309 · Baveno VII PMID 35120736</p>
+    <!-- State 1: Antonio's inputs + hero result (click 1) -->
+    <div class="fib4-antonio" style="opacity:0">
+      <div class="fib4-inputs">
+        <div class="fib4-input-card">
+          <span class="fib4-input-label">Idade</span>
+          <span class="fib4-input-value">55</span>
+        </div>
+        <div class="fib4-input-card">
+          <span class="fib4-input-label">AST</span>
+          <span class="fib4-input-value">67</span>
+        </div>
+        <div class="fib4-input-card">
+          <span class="fib4-input-label">PLQ</span>
+          <span class="fib4-input-value">112k</span>
+        </div>
+        <div class="fib4-input-card fib4-input-card--trap">
+          <span class="fib4-input-label">ALT</span>
+          <span class="fib4-input-value">31</span>
+          <span class="fib4-input-tag">normal ✓</span>
+        </div>
+      </div>
+
+      <div class="fib4-hero-result">
+        <span class="hero-number" data-color="danger" data-countup-target="5.91">0</span>
+        <span class="hero-unit">FIB-4</span>
+      </div>
+      <p class="fib4-mandate">Elastografia obrigatória</p>
+    </div>
+
+    <p class="source-tag" style="opacity:0">Sterling RK et al. Hepatology 2006 (PMID 16729309) · Baveno VII (PMID 35120736)</p>
   </div>
 
   <aside class="notes">
-[0:00-0:30] "Antes da elastografia, antes de qualquer equipamento — FIB-4."
-"Quatro numeros que voces ja tem no prontuario: idade, AST, plaquetas, ALT."
-"A formula e simples: idade vezes AST, dividido por plaquetas vezes raiz de ALT."
-"Sterling publicou em 2006, e ate hoje e a triagem de primeira linha."
+[0:00-0:30] Auto: fórmula fadeUp. Cutoff zones stagger top→bottom.
+"Quatro variáveis do prontuário: idade, AST, plaquetas, ALT."
+"A fórmula é simples. Os cortes também."
+"Abaixo de 1,30: baixo risco, fica na APS. Indeterminado: elastografia. Acima de 2,67: alto risco."
 
-[0:30-1:00] [APONTAR PARA PAINEL LATERAL — clicar "Seu Antonio"]
-"Antonio: 54 anos, AST 68, plaquetas 112 mil, ALT 45."
-"FIB-4... 4,89. Vermelho. Alto risco. Precisa de elastografia."
-PAUSA 2s — deixar o resultado registrar.
+[0:30-1:00] Click 1 → Antonio's numbers
+"Agora Antônio." 4 input cards aparecem.
+"Idade 55. AST 67. Plaquetas 112 mil. E ALT..."
+PAUSA 2s — "31. Normal."
+Hero countUp 0 → 5,91.
+"FIB-4 = 5,91. Vermelho escuro. Muito acima do corte."
+"Notem: a ALT está no denominador. Quanto mais baixa — pior o FIB-4."
+"Hepatócito burnt-out: normaliza ALT porque parou de inflamar."
+PAUSA 3s — zona vermelha pulsa.
 
-[1:00-1:30] "Notem os cortes: abaixo de 1,30 — baixo risco, mantem na APS.
-Entre 1,30 e 2,67 — indeterminado, pedir elastografia.
-Acima de 2,67 — alto risco, encaminhar."
-"Antonio nao esta no 'talvez'. Esta muito acima do corte."
+[1:00-1:30] Click 2 → source
+"Elastografia obrigatória. Não tem discussão com esse FIB-4."
+→ avançar para Rule-of-5
 
-[1:30-2:00] "FIB-4 nao da diagnostico. Mas faz a triagem que a biopsia nunca
-conseguiu fazer em escala populacional."
-→ avancar para elastografia
-
-[DATA] FIB-4: Sterling RK et al. Hepatology 2006 (PMID 16729309) | Formula original | Verificado: evidence-db.md
-[DATA] Baveno VII: PMID 35120736 | FIB-4 como triagem em cACLD | Verificado: 2026-03-04
-[DATA] Antonio: 54a, AST 68, PLQ 112k, ALT 45 → FIB-4 4,89 | Caso ficticio
-  </aside>
-</section>
-
-<!-- ============================================================
-     s-a1-elasto — Elastografia conceitual (pathway vertical)
-     Archetype: flow
-     Visual: 3-step pathway (FIB-4 → Elastografia → Rule-of-5)
-     Dados: AUROC, reproducibilidade, limitacoes
-     ============================================================ -->
-<section id="s-a1-elasto"
-         data-timing="90"
-         data-panel-state="neutral">
-
-  <div class="slide-inner archetype-flow">
-    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Hoje biópsia é a exceção</h2>
-
-    <div class="elasto-pathway" data-animate="stagger" data-stagger="0.2">
-      <div class="elasto-step elasto-step--triagem">
-        <span class="elasto-step-num">1</span>
-        <div class="elasto-step-content">
-          <span class="elasto-step-title">FIB-4 — Triagem</span>
-          <span class="elasto-step-detail">Sem equipamento. 4 numeros do prontuario.</span>
-        </div>
-        <span class="elasto-step-arrow" aria-hidden="true">→</span>
-      </div>
-      <div class="elasto-step elasto-step--confirma">
-        <span class="elasto-step-num">2</span>
-        <div class="elasto-step-content">
-          <span class="elasto-step-title">Elastografia — Confirmacao</span>
-          <span class="elasto-step-detail">AUROC 0,90 para F≥3. Reproducivel. Nao invasiva.</span>
-        </div>
-        <span class="elasto-step-arrow" aria-hidden="true">→</span>
-      </div>
-      <div class="elasto-step elasto-step--estadia">
-        <span class="elasto-step-num">3</span>
-        <div class="elasto-step-content">
-          <span class="elasto-step-title">Rule-of-5 — Estadiamento</span>
-          <span class="elasto-step-detail">kPa define estagio e conduta. Proximo slide.</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="elasto-caveats">
-      <span class="elasto-caveat">Limitacoes: obesidade (IMC &gt;40), colestase extra-hepatica, inflamacao aguda (AST &gt;5×LSN)</span>
-    </div>
-
-    <p class="source-tag">Baveno VII (PMID 35120736) · Duarte-Rojo &amp; Sterling Hepatology 2025 PMID 38489521 · EASL CPG 2024</p>
-  </div>
-
-  <aside class="notes">
-[0:00-0:30] Pathway aparece em stagger vertical (3 steps)
-"O caminho diagnostico e sequencial: FIB-4 triagem, elastografia confirmacao, Rule-of-5 estadiamento."
-"FIB-4 ja vimos — sem equipamento, so prontuario."
-
-[0:30-1:00] "Elastografia: AUROC 0,90 para fibrose avancada. Reproducivel entre operadores.
-Substitui a biopsia na imensa maioria dos casos."
-"A biopsia fica para as excecoes: discordancia, suspeita de HAI, ou quando
-o tratamento depende do grau histologico."
-
-[1:00-1:30] "Tres limitacoes que voces precisam conhecer:
-Obesidade severa — IMC acima de 40, a onda nao propaga bem.
-Colestase extra-hepatica — falseia para cima.
-Inflamacao aguda — AST acima de 5 vezes o normal, esperar normalizar."
-"Se o paciente nao tem nenhuma dessas, confia no numero."
-→ avancar para Rule-of-5
-
-[DATA] Baveno VII: PMID 35120736 | LSM como confirmacao | Verificado: 2026-03-04
-[DATA] Duarte-Rojo & Sterling: PMID 38489521 | AUROC 0,90 F>=3 | Verificado: 2026-03-05
-[DATA] EASL CPG Cirrhosis 2024 | Pathway FIB-4 → LSM → biopsia | Verificado: evidence-db.md
+[DATA] FIB-4 calculado: (55 × 67) / (112 × √31) = 5,91 | Verificado: 2026-03-05
+[DATA] Sterling RK et al. Hepatology 2006 (PMID 16729309) | Verificado: evidence-db.md
   </aside>
 </section>
 
 <!-- ============================================================
      s-a1-rule5 — Rule-of-5 + Antonio plotado
      Archetype: flow (state machine)
-     States: 0=zones stagger, 1=Antonio highlight, 2=source
-     Extraido de s-a1-02 (mega-slide) states 1-2
+     States: 0=zones scaleY, 1=Antonio highlight+gray zone, 2=source
+     SLIDE MAIS IMPORTANTE DO BLOCO 1
      ============================================================ -->
 <section id="s-a1-rule5"
          data-timing="120"
@@ -801,86 +642,122 @@ Inflamacao aguda — AST acima de 5 vezes o normal, esperar normalizar."
 
   <div class="slide-inner archetype-flow">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Rule-of-5: cada 5 kPa muda a conduta</h2>
+    <h2 class="slide-headline">Onde está o Antônio?</h2>
 
     <!-- Rule-of-5 scale -->
     <div class="rule-of-5">
       <div class="rule-scale">
-        <div class="rule-zone" data-zone-idx="0">
+        <div class="rule-zone rule-zone--safe" data-zone-idx="0">
           <span class="rule-zone-icon" aria-hidden="true">✓</span>
           <span class="rule-zone-range">&lt;10</span>
-          <span class="rule-zone-label">cACLD excluido</span>
+          <span class="rule-zone-label">cACLD excluído</span>
           <span class="rule-zone-directive">Manter na APS</span>
         </div>
-        <div class="rule-zone" data-zone-idx="1">
+        <div class="rule-zone rule-zone--gray" data-zone-idx="1">
           <span class="rule-zone-icon" aria-hidden="true">⚠</span>
           <span class="rule-zone-range">10–15</span>
           <span class="rule-zone-label">Zona cinzenta</span>
           <span class="rule-zone-directive">Elastografia + PLQ</span>
         </div>
-        <div class="rule-zone" data-zone-idx="2">
+        <div class="rule-zone rule-zone--caution" data-zone-idx="2">
           <span class="rule-zone-icon" aria-hidden="true">⚠</span>
           <span class="rule-zone-range">15–20</span>
-          <span class="rule-zone-label">cACLD provavel</span>
+          <span class="rule-zone-label">cACLD provável</span>
           <span class="rule-zone-directive">Rastreio de varizes</span>
         </div>
-        <div class="rule-zone" data-zone-idx="3">
+        <div class="rule-zone rule-zone--danger" data-zone-idx="3">
           <span class="rule-zone-icon" aria-hidden="true">✕</span>
           <span class="rule-zone-range">20–25</span>
-          <span class="rule-zone-label">cACLD + CSPH provavel</span>
+          <span class="rule-zone-label">cACLD + CSPH provável</span>
           <span class="rule-zone-directive">NSBB · Rastreio HCC</span>
         </div>
-        <div class="rule-zone" data-zone-idx="4">
+        <div class="rule-zone rule-zone--critical" data-zone-idx="4">
           <span class="rule-zone-icon" aria-hidden="true">✕</span>
           <span class="rule-zone-range">≥25</span>
           <span class="rule-zone-label">CSPH confirmado</span>
-          <span class="rule-zone-directive">Risco hemorragico alto</span>
+          <span class="rule-zone-directive">Risco hemorrágico alto</span>
         </div>
       </div>
-      <p class="rule-axis-label">Rule-of-5 · Elastografia hepatica (kPa)</p>
+
+      <!-- Gray zone overlay (appears after zones) -->
+      <div class="rule-gray-zone">
+        <span class="rule-gray-zone-label">Zona cinzenta — CSPH possível</span>
+        <span class="rule-gray-zone-range">10–25 kPa</span>
+      </div>
+
+      <p class="rule-axis-label">Rule-of-5 · Elastografia hepática (kPa)</p>
     </div>
 
-    <!-- Antonio plotted -->
+    <!-- Antonio plotted (click 1) -->
     <div class="antonio-plot">
-      <p class="antonio-data">Antonio: LSM 21 kPa · PLQ 118k</p>
+      <div class="antonio-pin">
+        <span class="antonio-pin-arrow">▼</span>
+        <span class="antonio-pin-label">Antônio: 21 kPa</span>
+      </div>
+      <p class="antonio-data">LSM 21 kPa · PLQ 112k · FIB-4 5,91</p>
       <p class="antonio-conclusion">
-        <span class="cacld-tag">cACLD confirmado.</span>
-        <span class="csph-tag">CSPH nao descartado.</span>
+        <span class="cacld-tag">✓ cACLD confirmado</span>
+        <span class="csph-tag">⚠ CSPH provável</span>
+      </p>
+      <p class="rule-nuance-note">
+        Rule of 5 não descarta CSPH &lt;20 kPa se FIB-4 alto
       </p>
     </div>
 
-    <p class="source-tag" style="opacity:0">Baveno VII (PMID 35120736) · Duarte-Rojo &amp; Sterling Hepatology 2025 PMID 38489521</p>
+    <!-- Clinical nuances (below zones, visible with Antonio) -->
+    <div class="rule-caveats">
+      <p class="rule-caveat-line">Resultado influenciado por: inflamação aguda, ICC, obesidade (↑ falso+)</p>
+      <p class="rule-caveat-line">Jejum mínimo 2h. Repetir se IQR/mediana >30%.</p>
+    </div>
+
+    <!-- Conclusion banner -->
+    <div class="rule-conclusion-banner">
+      <span class="rule-conclusion-icon">✓</span>
+      <span class="rule-conclusion-text">cACLD confirmado</span>
+      <span class="rule-conclusion-icon">⚠</span>
+      <span class="rule-conclusion-text">CSPH não descartado</span>
+    </div>
+
+    <p class="source-tag" style="opacity:0">Baveno VII (PMID 35120736) · Duarte-Rojo &amp; Sterling Hepatology 2025 (PMID 38489521)</p>
   </div>
 
   <aside class="notes">
-[0:00-0:40] Zonas aparecem em escada verde→vermelho (stagger auto)
-[STAGING CUE: Deixar o stagger orquestrar — NAO falar antes da zona aparecer.]
-"A ferramenta-chave pra posicionar o paciente nesse espectro e a elastografia.
-Rule-of-5: a cada 5 kPa, muda o estagio."
-"Abaixo de 10: descartado, mantem na atencao primaria. 10 a 15: zona cinza, precisa de elastografia.
-15 a 20: cACLD provavel, iniciar rastreio de varizes.
-20 a 25: CSPH provavel, considerar NSBB e rastreio de HCC.
-Acima de 25: CSPH confirmado, risco hemorragico alto."
+[0:00-0:40] Zonas crescem com scaleY de baixo para cima (stagger 0.15s)
+[STAGING CUE: Deixar o stagger orquestrar — NÃO falar antes da zona aparecer.]
+"A ferramenta-chave para posicionar o paciente nesse espectro: elastografia.
+Rule-of-5: a cada 5 kPa, muda o estágio e a conduta."
+"Abaixo de 10: descartado, mantém na APS.
+10 a 15: zona cinza, precisa de mais dados.
+15 a 20: cACLD provável, rastreio de varizes.
+20 a 25: CSPH provável, considerar NSBB e HCC.
+Acima de 25: CSPH confirmado."
+Após zonas: gray zone overlay (10-25 kPa) aparece com borda tracejada.
 
-[0:40-1:20] Click 1 → Antonio plotado (zona 20-25 pulsa)
-"Seu Antonio: LSM 21 kPa. Zona 20-25."
-"Plaquetas 118 mil — abaixo de 150k, nao conseguimos descartar CSPH."
-"cACLD confirmado. CSPH nao descartado. Isso ja muda a conduta:
-precisa de rastreio de varizes, considerar NSBB."
+[0:40-1:20] Click 1 → Antônio plotado
+Pin marker cai na zona 20-25 com bounce.
+"Seu Antônio: 21 kPa. Zona 20-25. Plaquetas 112 mil."
+Zona 20-25 recebe glow warning.
+"cACLD confirmado. CSPH não descartado."
+"Importante: Rule of 5 não descarta CSPH abaixo de 20 se o FIB-4 é alto."
+PAUSA 3s.
+"Duas nuances antes de seguir:
+resultado influenciado por inflamação aguda, ICC, obesidade.
+E o exame exige jejum mínimo de 2 horas. IQR/mediana acima de 30% — repetir."
 
 [1:20-1:30] Click 2 → source
-→ avancar para MELD
+→ avançar para MELD
 
-[DATA] Baveno VII: J Hepatol 2022 (PMID 35120736) | Rule-of-5 | Verificado: 2026-03-04
-[DATA] Duarte-Rojo & Sterling 2024: Hepatology (PMID 38489521) | LSM + PLQ thresholds | Verificado: 2026-03-05
-[DATA] Antonio: LSM 21 kPa, PLQ 112k, FIB-4 5.10 | Caso ficticio
+[DATA] Baveno VII: PMID 35120736 | Rule-of-5 | Verificado: 2026-03-04
+[DATA] Duarte-Rojo & Sterling: PMID 38489521 | LSM + PLQ thresholds | Verificado: 2026-03-05
+[DATA] Antônio: LSM 21 kPa, PLQ 112k, FIB-4 5,91 | Caso fictício
   </aside>
 </section>
 
 <!-- ============================================================
-     s-a1-meld — MELD-Na: o GPS do cirrótico
-     Archetype: hero-stat (semáforo + inflection point)
-     Calc: sidebar panel (case-panel.js renderMeld)
+     s-a1-meld — MELD-Na: o GPS da fila
+     Archetype: hero-stat (semáforo + threshold + urgency)
+     States: 0=bands stagger, 1=threshold line, 2=source
+     Calc: sidebar panel width 280px
      ============================================================ -->
 <section id="s-a1-meld"
          data-timing="150"
@@ -888,78 +765,77 @@ precisa de rastreio de varizes, considerar NSBB."
 
   <div class="slide-inner archetype-hero-stat">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">MELD-Na é o GPS do cirrótico — e tem um semáforo</h2>
+    <h2 class="slide-headline">MELD-Na: o GPS da fila</h2>
 
     <div class="hero-block">
       <div class="meld-semaphore">
-        <div class="meld-band meld-green">
+        <div class="meld-band meld-band--green">
+          <span class="meld-band-emoji" aria-hidden="true">🟢</span>
           <span class="meld-range">&lt; 15</span>
-          <span class="meld-action">&check; Acompanhar</span>
+          <span class="meld-action">✓ Acompanhar</span>
+          <span class="meld-mortality">Mortalidade 90d: &lt;2%</span>
         </div>
-        <div class="meld-band meld-yellow">
-          <span class="meld-range">15 &ndash; 19</span>
-          <span class="meld-action">&#x26A0; Encaminhar hepatologista</span>
+        <div class="meld-band meld-band--yellow">
+          <span class="meld-band-emoji" aria-hidden="true">🟡</span>
+          <span class="meld-range">15 – 19</span>
+          <span class="meld-action">⚠ Encaminhar hepatologista</span>
+          <span class="meld-mortality">Mortalidade 90d: 6%</span>
         </div>
-        <div class="meld-band meld-red">
-          <span class="meld-range">20 &ndash; 24</span>
-          <span class="meld-action">&#x2717; Planejar transplante</span>
+        <div class="meld-band meld-band--orange">
+          <span class="meld-band-emoji" aria-hidden="true">🟠</span>
+          <span class="meld-range">20 – 24</span>
+          <span class="meld-action">✕ Planejar transplante</span>
+          <span class="meld-mortality">Mortalidade 90d: 20%</span>
         </div>
-        <div class="meld-band meld-black">
-          <span class="meld-range">&ge; 25</span>
-          <span class="meld-action">&#x26A0;&#x26A0; URGÊNCIA</span>
+        <div class="meld-band meld-band--red">
+          <span class="meld-band-emoji" aria-hidden="true">🔴</span>
+          <span class="meld-range">≥ 25</span>
+          <span class="meld-action">⚠⚠ URGÊNCIA</span>
+          <span class="meld-mortality">Mortalidade 90d: >40%</span>
         </div>
-      </div>
 
-      <div class="hero-context">
-        <strong>MELD &ge;18</strong> — ponto de inflexão para transplante
+        <!-- Threshold line (drawn after bands) -->
+        <div class="meld-threshold">
+          <span class="meld-threshold-label">MELD ≥18 — ponto de inflexão → referenciar TX</span>
+        </div>
       </div>
     </div>
 
-    <p class="source-tag">Kamath PS Hepatology 2001 · Kim WR Hepatology 2008 · Mahmud et al. ACG 2025</p>
+    <p class="source-tag" style="opacity:0">Kamath PS Hepatology 2001 · Kim WR Hepatology 2008 · UNOS/OPTN 2016</p>
   </div>
 
   <aside class="notes">
-[0:00-0:30] "Vou mostrar a ferramenta que vocês vão usar toda semana."
-"O MELD-Na. Quatro variáveis: bilirrubina, creatinina, INR, sódio."
-[STAGING CUE: Apontar para o painel lateral com a calculadora.]
-"O resultado é um número. E esse número é um semáforo."
+[0:00-0:30] Bandas entram em stagger (green→red)
+"MELD-Na. Quatro variáveis: bilirrubina, creatinina, INR, sódio.
+O resultado é um número. E esse número é um semáforo."
+"Verde: MELD abaixo de 15. Mortalidade em 90 dias menor que 2%. Acompanhar."
+"Amarelo: 15 a 19. 6% em 90 dias. Encaminhar hepatologista."
+"Laranja: 20 a 24. 20% em 90 dias. Planejar transplante."
+"Vermelho: acima de 25. Mais de 40% em 90 dias. Urgência."
 
-[0:30-1:00] [CLICAR "Seu Antônio" NO PAINEL LATERAL]
-"Antônio: bilirrubina 1,8, creatinina 1,1, INR 1,3, sódio 136."
-"MELD-Na... 10. Semáforo verde. Acompanhar. Respira."
-PAUSA 3s — deixar o verde registrar.
+[0:30-1:00] Click 1 → threshold line
+Linha MELD ≥18 desenha da esquerda (width 0→100%).
+"O ponto de inflexão: MELD 18.
+A partir daqui, referenciar para centro transplantador.
+A calculadora está no painel lateral — experimentem com os dados do Antônio."
 
-[1:00-1:30] [EDITAR Cr → 3,1 NO PAINEL]
-"Agora vou mudar UMA variável. Creatinina 3,1."
-"MELD-Na... 28. Semáforo vermelho. Planejar transplante."
-"UMA variável. É isso que a descompensação faz."
-[STAGING CUE: Pausa dramática. Deixar o contraste verde→vermelho permanecer.]
+[1:00-1:30] Click 2 → source
+→ avançar
 
-[1:30-2:00] "Nota importante: o sódio no MELD-Na é preditor independente de mortalidade
-na cirrose. Mas atenção — na hepatite alcoólica severa, usamos o MELD original,
-sem sódio. Sódio não é preditor independente nesse contexto específico."
-
-[2:00-2:30] "O MELD ≥18 é o ponto de inflexão para transplante.
-Abaixo de 18, o paciente com HCV curado que descompensou pode ser delistado.
-Acima de 20, nenhum paciente conseguiu ser delistado após SVR.
-Isso se chama MELD purgatory — o MELD cai, mas a qualidade de vida não melhora."
-
-[DATA] MELD-Na: Kamath PS et al. Hepatology 2001; Kim WR et al. Hepatology 2008 (Na correction) | Verificado: 2026-03-04
-[DATA] Northup: Ann Surg 2005 (PMID 16041215) | MELD validation | Verificado: 2026-03-04
-[DATA] MELD ≥18 inflection: Mahmud et al. ACG 2025 [PMID TBD — buscar] | Verificado: pendente
+[DATA] MELD-Na: Kamath PS et al. Hepatology 2001 (PMID 11172350) · Kim WR Hepatology 2008 (PMID 16697729) | Verificado
+[DATA] Mortalidade 90d por faixa: WR Kim et al. Hepatology 2008 + UNOS/OPTN data | Verificado: evidence-db.md
+[DATA] MELD ≥18 inflection: Mahmud et al. [LUCAS DECIDE — PMID pendente, dados genéricos de registros UNOS]
   </aside>
 </section>
 
 <!-- ============================================================
-     s-a1-classify — Classificar cedo (state machine, 4 estados)
-     Archetype: flow  |  Timing: 90s
+     s-a1-classify — Classificar muda conduta
+     Archetype: flow (state machine, 3 estados)
      States:
-       0 = gancho narrativo (auto) — fecha loop com 01-hook.html
-       1 = dado quantitativo (click) — 83% novos diagnosticos (PMID 38934697)
-       2 = quem rastrear (click) — criterios + Antonio highlight
-       3 = conexao Antonio + PREDESCI (click) — PMID 30910320
-     PMID 38934697: Prince DS et al. Hepatol Commun. 2024. Verificado 2026-03-04.
-     PMID 30910320: Villanueva C. PREDESCI. Lancet. 2019. (evidence-db.md)
+       0 = 3 assertion cards com dados de desfecho (auto)
+       1 = PREDESCI HR 0,51 (click 1)
+       2 = source (click 2)
+     PREDESCI centralizado aqui (removido de s-a1-damico).
      ============================================================ -->
 <section id="s-a1-classify"
          data-timing="90"
@@ -967,93 +843,78 @@ Isso se chama MELD purgatory — o MELD cai, mas a qualidade de vida não melhor
   <div class="slide-inner archetype-flow">
 
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Classificar muda conduta</h2>
 
-    <!-- TÍTULO: afirmação verificável — Alley model obrigatório -->
-    <h2 class="slide-headline">
-      Classificar cedo muda desfecho — HR 0,51
-    </h2>
-
-    <!-- ESTADO 0: gancho narrativo (visível automaticamente no slidechanged) -->
-    <!-- Pedagógico: fecha loop com 01-hook.html — Antônio sem queixas hepáticas -->
-    <div class="screening-anchor">
-      <p class="screening-anchor-text">
-        Antônio não tinha queixas quando chegou ao ambulatório.
-        <span class="screening-anchor-sub">
-          O diagnóstico não veio dos sintomas — veio do protocolo.
-        </span>
-      </p>
-    </div>
-
-    <!-- ESTADO 1: dado quantitativo -->
-    <!-- PMID 38934697 — Prince DS et al. Hepatol Commun 2024; n=179; Liver Toolkit; cACLD screening -->
-    <div class="screening-hero">
-      <span class="screening-hero-stat" data-target="83">83</span><span class="screening-hero-pct">%</span>
-      <span class="screening-hero-label">
-        dos pacientes com cACLD detectados por screening<br>
-        tinham diagnóstico novo ao chegar
-      </span>
-      <span class="scores-era-source">Prince DS et al. Hepatol Commun. 2024 · PMID 38934697</span>
-    </div>
-
-    <!-- ESTADO 2: quem rastrear -->
-    <!-- Critérios de rastreamento: DLD, labs sugestivos, síndrome metabólica -->
-    <div class="screening-criteria">
-      <div class="screening-criterion">Doença hepática crônica conhecida (VHC, VHB, MASLD, álcool)</div>
-      <div class="screening-criterion">Laboratório sugestivo — plaquetopenia, enzimas elevadas</div>
-      <div class="screening-criterion">Síndrome metabólica + risco MASLD</div>
-      <!-- Critério de Antônio — destaque clínico via data-highlight -->
-      <div class="screening-criterion" data-highlight="antonio">
-        ⚠ DM2 + obesidade + álcool ~60 g/dia → exatamente Antônio
+    <!-- 3 assertion cards with outcome data -->
+    <div class="classify-assertions">
+      <div class="classify-card classify-card--safe">
+        <span class="classify-card-icon">✓</span>
+        <div class="classify-card-body">
+          <span class="classify-card-assertion">Compensado → vigilância + profilaxia primária</span>
+          <span class="classify-card-outcome">Mortalidade 1%/ano (D'Amico 2006)</span>
+        </div>
+      </div>
+      <div class="classify-card classify-card--warning">
+        <span class="classify-card-icon">⚠</span>
+        <div class="classify-card-body">
+          <span class="classify-card-assertion">1ª descompensação → tratar + avaliar TX</span>
+          <span class="classify-card-outcome">Mortalidade 5%/ano (D'Amico 2006)</span>
+        </div>
+      </div>
+      <div class="classify-card classify-card--danger">
+        <span class="classify-card-icon">✕</span>
+        <div class="classify-card-body">
+          <span class="classify-card-assertion">2ª descompensação → TX ou cuidados paliativos</span>
+          <span class="classify-card-outcome">Mortalidade 20%/ano · ~60% further decomp</span>
+        </div>
       </div>
     </div>
 
-    <!-- ESTADO 3: conexão Antônio + âncora PREDESCI -->
-    <!-- PMID 30910320 — PREDESCI, Villanueva 2019, carvedilol vs placebo, HR 0,51 (IC 95% 0,26–0,97) -->
-    <!-- HR = Hazard Ratio do endpoint composto de descompensação (NÃO RR) -->
-    <p class="screening-predesci-pill">
-      ✓ Antônio: MELD-Na ~10 → compensado, mas CSPH → PREDESCI elegível
-    </p>
+    <!-- PREDESCI anchor (click 1) -->
+    <div class="classify-predesci">
+      <div class="classify-predesci-hero">
+        <span class="classify-predesci-label">PREDESCI · HR</span>
+        <span class="classify-predesci-value" data-countup-target="0.51">0</span>
+        <span class="classify-predesci-ci">IC 95%: 0,26–0,97</span>
+      </div>
+      <p class="classify-predesci-text">
+        Carvedilol reduziu descompensação em 49% nos compensados com CSPH
+      </p>
+      <p class="classify-predesci-case">
+        Antônio: MELD-Na ~10 · CSPH provável → PREDESCI elegível
+      </p>
+    </div>
 
-    <!-- Source tag visível apenas no estado 4 (Plan B: sempre visível) -->
-    <p class="source-tag">
-      Prince DS et al. Hepatol Commun 2024 (PMID 38934697) ·
-      PREDESCI: Villanueva 2019 (PMID 30910320, HR 0,51) ·
-      Baveno VII 2022 (PMID 35120736)
+    <p class="source-tag" style="opacity:0">
+      D'Amico 2006 (PMID 16298014) · PREDESCI: Villanueva 2019 (PMID 30910320) ·
+      Prince DS, Hepatol Commun 2024 (PMID 38934697)
     </p>
 
   </div>
 
   <aside class="notes">
-[0:00-0:20] [ESTADO 0 — auto, gancho]
-"Antônio apareceu no ambulatório sem queixas hepáticas."
-"Diabetes, obesidade, álcool moderado — chegou por rotina."
-"Foi o protocolo que encontrou o problema, não o paciente."
-PAUSA 2s. "Isso não é exceção. É a regra."
+[0:00-0:30] Auto: 3 assertion cards com stagger
+"Por que classificar importa? Porque a conduta é radicalmente diferente."
+"Compensado: vigilância e profilaxia primária. Mortalidade 1% por ano."
+"Primeira descompensação: tratar aggressivamente e avaliar transplante. 5% por ano."
+"Segunda descompensação: transplante ou cuidados paliativos. 20% por ano.
+E 60% progridem para further decompensation."
 
-[0:20-0:45] [CLICK → estado 1, dado quantitativo]
-"Oitenta e três por cento."
-CountUp 0 → 83 dispara.
-"Dos pacientes com cACLD encontrados por screening, 83% tinham diagnóstico
-novo. Não sabiam que tinham. Prince DS et al., Hepatol Commun 2024 — 179
-pacientes, 9 clínicas, protocolo Liver Toolkit."
+[0:30-1:00] Click 1 → PREDESCI
+CountUp HR 0 → 0,51.
+"PREDESCI — Villanueva, Lancet 2019."
+"Carvedilol reduziu descompensação em 49% nos compensados com CSPH."
+"Hazard Ratio 0,51. IC 95%: 0,26 a 0,97."
+PAUSA 2s.
+"Antônio: MELD ~10, compensado, mas CSPH provável.
+Ele é exatamente o paciente do PREDESCI."
 
-[0:45-1:05] [CLICK → estado 2, critérios]
-"Quem rastrear? Quem tem fator de risco hepático."
-Critérios aparecem em stagger sequencial.
-"Antônio tem três: MASLD por NAFLD, álcool acima do corte, DM2."
-"Ele é o paciente para o qual esse protocolo foi desenhado."
+[1:00-1:15] Click 2 → source
+→ avançar para checkpoint 1
 
-[1:05-1:20] [CLICK → estado 3, Antônio + PREDESCI]
-"E por que classificar cedo importa? Porque muda o desfecho."
-Pill PREDESCI aparece.
-"PREDESCI mostrou HR 0,51 — reducao de 49% na descompensacao."
-"PMID 30910320 — Villanueva, Lancet 2019. HR, nao RR."
-"Antonio chegou a tempo. Classificamos antes da descompensacao."
-→ AVANCAR para CP1
-
-[DATA] Screening cACLD: PMID 38934697 | Prince DS, Hepatol Commun 2024 | n=179 | 83% novos diagnósticos | Verificado: 2026-03-04
-[DATA] PREDESCI: PMID 30910320 | Villanueva, Lancet 2019 | HR 0,51 (IC 95% 0,26–0,97) | carvedilol vs placebo | Verificado: evidence-db.md
-[DATA] Baveno VII: PMID 35120736 | de Franchis 2022 | cACLD definição + NITs | Verificado: evidence-db.md
+[DATA] D'Amico 2006: PMID 16298014 | mortalidade anual por estágio | Verificado: evidence-db.md
+[DATA] PREDESCI: PMID 30910320 | Villanueva 2019 | HR 0,51 (IC 95% 0,26–0,97) | NÃO é RR | Verificado
+[DATA] D'Amico 2024: PMID 37916970 | ~60% further decomp | Verificado
   </aside>
 </section>
 
