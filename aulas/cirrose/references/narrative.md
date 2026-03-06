@@ -16,7 +16,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 
 ## Personagem-caso: Seu Antônio
 
-> **DADOS CANÔNICOS — REPO PREVALECE** (ver CLAUDE-PROJECT.md)
+> **DADOS CANÔNICOS — ver CASE.md** (este arquivo contém apenas contexto narrativo)
 
 | Campo | Valor | Chekhov's Gun |
 |-------|-------|---------------|
@@ -35,9 +35,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | MELD-Na | ~10 (inicial) | "Lembrem desse número. Vai mudar." → evolui até 28 |
 | Entrada | Assintomático, FIB-4 na UBS | Screening = a promessa da aula |
 
-> **Nota:** Dados canônicos atualizados 2026-03-05. Repo prevalece sobre Notion.
-> FIB-4 calculado: (55 × 67) / (112 × √31) = 5,91.
-> Armadilha clínica: ALT 31 parece normal → residente ignora → hepatócito burnt-out.
+> **Nota:** Dados canônicos atualizados 2026-03-05 — ver CASE.md. Repo prevalece sobre Notion.
 
 ## Mapa Narrativo (28 slides)
 
@@ -119,7 +117,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 ## Case Panel — Evolução
 
 ```
-s-hook    → neutral   (apresentação: AST 67 · ALT 31 · PLQ 112k · Alb 3,6 · FIB-4 5,91)
+s-hook    → neutral   (apresentação: ver CASE.md — baseline labs)
 s-cp1     → caution   (LSM 21 kPa · MELD ~10 · cACLD→CSPH)
 s-cp2     → danger    (MELD 28 · Alb 2,4 · Cr 2,8 · Ascite/PBE/HRS-AKI)
 s-cp3     → hope      (FIB-4 2,1 · LSM 18 · MELD 12 · Abstinente 10m · SVR)
@@ -140,4 +138,4 @@ Ex: s-a2-01 a s-a2-06 mantêm `caution` (herdado do CP1).
    - "LSM 32→18" → recompensação (s-cp3) é o arco completo do Seu Antônio
 5. **Cinematic blackouts** (planejados, não implementados): slides navy puro com 1 pergunta, zero UI. Candidatos: antes de cada checkpoint.
 6. **Dados clínicos são sagrados.** Antes de refatorar qualquer slide com NNT, HR, ou p-value, executar `grep "s-{id}" references/evidence-db.md` e verificar PMID. Nunca arredondar, inventar, ou omitir IC 95%.
-7. **Dados do Antônio são canônicos no repo.** Idade 55a, IMC 31, AST 67/ALT 31 (ratio 2,16), PLQ 112k, GGT 210, Alb 3,6, Bili 1,3, INR 1,2, FIB-4 5,91, etilismo 60g/dia (5 latas) há 20a. Não usar dados da Bíblia Narrativa Notion quando divergirem.
+7. **Dados do Antônio são canônicos no repo** — ver CASE.md. Não usar dados da Bíblia Narrativa Notion quando divergirem.
