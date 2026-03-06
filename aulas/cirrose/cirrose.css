@@ -1610,6 +1610,26 @@
   max-width: 600px;
 }
 
+.paradigm-question {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--text-primary);
+  text-align: center;
+  margin: var(--space-sm) 0 0;
+}
+
+.elasto-step-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--safe);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: oklch(40% 0.12 170 / 0.1);
+  border: 1px solid var(--safe);
+  white-space: nowrap;
+}
+
 /* Rule-of-5 scale — 5 zones grid */
 .rule-of-5 {
   width: 100%;

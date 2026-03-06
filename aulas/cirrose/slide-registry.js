@@ -385,12 +385,19 @@ export const customAnimations = {
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-baveno': (slide, gsap) => {
     let state = 0;
-    const maxState = 1;
+    const maxState = 2;
 
     const oldTerm = slide.querySelector('.paradigm-old');
     const spectrum = slide.querySelector('.paradigm-spectrum');
     const bavRef = slide.querySelector('.paradigm-ref');
+    const question = slide.querySelector('.paradigm-question');
+    const pathway = slide.querySelector('.elasto-pathway');
+    const pathSteps = slide.querySelectorAll('.elasto-step');
     const sourceTag = slide.querySelector('.source-tag');
+
+    if (question) gsap.set(question, { opacity: 0, y: 8 });
+    if (pathway) gsap.set(pathway, { opacity: 0 });
+    gsap.set(pathSteps, { opacity: 0, y: 12 });
 
     let splitInstance = null;
 
@@ -401,7 +408,6 @@ export const customAnimations = {
       gsap.set(spectrum, { opacity: 0 });
       gsap.set(bavRef, { opacity: 0 });
 
-      // calibrado para --duration-normal 400ms (deck.js transition); era 1.5s com Reveal fade 600ms
       const tl = gsap.timeline({ delay: 1.3 });
       tl.to(splitInstance.chars, {
         opacity: 0, y: -20, rotationX: 90,
@@ -420,6 +426,11 @@ export const customAnimations = {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
+        if (question) gsap.to(question, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+        if (pathway) gsap.to(pathway, { opacity: 1, duration: 0.3, delay: 0.2 });
+        gsap.to(pathSteps, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.3, ease: 'power2.out' });
+      }
+      if (state === 2) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
       }
       return true;
@@ -427,8 +438,13 @@ export const customAnimations = {
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 1) {
+      if (state === 2) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      }
+      if (state === 1) {
+        if (question) gsap.to(question, { opacity: 0, y: 8, duration: 0.3 });
+        if (pathway) gsap.to(pathway, { opacity: 0, duration: 0.3 });
+        gsap.to(pathSteps, { opacity: 0, y: 12, duration: 0.3 });
       }
       state--;
       return true;
