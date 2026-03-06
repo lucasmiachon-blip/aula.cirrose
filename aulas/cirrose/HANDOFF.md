@@ -1,18 +1,67 @@
 # HANDOFF — Cirrose (projeto)
 
-> So pendencias ativas. Detalhes historicos → CHANGELOG.md, ERROR-LOG.md. Claude.ai → HANDOFF-CLAUDE-AI.md
+> Só pendências ativas. Detalhes históricos → CHANGELOG.md, ERROR-LOG.md. Claude.ai → HANDOFF-CLAUDE-AI.md
 
 ---
 
-## Estado atual — 2026-03-05
+## Estado atual — 2026-03-06
 
-**Branch:** `restructure/act1` — **PUSHED** (`79f465d`)
+**Branch:** `restructure/act1` — **PUSHED** (`42d6e9c`)
 **Slides:** 33/33 buildados e commitados
 **Build:** `npm run build:cirrose` ✅ zero erros
 
-### Restructure Act 1 — CONCLUIDO (esta sessao)
+---
 
-Todos os 9 slides do Bloco 1 reestruturados + dados canônicos aplicados:
+## Sessão 2026-03-06 — Concluído
+
+### Skills — unificação de redundâncias (`d2b6d16`)
+
+| Skill | Antes | Depois |
+|-------|-------|--------|
+| `medical-slide` | 84 linhas, duplicava assertion-evidence + tokens + checklist | 44 linhas: só workflow Notion MCP, delega para `slide-frontend-ux` |
+| `visual-qa` | 7 checks básicos antigos | Redirect para `qa-engineer` agent (13 critérios) |
+| `assertion-evidence` | Mantido | Validator focado (não cria, só valida) |
+| `medical-data` | Mantido | Verifier de dados clínicos autônomo |
+
+### MCPs instalados — stack QA completo (`0d75469`, `d3abf4d`, `42d6e9c`)
+
+**Funcionando agora (GRÁTIS, zero config):**
+
+| MCP | O que faz | Critérios QA |
+|-----|-----------|-------------|
+| `ui-ux-pro-mcp` | 170 UX guidelines, typography, colors, patterns | 2, 4, 6 |
+| `clinicaltrials` | ClinicalTrials.gov v2 — NCT ID, outcomes, patient match | 9 (resolve [TBD]s) |
+| `design-comparison` | Pixel diff before/after CSS — valida se fix funcionou | 4, 6 |
+| `page-design-guide` | Typography, layout F/Z/Bento, animation principles | 2, 6 |
+| `attention-insight` (sharp) | Clarity + focus score proxy, ~60% accuracy | 6, 11 |
+
+**Requer signup (free credits):**
+
+| MCP | Custo | Como ativar |
+|-----|-------|-------------|
+| `attention-insight` API real | 14 dias grátis → €119/mo | [app.attentioninsight.com/auth/signup](https://app.attentioninsight.com/auth/signup) → Settings → API Key → `.env`: `ATTENTION_INSIGHT_API_KEY=` |
+| `floto` | 1.000 créditos grátis | [test-app.floto.ai](https://test-app.floto.ai) → API Key → `.env`: `FLOTO_API_KEY=` |
+| `frontend-review-mcp` | Créditos grátis | [app.hyperbolic.xyz](https://app.hyperbolic.xyz) → `.env`: `HYPERBOLIC_API_KEY=` |
+
+**Mapeamento ferramentas → critérios qa-engineer:**
+
+| Critério | Ferramentas |
+|---------|-------------|
+| 1. Assertion-Evidence | `npm run lint:slides`, `playwright` DOM |
+| 2. Tipografia | `ui-ux-pro`, `page-design-guide` |
+| 3. Contraste WCAG | `a11y-mcp`, `playwright` axe-core, `lighthouse` |
+| 4. Fill ratio | `playwright` screenshot 1280×720 |
+| 5. Densidade | `playwright` word count DOM |
+| 6. Impacto visual | `attention-insight`, `floto` |
+| 7. Interações | `playwright` Space/Arrow + hook check |
+| 8. CSS tokens | `grep` HEX/px literals |
+| 9. Dados clínicos | `scite`, `biomcp`, `clinicaltrials` |
+| 10. a11y Lighthouse | `lighthouse`, `a11y-mcp` |
+| 11-13. Pedagogia | `perplexity_reason` (CLT+Mayer+Knowles+Duarte) |
+
+---
+
+## Sessão 2026-03-05 — Restructure Act 1
 
 | Commit | Slide | O que mudou |
 |--------|-------|-------------|
@@ -24,84 +73,69 @@ Todos os 9 slides do Bloco 1 reestruturados + dados canônicos aplicados:
 | `6804609` | s-a1-baveno | Fundido com elasto, pathway 3-step pós-dissolve |
 | `581106e` | s-a1-fib4 | Hero number 5,91 countUp, ALT trap, hero-stat archetype |
 | `2c4893b` | s-a1-rule5 | Gray zone 10-25 kPa, pin Antônio, nuances CSPH |
-| `d243fb2` | s-a1-meld | Threshold MELD≥18 animado, emojis urgência, bandas stagger |
+| `d243fb2` | s-a1-meld | Threshold MELD≥18 animado, emojis urgência |
 | `55b10c7` | s-a1-classify | Assertion cards, PREDESCI HR 0,51 hero countUp |
-| `04d358b` | build | index.html regenerado (33 slides) |
 
-JS funciona (confirmado no browser). Redundâncias visuais e CSS ainda presentes.
+JS funciona (confirmado no browser). QA rodado — nenhum slide passou ainda.
 
 ---
 
-## QA REPORT — Bloco 1 (rodado 2026-03-05, qa-engineer subagent)
+## QA REPORT — Bloco 1 (2026-03-05)
 
-**Resultado geral: NENHUM SLIDE PASSOU** — todos têm issues a corrigir.
+**Resultado: NENHUM SLIDE PASSOU** — todos têm issues a corrigir.
 
 ### FAIL — merge bloqueado (1)
 
 | Slide | Problema | Fix |
 |-------|---------|-----|
-| `s-a1-damico` | `<h2>Três gerações de escores</h2>` é rótulo/categoria, não afirmação clínica (viola Hard Constraint #1) | Trocar por ex: "MELD-Na supera CTP na predição de mortalidade a 90d" |
+| `s-a1-damico` | `<h2>` é rótulo, não afirmação clínica | Proposta: "MELD-Na supera CTP na predição de mortalidade a 90d" |
 
-### WARN — deve corrigir antes de usar em congresso (10)
+### WARN — corrigir antes de congresso (10)
 
 | Slide | Problema | Fix |
 |-------|---------|-----|
-| `s-hook` | Sem `<h2>` — viola Hard Constraint #1 | Adicionar `<h2 aria-hidden>` invisível ou registrar exceção formal |
-| `s-a1-vote` | `<h2>` é pergunta, não afirmação | Reformular: "FIB-4 5,91 classifica cirrose mesmo sem sintomas" |
-| `s-a1-fib4` | `<h2>` é slogan motivacional | Reformular: "FIB-4 > 2,67 indica elastografia obrigatória" |
-| `s-a1-rule5` | `<h2>` é pergunta | Reformular: "LSM 21 kPa confirma cACLD e não descarta CSPH" |
-| `s-a1-meld` | `<h2>` é metáfora/label | Reformular: "MELD-Na ≥18 — ponto de inflexão para referenciar TX" |
-| `s-a1-meld` | `[LUCAS DECIDE]` MELD≥18 sem PMID verificado nas notes | Resolver: buscar PMID Mahmud ou citar UNOS/OPTN |
-| `cirrose.css` | `@keyframes zone-highlight` usa OKLCH literal, não token | Usar `oklch(from var(--warning) l c h / 0.4)` |
-| `cirrose.css` | `.vote-option--correct` usa OKLCH literal | Usar `oklch(from var(--safe) l c h / 0.08)` |
-| `02c-a1-screening.html` | Filename não bate com section ID `s-a1-classify` | Renomear para `02c-a1-classify.html` + atualizar `_manifest.js` |
-| `s-a1-classify` | `.classify-card` animado só via `gsap.set()`, sem `opacity:0` em CSS | Adicionar CSS failsafe: `.no-js .classify-card, .stage-bad .classify-card { opacity:1 }` |
+| `s-hook` | Sem `<h2>` | Adicionar `<h2 aria-hidden>` ou exceção formal |
+| `s-a1-vote` | `<h2>` é pergunta | Proposta: "FIB-4 5,91 classifica cirrose mesmo sem sintomas" |
+| `s-a1-fib4` | `<h2>` é slogan | Proposta: "FIB-4 > 2,67 indica elastografia obrigatória" |
+| `s-a1-rule5` | `<h2>` é pergunta | Proposta: "LSM 21 kPa confirma cACLD e não descarta CSPH" |
+| `s-a1-meld` | `<h2>` é metáfora | Proposta: "MELD-Na ≥18 — ponto de inflexão para referenciar TX" |
+| `s-a1-meld` | MELD≥18 sem PMID | `[LUCAS DECIDE]` — buscar PMID Mahmud ou citar UNOS/OPTN |
+| `cirrose.css` | `@keyframes zone-highlight` usa OKLCH literal | `oklch(from var(--warning) l c h / 0.4)` |
+| `cirrose.css` | `.vote-option--correct` usa OKLCH literal | `oklch(from var(--safe) l c h / 0.08)` |
+| `02c-a1-screening.html` | Filename não bate com section ID `s-a1-classify` | Renomear + atualizar `_manifest.js` |
+| `s-a1-classify` | `.classify-card` sem CSS failsafe | `.no-js .classify-card, .stage-bad .classify-card { opacity:1 }` |
 
-### OK — passou
+### Observações visuais de Lucas
 
-- `npm run lint:slides` ✅ clean
-- `npm run build:cirrose` ✅ 33 slides, zero erros
-- `<aside class="notes">` presente em todos os 9 slides ✅
-- Nenhum `<ul>`/`<ol>` no corpo dos slides ✅
-- Nenhum HEX inline (exceto `data-background-color`) ✅
-- Labs Antônio batem com CASE.md ✅
-- ERRO-021 (seletor CSS s-a1-damico): **não existe** no código atual ✅
+- Títulos ruins — confirma os WARNs acima
+- Alturas inconsistentes — verificar `min-height: 100%` nos archetypes
+- CSS ruins em alguns casos — s-a1-vote, s-a1-classify, s-a1-damico (eras com altura variável)
+- Melhor que antes ✅
 
 ---
 
-## Prioridades — PROXIMA SESSAO
+## Prioridades — PRÓXIMA SESSÃO
 
-### 🔴 IMEDIATO — Fixes QA Bloco 1
+### 🔴 IMEDIATO
 
-**Objetivo:** atingir nota ≥ 9/10 em todos os 10 critérios, em todos os 9 slides.
-**Padrão:** qa-engineer atualizado com rubrica 0-10 (mínimo 9 = PASS). Ver `.claude/agents/qa-engineer.md`.
-**Stack:** mcp:playwright (screenshots + interações) + mcp:a11y + mcp:lighthouse + Bash lint.
+1. **`[LUCAS DECIDE]`** — validar 6 h2 com propostas acima (sem isso o QA não avança)
+2. Fixes técnicos rápidos: OKLCH literals em `cirrose.css`, rename `screening→classify`, failsafe `.classify-card`
+3. Altura inconsistente: `min-height` archetypes + viewport deck 720px fixo
+4. **Re-rodar qa-engineer** com rubrica 13 critérios + nova stack MCP
+5. Iterar até ≥ 9/10 em todos os critérios
 
-**Ordem de execução:**
-1. **Lucas decide** assertions clínicas finais dos 6 slides com h2 ruim (sem isso nada avança)
-2. **Fixes técnicos rápidos:** rename `screening→classify`, tokens OKLCH, failsafe `.classify-card`
-3. **Altura inconsistente entre slides:** investigar `min-height` archetypes + viewport deck fixo 720px
-4. **Re-rodar qa-engineer** com nova rubrica → scorecard completo por slide
-5. **Iterar** até todos os slides ≥ 9/10 em todos os critérios
+### 🟡 DECISÕES CLÍNICAS [LUCAS DECIDE]
 
-### Observações visuais de Lucas (review manual 2026-03-05)
-- **Títulos ruins** — confirma o FAIL/WARN das assertions. Todos os h2 precisam de revisão clínica.
-- **Alturas inconsistentes entre slides** — slides com conteúdo variável não chegam à mesma altura de canvas. Verificar `min-height: 100%` nos archetypes e se o deck viewport está fixo em 720px.
-- **CSS ruins em alguns casos** — não especificado; targets prováveis: s-a1-vote (nunca testado), s-a1-classify (failsafe faltando), s-a1-damico (eras com altura variável).
-- **Mas melhor que antes** ✅ — direção correta, continuar.
+1. h2 assertions dos 6 slides — propostas na tabela WARN acima
+2. MELD≥18 fonte — PMID Mahmud ACG 2025 não encontrado, confirmar alternativa
+3. D'Amico pathway % — `Comp(1%)→1ºDescomp(5%)→2ºDescomp(20%)→Óbito(57%)` — confirmar paper
+4. PREDESCI HR 0,51 — IC95% vai no slide ou só nas notes?
 
-### 🟡 DECISOES CLINICAS PENDENTES [LUCAS DECIDE]
+### 🟡 MÉDIA
 
-1. **Assertions h2 novas:** sugestões acima são provisórias — Lucas valida o enunciado clínico final de cada slide
-2. **MELD≥18 fonte:** PMID Mahmud ACG 2025 ainda não encontrado — confirmar fonte alternativa
-3. **D'Amico pathway %:** `Comp(1%) → 1ºDescomp(5%) → 2ºDescomp(20%) → Óbito(57%)` — confirmar paper
-4. **PREDESCI HR 0,51:** Villanueva 2019? IC95% vai no slide ou só nas notes?
-
-### 🟡 MEDIA
-
-- PMIDs TBD (14 restantes) — ver `docs/insights-html-cirrose-2026.md`
-- CTP interobserver variability — PMID 6546609 ou PMID 16305721
-- burden-iceberg prevalencia — GBD 2017 (manter com anotacao)
+- 21 referências [TBD] — usar `clinicaltrials` MCP para PREDESCI/CANONIC/ANSWER
+- CTP interobserver variability — PMID 6546609 ou 16305721
+- burden-iceberg prevalência — GBD 2017 (manter com anotação)
 
 ### 🟢 BAIXA
 
@@ -110,100 +144,11 @@ JS funciona (confirmado no browser). Redundâncias visuais e CSS ainda presentes
 
 ---
 
-## Pendencias abertas
+## Pendências abertas
 
 - **ERRO-008** — Case panel redundante em s-hook
-- **AUDIT** — Fixes I2-I10 (ver AUDIT-VISUAL.md)
-- **21 referencias [TBD]** catalogadas em NOTES.md
-- **D'Amico estadio 5** — label errado
-- **Mahmud ACG 2025 PMID** — nao encontrado, manter [TBD]
-
-## Dados do caso — inconsistencias menores
-
-- PLQ 112k (hook) vs 118k (CP1) — duas visitas, sem nota de contexto
-- Stage no CP1: `07-cp1.html` vs `_manifest.js` — cosmetico
-
----
-
-## QA + Research Stack — Ferramentas de Alto ROI (pesquisa 2026-03-05)
-
-Instaladas em `.cursor/mcp.json` + `.mcp.json`. Pesquisa exaustiva de MCPs disponíveis até março/2026.
-
-### Tier 1 — Funcionando agora (GRÁTIS, zero config)
-
-| Ferramenta | ROI | O que faz |
-|-----------|-----|-----------|
-| `ui-ux-pro-mcp` | ★★★★★ | 170 UX guidelines, 103 styles, typography, colors — base objetiva para critérios 2,4,6 do QA |
-| `perplexity` | ★★★★★ | Avaliação pedagógica (CLT, Mayer, Knowles, Miller, Duarte) — critérios 11-13 |
-| `playwright` | ★★★★★ | Screenshots 1280×720, clicks, keyboard, axe-core via evaluate — base de todo QA visual |
-| `lighthouse` | ★★★★★ | Score a11y, performance, best practices — critério 10 |
-| `a11y-mcp-server` | ★★★★☆ | WCAG AA/AAA via axe-core — critério 3 (contraste) |
-| `clinicaltrials` | ★★★★★ | **NOVO** ClinicalTrials.gov v2: busca por NCT ID, patient profile match, outcomes, adverse events. Resolve os 21 [TBD] de PREDESCI/CANONIC/ANSWER |
-| `design-comparison` | ★★★★☆ | **NOVO** Pixel diff CSS before/after. GRÁTIS, sem API key. Valida se fix funcionou |
-| `page-design-guide` | ★★★☆☆ | **NOVO** Typography hierarchy, layout patterns (F/Z/Bento), animation principles, responsive — 8 ferramentas |
-| `mcp:attention-insight` (sharp) | ★★★☆☆ | Clarity + focus score proxy via sharp. Sem API key, ~60% accuracy |
-| `scite`, `biomcp`, `pubmed`, `crossref` | ★★★★☆ | Literatura científica verificada — base para critério 9 (dados clínicos) |
-
-### Tier 2 — Requer signup (free credits disponíveis)
-
-| Ferramenta | ROI | Custo | Como ativar |
-|-----------|-----|-------|-------------|
-| `mcp:attention-insight` (API real) | ★★★★★ | 14 dias grátis → €119/mo | Signup: [app.attentioninsight.com](https://app.attentioninsight.com/auth/signup) → Settings → API Key → `.env`: `ATTENTION_INSIGHT_API_KEY=ai_...` |
-| `floto` | ★★★★☆ | **1.000 créditos grátis** no signup (~50 audits) | Signup: [test-app.floto.ai](https://test-app.floto.ai) → API Key → `.env`: `FLOTO_API_KEY=...` Faz smart diff semântico (além de pixels) |
-| `frontend-review-mcp` | ★★★★☆ | Créditos grátis no signup | Signup: [app.hyperbolic.xyz](https://app.hyperbolic.xyz) → `.env`: `HYPERBOLIC_API_KEY=...` |
-
-### O que NÃO existe como MCP (2026)
-
-- **Eye-tracking real como MCP**: não existe pacote npm. Attention Insight é a melhor opção via API REST.
-- **Saliency maps locais**: sem MCP. O `scripts/mcp-attention-insight.js` faz proxy via sharp como fallback.
-- **Figma MCP oficial**: Figma tem plugin API mas não MCP stdio. Floto e frontend-review cobrem o gap.
-
-### Mapeamento ferramentas → critérios qa-engineer
-
-| Critério | Ferramentas primárias |
-|---------|----------------------|
-| 1. Assertion-Evidence | `npm run lint:slides`, `playwright` DOM |
-| 2. Tipografia | `ui-ux-pro`, `page-design-guide` |
-| 3. Contraste WCAG | `a11y-mcp`, `playwright axe-core`, `lighthouse` |
-| 4. Fill ratio | `playwright` screenshot 1280×720 |
-| 5. Densidade | `playwright` word count DOM |
-| 6. Impacto visual | `attention-insight`, `floto` |
-| 7. Interações | `playwright` Space/Arrow + hook check |
-| 8. CSS tokens | `grep` HEX/px literals |
-| 9. Dados clínicos | `scite`, `biomcp`, `clinicaltrials` |
-| 10. a11y Lighthouse | `lighthouse`, `a11y-mcp` |
-| 11. Carga cognitiva | `perplexity_reason` + `attention-insight` |
-| 12. Aprendizagem adulto | `perplexity_reason` |
-| 13. Arco narrativo | `perplexity_reason` |
-
-### O que cada uma traz ao QA
-
-- **`ui-ux-pro-mcp`**: 170 UX guidelines objetivos. O agente compara o slide contra padrões de tipografia, espaçamento, hierarquia visual, contraste. Alta objetividade para critérios 2, 4, 6.
-- **`perplexity`**: Avaliação pedagógica (CLT, Mayer, Knowles, Miller, Duarte). Cobre critérios 11-13.
-- **`attention-insight` (API real)**: eye-tracking preditivo com 90% accuracy vs. eye tracking real. Retorna clarity_score, focus_score, heatmap, % atenção por região, AI recommendations. Cobre critério 6 (impacto visual) com dado objetivo.
-- **`frontend-review-mcp`**: compara screenshot before/after e diz se a mudança CSS funcionou. Essencial no loop de correção — valida sem precisar de revisão manual.
-
-### Como o Attention Insight funciona via MCP
-
-```
-Playwright tira screenshot → salva em qa-screenshots/[slide].png
-               ↓
-qa-engineer chama: mcp:attention-insight analyze_attention("qa-screenshots/s-hook.png")
-               ↓
-   sem API key → sharp fallback (clarity proxy, ~60% accuracy)
-   com API key → REST POST para app.attentioninsight.com/api/v1/analysis
-               ↓
-Retorna: clarity_score, focus_score, cognitive_load, top_regions, ai_recommendations
-               ↓
-qa-engineer usa clarity_score para nota no critério 6 (impacto visual)
-e cognitive_load para critério 11 (carga cognitiva Sweller CLT)
-```
-
-**Para ativar API real:**
-1. `app.attentioninsight.com/auth/signup` — trial 14 dias, sem cartão
-2. Dashboard → Settings → API Key → copiar
-3. Adicionar ao `.env`: `ATTENTION_INSIGHT_API_KEY=ai_...`
-4. Reiniciar Cursor/Claude Code → MCP reconnects automaticamente
+- **D'Amico estádio 5** — label errado
+- **PLQ inconsistência** — 112k (hook) vs 118k (CP1) — duas visitas, sem nota de contexto
 
 ---
 
