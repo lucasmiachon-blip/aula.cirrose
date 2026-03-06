@@ -82,7 +82,13 @@ JS funciona (confirmado no browser). Redundâncias visuais e CSS ainda presentes
 3. **CSS tokens:** 2 literals em cirrose.css
 4. **Failsafe `.classify-card`:** 2 linhas CSS
 
-Depois dos fixes: re-rodar qa-engineer para confirmar zero FAIL/WARN.
+Depois dos fixes: re-rodar qa-engineer + browser-use para confirmar zero FAIL/WARN.
+
+### Observações visuais de Lucas (review manual 2026-03-05)
+- **Títulos ruins** — confirma o FAIL/WARN das assertions. Todos os h2 precisam de revisão clínica.
+- **Alturas inconsistentes entre slides** — slides com conteúdo variável não chegam à mesma altura de canvas. Verificar `min-height: 100%` nos archetypes e se o deck viewport está fixo em 720px.
+- **CSS ruins em alguns casos** — não especificado; targets prováveis: s-a1-vote (nunca testado), s-a1-classify (failsafe faltando), s-a1-damico (eras com altura variável).
+- **Mas melhor que antes** ✅ — direção correta, continuar.
 
 ### 🟡 DECISOES CLINICAS PENDENTES [LUCAS DECIDE]
 
