@@ -111,6 +111,75 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     s-a1-vote — Audience poll with FIB-4 reveal
+     State 0: question visible. State 1: reveal FIB-4 + verdict
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  's-a1-vote': (slide, gsap) => {
+    let revealed = false;
+    const options = slide.querySelectorAll('.vote-option');
+    const reveal = slide.querySelector('.vote-reveal');
+    const instruction = slide.querySelector('.vote-instruction');
+    const heroNum = slide.querySelector('.vote-hero-number');
+    const verdict = slide.querySelector('.vote-verdict');
+    const explanation = slide.querySelector('.vote-explanation');
+
+    function doReveal() {
+      if (revealed) return false;
+      revealed = true;
+
+      options.forEach(btn => {
+        const vote = btn.dataset.vote;
+        if (vote === 'B') {
+          btn.classList.add('vote-option--correct');
+        } else {
+          btn.classList.add('vote-option--dimmed');
+        }
+      });
+
+      if (instruction) gsap.to(instruction, { opacity: 0, duration: 0.3 });
+
+      gsap.to(reveal, { opacity: 1, visibility: 'visible', duration: 0.4, delay: 0.3 });
+
+      if (heroNum) {
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: 5.91,
+          duration: 1.4,
+          delay: 0.5,
+          ease: 'power1.out',
+          onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
+        });
+      }
+
+      if (verdict) gsap.fromTo(verdict, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.2 });
+      if (explanation) gsap.fromTo(explanation, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.5 });
+
+      return true;
+    }
+
+    function undoReveal() {
+      if (!revealed) return false;
+      revealed = false;
+
+      options.forEach(btn => {
+        btn.classList.remove('vote-option--correct', 'vote-option--dimmed');
+      });
+
+      if (instruction) gsap.to(instruction, { opacity: 1, duration: 0.3 });
+      gsap.to(reveal, { opacity: 0, duration: 0.3, onComplete() { reveal.style.visibility = 'hidden'; } });
+      if (heroNum) heroNum.textContent = '0';
+
+      return true;
+    }
+
+    options.forEach(btn => btn.addEventListener('click', doReveal));
+
+    slide.__hookAdvance = doReveal;
+    slide.__hookRetreat = undoReveal;
+    slide.__hookCurrentBeat = () => revealed ? 1 : 0;
+  },
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      s-a1-classify — Classificar cedo (4 estados)
      Era 0: gancho Antonio (auto)
      Era 1: dado 83% + CountUp (click)

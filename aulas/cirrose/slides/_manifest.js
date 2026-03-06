@@ -10,7 +10,8 @@ export const slides = [
   { id: 's-hook', file: '01-hook.html', act: null, archetype: 'hook', sectionTag: null, headline: 'Caso Antonio · Qual a proxima conduta?', panelState: 'neutral', clickReveals: 1, customAnim: 's-hook', timing: 90, subItems: [{ label: 'beat 0: Antonio', beat: 0 }, { label: 'beat 1: labs+pergunta', beat: 1 }] },
 
   // ── Act 1: CLASSIFICAR ──
-  { id: 's-a1-01', file: '02-a1-continuum.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Cirrose mata 1,32 milhao por ano — e a epidemia silenciosa esta crescendo', panelState: 'neutral', clickReveals: 0, customAnim: 's-a1-01', timing: 90 },
+  { id: 's-a1-01', file: '02-a1-continuum.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: '1,43 milhao morre por ano', panelState: 'neutral', clickReveals: 0, customAnim: 's-a1-01', timing: 90 },
+  { id: 's-a1-vote', file: '02d-a1-vote.html', act: 'A1', archetype: 'poll', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Esse paciente tem cirrose?', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-vote', timing: 120 },
   { id: 's-a1-damico', file: '02b-a1-damico.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'De Child a MELD 3.0 — cada geracao corrigiu o que a anterior nao via', panelState: 'neutral', clickReveals: 5, customAnim: 's-a1-damico', timing: 180 },
   { id: 's-a1-baveno', file: '03-a1-baveno.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Baveno VII e o novo paradigma de classificacao', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-baveno', timing: 90 },
   { id: 's-a1-fib4', file: '03b-a1-fib4calc.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'FIB-4 estratifica risco com 4 variaveis do prontuario', panelState: 'neutral', clickReveals: 0, customAnim: null, timing: 120 },
@@ -54,6 +55,12 @@ export const panelStates = {
     severity: 'neutral',
     values: { fib4: '5,91', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
     visibleFields: ['fib4', 'plq', 'albumin', 'stage'],
+    events: [],
+  },
+  's-a1-vote': {
+    severity: 'neutral',
+    values: { fib4: '—', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
+    visibleFields: ['plq', 'albumin', 'stage'],
     events: [],
   },
   's-a1-baveno': {

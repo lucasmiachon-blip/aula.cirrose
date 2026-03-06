@@ -1206,6 +1206,166 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   s-a1-vote — Audience poll with FIB-4 reveal
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.vote-patient-summary {
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.vote-bio {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+}
+
+.vote-labs-row {
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-xs);
+}
+
+.vote-lab {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.vote-lab--success {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+.vote-lab small {
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.vote-options {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.vote-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+}
+
+.vote-option:hover {
+  border-color: var(--ui-accent);
+  background: var(--bg-elevated);
+}
+
+.vote-option-letter {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: var(--text-h3);
+  color: var(--ui-accent);
+  min-width: 2rem;
+}
+
+.vote-option-text {
+  text-align: left;
+}
+
+.vote-option--dimmed {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.vote-option--correct {
+  border-color: var(--safe);
+  background: oklch(40% 0.08 170 / 0.08);
+}
+
+.vote-option--correct::after {
+  content: '✓';
+  font-size: var(--text-h3);
+  color: var(--safe);
+  margin-left: auto;
+}
+
+.vote-instruction {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: var(--space-xs);
+}
+
+.vote-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.vote-hero-fib4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vote-hero-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.vote-hero-number {
+  font-family: var(--font-mono);
+  font-size: var(--text-hero);
+  font-weight: 700;
+  color: var(--danger);
+  line-height: 1;
+}
+
+.vote-verdict {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0;
+}
+
+.vote-explanation {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+/* Failsafe */
+.no-js .vote-reveal,
+.stage-bad .vote-reveal {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-damico — D'Amico staging (state machine)
    States: 0=4 stages, 1=+stage 5, 2=overlay, 3=source
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
