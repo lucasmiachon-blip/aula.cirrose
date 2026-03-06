@@ -67,14 +67,8 @@ Conteúdo em markdown...
 
 ## Context Window (core-constraints)
 
-| Momento | Ação |
-|---------|------|
-| Em cada output | Informar "Contexto ~X%." (quando a plataforma expuser) |
-| ≥70% | Manter aviso em todo output |
-| ≥85% | Recomendar subagent ou novo chat |
-| ≥95% | Parar e recomendar novo chat |
-
-Regra em `.cursor/rules/core-constraints.mdc`. Referência cruzada: `docs/SUBAGENTS.md`.
+Ver tabela canônica em `docs/SUBAGENTS.md` § Context Window.
+Regra em `.cursor/rules/core-constraints.mdc`.
 
 ## Manutenção
 

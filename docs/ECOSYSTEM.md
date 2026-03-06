@@ -55,7 +55,7 @@
 | perplexity / arxiv      | Pesquisa ampliada                      | OK      |
 | scite                   | Citações, supporting/contradicting     | OK      |
 
-**Fixes conhecidos:** `docs/MCP-FIXES.md` (filesystem, memory paths absolutos)
+**Fixes conhecidos:** ver troubleshooting nos READMEs de cada MCP server (filesystem, memory paths absolutos).
 
 ---
 
