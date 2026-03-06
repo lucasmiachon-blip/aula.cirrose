@@ -2103,148 +2103,115 @@
    States: 0=gancho 1=dado 83% 2=criterios 3=ferramentas 4=Antonio+PREDESCI
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* justify-content:center (do .slide-inner global) empurraria conteúdo oculto
-   (opacity:0 ainda ocupa espaço) para fora do topo — override para flex-start */
-#s-a1-classify .archetype-flow {
-  justify-content: flex-start;
-}
-/* Elementos ocultos inicialmente: não tomam espaço de layout (display:none).
-   JS os torna visíveis no avanço. Plan B/no-js: override para visível. */
-#s-a1-classify .screening-hero,
-#s-a1-classify .screening-criteria,
-#s-a1-classify .screening-tools,
-#s-a1-classify .screening-predesci-pill,
-#s-a1-classify .source-tag {
-  display: none;
-}
-.stage-bad #s-a1-classify .screening-hero,
-.no-js #s-a1-classify .screening-hero,
-.stage-bad #s-a1-classify .screening-tools,
-.no-js #s-a1-classify .screening-tools {
-  display: flex !important;
-  opacity: 1 !important;
-}
-.stage-bad #s-a1-classify .screening-criteria,
-.no-js #s-a1-classify .screening-criteria,
-.stage-bad #s-a1-classify .screening-predesci-pill,
-.no-js #s-a1-classify .screening-predesci-pill,
-.stage-bad #s-a1-classify .source-tag,
-.no-js #s-a1-classify .source-tag {
-  display: block !important;
-  opacity: 1 !important;
+/* ── s-a1-classify: assertion cards + PREDESCI ── */
+.classify-assertions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 700px;
 }
 
-.screening-anchor {
-  padding: var(--space-sm) 0;
+.classify-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-sm);
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--border);
+  background: var(--bg-card);
 }
-.screening-anchor-text {
-  font-family: var(--font-body);
+
+.classify-card-icon {
   font-size: var(--text-h3);
-  color: var(--text-primary);
-  font-weight: 400;
 }
-.screening-anchor-sub {
-  display: block;
+.classify-card--safe  { border-left-color: var(--safe); }
+.classify-card--safe .classify-card-icon { color: var(--safe); }
+.classify-card--warning  { border-left-color: var(--warning); }
+.classify-card--warning .classify-card-icon { color: var(--warning); }
+.classify-card--danger { border-left-color: var(--danger); }
+.classify-card--danger .classify-card-icon { color: var(--danger); }
+
+.classify-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.classify-card-assertion {
+  font-family: var(--font-body);
   font-size: var(--text-body);
-  color: var(--text-secondary);
-  margin-top: var(--space-xs);
+  font-weight: 600;
+  color: var(--text-primary);
 }
-.screening-hero {
+
+.classify-card-outcome {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+/* PREDESCI reveal */
+.classify-predesci {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) 0;
+  gap: var(--space-sm);
+  opacity: 0;
+  visibility: hidden;
 }
-.screening-hero-stat {
-  font-family: var(--font-display);
+
+.classify-predesci-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.classify-predesci-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.classify-predesci-value {
+  font-family: var(--font-mono);
   font-size: var(--text-hero);
   font-weight: 700;
-  color: var(--ui-accent);
+  color: var(--safe);
   line-height: 1;
 }
-.screening-hero-pct {
-  font-family: var(--font-display);
-  font-size: var(--text-h1);
-  color: var(--ui-accent);
-  line-height: 1;
-  margin-left: 2px;
+
+.classify-predesci-ci {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
 }
-.screening-hero-label {
+
+.classify-predesci-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0;
+  max-width: 42ch;
+}
+
+.classify-predesci-case {
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--text-secondary);
   text-align: center;
-  max-width: 36ch;
+  margin: 0;
 }
-.screening-criteria {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  margin-top: var(--space-sm);
-}
-.screening-criterion {
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-}
-.screening-criterion[data-highlight="antonio"] {
-  background: var(--ui-accent-light);
-  border-color: var(--ui-accent);
-  border-left-width: 3px;
-  font-weight: 600;
-}
-.screening-tools {
-  display: flex;
-  gap: var(--space-md);
-  margin-top: var(--space-sm);
-  justify-content: center;
-}
-.screening-tool-card {
-  flex: 1;
-  max-width: 220px;
-  padding: var(--space-sm);
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.screening-tool-card .tool-label {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: var(--text-body);
-  color: var(--text-primary);
-}
-.screening-tool-card .tool-role {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-secondary);
-}
-.screening-tool-card .tool-next {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  margin-top: 4px;
-}
-.screening-predesci-pill {
-  display: inline-block;
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--safe-light);
-  border: 1px solid var(--safe);
-  border-radius: 999px;
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: var(--space-sm);
-  align-self: flex-start;
+
+.no-js .classify-predesci,
+.stage-bad .classify-predesci {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

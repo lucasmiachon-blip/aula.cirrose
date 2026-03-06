@@ -180,73 +180,47 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-classify — Classificar cedo (4 estados)
-     Era 0: gancho Antonio (auto)
-     Era 1: dado 83% + CountUp (click)
-     Era 2: criterios em stagger (click)
-     Era 3: Antonio + PREDESCI pill (click)
-     Plan B: todos os estados visiveis via CSS failsafe — retorna cedo
+     s-a1-classify — Classificar muda conduta (3 estados)
+     State 0: assertion cards stagger (auto)
+     State 1: PREDESCI HR countUp (click)
+     State 2: source (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-classify': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
 
     let state = 0;
-    const maxState = 3;
+    const maxState = 2;
 
-    const hero = slide.querySelector('.screening-hero');
-    const criteria = slide.querySelector('.screening-criteria');
-    const pill = slide.querySelector('.screening-predesci-pill');
+    const cards = slide.querySelectorAll('.classify-card');
+    const predesci = slide.querySelector('.classify-predesci');
+    const predesciValue = slide.querySelector('.classify-predesci-value');
     const sourceTag = slide.querySelector('.source-tag');
 
-    // Reset state on every slide entry (inline styles from prev visits override CSS)
-    [hero, criteria, pill, sourceTag].forEach(el => {
-      if (!el) return;
-      el.style.display = 'none';
-      el.style.opacity = '';
-    });
-
-    function showEl(el, displayVal, animFrom, animTo, onDone) {
-      if (!el) return;
-      el.style.display = displayVal;
-      gsap.fromTo(el, { opacity: 0, ...animFrom }, { opacity: 1, duration: 0.5, ease: 'power2.out', ...animTo, onComplete: onDone });
-    }
-    function hideEl(el) {
-      if (!el) return;
-      gsap.to(el, { opacity: 0, duration: 0.3, onComplete: () => { el.style.display = 'none'; } });
-    }
-
-    // State 0: gancho narrativo — fadeUp (auto on slidechanged)
-    const anchor = slide.querySelector('.screening-anchor');
-    if (anchor) {
-      gsap.from(anchor, { opacity: 0, y: 16, duration: 0.6, delay: 0.3, ease: 'power2.out' });
-    }
+    gsap.set(cards, { opacity: 0, y: 12 });
+    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.3, ease: 'power2.out' });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
 
       if (state === 1) {
-        showEl(hero, 'flex', { y: 12 }, { y: 0 });
-        const statEl = hero?.querySelector('[data-target]');
-        if (statEl) {
-          statEl.textContent = '0';
-          inlineCountUp(gsap, statEl, parseFloat(statEl.dataset.target), 1.4, 0.3);
-        }
-      }
-
-      if (state === 2) {
-        showEl(criteria, 'flex');
-        const items = criteria?.querySelectorAll('.screening-criterion');
-        if (items?.length) {
-          gsap.from(items, {
-            opacity: 0, y: 12, duration: 0.35, stagger: 0.18, delay: 0.15, ease: 'power3.out',
+        gsap.to(predesci, { opacity: 1, visibility: 'visible', duration: 0.5 });
+        if (predesciValue) {
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: 0.51,
+            duration: 1.2,
+            delay: 0.3,
+            ease: 'power1.out',
+            onUpdate() {
+              predesciValue.textContent = obj.val.toFixed(2).replace('.', ',');
+            }
           });
         }
       }
 
-      if (state === 3) {
-        showEl(pill, 'inline-block');
-        showEl(sourceTag, 'block', {}, { delay: 0.1 });
+      if (state === 2) {
+        gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
       }
 
       return true;
@@ -254,15 +228,11 @@ export const customAnimations = {
 
     function retreat() {
       if (state <= 0) return false;
-
-      if (state === 3) { hideEl(pill); hideEl(sourceTag); }
-      if (state === 2) hideEl(criteria);
+      if (state === 2) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       if (state === 1) {
-        hideEl(hero);
-        const statEl = hero?.querySelector('[data-target]');
-        if (statEl) statEl.textContent = '0';
+        gsap.to(predesci, { opacity: 0, duration: 0.3, onComplete() { predesci.style.visibility = 'hidden'; } });
+        if (predesciValue) predesciValue.textContent = '0';
       }
-
       state--;
       return true;
     }
