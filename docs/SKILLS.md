@@ -1,6 +1,7 @@
 # Skills — Melhores Práticas
 
-> Baseado em: [Cursor Docs — Agent Skills](https://cursor.com/docs/context/skills) (skills globais em ~/.cursor/skills/), plano v6.
+> Baseado em: [Cursor Docs — Agent Skills](https://cursor.com/docs/context/skills), plano v6.
+> Ver também: [RULES.md](RULES.md) · [SUBAGENTS.md](SUBAGENTS.md) · [XREF.md](XREF.md)
 
 ---
 

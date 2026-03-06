@@ -1,6 +1,7 @@
 # Rules — Melhores Práticas
 
-> Baseado em: [Cursor Docs — Rules](https://cursor.com/docs/context/rules), Cursor Docs — Rules (rules globais opcionais), plano v6.
+> Baseado em: [Cursor Docs — Rules](https://cursor.com/docs/context/rules), plano v6.
+> Ver também: [SKILLS.md](SKILLS.md) · [SUBAGENTS.md](SUBAGENTS.md) · [XREF.md](XREF.md)
 
 ---
 

@@ -1,7 +1,7 @@
 # Ecossistema — Aulas Magnas
 
 > Registro de ferramentas, MCPs e versões. Atualizar conforme o ecossistema muda.
-> Fonte: [.cursor/plans/aulas-magnas-system-v6.plan.md](../.cursor/plans/aulas-magnas-system-v6.plan.md)
+> Ver também: [MCP-ACADEMICOS.md](MCP-ACADEMICOS.md) · [MCP-ENV-VARS.md](MCP-ENV-VARS.md) · [XREF.md](XREF.md)
 
 ---
 
