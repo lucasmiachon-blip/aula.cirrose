@@ -26,7 +26,7 @@ Os agentes não competem. Cada um amplifica uma capacidade:
 **Objetivo encadeado:**
 Melhorar **AI/dev/ML fluency** → usar melhor os agentes → ser melhor educador, pesquisador e médico → aprendizado acumulado que pode contribuir de volta para criação de skills, agents ou models. Nunca se sabe.
 
-**Regra de ouro:** retrabalho = tempo perdido de aprendizado. Se a tarefa voltou, o handoff foi errado.
+**Regra de ouro:** avançar sempre. Retrabalho é sinal, não fracasso — corrige e segue. O que paralisa é pior que o que precisa ser refeito.
 
 ---
 

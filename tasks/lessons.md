@@ -135,7 +135,7 @@ Objetivos encadeados:
 ### Lição capturada
 
 Framing inicial dos docs era "custo" e "eficiência". Correto é: **fluência e amplificação**.
-Tokens não importam. Retrabalho importa porque rouba tempo de aprendizado.
+Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paralisar. Avançar sempre.
 
 ### Skills frontmatter — campos mar 2026
 
