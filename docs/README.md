@@ -50,6 +50,13 @@
 |-----|-----|
 | [XREF.md](XREF.md) | Mapa canônico de dependências entre docs |
 
+### Prompts e ferramentas externas
+| Doc | Uso |
+|-----|-----|
+| [prompts/weekly-updates.md](prompts/weekly-updates.md) | Prompt busca semanal de atualizações |
+| [prompts/research-best-practices.md](prompts/research-best-practices.md) | Prompt pesquisa melhores práticas |
+| [external/11-long-context-auditor.md](external/11-long-context-auditor.md) | Tool spec: Gemini long-context auditor |
+
 ### Outros
 | Doc | Uso |
 |-----|-----|
