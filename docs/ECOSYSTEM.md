@@ -55,7 +55,7 @@
 | perplexity / arxiv      | Pesquisa ampliada                      | OK      |
 | scite                   | Citações, supporting/contradicting     | OK      |
 
-**Fixes conhecidos:** `docs/MCP-FIXES.md` (filesystem, memory paths absolutos)
+**Variáveis de ambiente:** `docs/MCP-ENV-VARS.md` (NOTION_TOKEN, NCBI_API_KEY, ZOTERO_API_KEY)
 
 ---
 
