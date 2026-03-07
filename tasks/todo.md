@@ -12,28 +12,20 @@
 
 ## 🟡 MÉDIA — Próxima sessão
 
-- [ ] **Pipeline Opus → Gemini (implementar MCP + workflow)**
+- [ ] **Setup MCP Gemini + ativar pipeline multimodelo (ver `docs/ECOSYSTEM.md` + `docs/KPIs.md`)**
 
-  **Objetivo:** Pipeline bimodal onde cada modelo faz o que faz melhor.
-
-  **Opus 4 (claude.ai chat) — Design & Diagnóstico:**
-  - Define slides: estrutura, archetypes, narrativa, hierarquia visual
-  - Identifica problemas de UI/UX e interações (case panel, click-reveal, MELD calc)
-  - Determina o que deve ser animado e como
-  - Output: spec detalhada + lista de bugs/melhorias → handoff para Gemini
-
-  **Gemini 2.0 Pro / Flash — Debug & Implementação:**
-  - Recebe orientações do Opus via handoff (arquivo ou prompt estruturado)
-  - Debugga CSS, JS, animações GSAP conforme spec
-  - Flash para iterações rápidas (lint, pequenos fixes)
-  - Pro para análise de vídeo das animações (motion QA tier 5)
-  - Output: PR com fixes + screenshots
+  **Modelos confirmados (benchmarks mar 2026):**
+  - **Opus 4.6** (chat): design · spec clínica · diagnóstico UI/UX — GPQA 91.3%
+  - **Gemini 3.1 Pro**: CSS/GSAP debug · SVG animado · video QA — SWE 80.6% · APEX Agents #1
+  - **Gemini 3 Flash**: lint · quick fix · protótipo — 3× rápido · $0.50/M · SWE 78%
+  - **ChatGPT Agent (GPT-5.4)**: browser automation · QA — OSWorld 75%
+  - **Perplexity Computer**: pesquisa clínica longa · orquestra 19 modelos ($200/mês Max)
 
   **Setup necessário:**
   - Configurar MCP Gemini em `.cursor/mcp.json` (google-gemini ou vertex-ai)
-  - Criar template de handoff Opus→Gemini: `docs/pipeline/opus-gemini-handoff.md`
-  - Definir quais problemas vão para Pro vs Flash
+  - Criar template handoff: `docs/pipeline/opus-gemini-handoff.md`
   - Testar: `claude mcp list` → confirmar gemini disponível
+  - Baseline KPIs antes de ativar: ver `docs/KPIs.md`
 
 ---
 
