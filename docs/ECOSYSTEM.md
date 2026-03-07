@@ -7,18 +7,20 @@
 
 ## Benchmarks — Março 2026
 
-> Fontes: [WebDev Arena](https://web.lmarena.ai/leaderboard) · [NxCode](https://www.nxcode.io) · [VentureBeat](https://venturebeat.com) · [DataCamp](https://www.datacamp.com)
+> Fontes: [WebDev Arena](https://web.lmarena.ai/leaderboard) · [NxCode](https://www.nxcode.io) · [VentureBeat](https://venturebeat.com) · [Vellum](https://www.vellum.ai/blog/claude-opus-4-6-benchmarks)
+> ⚠️ **Gemini 3 Pro preview encerra 9 mar 2026** → usar Gemini 3.1 Pro ($2/M, mesmo preço)
 
 | Modelo | WebDev Arena (Elo) | SWE-bench Verified | GPQA Diamond | OSWorld | Destaque |
 |--------|-------------------|--------------------|--------------|---------|---------|
-| **Gemini 3.1 Pro** | ~1500 (APEX #1) | 80.6% | **94.3%** | — | Reasoning 2× Gemini 3 Pro · SVG animado |
-| **Gemini 3 Pro** | **1487 #1** | 76.2% | — | — | WebDev Arena líder histórico |
+| **Gemini 3.1 Pro** | APEX Agents #1 | 80.6% | **94.3%** | — | ARC-AGI-2 77.1% (2× 3 Pro) · LiveCode Elo 2887 · SVG animado |
+| ~~**Gemini 3 Pro**~~ | ~~1487 #1~~ | ~~76.2%~~ | — | — | ⚠️ **Encerra 9 mar 2026** → migrar para 3.1 Pro |
 | **Gemini 3 Flash** | 1416 (#8, ↑↑↑) | **78%** (> 3 Pro) | 90.4% | — | 3× mais rápido · $0.50/M · SWE > Pro |
-| **Claude Opus 4.6** | — | 80.8% | 91.3% | 72.7% | τ²-bench 91.9% · 1M ctx · 128K output |
-| **Claude Sonnet 4.6** | — | 79.6% | 74.1% | 72.5% | 5× mais barato que Opus · preferido por 70% users |
-| **GPT-5.4** | — | — | — | **75%** | Native computer use · 1M ctx · lançado 5 mar 2026 |
+| **Claude Opus 4.6** | — | 80.8% | 91.3% | 72.7% | τ²-bench Telecom 99.3% · MRCR 76% · 1M ctx |
+| **Claude Sonnet 4.6** | — | 79.6% | 74.1% | 72.5% | 5× mais barato que Opus · ARC-AGI-2 +4.3× |
+| **GPT-5.4** | — | — | — | **75%** (> humano 72.4%) | Native computer use · lançado 5 mar 2026 |
 | **GPT-5.2** | — | 80.0% | — | 47.3% | Predecessor GPT-5.4 |
 | **Claude Opus 4.5 (Thinking)** | **1510 #1** (arena geral) | — | — | — | Topo WebDev geral · com extended thinking |
+| **ChatGPT Agent** | — | — | — | — | BrowseComp 68.9% · browser automation · MCP 100+ apps |
 
 ---
 
