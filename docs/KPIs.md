@@ -1,6 +1,7 @@
 # KPIs — Produção de Slides Aulas Magnas
 
-> Framework de métricas para medir qualidade e eficiência do pipeline multimodelo.
+> O objetivo é **fluência**: menos retrabalho, aprendizado visível, UX/UI final excelente.
+> Tokens e custo são irrelevantes se o slide chega certo na primeira vez.
 > Criado: 2026-03-07 | Revisar mensalmente.
 
 ---
@@ -103,20 +104,22 @@ SVG animado (novo)              → Gemini 3.1 Pro            SVG nativo a parti
 
 ---
 
-## Anti-padrões de Custo
+## Anti-padrões de Workflow (causas de retrabalho)
 
-| Anti-padrão | Impacto | Fix |
-|-------------|---------|-----|
-| Usar Opus 4.6 para lint/CSS fix | ~17× custo vs Flash ($5 vs $0.30/M) | Usar Gemini 2.5 Flash |
-| Usar Flash para spec clínica | Risco de erro clínico | Usar Opus 4.6 |
-| Gerar HTML no chat Opus (não Claude Code) | Lento + caro + sem constraints | Claude Code segue melhor assertion-evidence |
-| Usar Perplexity Computer para edição real-time | Latência alta, não é para isso | Apenas para workflows longos/overnight |
-| Não usar MCP PubMed para dados | Risco de dado inventado (Clinical Sanctity) | Always MCP first |
-| Sessão >80% contexto sem /compact | Perda de detalhes + erro silencioso | Compactar antes dos 70% |
-| Usar Gemini para HTML com constraints estritas | Pode ignorar assertion-evidence, archetype rules | Sonnet 4.6 + Claude Code para HTML |
+> O inimigo não é custo — é **handoff errado**. Modelo certo na tarefa errada = retrabalho.
 
-> **Contra-dado METR RCT (2025):** Desenvolvedores experientes foram 19% **mais lentos** com AI
-> em tarefas reais — design do workflow importa tanto quanto o modelo. Medir antes/depois.
+| Anti-padrão | Por que causa retrabalho | Handoff correto |
+|-------------|--------------------------|-----------------|
+| Gerar HTML de slide no chat (não Claude Code) | Claude Code conhece assertion-evidence + archetypes; chat não tem contexto do codebase | Claude Code (você, aqui) |
+| Pedir CSS fix via linguagem natural sem screenshot | Modelo corrige sem ver o resultado; nova rodada inevitável | Gemini 2.5 Flash com imagem ou Playwright MCP |
+| Usar Perplexity Computer para edição em tempo real | Latência de agente longo ≠ iteração rápida de slide | Para overnight batch; edição rápida = Claude Code |
+| Dado clínico sem fonte no mesmo prompt | Revisão humana para verificar = ciclo extra | MCP PubMed/Scite primeiro, depois criar slide |
+| Sessão >70% contexto sem /compact | Detalhe se perde silenciosamente; próximo comando já não sabe o que foi feito | /compact com foco na task atual |
+| Pular spec e ir direto ao HTML | Retrabalho de conteúdo depois do visual pronto | Opus 4.6 faz spec → Claude Code implementa |
+| Tentar fazer visual QA sem ver o slide renderizado | Lint passa, tela quebra — são coisas diferentes | `npm run preview` sempre antes de "feito" |
+
+> **METR RCT (2025):** Devs experientes ficaram 19% **mais lentos** com AI quando o workflow não
+> foi redesenhado. O modelo certo no handoff certo supera o modelo mais poderoso no handoff errado.
 
 ---
 

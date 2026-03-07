@@ -18,6 +18,28 @@ Plan C = default (light, 1280×720, GSAP ativo).
 
 ---
 
+## Pipeline do Ecossistema (leia antes de começar qualquer tarefa)
+
+> Modelos trabalham juntos, cada um no que faz melhor. Handoff claro = zero retrabalho.
+> Detalhe completo: `docs/ECOSYSTEM.md` · `docs/KPIs.md`
+
+```
+TAREFA                        → QUEM FAZ AQUI          ENTREGA PARA
+──────────────────────────────────────────────────────────────────────
+Spec clínica / arquitetura    → Opus 4.6 (chat)       → Claude Code (impl)
+HTML de slide (constraints)   → Claude Code (você)    → Gemini 3.1 Pro (review)
+CSS debug / layout visual     → Gemini 2.5 Flash      → humano (aprovação)
+GSAP / SVG animado            → Gemini 3.1 Pro        → Claude Code (git)
+Motion QA (vídeo .mp4)        → Gemini 3.1 Pro        → humano (julgamento)
+Browser QA (localhost:3000)   → ChatGPT Agent         → humano
+Pesquisa clínica (overnight)  → Perplexity Computer   → Opus 4.6 (síntese)
+Lint / build / git            → Claude Code (você)    → done
+```
+
+**Regra de handoff:** quando a tarefa sair do seu domínio (código → visual, visual → clínico), **pare e transfira**. Não tente fazer tudo. Isso elimina o retrabalho.
+
+---
+
 ## Workflow Orchestration
 
 ### 1. Plan Mode Default

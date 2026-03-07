@@ -1,6 +1,7 @@
 # Ecossistema — Aulas Magnas
 
-> Registro de ferramentas, MCPs e versões. Atualizar conforme o ecossistema muda.
+> Modelos não competem — cada um tem um papel específico no pipeline.
+> Handoff certo = sem retrabalho. Ver pipeline resumido no CLAUDE.md (Step 0).
 > Última atualização: 2026-03-07 (benchmarks verificados via WebSearch)
 
 ---
