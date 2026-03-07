@@ -13,7 +13,8 @@
 | **Cursor MCP**               | Código, execução, MCPs, scripts        | —   | Cursor auto-update |
 | **Claude Ultra** (claude.ai) | Conflitos, decisões narrativas         | —   | —                  |
 | **Perplexity Ultra**         | Pesquisa em tempo real                 | Sim | MCP ou manual      |
-| **Gemini Ultra**             | Alternativa pesquisa/raciocínio        | —   | —                  |
+| **Gemini 2.0 Pro**           | Debug orientado: CSS/JS/GSAP conforme spec Opus. Motion QA (análise de vídeo) | — → MCP planejado | — |
+| **Gemini 2.0 Flash**         | Iterações rápidas: lint, small fixes, testes guiados por Opus | — → MCP planejado | — |
 | **ChatGPT Pro Max**          | Alternativa tarefas específicas        | —   | —                  |
 | **Scite**                    | Supporting/contradicting                 | Sim | MCP streamableHttp |
 | **Consensus**                | Meta-análises, síntese                 | —   | Manual             |
