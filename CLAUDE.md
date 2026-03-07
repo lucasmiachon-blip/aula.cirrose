@@ -348,7 +348,7 @@ Isso substitui memória de contexto — não dependa do histórico da conversa.
 
 ## Anti-drift
 
-- Uma task por sessão. Commitar, /clear, nova sessão.
+- Até 3 tasks por sessão. Commitar entre tasks, /clear se contexto >70%.
 - /compact manual antes de batches grandes: `/compact Focus on: [task atual], [paths], [constraints]`
 - Não depender de "como discutimos antes" — cada prompt deve ser self-contained com ATUAL/NOVO explícito.
 - Se contexto >80%: parar, commitar o que tem, /clear, continuar em sessão nova.
