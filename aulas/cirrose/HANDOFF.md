@@ -4,11 +4,32 @@
 
 ---
 
-## Estado atual — 2026-03-06
+## Estado atual — 2026-03-07
 
-**Branch:** `restructure/act1` — **PUSHED** (`42d6e9c`)
-**Slides:** 33/33 buildados e commitados
-**Build:** `npm run build:cirrose` ✅ zero erros
+**Branch local:** `main` — pronto para push (`8276721`)
+**Branch remota:** `origin/claude/check-updates-last-branch-i6nWS` — **PUSHED** (idêntica ao main local)
+**Slides:** 28/28 buildados · **Build:** ✅ · **Lint:** ✅
+
+### ⚡ AÇÃO NECESSÁRIA — executar localmente
+
+```bash
+git checkout main
+git pull origin main  # garante que está atualizado
+git push origin main  # requer sua autenticação (agente não pode fazer)
+```
+
+> Por quê: o agente só pode pushear em branches `claude/*`. O `main` remoto ainda está em `2190229` (archive de HANDOFFs). O `main` local tem mais 80 commits — tudo de `restructure/act1` + sessão de hoje.
+
+### O que está no main local (resumo desta sessão)
+
+| Item | Status |
+|------|--------|
+| Merge completo `restructure/act1` → `main` | ✅ |
+| CI: `.github/workflows/qa.yml` (lint + build on push) | ✅ |
+| Pre-commit hook: `scripts/install-hooks.sh` | ✅ |
+| Fix: `gsap.fromTo` inline → CSS `@keyframes` em `18-cp3.html` | ✅ |
+| Archive: HANDOFFs obsoletos → `docs/archive/` | ✅ |
+| Lint: zero erros | ✅ |
 
 ---
 
