@@ -318,3 +318,51 @@ EOF
 [2026-03-06 23:41] [claude-code-guide:a1ef68fb] — concluído. Status: PARTIAL
 
 [2026-03-07 00:09] [claude-code-guide:a3c35bc9] — concluído. Status: PASS
+
+[2026-03-07 00:37] [BUILD] OK — cat > tasks/todo.md << 'ENDOFFILE'
+# Todo
+
+> Pendências de infraestrutura e metadados. Conteúdo Cirrose → `aulas/cirrose/HANDOFF.md`
+
+---
+
+## 🔴 ALTA
+
+*(vazio)*
+
+---
+
+## 🟡 MÉDIA — Próxima sessão
+
+- [ ] **MCP Gemini:** integrar Gemini como MCP (pesquisa alternativa + video review de animações). Ver `docs/ECOSYSTEM.md` — Gemini Ultra sem MCP ainda.
+
+---
+
+## 🟢 BAIXA — Backlog infra
+
+- [ ] Batch 1: `.cursor/rules/*.mdc` vs `.claude/rules/*.md` — redundâncias remanescentes
+- [ ] Batch 2: `.cursor/skills/*` vs `.claude/skills/*` — verificar alinhamento pós-update mar 2026
+- [ ] Batch 3: `docs/*.md` — sobreposição, links quebrados (rodar `/docs-audit`)
+
+---
+
+## ✅ Concluído nesta sessão (2026-03-07)
+
+- [x] Skills `.claude` atualizadas para padrões mar 2026 (version, allowed-tools, argument-hint, context:fork)
+- [x] `docs/SKILLS.md` atualizado: tabela completa + frontmatter + bug Issue #17283
+- [x] `docs/ECOSYSTEM.md`: link `MCP-FIXES.md` (não existia) → `MCP-ENV-VARS.md`
+- [x] `slide-builder.md`: workflow atualizado para arquitetura modular (slides/*.html + build:cirrose)
+- [x] `tasks/lessons.md`: append campos mar 2026 + bug context:fork
+ENDOFFILE
+
+[2026-03-07 00:37] [BUILD] OK — git add docs/ECOSYSTEM.md .claude/agents/slide-builder.md tasks/todo.md && git commit -m "$(cat <<'EOF'
+fix(docs): corrigir discrepâncias cross-docs + task Gemini MCP
+
+- docs/ECOSYSTEM.md: MCP-FIXES.md (404) → MCP-ENV-VARS.md
+- .claude/agents/slide-builder.md: workflow monolito → modular
+  (slides/NN.html + build:cirrose, nunca editar index.html direto)
+- tasks/todo.md: Gemini MCP como próxima sessão + concluídos da sessão
+
+https://claude.ai/code/session_01LxhgY4brRhKhLZG4QMa5w2
+EOF
+)" && git push -u origin claude/check-updates-last-branch-i6nWS
