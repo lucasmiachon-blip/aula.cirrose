@@ -34,6 +34,7 @@ export function initReveal(Reveal, config = {}) {
     minScale: 0.1,
     maxScale: 2.0,
     backgroundTransition: qa ? 'none' : 'fade',
+    scrollActivationWidth: null,   // desabilita scroll-view automático <435px (v5 default)
     pdfSeparateFragments: false,
     pdfMaxPagesPerSlide: 1,
     showNotes: isPrintPdf() ? 'separate-page' : false,

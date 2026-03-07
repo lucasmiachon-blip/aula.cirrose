@@ -1,7 +1,7 @@
 ---
 name: ralph-qa
-description: QA em dois loops separados por batch de 3 slides. Loop 1 (Opus 4.6): lint+constraints até PASS. Loop 2 (Gemini 3.1 Pro): visual audit até PASS. Ativar quando usuário pedir "qa loop", "rodar qa até passar", "fix all lint", "qa autônomo", "qa batch".
-version: 4.0.0
+description: QA em dois loops separados por batch de 3 slides. Loop 1 (Opus 4.6): lint+constraints até PASS. Loop 2 (Gemini Ultra): visual audit até PASS via screenshots estáticos (S0..SN) ou vídeo .webm das animações reais. Ativar quando usuário pedir "qa loop", "rodar qa até passar", "fix all lint", "qa autônomo", "qa batch".
+version: 5.0.0
 context: fork
 agent: general-purpose
 allowed-tools: Read, Edit, Bash, Grep, Glob, Agent
@@ -78,33 +78,47 @@ IF iteration == 10:
   output "OPUS-BLOCKED: [issue persistente]" → PARAR
 ```
 
-## Loop 2 — Gemini 3.1 Pro
+## Loop 2 — Gemini Ultra
 
-**Agente:** Gemini 3.1 Pro via Agent tool (subagent_type=qa-engineer ou general-purpose)
-**Responsabilidade:** visual, layout, percepção, acessibilidade
-**Input:** screenshot do slide renderizado + HTML source do slide
+**Agente:** Gemini Ultra (Assinatura pessoal Lucas)
+**Responsabilidade:** visual, layout, percepção, acessibilidade, animações reais
 **Protocolo:** Gemini **só sugere** — retorna especificação estruturada → Opus lê o arquivo e executa o fix
 **Gemini não toca no código. Nunca.**
+
+### Duas modalidades de input
+
+| Modalidade | Comando | Quando usar |
+|-----------|---------|------------|
+| **Estática** | `npm run qa:static` | Layout, hierarquia, contraste — rápido |
+| **Dinâmica** (vídeo) | `npm run qa:video` | Animações GSAP, timing, ritmo narrativo |
+
+#### Fluxo estático (padrão)
+```
+npm run qa:static -- --batch=0,3
+→ qa-screenshots/static/{slide-id}/s0.png, s1.png, ..., sN.png
+→ Enviar pasta para Gemini Ultra
+```
+
+#### Fluxo dinâmico (vídeo)
+```
+npm run qa:video -- --batch=0,3
+→ qa-screenshots/videos/{slide-id}.webm
+→ Upload manual do .webm para Gemini Ultra
+→ Gemini assiste a animação real (GSAP countUp, stagger, drawPath)
+→ Retorna issues com state/timing exato
+```
 
 ```
 prev_screenshots = null
 prev_issues = []
 
 WHILE gemini.verdict != PASS AND iteration < 10:
-  # Capturar cada slide em todos os estados (dinâmico — N fragments = N+1 estados)
-  screenshots = {}
-  FOR each slide IN [slide-a, slide-b, slide-c]:
-    playwright.navigate(slide)
-    n_fragments = playwright.count_fragments()                 # quantos fragments/reveals tem o slide
-    screenshots[slide] = []
-    screenshots[slide].append(playwright.capture())            # estado 0 — sem animação
-    FOR step IN range(1, n_fragments + 1):
-      playwright.trigger_fragment(step)                        # avançar 1 fragment
-      screenshots[slide].append(playwright.capture())          # capturar estado N
-    # resultado: screenshots[slide] = [s0, s1, s2, ..., sN]
-    # s0 = inicial, sN = final, intermediários conforme existirem
+  # Capturar estados dinâmicos: S0 (inicial) + S1..SN (um por fragment)
+  run: npm run qa:static -- --batch=[from,to]
+  # Output: qa-screenshots/static/{slide-id}/s0.png ... sN.png
 
   html_sources = read([slide-a.html, slide-b.html, slide-c.html])
+  # Opcional: npm run qa:video -- para slides com animações complexas
 
   # Gemini recebe em cada iteração:
   # - screenshots atuais (renderizados agora)
