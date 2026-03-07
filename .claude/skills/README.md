@@ -15,6 +15,7 @@
 | `export` | PDF + screenshots via DeckTape | "exportar cirrose" |
 | `context7` | Docs on-demand de GSAP/Reveal/Vite/OKLCH (lazy) | Ao codar com libs do projeto |
 | `mem-search` | Busca semântica em HANDOFF/NOTES/lessons (lazy) | "o que decidimos sobre X?" |
+| `ralph-qa` | Loop autônomo lint→fix→build→fix até 0 FAILs | "qa loop", "rodar qa até passar" |
 
 **Regra:** Cada skill tem um papel. Nenhum duplica função de outro.
 
@@ -26,12 +27,11 @@
 | Lazy loading (frontmatter only no startup) | Context7 (Upstash) | `context7`, `mem-search` |
 | 3-step token-efficient search | claude-mem (thedotmack) | `mem-search` |
 
-## Ralph Loop (não implementado como skill)
+## Ralph Loop
 
 Padrão de autonomia: Stop hook bloqueia Claude de sair, re-injeta o prompt, repete até `DONE`.
-Útil para builds overnight (ex: `npm run build:cirrose` + QA loop).
-Não adicionado como skill — alto risco de loop infinito dado nosso anti-drift.
-Ver `docs/ECOSYSTEM.md` para documentação se precisar no futuro.
+**Implementado em `ralph-qa`** para QA (domínio finito, critério objetivo).
+Não usar para dev geral — escopo aberto → risco de loop infinito.
 
 ## Carregamento
 
