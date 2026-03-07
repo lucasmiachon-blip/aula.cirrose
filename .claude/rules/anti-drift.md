@@ -30,9 +30,18 @@ Exemplos de NÃO-drift (mesmo sem tocar em slides):
 ```
 1. Ler HANDOFF.md → identificar caminho crítico
 2. Caminho crítico = o que bloqueia slides de passarem no QA
-3. Propor ao usuário: "Caminho crítico é X. Concordo em fazer Y?"
-4. Se o usuário pedir algo fora do caminho crítico → PAUSA (ver abaixo)
+3. Perguntar ambiente: usuário tem computador? Pode rodar dev/build/QA?
+4. Propor ao usuário: "Caminho crítico é X. Concordo em fazer Y?"
+5. Se o usuário pedir algo fora do caminho crítico → PAUSA (ver abaixo)
 ```
+
+### Sessão sem computador (mobile/tablet)
+
+Quando o usuário não pode rodar build/dev/QA:
+- Docs e decisões clínicas são o trabalho de maior valor
+- Priorizar decisões que DESBLOQUEIAM a próxima sessão com computador
+- Registrar decisões tomadas em NOTES.md para o agente da próxima sessão
+- NÃO contar como drift — é preparação legítima
 
 ### PAUSA anti-drift — quando ativada
 
