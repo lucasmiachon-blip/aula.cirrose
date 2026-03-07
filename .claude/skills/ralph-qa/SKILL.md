@@ -91,7 +91,16 @@ prev_screenshots = null
 prev_issues = []
 
 WHILE gemini.verdict != PASS AND iteration < 10:
-  screenshots = playwright.capture([slide-a, slide-b, slide-c])
+  # Capturar cada slide em 3 estados distintos
+  screenshots = {}
+  FOR each slide IN [slide-a, slide-b, slide-c]:
+    playwright.navigate(slide)
+    screenshots[slide].initial  = playwright.capture()         # estado 0 — sem animação
+    playwright.trigger_fragments(1)                            # 1º click/reveal
+    screenshots[slide].mid      = playwright.capture()         # estado intermediário
+    playwright.trigger_fragments("all")                        # todos os fragments
+    screenshots[slide].final    = playwright.capture()         # estado final completo
+
   html_sources = read([slide-a.html, slide-b.html, slide-c.html])
 
   # Gemini recebe em cada iteração:
@@ -158,28 +167,40 @@ ITERAÇÃO ANTERIOR:
 Para cada issue anterior: confirmar se foi resolvido, piorou ou persiste.
 Se persistiu 3x sem melhora → marcar como "BLOQUEADO" (root cause humano).
 
-ITERAÇÃO ATUAL — para cada slide do batch (3 slides), avaliar:
+ITERAÇÃO ATUAL — para cada slide você recebe 3 imagens:
+  [INICIAL]  estado 0 — antes de qualquer animação ou click
+  [MID]      após 1º fragment/reveal
+  [FINAL]    todos os fragments revelados — estado completo
 
-1. HIERARQUIA VISUAL
+Avaliar cada estado onde relevante:
+
+1. HIERARQUIA VISUAL (avaliar em [INICIAL] e [FINAL])
    - Dado mais importante visualmente dominante?
    - Hero element ≥2x maior que corpo?
    - Ordem de leitura segue F-pattern natural?
+   - [INICIAL]: elemento principal visível ou escondido indevidamente?
 
-2. LEGIBILIDADE (projetor, sala com luz ambiente, 5m de distância)
+2. FLOW NARRATIVO (comparar [INICIAL] → [MID] → [FINAL])
+   - Ordem de reveal segue a lógica clínica?
+   - Cada reveal adiciona chunk cognitivo completo (não meio dado)?
+   - Transição entre estados é clara e sem saltos abruptos?
+
+3. LEGIBILIDADE (avaliar em [FINAL] — estado que audiência mais vê)
    - Texto legível a 5m sem esforço?
    - Contraste texto/fundo adequado?
 
-3. DALTONISMO — simular protanopia
+4. DALTONISMO — simular protanopia em [FINAL]
    - Informação clínica depende só de cor?
    - Ícones ✓/⚠/✕ presentes com cores semânticas?
 
-4. DENSIDADE
+5. DENSIDADE (avaliar em [FINAL])
    - Corpo ≤30 palavras?
    - Slide congestionado?
 
 Para cada issue novo ou persistente, retornar JSON:
 {
   "slide": "[nome do arquivo]",
+  "state": "initial" | "mid" | "final" | "transition",
   "line_hint": [linha aproximada no HTML],
   "confidence": [0-100],
   "issue": "[descrição exata do problema visual]",
