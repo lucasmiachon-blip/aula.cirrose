@@ -82,12 +82,17 @@ IF iteration == 10:
 
 **Agente:** Gemini 3.1 Pro via Agent tool (subagent_type=qa-engineer ou general-purpose)
 **Responsabilidade:** visual, layout, percepção, acessibilidade
-**Protocolo:** Gemini retorna **especificação estruturada** → Opus lê o arquivo e executa o fix
+**Input:** screenshot do slide renderizado + HTML source do slide
+**Protocolo:** Gemini **só sugere** — retorna especificação estruturada → Opus lê o arquivo e executa o fix
+**Gemini não toca no código. Nunca.**
 
 ```
 WHILE gemini.verdict != PASS AND iteration < 10:
   screenshots = playwright.capture([slide-a, slide-b, slide-c])
-  specs = gemini.audit(screenshots, prompt_contextual)
+  html_sources = read([slide-a.html, slide-b.html, slide-c.html])
+  # Gemini recebe: imagem renderizada + HTML source + prompt
+  # Gemini retorna: só sugestões estruturadas — não edita nada
+  specs = gemini.audit(screenshots + html_sources, prompt_contextual)
   issues = specs.filter(confidence >= 80)
   IF issues.length == 0:
     output "GEMINI-PASS" → exit loop
