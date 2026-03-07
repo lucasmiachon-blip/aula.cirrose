@@ -87,20 +87,36 @@ IF iteration == 10:
 **Gemini não toca no código. Nunca.**
 
 ```
+prev_screenshots = null
+prev_issues = []
+
 WHILE gemini.verdict != PASS AND iteration < 10:
   screenshots = playwright.capture([slide-a, slide-b, slide-c])
   html_sources = read([slide-a.html, slide-b.html, slide-c.html])
-  # Gemini recebe: imagem renderizada + HTML source + prompt
-  # Gemini retorna: só sugestões estruturadas — não edita nada
-  specs = gemini.audit(screenshots + html_sources, prompt_contextual)
+
+  # Gemini recebe em cada iteração:
+  # - screenshots atuais (renderizados agora)
+  # - html_sources atuais
+  # - prev_screenshots (iteração anterior, null na 1ª)
+  # - prev_issues (o que ele mesmo flagou antes, para verificar resolução)
+  specs = gemini.audit(
+    screenshots,
+    html_sources,
+    prev_screenshots,   # antes das correções do Opus
+    prev_issues,        # "estes issues foram corrigidos? ou persistem?"
+    prompt_contextual
+  )
+
   issues = specs.filter(confidence >= 80)
   IF issues.length == 0:
     output "GEMINI-PASS" → exit loop
   ELSE:
+    prev_screenshots = screenshots   # salvar para próxima iteração
+    prev_issues = issues             # salvar para Gemini verificar na próxima
     FOR each issue IN issues:
-      opus.read(issue.slide)           # lê o arquivo
-      opus.grep(issue.line_hint)       # localiza o ponto exato
-      opus.edit(issue.fix)             # aplica cirurgicamente
+      opus.read(issue.slide)         # lê o arquivo
+      opus.grep(issue.line_hint)     # localiza o ponto exato
+      opus.edit(issue.fix)           # aplica cirurgicamente
     iteration++
 
 IF iteration == 10:
@@ -135,7 +151,14 @@ Reveal.js Plan C: fundo claro, 1280×720, GSAP ativo.
 Design system: Instrument Serif (títulos) · DM Sans (corpo) · OKLCH tokens.
 Semântica: safe=teal+✓, warning=amber+⚠, danger=red+✕.
 
-Para cada slide do batch (3 slides), avaliar:
+[SE iteração > 1, incluir:]
+ITERAÇÃO ANTERIOR:
+- Screenshots anteriores: [prev_screenshots]
+- Issues que você flagou: [prev_issues]
+Para cada issue anterior: confirmar se foi resolvido, piorou ou persiste.
+Se persistiu 3x sem melhora → marcar como "BLOQUEADO" (root cause humano).
+
+ITERAÇÃO ATUAL — para cada slide do batch (3 slides), avaliar:
 
 1. HIERARQUIA VISUAL
    - Dado mais importante visualmente dominante?
@@ -143,29 +166,31 @@ Para cada slide do batch (3 slides), avaliar:
    - Ordem de leitura segue F-pattern natural?
 
 2. LEGIBILIDADE (projetor, sala com luz ambiente, 5m de distância)
-   - Texto visível sem esforço?
+   - Texto legível a 5m sem esforço?
    - Contraste texto/fundo adequado?
 
 3. DALTONISMO — simular protanopia
    - Informação clínica depende só de cor?
-   - Ícones ✓/⚠/✕ presentes com as cores semânticas?
+   - Ícones ✓/⚠/✕ presentes com cores semânticas?
 
 4. DENSIDADE
    - Corpo ≤30 palavras?
    - Slide congestionado?
 
-Para cada issue encontrado, retornar JSON:
+Para cada issue novo ou persistente, retornar JSON:
 {
   "slide": "[nome do arquivo]",
-  "line_hint": [número aproximado da linha no HTML],
+  "line_hint": [linha aproximada no HTML],
   "confidence": [0-100],
   "issue": "[descrição exata do problema visual]",
-  "fix": "[instrução de 1 linha: o que substituir por quê]"
+  "fix": "[instrução de 1 linha: o que substituir por quê]",
+  "status": "new" | "persists" | "resolved" | "blocked"
 }
 
 Reportar APENAS issues com confidence ≥ 80.
-Se nenhum issue ≥ 80: retornar {"verdict": "PASS"}.
-NÃO retornar HTML corrigido — apenas a especificação do fix.
+Se todos resolvidos ou nenhum ≥ 80: retornar {"verdict": "PASS"}.
+NÃO retornar HTML — apenas especificação do fix.
+NÃO editar nada — você só sugere, Opus executa.
 ```
 
 ## Separação dos loops — por que importa
