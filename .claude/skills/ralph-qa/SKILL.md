@@ -1,14 +1,14 @@
 ---
 name: ralph-qa
-description: QA em dois loops encadeados por batch de 3 slides. Loop 1 (Sonnet): lint+constraints até PASS. Loop 2 (Gemini 3.1): visual audit até PASS. Ativar quando usuário pedir "qa loop", "rodar qa até passar", "fix all lint", "qa autônomo", "qa batch".
-version: 3.0.0
+description: QA em dois loops separados por batch de 3 slides. Loop 1 (Opus 4.6): lint+constraints até PASS. Loop 2 (Gemini 3.1 Pro): visual audit até PASS. Ativar quando usuário pedir "qa loop", "rodar qa até passar", "fix all lint", "qa autônomo", "qa batch".
+version: 4.0.0
 context: fork
 agent: general-purpose
 allowed-tools: Read, Edit, Bash, Grep, Glob, Agent
 argument-hint: "[lecture?] [batch-size=3] [max-iterations=10]"
 ---
 
-# Ralph-QA v3 — Dois Loops Encadeados por Batch
+# Ralph-QA v4 — Opus Loop + Gemini Loop (separados)
 
 Loop de QA para `$ARGUMENTS` (default: `aulas/cirrose/`).
 Batch: 3 slides. Max iterações por loop: 10.
@@ -17,134 +17,150 @@ Batch: 3 slides. Max iterações por loop: 10.
 
 ```
 Para cada batch de 3 slides:
-────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────
 
-  ┌─────────────────────────────────────┐
-  │  LOOP 1 — Sonnet (Claude Code)      │◄──┐
-  │                                     │   │
-  │  1. npm run lint:slides (3 slides)  │   │
-  │  2. Constraint check (subagent)     │   │
-  │     - <h2> asserção?                │   │
-  │     - Zero <ul>/<ol>?               │   │
-  │     - <aside class="notes">?        │   │
-  │     - Sem display inline? (E07)     │   │
-  │     - Cores via var()?              │   │
-  │     - Dados com fonte/[TBD]?        │   │
-  │  3. Fix cirúrgico se issues         │   │
-  └────────────────┬────────────────────┘   │
-                   │ PASS                    │ issues encontrados
-                   ▼                         │
-  ┌─────────────────────────────────────┐   │
-  │  LOOP 2 — Gemini 3.1 Pro            │───┘
-  │                                     │
-  │  1. Screenshots dos 3 slides        │
-  │  2. Gemini audit visual:            │
-  │     - Hierarquia / hero element     │
-  │     - Legibilidade (projetor)       │
-  │     - Daltonismo (protanopia)       │
-  │     - Density (≤30 palavras)        │
-  │     - Confidence ≥80 por issue      │
-  │  3. Gemini retorna PASS/WARN/FAIL   │
-  │  4. Se FAIL/WARN ≥80:               │
-  │     → Sonnet corrige                │
-  │     → Gemini re-audita              │
-  └────────────────┬────────────────────┘
-                   │ PASS
-                   ▼
-          git commit batch N
-          próximo batch →
+  ┌──────────────────────────────────────────────────┐
+  │  LOOP 1 — Opus 4.6                               │
+  │  Roda sozinho até PASS, independente do Gemini   │
+  │                                                  │
+  │  → npm run lint:slides (3 slides)                │
+  │  → Subagent Explore: constraint check por slide  │
+  │       <h2> asserção? Zero <ul>/<ol>?             │
+  │       <aside notes>? E07? var()? fonte/[TBD]?    │
+  │  → Fix cirúrgico se issues                       │
+  │  → Repeat até 0 issues                           │
+  │                                                  │
+  │  Completion: "OPUS-PASS"                         │
+  └──────────────────┬───────────────────────────────┘
+                     │ OPUS-PASS
+                     ▼
+  ┌──────────────────────────────────────────────────┐
+  │  LOOP 2 — Gemini 3.1 Pro                         │
+  │  Roda sozinho até PASS, independente do Opus     │
+  │                                                  │
+  │  → Screenshots dos 3 slides (Playwright)         │
+  │  → Gemini audit visual (prompt abaixo)           │
+  │  → Filtra issues com confidence ≥ 80             │
+  │  → Opus corrige os issues filtrados              │
+  │  → Gemini re-audita                              │
+  │  → Repeat até Gemini retornar PASS               │
+  │                                                  │
+  │  Completion: "GEMINI-PASS"                       │
+  └──────────────────┬───────────────────────────────┘
+                     │ GEMINI-PASS
+                     ▼
+             git commit batch N
+             próximo batch →
 ```
 
-## Loop 1 — Sonnet (lint + constraints)
+## Loop 1 — Opus 4.6
+
+**Agente:** `claude-opus-4-6` (subagent com `model: opus` no frontmatter)
+**Responsabilidade:** código, constraints, semântica
 
 ```
 WHILE issues > 0 AND iteration < 10:
-  lint = npm run lint:slides -- [slide-a] [slide-b] [slide-c]
-  constraints = subagent.check([slide-a, slide-b, slide-c])
+  run: npm run lint:slides -- [slide-a] [slide-b] [slide-c]
+  check constraints via subagent Explore (paralelo por slide):
+    - <h2> asserção clínica completa?
+    - Zero <ul>/<ol> no corpo?
+    - <aside class="notes"> com timing?
+    - <section> sem display inline? (E07)
+    - Cores via var() — zero hardcode?
+    - Números com fonte verificada ou [TBD]?
   IF lint.fails == 0 AND constraints.issues == 0:
-    BREAK → Loop 2
+    output "OPUS-PASS" → exit loop
   ELSE:
-    fix_all(lint.fails + constraints.issues)  # cirúrgico
+    fix_all() — cirúrgico, não reescrever
     iteration++
 
-IF iteration == 10: PARAR + reportar (root cause além do scope)
+IF iteration == 10:
+  output "OPUS-BLOCKED: [issue persistente]" → PARAR
 ```
 
-**Constraint check via subagent Explore** (paralelo, 1 por slide):
-- `<h2>` é asserção clínica completa (não rótulo)?
-- Zero `<ul>`/`<ol>` no corpo do slide?
-- `<aside class="notes">` presente com timing?
-- `<section>` sem `style="display:..."` (E07)?
-- Cores via `var()` sem hardcode?
-- Dados numéricos têm fonte ou `[TBD]`?
+## Loop 2 — Gemini 3.1 Pro
 
-## Loop 2 — Gemini 3.1 Pro (visual audit)
+**Agente:** Gemini 3.1 Pro via Agent tool (subagent_type=qa-engineer ou general-purpose)
+**Responsabilidade:** visual, layout, percepção, acessibilidade
 
 ```
 WHILE gemini.verdict != PASS AND iteration < 10:
   screenshots = playwright.capture([slide-a, slide-b, slide-c])
-  verdict = gemini.audit(screenshots, prompt_contextual)
-  IF verdict == PASS:
-    BREAK → commit batch
+  result = gemini.audit(screenshots, prompt_contextual)
+  issues = result.filter(confidence >= 80)
+  IF issues.length == 0:
+    output "GEMINI-PASS" → exit loop
   ELSE:
-    issues = verdict.filter(confidence >= 80)
-    sonnet.fix(issues)  # cirúrgico
+    opus.fix(issues) — cirúrgico
     iteration++
 
-IF iteration == 10: PARAR + reportar para humano
+IF iteration == 10:
+  output "GEMINI-BLOCKED: [issue persistente]" → PARAR
 ```
 
 **Prompt para Gemini 3.1 Pro:**
 ```
 Masterclass médica — hepatologistas seniores, Brasil. Cirrose Hepática.
 Reveal.js Plan C: fundo claro, 1280×720, GSAP ativo.
+Design system: Instrument Serif (títulos) · DM Sans (corpo) · OKLCH tokens.
+Semântica: safe=teal+✓, warning=amber+⚠, danger=red+✕.
 
-Para cada slide (batch de 3), avaliar:
+Para cada slide do batch (3 slides), avaliar:
 
 1. HIERARQUIA VISUAL
-   - Dado mais importante é visualmente dominante?
+   - Dado mais importante visualmente dominante?
    - Hero element ≥2x maior que corpo?
-   - Ordem de leitura natural (F-pattern)?
+   - Ordem de leitura segue F-pattern natural?
 
-2. LEGIBILIDADE (projetor 1280×720, sala com luz ambiente)
-   - Texto legível a 5m sem esforço?
+2. LEGIBILIDADE (projetor, sala com luz ambiente, 5m de distância)
+   - Texto visível sem esforço?
    - Contraste texto/fundo adequado?
-   - Font size adequado para congresso?
 
-3. DALTONISMO — simule protanopia
-   - Cor é único canal de informação clínica?
-   - Ícones ✓/⚠/✕ presentes junto a safe/warning/danger?
+3. DALTONISMO — simular protanopia
+   - Informação clínica depende só de cor?
+   - Ícones ✓/⚠/✕ presentes com as cores semânticas?
 
 4. DENSIDADE
-   - Corpo ≤30 palavras de texto?
+   - Corpo ≤30 palavras?
    - Slide congestionado?
 
 Retornar por slide:
-  PASS | WARN | FAIL
-  Confiança: 0-100
-  Se WARN/FAIL: issue exato + fix em 1 linha
+  verdict: PASS | WARN | FAIL
+  confidence: 0-100
+  issue: [descrição exata] (só se WARN/FAIL)
+  fix: [ação em 1 linha] (só se WARN/FAIL)
 
-Threshold: reportar apenas confiança ≥80.
+Reportar apenas issues com confidence ≥ 80.
+Se nenhum issue ≥ 80: retornar PASS.
 ```
+
+## Separação dos loops — por que importa
+
+| | Loop 1 (Opus) | Loop 2 (Gemini) |
+|---|---|---|
+| Domínio | Código, semântica, constraints | Visual, percepção, acessibilidade |
+| Input | HTML source | Screenshots renderizados |
+| Critério | 0 FAILs no lint + constraints | Gemini retorna PASS (confidence ≥80) |
+| Fix feito por | Opus | Opus (guiado por Gemini) |
+| Independência | Não depende do Gemini | Não roda antes do Opus PASS |
 
 ## Segurança
 
-- Max 10 iterações **por loop por batch** (não global)
-- Mudança > 30% de um slide → PARAR + reportar (não cirúrgico)
+- Max 10 iterações **por loop** (não compartilhado)
+- Fix > 30% do slide → PARAR + reportar (não cirúrgico)
 - **NUNCA** deletar `<aside class="notes">` — append only
 - **NUNCA** modificar dados clínicos — marcar `[TBD]` + reportar
-- Gemini WARN < 80 → ignorar (noise)
-- Mesmo issue persiste 3x no Loop 2 → PARAR + reportar (Gemini pode estar errado)
+- Gemini issue < 80 confiança → ignorar
+- Mesmo issue persiste 3x no Loop 2 → PARAR (Gemini pode estar incorreto)
 
 ## Output por batch
 
 ```
 ## Batch N — slides [X..Y]
 
-Loop 1 (Sonnet): [K] iterações — [N] fixes
-Loop 2 (Gemini): [K] iterações — [N] fixes visuais
+Loop 1 (Opus):   [K] iterações · [N] fixes · OPUS-PASS ✓
+Loop 2 (Gemini): [K] iterações · [N] fixes · GEMINI-PASS ✓
 
-Status: PASS ✓
 git: commitado
 ```
 
@@ -153,36 +169,24 @@ git: commitado
 ```
 ## QA-DONE — aulas/cirrose/ — [N] batches · 28 slides
 
-Batch 1 (00-02): Loop1 2x · Loop2 1x — OK
-Batch 2 (03-05): Loop1 1x · Loop2 2x — OK
+Batch 1 (00-02): Opus 2x · Gemini 1x ✓
+Batch 2 (03-05): Opus 1x · Gemini 2x ✓
 ...
 
-Sonnet fixes total: [N]
+Opus fixes total:   [N]
 Gemini fixes total: [N]
-Gemini noise (<80) descartado: [N]
+Gemini noise (<80): [N] descartados
 
 QA-DONE
 ```
 
-## Stop Hook (modo 100% autônomo)
-
-```json
-// .claude/settings.json
-{
-  "hooks": {
-    "Stop": [{
-      "matcher": "",
-      "hooks": [{"type": "command", "command": "~/.claude/hooks/ralph-qa-hook.sh"}]
-    }]
-  }
-}
-```
+## Stop Hook (modo autônomo)
 
 ```bash
 #!/bin/bash
 # ~/.claude/hooks/ralph-qa-hook.sh
 if ! grep -q "QA-DONE" "$CLAUDE_OUTPUT_FILE" 2>/dev/null; then
-  exit 2  # bloqueia saída → re-injeta
+  exit 2  # bloqueia saída → re-injeta prompt
 fi
 exit 0
 ```
