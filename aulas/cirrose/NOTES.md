@@ -412,10 +412,17 @@ Lucas sem computador até segunda. Decisões clínicas/narrativas são o trabalh
 | novo | ?? | Novo paradigma: cirrose → cACLD / dACLD | ❓ é o s-a1-baveno? slide novo? |
 | último | s-a1-meld | "MELD e Child ainda são portos seguros" | ⚠ precisa assertividade |
 
+### Diretriz de tom (Lucas, 07/03)
+- **NÃO** manchete sensacionalista — público é especialista adulto
+- h2 = afirmação clínica factual, tom par-a-par, linguagem técnica seca
+- Bom: "CSPH persiste em 53% após SVR" (factual)
+- Ruim: "SVR cura o vírus mas não a hipertensão portal!" (dramático)
+- Lucas quer ver slides rodando antes de decidir h2 — decisão com computador
+
 ### Pendências para segunda (com computador)
-1. Resolver "4 idem" — qual slide é esse?
-2. "Novo paradigma" — usar baveno existente ou criar slide?
-3. Converter todos h2 de rótulo → asserção clínica verificável
+1. Lucas ver slides no browser → decidir h2 vendo o produto
+2. Resolver "4 idem" — qual slide é esse?
+3. "Novo paradigma" — usar baveno existente ou criar slide?
 4. Aplicar h2 nos HTMLs + rebuild + lint
 5. s-a1-classify fica onde nesse arco? antes do CP1?
 
