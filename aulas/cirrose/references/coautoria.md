@@ -45,7 +45,9 @@
 
 ## Apresentacao
 
-Coautoria AI **nao aparece nos slides**. Transparencia fica restrita aos documentos do repositorio (este arquivo, headers de artefatos-chave).
+No slide final, listar **todos os coautores** — humano e agentes:
 
-No slide final, apenas mencionar os agentes AI utilizados conforme boas praticas de transparencia em producao academica assistida por AI:
-> "Produzido com assistencia de agentes AI: Claude Opus 4.6, GPT 5.4 Pro, Gemini 3.1"
+> **Coautores:**
+> Lucas Miachon · Claude Opus 4.6 · GPT 5.4 Pro · Gemini 3.1 · Cursor
+
+Transparencia completa: sem os agentes o trabalho nao existiria, sem o humano tambem nao. Todos sao coautores.
