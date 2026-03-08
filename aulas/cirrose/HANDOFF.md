@@ -8,85 +8,105 @@
 
 **Slides:** 28/28 buildados · **Build:** ✅ · **Lint:** ✅
 
-### 🎯 META DA SEMANA (08-14 mar)
+---
 
-**Terminar o monólito Cirrose.** KPIs em ação:
-1. h2 assertivos decididos e aplicados (Lucas vê no browser → decide)
-2. Fixes técnicos (ERRO-021, OKLCH, rename, failsafe)
-3. 7 PMIDs CANDIDATE verificados via MCP
-4. QA 13 critérios ≥ 9/10 em todos
-5. GPT-5.4 audita tom/narrativa (primeiro teste do protocolo de aliança)
+## CAMINHO CRÍTICO — Sessão PC
 
-### ⚡ AÇÃO NECESSÁRIA — executar localmente
+### P0: Produzir RAW_ACT2_V2 completo
 
-```bash
-git checkout main
-git pull origin main
-git push origin main  # agente só pushea em branches claude/*
-```
+O Ato 2 precisa ser reescrito de "lista de tópicos" para "cascata clínica do mesmo paciente".
+O repo atual tem 7 slides no Act 2 + CP2. A arquitetura aprovada pelo Lucas tem ~16 slides.
+
+**Briefing consolidado (mobile 08/mar):**
+
+1. Ler nesta ordem: CASE.md → evidence-db.md → narrative.md → _manifest.js → este HANDOFF
+2. Produzir RAW_ACT2_V2 com formato estruturado (ver briefing abaixo)
+3. Pesquisar TODOS os números mágicos do Ato 2 (trial antigo vs recente vs guideline)
+4. Pesquisar rifaximina no Brasil (nome comercial, preço, disponibilidade)
+5. Propor 3+ interações que justifiquem HTML/JS em vez de PPTX
+6. Entregar texto corrido copiável (sem divisórias markdown que impeçam seleção em bloco)
+
+### Decisões do Lucas (08/mar mobile):
+
+1. **Albumina** = standalone forte, muitos trials, qualidade de evidência é o interessante. Pode ir para apêndice se necessário, MAS tem densidade para main.
+2. **Nutrição/sarcopenia** = main deck INCONTESTÁVEL. "O mais esquecido."
+3. **Narrativa deve ter números práticos** para uso no dia-a-dia e prova de residência. Exemplos de pouca especificidade (eco com microbolhas) devem ser referenciados no contexto de educação de adultos que gostam de números.
+4. **Headlines técnicas**, não jornalísticas. Factual, par-a-par.
+5. **Trial antigo vs dado recente** quando isso fortalece a narrativa.
+6. **Brasil-real** para rifaximina: marca, preço, alternativas. Rotular como BRAZIL ACCESS SNAPSHOT (não tier 1 clínico).
+
+### Decisões já tomadas (NÃO reabrir sem justificativa forte):
+
+- Ato 2 = cascata do MESMO paciente, não lista de tópicos
+- HDA como descompensação do próprio paciente
+- Slide de gatilhos de descompensação
+- Slide de infecções em cirróticos
+- Slide de HDA + tratamento
+- Slide de NSBB com EVL menor
+- Ascite = primeira grande descompensação
+- Toda ascite nova = paracentese ≤12h
+- Slide de PBE + profilaxia
+- Slide próprio de nutrição/sarcopenia (INCONTESTÁVEL)
+- Paciente evolui com EH
+- Paciente interna e evolui com HRS-AKI / ACLF
+- Slide de ascite refratária
+- Slide de TIPS e alternativas no Brasil
+- 1 slide cardio + 1 pulmonar SE fortalecerem arco
+- Checkpoint final (CP2)
+- Pode haver apêndice de sintomas negligenciados
+
+### Formato esperado do RAW_ACT2_V2:
+
+Para cada slide:
+- SLIDE_ID, TITLE, HEADLINE
+- NARRATIVE_ROLE, PATIENT_EVENT, PRACTICAL_DECISION
+- TRIAL_OLD_VS_RECENT
+- MAGIC_NUMBERS (value, meaning, source, PMID, tier, note)
+- BOX_UPDATE (MELD, Child, tags)
+- INTERACTION (se aplicável: goal, trigger, beats, backward, why_not_pptx)
+- BRAZIL_ACCESS_SNAPSHOT (se aplicável)
+- SPEAKER_INTENT, OPEN_QUESTIONS
+
+Mais: APPENDIX_SLIDES, MAIN_RISKS, OPTIONAL_COMPRESSION_PLAN, WHAT_NEEDS_RESEARCH_TOMORROW
+
+### Seções obrigatórias da resposta executiva:
+
+VERDICT, WHERE I DISAGREE WITH USER, WHERE I DISAGREE WITH CHATGPT COAUTHOR, WHERE USER IS RIGHT, SOURCE OF TRUTH AUDIT, NARRATIVE AUDIT, MAGIC NUMBERS AUDIT, ACT 2 FINAL ORDER, LATERAL BOX RULES, MUST-HAVE INTERACTIONS (min 3), RIFAXIMIN BRAZIL REALITY, WHAT TO CUT/MERGE, P0/P1/P2
 
 ---
 
-## Prioridades
+## P1: Após RAW aprovado
 
-### 🔴 IMEDIATO
+1. Atualizar narrative.md com a nova arquitetura do Ato 2
+2. Atualizar CASE.md com os panel states intermediários
+3. Atualizar _manifest.js com novos slides
+4. Criar HTMLs novos para slides que não existem
+5. Verificar 7 PMIDs CANDIDATE via PubMed MCP
 
-1. **`[LUCAS DECIDE]`** — ver slides no browser → decidir 6 h2 (tom: factual, par-a-par, sem manchete)
-2. Verificar 7 PMIDs CANDIDATE via PubMed MCP
-3. **Re-rodar qa-engineer** com rubrica 13 critérios + nova stack MCP
-4. Iterar até ≥ 9/10 em todos os critérios
+## P2: QA
 
-### 🟡 DECISÕES CLÍNICAS [LUCAS DECIDE]
-
-| Slide | Problema | Proposta |
-|-------|---------|----------|
-| `s-hook` | Sem `<h2>` | Adicionar `<h2 aria-hidden>` ou exceção formal |
-| `s-a1-damico` | `<h2>` é rótulo, não afirmação | "MELD-Na supera CTP na predição de mortalidade a 90d" |
-| `s-a1-vote` | `<h2>` é pergunta | "FIB-4 5,91 classifica cirrose mesmo sem sintomas" |
-| `s-a1-fib4` | `<h2>` é slogan | "FIB-4 > 2,67 indica elastografia obrigatória" |
-| `s-a1-rule5` | `<h2>` é pergunta | "LSM 21 kPa confirma cACLD e não descarta CSPH" |
-| `s-a1-meld` | `<h2>` é metáfora | "MELD-Na ≥18 — ponto de inflexão para referenciar TX" |
-| `s-a1-meld` | MELD≥18 sem PMID | Buscar PMID Mahmud ou citar UNOS/OPTN |
-
-Outras decisões pendentes:
-- D'Amico pathway % — `Comp(1%)→1ºDescomp(5%)→2ºDescomp(20%)→Óbito(57%)` — confirmar paper
-- PREDESCI HR 0,51 — IC95% vai no slide ou só nas notes?
-
-### 🟡 MÉDIA
-
-- 21 referências [TBD] — 7 CANDIDATE, 12 NOT INDEXED (2025-2026). Ver NOTES.md §Reference Manager
-- CTP interobserver variability — PMID 6546609 ou 16305721
-- burden-iceberg prevalência — GBD 2017 (manter com anotação)
-
-### 🟡 ENFORCEMENT — Hierarquia de autoridade (implementado)
-
-**Implementado 2026-03-08:**
-1. ✅ **Lint rule** — `npm run lint:case-sync` compara panelStates vs CASE.md, falha se divergir
-2. ✅ **Comentário-contrato** — header em _manifest.js: `DERIVADO DE: references/CASE.md`
-3. ✅ **Narrative governance** — `npm run lint:narrative-sync` valida narrativeRole + tensionLevel + narrativeCritical vs narrative.md
-4. ✅ **Decision Record protocol** — `references/decision-protocol.md` para mudanças em slides narrativeCritical
-5. ✅ **5 slides narrative-critical** — s-hook, s-cp1, s-cp2, s-cp3, s-close (flagged em _manifest.js)
-
-**Pendente:**
-- Wiring no pre-commit hook (lint:case-sync + lint:narrative-sync + lint:slides)
-- Slides interativos precisam de redesign completo via mockup Excalidraw (não protocolado ainda)
-
-**Regras operacionais (em vigor):**
-- Quem corrige dado clínico em CASE.md → atualiza _manifest.js + slide HTML na mesma sessão
-- Quem corrige bug → limpa TODAS as notas de warning associadas (HANDOFF, CASE.md, NOTES.md)
-- Mudança em slide narrativeCritical → usar Decision Record protocol
-
-### 🟢 BAIXA
-
-- Atos 2 e 3: fill ratio + hero typography
-- Appendix: archetype-appendix sem case panel
+1. Re-rodar qa-engineer com rubrica 13 critérios
+2. h2 assertivos decididos (Lucas vê no browser → decide)
+3. OKLCH, rename, failsafe fixes
 
 ---
 
-## Pendências abertas
+## Pendências abertas (herdadas)
 
 - **ERRO-008** — Case panel redundante em s-hook
-- **D'Amico estádio 5** — label errado
+- **D'Amico estádio 5** — label errado ("Infecção ou AKI" → "2º evento descompensante")
+- 21 referências [TBD] — 7 CANDIDATE, 12 NOT INDEXED (2025-2026)
+- CTP interobserver variability — PMID 6546609 ou 16305721
+- Pre-commit hook wiring pendente (lint:case-sync + lint:narrative-sync + lint:slides)
+- 6 h2 do Act 1 pendentes de decisão do Lucas
+
+---
+
+## Enforcement (implementado)
+
+- lint:case-sync, lint:narrative-sync, lint:slides
+- Decision Record protocol para slides narrativeCritical
+- 5 slides narrative-critical: s-hook, s-cp1, s-cp2, s-cp3, s-close
 
 ---
 
