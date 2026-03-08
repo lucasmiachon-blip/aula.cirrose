@@ -45,7 +45,27 @@
 4. **ERROR-LOG.md** — Erros por sessão → regras (atualizar a cada sessão)
 5. **AUDIT-VISUAL.md** — Auditoria visual 28 slides × 8 dimensões
 
-## Regras invioláveis
+## Reference Hierarchy
+
+| # | Arquivo | Autoridade |
+|---|---------|-----------|
+| 1 | `references/CASE.md` | Dados do paciente — NUNCA duplicar |
+| 2 | `references/evidence-db.md` | Trials, PMIDs, NNTs |
+| 3 | `references/narrative.md` | Arco narrativo, pacing |
+| 4 | `slides/_manifest.js` | Ordem dos slides — NAO reordenar sem aprovacao |
+
+Conflito: # menor vence. Notion e mirror, nao source of truth.
+
+## Operational Records (append-only)
+
+| Arquivo | Funcao | Atualizar quando |
+|---------|--------|-----------------|
+| `HANDOFF.md` | Pendencias ativas | Final de toda sessao |
+| `CHANGELOG.md` | Historico de batches | Apos cada batch |
+| `ERROR-LOG.md` | Erros → regras | Quando encontrar erro novo |
+| `NOTES.md` | Decisoes entre agentes | Durante a sessao |
+
+## Regras inviolaveis
 
 ### Dados clínicos
 - NUNCA inventar, arredondar ou modificar dados clínicos (HR, NNT, p-values, doses, PMIDs)

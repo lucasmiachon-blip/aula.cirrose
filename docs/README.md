@@ -53,8 +53,13 @@
 ### Prompts e ferramentas externas
 | Doc | Uso |
 |-----|-----|
-| [prompts/weekly-updates.md](prompts/weekly-updates.md) | Prompt busca semanal de atualizações |
-| [prompts/research-best-practices.md](prompts/research-best-practices.md) | Prompt pesquisa melhores práticas |
+| [prompts/weekly-updates.md](prompts/weekly-updates.md) | Prompt busca semanal de atualizacoes |
+| [prompts/research-best-practices.md](prompts/research-best-practices.md) | Prompt pesquisa melhores praticas |
+| [prompts/gemini-deck-audit.md](prompts/gemini-deck-audit.md) | Audit visual Gemini |
+| [prompts/gemini-paper-extraction.md](prompts/gemini-paper-extraction.md) | Extracao de papers Gemini |
+| [prompts/gemini-transcript-comparison.md](prompts/gemini-transcript-comparison.md) | Comparacao transcripts Gemini |
+| [prompts/openai-backward-design.md](prompts/openai-backward-design.md) | Backward design OpenAI |
+| [prompts/openai-canvas-storyboard.md](prompts/openai-canvas-storyboard.md) | Storyboard OpenAI Canvas |
 | [external/11-long-context-auditor.md](external/11-long-context-auditor.md) | Tool spec: Gemini long-context auditor |
 
 ### Outros

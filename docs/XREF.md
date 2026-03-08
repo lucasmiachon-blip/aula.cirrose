@@ -133,7 +133,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Estado Cirrose | aulas/cirrose/HANDOFF.md | — |
 | Context window | docs/SUBAGENTS.md | .cursor/rules/core-constraints.mdc |
 | Manifesto slides | aulas/cirrose/slides/_manifest.js | CLAUDE.md tabela |
-| Pipeline humano | docs/pipeline/README.md | — |
+| Pipeline humano | docs/archive/pipeline/README.md | — |
 | Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-principles.md |
 | KPIs multiagente | docs/KPIs.md | — |
 | Benchmarks modelos | docs/ECOSYSTEM.md | — |
