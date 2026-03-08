@@ -8,18 +8,23 @@ HOOK=".git/hooks/pre-commit"
 
 cat > "$HOOK" << 'EOF'
 #!/usr/bin/env bash
-# Pre-commit: bloqueia commit se lint:slides falhar.
+# Pre-commit: bloqueia commit se lint falhar.
 set -e
 
-# Só rodar se houver mudanças em slides HTML
-CHANGED=$(git diff --cached --name-only | grep -E 'aulas/.*/slides/.*\.html$' || true)
+SLIDES_CHANGED=$(git diff --cached --name-only | grep -E 'aulas/.*/slides/.*\.html$' || true)
+CASE_OR_MANIFEST=$(git diff --cached --name-only | grep -E '(CASE\.md|_manifest\.js)$' || true)
 
-if [ -z "$CHANGED" ]; then
-  exit 0
+# lint:slides — se slides HTML mudaram
+if [ -n "$SLIDES_CHANGED" ]; then
+  echo "→ lint:slides (slides modificados detectados)..."
+  npm run lint:slides
 fi
 
-echo "→ lint:slides (slides modificados detectados)..."
-npm run lint:slides
+# lint:case-sync — se CASE.md ou _manifest.js mudaram
+if [ -n "$CASE_OR_MANIFEST" ]; then
+  echo "→ lint:case-sync (CASE.md ou _manifest.js modificados)..."
+  npm run lint:case-sync
+fi
 EOF
 
 chmod +x "$HOOK"

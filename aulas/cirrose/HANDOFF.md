@@ -60,20 +60,16 @@ Outras decisões pendentes:
 - CTP interobserver variability — PMID 6546609 ou 16305721
 - burden-iceberg prevalência — GBD 2017 (manter com anotação)
 
-### 🟡 ENFORCEMENT — Hierarquia de autoridade
+### 🟡 ENFORCEMENT — Hierarquia de autoridade (implementado)
 
-A hierarquia está **declarada** (CLAUDE.md §Reference Hierarchy) mas **não enforced**:
-- CASE.md diz "NUNCA duplicar" → mas _manifest.js **precisa** dos valores (case-panel.js consome)
-- Regra real: _manifest.js **deriva de** CASE.md, não duplica livremente
-- Hoje nada impede um agente de escrever valor diferente no manifest sem checar CASE.md
-- **ERRO-024** provou que notas de aviso não limpas contaminam sessões futuras
+**Implementado 2026-03-08:**
+1. ✅ **Lint rule** — `npm run lint:case-sync` compara panelStates vs CASE.md, falha se divergir
+2. ✅ **Comentário-contrato** — header em _manifest.js: `DERIVADO DE: references/CASE.md`
 
-**Opções (Lucas decide):**
-1. **Lint rule** — script compara panelStates vs CASE.md, falha se divergir (pre-commit)
-2. **Import** — _manifest.js importa de case-data.js gerado de CASE.md (single source no código)
-3. **Comentário-contrato** — header em cada arquivo derivado: `// DERIVADO DE: references/CASE.md`
+**Pendente:**
+- Wiring no pre-commit hook (rodar junto com lint:slides)
 
-**Regra operacional imediata (já em vigor):**
+**Regras operacionais (em vigor):**
 - Quem corrige dado clínico em CASE.md → atualiza _manifest.js + slide HTML na mesma sessão
 - Quem corrige bug → limpa TODAS as notas de warning associadas (HANDOFF, CASE.md, NOTES.md)
 

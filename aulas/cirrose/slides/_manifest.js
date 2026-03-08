@@ -1,7 +1,12 @@
 /**
  * _manifest.js — Source of truth para ordem, archetypes, panel states, animacoes
+ *
+ * DERIVADO DE: references/CASE.md (dados do paciente — Reference Hierarchy #1)
+ * panelStates valores DEVEM ser identicos a CASE.md §Evolucao do Caso.
+ * Validacao: npm run lint:case-sync
+ *
  * Gerado na FASE 0 da refatoracao arquitetural.
- * Atualizado: 2026-03-05 — Restructure Act 1 (split mega-slide, relocate infeccao/etiologias)
+ * Atualizado: 2026-03-08
  */
 
 export const slides = [
