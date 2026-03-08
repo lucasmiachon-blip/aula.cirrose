@@ -45,7 +45,7 @@
 
 ## Apresentacao
 
-Na apresentacao final, slide de creditos ou ultimo slide menciona:
-> "Produzido com assistencia de agentes AI: Claude Opus 4.6, GPT 5.4 Pro, Gemini 3.1"
+Coautoria AI **nao aparece nos slides**. Transparencia fica restrita aos documentos do repositorio (este arquivo, headers de artefatos-chave).
 
-Conforme boas praticas de transparencia em producao academica assistida por AI.
+No slide final, apenas mencionar os agentes AI utilizados conforme boas praticas de transparencia em producao academica assistida por AI:
+> "Produzido com assistencia de agentes AI: Claude Opus 4.6, GPT 5.4 Pro, Gemini 3.1"
