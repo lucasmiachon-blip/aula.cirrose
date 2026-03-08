@@ -122,3 +122,7 @@
 ICMJE, COPE, JAMA, NEJM, Lancet: **AI não pode ser autor/coautor.**
 Disclosure obrigatório em Acknowledgments (final), nunca na linha de autoria.
 Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
+
+[2026-03-08 17:10] [Explore:a661c947] — concluído. Status: PASS
+
+[2026-03-08 17:10] [Explore:af10c0c1] — concluído. Status: PARTIAL
