@@ -32,11 +32,9 @@ git push origin main  # agente só pushea em branches claude/*
 ### 🔴 IMEDIATO
 
 1. **`[LUCAS DECIDE]`** — ver slides no browser → decidir 6 h2 (tom: factual, par-a-par, sem manchete)
-2. ERRO-021 — fix 1 char CSS (5 dias parado)
-3. Fixes técnicos: OKLCH literals em `cirrose.css`, rename `screening→classify`, failsafe `.classify-card`
-4. Verificar 7 PMIDs CANDIDATE via PubMed MCP
-5. **Re-rodar qa-engineer** com rubrica 13 critérios + nova stack MCP
-6. Iterar até ≥ 9/10 em todos os critérios
+2. Verificar 7 PMIDs CANDIDATE via PubMed MCP
+3. **Re-rodar qa-engineer** com rubrica 13 critérios + nova stack MCP
+4. Iterar até ≥ 9/10 em todos os critérios
 
 ### 🟡 DECISÕES CLÍNICAS [LUCAS DECIDE]
 
@@ -89,14 +87,6 @@ Outras decisões pendentes:
 
 - **ERRO-008** — Case panel redundante em s-hook
 - **D'Amico estádio 5** — label errado
-
-### Fixes técnicos pendentes (do QA Bloco 1)
-
-Todos resolvidos nesta sessão:
-- ~~OKLCH literals~~ → `oklch(from var(...))` aplicado
-- ~~Rename `02c-a1-screening.html`~~ → `02c-a1-classify.html` + `_manifest.js` atualizado
-- ~~`.no-js` failsafes~~ → `.classify-card`, `.antonio-pin` adicionados
-- ~~ERRO-021~~ → já estava corrigido (nota stale limpa)
 
 ---
 
