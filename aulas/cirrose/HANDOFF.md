@@ -6,99 +6,75 @@
 
 ## Estado atual — 2026-03-08
 
-**Slides:** 28/28 buildados · **Build:** ✅ · **Lint:** ✅
+**Slides atuais:** 28 buildados (Act 2 com 7 slides ANTIGOS) · **Build:** ✅ · **Lint:** ✅
+**Arquitetura aprovada:** Act 2 com 16 slides + CP2 (cascata clínica). Docs alinhados. HTMLs pendentes.
 
 ---
 
-## CAMINHO CRÍTICO — Sessão PC
+## CAMINHO CRÍTICO
 
-### P0: Produzir RAW_ACT2_V2 completo
+### ✅ DONE: Produzir RAW_ACT2_V2
 
-O Ato 2 precisa ser reescrito de "lista de tópicos" para "cascata clínica do mesmo paciente".
-O repo atual tem 7 slides no Act 2 + CP2. A arquitetura aprovada pelo Lucas tem ~16 slides.
+RAW_ACT2_V2.md produzido e commitado. narrative.md atualizado com arquitetura de 16 slides.
 
-**Briefing consolidado (mobile 08/mar):**
+### ✅ DONE: Alinhar source of truth documental (P0)
 
-1. Ler nesta ordem: CASE.md → evidence-db.md → narrative.md → _manifest.js → este HANDOFF
-2. Produzir RAW_ACT2_V2 com formato estruturado (ver briefing abaixo)
-3. Pesquisar TODOS os números mágicos do Ato 2 (trial antigo vs recente vs guideline)
-4. Pesquisar rifaximina no Brasil (nome comercial, preço, disponibilidade)
-5. Propor 3+ interações que justifiquem HTML/JS em vez de PPTX
-6. Entregar texto corrido copiável (sem divisórias markdown que impeçam seleção em bloco)
+- narrative.md — 16 slides + CP2, 4 interações, cascata clínica, NSBB como secundária, HRS-AKI lidera headline, CP2 abre "e se" hipotético
+- CASE.md — 3 checkpoints canônicos. MELDs intermediários NÃO entram aqui (são narrativos)
+- RAW_ACT2_V2.md — Detalhamento por slide com magic numbers auditados
 
-### Decisões do Lucas (08/mar mobile):
+### P1 ATUAL: Implementar Act 2 no código
 
-1. **Albumina** = standalone forte, muitos trials, qualidade de evidência é o interessante. Pode ir para apêndice se necessário, MAS tem densidade para main.
-2. **Nutrição/sarcopenia** = main deck INCONTESTÁVEL. "O mais esquecido."
-3. **Narrativa deve ter números práticos** para uso no dia-a-dia e prova de residência. Exemplos de pouca especificidade (eco com microbolhas) devem ser referenciados no contexto de educação de adultos que gostam de números.
-4. **Headlines técnicas**, não jornalísticas. Factual, par-a-par.
-5. **Trial antigo vs dado recente** quando isso fortalece a narrativa.
-6. **Brasil-real** para rifaximina: marca, preço, alternativas. Rotular como BRAZIL ACCESS SNAPSHOT (não tier 1 clínico).
+1. Criar HTMLs para slides NOVOS: Gatilhos, Ascite dx, Ascite manejo, Nutrição, MELD>15, Ascite refratária
+2. Mover CCM (s-app-05) e SHP/PPH (s-app-06) para Act 2
+3. Reestruturar s-a2-02 (TIPS → A2-15), s-a2-01 (carvedilol → A2-07 profilaxia secundária)
+4. Reestruturar s-a2-03 (albumina standalone → distribuída + apêndice consolidado)
+5. Reestruturar s-a2-05 (HRS → A2-11 com HRS-AKI liderando, ACLF como contexto)
+6. Atualizar `_manifest.js` com novos IDs, ordem, panelStates narrativos
+7. Verificar 5 PMIDs CANDIDATE via PubMed MCP
+8. Resolver [TBD SOURCE]: sarcopenia, covert HE, centros TIPS, ESPEN 2019, QTc threshold
 
-### Decisões já tomadas (NÃO reabrir sem justificativa forte):
+### P2: QA
 
-- Ato 2 = cascata do MESMO paciente, não lista de tópicos
-- HDA como descompensação do próprio paciente
-- Slide de gatilhos de descompensação
-- Slide de infecções em cirróticos
-- Slide de HDA + tratamento
-- Slide de NSBB com EVL menor
-- Ascite = primeira grande descompensação
-- Toda ascite nova = paracentese ≤12h
-- Slide de PBE + profilaxia
-- Slide próprio de nutrição/sarcopenia (INCONTESTÁVEL)
-- Paciente evolui com EH
-- Paciente interna e evolui com HRS-AKI / ACLF
-- Slide de ascite refratária
-- Slide de TIPS e alternativas no Brasil
-- 1 slide cardio + 1 pulmonar SE fortalecerem arco
-- Checkpoint final (CP2)
-- Pode haver apêndice de sintomas negligenciados
-
-### Formato esperado do RAW_ACT2_V2:
-
-Para cada slide:
-- SLIDE_ID, TITLE, HEADLINE
-- NARRATIVE_ROLE, PATIENT_EVENT, PRACTICAL_DECISION
-- TRIAL_OLD_VS_RECENT
-- MAGIC_NUMBERS (value, meaning, source, PMID, tier, note)
-- BOX_UPDATE (MELD, Child, tags)
-- INTERACTION (se aplicável: goal, trigger, beats, backward, why_not_pptx)
-- BRAZIL_ACCESS_SNAPSHOT (se aplicável)
-- SPEAKER_INTENT, OPEN_QUESTIONS
-
-Mais: APPENDIX_SLIDES, MAIN_RISKS, OPTIONAL_COMPRESSION_PLAN, WHAT_NEEDS_RESEARCH_TOMORROW
-
-### Seções obrigatórias da resposta executiva:
-
-VERDICT, WHERE I DISAGREE WITH USER, WHERE I DISAGREE WITH CHATGPT COAUTHOR, WHERE USER IS RIGHT, SOURCE OF TRUTH AUDIT, NARRATIVE AUDIT, MAGIC NUMBERS AUDIT, ACT 2 FINAL ORDER, LATERAL BOX RULES, MUST-HAVE INTERACTIONS (min 3), RIFAXIMIN BRAZIL REALITY, WHAT TO CUT/MERGE, P0/P1/P2
-
----
-
-## P1: Após RAW aprovado
-
-1. Atualizar narrative.md com a nova arquitetura do Ato 2
-2. Atualizar CASE.md com os panel states intermediários
-3. Atualizar _manifest.js com novos slides
-4. Criar HTMLs novos para slides que não existem
-5. Verificar 7 PMIDs CANDIDATE via PubMed MCP
-
-## P2: QA
-
-1. Re-rodar qa-engineer com rubrica 13 critérios
+1. Re-rodar qa-engineer 13 critérios
 2. h2 assertivos decididos (Lucas vê no browser → decide)
 3. OKLCH, rename, failsafe fixes
+4. Rehearsal cronometrado (meta: Act 2 em 45 min)
+
+---
+
+## Decisões TRAVADAS — Ato 2
+
+### Estrutura (NÃO reabrir)
+- Cascata clínica do MESMO paciente (não lista de tópicos)
+- 16 slides + CP2 na ordem definida em narrative.md
+- 4 interações: PBE (A2-05), HDA/TIPS (A2-06), TX (A2-10), ICA checklist (A2-12)
+- Albumina distribuída (LVP + PBE + ACLF challenge), consolidada no apêndice
+- NSBB pós-HDA = profilaxia SECUNDÁRIA (PREDESCI NNT 9 = callback Act 1, não hero)
+- HRS-AKI lidera headline (CONFIRM NNT 7, NNH 12). ACLF = contexto de severidade
+- Nutrição = slide próprio (INCONTESTÁVEL)
+
+### MELDs intermediários
+Canônicos (CASE.md): ~10, 28, 12. Os valores 12/14/17/18/24 são CONSTRUÇÕES NARRATIVAS.
+Moram em: narrative.md + _manifest.js panelStates. NÃO em CASE.md.
+
+### Ato 3
+Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 
 ---
 
 ## Pendências abertas (herdadas)
 
 - **ERRO-008** — Case panel redundante em s-hook
-- ~~**D'Amico estádio 5**~~ — RESOLVIDO: label "Infecção ou AKI" não existe no HTML atual (slide redesenhado com eras)
-- 21 referências [TBD] — 7 CANDIDATE, 12 NOT INDEXED (2025-2026)
+- ~~**D'Amico estádio 5**~~ — RESOLVIDO
+- 21 referências [TBD] — 5 CANDIDATE, 12 NOT INDEXED (2025-2026), 2 resolvidos, 1 fonte não identificada, 1 não encontrado
 - CTP interobserver variability — PMID 6546609 ou 16305721
-- Pre-commit hook wiring pendente (lint:case-sync + lint:narrative-sync + lint:slides)
+- Pre-commit hook wiring pendente
 - 6 h2 do Act 1 pendentes de decisão do Lucas
+- CASE.md Chekhov's Guns: IDs de slides serão atualizados quando novos HTMLs forem criados
+- evidence-db.md "Dados por Slide": mapeamento para IDs antigos, atualizar junto com HTMLs
+- Verificar ANVISA para rifaximina 550mg (Xifaxan)
+- Corrigir medical-data.md (.claude/rules): ANSWER PMID 29793859→29861076
 
 ---
 

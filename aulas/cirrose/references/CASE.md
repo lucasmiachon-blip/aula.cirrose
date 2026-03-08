@@ -71,12 +71,15 @@
 
 ## Chekhov's Guns Ativos
 
+> **Nota:** IDs de slides referem a estrutura ATUAL (_manifest.js). Serão atualizados quando Act 2 for implementado com novos HTMLs. Ver narrative.md para mapeamento novo (A2-01 a A2-15 + CP2).
+
 | Elemento | Setup | Payoff |
 |----------|-------|--------|
-| Profissão caminhoneiro | s-hook | s-a2-06: encefalopatia = não dirige |
-| ALT "normal" | s-hook | s-a1-02: diagnóstico = burnt-out |
+| Profissão caminhoneiro | s-hook | EH (Act 2 A2-08): encefalopatia = não dirige |
+| ALT "normal" | s-hook | Act 1: diagnóstico = burnt-out |
 | LSM 32 | s-cp2 | s-cp3: 32→18 = recompensação |
-| ATTIRE armadilha | s-a2-03 | s-cp2: albumina mal usada = NÃO funciona |
+| ATTIRE | PBE (A2-05) + LVP (A2-03) | ACLF (A2-11): albumina rotineira NÃO funciona — contraste contextualizado |
+| Carvedilol abandonado | A2-01 (gatilhos) | HDA (A2-06): se não tivesse parado, não sangrava |
 
 ## Referência Cruzada
 

@@ -80,18 +80,18 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 12 | s-a2-02 | Ascite nova = paracentese ≤12h. GASA >1,1 confirma portal | **1º golpe**: Antônio cruza a linha. Primeiro evento descompensante. | ●●○○○ |
 | 13 | s-a2-03 | Espironolactona 100→400 + furosemida 40→160: escalonamento e limites | Conduta prática pós-diagnóstico. Ascite tem manejo, mas é o início da espiral. | ●●○○○ |
 | 14 | s-a2-04 | Infecção precipita 33% das descompensações — e é a mais prevenível | **Setup** para PBE. Cirrótico é imunodeprimido. Translocação bacteriana. | ●●○○○ |
-| 15 | s-a2-05 | PMN ≥250 = ceftriaxone agora + albumina D1/D3. Sort NNT 5. | **Conduta tempo-sensível.** PBE assintomática. Albumina reduz mortalidade (Sort). | ●●●○○ |
-| 16 | s-a2-06 | HDA varicosa: vasoativo + EDA <12h + ATB. Early TIPS em 72h? | **2º golpe dramático.** Sangramento é visceral. **INTERAÇÃO 1**: decidir TIPS. | ●●●○○ |
-| 17 | s-a2-07 | NSBBs previnem descompensação: NNT 9 em 3 anos. EVL é adjuvante | **Ironia narrativa**: se Antônio nunca tivesse parado o carvedilol, não teria sangrado. | ●●○○○ |
+| 15 | s-a2-05 | PMN ≥250 = ceftriaxone agora + albumina D1/D3. Sort NNT 5 | **INTERAÇÃO 1** (PBE tempo-sensível). Albumina reduz mortalidade (Sort). | ●●●○○ |
+| 16 | s-a2-06 | HDA varicosa: vasoativo + EDA <12h + ATB. Early TIPS em 72h? | **INTERAÇÃO 2** (Early TIPS). 2º golpe dramático. | ●●●○○ |
+| 17 | s-a2-07 | Profilaxia secundária pós-HDA: NSBB + EVL seriada | **Ironia narrativa**: se nunca tivesse parado, não sangrava. PREDESCI NNT 9 = callback ao Act 1, não hero number. | ●●○○○ |
 | 18 | s-a2-08 | EH: lactulose + rifaximina NNT 4. Proteína 1,2-1,5 g/kg — restrição piora | **3º golpe + reversão de mito.** Chekhov: caminhoneiro não pode dirigir. | ●●●○○ |
 | 19 | s-a2-09 | Sarcopenia em cirrose: prevalência alta, mortalidade independente de MELD | **Par** com EH. Destrói mito da restrição proteica na prática. | ●●○○○ |
-| 20 | s-a2-10 | MELD >15 persistente = iniciar avaliação para transplante | **Pivô narrativo.** Muda de "manejar complicações" para "planejar saída." **INTERAÇÃO 2.** | ●●●●○ |
-| 21 | s-a2-11 | ACLF grau 2: mortalidade 28d ~32%. Albumina challenge → terlipressina | **Nadir.** Pior momento. Multi-organ failure. MELD salta de 18→28. | ●●●●○ |
-| 22 | s-a2-12 | Ascite refratária: critérios ICA mudam estratégia | Antônio melhora parcialmente, mas LVP semanal. **INTERAÇÃO 3**: checklist ICA. | ●●●○○ |
+| 20 | s-a2-10 | MELD >15 persistente = iniciar avaliação para transplante | **INTERAÇÃO 3** (TX). Pivô narrativo: "manejar" → "planejar saída." | ●●●●○ |
+| 21 | s-a2-11 | HRS-AKI: albumina challenge primeiro — terlipressina NNT 7, NNH 12 respiratório | **Nadir.** ACLF grau 2 como contexto. MELD 18→28. CONFIRM é a evidência. | ●●●●○ |
+| 22 | s-a2-12 | Ascite refratária: critérios ICA mudam estratégia | **INTERAÇÃO 4** (checklist ICA). Melhora parcial MELD 24, LVP semanal. | ●●●○○ |
 | 23 | s-a2-13 | Cardiomiopatia cirrótica: prevalência ~48%. Avaliar antes de TIPS | **Barreira**: entre "precisa de TIPS" e "TIPS é possível." | ●●●○○ |
 | 24 | s-a2-14 | SHP: PaO2 ≤80 + A-a ≥15 = indicação TX. PPH >45 = contraindicação | **Comparativo**: destinos opostos. SHP acelera TX, PPH bloqueia. | ●●●○○ |
 | 25 | s-a2-15 | TIPS reduz further decomp de 63→48% (IPD n=2338). Brasil: acesso limitado | **Confronto** com realidade brasileira. TIPS é padrão-ouro, acesso é desigual. | ●●●○○ |
-| 26 | s-cp2 | MELD 28, Child C, ACLF resolvido, SHP. Chega ao transplante? | **CHECKPOINT 2**: nadir consolidado. Tudo vermelho. MELD 28. | ●●●●● |
+| 26 | s-cp2 | MELD 24, listado, 4 complicações tratadas. E se tudo der certo? | **CHECKPOINT 2**: fecha caso real. Ponte para Ato 3 hipotético. | ●●●●● |
 
 - **Panel:** caution → danger (no CP2)
 - **Arc:** Tensão crescente em 4 fases:
@@ -115,10 +115,11 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
   11. TIPS como ponte → cidade sem acesso, LVP + albumina
   12. CP2: tudo aplicado, paciente quase morreu. Ato 3 traz esperança.
 
-- **3 Interações (why not PPTX):**
-  1. **A2-06 (HDA)**: decidir early TIPS — 3 opções + contexto acesso Brasil
-  2. **A2-10 (MELD>15)**: box lateral pulsa, MELD vermelho, decidir listagem TX + regra 6 meses
-  3. **A2-12 (Ascite refratária)**: checklist ICA interativo — marcar critérios + reveal condicional
+- **4 Interações (why not PPTX):**
+  1. **A2-05 (PBE)**: PMN 380 → decidir conduta. ATB+albumina vs esperar cultura. Sort NNT 5. Timer de urgência.
+  2. **A2-06 (HDA)**: decidir early TIPS — 3 opções + constraint acesso Brasil. Garcia-Pagán NNT ~4.
+  3. **A2-10 (MELD>15)**: box lateral pulsa, MELD vermelho, decidir listagem TX + regra 6 meses. Mathurin 2011.
+  4. **A2-12 (Ascite refratária)**: checklist ICA interativo — marcar critérios + reveal condicional.
 
 - **Albumina na cascata (não é slide próprio):**
   Aparece em 3 contextos: (1) LVP em A2-03, (2) PBE Sort NNT 5 em A2-05, (3) ACLF challenge em A2-11. ATTIRE como contraste em A2-11. Versão consolidada no apêndice.
@@ -132,19 +133,22 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **MELD intermediários são construções narrativas:**
   Valores canônicos: ~10 (CP1), 28 (CP2), 12 (CP3). Os valores 12→14→17→18→28→24 são clinicamente plausíveis mas não derivados de dados. Cada salto tem justificativa clínica documentada em RAW_ACT2_V2.md.
 
-### ATO 3 — REVERTER (slides 27-31)
+### ATO 3 — REVERTER (cenário hipotético)
 
-| # | Slide | Headline | Propósito narrativo | Tensão |
-|---|-------|----------|---------------------|--------|
-| 27 | s-a3-01 | Recompensação é real — Baveno VII a definiu | **Virada**: esperança com base científica | ●●○○○ |
-| 28 | s-a3-02 | SVR cura o vírus mas não a CSPH — 53% persistem | **Nuance**: cura viral ≠ cura hemodinâmica | ●●●○○ |
-| 29 | s-a3-03 | Vigilância cada 6 meses — nunca dar alta | Responsabilidade permanente | ●●○○○ |
-| 30 | s-cp3 | SVR + abstinência, LSM 32→18. Recompensou? | **CHECKPOINT 3**: resolução do caso. MELD 12. | ●○○○○ |
-| 31 | s-close | 5 números classificaram. 3 decisões salvaram. | **Desfecho**: callback ao hook, promessa cumprida | ○○○○○ |
+> **Ato 3 é "o que poderia ser", não continuação direta do caso.** O CP2 fechou o caso real (Antônio listado, vivo, 4 complicações tratadas). O Ato 3 mostra a melhor trajetória possível: abstinência + SVR + recompensação. Alinhado com Sparkline de Duarte (contraste realidade × possibilidade). Numeração de slides será definida quando HTMLs forem criados.
+
+| Slide | Headline | Propósito narrativo | Tensão |
+|-------|----------|---------------------|--------|
+| s-a3-01 | Recompensação é real — Baveno VII a definiu | **Virada**: esperança com base científica | ●●○○○ |
+| s-a3-02 | SVR cura o vírus mas não a CSPH — 53% persistem | **Nuance**: cura viral ≠ cura hemodinâmica | ●●●○○ |
+| s-a3-03 | Vigilância cada 6 meses — nunca dar alta | Responsabilidade permanente | ●●○○○ |
+| s-cp3 | SVR + abstinência, LSM 32→18. Recompensou? | **CHECKPOINT 3**: resolução hipotética. MELD 12. | ●○○○○ |
+| s-close | 5 números classificaram. 3 decisões salvaram. | **Desfecho**: callback ao hook, promessa cumprida | ○○○○○ |
 
 - **Panel:** danger → hope (CP3) → resolved (close, com timeline)
 - **Arc:** Descompressão. De angústia → esperança fundamentada → resolução.
 - **s-close beat:** Eco do hook. "5 números... 3 decisões..." fecha o anel narrativo.
+- **Hipotético:** O Ato 3 assume que Antônio aderiu ao tratamento, ficou abstinente, e teve SVR. Não é o que "aconteceu" — é o que a evidência mostra que poderia acontecer.
 
 ### APÊNDICE
 
