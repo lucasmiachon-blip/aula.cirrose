@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-03-08 — Source-of-truth enforcement + PLQ padronização
+
+Branch: `claude/diagnose-branch-commits-7twpK`
+
+| Item | Detalhe |
+|------|---------|
+| PLQ padronizado 112k | CASE.md, narrative.md, _manifest.js, 07-cp1.html, index.html |
+| Notas stale removidas | `[LUCAS DECIDE]` PLQ (CASE.md), "PLQ inconsistência" (HANDOFF.md) |
+| panelState inheritance documentada | Comentários em _manifest.js explicando null = herança via findLatestState |
+| ERRO-024 registrado | Regra: quem corrige bug DEVE limpar notas de warning associadas |
+
+**Regra nova:** Correção sem cleanup de notas = drift futuro. Enforcement pendente (lint/import).
+
+---
+
 ## 2026-03-07 — Doc graph cleanup + operational records
 
 Branch: `claude/diagnose-branch-commits-7twpK`

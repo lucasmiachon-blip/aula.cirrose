@@ -145,15 +145,6 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-| Severidade | Total | Corrigidos | Pendentes |
-|------------|-------|------------|-----------|
-| CRITICAL   | 4     | 3          | 1 (ERRO-021) |
-| HIGH       | 10    | 8          | 2 (ERRO-021, ERRO-022) |
-| MEDIUM     | 7     | 5          | 2 (ERRO-008, ERRO-023) |
-| LOW        | 1     | 1          | 0         |
-
----
-
 ## Erros registrados — sessão restructure/act1 (2026-03-05)
 
 ### ERRO-022 · HIGH · s-a1-vote
@@ -221,4 +212,24 @@ if (section?.id === 's-hook' && beatParam !== null) {
 
 ---
 
-*Última atualização: 2026-03-05 · restructure/act1 concluído · ERRO-022/023 adicionados ⚠ · ERRO-021/008 ainda pendentes*
+---
+
+## Erros registrados — sessão diagnóstico source-of-truth (2026-03-08)
+
+### ERRO-024 · MEDIUM · múltiplos arquivos
+**Notas stale de divergência persistem após correção**
+**Root cause:** PLQ 118k foi corrigido para 112k em `_manifest.js`, mas `[LUCAS DECIDE]` em CASE.md e "PLQ inconsistência" em HANDOFF.md não foram removidos. Agentes subsequentes reliam as notas, achavam que o bug existia, e perdiam tempo investigando.
+**Fix:** Padronizar PLQ 112k em todos (CASE.md, narrative.md, _manifest.js, 07-cp1.html, index.html). Remover notas stale.
+**Regra:** Quem corrige um bug DEVE limpar todas as notas de warning associadas (HANDOFF, CASE.md, NOTES.md). Nota sem cleanup = drift futuro garantido.
+**Status:** ✅ Corrigido.
+
+---
+
+| Severidade | Total | Corrigidos | Pendentes |
+|------------|-------|------------|-----------|
+| CRITICAL   | 4     | 3          | 1 (ERRO-021) |
+| HIGH       | 10    | 8          | 2 (ERRO-021, ERRO-022) |
+| MEDIUM     | 8     | 6          | 2 (ERRO-008, ERRO-023) |
+| LOW        | 1     | 1          | 0         |
+
+*Última atualização: 2026-03-08 · ERRO-024 (notas stale) adicionado e corrigido · ERRO-021/008/022/023 ainda pendentes*

@@ -4,7 +4,7 @@
 
 ---
 
-## Estado atual — 2026-03-07
+## Estado atual — 2026-03-08
 
 **Slides:** 28/28 buildados · **Build:** ✅ · **Lint:** ✅
 
@@ -60,6 +60,23 @@ Outras decisões pendentes:
 - CTP interobserver variability — PMID 6546609 ou 16305721
 - burden-iceberg prevalência — GBD 2017 (manter com anotação)
 
+### 🟡 ENFORCEMENT — Hierarquia de autoridade
+
+A hierarquia está **declarada** (CLAUDE.md §Reference Hierarchy) mas **não enforced**:
+- CASE.md diz "NUNCA duplicar" → mas _manifest.js **precisa** dos valores (case-panel.js consome)
+- Regra real: _manifest.js **deriva de** CASE.md, não duplica livremente
+- Hoje nada impede um agente de escrever valor diferente no manifest sem checar CASE.md
+- **ERRO-024** provou que notas de aviso não limpas contaminam sessões futuras
+
+**Opções (Lucas decide):**
+1. **Lint rule** — script compara panelStates vs CASE.md, falha se divergir (pre-commit)
+2. **Import** — _manifest.js importa de case-data.js gerado de CASE.md (single source no código)
+3. **Comentário-contrato** — header em cada arquivo derivado: `// DERIVADO DE: references/CASE.md`
+
+**Regra operacional imediata (já em vigor):**
+- Quem corrige dado clínico em CASE.md → atualiza _manifest.js + slide HTML na mesma sessão
+- Quem corrige bug → limpa TODAS as notas de warning associadas (HANDOFF, CASE.md, NOTES.md)
+
 ### 🟢 BAIXA
 
 - Atos 2 e 3: fill ratio + hero typography
@@ -71,7 +88,6 @@ Outras decisões pendentes:
 
 - **ERRO-008** — Case panel redundante em s-hook
 - **D'Amico estádio 5** — label errado
-- ~~**PLQ inconsistência**~~ — RESOLVIDO 2026-03-08: padronizado 112k em todos os arquivos.
 
 ### Fixes técnicos pendentes (do QA Bloco 1)
 
