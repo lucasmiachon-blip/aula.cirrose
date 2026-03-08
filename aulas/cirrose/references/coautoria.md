@@ -45,7 +45,11 @@
 
 ## Apresentacao
 
-No slide final, listar **todos os coautores** — humano e agentes:
+### Slide inicial (titulo)
+Lucas Miachon como **autor** — human-in-the-loop, norma academica vigente.
+
+### Slide final (creditos)
+Listar **todos os coautores** — humano e agentes que participaram:
 
 > **Coautores:**
 > Lucas Miachon · Claude Opus 4.6 · GPT 5.4 Pro · Gemini 3.1 · Cursor
