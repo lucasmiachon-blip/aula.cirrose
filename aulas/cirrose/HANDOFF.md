@@ -71,7 +71,7 @@ Outras decisões pendentes:
 
 - **ERRO-008** — Case panel redundante em s-hook
 - **D'Amico estádio 5** — label errado
-- ~~**PLQ inconsistência**~~ — RESOLVIDO 2026-03-08: 112k=baseline, 118k=CP1 (evolução). Manifest já sincronizado.
+- ~~**PLQ inconsistência**~~ — RESOLVIDO 2026-03-08: padronizado 112k em todos os arquivos.
 
 ### Fixes técnicos pendentes (do QA Bloco 1)
 

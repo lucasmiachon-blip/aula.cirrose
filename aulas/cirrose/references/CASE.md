@@ -29,16 +29,13 @@
 | INR | 1,2 | Discretamente alargado |
 | FIB-4 | 5,91 | Cálculo: (55 × 67) / (112 × √31) = 5,91 — alto risco |
 | MELD-Na | ~10 (inicial) | "Lembrem desse número. Vai mudar." |
-| LSM (Checkpoint 1) | 21 kPa | PLQ 118k → cACLD confirmada, estadiar CSPH |
-
-> **[RESOLVIDO 2026-03-08]** PLQ evolui de 112k (baseline) → 118k (CP1).
-> `_manifest.js` panelStates['s-cp1'].values.plq = '118k' — sincronizado.
+| LSM (Checkpoint 1) | 21 kPa | cACLD confirmada, estadiar CSPH |
 
 ## Evolução do Caso (Panel States)
 
 ### Checkpoint 1 (s-cp1) — Caution
 - LSM: 21 kPa
-- PLQ: 118k (evolução do baseline 112k)
+- PLQ: 112k
 - MELD-Na: ~10
 - Estado: cACLD → CSPH confirmada
 

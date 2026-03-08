@@ -59,7 +59,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 4 | s-a1-03 | MELD-Na é o GPS do cirrótico | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
 | 5 | s-a1-04 | Infecção precipita 1 em 3 descompensações | Dado surpreendente (Von Restorff) | ●●○○○ |
 | 6 | s-a1-05 | "Cirrose" são 10 doenças com final comum | Etiologias — completude antes do checkpoint | ●○○○○ |
-| 7 | s-cp1 | LSM 21 kPa, plaquetas 118k. Como estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
+| 7 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
 
 - **Panel:** neutral → caution (no CP1)
 - **Arc:** Conhecimento crescente. Audiência ainda segura — "sei classificar".
