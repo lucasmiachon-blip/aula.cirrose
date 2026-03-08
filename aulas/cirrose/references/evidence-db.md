@@ -94,14 +94,14 @@
 
 | Trial | Autor | Journal/Ano | PMID | Resultado-chave | NNT | GRADE |
 |-------|-------|-------------|------|-----------------|-----|-------|
-| PREDESCI | Villanueva | Lancet 2019 | 30910320 | Carvedilol previne descompensacao 3a | 9 | ++++- |
+| PREDESCI | Villanueva | Lancet 2019 | 30910320 | **NSBBs** (propranolol + carvedilol non-responders) previnem descompensacao 3a. HR 0,51 e para TODOS os NSBBs, nao carvedilol isolado. | 9 | ++++- |
 | Sort | Sort | NEJM 1999 | 10432325 | Albumina + cefotaxima em PBE | 5 (morte) / 4 (renal) | ++++ |
-| CONFIRM | Wong | NEJM 2021 | 33657294 | Terlipressina reverte HRS | 7 (reverter) / NNH 11 | ++++- |
+| CONFIRM | Wong | NEJM 2021 | 33657294 | Terlipressina reverte HRS | 7 (reverter) / NNH 12 (resp, corrigido de 11) | ++++- |
 | ANSWER | Caraceni | Lancet 2018 | 29861076 | Albumina longo prazo em ascite | 9 (morte 18m) | ++++- |
 | ATTIRE | China | NEJM 2021 | 33657293 | Albumina em ACLF — **NAO funciona** | infinito | ++++ |
 | Bass | Bass | NEJM 2010 | 20335583 | Rifaximina previne HE recorrente | 4 (HE 6m) | ++++ |
 | Baveno VII | de Franchis | J Hepatol 2022 | 35120736 | Consensus: CSPH, recompensacao; Rule of 5 cACLD->dACLD; NITs (LSM+PLQ); NSBB | — | ++++- |
-| CANONIC | Moreau R, Jalan R, Gines P et al. | Gastroenterology 2013 | [CANDIDATE: 23562128 — VERIFICAR VIA MCP] | ACLF definicao + graus: Grau 1 ~20%, Grau 2 ~30%, Grau 3 >70% mortalidade 28d | — | ++++ |
+| CANONIC | Moreau R, Jalan R, Gines P et al. | Gastroenterology 2013 | **23474284** (corrigido de 23562128 via WebSearch audit 08/mar) | ACLF definicao + graus: Grau 1 ~20%, Grau 2 ~30%, Grau 3 73% mortalidade 28d | — | ++++ |
 
 ## D'Amico Staging — 6 DOIs verificados (PubMed)
 
@@ -187,21 +187,21 @@
 | s-a1-04 | Infeccao = 33% das internacoes | PREDICT study (PMID [CANDIDATE: 32275982 — VERIFICAR VIA MCP]) |
 | s-a1-05 | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
 | s-a1-classify | Carvedilol HR 0,51 (IC 0,26-0,97) descomp/morte; HR 0,44 (IC 0,20-0,97) ascite (3 anos, n=201) | PREDESCI (PMID 30910320) |
-| s-a2-01 | Carvedilol HR 0,51, NNT 9, dose 6,25->12,5 mg | PREDESCI (PMID 30910320) |
+| s-a2-01 | **NSBBs** HR 0,51 (nao carvedilol isolado), NNT 9, dose carvedilol 6,25->12,5 mg | PREDESCI (PMID 30910320) |
 | s-a2-02 | Early TIPS 72h: sobrevida 86% vs 61% | Garcia-Pagan (PMID 20573925) |
 | s-a2-03 | Albumina: Sort NNT 5, ANSWER NNT 9, ATTIRE NNT infinito | PMIDs 10432325, 29861076, 33657293 |
 | s-a2-04 | PBE: PMN >=250 = tratar | EASL CPG 2024 |
-| s-a2-05 | HRS-AKI: terlipressina NNT 7 / NNH 11 | CONFIRM (PMID 33657294) |
+| s-a2-05 | HRS-AKI: terlipressina NNT 7 / NNH 12 (corrigido) | CONFIRM (PMID 33657294) |
 | s-a2-06 | Encefalopatia: rifaximina NNT 4 | Bass (PMID 20335583) |
 | s-a3-01 | Recompensacao: Baveno VII definicao + Tonon 2025 | PMID 35120736 + [TBD] |
-| s-a3-02 | SVR diferente de cura CSPH (53% persistem) | Baveno VII + Lens et al (PMID [CANDIDATE: 28039099 — VERIFICAR VIA MCP]) |
+| s-a3-02 | SVR diferente de cura CSPH (53% persistem) | Baveno VII + Lens S et al J Hepatol 2020 (PMID **32535060**, corrigido de 28039099 via WebSearch audit 08/mar) |
 | s-a3-03 | Vigilancia HCC a cada 6 meses | EASL/AASLD guidelines |
-| s-app-01 | ACLF grau 3: mortalidade 28d >70% | CANONIC (PMID [CANDIDATE: 23562128 — VERIFICAR VIA MCP]) + AASLD ACLF 2024 (PMID [CANDIDATE: 38530940 — VERIFICAR VIA MCP]) |
+| s-app-01 | ACLF grau 3: mortalidade 28d 73% | CANONIC (PMID **23474284**, corrigido) + AASLD ACLF 2024 (PMID [CANDIDATE: 38530940 — VERIFICAR VIA MCP]) |
 | s-app-02 | Early TIPS NNT ~4 | Garcia-Pagan (PMID 20573925) |
 | s-app-03 | Etiologias raras: autoimune, budd-chiari, colestáticas, Wilson | EASL CPG 2024 |
 | s-app-04 | NSBB >= EVL em profilaxia primaria (Turco 2024) | Turco 2024 Liver Int (PMID [CANDIDATE: 38504576 — VERIFICAR VIA MCP]) |
 | s-app-05 | Cardiomiopatia cirrotica: QTc prolongado | Moller et al (PMID 11964606) |
-| s-app-06 | SHP: PaO2 <80 + A-a gradient >15 vs PPH: mPAP >25 | Rodriguez-Roisin 2004 (PMID 15084697) |
+| s-app-06 | SHP: PaO2 **<=80** + A-a gradient **>=15** vs PPH: mPAP >25 (corrigido: <= e >=, nao < e >) | Rodriguez-Roisin 2004 (PMID 15084697) |
 | s-app-07 | Estatina adjuvante: HVPG -2 mmHg | LIVERHOPE (PMID [CANDIDATE — VERIFICAR VIA MCP]) |
 | s-app-08 | CIRROXABAN 2025: p=0,058 NS | CIRROXABAN (PMID [NOT INDEXED — searched 2026-03-07]) |
 
@@ -261,9 +261,9 @@
 | 4 | AGA 2025 Orman — albumin guidance | [NOT INDEXED — searched 2026-03-07] | — | Orman ES, et al. AGA Clinical Practice Update on Albumin in Cirrhosis. Gastroenterology. 2025. | Artigo 2025 — provavelmente nao indexado ainda |
 | 5 | Kuo 2025 — AMR alert rifaximin | [NOT INDEXED — searched 2026-03-07] | — | Kuo [initials TBD], et al. [titulo TBD]. [journal TBD]. 2025. | Artigo 2025 — nao indexado. Provavel alerta AMR/resistencia com rifaximina |
 | 6 | Hofer/Reiberger J Hepatol 2026 — recompensacao | [NOT INDEXED — searched 2026-03-07] | — | Hofer BS, Reiberger T, et al. [titulo TBD]. J Hepatol. 2026. | Artigo 2026 — definitivamente nao indexado ainda |
-| 7 | Lens et al. — CSPH persiste 53% pos-SVR | [CANDIDATE: 28039099] | 10.1016/j.jhep.2016.12.020 | Lens S, Alvarado-Tapias E, Marino Z, et al. Effects of all-oral anti-viral therapy on HVPG and systemic hemodynamics in patients with hepatitis C virus-associated cirrhosis. Gastroenterology. 2017;153(5):1273-1283.e1. | VERIFICAR VIA MCP — nota: pode ser Gastroenterology 2017 nao J Hepatol |
+| 7 | Lens et al. — CSPH persiste 53% pos-SVR | **32535060** (CORRIGIDO 08/mar — PMID antigo 28039099 era paper diferente de 2017) | 10.1016/j.jhep.2020.05.028 | Lens S, et al. J Hepatol 2020;73(6):1415-1424. CSPH persiste em 53% pos-SVR96. | RESOLVIDO via WebSearch |
 | 8 | EASL HCC Guidelines 2025 | [NOT INDEXED — searched 2026-03-07] | — | European Association for the Study of the Liver. EASL Clinical Practice Guidelines: management of hepatocellular carcinoma. J Hepatol. 2025. | Guideline 2025 — verificar se ja publicada e indexada |
-| 9 | CANONIC — Moreau et al. 2013 ACLF | [CANDIDATE: 23562128] | 10.1053/j.gastro.2013.02.042 | Moreau R, Jalan R, Gines P, et al. Acute-on-chronic liver failure is a distinct syndrome that develops in patients with acute decompensation of cirrhosis. Gastroenterology. 2013;144(7):1426-1437.e9. | VERIFICAR VIA MCP |
+| 9 | CANONIC — Moreau et al. 2013 ACLF | **23474284** (CORRIGIDO 08/mar — 23562128 era PMID errado) | 10.1053/j.gastro.2013.02.042 | Moreau R, Jalan R, Gines P, et al. Gastroenterology 2013;144(7):1426-1437. ACLF grau 3: 73% mortalidade 28d. | RESOLVIDO via WebSearch |
 | 10 | AASLD ACLF 2024 | [CANDIDATE: 38530940] | — | Bajaj JS, O'Leary JG, Lai JC, et al. Acute-on-Chronic Liver Failure Clinical Guidelines. Hepatology. 2024. | VERIFICAR VIA MCP — pode ser Practice Guidance nao CPG |
 | 11 | Turco 2024 Liver Int — NSBB vs EVL IPD meta-analysis | [CANDIDATE: 38504576] | — | Turco L, Reiberger T, Guyatt G, et al. Non-selective beta-blockers versus endoscopic band ligation for primary prophylaxis of variceal bleeding: an individual patient data meta-analysis. Liver Int. 2024. | VERIFICAR VIA MCP |
 | 12 | Ewid 2025 — meta-analise 76 estudos CCM | [NOT INDEXED — searched 2026-03-07] | — | Ewid M, et al. [titulo TBD — meta-analise cardiomiopatia cirrotica]. [journal TBD]. 2025. | Artigo 2025 — provavelmente nao indexado |
@@ -281,12 +281,23 @@
 
 | Status | Quantidade | Itens |
 |--------|-----------|-------|
-| CANDIDATE — verificar via MCP | 7 | #1, #7, #9, #10, #11, #13, #20 |
+| CANDIDATE — verificar via MCP | 5 | #1, #10, #11, #13, #20 |
+| RESOLVIDO via WebSearch (08/mar) | 2 | #7 (Lens → 32535060), #9 (CANONIC → 23474284) |
 | NOT INDEXED — artigo 2025/2026 | 12 | #3, #4, #5, #6, #8, #12, #15, #16, #17, #18, #19, #21 |
 | FONTE NAO IDENTIFICADA | 1 | #2 (PPI HR 1,75 PBE) |
 | NAO ENCONTRADO | 1 | #14 (Skouloudi 2023) |
 
 ---
+
+## Novas referencias adicionadas — audit 08/mar/2026
+
+| Paper | PMID | Journal/Ano | Dado-chave | Status |
+|-------|------|-------------|-----------|--------|
+| Arroyo V, Gines P, Gerbes AL et al. (ICA) | **8550036** | Hepatology 1996 | Ascite refrataria: definicao canonica. Diuretico-resistente vs diuretico-intratavel. Espironolactona 400mg + furosemida 160mg >= 1 semana. | VERIFICADO via WebSearch |
+| Meta-analise CCM — Ann Saudi Med 2025 | [TBD — buscar PMID] | Ann Saudi Med 2025 | CCM prevalencia pooled **48% (IC 95% 44-52%)**. Criterios Montreal 2005. | VERIFICADO via WebSearch |
+| Lens S et al. — CSPH pos-SVR | **32535060** | J Hepatol 2020 | CSPH persiste em **53%** dos pacientes SVR96. PMID corrigido de 28039099. | VERIFICADO via WebSearch |
+| CANONIC — Moreau R et al. | **23474284** | Gastroenterology 2013 | ACLF graus. Grau 3: 73% mortalidade 28d. PMID corrigido de 23562128. | VERIFICADO via WebSearch |
+| Angeli P et al. (ICA HRS update) | **31302175** | J Hepatol 2019 | HRS-AKI criterios atualizados. ICA/ADQI. | VERIFICAR VIA MCP |
 
 ## Notion References DB
 
