@@ -126,3 +126,9 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-08 17:10] [Explore:a661c947] — concluído. Status: PASS
 
 [2026-03-08 17:10] [Explore:af10c0c1] — concluído. Status: PARTIAL
+
+[2026-03-08 18:13] [:a8ea7115] — concluído. Status: PARTIAL
+
+[2026-03-08 18:23] [general-purpose:a8cd0e0e] — concluído. Status: PARTIAL
+
+[2026-03-08 18:24] [general-purpose:a317b384] — concluído. Status: PARTIAL
