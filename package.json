@@ -40,6 +40,7 @@
     "vite": "^6.0.0"
   },
   "dependencies": {
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "reveal.js": "^5.2.1"
   }
 }
