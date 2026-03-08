@@ -31,15 +31,14 @@
 | MELD-Na | ~10 (inicial) | "Lembrem desse número. Vai mudar." |
 | LSM (Checkpoint 1) | 21 kPa | PLQ 118k → cACLD confirmada, estadiar CSPH |
 
-> **[LUCAS DECIDE]** Divergência de PLQ no CP1: baseline é 112k; CLAUDE.md cita PLQ 118k no CP1
-> (provável evolução leve entre baseline e elastografia). Verificar qual valor o manifest deve usar.
-> Atualmente `_manifest.js` panelStates['s-cp1'].values.plq = '112k' (baseline, não atualizado para CP1).
+> **[RESOLVIDO 2026-03-08]** PLQ evolui de 112k (baseline) → 118k (CP1).
+> `_manifest.js` panelStates['s-cp1'].values.plq = '118k' — sincronizado.
 
 ## Evolução do Caso (Panel States)
 
 ### Checkpoint 1 (s-cp1) — Caution
 - LSM: 21 kPa
-- PLQ: 118k (ver nota [LUCAS DECIDE] acima)
+- PLQ: 118k (evolução do baseline 112k)
 - MELD-Na: ~10
 - Estado: cACLD → CSPH confirmada
 

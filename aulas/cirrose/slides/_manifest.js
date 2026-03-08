@@ -21,6 +21,8 @@ export const slides = [
   { id: 's-cp1', file: '07-cp1.html', act: 'CP', archetype: 'checkpoint', sectionTag: null, headline: 'LSM 21 kPa, plaquetas 118k. Como voce estadia?', panelState: 'caution', clickReveals: 3, customAnim: null, timing: 180 },
 
   // ── Act 2: INTERVIR ──
+  // panelState: null = herda último estado registrado (case-panel.js findLatestState)
+  // A2 herda 'caution' do CP1; A3 herda 'danger' do CP2
   { id: 's-a2-01', file: '08-a2-carvedilol.html', act: 'A2', archetype: 'metrics', sectionTag: 'ATO 2 — INTERVIR', headline: 'Carvedilol previne a primeira descompensacao — comece antes da ascite', panelState: null, clickReveals: 3, customAnim: null, timing: null },
   { id: 's-a2-02', file: '09-a2-tips.html', act: 'A2', archetype: 'timeline', sectionTag: 'ATO 2 — INTERVIR', headline: 'Early TIPS salva vidas no sangramento varicoso', panelState: null, clickReveals: 0, customAnim: null, timing: null },
   { id: 's-a2-03', file: '10-a2-albumina.html', act: 'A2', archetype: 'cards', sectionTag: 'ATO 2 — INTERVIR', headline: 'Albumina: 3 indicacoes certas, 1 armadilha — repor, nao normalizar', panelState: null, clickReveals: 0, customAnim: null, timing: null },
@@ -31,6 +33,7 @@ export const slides = [
   { id: 's-cp2', file: '14-cp2.html', act: 'CP', archetype: 'checkpoint', sectionTag: null, headline: 'Cr 2,8 + Na 126 + ascite tensa. HRS-AKI? O que voce faz?', panelState: 'danger', clickReveals: 0, customAnim: null, timing: 180 },
 
   // ── Act 3: REVERTER ──
+  // panelState: null = herda 'danger' do CP2
   { id: 's-a3-01', file: '15-a3-recompensacao.html', act: 'A3', archetype: 'criteria', sectionTag: 'ATO 3 — REVERTER', headline: 'Recompensacao e real — e Baveno VII a definiu', panelState: null, clickReveals: 0, customAnim: null, timing: null },
   { id: 's-a3-02', file: '16-a3-svr.html', act: 'A3', archetype: 'compare', sectionTag: 'ATO 3 — REVERTER', headline: 'SVR cura o virus mas nao a hipertensao portal — CSPH persiste em 53%', panelState: null, clickReveals: 0, customAnim: null, timing: null },
   { id: 's-a3-03', file: '17-a3-vigilancia.html', act: 'A3', archetype: 'surveillance', sectionTag: 'ATO 3 — REVERTER', headline: 'Vigilancia a cada 6 meses — nunca dar alta, mesmo apos "cura"', panelState: null, clickReveals: 0, customAnim: null, timing: null },
