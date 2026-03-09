@@ -4,10 +4,11 @@
 
 ---
 
-## Estado atual — 2026-03-08
+## Estado atual — 2026-03-08 (final de sessão)
 
-**Slides atuais:** 28 buildados (Act 2 com 7 slides ANTIGOS) · **Build:** ✅ · **Lint:** ✅
+**Slides atuais:** 33 buildados (Act 2 com 7 slides ANTIGOS) · **Build:** ✅ · **Lint:** ✅
 **Arquitetura aprovada:** Act 2 com 16 slides + CP2 (cascata clínica). Docs alinhados. HTMLs pendentes.
+**P0 audit:** ZERO bloqueadores. Todos PMIDs Tier-1 verificados. Data consistency OK.
 
 ---
 
@@ -23,16 +24,31 @@ RAW_ACT2_V2.md produzido e commitado. narrative.md atualizado com arquitetura de
 - CASE.md — 3 checkpoints canônicos. MELDs intermediários NÃO entram aqui (são narrativos)
 - RAW_ACT2_V2.md — Detalhamento por slide com magic numbers auditados
 
+### ✅ DONE: PMIDs e referências P0
+
+- medical-data.md: ANSWER 29793859→29861076, CONFIRM 34882432→33657294
+- evidence-db.md: Tonon 2025 PMID 40228583 (era NOT INDEXED), Ioannou clarificado (pós-HCC vs incidência)
+- Todos PMIDs Tier-1 cross-verified entre medical-data.md e evidence-db.md
+- ERROR-LOG: ERRO-025/026/027 registrados e corrigidos
+
 ### P1 ATUAL: Implementar Act 2 no código
 
-1. Criar HTMLs para slides NOVOS: Gatilhos, Ascite dx, Ascite manejo, Nutrição, MELD>15, Ascite refratária
-2. Mover CCM (s-app-05) e SHP/PPH (s-app-06) para Act 2
+1. Criar HTMLs para slides NOVOS: Gatilhos (A2-01), Ascite dx (A2-02), Ascite manejo (A2-03), Nutrição (A2-09), MELD>15 (A2-10), Ascite refratária (A2-12)
+2. Mover CCM (s-app-05) → A2-13 e SHP/PPH (s-app-06) → A2-14
 3. Reestruturar s-a2-02 (TIPS → A2-15), s-a2-01 (carvedilol → A2-07 profilaxia secundária)
 4. Reestruturar s-a2-03 (albumina standalone → distribuída + apêndice consolidado)
 5. Reestruturar s-a2-05 (HRS → A2-11 com HRS-AKI liderando, ACLF como contexto)
 6. Atualizar `_manifest.js` com novos IDs, ordem, panelStates narrativos
 7. Verificar 5 PMIDs CANDIDATE via PubMed MCP
 8. Resolver [TBD SOURCE]: sarcopenia, covert HE, centros TIPS, ESPEN 2019, QTc threshold
+9. Resolver [TBD] HR PPI em s-a1-infeccao.html (único [TBD] em conteúdo visível de slide)
+
+### P1.5: Produzir RAW_ACT3_V1
+
+- Research completo (agent concluiu pesquisa): Tonon 2025 PMID 40228583, Hofer 2026, Lackner 2022, Ioannou 31356807
+- Documento RAW_ACT3_V1.md pendente de escrita
+- 5 slides: recompensação strict vs expanded, SVR ≠ cura hemodinâmica, vigilância, CP3, close
+- Act 3 = cenário HIPOTÉTICO (decisão travada)
 
 ### P2: QA
 
@@ -40,6 +56,7 @@ RAW_ACT2_V2.md produzido e commitado. narrative.md atualizado com arquitetura de
 2. h2 assertivos decididos (Lucas vê no browser → decide)
 3. OKLCH, rename, failsafe fixes
 4. Rehearsal cronometrado (meta: Act 2 em 45 min)
+5. ERRO-022 (s-a1-vote interação não testada) e ERRO-023 (failsafes .no-js)
 
 ---
 
@@ -74,7 +91,26 @@ Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 - CASE.md Chekhov's Guns: IDs de slides serão atualizados quando novos HTMLs forem criados
 - evidence-db.md "Dados por Slide": mapeamento para IDs antigos, atualizar junto com HTMLs
 - Verificar ANVISA para rifaximina 550mg (Xifaxan)
-- ~~Corrigir medical-data.md: ANSWER PMID 29793859→29861076~~ — RESOLVIDO (+ CONFIRM 34882432→33657294)
+- ~~medical-data.md PMIDs~~ — RESOLVIDO (ANSWER + CONFIRM corrigidos)
+
+---
+
+## Referências cruzadas (para próximo agente)
+
+| O quê | Onde |
+|-------|------|
+| Dados do paciente | `references/CASE.md` (#1 autoridade) |
+| Trials e PMIDs | `references/evidence-db.md` (#2 autoridade) |
+| Arco narrativo + pacing | `references/narrative.md` (#3 autoridade) |
+| Ordem dos slides | `slides/_manifest.js` (#4 autoridade) |
+| Blueprint Act 2 detalhado | `RAW_ACT2_V2.md` |
+| Regras operacionais | `CLAUDE.md` (cirrose) |
+| Design tokens | `.claude/rules/design-system.md` |
+| Erros e prevenção | `ERROR-LOG.md` (27 erros, 24 corrigidos) |
+| Lições aprendidas | `tasks/lessons.md` |
+| Histórico de batches | `CHANGELOG.md` |
+| PMIDs Tier-1 verificados | `.claude/rules/medical-data.md` |
+| Cross-references docs | `docs/XREF.md` |
 
 ---
 
