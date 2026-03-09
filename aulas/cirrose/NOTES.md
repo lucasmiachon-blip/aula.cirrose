@@ -144,3 +144,19 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-09 19:05] [BUILD] OK — cd "C:/Dev/Projetos/aulas-magnas" && npm run build:cirrose 2>&1 | tail -3 && npm run lint:slides 2>&1 | tail -3
 
 [2026-03-09 19:20] [:a7ad0720] — concluído. Status: PARTIAL
+
+[2026-03-09 19:29] [Explore:abec8cd0] — concluído. Status: PARTIAL
+
+[2026-03-09 19:30] [Explore:a4919555] — concluído. Status: PARTIAL
+
+[2026-03-09 19:31] [Explore:afc61735] — concluído. Status: PASS
+
+[2026-03-09 19:48] [BUILD] OK — npm run build:cirrose 2>&1
+
+[2026-03-09 20:19] [BUILD] OK — cat aulas/cirrose/scripts/build-html.ps1
+
+[2026-03-09 20:20] [Explore:a13ac022] — concluído. Status: PASS
+
+[2026-03-09 20:21] [Explore:a24e030b] — concluído. Status: PARTIAL
+
+[2026-03-09 20:21] [Explore:ab94c9c4] — concluído. Status: PASS
