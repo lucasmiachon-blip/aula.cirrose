@@ -9,6 +9,8 @@
 **Slides atuais:** 33 buildados (Act 2 com 7 slides ANTIGOS) · **Build:** ✅ · **Lint:** ✅
 **Arquitetura aprovada:** Act 2 com 16 slides + CP2 (cascata clínica). Docs alinhados. HTMLs pendentes.
 **P0 audit:** ZERO bloqueadores. Todos PMIDs Tier-1 verificados. Data consistency OK.
+**MD audit:** 14 fixes em 11 arquivos (commit c1f220d). -64 linhas de cruft. Cross-check CASE↔evidence-db↔narrative PASS.
+**Act 3 contract:** `ACT3-CONTRACT-V1.md` — 7 slides, 9 PMIDs, Baveno VII estrito como canônico. Pronto para RAW_ACT3_V1.
 
 ---
 
@@ -45,10 +47,18 @@ RAW_ACT2_V2.md produzido e commitado. narrative.md atualizado com arquitetura de
 
 ### P1.5: Produzir RAW_ACT3_V1
 
-- Research completo (agent concluiu pesquisa): Tonon 2025 PMID 40228583, Hofer 2026, Lackner 2022, Ioannou 31356807
-- Documento RAW_ACT3_V1.md pendente de escrita
-- 5 slides: recompensação strict vs expanded, SVR ≠ cura hemodinâmica, vigilância, CP3, close
+- **ACT3-CONTRACT-V1.md** commitado — contrato narrativo com 9 PMIDs e arquitetura de 7 slides
+- Bridge slide: ascite como 1ª descompensação → cura etiológica (PMID 37190823, HR 0,46/0,35)
+- Baveno VII estrito = canônico. Expandido = nuance de pesquisa, rotulado.
+- Proibições: TIPS ≠ recompensação, alta de vigilância HCC, headline genérica
+- Prompt pronto para Opus no contrato
 - Act 3 = cenário HIPOTÉTICO (decisão travada)
+
+### AMANHÃ (09/mar) — Plano de sessão
+
+1. **RAW_ACT3_V1** — usar prompt do ACT3-CONTRACT-V1.md para produzir o documento
+2. **QA Act 1** — slides do bloco 1 no browser, Lucas decide h2s, qa-engineer 13 critérios
+3. **Notion sync** — rodar em paralelo (precisa Cursor ou MCP Notion ativo)
 
 ### P2: QA
 
