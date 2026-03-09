@@ -3,7 +3,7 @@
 > Mapa narrativo para coding agents. Cada slide tem um PROPÓSITO emocional.
 > Sem este contexto, refatorar = destruir pacing.
 > Coautoria: Lucas (narrativa clinica) · ChatGPT 5.4 Pro (draft dramatico) · Opus 4.6 (governance fields)
-> Atualizado: 08/mar/2026 — Ato 2 reescrito (RAW_ACT2_V2). Cascata clínica do mesmo paciente.
+> Atualizado: 09/mar/2026 — Ato 3 expandido (3→7 slides, RAW_ACT3_V1). Ato 2 reescrito (RAW_ACT2_V2).
 > Fonte: Bíblia Narrativa (Notion — ver `docs/SYNC-NOTION-REPO.md`)
 
 ## Premissa
@@ -134,22 +134,32 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **MELD intermediários são construções narrativas:**
   Valores canônicos: ~10 (CP1), 28 (CP2), 12 (CP3). Os valores 12→14→17→18→28→24 são clinicamente plausíveis mas não derivados de dados. Cada salto tem justificativa clínica documentada em RAW_ACT2_V2.md.
 
-### ATO 3 — REVERTER (cenário hipotético)
+### ATO 3 — REVERTER (cenário hipotético, slides 27-36)
 
-> **Ato 3 é "o que poderia ser", não continuação direta do caso.** O CP2 fechou o caso real (Antônio listado, vivo, 4 complicações tratadas). O Ato 3 mostra a melhor trajetória possível: abstinência + SVR + recompensação. Alinhado com Sparkline de Duarte (contraste realidade × possibilidade). Numeração de slides será definida quando HTMLs forem criados.
+> **Ato 3 é "o que poderia ser", não continuação direta do caso.** O CP2 fechou o caso real (Antônio listado, vivo, 4 complicações tratadas). O Ato 3 mostra a melhor trajetória possível: abstinência + SVR + recompensação. Alinhado com Sparkline de Duarte (contraste realidade × possibilidade).
+> Reescrito 09/mar/2026 — expandido de 3 para 7 slides baseado em RAW_ACT3_V1.md. PMIDs verificados via WebSearch.
 
-| Slide | Headline | Propósito narrativo | Tensão |
-|-------|----------|---------------------|--------|
-| s-a3-01 | Recompensação é real — Baveno VII a definiu | **Virada**: esperança com base científica | ●●○○○ |
-| s-a3-02 | SVR cura o vírus mas não a CSPH — 53% persistem | **Nuance**: cura viral ≠ cura hemodinâmica | ●●●○○ |
-| s-a3-03 | Vigilância cada 6 meses — nunca dar alta | Responsabilidade permanente | ●●○○○ |
-| s-cp3 | SVR + abstinência, LSM 32→18. Recompensou? | **CHECKPOINT 3**: resolução hipotética. MELD 12. | ●○○○○ |
-| s-close | 5 números classificaram. 3 decisões salvaram. | **Desfecho**: callback ao hook, promessa cumprida | ○○○○○ |
+| # | Slide | Headline | Propósito narrativo | Tensão |
+|---|-------|----------|---------------------|--------|
+| 27 | s-a3-01 | Após ascite como 1ª descompensação, cura etiológica reduziu nova decomp (HR 0,46) e mortalidade (HR 0,35) | **Bridge**: transição do nadir. Cenário contrafactual. Tonon 2023 PMID 37190823. | ●●○○○ |
+| 28 | s-a3-02 | Recompensação estrita: só 7% preencheram Baveno VII em coorte de 2025 | **Barra alta**: esperança com freio. Tonon 2025 PMID 40228583. Baveno VII PMID 36646527. | ●●○○○ |
+| 29 | s-a3-03 | Critério expandido ampliou o grupo para 37,6% — sem pior prognóstico na coorte de validação | **Nuance**: pesquisa vs consenso. Tonon 2025 PMID 40228583. | ●●○○○ |
+| 30 | s-a3-04 | A chance de recompensar muda com a etiologia: HBV >50%, HCV ~37%, álcool menor | **Etiologia importa**: HCV PMID 40378989, HBV PMID 36038017, álcool [TBD SOURCE]. | ●●○○○ |
+| 31 | s-a3-05 | CSPH persistiu em 53% após SVR — descompensação pode desaparecer antes da HP | **Cura ≠ normalização**: Lens 2020 PMID 32535060. 3 colunas: melhora/persiste/vigília. | ●●●○○ |
+| 32 | s-a3-06 | Cirrose rastreada a cada 6 meses: US + AFP semestral — nunca dar alta | **Vigilância vitalícia**: AASLD 2023 PMID 37199193. HCC não reduziu nos recompensados. | ●●○○○ |
+| 33 | s-a3-07 | Recompensação é estado de menor risco — não certificado de cura estrutural | **Fechamento Ato 3**: síntese. TIPS ≠ recompensação. Esperança + vigilância. | ●○○○○ |
+| 34 | s-cp3 | SVR + abstinência, LSM 32→18. Recompensou? | **CHECKPOINT 3**: resolução hipotética. MELD 12. | ●○○○○ |
+| 35 | s-close | 5 números classificaram. 3 decisões salvaram. | **Desfecho**: callback ao hook, promessa cumprida | ○○○○○ |
 
 - **Panel:** danger → hope (CP3) → resolved (close, com timeline)
-- **Arc:** Descompressão. De angústia → esperança fundamentada → resolução.
+- **Arc:** Descompressão em 3 fases:
+  - A3-01→A3-02: virada + definição (bridge + barra alta)
+  - A3-03→A3-05: nuance (expandido + etiologia + CSPH persistente)
+  - A3-06→A3-07: fechamento (vigilância + síntese)
+  - CP3: resolução hipotética
 - **s-close beat:** Eco do hook. "5 números... 3 decisões..." fecha o anel narrativo.
 - **Hipotético:** O Ato 3 assume que Antônio aderiu ao tratamento, ficou abstinente, e teve SVR. Não é o que "aconteceu" — é o que a evidência mostra que poderia acontecer.
+- **PMIDs verificados 09/mar:** 37190823, 40228583, 36646527, 40378989, 36038017, 32535060, 37199193. Dois não verificados: 41580090 (álcool), 39220088 (TIPS ≠ recomp).
 
 ### APÊNDICE
 
