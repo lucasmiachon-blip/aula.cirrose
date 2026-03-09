@@ -182,10 +182,10 @@
 | s-a1-01 | Further decomp: ~60% progridem, dobra mortalidade | D'Amico 2024 (PMID 37916970) |
 | s-a1-01 | HVPG non-response prediz further decomp | Garcia-Guix 2024 (PMID 38634685) |
 | s-a1-01 | Continuum compensada -> descomp -> further decomp -> recompensacao | Villanueva 2025 fig1 + D'Amico 2024 |
-| s-a1-02 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
-| s-a1-03 | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
-| s-a1-04 | Infeccao = 33% das internacoes | PREDICT study (PMID [CANDIDATE: 32275982 — VERIFICAR VIA MCP]) |
-| s-a1-05 | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
+| s-a1-fib4 / s-a1-rule5 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
+| s-a1-meld | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
+| s-a2-infec | Infeccao = 33% das internacoes | PREDICT study (PMID [CANDIDATE: 32275982 — VERIFICAR VIA MCP]) |
+| s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
 | s-a1-classify | Carvedilol HR 0,51 (IC 0,26-0,97) descomp/morte; HR 0,44 (IC 0,20-0,97) ascite (3 anos, n=201) | PREDESCI (PMID 30910320) |
 | s-a2-01 | **NSBBs** HR 0,51 (nao carvedilol isolado), NNT 9, dose carvedilol 6,25->12,5 mg | PREDESCI (PMID 30910320) |
 | s-a2-02 | Early TIPS 72h: sobrevida 86% vs 61% | Garcia-Pagan (PMID 20573925) |

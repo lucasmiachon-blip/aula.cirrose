@@ -161,56 +161,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-## Raw code — sessão s-hook v5 (28/fev)
-
-### slide-registry.js — s-hook: 2 beats, retreatBeat, resetBeat1Content
-
-```javascript
-// advanceBeat: prev→next, gsap.set(next, { opacity: 0 }), runLabsStagger imediato
-// retreatBeat: curr→prev, resetBeat1Content no onComplete, fromTo overwrite: 'auto'
-// resetBeat1Content: gsap.set(labs, lead, question, { opacity: 0, visibility: 'hidden' })
-```
-
-### cirrose.css — s-hook v5
-
-```css
-/* Beat 1: invisível até animação */
-.hook-beat[data-hook-beat="1"] .hook-lab,
-.hook-beat[data-hook-beat="1"] .hook-question-lead,
-.hook-beat[data-hook-beat="1"] .hook-question {
-  opacity: 0;
-  visibility: hidden;
-}
-/* + failsafe .no-js override para visibility: visible */
-```
-
-### index.template.html — ordem de init
-
-```javascript
-wireAll(Reveal, gsap, { anim, CasePanel, ClickReveal, MeldCalc });
-anim.connect();  // antes: connect antes de wireAll
-```
-
-### preview.html — fix beat 0/beat 1 (DOM local)
-
-```javascript
-// Pós-connect: aplicar beat estático para s-hook quando ?beat= presente
-if (section?.id === 's-hook' && beatParam !== null) {
-  const idx = parseInt(beatParam, 10);
-  beats.forEach((b, i) => { ... hook-beat--active/hidden ... });
-  if (idx === 1) { labs/lead/question opacity:1 visibility:visible; fib4 textContent }
-}
-```
-
-### 01-hook.html — estrutura v5
-
-- 2 beats: beat 0 (Antônio+história), beat 1 (labs + pergunta abaixo)
-- Sem header/título
-- "Antônio" (sem "Seu")
-- "Caminhoneiro" (sem "de longa distância")
-- "Qual a próxima conduta?"
-
----
+*Raw code s-hook v5 (28/fev) removido — snippets nos source files + git history (commit 2c116b1)*
 
 ---
 

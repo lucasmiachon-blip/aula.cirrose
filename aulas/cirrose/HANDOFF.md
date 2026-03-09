@@ -84,14 +84,16 @@ Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 
 - **ERRO-008** — Case panel redundante em s-hook
 - ~~**D'Amico estádio 5**~~ — RESOLVIDO
+- **Orphan:** `03c-a1-elasto.html` no disco, fora do manifest (fundido em s-a1-baveno). Deletar ou manter como referência?
 - 20 referências [TBD] — 5 CANDIDATE, 11 NOT INDEXED (2025-2026), 3 resolvidos (Tonon PMID 40228583), 1 fonte não identificada, 1 não encontrado
 - CTP interobserver variability — PMID 6546609 ou 16305721
 - Pre-commit hook wiring pendente
 - 6 h2 do Act 1 pendentes de decisão do Lucas
 - CASE.md Chekhov's Guns: IDs de slides serão atualizados quando novos HTMLs forem criados
-- evidence-db.md "Dados por Slide": mapeamento para IDs antigos, atualizar junto com HTMLs
+- ~~evidence-db.md "Dados por Slide": mapeamento para IDs antigos~~ — RESOLVIDO 08/mar (Act 1 IDs atualizados: s-a1-fib4, s-a1-meld, s-a2-infec, s-app-etio)
 - Verificar ANVISA para rifaximina 550mg (Xifaxan)
 - ~~medical-data.md PMIDs~~ — RESOLVIDO (ANSWER + CONFIRM corrigidos)
+- **⚠ COLISÃO DE IDs Act 2:** narrative.md define s-a2-01→s-a2-15 (16 slides novos). _manifest.js usa s-a2-01→s-a2-06 para slides ANTIGOS. Ao criar HTMLs novos, IDs antigos serão reassignados. Qualquer grep/script que referencia IDs atuais do Act 2 vai quebrar. Planejar migração antes de criar HTMLs.
 
 ---
 

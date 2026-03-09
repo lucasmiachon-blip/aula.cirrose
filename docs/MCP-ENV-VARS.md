@@ -1,8 +1,8 @@
 # Variáveis de Ambiente para MCPs (aulas-magnas)
 
-**Template:** copie `.env.example` para `.env` e preencha os valores.
+**Template:** defina as variáveis de ambiente do usuário (sysdm.cpl → Variáveis de Ambiente).
 
-O Cursor lê `${VAR}` do mcp.json a partir das variáveis de ambiente. No Windows, a forma mais confiável é definir nas **variáveis de ambiente do usuário** (sysdm.cpl → Variáveis de Ambiente).
+O Cursor lê `${VAR}` do mcp.json a partir dessas variáveis.
 
 ---
 

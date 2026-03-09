@@ -90,7 +90,7 @@ TAREFA                          → MODELO                    RAZÃO
 Design do slide (do zero)       → Opus 4.6 (chat)           GPQA 91.3%, arquitetura
 Spec clínica / evidence         → Opus 4.6 + Perplexity     Clinical Sanctity rule
 HTML do slide (constraints)     → Claude Code (Sonnet 4.6)  Melhor em seguir assertion-evidence + archetypes
-CSS fix / debug layout          → Gemini 2.5 Flash          236 tok/s · $0.30/M · rápido
+CSS fix / debug layout          → Gemini 3.1 Flash-Lite     rápido, alinhado com ECOSYSTEM.md
 GSAP animation debug            → Gemini 3.1 Pro            SWE 80.6%, 1M ctx
 Motion QA (vídeo .mp4)          → Gemini 3.1 Pro            VideoMME 84.8%, multimodal
 Browser automation / QA         → ChatGPT Agent (GPT-5.4)   OSWorld 75% > humano

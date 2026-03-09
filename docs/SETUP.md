@@ -158,7 +158,7 @@ Nada a configurar — funciona ao abrir o projeto.
 | Arquivo | Claude Desktop | Claude Code CLI | Cursor |
 |---------|---------------|----------------|--------|
 | `CLAUDE.md` | ✅ | ✅ | ❌ |
-| `AGENTS.md` | ❌ | ❌ (via @import) | ✅ |
+| `CLAUDE.md` | ✅ | ✅ | ✅ (via .cursor/rules) |
 | `.claude/rules/*.md` | ✅ | ✅ | ❌ |
 | `.claude/skills/*/SKILL.md` | ✅ | ✅ | ❌ |
 | `.claude/commands/*.md` | ❌ | ✅ (slash commands) | ❌ |
@@ -181,7 +181,7 @@ Nada a configurar — funciona ao abrir o projeto.
 → **Cursor** com os .mdc rules
    - Abre o projeto, rules carregam automaticamente
    - MCP: Playwright para screenshots, PubMed para referências
-   - AGENTS.md como contexto global
+   - CLAUDE.md como contexto global (absorveu AGENTS.md)
 
 ### Para tarefas complexas de código
 → **Claude Code CLI** (terminal)

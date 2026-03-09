@@ -9,12 +9,12 @@
 ## Benchmarks — Março 2026
 
 > Fontes: [WebDev Arena](https://web.lmarena.ai/leaderboard) · [NxCode](https://www.nxcode.io) · [VentureBeat](https://venturebeat.com) · [Vellum](https://www.vellum.ai/blog/claude-opus-4-6-benchmarks)
-> ⚠️ **Gemini 3 Pro preview encerra 9 mar 2026** → usar Gemini 3.1 Pro ($2/M, mesmo preço)
+> ✅ **Gemini 3 Pro preview encerrado 9 mar 2026** → migrado para Gemini 3.1 Pro ($2/M, mesmo preço)
 
 | Modelo | WebDev Arena (Elo) | SWE-bench Verified | GPQA Diamond | OSWorld | Destaque |
 |--------|-------------------|--------------------|--------------|---------|---------|
 | **Gemini 3.1 Pro** | APEX Agents #1 | 80.6% | **94.3%** | — | ARC-AGI-2 77.1% (2× 3 Pro) · LiveCode Elo 2887 · SVG animado |
-| ~~**Gemini 3 Pro**~~ | ~~1487 #1~~ | ~~76.2%~~ | — | — | ⚠️ **Encerra 9 mar 2026** → migrar para 3.1 Pro |
+| ~~**Gemini 3 Pro**~~ | ~~1487 #1~~ | ~~76.2%~~ | — | — | ❌ **Encerrado 9 mar 2026** — usar 3.1 Pro |
 | **Gemini 3 Flash** | 1416 (#8, ↑↑↑) | **78%** (> 3 Pro) | 90.4% | — | 3× mais rápido · $0.50/M · SWE > Pro |
 | **Gemini 3.1 Flash-Lite** | — | — | 86.9% | — | 382 tok/s · $0.25/M input · 2.5× faster TTFA vs 2.5 Flash · lançado 3 mar 2026 |
 | **Claude Opus 4.6** | — | 80.8% | 91.3% | 72.7% | τ²-bench Telecom 99.3% · MRCR 76% · 1M ctx |

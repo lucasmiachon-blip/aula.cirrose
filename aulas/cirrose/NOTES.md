@@ -51,10 +51,10 @@
 
 ## [03/03] Referências [TBD] — 21 itens
 
-7 CANDIDATE (verificar via PubMed MCP):
+5 CANDIDATE restantes (verificar via PubMed MCP):
 1. PREDICT (Trebicka) — PMID 32275982
-2. Lens CSPH SVR — PMID 28039099
-3. CANONIC (Moreau) — PMID 23562128
+2. ~~Lens CSPH SVR — PMID 28039099~~ → **RESOLVIDO 08/mar: PMID 32535060**
+3. ~~CANONIC (Moreau) — PMID 23562128~~ → **RESOLVIDO 08/mar: PMID 23474284**
 4. AASLD ACLF 2024 — PMID 38530940
 5. Turco 2024 NSBB — PMID 38504576
 6. Izzy 2020 CCC — PMID 31342533
@@ -62,7 +62,7 @@
 
 12 NOT INDEXED (artigos 2025-2026): Mahmud ACG 2025, AGA 2025 Orman, Kuo 2025 AMR, Hofer/Reiberger 2026, EASL HCC 2025, Ewid 2025 CCM, Skouloudi 2023 GLS, Verstraeten 2025, DuBrock ILTS 2025, Alvarado-Tapias 2025, Pose JAMA 2025, Puente 2025 CIRROXABAN.
 
-2 especiais: PPI HR 1,75 PBE (FONTE NÃO IDENTIFICADA — escalar para Lucas), Tonon 2025 recompensação (NOT INDEXED).
+2 especiais: PPI HR 1,75 PBE (FONTE NÃO IDENTIFICADA — escalar para Lucas), ~~Tonon 2025~~ → **RESOLVIDO: PMID 40228583**.
 
 ---
 
@@ -70,7 +70,7 @@
 
 - **s-a1-01 (Burden)**: state machine 3 estados — hero countUp → iceberg bars → source
 - **s-a1-damico**: state machine 4 estados — 4 stages → 5º bloco → overlay → source
-- **s-a1-02 (Paradigma)**: state machine 4 estados — SplitText dissolve → espectro → Rule-of-5 → Antônio plotado → source
+- **~~s-a1-02~~ → s-a1-baveno + s-a1-rule5**: mega-slide eliminado e distribuído (05/mar)
 - Padrão: `__hookAdvance` / `__hookRetreat`, SplitText importado
 - Failsafe: .no-js, .stage-bad, @media print — tudo visível
 
@@ -123,20 +123,4 @@ ICMJE, COPE, JAMA, NEJM, Lancet: **AI não pode ser autor/coautor.**
 Disclosure obrigatório em Acknowledgments (final), nunca na linha de autoria.
 Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 
-[2026-03-08 17:10] [Explore:a661c947] — concluído. Status: PASS
-
-[2026-03-08 17:10] [Explore:af10c0c1] — concluído. Status: PARTIAL
-
-[2026-03-08 18:13] [:a8ea7115] — concluído. Status: PARTIAL
-
-[2026-03-08 18:23] [general-purpose:a8cd0e0e] — concluído. Status: PARTIAL
-
-[2026-03-08 18:24] [general-purpose:a317b384] — concluído. Status: PARTIAL
-
-[2026-03-08 18:51] [BUILD] OK — cd C:/Users/LM/Dev/Aulas && npm run build:cirrose 2>&1
-
-[2026-03-08 21:11] [general-purpose:aedfdeda] — concluído. Status: PARTIAL
-
-[2026-03-08 21:13] [:a8c2b144] — concluído. Status: PARTIAL
-
-[2026-03-08 21:16] [BUILD] OK — cd C:/Users/LM/Dev/Aulas && npm run build:cirrose 2>&1
+*Agent logs 08/mar removidos (machine noise — ver git history se necessário)*

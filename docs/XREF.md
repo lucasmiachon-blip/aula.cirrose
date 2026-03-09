@@ -38,7 +38,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | → docs/SUBAGENTS.md | Extensão |
 | → aulas/cirrose/HANDOFF.md | Estado |
 | → aulas/cirrose/HANDOFF-CLAUDE-AI.md | Estado |
-| → tasks/todo.md | Workflow |
 | → tasks/lessons.md | Self-improvement |
 
 ### .claude/rules/
@@ -72,7 +71,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | insights-html-cirrose-2026.md | (autônomo — análise Gemini HTML) | ← README.md |
 | MCP-ACADEMICOS.md | (autônomo) | ← ECOSYSTEM.md |
 | MCP-ENV-VARS.md | (autônomo) | ← ECOSYSTEM.md |
-| SETUP.md | → ECOSYSTEM.md | ← README.md |
+| SETUP.md | (autônomo — setup inicial) | ← README.md |
 | ZIP-LIMPO-PROTOCOLO.md | (autônomo) | ← README.md |
 | metanalise-scope.md | (autônomo) | ← README.md |
 | pipeline/README.md | (pipeline humano) | ← SUBAGENTS.md |
