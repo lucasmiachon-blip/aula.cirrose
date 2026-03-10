@@ -4,6 +4,34 @@
 
 ---
 
+## 2026-03-10 — CSS/Viewport Hard Gate Act 1 (rodada 4)
+
+Branch: `main`
+
+### Fixes (3)
+
+| Arquivo | Fix |
+|---------|-----|
+| 04-a1-meld.html | Emoji 🟢🟡🟠🔴 → `.meld-band-dot` CSS circles (ERRO-030) |
+| 00-title.html | `data-background-color` var() → HEX `#162032` (ERRO-031) |
+| cirrose.css | `.meld-band-dot` styling (14px circles por band) + `.pathway-track` orphaned padding-top removido |
+
+### QA
+
+- Build: 44 slides ✅
+- 3 lints PASS (slides + case-sync + narrative-sync)
+- 27 screenshots Playwright Chromium 1280x720
+- 0 console errors
+- ERRO-030 e ERRO-031 fechados
+
+### Docs atualizados
+
+- ERROR-LOG.md: ERRO-030/031 → ✅ Corrigido
+- AUDIT-VISUAL.md: rodada 4, R1/R7 fechados
+- HANDOFF.md: ERRO-030/031 removidos de P2
+
+---
+
 ## 2026-03-10 — Hardening pré-Gemini Act 1 + re-QA consolidado
 
 Branch: `main` · Commits: `80c4a7c` (hardening) + doc-only (consolidação)

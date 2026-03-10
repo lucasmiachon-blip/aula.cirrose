@@ -42,7 +42,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 
 | # | ID | Status | Problema principal | Sev |
 |---|-----|--------|-------------------|-----|
-| 1 | s-title | OK | `var()` em data-background-color (fragil, nao HEX) | P2 |
+| 1 | s-title | OK | ~~var() fixado rodada 4~~ → HEX literal | — |
 | 2 | s-hook | PASS COM RISCO | Fill 0% beat 0 (GSAP-dependente); beat 1 pode clipar INR+punchline a 720p | P1 |
 | 3 | s-a1-01 | OK | countUp fallbacks corrigidos; iceberg ok | — |
 | 4 | s-a1-vote | OK | Reveal funciona; FIB-4 fallback corrigido para 5,91 | — |
@@ -50,7 +50,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 | 6 | s-a1-baveno | OK | card 3 toca borda inferior state 1 (aceitavel) | P1 |
 | 7 | s-a1-fib4 | OK | Layout limpo; h2 pendente Lucas | P1 |
 | 8 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
-| 9 | s-a1-meld | PASS COM RISCO | Emoji unicode (ERRO-030); h2 pendente Lucas | P1 |
+| 9 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; h2 pendente Lucas | P1 |
 | 10 | s-a1-classify | OK | 3 cards + PREDESCI; h2 pendente Lucas | P1 |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |
 
@@ -70,14 +70,24 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 
 | # | Problema | Slide(s) | Sev | Quem resolve |
 |---|---------|----------|-----|-------------|
-| R1 | Emoji unicode (ERRO-030) | s-a1-meld | P1 | Claude (fix tecnico) |
+| ~~R1~~ | ~~Emoji unicode (ERRO-030)~~ | ~~s-a1-meld~~ | ~~P1~~ | ✅ Rodada 4 |
 | R2 | h2 2 linhas | s-a1-damico | P1 | Lucas (decisao clinica) |
 | R3 | Era 2 pathway bars quase invisiveis | s-a1-damico | P1 | Claude ou Gemini (CSS) |
 | R4 | Fill 0% beat 0 | s-hook | P1 | Design decision |
 | R5 | 3 h2 pendentes Lucas | fib4, meld, classify | P1 | Lucas |
 | R6 | beat 1 pode clipar a 720p | s-hook | P1 | CSS audit |
-| R7 | var() em data-background-color | s-title | P2 | Claude (1-line fix) |
+| ~~R7~~ | ~~var() em data-background-color~~ | ~~s-title~~ | ~~P2~~ | ✅ Rodada 4 |
 | R8 | MELD >=18 PMID pendente | s-a1-meld notes | P2 | Lucas/pesquisa |
+
+### Rodada 4 — CSS/Viewport Hard Gate (10/mar/2026)
+
+**3 fixes aplicados:**
+1. **ERRO-030 fix:** s-a1-meld emoji 🟢🟡🟠🔴 → `.meld-band-dot` (14px CSS circles, cor por band)
+2. **ERRO-031 fix:** s-title `data-background-color` var() → HEX literal `#162032`
+3. **D'Amico orphaned padding:** `#s-a1-damico .pathway-track { padding-top: 28px }` removido (label inexistente)
+
+**Re-QA:** 27 screenshots, 0 console errors, build + 3 lints PASS.
+**R1 e R7 fechados.** 6 problemas remanescentes (4 P1 dependem de Lucas/Gemini, 1 P1 CSS, 1 P2 pesquisa).
 
 ### Checklist estrutural (todos 11 slides)
 

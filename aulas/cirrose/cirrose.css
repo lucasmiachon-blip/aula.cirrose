@@ -282,9 +282,16 @@
   border-radius: var(--radius-md);
   font-family: var(--font-body);
 }
-.meld-band-emoji {
-  font-size: var(--text-body);
+.meld-band-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
+.meld-band--green  .meld-band-dot { background: var(--safe); }
+.meld-band--yellow .meld-band-dot { background: var(--warning); }
+.meld-band--orange .meld-band-dot { background: oklch(55% 0.16 40); }
+.meld-band--red    .meld-band-dot { background: var(--danger); }
 .meld-range {
   font-family: var(--font-mono);
   font-weight: 700;
@@ -1552,7 +1559,6 @@
 /* Pathway track needs position:relative for the overlay */
 #s-a1-damico .pathway-track {
   position: relative;
-  padding-top: 28px; /* space for divider labels (CSPH, Descompensação) above cards */
 }
 
 /* Danger glow pulse on stages 3-5 (state 2) */
