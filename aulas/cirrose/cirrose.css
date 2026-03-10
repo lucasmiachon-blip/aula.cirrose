@@ -87,6 +87,22 @@
 .stage-bad .source-tag {
   color: var(--text-muted);
 }
+/* Failsafe: source-tag uses inline style="opacity:0" for GSAP reveal.
+   Without JS, these remain invisible — fix with !important. */
+.no-js .source-tag,
+.stage-bad .source-tag {
+  opacity: 1 !important;
+}
+
+/* Wrap-safe: longest source-tags overflow at narrow viewports with nowrap.
+   Scoped to slides with >90 chars of reference text. */
+#s-a1-damico .source-tag,
+#s-a1-classify .source-tag,
+#s-a1-baveno .source-tag {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
 .stage-bad #s-hook .framework-item,
 .stage-bad #s-hook .case-data .data-item {
   opacity: 1;
@@ -2483,6 +2499,26 @@
   min-width: 0;
 }
 .damico-dataset .pathway-value { font-size: var(--text-small); font-weight: 700; }
+
+/* D'Amico Era 2: chromatic encoding for pathway stages
+   archetypes.css scopes colors to .archetype-pathway — this slide uses .archetype-flow.
+   Fix: explicit semantic classes scoped to #s-a1-damico. */
+#s-a1-damico .pathway-stage--safe {
+  background: var(--safe-light);
+  border-bottom: 3px solid var(--safe);
+}
+#s-a1-damico .pathway-stage--warning {
+  background: var(--warning-light);
+  border-bottom: 3px solid var(--warning);
+}
+#s-a1-damico .pathway-stage--danger {
+  background: var(--danger-light);
+  border-bottom: 3px solid var(--danger);
+}
+#s-a1-damico .pathway-stage--critical {
+  background: oklch(50% 0.18 25 / 0.12);
+  border-bottom: 3px solid var(--danger);
+}
 
 .damico-further-decomp {
   display: flex;
