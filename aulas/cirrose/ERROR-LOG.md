@@ -151,7 +151,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Interação nunca testada com click real no browser**
 **Root cause:** Slide criado inteiramente em código sem QA visual/interação. `doReveal()` disparado por click em `.vote-option`, mas comportamento real (CSS transitions, opacity, countUp) não verificado.
 **Regra:** Todo slide com interação JS deve ter ao menos 1 screenshot de cada estado (antes/depois do reveal) antes de commitar como concluído.
-**Status:** ⚠ PENDENTE — QA loop próxima sessão.
+**Status:** ✅ Corrigido (fe5a1d8 — 7/7 cenários QA PASS via vote-final-qa.mjs). 3 bugs encontrados e fixados: ver ERRO-033.
 
 ### ERRO-023 · MEDIUM · múltiplos slides do Bloco 1
 **CSS failsafe não testado em novos elementos**
@@ -231,7 +231,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
-| HIGH       | 13    | 12         | 1 (ERRO-022) |
+| HIGH       | 13    | 13         | 0 |
 | MEDIUM     | 9     | 7          | 2 (ERRO-008, ERRO-023) |
 | LOW        | 1     | 1          | 0         |
 
@@ -256,8 +256,28 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
-| HIGH       | 13    | 12         | 1 (ERRO-022) |
-| MEDIUM     | 10    | 8          | 2 (ERRO-008, ERRO-023) |
+| HIGH       | 14    | 14         | 0 |
+| MEDIUM     | 11    | 9          | 2 (ERRO-008, ERRO-023) |
 | LOW        | 2     | 2          | 0 |
 
-*Última atualização: 2026-03-10 · ERRO-030/031 corrigidos (rodada 4). ERRO-008/022/023 pendentes*
+---
+
+## Erros registrados — sessão D'Amico chromatic + vote elevation (2026-03-10)
+
+### ERRO-032 · HIGH · s-a1-damico
+**Pathway stages sem cor semântica — archetype scoping**
+**Root cause:** HTML usa classes `--safe/--warning/--danger/--critical` nos `.pathway-stage`, mas `archetypes.css` aplica cores apenas dentro de `.archetype-pathway`. O slide usa `.archetype-flow` — regras nunca casavam. Stages renderizavam com bg transparente (quase invisíveis).
+**Fix:** `cirrose.css` — regras explícitas `#s-a1-damico .pathway-stage.--safe { background: ... }` etc. Também adicionado `.no-js/.stage-bad` failsafe para `source-tag` com `opacity:0` inline.
+**Regra:** Ao reutilizar componente visual de um archetype em OUTRO, verificar se as regras de cor estão scoped ao archetype original. Se sim, re-declarar no contexto novo (ver também ERRO-018).
+**Status:** ✅ Corrigido (cfb7d26).
+
+### ERRO-033 · HIGH · s-a1-vote
+**3 bugs de interação: click avança slide, retreat não desfaz, leave+return não reseta**
+**Root cause:** (a) Click em `.vote-option` propagava para Reveal → avançava slide. (b) `killTweensOf` no retreat matava tweens mas não restaurava estado DOM. (c) Sair e voltar ao slide não limpava classes de estado.
+**Fix:** `slide-registry.js` — (a) `e.stopPropagation()` no handler, (b) retreat restaura DOM manualmente em vez de confiar em kill, (c) `slidetransitionend` reseta classes. Visual: headline serif, card buttons elevados, labs/bio demotidos, spacing ajustado para 720px.
+**Regra:** Interações com click handler DENTRO de slide Reveal: SEMPRE `stopPropagation()`. Retreat: restaurar estado DOM explicitamente, não confiar em `killTweensOf`. Leave/return: resetar no `slidetransitionend`.
+**Status:** ✅ Corrigido (fe5a1d8 — 7/7 QA PASS via `scripts/vote-final-qa.mjs`).
+
+---
+
+*Última atualização: 2026-03-10 · ERRO-032/033 registrados. ERRO-022 fechado. ERRO-008/023 pendentes.*

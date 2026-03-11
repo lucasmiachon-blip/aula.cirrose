@@ -72,7 +72,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 |---|---------|----------|-----|-------------|
 | ~~R1~~ | ~~Emoji unicode (ERRO-030)~~ | ~~s-a1-meld~~ | ~~P1~~ | ✅ Rodada 4 |
 | R2 | h2 2 linhas | s-a1-damico | P1 | Lucas (decisao clinica) |
-| R3 | Era 2 pathway bars quase invisiveis | s-a1-damico | P1 | Claude ou Gemini (CSS) |
+| ~~R3~~ | ~~Era 2 pathway bars quase invisiveis~~ | ~~s-a1-damico~~ | ~~P1~~ | ✅ cfb7d26 (chromatic encoding) |
 | R4 | Fill 0% beat 0 | s-hook | P1 | Design decision |
 | R5 | 3 h2 pendentes Lucas | fib4, meld, classify | P1 | Lucas |
 | R6 | beat 1 pode clipar a 720p | s-hook | P1 | CSS audit |
@@ -87,7 +87,15 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 3. **D'Amico orphaned padding:** `#s-a1-damico .pathway-track { padding-top: 28px }` removido (label inexistente)
 
 **Re-QA:** 27 screenshots, 0 console errors, build + 3 lints PASS.
-**R1 e R7 fechados.** 6 problemas remanescentes (4 P1 dependem de Lucas/Gemini, 1 P1 CSS, 1 P2 pesquisa).
+**R1 e R7 fechados.** 5 problemas remanescentes (4 P1 dependem de Lucas, 1 P2 pesquisa).
+
+### Rodada 5 — D'Amico chromatic + vote elevation (10/mar/2026)
+
+**2 fixes adicionais pos-hardening:**
+1. **ERRO-032 fix (cfb7d26):** D'Amico pathway stages sem cor semantica → regras explicitas em cirrose.css. Source-tag failsafe .no-js/.stage-bad. White-space wrapping. QA: 7 PASS, 1 pre-existing (8px overflow).
+2. **ERRO-033 fix (fe5a1d8):** s-a1-vote 3 interaction bugs (stopPropagation, retreat DOM, leave+return reset) + visual upgrade (serif headline, elevated cards, spacing 720px). QA: 7/7 PASS via vote-final-qa.mjs.
+
+**R3 fechado.** ERRO-022 (vote nunca testado) agora resolvido.
 
 ### Checklist estrutural (todos 11 slides)
 
@@ -96,13 +104,13 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 - [x] `<aside class="notes">` presente com timing
 - [x] `<section>` sem `style` com `display` (E07)
 - [x] Dados numericos verificados contra evidence-db.md
-- [ ] Background via `data-background-color` com HEX literal (s-title usa var())
+- [x] Background via `data-background-color` com HEX literal ~~(s-title usa var())~~ ✅ ERRO-031 corrigido
 - [x] Sem CDN links
 - [x] Build + lint:slides + lint:case-sync + lint:narrative-sync PASS
 - [x] Navegacao ArrowRight funciona em todos 11 slides
 - [x] Case panel progride corretamente
 - [x] Zero erros de console
-- [ ] Zero emojis em slides projetados (s-a1-meld tem 🟢🟡🟠🔴)
+- [x] Zero emojis em slides projetados ~~(s-a1-meld tem 🟢🟡🟠🔴)~~ ✅ ERRO-030 corrigido
 
 ---
 
@@ -169,20 +177,20 @@ Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 46
 
 ## Act 3 + CP3 + Close — QA PENDENTE
 
-**Status: NAO INICIADO** (slides sao skeletons — QA apos Act 2 completo)
-9 slides (7 Act 3 + CP3 + Close). 4/7 slides do Act 3 sao skeletons ainda nao preenchidos.
+**Status: NAO INICIADO** (QA apos preenchimento dos skeletons)
+9 slides (7 Act 3 + CP3 + Close). 4/7 slides do Act 3 sao skeletons (headline + notes preenchidos, evidence body vazio com `<!-- [SKELETON] -->`).
 
 ### Slides a auditar
 
 | # | ID | Arquivo | Origem | Status conteudo |
 |---|-----|---------|--------|----------------|
-| 28 | s-a3-01 | 37-a3-bridge.html | NOVO | Conteudo preenchido |
+| 28 | s-a3-01 | 37-a3-bridge.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
 | 29 | s-a3-02 | 15-a3-recompensacao.html | EXISTENTE | Score anterior: 3.1 |
-| 30 | s-a3-03 | 38-a3-expandido.html | NOVO | Conteudo preenchido |
-| 31 | s-a3-04 | 39-a3-etiologia.html | NOVO | Conteudo preenchido |
+| 30 | s-a3-03 | 38-a3-expandido.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
+| 31 | s-a3-04 | 39-a3-etiologia.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
 | 32 | s-a3-05 | 16-a3-svr.html | EXISTENTE | Score anterior: 2.9 |
 | 33 | s-a3-06 | 17-a3-vigilancia.html | EXISTENTE | Score anterior: 3.4 |
-| 34 | s-a3-07 | 40-a3-fechamento.html | NOVO | Conteudo preenchido |
+| 34 | s-a3-07 | 40-a3-fechamento.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
 | 35 | s-cp3 | 18-cp3.html | EXISTENTE | Score anterior: 3.4 |
 | 36 | s-close | 19-close.html | EXISTENTE | Score anterior: 3.3 |
 
@@ -239,6 +247,7 @@ Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 46
 | 09/mar/2026 | Act 1 + Act 2 + CP2 (27 slides) — browser QA Playwright 1280x720 | 46 screenshots, 0 P0, PASS |
 | 09/mar/2026 | Act 1 RODADA 2 — correcao 5 slides + re-QA browser | 8 fixes, 27 screenshots, 0 P0, **PASS** |
 | 10/mar/2026 | Act 1 RODADA 3 — hardening countUp + headline sync + re-QA consolidado | 13 fixes totais, 27 screenshots, 0 P0, **PASS COM RISCOS** |
+| 10/mar/2026 | Act 1 RODADA 5 — D'Amico chromatic + vote elevation | R3+ERRO-022 fechados, 2 novos ERROs (032,033) registrados e corrigidos |
 
 ---
 

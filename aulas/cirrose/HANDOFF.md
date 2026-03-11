@@ -12,7 +12,8 @@
 **narrative.md:** ✅ Act 3 expandido de 3→7 slides, alinhado com manifest e RAW_ACT3_V1.
 **Act 3 skeletons:** 4 existem como skeleton (s-a3-01, s-a3-03, s-a3-04, s-a3-07). Preenchimento é P1.
 **Hardening Act 1:** ✅ DONE — 4 blockers fixed (headline drift, countUp fallbacks, stale QA). 27 fresh screenshots. 0 P0.
-**CSS/Viewport Hard Gate:** ✅ DONE — ERRO-030 (emoji→CSS dots), ERRO-031 (var()→HEX), orphaned padding removed. 0 P0, 6 P1 remanescentes (4 Lucas, 1 CSS, 1 pesquisa).
+**CSS/Viewport Hard Gate:** ✅ DONE — ERRO-030 (emoji→CSS dots), ERRO-031 (var()→HEX), orphaned padding removed.
+**D'Amico chromatic + vote elevation:** ✅ DONE (cfb7d26 + fe5a1d8) — D'Amico pathway stages sem cor (ERRO-032). s-a1-vote 3 interaction bugs (ERRO-033). ERRO-022 fechado. 0 P0, 5 P1 remanescentes (4 Lucas, 1 pesquisa).
 
 ---
 
@@ -79,8 +80,11 @@ RAW_ACT3_V1.md tem todo o conteúdo necessário.
 - Pre-commit hook wiring pendente
 - [TBD SOURCE]: sarcopenia prevalência, covert HE, centros TIPS Brasil, ESPEN 2019 PMID, QTc threshold
 - ERRO-008: case panel redundante em s-hook
+- ~~ERRO-022:~~ ✅ s-a1-vote testado (fe5a1d8, 7/7 PASS)
 - ~~ERRO-030:~~ ✅ emoji → CSS dots (rodada 4)
 - ~~ERRO-031:~~ ✅ var() → HEX literal (rodada 4)
+- ~~ERRO-032:~~ ✅ D'Amico chromatic (cfb7d26)
+- ~~ERRO-033:~~ ✅ vote interaction bugs (fe5a1d8)
 - 3 h2 do Act 1 pendentes de decisão do Lucas (fib4, meld, classify)
 
 ---
