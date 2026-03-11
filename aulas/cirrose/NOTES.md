@@ -234,3 +234,7 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-11 12:31] [Explore:a1552a24] — concluído. Status: PARTIAL
 
 [2026-03-11 13:51] [:a5ebc000] — concluído. Status: PARTIAL
+
+[2026-03-11 17:47] [BUILD] OK — npm run build:cirrose 2>&1 | tail -20
+
+[2026-03-11 17:48] [Explore:a42314fa] — concluído. Status: PASS
