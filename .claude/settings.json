@@ -8,7 +8,10 @@
     ],
     "deny": [
       "Bash(rm -rf *)",
-      "Bash(git push --force*)"
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(git clean -df*)"
     ]
   },
   "hooks": {
@@ -44,23 +47,6 @@
             "command": "bash .claude/hooks/guard-shared.sh",
             "timeout": 5,
             "statusMessage": "Verificando permissão shared/..."
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/guard-destructive.sh",
-            "timeout": 5,
-            "statusMessage": "Verificando comando..."
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/guard-merge.sh",
-            "timeout": 10,
-            "statusMessage": "Validando merge..."
           }
         ]
       }
