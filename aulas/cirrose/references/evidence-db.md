@@ -179,10 +179,9 @@
 
 | Slide ID | Dado critico | Fonte |
 |----------|-------------|-------|
-| s-a1-01 | Espectro: 4->5->6 estagios D'Amico, mortalidade 1%->57% | D'Amico 2006 (16298014), 2014 (24654740), 2018 (29111320) |
-| s-a1-01 | Further decomp: ~60% progridem, dobra mortalidade | D'Amico 2024 (PMID 37916970) |
-| s-a1-01 | HVPG non-response prediz further decomp | Garcia-Guix 2024 (PMID 38634685) |
-| s-a1-01 | Continuum compensada -> descomp -> further decomp -> recompensacao | Villanueva 2025 fig1 + D'Amico 2024 |
+| s-a1-01 | Rastreio primario: 83% dos diagnosticos de cACLD eram novos | Prince DS 2024 (PMID 38934697) |
+| s-a1-01 | FIB-4 >=2,67: especificidade 98,7% (PPV 35,6%) | LiverPRO: Lindvig 2025 (PMID 39674225) |
+| s-a1-01 | FIB-4 -> elastografia -> CSPH pathway | Baveno VII (PMID 35120736) |
 | s-a1-fib4 / s-a1-rule5 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
 | s-a1-meld | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
 | s-a2-infec | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |

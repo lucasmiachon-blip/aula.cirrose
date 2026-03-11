@@ -1,7 +1,7 @@
 <!-- ============================================================
-     s-a1-01 — Burden global de cirrose
-     Archetype: hero-stat (state machine)
-     States: 0=hero countUp, 1=iceberg bars + badge, 2=source
+     s-a1-01 — Rastreio de hepatopatia na atenção primária
+     Archetype: hero-stat (simplified)
+     States: 0=hero 83% + pathway (auto), 1=source (click)
      ============================================================ -->
 <section id="s-a1-01"
          data-timing="90"
@@ -9,68 +9,59 @@
 
   <div class="slide-inner archetype-hero-stat">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">1,43 milhão morre por ano</h2>
+    <h2 class="slide-headline">Rastreio na atenção primária detecta hepatopatia antes da descompensação</h2>
 
-    <!-- Hero block — repositions to top on click 1 -->
-    <div class="burden-hero">
-      <span class="hero-number" data-color="danger" data-animate="countUp" data-target="1.43" data-decimals="2">1,43</span>
-      <span class="hero-unit">milhão mortes/ano</span>
-      <p class="hero-label">Top 10 causas de morte global</p>
-      <p class="hero-context">GBD 2021 · Liver Int 2025</p>
-      <div class="burden-pulse" aria-hidden="true"></div>
+    <!-- Hero: 83% diagnósticos novos -->
+    <div class="screening-hero">
+      <span class="screening-hero-number">83</span>
+      <span class="screening-hero-unit">%</span>
+      <p class="screening-hero-label">dos diagnósticos de cACLD eram novos no rastreio primário</p>
+      <p class="screening-hero-context">Prince 2024 · Liver Toolkit · &gt;32.000 adultos · 9 clínicas</p>
     </div>
 
-    <!-- Iceberg: compensados (fundo) vs descompensados (cresce sobre) -->
-    <div class="burden-iceberg">
-      <div class="burden-bar-row">
-        <div class="burden-bar-track">
-          <div class="burden-bar-fill burden-bar-fill--comp"></div>
-          <div class="burden-bar-fill burden-bar-fill--decomp"></div>
-        </div>
-        <div class="burden-bar-meta burden-bar-meta--comp">
-          <span class="burden-bar-value burden-bar-value--safe"><span class="burden-bar-icon">✓</span> <span data-countup-target="112">112</span>M</span>
-          <span class="burden-bar-label">compensados</span>
-        </div>
+    <!-- Pathway: alteração lab → FIB-4 → elastografia -->
+    <div class="screening-pathway">
+      <div class="screening-step screening-step--trigger">
+        <span class="screening-step-icon">⚠</span>
+        <span class="screening-step-label">Alteração laboratorial</span>
+        <span class="screening-step-detail">AST/ALT, PLQ, GGT</span>
       </div>
-
-      <div class="burden-bar-row burden-bar-row--decomp">
-        <div class="burden-bar-meta burden-bar-meta--decomp">
-          <span class="burden-bar-value burden-bar-value--danger"><span class="burden-bar-icon">✕</span> <span data-countup-target="10.6">10,6</span>M</span>
-          <span class="burden-bar-label">descompensados</span>
-        </div>
+      <span class="screening-arrow" aria-hidden="true">→</span>
+      <div class="screening-step screening-step--tool">
+        <span class="screening-step-icon">✓</span>
+        <span class="screening-step-label">FIB-4</span>
+        <span class="screening-step-detail">&ge; 2,67 → espec. 98,7%</span>
       </div>
-
-      <div class="burden-badge">
-        <span class="burden-badge-value">⚠ +18% MASH</span>
-        <span class="burden-badge-label">casos 2010–2021</span>
+      <span class="screening-arrow" aria-hidden="true">→</span>
+      <div class="screening-step screening-step--action">
+        <span class="screening-step-icon">✓</span>
+        <span class="screening-step-label">Elastografia</span>
+        <span class="screening-step-detail">LSM + PLQ → estadiar CSPH</span>
       </div>
-
-      <p class="burden-asymmetry">10% descompensa — 90% não sabe que tem</p>
     </div>
 
-    <p class="source-tag" style="opacity:0">Tham et al. Liver Int 2025 · GBD 2021 · 204 países · PMID 39927433</p>
+    <p class="source-tag" style="opacity:0">Prince DS et al. Hepatol Commun 2024 (PMID 38934697) · LiverPRO: Lindvig KP et al. Lancet GH 2025 (PMID 39674225) · Baveno VII (PMID 35120736)</p>
   </div>
 
   <aside class="notes">
-[0:00-0:30] "Antes de classificar, vamos dimensionar."
-"Um milhão e 430 mil mortes por ano. Só por cirrose e doenças hepáticas crônicas."
+[0:00-0:30] "Antônio chegou assintomático. ALT normal. A maioria não pediria mais nada."
+PAUSA 2s.
+"Mas o médico da UBS pediu um FIB-4."
+"E é isso que faz a diferença."
+
+[0:30-1:00] "Prince publicou em 2024 o Liver Toolkit: rastrearam mais de 32 mil adultos em 9 clínicas de atenção primária."
+"83% dos casos de doença hepática avançada eram diagnósticos novos."
 PAUSA 3s.
-"Dado do GBD 2021 — 204 países. Top 10 causas de morte global.
-A taxa ajustada por idade caiu — mas o número absoluto subiu porque tem mais gente com a doença."
+"Esses pacientes estavam na sala de espera. Sem queixas. Igual ao Antônio."
 
-[0:30-1:00] click → iceberg e tendência
-"112 milhões com cirrose compensada — a maioria sem saber.
-Olhem: 10 milhões e 600 mil descompensados.
-A incidência subiu 18% entre 2010 e 2021 — MASH lidera o crescimento.
-10% descompensa. 90% não sabe que tem."
-
-[1:00-1:30] click → source, ponte para classificação
-"Mas esses 122 milhões não morrem da mesma forma.
-A diferença entre compensado e descompensado é um abismo de mortalidade.
-Vamos ver exatamente onde está esse abismo."
+[1:00-1:30] click → source
+"A cascata é simples: alteração laboratorial → FIB-4 → se alto risco → elastografia → classificar."
+"LiverPRO validou: FIB-4 acima de 2,67 tem especificidade de 98,7%."
+"Antônio tem FIB-4 de 5,91. Não tem como ignorar."
 → avançar
 
-[DATA] Tham EKJ et al., Liver Int 2025 (PMID 39927433) · GBD 2021 · 1,425,142 mortes (95%UI 1,308,121–1,563,089) · +18% casos 2010-2021 · Verificado: 2026-03-05
-[DATA] Prevalência 112M comp + 10,6M decomp: GBD 2017 Cirrhosis Collaborators, Lancet Gastroenterol Hepatol 2020 (PMID 31981519)
+[DATA] Prince DS et al., Hepatol Commun 2024 (PMID 38934697) — Liver Toolkit screening >32k adultos: 83% cACLD eram diagnósticos novos | Verificado: evidence-db.md
+[DATA] LiverPRO: Lindvig KP et al., Lancet Gastroenterol Hepatol 2025 (PMID 39674225) — FIB-4 ≥2,67 especificidade 98,7% (PPV 35,6%) | Verificado: evidence-db.md
+[DATA] Baveno VII: de Franchis R et al., J Hepatol 2022 (PMID 35120736) — FIB-4 → elastografia → CSPH pathway | Verificado: evidence-db.md
   </aside>
 </section>

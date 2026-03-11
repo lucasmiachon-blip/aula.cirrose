@@ -1,7 +1,7 @@
 <!-- ============================================================
      s-a1-meld — MELD-Na: o GPS da fila
      Archetype: hero-stat (semáforo + threshold + urgency)
-     States: 0=bands stagger, 1=threshold line, 2=source
+     States: 0=bands stagger, 1=threshold (generic), 2=source
      Calc: sidebar panel width 280px
      ============================================================ -->
 <section id="s-a1-meld"
@@ -41,7 +41,7 @@
 
         <!-- Threshold line (drawn after bands) -->
         <div class="meld-threshold">
-          <span class="meld-threshold-label">MELD ≥18 — ponto de inflexão → referenciar TX</span>
+          <span class="meld-threshold-label">MELD elevado → acelerar encaminhamento para centro transplantador</span>
         </div>
       </div>
     </div>
@@ -59,9 +59,9 @@ O resultado é um número. E esse número é um semáforo."
 "Vermelho: acima de 25. Mais de 40% em 90 dias. Urgência."
 
 [0:30-1:00] Click 1 → threshold line
-Linha MELD ≥18 desenha da esquerda (width 0→100%).
-"O ponto de inflexão: MELD 18.
-A partir daqui, referenciar para centro transplantador.
+Linha threshold desenha da esquerda (width 0→100%).
+"Quando o MELD sobe, a urgência muda.
+A partir da faixa amarela, já considerar encaminhamento.
 A calculadora está no painel lateral — experimentem com os dados do Antônio."
 
 [1:00-1:30] Click 2 → source
@@ -69,6 +69,6 @@ A calculadora está no painel lateral — experimentem com os dados do Antônio.
 
 [DATA] MELD-Na: Kamath PS et al. Hepatology 2001 (PMID 11172350) · Kim WR Hepatology 2008 (PMID 16697729) | Verificado
 [DATA] Mortalidade 90d por faixa: WR Kim et al. Hepatology 2008 + UNOS/OPTN data | Verificado: evidence-db.md
-[DATA] MELD ≥18 inflection: Mahmud et al. [LUCAS DECIDE — PMID pendente, dados genéricos de registros UNOS]
+[DATA] Faixas MELD e conduta: baseado em Kim WR et al. Hepatology 2008 + dados UNOS/OPTN | Verificado: evidence-db.md
   </aside>
 </section>

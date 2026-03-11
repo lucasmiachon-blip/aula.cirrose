@@ -4,7 +4,7 @@
  * click-reveal, and interactions.
  *
  * Created: FASE 3 (2026-02-27)
- * Updated: 2026-03-04 — Act 1 state machines (burden, damico, paradigm)
+ * Updated: 2026-03-11 — Act 1 restructure (rastreio, classify hero)
  */
 
 import { panelStates } from './slides/_manifest.js';
@@ -34,76 +34,43 @@ function inlineCountUp(gsap, el, target, duration = 1.2, delay = 0) {
 
 export const customAnimations = {
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-01 — BURDEN (hero → iceberg)
-     States: 0=hero, 1=iceberg bars, 2=source
+     s-a1-01 — Rastreio na atenção primária
+     States: 0=hero 83% + pathway (auto), 1=source (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-01': (slide, gsap) => {
     let state = 0;
-    const maxState = 2;
+    const maxState = 1;
 
-    const hero = slide.querySelector('.burden-hero');
-    const pulse = slide.querySelector('.burden-pulse');
-    const iceberg = slide.querySelector('.burden-iceberg');
-    const compFill = slide.querySelector('.burden-bar-fill--comp');
-    const decompFill = slide.querySelector('.burden-bar-fill--decomp');
-    const compNum = slide.querySelector('[data-countup-target="112"]');
-    const decompNum = slide.querySelector('[data-countup-target="10.6"]');
-    const badge = slide.querySelector('.burden-badge');
-    const asymmetry = slide.querySelector('.burden-asymmetry');
+    const heroNum = slide.querySelector('.screening-hero-number');
+    const steps = slide.querySelectorAll('.screening-step');
+    const arrows = slide.querySelectorAll('.screening-arrow');
     const sourceTag = slide.querySelector('.source-tag');
+
+    // Auto: countUp 83 + pathway stagger
+    if (heroNum) inlineCountUp(gsap, heroNum, 83, 1.2, 0.2);
+
+    gsap.set(steps, { opacity: 0, y: 12 });
+    gsap.set(arrows, { opacity: 0 });
+    gsap.to(steps, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.8, ease: 'power2.out' });
+    gsap.to(arrows, { opacity: 1, duration: 0.3, stagger: 0.2, delay: 1.0 });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
-
       if (state === 1) {
-        hero.classList.add('burden-hero--compact');
-        if (pulse) gsap.to(pulse, { opacity: 0, duration: 0.2, onComplete() { pulse.style.display = 'none'; } });
-        gsap.to(hero, { y: -60, duration: 0.5, ease: 'power2.out' });
-        gsap.to(iceberg, { opacity: 1, duration: 0.4, delay: 0.3 });
-
-        gsap.to(compFill, { width: '100%', duration: 0.8, delay: 0.5, ease: 'power2.out' });
-        if (compNum) inlineCountUp(gsap, compNum, 112, 1.0, 0.5);
-
-        gsap.to(decompFill, { scaleX: 1, duration: 1.0, delay: 1.0, ease: 'power2.out' });
-        if (decompNum) inlineCountUp(gsap, decompNum, 10.6, 1.0, 1.0);
-
-        if (badge) gsap.to(badge, { opacity: 1, y: 0, duration: 0.5, delay: 1.8, ease: 'power2.out' });
-        if (asymmetry) gsap.to(asymmetry, { opacity: 1, y: 0, duration: 0.6, delay: 2.2, ease: 'power2.out' });
-      }
-
-      if (state === 2) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
       }
-
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-
-      if (state === 2) {
+      if (state === 1) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }
-
-      if (state === 1) {
-        hero.classList.remove('burden-hero--compact');
-        gsap.to(hero, { y: 0, duration: 0.5, ease: 'power2.out' });
-        if (pulse) { pulse.style.display = ''; gsap.to(pulse, { opacity: 1, duration: 0.3, delay: 0.3 }); }
-        gsap.to(iceberg, { opacity: 0, duration: 0.3 });
-        gsap.to(compFill, { width: '0%', duration: 0.3 });
-        gsap.to(decompFill, { scaleX: 0, duration: 0.3 });
-        if (badge) gsap.to(badge, { opacity: 0, duration: 0.3 });
-        if (asymmetry) gsap.to(asymmetry, { opacity: 0, duration: 0.3 });
-        if (compNum) compNum.textContent = '0';
-        if (decompNum) decompNum.textContent = '0';
-      }
-
       state--;
       return true;
     }
-
-    gsap.set([badge, asymmetry].filter(Boolean), { y: 12 });
 
     slide.__hookAdvance = advance;
     slide.__hookRetreat = retreat;
@@ -201,59 +168,39 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-classify — Classificar muda conduta (3 estados)
-     State 0: assertion cards stagger (auto)
-     State 1: PREDESCI HR countUp (click)
-     State 2: source (click)
+     s-a1-classify — Classificar muda conduta (PREDESCI hero)
+     State 0: PREDESCI countUp + cards stagger (auto)
+     State 1: source (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-classify': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
 
     let state = 0;
-    const maxState = 2;
+    const maxState = 1;
 
-    const cards = slide.querySelectorAll('.classify-card');
-    const predesci = slide.querySelector('.classify-predesci');
     const predesciValue = slide.querySelector('.classify-predesci-value');
+    const cards = slide.querySelectorAll('.classify-card');
     const sourceTag = slide.querySelector('.source-tag');
 
+    // Auto: PREDESCI countUp
+    if (predesciValue) inlineCountUp(gsap, predesciValue, 0.51, 1.2, 0.3);
+
+    // Auto: cards stagger (delayed after hero)
     gsap.set(cards, { opacity: 0, y: 12 });
-    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.3, ease: 'power2.out' });
+    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.8, ease: 'power2.out' });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
-
       if (state === 1) {
-        gsap.to(predesci, { opacity: 1, visibility: 'visible', duration: 0.5 });
-        if (predesciValue) {
-          const obj = { val: 0 };
-          gsap.to(obj, {
-            val: 0.51,
-            duration: 1.2,
-            delay: 0.3,
-            ease: 'power1.out',
-            onUpdate() {
-              predesciValue.textContent = obj.val.toFixed(2).replace('.', ',');
-            }
-          });
-        }
-      }
-
-      if (state === 2) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
       }
-
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 2) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      if (state === 1) {
-        gsap.to(predesci, { opacity: 0, duration: 0.3, onComplete() { predesci.style.visibility = 'hidden'; } });
-        if (predesciValue) predesciValue.textContent = '0';
-      }
+      if (state === 1) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       state--;
       return true;
     }
@@ -644,154 +591,54 @@ export const customAnimations = {
     slide.__hookCurrentBeat = () => state;
   },
 
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     s-hook — Caso Antônio (flat layout, 1 click)
+     Auto: bio visible + labs stagger
+     State 1: punchline + question (click)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-hook': (slide, gsap) => {
-    const beats = slide.querySelectorAll('.hook-beat');
-    if (beats.length < 2) return;
+    let state = 0;
+    const maxState = 1;
 
-    let currentBeat = 0;
-    const fib4El = slide.querySelector('[data-target="5.91"]');
-    const fib4Card = fib4El?.closest('.hook-lab');
+    const labs = [...slide.querySelectorAll('.hook-lab')];
+    const punchline = slide.querySelector('.hook-punchline');
+    const question = slide.querySelector('.hook-question');
 
-    function setBeat(idx) {
-      beats.forEach((b, i) => {
-        b.classList.toggle('hook-beat--active', i === idx);
-        b.classList.toggle('hook-beat--hidden', i !== idx);
-      });
-    }
+    // Auto: labs stagger in
+    gsap.set(labs, { opacity: 0, y: 12 });
+    gsap.to(labs, { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, delay: 0.3, ease: 'power2.out' });
 
-    const initialBeat = parseInt(slide.dataset.initialBeat ?? '0', 10);
-    currentBeat = initialBeat;
-    setBeat(initialBeat);
-    if (initialBeat === 1) {
-      const labs = slide.querySelectorAll('.hook-lab');
-      const punchline = slide.querySelector('.hook-punchline');
-      [...labs, punchline].filter(Boolean).forEach(el => {
-        el.style.opacity = '1';
-        el.style.visibility = 'visible';
-      });
-      if (fib4El) fib4El.textContent = '5,91';
-    }
-
-    function resetBeat1Content() {
-      const labs = slide.querySelectorAll('.hook-lab');
-      const punchline = slide.querySelector('.hook-punchline');
-      if (gsap) {
-        gsap.set([...labs, punchline].filter(Boolean), { opacity: 0, visibility: 'hidden' });
-      }
-    }
-
-    function runLabsStagger() {
-      const labs = [...slide.querySelectorAll('.hook-lab')];
-      const punchline = slide.querySelector('.hook-punchline');
-      if (!gsap) return;
-
-      const regularLabs = labs.slice(0, -1);
-      const lastCard = labs[labs.length - 1];
-
-      gsap.fromTo(regularLabs,
-        { opacity: 0, visibility: 'visible', y: 12 },
-        { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, delay: 0.05, ease: 'power2.out' }
-      );
-
-      const lastDelay = 0.05 + regularLabs.length * 0.12 + 0.3;
-      gsap.fromTo(lastCard,
-        { opacity: 0, visibility: 'visible', y: 12 },
-        { opacity: 1, y: 0, duration: 0.45, delay: lastDelay, ease: 'back.out(1.4)' }
-      );
-
-      if (fib4Card) {
-        gsap.fromTo(fib4Card,
-          { boxShadow: '0 0 0px oklch(60% 0.10 75 / 0)' },
-          { boxShadow: '0 0 20px oklch(60% 0.10 75 / 0.3)', duration: 0.4, delay: lastDelay + 0.3,
-            yoyo: true, repeat: 1, ease: 'power2.inOut' }
-        );
-      }
-
-      if (fib4El) {
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: 5.91,
-          duration: 1.4,
-          delay: lastDelay,
-          ease: 'power1.out',
-          onUpdate() { fib4El.textContent = obj.val.toFixed(2).replace('.', ','); }
-        });
-      }
-
-      if (punchline) {
+    function advance() {
+      if (state >= maxState) return false;
+      state++;
+      if (state === 1) {
         gsap.fromTo(punchline,
-          { opacity: 0, visibility: 'visible', y: 10 },
-          { opacity: 1, y: 0, duration: 0.6, delay: lastDelay + 0.5, ease: 'power2.out' }
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
         );
-      }
-    }
-
-    function advanceBeat() {
-      if (currentBeat >= beats.length - 1) return false;
-      const prev = beats[currentBeat];
-      const next = beats[currentBeat + 1];
-      currentBeat++;
-
-      if (gsap) {
-        gsap.to(prev, {
-          opacity: 0, y: -12, duration: 0.3, ease: 'power2.in',
-          onComplete() {
-            prev.classList.remove('hook-beat--active');
-            prev.classList.add('hook-beat--hidden');
-          }
-        });
-        next.classList.remove('hook-beat--hidden');
-        next.classList.add('hook-beat--active');
-        gsap.set(next, { opacity: 0 });
-        if (currentBeat === 1) {
-          resetBeat1Content();
-          runLabsStagger();
+        if (question) {
+          gsap.fromTo(question,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.5, delay: 0.4, ease: 'power2.out' }
+          );
         }
-        gsap.fromTo(next,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.4, delay: 0.05, ease: 'power2.out' }
-        );
-      } else {
-        prev.classList.remove('hook-beat--active');
-        prev.classList.add('hook-beat--hidden');
-        next.classList.remove('hook-beat--hidden');
-        next.classList.add('hook-beat--active');
-        if (currentBeat === 1) runLabsStagger();
       }
       return true;
     }
 
-    function retreatBeat() {
-      if (currentBeat <= 0) return false;
-      const prev = beats[currentBeat - 1];
-      const curr = beats[currentBeat];
-      const wasBeat1 = currentBeat === 1;
-
-      if (gsap) {
-        gsap.to(curr, {
-          opacity: 0, y: 16, duration: 0.3, ease: 'power2.in',
-          onComplete() {
-            curr.classList.remove('hook-beat--active');
-            curr.classList.add('hook-beat--hidden');
-            if (wasBeat1) resetBeat1Content();
-          }
-        });
-        prev.classList.remove('hook-beat--hidden');
-        prev.classList.add('hook-beat--active');
-        gsap.fromTo(prev, { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
-      } else {
-        curr.classList.remove('hook-beat--active');
-        curr.classList.add('hook-beat--hidden');
-        prev.classList.remove('hook-beat--hidden');
-        prev.classList.add('hook-beat--active');
+    function retreat() {
+      if (state <= 0) return false;
+      if (state === 1) {
+        gsap.to(punchline, { opacity: 0, y: 10, duration: 0.3 });
+        if (question) gsap.to(question, { opacity: 0, y: 10, duration: 0.3 });
       }
-      currentBeat--;
+      state--;
       return true;
     }
 
-    slide.__hookAdvance = advanceBeat;
-    slide.__hookRetreat = retreatBeat;
-    slide.__hookCurrentBeat = () => currentBeat;
+    slide.__hookAdvance = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => state;
   },
 };
 

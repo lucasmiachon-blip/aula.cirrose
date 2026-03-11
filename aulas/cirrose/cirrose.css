@@ -1983,11 +1983,16 @@
 #s-hook .hook-patient-desc { color: var(--hook-text-mid); }
 #s-hook .hook-patient-ref { color: var(--hook-text-dim); }
 
-/* ── Stage container (centro, sem header) ── */
+/* ── Stage container (flat layout — bio + labs + punchline) ── */
 .hook-stage {
   width: 100%;
   height: 100%;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 2rem;
 }
 
 /* ── Beat system (simple: active/hidden) ── */
@@ -2149,7 +2154,7 @@
 .hook-lab--success .hook-lab-tag { color: var(--safe-on-dark, oklch(55% 0.12 170)); }
 .hook-lab--warning .hook-lab-tag { color: var(--warning-on-dark, oklch(78% 0.14 75)); }
 
-/* ── Punchline (hero assertion after labs) ── */
+/* ── Punchline + question (click reveal) ── */
 .hook-punchline {
   font-family: var(--font-display);
   font-size: var(--text-h2);
@@ -2158,6 +2163,20 @@
   text-align: center;
   letter-spacing: 0.02em;
   margin: 0;
+  opacity: 0;
+}
+.hook-question {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--hook-text-mid);
+  text-align: center;
+  font-style: italic;
+  margin: 0;
+  opacity: 0;
+}
+.no-js .hook-punchline,
+.no-js .hook-question {
+  opacity: 1;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2214,14 +2233,12 @@
   color: var(--text-muted);
 }
 
-/* PREDESCI reveal */
+/* PREDESCI hero (visible from auto-entry) */
 .classify-predesci {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-sm);
-  opacity: 0;
-  visibility: hidden;
 }
 
 .classify-predesci-hero {
@@ -2262,19 +2279,9 @@
   max-width: 42ch;
 }
 
-.classify-predesci-case {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-  text-align: center;
-  margin: 0;
-}
+/* .classify-predesci-case removed — Antonio callback deferred to later slide */
 
-.no-js .classify-predesci,
-.stage-bad .classify-predesci {
-  opacity: 1;
-  visibility: visible;
-}
+/* .classify-predesci no longer needs failsafe — visible by default */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-damico (escores) — Era track + era state machine
@@ -2749,6 +2756,103 @@
 .stage-bad .antonio-pin {
   opacity: 1 !important;
   transform: none !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   s-a1-01 — Screening Pathway (.screening-*)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.screening-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin: var(--space-md) 0 var(--space-xs);
+}
+.screening-hero-number {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 400;
+  color: var(--safe);
+  line-height: 1;
+}
+.screening-hero-unit {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  color: var(--safe);
+  line-height: 1;
+}
+.screening-hero-label {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  margin: 0;
+}
+.screening-hero-context {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  margin: 0;
+}
+.screening-pathway {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+}
+.screening-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  min-width: 140px;
+}
+.screening-step--trigger { border-color: var(--warning); }
+.screening-step--tool    { border-color: var(--ui-accent); }
+.screening-step--action  { border-color: var(--safe); }
+.screening-step-icon {
+  font-size: var(--text-h3);
+  line-height: 1;
+}
+.screening-step--trigger .screening-step-icon { color: var(--warning); }
+.screening-step--tool    .screening-step-icon { color: var(--ui-accent); }
+.screening-step--action  .screening-step-icon { color: var(--safe); }
+.screening-step-label {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.screening-step-detail {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+}
+.screening-arrow {
+  font-size: var(--text-h2);
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+/* Failsafe */
+.no-js .screening-step,
+.stage-bad .screening-step {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.no-js .screening-arrow,
+.stage-bad .screening-arrow {
+  opacity: 1 !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

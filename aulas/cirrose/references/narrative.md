@@ -45,29 +45,31 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
 | 0 | s-title | *Cirrose Hepática* | Âncora visual, identidade | ○○○○○ |
-| 1 | s-hook | *Caso Antônio — labs + FIB-4* | **Inciting incident**: Seu Antônio, assintomático, ALT "normal", FIB-4 5,91. | ●●●○○ |
+| 1 | s-hook | *Caso Antônio — Esse perfil exige rastreio para hepatopatia?* | **Inciting incident**: bio + labs visíveis de imediato, click revela "Sem queixas." + pergunta rastreio | ●●●○○ |
 
 - **Panel:** neutral (apresentação do caso)
-- **Beat:** "5 números, 3 decisões" é a promessa da aula. Audiência recebe o framework.
+- **Estrutura:** flat layout (bio + labs auto stagger → click: "Sem queixas." + "Esse perfil exige rastreio para hepatopatia?")
 - **Entrada NÃO é hematêmese.** Antônio chega assintomático — a tensão vem do screening revelar doença oculta.
 
 ### ATO 1 — CLASSIFICAR (slides 2-10)
 
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
-| 2 | s-a1-01 | 1,43 milhão morre por ano | **Stakes**: mortalidade global como âncora | ●●○○○ |
-| 3 | s-a1-vote | Esse paciente tem cirrose? | **Engajamento**: audiência vota antes de saber | ●●○○○ |
-| 4 | s-a1-damico | Do CTP ao D'Amico: prognóstico passou de subjetivo a preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
-| 5 | s-a1-baveno | Baveno VII redefiniu classificação | Ferramental: cACLD/dACLD, CSPH | ●○○○○ |
-| 6 | s-a1-fib4 | 4 dados. 1 número. 1 decisão. | FIB-4 como screening, aplica ao Antônio | ●●○○○ |
-| 7 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
-| 8 | s-a1-meld | MELD-Na: o GPS da fila | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
-| 9 | s-a1-classify | Classificar muda conduta | Síntese Act 1 — NSBBs, PREDESCI | ●○○○○ |
+| 2 | s-a1-01 | Rastreio na atenção primária detecta hepatopatia antes da descompensação | **Ponte**: Antônio veio do rastreio — por que isso importa | ●●○○○ |
+| 3 | s-a1-classify | Classificar muda conduta | **Premissa do ato**: PREDESCI hero — prevenir a 1ª descompensação é possível | ●●○○○ |
+| 4 | s-a1-vote | Esse paciente tem cirrose? | **Engajamento**: audiência aplica o que acabou de aprender | ●●○○○ |
+| 5 | s-a1-damico | Do CTP ao D'Amico: prognóstico passou de subjetivo a preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
+| 6 | s-a1-baveno | Baveno VII redefiniu classificação | Ferramental: cACLD/dACLD, CSPH | ●○○○○ |
+| 7 | s-a1-fib4 | 4 dados. 1 número. 1 decisão. | FIB-4 como screening, aplica ao Antônio | ●●○○○ |
+| 8 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
+| 9 | s-a1-meld | MELD-Na: o GPS da fila | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
 | 10 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
 
 - **Panel:** neutral → caution (no CP1)
-- **Arc:** Conhecimento crescente. Audiência ainda segura — "sei classificar".
+- **Arc:** Rastreio → classificação → engajamento → ferramentas → checkpoint. Audiência segura — "sei classificar".
 - **CP1 beat:** Primeiro momento de desconforto. "Sei o suficiente pra decidir?"
+- **s-a1-01 nota:** Slide de rastreio ancora na entrada do Antônio (UBS, assintomático, FIB-4 5,91). Dado-âncora: Prince 2024 (83% diagnósticos novos).
+- **s-a1-classify nota:** PREDESCI (HR 0,51) é hero. 3 cards D'Amico (mortalidade por estágio) são contexto de suporte.
 - **s-a1-damico nota:** D'Amico abrange 2006→2014→2024 (4→5→6 estágios + further decomp). Inclui pathway visual.
 
 ### ATO 2 — INTERVIR (slides 11-27)

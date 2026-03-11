@@ -1,7 +1,7 @@
 <!-- ============================================================
      s-hook — Caso Antônio (congresso, formal)
-     Archetype: Custom hook (v7 — 2 beats, 7 lab cards + punchline)
-     Beat 0: Antônio + bio (centro) → Beat 1: 8 cards + "Sem queixas."
+     Archetype: Custom hook (v8 — flat layout, 1 click)
+     Auto: bio + labs stagger → Click: "Sem queixas." + pergunta
      Reversível: ArrowLeft/Up. Background: navy.
      ============================================================ -->
 <section id="s-hook"
@@ -12,79 +12,76 @@
 
   <div class="hook-stage">
 
-    <!-- ━━ BEAT 0: Antônio + bio (centro) ━━━━━━━━━━━━━━━ -->
-    <div class="hook-beat hook-beat--active" data-hook-beat="0">
-      <div class="hook-patient">
-        <h3 class="hook-patient-name">Antônio, 55 anos</h3>
-        <p class="hook-patient-desc">
-          Caminhoneiro · obeso (IMC 31) · DM2<br>
-          5 latas de cerveja/dia há 20 anos (60 g álcool)
-        </p>
-        <p class="hook-patient-ref">
-          Encaminhado da atenção primária
-        </p>
+    <!-- Patient bio -->
+    <div class="hook-patient">
+      <h3 class="hook-patient-name">Antônio, 55 anos</h3>
+      <p class="hook-patient-desc">
+        Caminhoneiro · obeso (IMC 31) · DM2<br>
+        5 latas de cerveja/dia há 20 anos (60 g álcool)
+      </p>
+      <p class="hook-patient-ref">Encaminhado da atenção primária</p>
+    </div>
+
+    <!-- Labs (auto stagger) -->
+    <div class="hook-labs-grid">
+      <div class="hook-lab">
+        <span class="hook-lab-label">AST</span>
+        <span class="hook-lab-value">67</span>
+        <span class="hook-lab-ref">U/L</span>
+      </div>
+      <div class="hook-lab hook-lab--success">
+        <span class="hook-lab-label">ALT</span>
+        <span class="hook-lab-value">31</span>
+        <span class="hook-lab-ref">U/L</span>
+        <span class="hook-lab-tag">normal ✓</span>
+      </div>
+      <div class="hook-lab">
+        <span class="hook-lab-label">PLQ</span>
+        <span class="hook-lab-value">112<small>k</small></span>
+        <span class="hook-lab-ref">/mm³</span>
+      </div>
+      <div class="hook-lab">
+        <span class="hook-lab-label">GGT</span>
+        <span class="hook-lab-value">210</span>
+        <span class="hook-lab-ref">U/L</span>
+      </div>
+      <div class="hook-lab">
+        <span class="hook-lab-label">Albumina</span>
+        <span class="hook-lab-value">3,6</span>
+        <span class="hook-lab-ref">g/dL</span>
+      </div>
+      <div class="hook-lab">
+        <span class="hook-lab-label">Bili</span>
+        <span class="hook-lab-value">1,3</span>
+        <span class="hook-lab-ref">mg/dL</span>
+      </div>
+      <div class="hook-lab">
+        <span class="hook-lab-label" style="text-transform:none">INR</span>
+        <span class="hook-lab-value">1,2</span>
+        <span class="hook-lab-ref"></span>
       </div>
     </div>
 
-    <!-- ━━ BEAT 1: 8 lab cards + punchline (Click 1) ━━━━━━━ -->
-    <div class="hook-beat hook-beat--hidden" data-hook-beat="1">
-      <div class="hook-labs-grid">
-        <div class="hook-lab">
-          <span class="hook-lab-label">AST</span>
-          <span class="hook-lab-value">67</span>
-          <span class="hook-lab-ref">U/L</span>
-        </div>
-        <div class="hook-lab hook-lab--success">
-          <span class="hook-lab-label">ALT</span>
-          <span class="hook-lab-value">31</span>
-          <span class="hook-lab-ref">U/L</span>
-          <span class="hook-lab-tag">normal ✓</span>
-        </div>
-        <div class="hook-lab">
-          <span class="hook-lab-label">PLQ</span>
-          <span class="hook-lab-value">112<small>k</small></span>
-          <span class="hook-lab-ref">/mm³</span>
-        </div>
-        <div class="hook-lab">
-          <span class="hook-lab-label">GGT</span>
-          <span class="hook-lab-value">210</span>
-          <span class="hook-lab-ref">U/L</span>
-        </div>
-        <div class="hook-lab">
-          <span class="hook-lab-label">Albumina</span>
-          <span class="hook-lab-value">3,6</span>
-          <span class="hook-lab-ref">g/dL</span>
-        </div>
-        <div class="hook-lab">
-          <span class="hook-lab-label">Bili</span>
-          <span class="hook-lab-value">1,3</span>
-          <span class="hook-lab-ref">mg/dL</span>
-        </div>
-        <div class="hook-lab">
-          <span class="hook-lab-label" style="text-transform:none">INR</span>
-          <span class="hook-lab-value">1,2</span>
-          <span class="hook-lab-ref"></span>
-        </div>
-      </div>
-      <p class="hook-punchline">Sem queixas.</p>
-    </div>
+    <!-- Punchline + directing question (click reveal) -->
+    <p class="hook-punchline">Sem queixas.</p>
+    <p class="hook-question">Esse perfil exige rastreio para hepatopatia?</p>
 
   </div>
 
   <aside class="notes">
-[BEAT 0 · auto] Caso
+[0:00-0:30] Auto: bio + labs stagger
 "Antônio. 55 anos. Caminhoneiro.
 Obeso, IMC 31, diabético tipo 2.
 5 latas por dia há 20 anos — 60 gramas de álcool.
-Exames de rotina na atenção primária. Encaminharam."
-
-[BEAT 1 · click] Labs
-"Olhem os números: AST 67, ALT 31. Reparem — ALT normal.
-A maioria de vocês nem olharia duas vezes.
+Encaminhado da atenção primária."
+"Olhem os números: AST 67, ALT 31 — reparem, ALT normal.
 Plaquetas 112 mil. GGT 210 — marcador de álcool crônico.
 Albumina 3,6 — limítrofe. Bilirrubina e INR quase normais."
-PAUSA 5s.
+
+[0:30-1:00] Click → punchline + pergunta
+PAUSA 3s.
 "Sem queixas. Esse é o problema."
-→ avançar para próximo slide
+"Esse perfil exige rastreio para hepatopatia?"
+→ avançar para s-a1-01 (rastreio)
   </aside>
 </section>

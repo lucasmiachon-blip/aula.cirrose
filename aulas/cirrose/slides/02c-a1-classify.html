@@ -1,21 +1,29 @@
 <!-- ============================================================
-     s-a1-classify — Classificar muda conduta
-     Archetype: flow (state machine, 3 estados)
-     States:
-       0 = 3 assertion cards com dados de desfecho (auto)
-       1 = PREDESCI HR 0,51 (click 1)
-       2 = source (click 2)
-     PREDESCI centralizado aqui (removido de s-a1-damico).
+     s-a1-classify — Classificar antes da 1ª descompensação reduz eventos (PREDESCI hero)
+     Archetype: hero-stat
+     States: 0=PREDESCI hero + cards (auto), 1=source (click)
      ============================================================ -->
 <section id="s-a1-classify"
          data-timing="90"
          data-panel-state="neutral">
-  <div class="slide-inner archetype-flow">
+  <div class="slide-inner archetype-hero-stat">
 
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Classificar muda conduta</h2>
+    <h2 class="slide-headline">Classificar antes da 1ª descompensação reduz eventos</h2>
 
-    <!-- 3 assertion cards with outcome data -->
+    <!-- PREDESCI hero (visible from auto-entry) -->
+    <div class="classify-predesci">
+      <div class="classify-predesci-hero">
+        <span class="classify-predesci-label">PREDESCI · HR</span>
+        <span class="classify-predesci-value" data-countup-target="0.51">0,51</span>
+        <span class="classify-predesci-ci">IC 95%: 0,26–0,97</span>
+      </div>
+      <p class="classify-predesci-text">
+        NSBBs reduziram descompensação em 49% nos compensados com CSPH
+      </p>
+    </div>
+
+    <!-- 3 assertion cards — supporting context (auto stagger) -->
     <div class="classify-assertions">
       <div class="classify-card classify-card--safe">
         <span class="classify-card-icon">✓</span>
@@ -40,50 +48,31 @@
       </div>
     </div>
 
-    <!-- PREDESCI anchor (click 1) -->
-    <div class="classify-predesci">
-      <div class="classify-predesci-hero">
-        <span class="classify-predesci-label">PREDESCI · HR</span>
-        <span class="classify-predesci-value" data-countup-target="0.51">0,51</span>
-        <span class="classify-predesci-ci">IC 95%: 0,26–0,97</span>
-      </div>
-      <p class="classify-predesci-text">
-        NSBBs reduziram descompensação em 49% nos compensados com CSPH
-      </p>
-      <p class="classify-predesci-case">
-        Antônio: MELD-Na ~10 · CSPH provável → PREDESCI elegível
-      </p>
-    </div>
-
     <p class="source-tag" style="opacity:0">
-      D'Amico 2006 (PMID 16298014) · PREDESCI: Villanueva 2019 (PMID 30910320) ·
-      Prince DS, Hepatol Commun 2024 (PMID 38934697)
+      PREDESCI: Villanueva 2019 (PMID 30910320) ·
+      D'Amico 2006 (PMID 16298014) · D'Amico 2024 (PMID 37916970)
     </p>
 
   </div>
 
   <aside class="notes">
-[0:00-0:30] Auto: 3 assertion cards com stagger
-"Por que classificar importa? Porque a conduta é radicalmente diferente."
-"Compensado: vigilância e profilaxia primária. Mortalidade 1% por ano."
-"Primeira descompensação: tratar aggressivamente e avaliar transplante. 5% por ano."
-"Segunda descompensação: transplante ou cuidados paliativos. 20% por ano.
-E 60% progridem para further decompensation."
-
-[0:30-1:00] Click 1 → PREDESCI
-CountUp HR 0 → 0,51.
+[0:00-0:30] Auto: PREDESCI hero countUp + cards stagger
+"Por que classificar importa? Porque muda o desfecho."
 "PREDESCI — Villanueva, Lancet 2019."
-"NSBBs reduziram descompensação em 49% nos compensados com CSPH. Carvedilol é o preferido na prática."
-"Hazard Ratio 0,51. IC 95%: 0,26 a 0,97."
+"NSBBs reduziram descompensação em 49% nos compensados com CSPH."
 PAUSA 2s.
-"Antônio: MELD ~10, compensado, mas CSPH provável.
-Ele é exatamente o paciente do PREDESCI."
+"Hazard Ratio 0,51. IC 95%: 0,26 a 0,97."
 
-[1:00-1:15] Click 2 → source
-→ avançar para checkpoint 1
+[0:30-1:00] Auto: cards aparecem em stagger
+"Compensado: vigilância e profilaxia. Mortalidade 1% por ano."
+"Primeira descompensação: 5%. Segunda: 20%."
+"A classificação define a conduta."
 
-[DATA] D'Amico 2006: PMID 16298014 | mortalidade anual por estágio | Verificado: evidence-db.md
+[1:00-1:15] Click 1 → source
+→ avançar para vote
+
 [DATA] PREDESCI: PMID 30910320 | Villanueva 2019 | HR 0,51 (IC 95% 0,26–0,97) | NÃO é RR | Verificado
+[DATA] D'Amico 2006: PMID 16298014 | mortalidade anual por estágio | Verificado: evidence-db.md
 [DATA] D'Amico 2024: PMID 37916970 | ~60% further decomp | Verificado
   </aside>
 </section>
