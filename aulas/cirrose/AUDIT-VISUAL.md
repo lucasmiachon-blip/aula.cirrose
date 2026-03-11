@@ -71,13 +71,13 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 | # | Problema | Slide(s) | Sev | Quem resolve |
 |---|---------|----------|-----|-------------|
 | ~~R1~~ | ~~Emoji unicode (ERRO-030)~~ | ~~s-a1-meld~~ | ~~P1~~ | ✅ Rodada 4 |
-| R2 | h2 2 linhas | s-a1-damico | P1 | Lucas (decisao clinica) |
+| R2 | h2 2 linhas | s-a1-damico | P1 | Lucas (decisao clinica) — fórmula MELD removida, alivia density |
 | ~~R3~~ | ~~Era 2 pathway bars quase invisiveis~~ | ~~s-a1-damico~~ | ~~P1~~ | ✅ cfb7d26 (chromatic encoding) |
 | R4 | Fill 0% beat 0 | s-hook | P1 | Design decision |
-| R5 | 3 h2 pendentes Lucas | fib4, meld, classify | P1 | Lucas |
+| ~~R5~~ | ~~3 h2 pendentes Lucas~~ | ~~fib4, meld, classify~~ | ~~P1~~ | ✅ d20deec: classify + meld reescritos; fib4 mantido (mnemônico) |
 | R6 | beat 1 pode clipar a 720p | s-hook | P1 | CSS audit |
 | ~~R7~~ | ~~var() em data-background-color~~ | ~~s-title~~ | ~~P2~~ | ✅ Rodada 4 |
-| R8 | MELD >=18 PMID pendente | s-a1-meld notes | P2 | Lucas/pesquisa |
+| ~~R8~~ | ~~MELD >=18 PMID pendente~~ | ~~s-a1-meld notes~~ | ~~P2~~ | ✅ d20deec: threshold genérico, [LUCAS DECIDE] purgado |
 
 ### Rodada 4 — CSS/Viewport Hard Gate (10/mar/2026)
 

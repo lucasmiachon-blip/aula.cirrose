@@ -4,6 +4,41 @@
 
 ---
 
+## 2026-03-11 — Audit visual Act 1: headlines, density, a11y, data safety
+
+Branch: `feat/cirrose-mvp` · Commit: `d20deec`
+
+### Fixes (5 slides)
+
+| Slide | Fix |
+|-------|-----|
+| s-a1-baveno | Headline: "Baveno VII redefiniu classificação" → "Doença hepática avançada é espectro, não diagnóstico binário" |
+| s-a1-classify | Headline: "Classificar muda conduta" → "Classificar antes da 1ª descompensação reduz eventos" |
+| s-a1-damico | Fórmula MELD removida (4 termos → 1 tag inline). c-stat 0,87 mantido. Extraneous load reduzida |
+| s-a1-rule5 | Ícones zonas: ✓ ⚠ ⚠ ✕ ✕ → ✓ ? ▲ ⚠ ⛔ (5 distintos, daltonismo-safe) |
+| s-a1-meld | Threshold "MELD ≥18" (sem PMID) → "MELD elevado → acelerar encaminhamento". [LUCAS DECIDE] purgado |
+
+### Bundled (sessões anteriores neste WT)
+
+| Arquivo | Natureza |
+|---------|----------|
+| cirrose.css | Hook v8 tokens, classify/rule5/baveno styles, stage-c overrides |
+| slide-registry.js | Hook v8 refactor, click-reveal simplificação |
+| 01-hook.html | v8 flat layout (bio + labs grid + 1 click) |
+| 02-a1-continuum.html | Hero 83% Prince 2024 + screening pathway |
+| _manifest.js | Headlines sync, archetype updates |
+| evidence-db.md | Prince 2024 + LiverPRO PMIDs adicionados |
+| narrative.md | Tension levels + headlines sync |
+
+### QA
+
+- Build: 44 slides ✅
+- 4 lints PASS (slides + case-sync + narrative-sync)
+- Gate visual: APROVADO COM RESSALVAS
+- Audit humano: pendente
+
+---
+
 ## 2026-03-10 — CSS/Viewport Hard Gate Act 1 (rodada 4)
 
 Branch: `main`

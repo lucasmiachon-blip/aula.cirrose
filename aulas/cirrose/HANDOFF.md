@@ -4,7 +4,7 @@
 
 ---
 
-## Estado atual — 2026-03-10 (pós-hardening Act 1)
+## Estado atual — 2026-03-11 (pós-audit visual Act 1)
 
 **Slides:** 44 buildados (10 Act 1 + 16 Act 2 + 7 Act 3 + 3 CP + 2 pre/close + 8 appendix) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
 **Manifest rewrite:** ✅ DONE (commit c302ef1). Colisão de IDs resolvida. 12 renames + 11 skeletons criados.
@@ -13,7 +13,8 @@
 **Act 3 skeletons:** 4 existem como skeleton (s-a3-01, s-a3-03, s-a3-04, s-a3-07). Preenchimento é P1.
 **Hardening Act 1:** ✅ DONE — 4 blockers fixed (headline drift, countUp fallbacks, stale QA). 27 fresh screenshots. 0 P0.
 **CSS/Viewport Hard Gate:** ✅ DONE — ERRO-030 (emoji→CSS dots), ERRO-031 (var()→HEX), orphaned padding removed.
-**D'Amico chromatic + vote elevation:** ✅ DONE (cfb7d26 + fe5a1d8) — D'Amico pathway stages sem cor (ERRO-032). s-a1-vote 3 interaction bugs (ERRO-033). ERRO-022 fechado. 0 P0, 5 P1 remanescentes (4 Lucas, 1 pesquisa).
+**D'Amico chromatic + vote elevation:** ✅ DONE (cfb7d26 + fe5a1d8) — ERRO-022/032/033 fechados.
+**Audit visual Act 1:** ✅ DONE (d20deec) — 5 headlines/a11y/data fixes. Gate visual passou. Audit humano pendente.
 
 ---
 
@@ -54,12 +55,21 @@ Todos usam archetype-flow (.flow-cascade > .flow-step). Speaker notes com timing
 
 Arquivos tocados: _manifest.js, narrative.md, 02-a1-continuum.html, 02b-a1-damico.html, 02c-a1-classify.html, 02d-a1-vote.html, 03b-a1-fib4calc.html
 
-### P0 ATUAL: QA visual Gemini (estático por state + dinâmico)
+### ✅ DONE: Audit visual Act 1 (d20deec)
 
-1. Enviar screenshots state-by-state para Gemini (27 PNGs em `qa-screenshots/act1-reaudit/`)
-2. QA dinâmico: testar reveals e interações com vídeo
-3. h2 assertivos decididos (Lucas vê no browser → decide)
-4. Monotonia visual Act 2: Gemini avalia se 6x flow-cascade precisa de variação
+5 correções aplicadas:
+1. s-a1-baveno: headline → asserção ("espectro, não diagnóstico binário")
+2. s-a1-classify: headline → evidência ("reduz eventos")
+3. s-a1-damico: fórmula MELD removida (extraneous load), c-stat + tag mantidos
+4. s-a1-rule5: 5 ícones distintos (✓ ? ▲ ⚠ ⛔) para daltonismo
+5. s-a1-meld: threshold genérico (≥18 sem PMID removido), [LUCAS DECIDE] purgado
+
+Gate visual: APROVADO COM RESSALVAS. Audit humano no browser pendente.
+
+### P0 ATUAL: Audit humano visual Act 1
+
+Lucas precisa validar no browser (localhost:3001) os 5 fixes acima.
+Após aceite → doc sync Notion + avançar para Act 2/3.
 
 ### P1: Preencher 4 skeletons Act 3
 
@@ -85,7 +95,7 @@ RAW_ACT3_V1.md tem todo o conteúdo necessário.
 - ~~ERRO-031:~~ ✅ var() → HEX literal (rodada 4)
 - ~~ERRO-032:~~ ✅ D'Amico chromatic (cfb7d26)
 - ~~ERRO-033:~~ ✅ vote interaction bugs (fe5a1d8)
-- 3 h2 do Act 1 pendentes de decisão do Lucas (fib4, meld, classify)
+- ~~3 h2 do Act 1 pendentes de decisão do Lucas (fib4, meld, classify)~~ ✅ classify e meld resolvidos (d20deec); fib4 mantido como mnemônico
 
 ---
 
