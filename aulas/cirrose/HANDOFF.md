@@ -4,6 +4,38 @@
 
 ---
 
+## Prep Skills — 2026-03-12
+
+### Terminal 1: repo-janitor (DONE)
+**Result:** Repo limpo. 0 FAIL, 0 WARN git-tracked.
+- Manifest sync: PASS (cirrose 44/44, grade 58/58, osteo 70/70)
+- Broken MD links: 0 real (5 false positives em template text de skills)
+- Temp files: 0
+- DEPRECATED markers: 0
+- Duplicate assets: 0
+- Stale qa-screenshots: 73 PNGs deletados (gitignored, local-only). Restam 80 PNGs em 3 dirs canônicos (act1-reaudit, act1-surgical-pass, browser-qa).
+- `exports/`: dir vazio (gitignored, staging area intencional)
+- Nenhum commit necessário (mudanças apenas em arquivos gitignored).
+
+### Terminal 2: docs-audit (NEXT)
+1. Rodar docs-audit (READ-ONLY)
+2. Anotar blockers e backlog — NÃO corrigir nesta sessão
+3. Atualizar este HANDOFF com findings
+
+### Terminal 3: evolve (PENDING)
+1. Rodar evolve
+2. Revisar patches propostos
+3. Aprovar/rejeitar + commit
+
+### Pós-skills: absorver em WTs
+```bash
+cd ../aulas-magnas-wt-cirrose && git merge main
+cd ../aulas-magnas-wt-metanalise && git merge main
+cd ../aulas-magnas-wt-osteo && git merge main
+```
+
+---
+
 ## Estado atual — 2026-03-10 (pós-hardening Act 1)
 
 **Slides:** 44 buildados (10 Act 1 + 16 Act 2 + 7 Act 3 + 3 CP + 2 pre/close + 8 appendix) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
