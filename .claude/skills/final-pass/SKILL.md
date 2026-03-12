@@ -1,11 +1,11 @@
 ---
 name: final-pass
 description: Avaliacao final do deck completo via Gemini — coerencia cross-slide, ritmo narrativo, alternancia dark/light, densidade cognitiva. Rodar APENAS quando Gates 1-3 ja passaram. Ativar com "final pass", "acabamento", "deck pronto?", "avaliacao final", "polish".
-version: 1.0.0
+version: 2.0.0
 context: fork
 agent: general-purpose
 allowed-tools: Read, Edit, Bash, Grep, Glob, Agent
-argument-hint: "[aula=cirrose] [model=flash|pro] [max-iterations=3]"
+argument-hint: "[aula=cirrose] [model=flash|pro] [mode=video|static|both] [max-iterations=3]"
 ---
 
 # Final Pass — Avaliacao de Deck Completo
@@ -42,17 +42,50 @@ Se algum gate nao passou → PARAR e informar.
 
 ## Workflow
 
-### Step 1 — Gerar material
+### Step 1 — Gerar material (2 modalidades)
+
+#### Modalidade A: Video dinamico (DEFAULT — recomendado)
+
+Playwright grava clips .webm de 3-5 segundos por slide, capturando transicoes reais:
+
+```js
+// Para cada slide:
+const context = await browser.newContext({
+  recordVideo: { dir: 'qa-screenshots/final-pass/videos/', size: { width: 1280, height: 720 } }
+});
+const page = await context.newPage();
+await page.goto(`http://localhost:3000/#/${slideId}`);
+// Trigger animacao (GSAP countUp, stagger, fragments)
+await page.click('.fragment') // ou aguardar slidetransitionend
+await page.waitForTimeout(3000); // capturar 3-5s de animacao
+await context.close(); // salva .webm automaticamente
+```
+
+Resultado: `qa-screenshots/final-pass/videos/{slide-id}.webm` (1 clip por slide)
+
+**O que Gemini avalia no video que screenshot NAO captura:**
+- Timing do countUp (rapido demais? lento?)
+- Ordem do stagger (esquerda→direita? topo→baixo?)
+- Easing (natural ou robotico?)
+- Transicao entre fragments (fluida ou abrupta?)
+- Adequacao ao contexto clinico (animacao frivola?)
+
+**Custo video:** ~1,500 tokens/clip (5s HIGH) × 33 slides = 49,500 tokens
+**Custo total/pass:** $0.045 Flash | $0.185 Pro — praticamente igual a screenshots
+
+#### Modalidade B: Screenshots estaticos (fallback)
 
 ```bash
-# Screenshots de TODOS os slides em sequencia narrativa
 npm run qa:static -- --all
-
-# Ou via Playwright direto:
-# npx playwright screenshot --viewport 1280x720 cada slide
 ```
 
 Resultado: `qa-screenshots/final-pass/{slide-id}.png` (1 por slide, estado final)
+Usar quando: server nao disponivel, ou slides sem animacao.
+
+#### Modalidade C: Both (mais completo)
+
+Gerar videos E screenshots do estado final. Gemini recebe ambos.
+Custo: ~2x input tokens (~$0.09 Flash | ~$0.37 Pro). Ainda barato.
 
 ### Step 2 — Montar pacote para Gemini
 
@@ -120,7 +153,11 @@ CONTEXTO NARRATIVO (do _manifest.js):
 SPEAKER NOTES (resumo):
 [INSERIR: timing e transicoes extraidos das notes]
 
-AVALIAR O DECK COMO UM TODO — nao slides isolados:
+AVALIAR O DECK COMO UM TODO — nao slides isolados.
+Voce recebera videos .webm (3-5s cada) E/OU screenshots .png por slide.
+
+**SE RECEBER VIDEOS:** avaliar animacoes reais (GSAP countUp, stagger, drawPath, fadeUp).
+**SE RECEBER SCREENSHOTS:** avaliar apenas estado final estatico.
 
 1. COERENCIA VISUAL
    - Mesma informacao usa mesma cor/estilo em todos os slides?
@@ -145,7 +182,15 @@ AVALIAR O DECK COMO UM TODO — nao slides isolados:
    - Existe slide de transicao marcando mudanca de ato?
    - A mudanca e visualmente clara?
 
-6. APRESENTABILIDADE
+6. ANIMACOES E MOTION (avaliar nos videos .webm)
+   - countUp: velocidade adequada para absorver o numero? (ideal: 800-1200ms)
+   - stagger: revela na ordem logica da fala? (esq→dir ou topo→baixo)
+   - easing: desaceleracao natural (power2/3.out) ou robotico (linear)?
+   - Alguma animacao e frivola/decorativa para contexto medico?
+   - Timing entre fragments: da tempo de processar antes do proximo?
+   - Animacao de mortalidade/NNT: tom grave adequado? (nao alegre)
+
+7. APRESENTABILIDADE
    - Voce apresentaria este deck amanha em um congresso?
    - Se nao, o que falta?
 
@@ -166,16 +211,36 @@ Se deck esta pronto: retornar {"verdict": "DECK-PASS", "notes": "[comentario fin
 
 ---
 
-## Custo estimado
+## Custo estimado (atualizado — inclui video)
 
-| Modelo | Por pass | 3 passes | Notas |
-|--------|----------|----------|-------|
-| Flash 2.5 | $0.04 | $0.12 | Bom para layout/coerencia |
-| Pro 2.5 | $0.17 | $0.51 | Melhor para narrativa/pedagogia |
-| Free tier | $0.00 | $0.00 | 100 req/dia Pro, 250 Flash |
+Fonte: ai.google.dev/gemini-api/docs/pricing (mar/2026)
+Certeza precos: Alta (publicado). Certeza tokens: Media (±30%).
 
-**Recomendacao:** Usar Flash para iteracoes 1-2 (layout), Pro para pass final (narrativa).
-Custo tipico por aula: **$0.04 a $0.51** dependendo de quantos passes.
+### Por pass (33 slides, 5s video cada, HIGH res)
+
+| Modelo | Input (~68K tok) | Output (~10K tok) | **Total/pass** |
+|--------|-----------------|-------------------|---------------|
+| Flash 2.5 | $0.020 | $0.025 | **$0.045** |
+| Pro 2.5 | $0.085 | $0.100 | **$0.185** |
+| Free tier | $0.00 | $0.00 | **$0.00** |
+
+### Por aula completa
+
+| Cenario | Flash | Pro |
+|---------|-------|-----|
+| 1 pass | $0.045 | $0.185 |
+| 3 passes (loop) | $0.135 | $0.555 |
+| Pessimista (tokens 2x) | $0.270 | $1.110 |
+
+### Free tier limits
+
+| Modelo | Requests/dia | TPM | Nosso uso (3 passes) |
+|--------|-------------|-----|---------------------|
+| Pro | 100 | 250K | 3 req, 68K/req → cabe |
+| Flash | 250 | 250K | 3 req, 68K/req → cabe |
+
+**Recomendacao:** Flash para iteracoes 1-2 (layout/coerencia), Pro para pass final (narrativa/pedagogia).
+**Custo tipico por aula: $0.05 a $0.55.** Possivel $0.00 no free tier.
 
 ---
 
