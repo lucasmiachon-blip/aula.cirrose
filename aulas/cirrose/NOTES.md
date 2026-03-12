@@ -142,3 +142,5 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 - HANDOFF, CHANGELOG, NOTES atualizados
 
 *Machine logs 09-12/mar purgados (capturados pelo audit-trail hook em `~/.claude/session-logs/`).*
+
+[2026-03-12 15:26] [general-purpose:ac96227a] — concluído. Status: PARTIAL

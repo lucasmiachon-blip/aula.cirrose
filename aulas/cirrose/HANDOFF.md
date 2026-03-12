@@ -17,15 +17,18 @@
 - `exports/`: dir vazio (gitignored, staging area intencional)
 - Nenhum commit necessário (mudanças apenas em arquivos gitignored).
 
-### Terminal 2: docs-audit (NEXT)
-1. Rodar docs-audit (READ-ONLY)
-2. Anotar blockers e backlog — NÃO corrigir nesta sessão
-3. Atualizar este HANDOFF com findings
+### Terminal 2: docs-audit (DONE — commit 685a8f9)
+**Result:** 0 FAIL, 5 WARN. 4 fixes aplicados (-234 linhas):
+- SETUP.md: row duplicada consolidada
+- archive/README.md: entry research-2026-03-11 adicionada
+- NOTES.md: 145 linhas de machine logs purgadas (audit-trail as captura)
+- blueprint-cirrose.md: status stale removido (→ HANDOFF ref) + narrativa duplicada removida (→ biblia-narrativa ref)
+- **Backlog LOW (não corrigido):** ECOSYSTEM.md routing overlap com KPIs.md; biblia-narrativa.md stubs de evidência (40 linhas)
 
-### Terminal 3: evolve (PENDING)
-1. Rodar evolve
-2. Revisar patches propostos
-3. Aprovar/rejeitar + commit
+### Terminal 3: evolve (IN PROGRESS)
+1. [ ] Rodar evolve
+2. [ ] Revisar patches propostos
+3. [ ] Aprovar/rejeitar + commit
 
 ### Pós-skills: absorver em WTs
 ```bash
