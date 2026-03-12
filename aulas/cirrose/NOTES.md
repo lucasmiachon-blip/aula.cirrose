@@ -256,3 +256,15 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-12 01:30] [general-purpose:ae1df30f] — concluído. Status: PASS
 
 [2026-03-12 01:34] [:a4ddb4a2] — concluído. Status: PARTIAL
+
+[2026-03-12 02:10] [Explore:aec3b340] — concluído. Status: PARTIAL
+
+[2026-03-12 02:10] [Explore:a4d04f61] — concluído. Status: PARTIAL
+
+[2026-03-12 02:11] [Explore:a7c9430c] — concluído. Status: PARTIAL
+
+[2026-03-12 02:32] [BUILD] OK — cd /c/Dev/Projetos/wt-cirrose && npm run build:cirrose 2>&1 | tail -5
+
+[2026-03-12 02:32] [BUILD] OK — cd /c/Dev/Projetos/wt-osteo && npm run build:osteoporose 2>&1 | tail -5
+
+[2026-03-12 02:32] [BUILD] OK — cd /c/Dev/Projetos/wt-metanalise && npm run build 2>&1 | tail -5
