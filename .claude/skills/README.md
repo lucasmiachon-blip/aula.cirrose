@@ -10,7 +10,8 @@
 | `medical-data` | Verifica dados clínicos — trial, effect size, PMID | Ao adicionar qualquer claim numérico |
 | `evidence` | Busca PubMed — RCT, meta-análise, guideline | "preciso de PMID para X" |
 | `new-slide` | Cria HTML completo com template correto | "criar slide sobre X" |
-| `review` | Auditoria multi-agent com confidence scoring (v0.3) | "revise os slides" |
+| `review` | Auditoria multi-agent com confidence scoring (v0.4, parametrizado por aula) | "revise os slides" |
+| `final-pass` | Avaliação final deck completo via Gemini (cross-slide, narrativa, ritmo) | "final pass", "acabamento", "deck pronto?" |
 | `docs-audit` | Auditoria de docs/*.md — redundância, links, verbosidade | "audite os docs" |
 | `export` | PDF + screenshots via DeckTape | "exportar cirrose" |
 | `context7` | Docs on-demand de GSAP/Reveal/Vite/OKLCH (lazy) | Ao codar com libs do projeto |
