@@ -17,6 +17,9 @@
 | `mem-search` | Busca semântica em HANDOFF/NOTES/lessons (lazy) | "o que decidimos sobre X?" |
 | `ralph-qa` | Loop autônomo lint→fix→build→fix até 0 FAILs | "qa loop", "rodar qa até passar" |
 | `evolve` | Comitê de 4 agentes — pesquisa state-of-art, propõe patches para skills/docs/tools | "evoluir skills", "comitê", "evolve" |
+| `repo-janitor` | Audita orphan files, broken MD links, dead HTML, temp files. READ-ONLY default | "limpar repo", "tem lixo?", "orphan files" |
+| `resolve-conflict` | Guia passo-a-passo para resolver conflitos git. PT-BR, aprovacao obrigatoria | "resolver conflito", "merge conflict" |
+| `gtd` | Getting Things Done simplificado — inbox, next actions, weekly review (lazy) | "gtd", "inbox", "o que tenho pendente?" |
 
 **Regra:** Cada skill tem um papel. Nenhum duplica função de outro.
 
@@ -28,6 +31,8 @@
 | Lazy loading (frontmatter only no startup) | Context7 (Upstash) | `context7`, `mem-search` |
 | 3-step token-efficient search | claude-mem (thedotmack) | `mem-search` |
 | Comitê de votação (≥3/4 para aprovar patch) | Adversarial review pattern | `evolve` |
+| Plan-first + ask-if-unsure | manthanabc/paws + Olshansky | `resolve-conflict` |
+| GTD 3-item focus limit | Raven GTD (mcpmarket) | `gtd` |
 
 ## Ralph Loop
 
