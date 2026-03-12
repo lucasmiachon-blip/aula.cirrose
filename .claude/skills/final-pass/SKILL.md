@@ -249,8 +249,9 @@ Certeza precos: Alta (publicado). Certeza tokens: Media (±30%).
 | Flash 3 | 250 | 250K | 3 req, 68K/req → cabe |
 | Flash-Lite 3.1 | 250 | 250K | 3 req, 68K/req → cabe |
 
-**Recomendacao:** Flash-Lite 3.1 para iteracoes rapidas (layout basico), Flash 3 para iteracoes 1-2 (layout/coerencia), Pro 3.1 para pass final (narrativa/pedagogia).
-**Custo tipico por aula: $0.03 a $0.77.** Possivel $0.00 no free tier.
+**Default:** Pro 3.1 para TODAS as iteracoes. Budget aprovado: ate $100/projeto.
+**Fallback:** Flash 3 se Pro indisponivel. Flash-Lite 3.1 ultimo recurso.
+**Custo tipico por aula (Pro 3.1): $0.26 a $0.77.** Pessimista: $1.54. Muito dentro do budget.
 
 ---
 
