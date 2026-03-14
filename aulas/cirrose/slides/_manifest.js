@@ -20,7 +20,7 @@
 export const slides = [
   // ── Pre-Act ──
   { id: 's-title', file: '00-title.html', act: null, archetype: 'title', sectionTag: null, headline: 'Cirrose Hepatica', panelState: 'hidden', clickReveals: 0, customAnim: null, timing: null, subItems: ['brasao', 'titulo', 'pilares'], narrativeRole: null, tensionLevel: 0, narrativeCritical: false },
-  { id: 's-hook', file: '01-hook.html', act: null, archetype: 'hook', sectionTag: null, headline: 'Caso Antonio · Esse perfil exige rastreio para hepatopatia?', panelState: 'neutral', clickReveals: 1, customAnim: 's-hook', timing: 90, subItems: [{ label: 'bio+labs (auto)', beat: 0 }, { label: 'punchline+pergunta', beat: 1 }], narrativeRole: 'hook', tensionLevel: 3, narrativeCritical: true },
+  { id: 's-hook', file: '01-hook.html', act: null, archetype: 'hook', sectionTag: null, headline: 'Caso Antonio · Qual sua conduta?', panelState: 'hidden', clickReveals: 1, customAnim: 's-hook', timing: 90, subItems: [{ label: 'bio+labs (auto)', beat: 0 }, { label: 'punchline+pergunta', beat: 1 }], narrativeRole: 'hook', tensionLevel: 3, narrativeCritical: true },
 
   // ── Act 1: CLASSIFICAR ──
   { id: 's-a1-01', file: '02-a1-continuum.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Rastreio na atencao primaria detecta hepatopatia antes da descompensacao', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-01', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },

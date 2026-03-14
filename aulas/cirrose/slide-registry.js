@@ -49,9 +49,9 @@ export const customAnimations = {
     // Auto: countUp 83 + pathway stagger
     if (heroNum) inlineCountUp(gsap, heroNum, 83, 1.2, 0.2);
 
-    gsap.set(steps, { opacity: 0, y: 12 });
+    gsap.set(steps, { opacity: 0 });
     gsap.set(arrows, { opacity: 0 });
-    gsap.to(steps, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.8, ease: 'power2.out' });
+    gsap.to(steps, { opacity: 1, duration: 0.4, stagger: 0.2, delay: 0.8, ease: 'power2.out' });
     gsap.to(arrows, { opacity: 1, duration: 0.3, stagger: 0.2, delay: 1.0 });
 
     function advance() {

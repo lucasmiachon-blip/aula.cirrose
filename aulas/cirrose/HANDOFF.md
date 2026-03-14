@@ -96,12 +96,17 @@ Todos usam archetype-flow (.flow-cascade > .flow-step). Speaker notes com timing
 
 Arquivos tocados: _manifest.js, narrative.md, 02-a1-continuum.html, 02b-a1-damico.html, 02c-a1-classify.html, 02d-a1-vote.html, 03b-a1-fib4calc.html
 
-### P0 ATUAL: QA visual Gemini (estático por state + dinâmico)
+### P0 ATUAL: Conteúdo + interações + CSS graves (slide a slide)
 
-1. Enviar screenshots state-by-state para Gemini (27 PNGs em `qa-screenshots/act1-reaudit/`)
-2. QA dinâmico: testar reveals e interações com vídeo
-3. h2 assertivos decididos (Lucas vê no browser → decide)
-4. Monotonia visual Act 2: Gemini avalia se 6x flow-cascade precisa de variação
+Foco em produto: corrigir erros de interação, CSS e conteúdo nos slides existentes antes de qualquer QA formal.
+
+**s-hook (em andamento — edições feitas, QA pendente):**
+- Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)
+- GGT removido → 6 labs grid 3×2 (simétrico)
+- Case panel: hidden (ERRO-008 fechado)
+- ~85 linhas de CSS morto removidas (v1-v4 + sistema .hook-beat órfão)
+- Inline style removido (INR text-transform → classe CSS)
+- Build ✅ · 3 lints ✅ · `/review` QA pendente
 
 ### P1: Preencher 4 skeletons Act 3
 
@@ -114,8 +119,10 @@ Arquivos tocados: _manifest.js, narrative.md, 02-a1-continuum.html, 02b-a1-damic
 
 RAW_ACT3_V1.md tem todo o conteúdo necessário.
 
-### P2: Dívida técnica
+### Backlog
 
+- QA visual Gemini (estático por state + dinâmico): screenshots state-by-state, vídeo de reveals, monotonia visual Act 2
+- h2 assertivos: Lucas decide no browser (fib4, meld, classify)
 - 2 HEX hardcoded em cirrose.css (linhas ~1034, ~1905)
 - PDF export quebrado (DeckTape)
 - Nomes de arquivo semanticamente enganosos (05-a1-infeccao → s-a2-04, 24-app-ccc → s-a2-13, etc.)
@@ -124,7 +131,6 @@ RAW_ACT3_V1.md tem todo o conteúdo necessário.
 - ERRO-008: case panel redundante em s-hook
 - ~~ERRO-030:~~ ✅ emoji → CSS dots (rodada 4)
 - ~~ERRO-031:~~ ✅ var() → HEX literal (rodada 4)
-- 3 h2 do Act 1 pendentes de decisão do Lucas (fib4, meld, classify)
 
 ---
 

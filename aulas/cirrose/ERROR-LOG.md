@@ -56,7 +56,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 ### ERRO-008 · MEDIUM · s-hook
 **Case panel duplica informação**
 **Regra:** Quando slide exibe dados expandidos, considerar ocultar panel.
-**Status:** Pendente.
+**Status:** ✅ Corrigido (panelState: 'hidden' no s-hook — labs já estão no corpo do slide).
 
 ### ERRO-009 · CRITICAL · s-hook beat 1 (stage-c)
 **Texto "Qual é o próximo passo?" ilegível — dark on navy**
@@ -257,7 +257,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
 | HIGH       | 14    | 14         | 0 |
-| MEDIUM     | 11    | 9          | 2 (ERRO-008, ERRO-023) |
+| MEDIUM     | 11    | 10         | 1 (ERRO-023) |
 | LOW        | 2     | 2          | 0 |
 
 ---

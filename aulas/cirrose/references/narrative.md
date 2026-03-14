@@ -45,10 +45,10 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
 | 0 | s-title | *Cirrose Hepática* | Âncora visual, identidade | ○○○○○ |
-| 1 | s-hook | *Caso Antônio — Esse perfil exige rastreio para hepatopatia?* | **Inciting incident**: bio + labs visíveis de imediato, click revela "Sem queixas." + pergunta rastreio | ●●●○○ |
+| 1 | s-hook | *Caso Antônio — Qual sua conduta?* | **Inciting incident**: bio + labs visíveis de imediato, click revela "Sem queixas." + pergunta direta à audiência | ●●●○○ |
 
-- **Panel:** neutral (apresentação do caso)
-- **Estrutura:** flat layout (bio + labs auto stagger → click: "Sem queixas." + "Esse perfil exige rastreio para hepatopatia?")
+- **Panel:** hidden (dados já no corpo do slide)
+- **Estrutura:** flat layout (bio + 6 labs 3×2 auto stagger → click: "Sem queixas." + "Qual sua conduta?")
 - **Entrada NÃO é hematêmese.** Antônio chega assintomático — a tensão vem do screening revelar doença oculta.
 
 ### ATO 1 — CLASSIFICAR (slides 2-10)
