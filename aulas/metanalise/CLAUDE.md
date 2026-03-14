@@ -5,14 +5,14 @@ Parent: ver CLAUDE.md na raiz.
 ## WT State (atualizar a cada sessao)
 
 - **Branch:** feat/metanalise-mvp
-- **Ultimo merge main:** baf1816 (2026-03-09)
+- **Ultimo merge main:** 0e10d5b (2026-03-14)
 - **Classe C pendente:** 0 arquivos em main
-- **Infra sync:** Pendente — absorver main apos repatriacao (Fase 2)
+- **Infra sync:** OK — governance absorvida (Class A/B only)
 
 ## Worktree
 
 - **Branch pattern:** `feat/metanalise-{feature}-mvp`
-- **WT location:** `../aulas-magnas-wt-metanalise-{feature}`
+- **WT location:** `../wt-metanalise` (path real: `C:/Dev/Projetos/wt-metanalise`)
 - **shared/ restrictions:** READ-ONLY. Deferir mudancas para sessao em main.
 - **Pre-merge checklist:**
   - [ ] `git diff --name-only main...HEAD | grep shared/` retorna vazio

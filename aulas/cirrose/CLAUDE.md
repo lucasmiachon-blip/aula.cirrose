@@ -5,7 +5,7 @@
 ## Projeto
 
 - **Título:** Cirrose Hepática — Classificar · Intervir · Reverter
-- **Stack:** Reveal.js 5.x · GSAP 3.12 · Vanilla HTML/CSS/JS · OKLCH design tokens
+- **Stack:** deck.js (custom nav) · GSAP 3.12 · Vanilla HTML/CSS/JS · OKLCH design tokens
 - **Resolução:** 1280 × 720 (Plan C) · 1920 × 1080 (Plan A)
 - **Offline-first:** Zero CDN. Todos assets locais.
 
@@ -68,9 +68,9 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 ## WT State (atualizar a cada sessao)
 
 - **Branch:** feat/cirrose-mvp
-- **Ultimo merge main:** b771579 (2026-03-14)
+- **Ultimo merge main:** 6889ff7 (2026-03-15)
 - **Classe C pendente:** 0 arquivos em main
-- **Infra sync:** OK — main absorvida (Classe A/B), 0 commits behind
+- **Infra sync:** OK — main absorvida (Classe A/B), stack-drift cleanup
 
 ## Worktree
 
@@ -121,9 +121,9 @@ ERRO-024 (notas stale) e hardening 10/mar (headline drift) são precedentes reai
 - Usar `min()` em todo `max-width` de container para respeitar case panel
 - Design tokens: `base.css` → `archetypes.css` → `cirrose.css` (cascata)
 
-### Reveal.js
-- NUNCA lutar contra o scaling math interno do Reveal
-- Usar position absolute + overlays para side panels
+### Navigation (deck.js)
+- Usa `deck.js` (custom) — NÃO Reveal.js
+- Position absolute + overlays para side panels
 - Reordenação de slides: alterar `_manifest.js` e rodar `npm run build:cirrose`
 
 ### GSAP
