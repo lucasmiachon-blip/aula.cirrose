@@ -204,8 +204,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 4     | 4          | 0 |
-| HIGH       | 12    | 11         | 1 (ERRO-022) |
-| MEDIUM     | 9     | 7          | 2 (ERRO-008, ERRO-023) |
+| HIGH       | 12    | 12         | 0 |
+| MEDIUM     | 9     | 8          | 1 (ERRO-023) |
 | LOW        | 1     | 1          | 0         |
 
 ---
@@ -232,7 +232,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
 | HIGH       | 13    | 13         | 0 |
-| MEDIUM     | 9     | 7          | 2 (ERRO-008, ERRO-023) |
+| MEDIUM     | 9     | 8          | 1 (ERRO-023) |
 | LOW        | 1     | 1          | 0         |
 
 ---
@@ -257,7 +257,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
 | HIGH       | 14    | 14         | 0 |
-| MEDIUM     | 11    | 10         | 1 (ERRO-023) |
+| MEDIUM     | 10    | 9          | 1 (ERRO-023) |
 | LOW        | 2     | 2          | 0 |
 
 ---
@@ -280,4 +280,16 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Última atualização: 2026-03-10 · ERRO-032/033 registrados. ERRO-022 fechado. ERRO-008/023 pendentes.*
+*Última atualização: 2026-03-14 · ERRO-032/033 registrados. ERRO-008/022 fechados. ERRO-023 pendente.*
+
+---
+
+## Resumo final
+
+| Severidade | Total | Corrigidos | Pendentes |
+|------------|-------|------------|-----------|
+| CRITICAL   | 5     | 5          | 0 |
+| HIGH       | 16    | 16         | 0 |
+| MEDIUM     | 10    | 9          | 1 (ERRO-023) |
+| LOW        | 2     | 2          | 0 |
+| **Total**  | **33**| **32**     | **1** |

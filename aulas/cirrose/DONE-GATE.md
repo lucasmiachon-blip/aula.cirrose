@@ -72,3 +72,32 @@ Tudo que no modo normal e warning, no strict vira FAIL:
 Build verde + lint verde ≠ done.
 Done = Gate 1 PASS + Gate 2 PASS + Gate 3 checklist verificada.
 **Push seguro = strict PASS.**
+
+---
+
+## Pre-push hook
+
+O hook `pre-push` roda `done-gate --strict` automaticamente antes de cada `git push`.
+
+### Instalação
+
+```bash
+bash scripts/install-hooks.sh
+```
+
+Instala tanto `pre-commit` (lint) quanto `pre-push` (done-gate strict). Funciona em repos normais e worktrees.
+
+### Comportamento
+
+- Detecta a aula pelo nome do branch (`*cirrose*` → `npm run done:cirrose:strict`)
+- Se strict falhar → push bloqueado (exit 1)
+- Se branch não corresponde a nenhuma aula → skip (exit 0)
+- Extensível: grade, osteoporose, metanálise
+
+### Arquivos
+
+| Arquivo | Papel |
+|---------|-------|
+| `scripts/pre-push.sh` | Lógica principal (versionado) |
+| `scripts/install-hooks.sh` | Instalador (pre-commit + pre-push) |
+| `.git/hooks/pre-push` | Stub que chama `scripts/pre-push.sh` |

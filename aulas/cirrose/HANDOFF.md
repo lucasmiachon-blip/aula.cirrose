@@ -100,7 +100,7 @@ Arquivos tocados: _manifest.js, narrative.md, 02-a1-continuum.html, 02b-a1-damic
 
 Foco em produto: corrigir erros de interação, CSS e conteúdo nos slides existentes antes de qualquer QA formal.
 
-**s-hook (em andamento — edições feitas, QA pendente):**
+**s-hook (DONE — /review QA pendente):**
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)
 - GGT removido → 6 labs grid 3×2 (simétrico)
 - Case panel: hidden (ERRO-008 fechado)
@@ -126,9 +126,9 @@ RAW_ACT3_V1.md tem todo o conteúdo necessário.
 - 2 HEX hardcoded em cirrose.css (linhas ~1034, ~1905)
 - PDF export quebrado (DeckTape)
 - Nomes de arquivo semanticamente enganosos (05-a1-infeccao → s-a2-04, 24-app-ccc → s-a2-13, etc.)
-- Pre-commit hook wiring pendente
+- ~~Pre-commit hook wiring pendente~~ ✅ Pre-push hook instalado (done-gate --strict)
 - [TBD SOURCE]: sarcopenia prevalência, covert HE, centros TIPS Brasil, ESPEN 2019 PMID, QTc threshold
-- ERRO-008: case panel redundante em s-hook
+- ~~ERRO-008: case panel redundante em s-hook~~ ✅ (panelState: hidden)
 - ~~ERRO-030:~~ ✅ emoji → CSS dots (rodada 4)
 - ~~ERRO-031:~~ ✅ var() → HEX literal (rodada 4)
 
