@@ -13,7 +13,7 @@
 
 | Arquivo | Papel |
 |---------|-------|
-| `slides/*.html` | **DEFAULT — editar estes** (33 arquivos, 1 por slide) |
+| `slides/*.html` | **DEFAULT — editar estes** (44 arquivos, 1 por slide) |
 | `slides/_manifest.js` | Source of truth: ordem, archetypes, panelStates |
 | `slide-registry.js` | Wiring centralizado (custom anims, panel, click-reveal, meld) |
 | `index.template.html` | Template com `%%SLIDES%%` placeholder |
@@ -68,9 +68,9 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 ## WT State (atualizar a cada sessao)
 
 - **Branch:** feat/cirrose-mvp
-- **Ultimo merge main:** baf1816 (2026-03-09)
+- **Ultimo merge main:** b771579 (2026-03-14)
 - **Classe C pendente:** 0 arquivos em main
-- **Infra sync:** Pendente — absorver main apos repatriacao (Fase 2)
+- **Infra sync:** OK — main absorvida (Classe A/B), 0 commits behind
 
 ## Worktree
 

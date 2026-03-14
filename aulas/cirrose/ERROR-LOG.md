@@ -280,7 +280,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Última atualização: 2026-03-14 · ERRO-032/033 registrados. ERRO-008/022 fechados. ERRO-023 pendente.*
+*Última atualização: 2026-03-14 · 33/33 erros corrigidos. 0 pendentes.*
 
 ---
 
