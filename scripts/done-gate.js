@@ -7,13 +7,14 @@
  *   Gate 3 (Propagation):  checklist + automated stale-detection
  *
  * Usage: node scripts/done-gate.js [aula] [--strict]
- *   aula defaults to "cirrose"
+ *   In a WT branch (feat/{aula}-*), aula is auto-detected from branch name.
+ *   On main, aula argument is required.
  *   --strict: warnings become FAIL (for session close / push safety)
  *
  * Exit codes: 0 = all gates pass, 1 = any gate fail
  */
 import { execSync } from 'node:child_process';
-import { readFileSync, statSync, readdirSync } from 'node:fs';
+import { readFileSync, statSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -21,9 +22,29 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const root = join(__dirname, '..');
 const args = process.argv.slice(2);
 const strict = args.includes('--strict');
-const aula = args.find(a => a !== '--strict') || 'cirrose';
+
+// Detect aula: explicit arg > branch name > error
+function detectAula() {
+  const explicit = args.find(a => a !== '--strict');
+  if (explicit) return explicit;
+
+  try {
+    const branch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: root, encoding: 'utf-8' }).trim();
+    const match = branch.match(/^feat\/(.+?)(?:-mvp|-\w+)?$/);
+    if (match) return match[1];
+  } catch {}
+
+  console.error('ERROR: aula argument required on main. Usage: node scripts/done-gate.js <aula> [--strict]');
+  process.exit(1);
+}
+
+const aula = detectAula();
 const aulaDir = join(root, 'aulas', aula);
 
+if (!existsSync(aulaDir)) {
+  console.error(`ERROR: aulas/${aula}/ does not exist.`);
+  process.exit(1);
+}
 let gate1Pass = true;
 let gate2Warnings = [];
 let gate3Warnings = [];

@@ -24,6 +24,6 @@ fi
 echo "pre-push: branch '$BRANCH' → aula '$AULA'"
 echo "pre-push: running done-gate --strict..."
 
-npm run "done:${AULA}:strict"
+node scripts/done-gate.js "$AULA" --strict
 
 echo "pre-push: ✓ done-gate --strict passed for $AULA"
