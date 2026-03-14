@@ -53,18 +53,12 @@ function checkHtml(file, content) {
   // Track context per line: are we inside <aside class="notes">? inside .appendix?
   let insideNotes = false;
   let insideAppendix = false;
-  let insideScript = false;
   let currentSectionHasNotes = false;
   let currentSectionStart = -1;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const n = i + 1;
-
-    // Track script blocks (skip checks inside <script>)
-    if (/<script[\s>]/i.test(line)) insideScript = true;
-    if (/<\/script>/i.test(line)) { insideScript = false; continue; }
-    if (insideScript) continue;
 
     // Track section boundaries
     if (/<section[\s>]/i.test(line)) {
@@ -185,15 +179,65 @@ function checkCss(file, content) {
 }
 
 // ============================================
+// CSS BALANCE (brace + comment)
+// Catches: unclosed /* comments, orphan braces
+// ============================================
+function checkCssBalance(file, content) {
+  let inComment = false;
+  let commentStartLine = -1;
+  let braceDepth = 0;
+  const lines = content.split('\n');
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    for (let j = 0; j < line.length; j++) {
+      if (inComment) {
+        if (line[j] === '*' && j + 1 < line.length && line[j + 1] === '/') {
+          inComment = false;
+          j++;
+        }
+      } else {
+        if (line[j] === '/' && j + 1 < line.length && line[j + 1] === '*') {
+          inComment = true;
+          commentStartLine = i + 1;
+          j++;
+        } else if (line[j] === '/' && j + 1 < line.length && line[j + 1] === '/') {
+          break; // rest of line is comment
+        } else if (line[j] === '{') {
+          braceDepth++;
+        } else if (line[j] === '}') {
+          braceDepth--;
+          if (braceDepth < 0) {
+            err(file, i + 1, 'BRACE', 'Unexpected closing brace }');
+            braceDepth = 0;
+          }
+        }
+      }
+    }
+  }
+
+  if (inComment) {
+    err(file, commentStartLine, 'COMMENT', `Unclosed /* comment (opened at line ${commentStartLine}, never closed)`);
+  }
+  if (braceDepth > 0) {
+    err(file, lines.length, 'BRACE', `${braceDepth} unclosed brace(s) — missing }`);
+  }
+}
+
+// ============================================
 // RUN
 // ============================================
-console.log('🔍 Linting slides (v5)...\n');
+console.log('🔍 Linting slides (v6)...\n');
 
 const htmlFiles = walk(join(root, 'aulas'), '.html');
-const cssFiles = walk(join(root, 'shared'), '.css');
+const sharedCssFiles = walk(join(root, 'shared'), '.css');
+const aulaCssFiles = walk(join(root, 'aulas'), '.css');
 
 htmlFiles.forEach(f => checkHtml(f, readFileSync(f, 'utf-8')));
-cssFiles.forEach(f => checkCss(f, readFileSync(f, 'utf-8')));
+// Token checks (COLOR/HEX) only for shared/ — aula CSS uses oklch() legitimately
+sharedCssFiles.forEach(f => checkCss(f, readFileSync(f, 'utf-8')));
+// Balance checks (brace/comment) for ALL CSS — catches unclosed comments everywhere
+[...sharedCssFiles, ...aulaCssFiles].forEach(f => checkCssBalance(f, readFileSync(f, 'utf-8')));
 
 console.log('');
 if (errors === 0 && warnings === 0) {
