@@ -91,6 +91,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | guard-destructive.sh | (dormant — coberto por deny permissions) | Backup: bloqueia comandos destrutivos |
 | guard-merge.sh | PreToolUse (Bash) | Valida merge: --no-ff em main, bloqueia shared/ changes |
 | guard-secrets.sh | PreToolUse (Bash) | WARN-only: escaneia staged files por padrões de secrets |
+| warn-class-c.sh | PreToolUse (Bash) | WARN-only: lista arquivos Classe C ao fazer git merge main em WT |
 | post-compact-reinject.sh | SessionStart (compact) | Reinjecta HANDOFF + git log após /compact |
 | session-tracker.sh | SessionStart, SessionEnd | Lifecycle de sessão (3-terminal tracking) |
 | subagent-stop-log.sh | SubagentStop | Loga conclusão de subagents |
