@@ -55,9 +55,9 @@ Quarentena verificada: 0 commits Classe C em main. Apenas A/B (docs, hooks, skil
 
 ---
 
-## Estado atual — 2026-03-13 (pós-done-gate + narrative sync)
+## Estado atual — 2026-03-14 (pós-done-gate + narrative sync + stack-drift merge)
 
-**Slides:** 44 buildados (10 Act 1 + 16 Act 2 + 7 Act 3 + 3 CP + 2 pre/close + 8 appendix) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
+**Slides:** 44 buildados (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
 **Manifest rewrite:** ✅ DONE (commit c302ef1). Colisão de IDs resolvida. 12 renames + 11 skeletons criados.
 **Act 2 skeletons:** ✅ 7/7 preenchidos com conteúdo HTML real (fontes, números, notes com timing).
 **narrative.md:** ✅ 16 headlines sincronizadas com HTML/manifest (Act 2: 10, Act 3+close: 6). 0 drift.
