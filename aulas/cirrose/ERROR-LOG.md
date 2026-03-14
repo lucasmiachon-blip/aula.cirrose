@@ -157,7 +157,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **CSS failsafe não testado em novos elementos**
 **Root cause:** Novos elementos (`.classify-card`, `.fib4-inputs`, `.fib4-hero-result`, `.rule-gray-zone`, `.antonio-pin`, `.meld-threshold`) têm `opacity:0` em CSS para GSAP, mas `.no-js` e `.stage-bad` overrides não foram verificados em browser.
 **Regra:** Após adicionar qualquer elemento animado novo, verificar que `.no-js .elemento { opacity: 1; visibility: visible }` existe em cirrose.css E que funciona em stage-bad (sem GSAP).
-**Status:** ⚠ PENDENTE — QA loop próxima sessão.
+**Status:** ✅ Verificado (2026-03-14). Todos os 6 elementos têm `.no-js`/`.stage-bad` failsafe em cirrose.css: `.classify-card` (L2482), `.rule-gray-zone` (L1734), `.antonio-pin` (L2487), `.meld-threshold` (L279). `.fib4-inputs` e `.fib4-hero-result` nunca têm `opacity:0` — não precisam de failsafe.
 
 ---
 
@@ -205,7 +205,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 4     | 4          | 0 |
 | HIGH       | 12    | 12         | 0 |
-| MEDIUM     | 9     | 8          | 1 (ERRO-023) |
+| MEDIUM     | 9     | 9          | 0 |
 | LOW        | 1     | 1          | 0         |
 
 ---
@@ -232,7 +232,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
 | HIGH       | 13    | 13         | 0 |
-| MEDIUM     | 9     | 8          | 1 (ERRO-023) |
+| MEDIUM     | 9     | 9          | 0 |
 | LOW        | 1     | 1          | 0         |
 
 ---
@@ -257,7 +257,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
 | HIGH       | 14    | 14         | 0 |
-| MEDIUM     | 10    | 9          | 1 (ERRO-023) |
+| MEDIUM     | 10    | 10         | 0 |
 | LOW        | 2     | 2          | 0 |
 
 ---
@@ -290,6 +290,6 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
 | HIGH       | 16    | 16         | 0 |
-| MEDIUM     | 10    | 9          | 1 (ERRO-023) |
+| MEDIUM     | 10    | 10         | 0 |
 | LOW        | 2     | 2          | 0 |
-| **Total**  | **33**| **32**     | **1** |
+| **Total**  | **33**| **33**     | **0** |
