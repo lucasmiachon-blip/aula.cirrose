@@ -4,7 +4,7 @@
 
 ---
 
-## Estado atual — 2026-03-14 (QA Loop 1 baseline aplicado)
+## Estado atual — 2026-03-15 (pré-QA Loop 1 fixes)
 
 **Slides:** 44 buildados (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
 **Source of truth:** ✅ Validado — CASE→evidence-db→narrative→manifest→HTML (44/44 consistente, 0 drift de dados).
@@ -14,9 +14,10 @@
 **QA Act 1:** ✅ Loop 1 baseline aplicado (14/mar/2026) — 11 slides × 14 dimensões, scores reais em AUDIT-VISUAL.md. Nenhum slide PASS (>= 9 em todas dim). Gargalo: E (fill ratio), M (word count), L (carga cognitiva).
 **QA Act 2:** ⏳ Bloqueado por Act 1 — não avançar até Act 1 = PASS.
 **Gemini MCP:** Somente após Loop 1 PASS.
-**Drifts cosméticos:** ✅ Corrigidos (3/3) — CLAUDE.md hash/data, HANDOFF decomposição + data.
+**Consonância docs:** ✅ Todos artefatos QA alinhados a 14 dimensões (H-N): qa-engineer.md, ralph-qa, visual-qa, scripts, qa-checklist.
+**Classe A/B propagada:** ✅ 8 arquivos infra/governança propagados para main (e5e7707) e absorvidos em ambas WTs (cirrose + metanalise).
 **ERROR-LOG:** 33/33 corrigidos, 0 pendentes.
-**Prep skills 12/mar:** ✅ DONE — repo-janitor (limpo), docs-audit (-234 linhas), evolve (7 patches), WTs absorvidas.
+**Screenshots:** ✅ Frescos (act1-reaudit.mjs 15/mar — 25 PNGs, 11 slides).
 
 ---
 
@@ -25,6 +26,18 @@
 ### P0 ATUAL: Fix gargalos QA Loop 1 (E, M, L) slide a slide
 
 Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L) slide a slide.
+**Plano detalhado:** `qa_bloco_1_execucao_bc9fe86d.plan.md` (Cursor plans)
+
+**Próximos fixes (ordem de execução):**
+1. **s-a1-damico** (CRÍTICO) — E=4, L=5, H=6 → compactar eras, CSS gap/padding, meta fill <=110%
+2. **s-a1-01** (MODERADO) — E=6 → CSS padding/max-width para fill >=65%
+3. **s-hook** (MODERADO) — E=4 → verificar failsafe .no-js/.stage-bad + clipping 720p
+4. **s-cp1** (MENOR) — T=7, A=7 → inline style font-size:0.82rem → classe CSS
+5. QA conteúdo + headings (11 slides vs manifest/narrative/evidence-db)
+6. Build + 3 lints PASS
+7. Smoke interações
+8. Playwright screenshots + Opus avalia 14 dims
+9. **==> PARAR para loop ralph-qa (Claude Code) <==**
 
 **s-hook (DONE — /review QA pendente):**
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)

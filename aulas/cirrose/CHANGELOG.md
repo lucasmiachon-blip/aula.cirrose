@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-03-15 — Consonância QA 14 dimensões + merge seletivo Classe A/B
+
+Branch: `feat/cirrose-mvp`
+
+- qa-engineer.md: rubrica 13 critérios → 14 dimensões (H,T,E,C,V,K,S,M,I,D,A,L,P,N) alinhada com AUDIT-VISUAL.md
+- ralph-qa SKILL: Loop 1 inclui avaliação estética (não só lint mecânico)
+- visual-qa SKILL: 13→14 dimensões com códigos letra
+- act1-reaudit.mjs, browser-qa-act1.mjs: header com mapa de cobertura das 14 dims (quais cobre/não cobre)
+- qa-checklist.md: IDs antigos atualizados para atuais + assertions por slide
+- Merge seletivo Classe A/B para main (e5e7707): 8 arquivos infra/governança propagados
+- Main absorvido em ambas WTs (cirrose: 787560f, metanalise: merge limpo + stash restaurado)
+- Zero HTML/CSS/JS alterado. Lints PASS.
+
+---
+
 ## 2026-03-14 — Rewrite 3 Act 1 headlines (assertion-evidence)
 
 Branch: `feat/cirrose-mvp`
