@@ -63,7 +63,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 7 | s-a1-fib4 | 4 dados. 1 número. 1 decisão. | FIB-4 como screening, aplica ao Antônio | ●●○○○ |
 | 8 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
 | 9 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
-| 10 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
+| 10 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
 
 - **Panel:** neutral → caution (no CP1)
 - **Arc:** Rastreio → classificação → engajamento → ferramentas → checkpoint. Audiência segura — "sei classificar".

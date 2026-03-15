@@ -142,3 +142,27 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 - HANDOFF, CHANGELOG, NOTES atualizados
 
 *Machine logs 09-12/mar purgados (capturados pelo audit-trail hook em `~/.claude/session-logs/`).*
+
+---
+
+## [15/03] Sessão — QA Loop 1 fixes (Cursor)
+
+### Fixes aplicados (4 slides Act 1)
+
+1. **s-a1-damico** (CRÍTICO): 4 `.scores-era-source` removidos (PMIDs já consolidados no source-tag). 2 era-tags encurtados. CSS: padding 24/48/16, gap 0.5rem, margin-top:0 nos era-children, further-decomp compactado. Fill 196%→~90%, word count ~143→~105.
+2. **s-a1-01** (MODERADO): padding reduzido para 24/48, hero number ampliado (clamp 64-96px vs default 56-86px), pathway steps com padding maior (--space-md/--space-lg). Fill 52%→~65%.
+3. **s-hook** (MODERADO): failsafes .no-js/.stage-bad adicionados para .hook-lab, .hook-punchline, .hook-question. Labs ficavam invisíveis se GSAP falhasse — agora forçam opacity:1 + transform:none. 720p clipping verificado (446px < 720px).
+4. **s-cp1** (MENOR): inline style `font-size:0.82rem;color:var(--text-muted);margin-bottom:4px` removido → classe `.poll-question`. aria-labels adicionados nos 3 poll buttons.
+
+### Decisões
+
+- **Era-sources removidos** (damico): PMIDs inline dentro de cada era eram redundantes com o source-tag consolidado no final. Palestrante menciona fonte oralmente; source-tag revela no click. Reduz word count e fill sem perder atribuição.
+- **Failsafes com !important**: necessário para sobrescrever gsap.set() que roda antes do failsafe CSS. Padrão já usado em outros failsafes do projeto.
+- **Hero number ampliado** (a1-01): clamp customizado scoped ao slide. Não afeta outros hero-stat slides.
+- **Split do damico adiado**: 3 conceitos em 1 slide permanece. Split seria mudança estrutural (9 superfícies) fora do escopo QA Loop 1.
+
+### Doc sync
+
+- AUDIT-VISUAL.md: 4 slides re-scored com evidência dos fixes
+- narrative.md: drift s-cp1 corrigido ("Como estadia?" → "Como você estadia?")
+- CHANGELOG.md, HANDOFF.md: atualizados no commit anterior

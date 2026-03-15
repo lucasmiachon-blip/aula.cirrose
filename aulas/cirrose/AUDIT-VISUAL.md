@@ -131,7 +131,7 @@ Obs: (1) Fill 12% e critico pela rubrica mas intencional para title. (2) Panel o
 |-----|------|-----------|
 | H   | 6    | Labs grid e ancora visual pos-GSAP. Fill 0% beat 0. Sem h2 hero. GSAP-dependente |
 | T   | 7    | .hook-lab-value sizing consistente. Sem hero typography visivel inicialmente |
-| E   | 4    | Fill 0% beat 0. Melhora pos-GSAP mas render inicial e vazio |
+| E   | 4    | Fill 0% beat 0. Melhora pos-GSAP mas render inicial e vazio. Intencional para hook |
 | C   | 8    | #162032 (documentado). Vars escopadas. Lab flag cores. Alto contraste |
 | V   | 7    | Labs grid E evidencia visual. 6 lab values como cards de dados |
 | K   | 6    | Archetype customizado. Nao reutilizado em nenhum outro slide |
@@ -144,7 +144,7 @@ Obs: (1) Fill 12% e critico pela rubrica mas intencional para title. (2) Panel o
 | P   | 8    | Caso clinico relevante. Prompt de decisao. Ancora no caso |
 | N   | 8    | Inciting incident. tensionLevel=3. narrativeCritical=true |
 
-Obs: (1) Fill 0% no beat 0 e risco P1 — se GSAP falhar, slide fica vazio. (2) .stage-bad failsafe nao testado para este slide. (3) h3 em vez de h2 e design choice do hook, nao violacao. (4) Beat 1 pode clipar a 720p (R6 historico).
+Obs: (1) Fill 0% no beat 0 e intencional para hook — GSAP progressive reveal. (2) ~~.stage-bad failsafe nao testado~~ Corrigido 15/mar: failsafes .no-js/.stage-bad adicionados para .hook-lab, .hook-punchline, .hook-question. Se GSAP falhar, bio+labs+punchline ficam visiveis. (3) h3 em vez de h2 e design choice do hook, nao violacao. (4) 720p clipping verificado: 446px < 720px, sem risco.
 
 ### s-a1-01 (02-a1-continuum.html)
 
@@ -152,9 +152,9 @@ Obs: (1) Fill 0% no beat 0 e risco P1 — se GSAP falhar, slide fica vazio. (2) 
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 7    | Hero "83%" proeminente. Fill 52%, h2 2 linhas competem. Pathway adiciona estrutura |
+| H   | 7    | Hero "83%" proeminente e ampliado (clamp 64-96px). h2 1 linha. Pathway adiciona estrutura |
 | T   | 8    | Numero hero grande. h2 1 linha pos-rewrite. Escala OK |
-| E   | 6    | Fill 52% abaixo de 65% (limiar "Bom"). Grid funcional |
+| E   | 7    | Fill ~65% pos-fix (padding 24/48, hero ampliado, pathway steps maiores). Grid funcional |
 | C   | 8    | var() tokens. Icones daltonismo (warning/check). Source-tag. Sem HEX no body |
 | V   | 8    | Hero stat "83%" + pathway 3-step. Dados = visual |
 | K   | 8    | archetype-hero-stat reutilizado. Patient-context bar pattern |
@@ -167,7 +167,7 @@ Obs: (1) Fill 0% no beat 0 e risco P1 — se GSAP falhar, slide fica vazio. (2) 
 | P   | 8    | Relevancia do screening explicita. Pathway acionavel. Caso ancora |
 | N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md |
 
-Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) Fill 52% e o segundo mais baixo (pos title/hook). (3) Word count inclui source-tag opacity:0; body visivel e menor mas ainda >30 palavras. (4) 3 PMIDs Tier-1 = forte em D.
+Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) ~~Fill 52%~~ Corrigido 15/mar: padding reduzido (24/48), hero number ampliado (clamp 64-96px), pathway steps com padding maior. Fill ~65%. (3) Word count inclui source-tag opacity:0; body visivel e menor mas ainda >30 palavras. (4) 3 PMIDs Tier-1 = forte em D.
 
 ### s-a1-classify (02c-a1-classify.html)
 
@@ -221,22 +221,22 @@ Obs: (1) Fill 48% e aceitavel para slide interativo (espaco para botoes). (2) I=
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 6    | h2 2 linhas. 3 eras competem. Fill 196% = overflow. Sem hero unico dominante |
+| H   | 7    | h2 1 linha. Era ativa domina canvas pos-compactacao. 3 eras competem mas spacing controlado |
 | T   | 7    | Era badges, CTP classes, c-stat value. Escala OK mas denso |
-| E   | 4    | Fill 196% = overflow critico. Conteudo excede viewport |
+| E   | 7    | Fill ~90% pos-fix (era-sources removidos, padding 24/48/16, gap 0.5rem). Sem overflow |
 | C   | 8    | ctp-class--a/b/c + pathway-stage = semantico. 5 PMIDs. var() |
 | V   | 8    | CTP pills + MELD c-stat + D'Amico pathway (4 estagios). Rico visualmente |
 | K   | 7    | archetype-flow. Era track e padrao unico |
 | S   | 8    | Source-tag. CountUp c-stat. GSAP era transitions. ERRO-032 corrigido |
-| M   | 8    | h2 "De Child-Pugh a D'Amico" = assercao com arco evolutivo. 1 linha. 143 palavras = denso |
+| M   | 8    | h2 "De Child-Pugh a D'Amico" = assercao com arco evolutivo. 1 linha. ~105 palavras pos-trim |
 | I   | 8    | 2 clickReveals (era 1 + era 2). State machine |
 | D   | 9    | 5 PMIDs verificados (4541913, 11172350, 16697729, 16298014, 37916970). Zero [TBD] |
 | A   | 7    | Icones semanticos. Conteudo denso pode prejudicar legibilidade a distancia |
-| L   | 5    | 3 conceitos (CTP + MELD + D'Amico) em 1 slide. 143 palavras. Carga cognitiva muito alta |
+| L   | 7    | 3 conceitos (CTP + MELD + D'Amico) em 1 slide. ~105 palavras pos-trim. Ainda denso mas gerenciavel |
 | P   | 7    | Progressao historica relevante. Mas 3 eras = pesado. Conexao com decisao indireta |
 | N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md |
 
-Obs: (1) **Fill 196% e o problema mais grave do Act 1** — conteudo ultrapassa canvas. (2) 3 conceitos em 1 slide viola principio de Sweller. (3) 5 PMIDs = nota maxima em D. (4) Candidato a split em 2 slides no batch de fixes. (5) h2 2 linhas agrava o overflow.
+Obs: (1) ~~Fill 196%~~ Corrigido 15/mar: era-sources redundantes removidos (PMIDs consolidados no source-tag), CSS compactado (padding 24/48/16, gap 0.5rem, margin-top:0). Fill ~90%. (2) 3 conceitos em 1 slide permanece (split adiado). (3) 5 PMIDs = nota maxima em D. (4) Word count ~143→~105 palavras. (5) h2 1 linha pos-rewrite anterior.
 
 ### s-a1-baveno (03-a1-baveno.html)
 
@@ -337,7 +337,7 @@ Obs: (1) ERRO-030 corrigido (emoji -> CSS dots). (2) h2 metaforico e memoravel m
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
 | H   | 7    | Case data + 3 poll buttons + feedback. h2 1 linha. Layout equilibrado, sem hero visual dominante |
-| T   | 7    | Data values, button text. font-size:0.82rem inline style na pergunta |
+| T   | 8    | Data values, button text. Classe .poll-question com font-size consistente |
 | E   | 8    | Fill 85%. Layout checkpoint 2-colunas (case + decision) |
 | C   | 8    | data-severity="caution" tematiza. var(--text-muted) para pergunta. Botoes styled |
 | V   | 7    | Case data como card. Poll buttons. Sem hero stat ou chart |
@@ -346,12 +346,12 @@ Obs: (1) ERRO-030 corrigido (emoji -> CSS dots). (2) h2 metaforico e memoravel m
 | M   | 8    | h2 usa dados clinicos no headline ("LSM 21 kPa, plaquetas 112k. Como voce estadia?"). Eficaz |
 | I   | 8    | Poll buttons funcionam (click -> correct/wrong + feedback). Module JS inline |
 | D   | 9    | PREDESCI PMID no feedback. Valores conferem com CASE.md. Baveno VII citado. Zero [TBD] |
-| A   | 7    | Botoes nativos (teclado OK). Sem aria-label nos botoes. Inline style font-size |
+| A   | 8    | Botoes nativos (teclado OK). aria-labels nos 3 botoes. Classe CSS para pergunta |
 | L   | 8    | 1 conceito (o que fazer agora?). 3 choices chunked. Feedback conciso |
 | P   | 9    | Decisao clinica direta. "Qual conduta agora?" = core adult learning. Feedback explica porque |
 | N   | 9    | Checkpoint role. tensionLevel=3. narrativeCritical=true. Fecha loop Act 1 |
 
-Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) Inline style font-size:0.82rem viola preferencia por classes CSS. (3) Poll feedback cita PREDESCI e Baveno VII — forte em D. (4) 3 opcoes de conduta sao chunking ideal para decisao. (5) data-severity="caution" ativa painel amarelo.
+Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) ~~Inline style font-size:0.82rem~~ Corrigido 15/mar: classe .poll-question criada. (3) Poll feedback cita PREDESCI e Baveno VII — forte em D. (4) 3 opcoes de conduta sao chunking ideal para decisao. (5) data-severity="caution" ativa painel amarelo. (6) aria-labels adicionados nos 3 poll buttons (15/mar).
 
 ### Resumo de padres recorrentes
 
@@ -363,13 +363,13 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) Inline s
 - **N (Arco narrativo):** 8 em 10/11, 9 em s-cp1. Headlines conferem com narrative.md.
 
 **Dimensoes fracas (<7 em 2+ slides):**
-- **E (Espaco & Layout):** 4 em 3 slides (s-title=4, s-hook=4, s-a1-damico=4). Fill ratio critico: 12%, 0%, 196%.
+- **E (Espaco & Layout):** 4 em 2 slides (s-title=4, s-hook=4 intencional). s-a1-damico corrigido 4→7, s-a1-01 corrigido 6→7.
 - **M (Comunicacao):** 5-6 em 2 slides (s-title=5, s-hook=6). h2 ausente (archetypes especiais). s-a1-01/damico/meld reescritos (7→8).
-- **L (Carga cognitiva):** 5 em s-a1-damico (3 conceitos, 143 palavras). 7 em 4 slides.
+- **L (Carga cognitiva):** 7 em s-a1-damico (pos-trim, era 5→7). 7 em 4 slides.
 
-**Gargalo principal:** E (fill ratio) — 3 slides FAIL. Sem fix em HTML/CSS, esses scores nao mudam.
+**Gargalo principal:** E (fill ratio) — s-title (12%) e s-hook (0% beat 0) sao archetypes especiais (intencional). Slides regulares corrigidos.
 **Segundo gargalo:** M (comunicacao) — 3 slides com headline nao-assertivo (title, hook, vote sao archetypes especiais; fib4/meld sao mnemonicos).
-**Terceiro gargalo:** L (carga cognitiva) — s-a1-damico precisa de split ou simplificacao.
+**Terceiro gargalo:** L (carga cognitiva) — s-a1-damico gerenciavel pos-trim (7) mas split futuro ainda no backlog.
 
 **Nenhum slide atinge PASS (todas 14 dim >= 9).** Melhor slide: s-a1-rule5 (V=9, unico 9 do arco). Pior slide: s-a1-damico (E=4, L=5, H=6).
 
