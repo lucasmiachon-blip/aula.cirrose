@@ -148,18 +148,18 @@ Obs: (1) Fill 0% no beat 0 e risco P1 — se GSAP falhar, slide fica vazio. (2) 
 
 ### s-a1-01 (02-a1-continuum.html)
 
-**Headline:** Rastreio na atencao primaria detecta hepatopatia antes da descompensacao
+**Headline:** Rastreio primario detectou 83% das hepatopatias ocultas
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
 | H   | 7    | Hero "83%" proeminente. Fill 52%, h2 2 linhas competem. Pathway adiciona estrutura |
-| T   | 7    | Numero hero grande. h2 2 linhas = headline denso. Escala OK |
+| T   | 8    | Numero hero grande. h2 1 linha pos-rewrite. Escala OK |
 | E   | 6    | Fill 52% abaixo de 65% (limiar "Bom"). Grid funcional |
 | C   | 8    | var() tokens. Icones daltonismo (warning/check). Source-tag. Sem HEX no body |
 | V   | 8    | Hero stat "83%" + pathway 3-step. Dados = visual |
 | K   | 8    | archetype-hero-stat reutilizado. Patient-context bar pattern |
 | S   | 8    | Source-tag opacity:0 para GSAP. OKLCH. Transitions |
-| M   | 7    | h2 E assercao. Mas 2 linhas. Word count total 106 (inclui source-tag opacity:0). Body visivel ~60 palavras |
+| M   | 8    | h2 "Rastreio primario detectou 83%" = assercao com dado hero. 1 linha. Body visivel ~60 palavras |
 | I   | 8    | 1 clickReveal (source). Advance OK |
 | D   | 9    | 3 PMIDs verificados (38934697, 39674225, 35120736). [DATA] tags em notes. Zero [TBD] projetado |
 | A   | 8    | Icones warning/check com cor. Alto contraste. aria-hidden em setas |
@@ -167,7 +167,7 @@ Obs: (1) Fill 0% no beat 0 e risco P1 — se GSAP falhar, slide fica vazio. (2) 
 | P   | 8    | Relevancia do screening explicita. Pathway acionavel. Caso ancora |
 | N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md |
 
-Obs: (1) h2 2 linhas e o headline mais longo do Act 1. (2) Fill 52% e o segundo mais baixo (pos title/hook). (3) Word count inclui source-tag opacity:0; body visivel e menor mas ainda >30 palavras. (4) 3 PMIDs Tier-1 = forte em D.
+Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) Fill 52% e o segundo mais baixo (pos title/hook). (3) Word count inclui source-tag opacity:0; body visivel e menor mas ainda >30 palavras. (4) 3 PMIDs Tier-1 = forte em D.
 
 ### s-a1-classify (02c-a1-classify.html)
 
@@ -217,7 +217,7 @@ Obs: (1) Fill 48% e aceitavel para slide interativo (espaco para botoes). (2) I=
 
 ### s-a1-damico (02b-a1-damico.html)
 
-**Headline:** Do CTP ao D'Amico: prognostico passou de subjetivo a preditivo
+**Headline:** De Child-Pugh a D'Amico: prognostico virou preditivo
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -228,7 +228,7 @@ Obs: (1) Fill 48% e aceitavel para slide interativo (espaco para botoes). (2) I=
 | V   | 8    | CTP pills + MELD c-stat + D'Amico pathway (4 estagios). Rico visualmente |
 | K   | 7    | archetype-flow. Era track e padrao unico |
 | S   | 8    | Source-tag. CountUp c-stat. GSAP era transitions. ERRO-032 corrigido |
-| M   | 7    | h2 E assercao. Mas 2 linhas. 143 palavras = muito denso |
+| M   | 8    | h2 "De Child-Pugh a D'Amico" = assercao com arco evolutivo. 1 linha. 143 palavras = denso |
 | I   | 8    | 2 clickReveals (era 1 + era 2). State machine |
 | D   | 9    | 5 PMIDs verificados (4541913, 11172350, 16697729, 16298014, 37916970). Zero [TBD] |
 | A   | 7    | Icones semanticos. Conteudo denso pode prejudicar legibilidade a distancia |
@@ -309,7 +309,7 @@ Obs: (1) **Melhor slide do Act 1** — V=9 e o unico 9 de todo o arco. (2) Anton
 
 ### s-a1-meld (04-a1-meld.html)
 
-**Headline:** MELD-Na: o GPS da fila
+**Headline:** MELD-Na estratifica urgencia: cada faixa muda a conduta
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -320,7 +320,7 @@ Obs: (1) **Melhor slide do Act 1** — V=9 e o unico 9 de todo o arco. (2) Anton
 | V   | 8    | Semaforo 4-bandas = visual dominante. Mortalidade % como dados |
 | K   | 8    | archetype-hero-stat. Semaforo internamente consistente |
 | S   | 8    | Source-tag. Band stagger. Threshold width transition. OKLCH |
-| M   | 7    | h2 "MELD-Na: o GPS da fila" = metafora, nao assercao clinica estrita. Eficaz mas borderline |
+| M   | 8    | h2 "MELD-Na estratifica urgencia: cada faixa muda a conduta" = assercao clinica. Descreve o visual |
 | I   | 8    | 2 clickReveals (threshold + source). Band stagger. Width transition |
 | D   | 8    | 3 fontes (Kamath, Kim, UNOS). Mortalidade 90d sourced. Source-tag usa autor+ano sem PMID inline |
 | A   | 8    | 4 bandas com CSS dots (nao emoji). Acoes com icones. aria consistente |
@@ -364,7 +364,7 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) Inline s
 
 **Dimensoes fracas (<7 em 2+ slides):**
 - **E (Espaco & Layout):** 4 em 3 slides (s-title=4, s-hook=4, s-a1-damico=4). Fill ratio critico: 12%, 0%, 196%.
-- **M (Comunicacao):** 5-6 em 3 slides (s-title=5, s-hook=6, s-a1-vote=7). h2 ausente ou nao-assertivo.
+- **M (Comunicacao):** 5-6 em 2 slides (s-title=5, s-hook=6). h2 ausente (archetypes especiais). s-a1-01/damico/meld reescritos (7→8).
 - **L (Carga cognitiva):** 5 em s-a1-damico (3 conceitos, 143 palavras). 7 em 4 slides.
 
 **Gargalo principal:** E (fill ratio) — 3 slides FAIL. Sem fix em HTML/CSS, esses scores nao mudam.

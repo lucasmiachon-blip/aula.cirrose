@@ -37,7 +37,8 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 ### Backlog
 
 - QA visual Gemini (estático por state + dinâmico): screenshots state-by-state, vídeo de reveals, monotonia visual Act 2
-- h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão; classify e meld já reescritos em d20deec)
+- h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão)
+- Headlines reescritos neste batch: s-a1-01 (verboso→83%), s-a1-damico (verboso→Child-Pugh), s-a1-meld (metáfora→urgência)
 - 2 HEX hardcoded em cirrose.css (linhas ~1034, ~1905)
 - PDF export quebrado (DeckTape)
 - Nomes de arquivo semanticamente enganosos (05-a1-infeccao → s-a2-04, 24-app-ccc → s-a2-13, etc.)

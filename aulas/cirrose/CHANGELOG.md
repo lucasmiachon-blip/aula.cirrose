@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-03-14 — Rewrite 3 Act 1 headlines (assertion-evidence)
+
+Branch: `feat/cirrose-mvp`
+
+- s-a1-01: "Rastreio na atenção primária detecta hepatopatia antes da descompensação" → "Rastreio primário detectou 83% das hepatopatias ocultas" (2 linhas→1, ancora no hero stat)
+- s-a1-damico: "Do CTP ao D'Amico: prognóstico passou de subjetivo a preditivo" → "De Child-Pugh a D'Amico: prognóstico virou preditivo" (2 linhas→1, nome correto)
+- s-a1-meld: "MELD-Na: o GPS da fila" → "MELD-Na estratifica urgência: cada faixa muda a conduta" (metáfora→asserção clínica)
+- 9 superfícies atualizadas por heading: HTML, _manifest.js, narrative.md, AUDIT-VISUAL.md (scores M 7→8)
+- Build 44 slides OK · lint:slides PASS · identity audit 44/44 OK
+
+---
+
 ## 2026-03-14 — Regra slide-identity (9 superficies)
 
 Branch: `feat/cirrose-mvp`
