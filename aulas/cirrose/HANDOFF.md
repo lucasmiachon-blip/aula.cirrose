@@ -26,7 +26,7 @@
 ### P0 ATUAL: Fix gargalos QA Loop 1 (E, M, L) slide a slide
 
 Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L) slide a slide.
-**Plano detalhado:** `qa_bloco_1_execucao_bc9fe86d.plan.md` (Cursor plans)
+**Plano detalhado:** Cursor plan `qa_bloco_1_execucao` (arquivo externo ao repo)
 
 **Fixes aplicados (15/mar sessão Cursor):**
 1. ~~**s-a1-damico**~~ ✅ — era-source removidos, tags trimmed, CSS compactado (fill 196%→~90%)

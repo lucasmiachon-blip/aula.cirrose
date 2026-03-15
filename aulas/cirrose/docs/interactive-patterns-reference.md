@@ -125,9 +125,8 @@ Expansível via toggle. Fórmula: `(Idade × AST) / (PLQ × √ALT)`.
 - `> 2,67` → Alto risco (danger)
 
 ### Arquivos
-- `shared/js/interactions/fib4-calc.js` — classe `Fib4Calc`
-- `aulas/cirrose/index.template.html` — import + `wireAll` com `Fib4Calc`
-- `aulas/cirrose/slide-registry.js` — `new Fib4Calc(document.getElementById('panel-fib4'))`
+- `aulas/cirrose/slide-registry.js` — lógica FIB-4 inline na customAnim `s-a1-fib4` (não há módulo separado)
+- `aulas/cirrose/index.template.html` — import de `slide-registry.js`
 - `aulas/cirrose/archetypes.css` — `.panel-calc`, `.fib4-*` styles
 
 ### Nota de UX

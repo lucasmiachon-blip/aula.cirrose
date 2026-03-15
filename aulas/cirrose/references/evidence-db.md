@@ -210,8 +210,8 @@
 | s-app-02 | Early TIPS NNT ~4 | Garcia-Pagan (PMID 20573925) |
 | s-app-03 | Etiologias raras: autoimune, budd-chiari, colestáticas, Wilson | EASL CPG 2024 |
 | s-app-04 | NSBB >= EVL em profilaxia primaria (Turco 2024) | Turco 2024 CGH (PMID **38108646**) |
-| s-app-05 | Cardiomiopatia cirrotica: QTc prolongado | Moller et al (PMID 11964606) |
-| s-app-06 | SHP: PaO2 **<=80** + A-a gradient **>=15** vs PPH: mPAP >25 (corrigido: <= e >=, nao < e >) | Rodriguez-Roisin 2004 (PMID 15084697) |
+| s-a2-13 | Cardiomiopatia cirrotica: QTc prolongado | Moller et al (PMID 11964606) |
+| s-a2-14 | SHP: PaO2 **<=80** + A-a gradient **>=15** vs PPH: mPAP >25 (corrigido: <= e >=, nao < e >) | Rodriguez-Roisin 2004 (PMID 15084697) |
 | s-app-07 | Estatina adjuvante: HVPG -2 mmHg | LIVERHOPE (PMID [CANDIDATE — VERIFICAR VIA MCP]) |
 | s-app-08 | CIRROXABAN 2025: p=0,058 NS | CIRROXABAN (PMID [NOT INDEXED — searched 2026-03-07]) |
 

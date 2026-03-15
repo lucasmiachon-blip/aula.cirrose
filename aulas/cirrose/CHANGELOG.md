@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-03-15 — Referencing audit: 14 fixes across 3 surfaces
+
+Branch: `feat/cirrose-mvp`
+
+- **AUDIT-VISUAL.md:** 9 headlines ASCII → acentuados (alinhados com _manifest.js); summary "Pior slide" corrigido (pre-fix → post-fix scores); Rodada 3 table: damico/fib4/meld/classify status atualizados
+- **narrative.md:** s-a2-01 headline alinhado com manifest (sufixo adicionado); s-a2-02 severity caution → warning (match panelStates); herança s-a2-03/04 corrigida
+- **ERROR-LOG.md:** data 2026-03-14 → 2026-03-15
+- Zero code changes · 3 lints PASS
+
+---
+
 ## 2026-03-15 — s-hook: panel activation + hierarquia padronizada + CSS cleanup + doc sync
 
 Branch: `feat/cirrose-mvp`

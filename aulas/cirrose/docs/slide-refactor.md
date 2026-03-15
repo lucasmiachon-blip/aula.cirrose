@@ -10,7 +10,7 @@
 3. Grep narrative context: `sed -n '/### ATO {N}/,/^### /p' references/narrative.md`
 4. Grep dados clínicos: `grep -A2 "s-{id}" references/evidence-db.md`
 5. Grep scoring atual: `sed -n '/### Slide.*s-{id}/,/^---$/p' AUDIT-VISUAL.md`
-6. Pós-refactor: validar com `agents/qa-checklist.md` § assertions do slide
+6. Pós-refactor: validar com `docs/qa-checklist.md` § assertions do slide
 
 ## Input esperado
 
