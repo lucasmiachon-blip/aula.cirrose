@@ -10,7 +10,7 @@
 **Source of truth:** ✅ Validado — CASE→evidence-db→narrative→manifest→HTML (44/44 consistente, 0 drift de dados).
 **Act 2 skeletons:** ✅ 7/7 preenchidos com conteúdo HTML real (fontes, números, notes com timing).
 **Act 3 skeletons:** ✅ 4/4 preenchidos com conteúdo HTML real (hero-stat, comparison, etiology-compare, flow).
-**AUDIT-VISUAL.md:** ✅ Rubrica expandida 8→13 dimensões (merge qa-engineer). Scoring 1-10, min 9 para PASS.
+**AUDIT-VISUAL.md:** ✅ Rubrica expandida 8→14 dimensões (merge qa-engineer). Scoring 1-10, min 9 para PASS.
 **QA Act 1:** ✅ Loop 1 baseline aplicado (14/mar/2026) — 11 slides × 14 dimensões, scores reais em AUDIT-VISUAL.md. Nenhum slide PASS (>= 9 em todas dim). Gargalo: E (fill ratio), M (word count), L (carga cognitiva).
 **QA Act 2:** ⏳ Bloqueado por Act 1 — não avançar até Act 1 = PASS.
 **Gemini MCP:** Somente após Loop 1 PASS.
@@ -58,7 +58,7 @@ Headings explicitamente adiados para batch posterior ao QA baseline do Act 1:
 7. Checkpoint "qual o próximo passo?"
 8. Slide final do Ato 1: "Trajetórias — Cirrose e suas descompensações"
 
-Acts 2 e 3: bloqueados até Act 1 atingir PASS (todas 13 dimensões >= 9).
+Acts 2 e 3: bloqueados até Act 1 atingir PASS (todas 14 dimensões >= 9).
 
 ---
 

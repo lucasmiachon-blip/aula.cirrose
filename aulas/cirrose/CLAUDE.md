@@ -43,7 +43,7 @@
 2. **HANDOFF.md** — Pendências projeto · **HANDOFF-CLAUDE-AI.md** — Claude.ai (paths)
 3. **CHANGELOG.md** — Histórico de batches (read-only, append-only)
 4. **ERROR-LOG.md** — Erros por sessão → regras (atualizar a cada sessão)
-5. **AUDIT-VISUAL.md** — Auditoria visual 33 slides × 8 dimensões
+5. **AUDIT-VISUAL.md** — Auditoria visual 44 slides × 14 dimensões
 
 ## Reference Hierarchy
 
@@ -71,7 +71,7 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 - **Ultimo merge main:** 62a2a6d (2026-03-14)
 - **Classe C pendente:** 0 arquivos em main
 - **Infra sync:** OK — main absorvida (Classe A/B), stack-drift cleanup
-- **QA Act 1:** Loop 1 (13 dim) pendente — próximo passo
+- **QA Act 1:** Loop 1 baseline aplicado (14 dim) — fix gargalos E/M/L
 
 ## Worktree
 

@@ -2,16 +2,16 @@
 
 > Auditoria visual organizada por Atos narrativos.
 > Deck: 44 slides (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app)
-> Rubrica: **13 dimensoes**, scoring 1-10 (min 9 para PASS).
+> Rubrica: **14 dimensoes**, scoring 1-10 (min 9 para PASS).
 > Metodo: Playwright screenshot 1280x720 por estado (S0..SN) + constraint check + checklist.
 > Referencia: AASLD/EASL Postgraduate Course slides + Duarte Sparkline + Sweller CLT + Knowles.
-> Atualizado: 2026-03-14 — rubrica expandida de 8 (H/T/E/C/V/K/S/M) para 13 dimensoes (+ I/D/A/L/P/N).
+> Atualizado: 2026-03-14 — rubrica expandida de 8 (H/T/E/C/V/K/S/M) para 14 dimensoes (+ I/D/A/L/P/N).
 
 ---
 
-## Rubrica de Scoring (13 dimensoes, 1-10)
+## Rubrica de Scoring (14 dimensoes, 1-10)
 
-> PASS = todas 13 dimensoes >= 9. WARN = qualquer entre 7-8. FAIL = qualquer < 7.
+> PASS = todas 14 dimensoes >= 9. WARN = qualquer entre 7-8. FAIL = qualquer < 7.
 > Conversao da escala anterior: 1→2, 2→4, 3→6, 4→8, 5→10.
 
 ### Dimensoes visuais (originais, escala atualizada)
@@ -46,7 +46,7 @@
 - **SYS-2: Fill ratio <60%** — Espaco vazio >40%. Fix: padding/max-width archetypes. (dim: E)
 - **SYS-3: Hero typography undersized** — Numero/dado hero em `--text-h1` em vez de `--text-hero`. (dim: H, T)
 
-## Protocolo de auditoria (13 dimensoes)
+## Protocolo de auditoria (14 dimensoes)
 
 ### Loop 1 — Opus (sem Gemini)
 
@@ -59,7 +59,7 @@
    - Cores via `var()` — zero HEX hardcoded? (dim C)
    - Dados com PMID verificado ou `[TBD]`? (dim D)
 3. Playwright screenshot 1280x720 de cada estado (S0...SN)
-4. Scorecard: 13 dimensoes x nota 1-10
+4. Scorecard: 14 dimensoes x nota 1-10
 5. Issues com nota < 9 → fix cirurgico
 6. Re-audit ate PASS (todas >= 9)
 

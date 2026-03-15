@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-03-14 — Normalização modelo QA: 13→14 dimensões
+
+Branch: `feat/cirrose-mvp`
+
+- Corrigida contagem documental do modelo QA: 13→14 dimensões (8 visuais + 6 técnico-pedagógicas = 14)
+- Causa raiz: I/D/A/L/P/N = 6 novas dimensões, não 5
+- Arquivos corrigidos: AUDIT-VISUAL.md (6x), HANDOFF.md (2x), CLAUDE.md (2x)
+- Scorecards do Act 1 preservados integralmente
+- Zero HTML/CSS/JS alterado
+
+---
+
 ## 2026-03-14 — QA Loop 1 baseline Act 1 + limpeza HANDOFF + permissoes Claude Code
 
 Branch: `feat/cirrose-mvp`
