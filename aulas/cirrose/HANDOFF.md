@@ -4,20 +4,20 @@
 
 ---
 
-## Estado atual — 2026-03-15 (pré-QA Loop 1 fixes)
+## Estado atual — 2026-03-15 (pós-QA Loop 1 fixes batch 1-4)
 
 **Slides:** 44 buildados (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
 **Source of truth:** ✅ Validado — CASE→evidence-db→narrative→manifest→HTML (44/44 consistente, 0 drift de dados).
 **Act 2 skeletons:** ✅ 7/7 preenchidos com conteúdo HTML real (fontes, números, notes com timing).
 **Act 3 skeletons:** ✅ 4/4 preenchidos com conteúdo HTML real (hero-stat, comparison, etiology-compare, flow).
 **AUDIT-VISUAL.md:** ✅ Rubrica expandida 8→14 dimensões (merge qa-engineer). Scoring 1-10, min 9 para PASS.
-**QA Act 1:** ✅ Loop 1 baseline aplicado (14/mar/2026) — 11 slides × 14 dimensões, scores reais em AUDIT-VISUAL.md. Nenhum slide PASS (>= 9 em todas dim). Gargalo: E (fill ratio), M (word count), L (carga cognitiva).
+**QA Act 1 fixes:** ✅ 4 slides fixados (damico, a1-01, hook, cp1) — E/L/M gargalos. Pendente: re-score + screenshots.
 **QA Act 2:** ⏳ Bloqueado por Act 1 — não avançar até Act 1 = PASS.
 **Gemini MCP:** Somente após Loop 1 PASS.
 **Consonância docs:** ✅ Todos artefatos QA alinhados a 14 dimensões (H-N): qa-engineer.md, ralph-qa, visual-qa, scripts, qa-checklist.
 **Classe A/B propagada:** ✅ 8 arquivos infra/governança propagados para main (e5e7707) e absorvidos em ambas WTs (cirrose + metanalise).
 **ERROR-LOG:** 33/33 corrigidos, 0 pendentes.
-**Screenshots:** ✅ Frescos (act1-reaudit.mjs 15/mar — 25 PNGs, 11 slides).
+**Screenshots:** ⚠ Stale (fixes aplicados 15/mar — precisam re-screenshot + re-score).
 
 ---
 
@@ -28,16 +28,17 @@
 Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L) slide a slide.
 **Plano detalhado:** `qa_bloco_1_execucao_bc9fe86d.plan.md` (Cursor plans)
 
-**Próximos fixes (ordem de execução):**
-1. **s-a1-damico** (CRÍTICO) — E=4, L=5, H=6 → compactar eras, CSS gap/padding, meta fill <=110%
-2. **s-a1-01** (MODERADO) — E=6 → CSS padding/max-width para fill >=65%
-3. **s-hook** (MODERADO) — E=4 → verificar failsafe .no-js/.stage-bad + clipping 720p
-4. **s-cp1** (MENOR) — T=7, A=7 → inline style font-size:0.82rem → classe CSS
-5. QA conteúdo + headings (11 slides vs manifest/narrative/evidence-db)
-6. Build + 3 lints PASS
-7. Smoke interações
-8. Playwright screenshots + Opus avalia 14 dims
-9. **==> PARAR para loop ralph-qa (Claude Code) <==**
+**Fixes aplicados (15/mar sessão Cursor):**
+1. ~~**s-a1-damico**~~ ✅ — era-source removidos, tags trimmed, CSS compactado (fill 196%→~90%)
+2. ~~**s-a1-01**~~ ✅ — padding reduzido, hero ampliado, pathway steps maiores (fill 52%→~65%)
+3. ~~**s-hook**~~ ✅ — failsafes .no-js/.stage-bad adicionados (labs + punchline + question)
+4. ~~**s-cp1**~~ ✅ — inline style → .poll-question, aria-labels nos buttons
+
+**Próximos passos:**
+5. Re-screenshot Playwright (screenshots atuais estão stale)
+6. Re-score 14 dims nos 4 slides fixados (AUDIT-VISUAL.md)
+7. Smoke interações no browser
+8. **==> PARAR para loop ralph-qa (Claude Code) <==**
 
 **s-hook (DONE — /review QA pendente):**
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)

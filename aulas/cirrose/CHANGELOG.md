@@ -4,6 +4,19 @@
 
 ---
 
+## 2026-03-15 — QA Loop 1 fixes: gargalos E/L/M (4 slides Act 1)
+
+Branch: `feat/cirrose-mvp`
+
+- **s-a1-damico** (E=4→~8, L=5→~7): removidos 4 `.scores-era-source` redundantes (PMIDs no source-tag consolidado), trimmed era-tags, CSS compactado (padding 24/48/16, gap 0.5rem, margin-top:0 em era-children)
+- **s-a1-01** (E=6→~7): padding reduzido 24/48, hero number ampliado (clamp 64px-96px), pathway steps com padding maior
+- **s-hook** (E=4, failsafe): failsafes `.no-js`/`.stage-bad` adicionados para `.hook-lab`, `.hook-punchline`, `.hook-question` (labs ficavam invisíveis se GSAP falhasse)
+- **s-cp1** (T=7→8, A=7→8): inline style removido → classe `.poll-question`, aria-labels adicionados nos 3 poll buttons
+- Build 44 slides OK · 3 lints PASS · Zero erros introduzidos
+- ~9 linhas CSS novas (dentro do budget 5-10/tarefa)
+
+---
+
 ## 2026-03-15 — Consonância QA 14 dimensões + merge seletivo Classe A/B
 
 Branch: `feat/cirrose-mvp`

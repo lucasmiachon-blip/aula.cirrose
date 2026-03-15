@@ -661,6 +661,11 @@
 /* ============================================
    POLL INTERACTIVITY (CP1, CP2, CP3)
    ============================================ */
+.poll-question {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0 0 4px;
+}
 .poll-area { display: flex; flex-direction: column; gap: 10px; }
 .poll-btn {
   width: 100%; text-align: left; cursor: pointer;
@@ -980,7 +985,10 @@
 
 #s-a1-01 .archetype-hero-stat {
   grid-template-rows: auto auto auto 1fr auto auto;
+  padding: 24px 48px;
 }
+#s-a1-01 .screening-hero-number { font-size: clamp(64px, 5.5vw, 96px); }
+#s-a1-01 .screening-step { padding: var(--space-md) var(--space-lg); }
 
 /* ── Patient context banner (compact breadcrumb) ── */
 .patient-context {
@@ -1907,9 +1915,14 @@
   margin: 0;
   opacity: 0;
 }
+.no-js .hook-lab,
 .no-js .hook-punchline,
-.no-js .hook-question {
-  opacity: 1;
+.no-js .hook-question,
+.stage-bad .hook-lab,
+.stage-bad .hook-punchline,
+.stage-bad .hook-question {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2025,7 +2038,15 @@
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #s-a1-damico .archetype-flow {
   grid-template-rows: auto auto 1fr auto;
+  padding: 24px 48px 16px;
+  gap: 0.5rem;
 }
+#s-a1-damico .scores-era { gap: 4px; }
+#s-a1-damico .scores-ctp-classes,
+#s-a1-damico .scores-cstat-block,
+#s-a1-damico .scores-era-tag { margin-top: 0; }
+#s-a1-damico .damico-further-decomp { padding: 2px var(--space-xs); }
+#s-a1-damico .damico-further-text { font-size: var(--text-small); }
 .scores-era-track {
   position: relative;
   flex: 1;
