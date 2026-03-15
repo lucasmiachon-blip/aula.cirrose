@@ -138,7 +138,7 @@ ERRO-024 (notas stale) e hardening 10/mar (headline drift) são precedentes reai
 - Branch ativa: `feat/cirrose-mvp` (worktree isolada)
 - Commits: prefixo semântico (`fix:`, `feat:`, `refactor:`, `docs:`)
 
-## Worktree
+## Worktree — Escopo e Restrições
 
 - **Path:** `C:\Dev\Projetos\wt-cirrose`
 - **Branch:** `feat/cirrose-mvp`
@@ -170,7 +170,7 @@ sed -n '/### Slide 11: s-a2-03/,/^---$/p' AUDIT-VISUAL.md
 | Fase | Status | Entregável |
 |------|--------|------------|
 | FASE 0 | ✅ | `_manifest.js` (source of truth) |
-| FASE 1 | ✅ | 33 slides em `slides/`, template, build script |
+| FASE 1 | ✅ | 44 slides em `slides/`, template, build script |
 | FASE 2 | ✅ | cirrose.css consolidado |
 | FASE 3 | ✅ | `slide-registry.js` (wiring centralizado) |
 | FASE 4 | ✅ | MDs atualizados, ciclo de melhoria |

@@ -4,14 +4,23 @@
 
 ---
 
-## 2026-03-14 — Normalização modelo QA: 13→14 dimensões
+## 2026-03-14 — Normalização modelo QA + limpeza documental cruzada
 
 Branch: `feat/cirrose-mvp`
 
-- Corrigida contagem documental do modelo QA: 13→14 dimensões (8 visuais + 6 técnico-pedagógicas = 14)
-- Causa raiz: I/D/A/L/P/N = 6 novas dimensões, não 5
-- Arquivos corrigidos: AUDIT-VISUAL.md (6x), HANDOFF.md (2x), CLAUDE.md (2x)
-- Scorecards do Act 1 preservados integralmente
+### Normalização 13→14 dimensões
+- Corrigida contagem do modelo QA: 13→14 (8 visuais + 6 técnico-pedagógicas)
+- Arquivos: AUDIT-VISUAL.md (6x), HANDOFF.md (2x), CLAUDE.md (2x)
+
+### Limpeza documental cruzada (auditoria SoT)
+- HANDOFF.md: Act 2 count 16→15 (CP2 contado separadamente nos 3 CP, soma=44)
+- HANDOFF.md: Decisões TRAVADAS "16 slides + CP2" → "15 slides + CP2 (16 total)"
+- HANDOFF.md: P0 ATUAL atualizado para refletir gargalos QA baseline (E, M, L)
+- HANDOFF.md: backlog h2 corrigido (classify+meld já reescritos d20deec, só fib4 pendente)
+- CLAUDE.md: FASE 1 count 33→44 slides
+- CLAUDE.md: segunda seção Worktree renomeada "Worktree — Escopo e Restrições"
+- docs/qa-checklist.md: rubrica atualizada 8 dim × 1-5 → 14 dim × 1-10 (28→44 slides)
+- Scorecards Act 1 preservados integralmente
 - Zero HTML/CSS/JS alterado
 
 ---

@@ -122,18 +122,20 @@
 
 ## Scoring pós-QA
 
-Usar rubrica do AUDIT-VISUAL.md (8 dimensões × 1-5):
-- **H** = Headline (assertion, não rótulo)
-- **T** = Typography (hierarchy, readability)
-- **E** = Evidence/content (completude, nada clipado)
-- **C** = Color semantics (safe/warning/danger corretos)
-- **V** = Visual design (fill ratio, Von Restorff)
-- **K** = Keyboard/interaction (click-reveal, calc)
-- **S** = Speaker notes (presentes, staging cues)
-- **M** = Motion (GSAP triggers, fallback CSS)
+Usar rubrica do AUDIT-VISUAL.md (14 dimensões × 1-10):
+
+**Visuais (originais):**
+- **H** = Hierarquia Visual · **T** = Tipografia · **E** = Espaço & Layout · **C** = Cor & Contraste
+- **V** = Visuais & Figuras · **K** = Consistência · **S** = Sofisticação · **M** = Comunicação
+
+**Técnico-pedagógicas (novas):**
+- **I** = Interações · **D** = Dados clínicos · **A** = Acessibilidade
+- **L** = Carga cognitiva (Sweller) · **P** = Aprendiz adulto (Knowles) · **N** = Arco narrativo (Duarte)
 
 Verificação de dados: `grep "s-{id}" references/evidence-db.md` — conferir HR, NNT, PMID.
 
-- **Target mínimo:** média ≥ 4.0 por slide
-- **Target global:** média ≥ 4.0 (28 slides)
-- Se < 4.0: reabrir agents/slide-refactor.md e iterar
+- **PASS:** todas 14 dimensões ≥ 9 por slide
+- **WARN:** qualquer entre 7-8
+- **FAIL:** qualquer < 7
+- **Target global:** PASS em 44 slides
+- Se FAIL: fix cirúrgico → re-audit até PASS

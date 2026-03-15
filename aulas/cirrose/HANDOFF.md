@@ -6,7 +6,7 @@
 
 ## Estado atual — 2026-03-14 (QA Loop 1 baseline aplicado)
 
-**Slides:** 44 buildados (2 pre + 8 Act 1 + 16 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
+**Slides:** 44 buildados (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
 **Source of truth:** ✅ Validado — CASE→evidence-db→narrative→manifest→HTML (44/44 consistente, 0 drift de dados).
 **Act 2 skeletons:** ✅ 7/7 preenchidos com conteúdo HTML real (fontes, números, notes com timing).
 **Act 3 skeletons:** ✅ 4/4 preenchidos com conteúdo HTML real (hero-stat, comparison, etiology-compare, flow).
@@ -22,9 +22,9 @@
 
 ## CAMINHO CRÍTICO
 
-### P0 ATUAL: Conteúdo + interações + CSS graves (slide a slide)
+### P0 ATUAL: Fix gargalos QA Loop 1 (E, M, L) slide a slide
 
-Foco em produto: corrigir erros de interação, CSS e conteúdo nos slides existentes antes de qualquer QA formal.
+Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L) slide a slide.
 
 **s-hook (DONE — /review QA pendente):**
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)
@@ -37,7 +37,7 @@ Foco em produto: corrigir erros de interação, CSS e conteúdo nos slides exist
 ### Backlog
 
 - QA visual Gemini (estático por state + dinâmico): screenshots state-by-state, vídeo de reveals, monotonia visual Act 2
-- h2 assertivos: Lucas decide no browser (fib4, meld, classify)
+- h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão; classify e meld já reescritos em d20deec)
 - 2 HEX hardcoded em cirrose.css (linhas ~1034, ~1905)
 - PDF export quebrado (DeckTape)
 - Nomes de arquivo semanticamente enganosos (05-a1-infeccao → s-a2-04, 24-app-ccc → s-a2-13, etc.)
@@ -66,7 +66,7 @@ Acts 2 e 3: bloqueados até Act 1 atingir PASS (todas 14 dimensões >= 9).
 
 ### Estrutura (NÃO reabrir)
 - Cascata clínica do MESMO paciente (não lista de tópicos)
-- 16 slides + CP2 na ordem definida em narrative.md
+- 15 slides + CP2 (16 total) na ordem definida em narrative.md
 - 5 interações: PBE (A2-05), HDA/TIPS (A2-06), BB/NSBB toggle (A2-07), TX (A2-10), ICA checklist (A2-12)
 - Albumina distribuída (LVP + PBE + ACLF challenge), consolidada no apêndice
 - NSBB pós-HDA = profilaxia SECUNDÁRIA (PREDESCI NNT 9 = callback Act 1, não hero)
