@@ -25,36 +25,55 @@
 - [ ] Subtítulo menor que headline (ratio ≥ 1.5×)
 - [ ] Identidade visual (não parece template genérico)
 
-### s-a1-01 (figure)
-- [ ] Figura Villanueva visível e não-clipada
-- [ ] Click-reveal: 2 steps funcionais (ArrowRight)
-- [ ] Evidence card legível
+### s-a1-01 (hero-stat — continuum)
+- [ ] Hero "83%" proeminente
+- [ ] Pathway 3-step visível
+- [ ] Click-reveal: source-tag funcional (ArrowRight)
 
-### s-a1-02 (figure)
-- [ ] Figura densa com highlight/anotação na área relevante
-- [ ] Headline ≤ 2 linhas
+### s-a1-classify (hero-stat — PREDESCI)
+- [ ] Hero HR 0,51 dominante
+- [ ] 3 assertion cards (compensado/1ª/2ª descomp)
+- [ ] Click-reveal funcional
 
-### s-hook (custom — v5, 2 beats)
-- [ ] Beat 0: Antônio + história centrados, legíveis
-- [ ] Beat 1: 5 labs visíveis (grid 5 col), lead + pergunta abaixo
+### s-hook (custom — 2 beats)
+- [ ] Beat 0: Antônio + bio + 6 labs grid 3x2 (auto stagger)
+- [ ] Beat 1 (click): "Sem queixas." + "Qual sua conduta?"
 - [ ] Navegação bidirecional: click/→ avança, ←/↑ retorna
-- [ ] Contraste OK em stage-c (cores literais, não tokens dark)
-- [ ] CasePanel state = neutral
-- [ ] Fill ratio beat 1 ≥ 25%
+- [ ] Contraste OK (cores literais em #s-hook, não tokens dark)
+- [ ] CasePanel state = hidden
+- [ ] Failsafe .no-js/.stage-bad funciona (beat 0 não fica vazio)
 
-### s-a1-03 (interactive)
-- [ ] MELD calculator: 4 inputs renderizados
-- [ ] Barra de zonas coloridas visível (não clipada pelo panel)
-- [ ] Botão calcular e reset funcionais
-- [ ] Dados de Antônio carregados (MELD-Na ~10)
+### s-a1-vote (poll)
+- [ ] h2 "Esse paciente tem cirrose?"
+- [ ] 3 opções clicáveis (A/B/C)
+- [ ] Click em qualquer → reveal FIB-4 5,91 countUp
+- [ ] Retreat reseta DOM
 
-### s-a1-04 (bars)
-- [ ] 3 barras PREDICT visíveis (Infecção, Hemorragia, Álcool)
-- [ ] Números em fonte hero sobre as barras
+### s-a1-damico (flow — 3 eras)
+- [ ] 3 eras (CTP, MELD-Na, D'Amico pathway) via clickReveal
+- [ ] Fill <=100% (sem overflow)
+- [ ] c-stat 0,87 countUp na era MELD
 
-### s-a1-05 (table)
-- [ ] 10 etiologias visíveis (não truncadas)
-- [ ] Coluna "Exame" legível por completo
+### s-a1-baveno (hero-stat — espectro)
+- [ ] "Cirrose" dissolve → espectro cACLD/dACLD
+- [ ] Pathway 3-step (FIB-4 → Elastografia → Rule of 5)
+- [ ] 2 clickReveals funcionais
+
+### s-a1-fib4 (hero-stat — calculadora)
+- [ ] Fórmula FIB-4 visível
+- [ ] 3 cutoff zones (safe/warning/danger)
+- [ ] Click 1 → Antonio inputs + hero 5,91 countUp
+- [ ] Click 2 → source-tag
+
+### s-a1-rule5 (flow — 5 zones)
+- [ ] 5 zones LSM empilhadas com ícones daltonismo
+- [ ] Antonio pin plotado a 21 kPa (click)
+- [ ] Gray zone 10-25 kPa visível
+
+### s-a1-meld (hero-stat — semáforo)
+- [ ] 4 bandas MELD (green/yellow/orange/red) com CSS dots
+- [ ] Threshold line animação width
+- [ ] Mortalidade 90d por faixa
 
 ### s-cp1 (checkpoint)
 - [ ] CasePanel state = caution
@@ -62,48 +81,65 @@
 - [ ] Nenhuma option truncada pelo panel
 - [ ] Background caution (amarelo sutil)
 
-### s-a2-01 (metrics)
-- [ ] 3 metric cards visíveis (HR, NNT, Dose)
-- [ ] Click-reveal: 3 steps funcionais
-- [ ] Card 3 (dose) não clipado
+### s-a2-01 (flow — gatilhos)
+- [ ] Gatilhos de descompensação visíveis
+- [ ] Headline assertion: gatilho identificável na maioria dos casos
 
-### s-a2-02 (timeline)
-- [ ] 4 steps de timeline visíveis
-- [ ] Step "TIPS ≤72h" com destaque visual (Von Restorff)
+### s-a2-02 (flow — ascite dx)
+- [ ] Paracentese <=12h, GASA >1,1
+- [ ] Headline assertion com dados
 
-### s-a2-03 (cards)
-- [ ] 4 albumin cards visíveis (SBP, HRS, dose, **ATTIRE**)
-- [ ] ATTIRE card com --danger styling
-- [ ] Grid 2×2 (não row horizontal)
+### s-a2-03 (flow — ascite manejo)
+- [ ] Escalonamento espiro/furo visível
+- [ ] Sem overflow
 
-### s-a2-04 (flow)
-- [ ] 3 steps de flow visíveis (Dx, Tx, profilaxia 2ária)
-- [ ] Nenhum step truncado
+### s-a2-04 (bars — infecção)
+- [ ] Bar chart infecção precipita 1/3 descompensações
+- [ ] Archetype diferente (bars, não flow)
 
-### s-a2-05 (decision-tree)
-- [ ] 3 numbered items visíveis
-- [ ] Ícones ou cores semânticas (safe/warning/danger)
+### s-a2-05 (flow — PBE)
+- [ ] PMN >=250 = tratar
+- [ ] Sort NNT 5 referenciado
 
-### s-a2-06 (pillars)
+### s-a2-06 (flow — HDA)
+- [ ] Vasoativo + EDA <12h + ATB
+- [ ] Early TIPS em 72h se Child B/C
+
+### s-a2-07 (metrics — carvedilol)
+- [ ] 4 states progressivos (headline → HR → NNT → dose)
+- [ ] 3 clickReveals funcionais
+
+### s-a2-08 (pillars — EH)
 - [ ] 3 pilares visíveis (lactulose, rifaximina, nutrição)
-- [ ] Pilar 3 (nutrição) NÃO clipado pelo panel
+- [ ] "NÃO restringir proteína" no headline
 
 ### s-cp2 (checkpoint)
 - [ ] CasePanel state = danger
 - [ ] Background danger (vermelho sutil)
 - [ ] Na e MELD-Na com valores visíveis no case card
 
-### s-a3-01 (criteria)
-- [ ] 3 critérios Baveno VII visíveis
-- [ ] Algum destaque visual diferenciador
+### s-a3-01 (hero-stat — bridge)
+- [ ] HR 0,35 mortalidade + HR 0,46 descompensação
+- [ ] Transição do nadir para esperança
 
-### s-a3-02 (panels)
-- [ ] 3 painéis etiologia visíveis (HCV, Álcool, MASLD)
-- [ ] Painel 3 NÃO clipado
+### s-a3-02 (criteria — recompensação)
+- [ ] Critérios Baveno VII recompensação
+- [ ] Headline assertion
 
-### s-a3-03 (surveillance)
-- [ ] Surveillance box centralizado e expandido
-- [ ] "6 meses" com destaque hero
+### s-a3-03 (compare — expandido)
+- [ ] Estrito 7,0% vs Expandido 37,6%
+
+### s-a3-04 (compare — etiologia)
+- [ ] HBV >50%, HCV ~37%, álcool menor
+- [ ] 3 etiologias comparadas
+
+### s-a3-05 (compare — SVR)
+- [ ] CSPH persiste em 53% pós-SVR
+- [ ] 3 colunas melhora/persiste/vigília
+
+### s-a3-06 (surveillance — vigilância)
+- [ ] "6 meses" com destaque
+- [ ] "Nunca dar alta" no headline
 
 ### s-cp3 (checkpoint)
 - [ ] CasePanel state = hope
@@ -115,7 +151,7 @@
 - [ ] CasePanel state = resolved (timeline)
 - [ ] Headline hero-sized
 
-### Appendix (s-app-01 a s-app-08)
+### Appendix (s-app-01, s-app-02, s-app-03, s-app-04, s-app-alb, s-app-07, s-app-08, s-app-etio)
 - [ ] Case panel oculto OU conteúdo respeita largura disponível
 - [ ] Dados clínicos conferem com evidence-db.md
 - [ ] Tabelas/comparações legíveis por completo
