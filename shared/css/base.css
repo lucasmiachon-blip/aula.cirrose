@@ -392,6 +392,7 @@ body { zoom: calc(100vw / 1280px); }
   width: 100%;
   height: 100%;
   text-align: left;
+  overflow: hidden;
 }
 
 #slide-viewport > section {
@@ -410,7 +411,13 @@ body { zoom: calc(100vw / 1280px); }
 #slide-viewport > section {
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
   /* height/position/opacity/transition set in deck layout block above */
+}
+
+/* Speaker notes: hidden in deck.js (Reveal.js uses plugin) */
+#slide-viewport > section > .notes {
+  display: none;
 }
 
 #slide-viewport > section .slide-inner {
