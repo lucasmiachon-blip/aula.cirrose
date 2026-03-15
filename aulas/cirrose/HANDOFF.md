@@ -43,9 +43,13 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 **s-hook (DONE — /review QA pendente):**
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)
 - GGT removido → 6 labs grid 3×2 (simétrico)
-- Case panel: hidden (ERRO-008 fechado)
+- Case panel: neutral (labs no corpo + panel lateral com AST, ALT, PLQ, Albumina, Bili, INR)
+- ALT card: hierarquia padronizada (removido `.hook-lab--success` e tag "normal ✓")
+- CSS órfão limpo: `.hook-lab--success`, `.hook-lab-tag` e derivados (7 regras)
 - ~85 linhas de CSS morto removidas (v1-v4 + sistema .hook-beat órfão)
 - Inline style removido (INR text-transform → classe CSS)
+- Failsafes `.no-js`/`.stage-bad` para labs + punchline + question
+- `padding-right` para evitar overlap com panel lateral
 - Build ✅ · 3 lints ✅ · `/review` QA pendente
 
 ### Backlog

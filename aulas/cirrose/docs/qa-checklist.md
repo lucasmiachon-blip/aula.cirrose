@@ -40,7 +40,7 @@
 - [ ] Beat 1 (click): "Sem queixas." + "Qual sua conduta?"
 - [ ] Navegação bidirecional: click/→ avança, ←/↑ retorna
 - [ ] Contraste OK (cores literais em #s-hook, não tokens dark)
-- [ ] CasePanel state = hidden
+- [ ] CasePanel state = neutral (panel lateral com AST, ALT, PLQ, Albumina, Bili, INR)
 - [ ] Failsafe .no-js/.stage-bad funciona (beat 0 não fica vazio)
 
 ### s-a1-vote (poll)

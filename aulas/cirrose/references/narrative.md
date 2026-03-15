@@ -47,7 +47,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 0 | s-title | *Cirrose Hepática* | Âncora visual, identidade | ○○○○○ |
 | 1 | s-hook | *Caso Antônio — Qual sua conduta?* | **Inciting incident**: bio + labs visíveis de imediato, click revela "Sem queixas." + pergunta direta à audiência | ●●●○○ |
 
-- **Panel:** hidden (dados já no corpo do slide)
+- **Panel:** neutral (labs no corpo do slide + panel lateral com AST, ALT, PLQ, Albumina, Bili, INR)
 - **Estrutura:** flat layout (bio + 6 labs 3×2 auto stagger → click: "Sem queixas." + "Qual sua conduta?")
 - **Entrada NÃO é hematêmese.** Antônio chega assintomático — a tensão vem do screening revelar doença oculta.
 

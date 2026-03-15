@@ -20,7 +20,7 @@
 export const slides = [
   // ── Pre-Act ──
   { id: 's-title', file: '00-title.html', act: null, archetype: 'title', sectionTag: null, headline: 'Cirrose Hepática', panelState: 'hidden', clickReveals: 0, customAnim: null, timing: null, subItems: ['brasao', 'titulo', 'pilares'], narrativeRole: null, tensionLevel: 0, narrativeCritical: false },
-  { id: 's-hook', file: '01-hook.html', act: null, archetype: 'hook', sectionTag: null, headline: 'Caso Antônio · Qual sua conduta?', panelState: 'hidden', clickReveals: 1, customAnim: 's-hook', timing: 90, subItems: [{ label: 'bio+labs (auto)', beat: 0 }, { label: 'punchline+pergunta', beat: 1 }], narrativeRole: 'hook', tensionLevel: 3, narrativeCritical: true },
+  { id: 's-hook', file: '01-hook.html', act: null, archetype: 'hook', sectionTag: null, headline: 'Caso Antônio · Qual sua conduta?', panelState: 'neutral', clickReveals: 1, customAnim: 's-hook', timing: 90, subItems: [{ label: 'bio+labs (auto)', beat: 0 }, { label: 'punchline+pergunta', beat: 1 }], narrativeRole: 'hook', tensionLevel: 3, narrativeCritical: true },
 
   // ── Act 1: CLASSIFICAR ──
   { id: 's-a1-01', file: '02-a1-continuum.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Rastreio primário detectou 83% das hepatopatias ocultas', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-01', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
@@ -80,8 +80,8 @@ export const panelStates = {
   // ── Pre-Act + Act 1 ──
   's-hook': {
     severity: 'neutral',
-    values: { fib4: '—', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
-    visibleFields: ['plq', 'albumin', 'stage'],
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—', stage: '?' },
+    visibleFields: ['AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
   },
   's-a1-vote': {

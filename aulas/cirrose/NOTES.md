@@ -1,5 +1,15 @@
 # NOTES — Cirrose
 
+## [15/03] Decisões — s-hook panel + hierarquia labs
+
+- **Panel ativado:** `panelState: 'hidden'` → `'neutral'` — decisão: duplicação intencional familiariza audiência com o panel lateral antes do Act 1
+- **Hierarquia padronizada:** ALT card tinha `.hook-lab--success` + tag "normal ✓" diferenciando-o visualmente. Removido para manter todos 6 labs com mesma hierarquia. Armadilha pedagógica (ALT normal em burnt-out) fica nas speaker notes, não na UI
+- **visibleFields progressivo:** s-hook mostra apenas AST, ALT, PLQ, Albumina, Bili, INR. FIB-4/LSM/MELD aparecem a partir de slides posteriores — evita spoiler cognitivo
+- **CSS órfão:** 7 regras de `.hook-lab--success` e `.hook-lab-tag` removidas (classes não existem mais no HTML)
+- **ERRO-008 revertido:** de "corrigido (hidden)" para "revertido para neutral" — duplicação agora intencional
+
+---
+
 ## [04/03] Decisões — D'Amico slide
 
 - Headline (v2): "D'Amico redefiniu o prognóstico da cirrose 3 vezes em 18 anos"

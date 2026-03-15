@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-03-15 — s-hook: panel activation + hierarquia padronizada + CSS cleanup + doc sync
+
+Branch: `feat/cirrose-mvp`
+
+- **s-hook ALT card:** removido `.hook-lab--success` e tag "normal ✓" — todos 6 labs com hierarquia visual idêntica
+- **s-hook panel:** `panelState` alterado de `hidden` para `neutral` — labs aparecem no corpo + panel lateral (AST, ALT, PLQ, Albumina, Bili, INR)
+- **s-hook `panelStates`:** `values` expandido com AST/ALT/Bili/INR; `visibleFields` limita a 6 campos
+- **CSS padding:** `#deck.has-panel #s-hook .hook-stage { padding-right }` evita overlap com panel
+- **CSS órfão removido:** `.hook-lab--success`, `.hook-lab-tag` e 5 derivados (7 regras mortas)
+- **Doc sync (7 superfícies):** HANDOFF, narrative.md, AUDIT-VISUAL.md (headline), ERROR-LOG (ERRO-008), qa-checklist — todos alinhados com `neutral`
+- Build 44 slides OK · 3 lints PASS · Zero erros introduzidos
+
+---
+
 ## 2026-03-15 — QA Loop 1 fixes: gargalos E/L/M (4 slides Act 1)
 
 Branch: `feat/cirrose-mvp`

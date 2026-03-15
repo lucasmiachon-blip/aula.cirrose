@@ -125,7 +125,7 @@ Obs: (1) Fill 12% e critico pela rubrica mas intencional para title. (2) Panel o
 
 ### s-hook (01-hook.html)
 
-**Headline:** Caso Antonio - Qual sua conduta? (sem h2 — archetype hook customizado)
+**Headline:** Caso Antônio · Qual sua conduta? (sem h2 — archetype hook customizado)
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|

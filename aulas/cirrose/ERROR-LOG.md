@@ -56,7 +56,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 ### ERRO-008 · MEDIUM · s-hook
 **Case panel duplica informação**
 **Regra:** Quando slide exibe dados expandidos, considerar ocultar panel.
-**Status:** ✅ Corrigido (panelState: 'hidden' no s-hook — labs já estão no corpo do slide).
+**Status:** ✅ Revertido para `neutral` (15/mar) — labs aparecem no corpo E no panel lateral. Duplicação intencional: familiariza audiência com o panel antes do Act 1. `visibleFields` limita a AST, ALT, PLQ, Albumina, Bili, INR.
 
 ### ERRO-009 · CRITICAL · s-hook beat 1 (stage-c)
 **Texto "Qual é o próximo passo?" ilegível — dark on navy**
