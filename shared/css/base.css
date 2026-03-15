@@ -375,6 +375,8 @@
    DECK CONTAINER + TYPOGRAPHY
    ============================================ */
 
+html, body { margin: 0; padding: 0; }
+
 /* Responsive scale: zoom is broadly supported in modern browsers */
 body { zoom: calc(100vw / 1280px); }
 
@@ -411,7 +413,6 @@ body { zoom: calc(100vw / 1280px); }
 #slide-viewport > section {
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
   /* height/position/opacity/transition set in deck layout block above */
 }
 
