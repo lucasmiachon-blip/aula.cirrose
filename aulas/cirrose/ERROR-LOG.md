@@ -280,7 +280,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Última atualização: 2026-03-14 · 33/33 erros corrigidos. 0 pendentes.*
+*Última atualização: 2026-03-15 · 33/33 erros corrigidos. 0 pendentes.*
 
 ---
 

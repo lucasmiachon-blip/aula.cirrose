@@ -78,7 +78,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
-| 11 | s-a2-01 | Descompensação tem gatilho identificável na maioria dos casos | **Transição**: compensada ≠ estável. Antônio manteve etilismo + abandonou NSBB. | ●○○○○ |
+| 11 | s-a2-01 | Descompensação tem gatilho identificável na maioria dos casos — infecção, álcool e não-adesão lideram | **Transição**: compensada ≠ estável. Antônio manteve etilismo + abandonou NSBB. | ●○○○○ |
 | 12 | s-a2-02 | Ascite nova = paracentese ≤12h. GASA >1,1 confirma portal | **1º golpe**: Antônio cruza a linha. Primeiro evento descompensante. | ●●○○○ |
 | 13 | s-a2-03 | Espironolactona 100→400 + furosemida 40→160: escalonamento e limites | Conduta prática pós-diagnóstico. Ascite tem manejo, mas é o início da espiral. | ●●○○○ |
 | 14 | s-a2-04 | Infecção precipita 1 em 3 descompensações — e é a mais prevenível | **Setup** para PBE. Cirrótico é imunodeprimido. Translocação bacteriana. | ●●○○○ |
@@ -186,7 +186,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 s-hook    → neutral   (apresentação: ver CASE.md — baseline labs)
 s-cp1     → caution   (LSM 21 kPa · MELD ~10 · cACLD→CSPH)
 s-a2-01   → caution   (MELD 12 — piora basal, etilismo + não-adesão)
-s-a2-02   → caution   (MELD 14 — 1ª descompensação: ascite. Tag +Ascite)
+s-a2-02   → warning   (MELD 14 — 1ª descompensação: ascite. Tag +Ascite)
 s-a2-05   → warning   (MELD 17 — PBE. Tag +PBE. Cr 1,4)
 s-a2-06   → warning   (MELD 18 — HDA. Tag +HDA)
 s-a2-08   → warning   (Tag +EH)
@@ -201,7 +201,7 @@ s-close   → resolved  (timeline completa dos estados)
 ```
 
 Transições intermediárias herdam o último estado registrado.
-Ex: s-a2-03 e s-a2-04 herdam `caution` (herdado de s-a2-02).
+Ex: s-a2-03 e s-a2-04 herdam `warning` (herdado de s-a2-02).
 
 ## Regras para Agentes
 

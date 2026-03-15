@@ -102,7 +102,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (25 PNGs)
 
 ### s-title (00-title.html)
 
-**Headline:** Cirrose Hepatica (h1, nao h2 — archetype title)
+**Headline:** Cirrose Hepática (h1, não h2 — archetype title)
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -148,7 +148,7 @@ Obs: (1) Fill 0% no beat 0 e intencional para hook — GSAP progressive reveal. 
 
 ### s-a1-01 (02-a1-continuum.html)
 
-**Headline:** Rastreio primario detectou 83% das hepatopatias ocultas
+**Headline:** Rastreio primário detectou 83% das hepatopatias ocultas
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -171,7 +171,7 @@ Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) ~~Fill 52%~~ Corrigido 
 
 ### s-a1-classify (02c-a1-classify.html)
 
-**Headline:** Classificar antes da 1a descompensacao reduz eventos
+**Headline:** Classificar antes da 1ª descompensação reduz eventos
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -217,7 +217,7 @@ Obs: (1) Fill 48% e aceitavel para slide interativo (espaco para botoes). (2) I=
 
 ### s-a1-damico (02b-a1-damico.html)
 
-**Headline:** De Child-Pugh a D'Amico: prognostico virou preditivo
+**Headline:** De Child-Pugh a D'Amico: prognóstico virou preditivo
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -240,7 +240,7 @@ Obs: (1) ~~Fill 196%~~ Corrigido 15/mar: era-sources redundantes removidos (PMID
 
 ### s-a1-baveno (03-a1-baveno.html)
 
-**Headline:** Doenca hepatica avancada e espectro, nao diagnostico binario
+**Headline:** Doença hepática avançada é espectro, não diagnóstico binário
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -263,7 +263,7 @@ Obs: (1) Overflow leve no estado inicial (104%) resolve para 87% apos click. (2)
 
 ### s-a1-fib4 (03b-a1-fib4calc.html)
 
-**Headline:** 4 dados. 1 numero. 1 decisao.
+**Headline:** 4 dados. 1 número. 1 decisão.
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -286,7 +286,7 @@ Obs: (1) h2 mnemonico e eficaz mas tecnicamente nao e assercao clinica per rubri
 
 ### s-a1-rule5 (03d-a1-rule5.html)
 
-**Headline:** A cada 5 kPa, muda o estagio e a conduta
+**Headline:** A cada 5 kPa, muda o estágio e a conduta
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -309,7 +309,7 @@ Obs: (1) **Melhor slide do Act 1** — V=9 e o unico 9 de todo o arco. (2) Anton
 
 ### s-a1-meld (04-a1-meld.html)
 
-**Headline:** MELD-Na estratifica urgencia: cada faixa muda a conduta
+**Headline:** MELD-Na estratifica urgência: cada faixa muda a conduta
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -332,7 +332,7 @@ Obs: (1) ERRO-030 corrigido (emoji -> CSS dots). (2) h2 metaforico e memoravel m
 
 ### s-cp1 (07-cp1.html)
 
-**Headline:** LSM 21 kPa, plaquetas 112k. Como voce estadia?
+**Headline:** LSM 21 kPa, plaquetas 112k. Como você estadia?
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -371,7 +371,7 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) ~~Inline
 **Segundo gargalo:** M (comunicacao) — 3 slides com headline nao-assertivo (title, hook, vote sao archetypes especiais; fib4/meld sao mnemonicos).
 **Terceiro gargalo:** L (carga cognitiva) — s-a1-damico gerenciavel pos-trim (7) mas split futuro ainda no backlog.
 
-**Nenhum slide atinge PASS (todas 14 dim >= 9).** Melhor slide: s-a1-rule5 (V=9, unico 9 do arco). Pior slide: s-a1-damico (E=4, L=5, H=6).
+**Nenhum slide atinge PASS (todas 14 dim >= 9).** Melhor slide: s-a1-rule5 (V=9, único 9 do arco). Slides mais fracos: s-title (E=4, M=5) e s-hook (E=4, M=6) — ambos archetypes especiais (intencional). s-a1-damico corrigido para E=7, L=7, H=7.
 
 ---
 
@@ -390,12 +390,12 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
 | 2 | s-hook | PASS COM RISCO | Fill 0% beat 0 (GSAP-dependente); beat 1 pode clipar INR+punchline a 720p | P1 |
 | 3 | s-a1-01 | OK | countUp fallbacks corrigidos; iceberg ok | — |
 | 4 | s-a1-vote | OK | Reveal funciona; FIB-4 fallback corrigido para 5,91 | — |
-| 5 | s-a1-damico | PASS COM RISCO | h2 2 linhas; era 2 pathway bars quase invisiveis; fill 205% | P1 |
+| 5 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
 | 6 | s-a1-baveno | OK | card 3 toca borda inferior state 1 (aceitavel) | P1 |
-| 7 | s-a1-fib4 | OK | Layout limpo; h2 pendente Lucas | P1 |
+| 7 | s-a1-fib4 | OK | Layout limpo; h2 mnemônico mantido (decisão Lucas) | — |
 | 8 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
-| 9 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; h2 pendente Lucas | P1 |
-| 10 | s-a1-classify | OK | 3 cards + PREDESCI; h2 pendente Lucas | P1 |
+| 9 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
+| 10 | s-a1-classify | OK | 3 cards + PREDESCI; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |
 
 ### Fixes acumulados (rodadas 2 + 3)
