@@ -140,5 +140,6 @@ cat tasks/lessons.md 2>/dev/null || echo "No lessons yet"
 - Medical data: @.claude/rules/medical-data.md
 - Navigation/animation patterns: @.claude/rules/reveal-patterns.md (rename pendente)
 - Slide editing: @.claude/rules/slide-editing.md
+- **Slide identity (9 superficies):** @.claude/rules/slide-identity.md
 - Motion QA: @.claude/rules/motion-qa.md
 - Doc graph: @docs/XREF.md

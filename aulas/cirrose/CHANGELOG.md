@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-03-14 — Regra slide-identity (9 superficies)
+
+Branch: `feat/cirrose-mvp`
+
+- Nova regra `.claude/rules/slide-identity.md` + `.cursor/rules/slide-identity.mdc`
+- Documenta as 9 superficies de identidade de um slide (manifest, HTML, registry, CSS, narrative, evidence-db, AUDIT, HANDOFF, index)
+- Protocolos CRUD: criacao, rename, split, delete — com checklists atomicos
+- Anti-patterns documentados (erros reais: ERRO-024, headline drift, file rename sem manifest)
+- Tabela de nomes de arquivo enganosos (debt de migracao)
+- Script de verificacao automatizada pre-commit
+- CLAUDE.md cirrose: secao Manifest Sync → Slide Identity (referencia regra completa)
+- CLAUDE.md raiz: adicionada referencia na lista de rules
+
+---
+
 ## 2026-03-14 — Normalização modelo QA + limpeza documental cruzada
 
 Branch: `feat/cirrose-mvp`

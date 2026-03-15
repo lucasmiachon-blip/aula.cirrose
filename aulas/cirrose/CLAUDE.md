@@ -87,24 +87,21 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 - **Merge protocol:** No main: `git merge --no-ff feat/cirrose-{feature}-mvp`
 - **Cleanup:** `bash .claude/scripts/worktree-cleanup.sh cirrose-{feature}`
 
-## Manifest Sync Guardrail
+## Slide Identity — Regra Inviolavel
 
-`_manifest.js` é a camada que agentes e lints leem. HTML é a camada que humanos veem no browser. Drift entre os dois = split-brain de source of truth.
+> **Regra completa:** `.claude/rules/slide-identity.md` (9 superficies, protocolos CRUD, anti-patterns)
 
-### Triggers de verificação
+Um slide tem **9 superficies de identidade** que devem estar sincronizadas:
+`_manifest.js` · HTML `<section id>` · `slide-registry.js` · `cirrose.css` · `narrative.md` · `evidence-db.md` · `AUDIT-VISUAL.md` · `HANDOFF.md` · `index.html` (gerado)
 
-Qualquer uma destas mudanças exige checagem de `_manifest.js`:
-- Edição de `<h2>` em qualquer slide HTML
-- Mudança de `<section id="...">` (identidade do slide)
-- Rename de arquivo de slide
-- Reordenação lógica de slides
-
-### Regras
+### Regras criticas
 
 1. **Drift da rodada** (slide tocado nesta rodada diverge do manifest) → **FAIL**. QA não pode ser declarado PASS.
-2. **Drift herdado** (slide NÃO tocado nesta rodada, drift pré-existente) → **WARN** + follow-up obrigatório registrado em HANDOFF.md. Não fingir PASS limpo.
+2. **Drift herdado** (slide NÃO tocado nesta rodada, drift pré-existente) → **WARN** + follow-up obrigatório registrado em HANDOFF.md.
 3. Antes de commit de aula, comparar `_manifest.js` headlines/IDs com os `<h2>`/`<section id>` dos slides tocados na rodada.
 4. Drift da rodada detectado → corrigir ANTES de prosseguir. Não anotar para "depois".
+5. **RENAME/SPLIT/DELETE** → checklist atomico das 9 superficies (ver regra completa). NUNCA executar sem aprovacao.
+6. Verificacao obrigatoria pre-commit: script de auditoria ID (ver regra completa).
 
 ### Referência
 
