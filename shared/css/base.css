@@ -375,7 +375,7 @@
    DECK CONTAINER + TYPOGRAPHY
    ============================================ */
 
-html { background: #000; }
+html { background: oklch(0% 0 0); }
 html, body { margin: 0; padding: 0; }
 
 /* Responsive scale: zoom is broadly supported in modern browsers */
