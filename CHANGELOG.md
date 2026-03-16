@@ -2,7 +2,13 @@
 
 ## [Unreleased]
 
-### Fixed (2026-03-16 — Fullscreen zoom + letterbox)
+### Fixed (2026-03-16 — JS deck scaling + anti-rollback hook)
+- `shared/css/base.css`: CSS `zoom` substituido por `transform: scale()` via JS. `#deck` agora `position: absolute` centralizado.
+- `shared/js/deck.js`: `scaleDeck()` com `Math.min(w/1280, h/720)` + `translate(-50%,-50%)`. Handles resize + fullscreen.
+- `scripts/post-merge.sh`: Guard 4 — detecta slide count loss E alteracoes de conteudo HTML apos merge (anti-rollback silencioso).
+- `scripts/install-hooks.sh`: instala post-merge hook.
+
+### Fixed (2026-03-16 — Fullscreen zoom + letterbox) [SUPERSEDED by JS scaling above]
 - `shared/css/base.css`: zoom simplificado para width-only `calc(100vw / 1280px)` (alinha com metanalise).
 - `shared/css/base.css`: `html { background: var(--bg-black) }` — letterbox preto explícito.
 - `shared/css/base.css`: removido `background: var(--bg-surface)` do body — causava ilusão de "conteúdo cortado" em monitores 16:10 (letterbox cream indistinguível do slide).
