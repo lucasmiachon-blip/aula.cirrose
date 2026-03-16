@@ -294,7 +294,17 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Última atualização: 2026-03-15 · 34/34 erros corrigidos. 0 pendentes.*
+### ERRO-035 · HIGH · s-a1-01
+**`.screening-pathway` quebrava para 2 linhas — 3o card (Elastografia) cortado**
+**Root cause:** CSS inline no HTML definia `flex-wrap: wrap`. Com gap de 16px e 3 cards + 2 arrows, total = 991px em 936px disponíveis → wrap inevitável. O erro estava no CSS inline do slide, não no archetype.
+**Fix:** Override em `cirrose.css` com `#slide-viewport .screening-pathway { flex-wrap: nowrap; gap: var(--space-xs) }` + `#slide-viewport .screening-step { min-width: 0; padding: var(--space-sm) }`.
+**Diagnóstico associado:** 9 slides reportados com "overflow" eram artefatos de GSAP (elementos `opacity:0` ocupam espaço de layout mas não são visíveis). Conteúdo visível cabe em 720px.
+**Regra:** Antes de diagnosticar overflow real, verificar se elementos com `opacity:0` estão inflando o `scrollHeight`. Usar `Array.from(els).filter(el => parseFloat(getComputedStyle(el).opacity) === 0)`.
+**Status:** ✅ Corrigido (2026-03-16).
+
+---
+
+*Última atualização: 2026-03-16 · 35/35 erros corrigidos. 0 pendentes.*
 
 ---
 
@@ -303,7 +313,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 6     | 6          | 0 |
-| HIGH       | 16    | 16         | 0 |
+| HIGH       | 17    | 17         | 0 |
 | MEDIUM     | 10    | 10         | 0 |
 | LOW        | 2     | 2          | 0 |
-| **Total**  | **33**| **33**     | **0** |
+| **Total**  | **35**| **35**     | **0** |

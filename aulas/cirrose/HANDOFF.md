@@ -4,20 +4,16 @@
 
 ---
 
-## Estado atual — 2026-03-15 (pós-QA Loop 1 fixes batch 1-4)
+## Estado atual — 2026-03-16 (pós scaling fix + integrity fingerprint)
 
-**Slides:** 44 buildados (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app) · **Build:** ✅ · **Lint:** ✅ (slides + case-sync + narrative-sync)
-**Source of truth:** ✅ Validado — CASE→evidence-db→narrative→manifest→HTML (44/44 consistente, 0 drift de dados).
-**Act 2 skeletons:** ✅ 7/7 preenchidos com conteúdo HTML real (fontes, números, notes com timing).
-**Act 3 skeletons:** ✅ 4/4 preenchidos com conteúdo HTML real (hero-stat, comparison, etiology-compare, flow).
-**AUDIT-VISUAL.md:** ✅ Rubrica expandida 8→14 dimensões (merge qa-engineer). Scoring 1-10, min 9 para PASS.
-**QA Act 1 fixes:** ✅ 4 slides fixados (damico, a1-01, hook, cp1) — E/L/M gargalos. Pendente: re-score + screenshots.
-**QA Act 2:** ⏳ Bloqueado por Act 1 — não avançar até Act 1 = PASS.
-**Gemini MCP:** Somente após Loop 1 PASS.
-**Consonância docs:** ✅ Todos artefatos QA alinhados a 14 dimensões (H-N): qa-engineer.md, ralph-qa, visual-qa, scripts, qa-checklist.
-**Classe A/B propagada:** ✅ 8 arquivos infra/governança propagados para main (e5e7707) e absorvidos em ambas WTs (cirrose + metanalise).
-**ERROR-LOG:** 33/33 corrigidos, 0 pendentes.
-**Screenshots:** ⚠ Stale (fixes aplicados 15/mar — precisam re-screenshot + re-score).
+**Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
+**Scaling:** ✅ JS `scaleDeck()` confirmado — `transform:scale()` responde a resize/fullscreen em qualquer resolução (1024x768, 1366x768, 1920x1080, 1920x1200 testados via Playwright).
+**Pathway:** ✅ `s-a1-01` corrigido — `.screening-pathway flex-wrap:nowrap`, 3 cards em linha única.
+**Overflow aparente:** ✅ Diagnosticado — artefatos GSAP (`opacity:0`). Conteúdo visível cabe em 720px.
+**Integridade:** ✅ `.slide-integrity` SHA-256 por slide + Guard 4 pre-commit (build obrigatório antes de commit).
+**ERROR-LOG:** 35/35 corrigidos, 0 pendentes.
+**QA Act 1 fixes:** ✅ 4 slides fixados (damico, a1-01, hook, cp1). **Screenshots:** ⚠ Stale — precisam re-screenshot + re-score.
+**QA Act 2/3:** ⏳ Bloqueado por Act 1 PASS.
 
 ---
 
