@@ -380,7 +380,7 @@ html { background: var(--bg-black); }
 html, body { margin: 0; padding: 0; }
 
 /* Responsive scale: zoom is broadly supported in modern browsers */
-body { zoom: calc(100vw / 1280px); }
+body { zoom: min(calc(100vw / 1280px), calc(100vh / 720px)); }
 
 #deck {
   width: 1280px;
