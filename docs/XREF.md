@@ -77,7 +77,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | SETUP.md | (autônomo — setup inicial) | ← README.md |
 | ZIP-LIMPO-PROTOCOLO.md | (autônomo) | ← README.md |
 | metanalise-scope.md | (autônomo) | ← README.md |
-| pipeline/README.md | (pipeline humano) | ← SUBAGENTS.md |
+| archive/pipeline/README.md | (pipeline humano — arquivado) | ← SUBAGENTS.md |
 
 ### .claude/hooks/ (safety gates — determinísticos)
 
@@ -126,6 +126,11 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
 | CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md | ← CLAUDE.md (projects table) |
+| HANDOFF.md | → blueprint.md, narrative.md, evidence-db.md | ← docs/README.md |
+| references/narrative.md | (canônico narrativa) | ← CLAUDE.md aula, blueprint.md |
+| references/evidence-db.md | (canônico dados clínicos) | ← blueprint.md, slides/ |
+| references/blueprint.md | → narrative.md, evidence-db.md | ← HANDOFF.md |
+| slides/_manifest.js | (canônico ordem/metadata slides) | ← lint:narrative-sync, index.html |
 
 ### Arquivados (docs/archive/)
 
@@ -174,7 +179,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | MCP profiles | .mcp-profiles/*.json | .mcp.json (perfil ativo) |
 | Estado Cirrose | aulas/cirrose/HANDOFF.md | — |
 | Context window | docs/SUBAGENTS.md | .cursor/rules/core-constraints.mdc |
-| Manifesto slides | aulas/cirrose/slides/_manifest.js | CLAUDE.md tabela |
+| Manifesto slides (cirrose) | aulas/cirrose/slides/_manifest.js | CLAUDE.md tabela |
+| Manifesto slides (metanalise) | aulas/metanalise/slides/_manifest.js | CLAUDE.md tabela |
 | Pipeline humano | docs/archive/pipeline/README.md | — |
 | Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-principles.md |
 | KPIs multiagente | docs/KPIs.md | — |
