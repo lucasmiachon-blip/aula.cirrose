@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed (2026-03-16 — P0 safe-center: elimina clipping simétrico)
+- `shared/css/base.css`: `.slide-inner` `justify-content: center` → `flex-start` + pseudo-elements `::before/::after { flex: 1 0 0px }` para centering seguro. Conteúdo centra quando cabe; quando extravasa, overflow é apenas na base (preserva h2 e "ATO" no topo). 3 slides que tinham overflow marginal (meld, a3-06, app-alb) agora cabem perfeitamente.
+
 ### Fixed (2026-03-14 — P0 document scroll + section clipping)
 - `shared/css/base.css`: added `html, body { margin: 0; padding: 0 }` — eliminates 16px document scroll from browser default margins.
 - `shared/css/base.css`: removed `overflow: hidden` from `#slide-viewport > section` (commit 8683c45) — causava clipping de conteúdo no bottom de 5+ slides. Viewport já provê clipping.
