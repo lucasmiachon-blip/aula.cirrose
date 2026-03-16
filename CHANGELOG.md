@@ -2,8 +2,20 @@
 
 ## [Unreleased]
 
-### Fixed (2026-03-16 — P0 safe-center: elimina clipping simétrico)
-- `shared/css/base.css`: `.slide-inner` `justify-content: center` → `flex-start` + pseudo-elements `::before/::after { flex: 1 0 0px }` para centering seguro. Conteúdo centra quando cabe; quando extravasa, overflow é apenas na base (preserva h2 e "ATO" no topo). 3 slides que tinham overflow marginal (meld, a3-06, app-alb) agora cabem perfeitamente.
+### Fixed (2026-03-16 — Full revert of destructive safe-center commit 5222929)
+- `shared/css/base.css`: reverted all 3 destructive rules from commit 5222929:
+  (1) `justify-content: flex-start` → restored to `center`
+  (2) `::before/::after { flex: 1 0 0px }` pseudo-element spacers removed
+  (3) `> * { flex-shrink: 0 }` removed
+  Efeitos: metanalise h2 variava 42-221px; cirrose layout quebrado com scroll/clipping.
+- `shared/css/base.css`: `html { background: #000 }` — letterbox preto ao redor do deck.
+
+### Added (2026-03-16 — 3 worktree guards no pre-commit)
+- `scripts/pre-commit.sh`: Guard 2 — bloqueia edits em `shared/` em worktrees (bypass: `ALLOW_SHARED_EDIT=1`).
+- `scripts/pre-commit.sh`: Guard 3 — bloqueia commit se slide count em disco < manifest (catches silent rollback após merge, bypass: `ALLOW_SLIDE_LOSS=1`).
+
+### Fixed (2026-03-16 — P0 safe-center: elimina clipping simétrico) [REVERTED]
+- `shared/css/base.css`: `.slide-inner` `justify-content: center` → `flex-start` + pseudo-elements. **Totalmente revertido acima** — causava layout quebrado em ambos projetos.
 
 ### Fixed (2026-03-14 — P0 document scroll + section clipping)
 - `shared/css/base.css`: added `html, body { margin: 0; padding: 0 }` — eliminates 16px document scroll from browser default margins.

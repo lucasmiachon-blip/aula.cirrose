@@ -375,6 +375,7 @@
    DECK CONTAINER + TYPOGRAPHY
    ============================================ */
 
+html { background: #000; }
 html, body { margin: 0; padding: 0; }
 
 /* Responsive scale: zoom is broadly supported in modern browsers */
@@ -424,21 +425,10 @@ body { zoom: calc(100vw / 1280px); }
 #slide-viewport > section .slide-inner {
   width: 100%; height: 100%;
   padding: 60px 80px;
-  display: flex; flex-direction: column; justify-content: flex-start;
+  display: flex; flex-direction: column; justify-content: center;
   box-sizing: border-box;
 }
 
-/* Safe vertical centering: centers content when it fits,
-   top-aligns when it overflows (prevents symmetric clipping) */
-#slide-viewport > section .slide-inner::before,
-#slide-viewport > section .slide-inner::after {
-  content: '';
-  flex: 1 0 0px;
-}
-
-#slide-viewport > section .slide-inner > * {
-  flex-shrink: 0;
-}
 
 /* --- Typography --- */
 #deck h1, #deck h2 {
