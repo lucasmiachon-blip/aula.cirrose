@@ -39,6 +39,7 @@
   --bg-card:     oklch(99% 0.003 258);
   --bg-elevated: oklch(100% 0 0);
   --bg-deep:     oklch(18% 0 0);        /* ≈ #111111 (HEX canônico) */
+  --bg-black:    oklch(0% 0 0);         /* pure black — letterbox */
   --bg-navy:     oklch(22% 0.042 258);
   --bg-navy-mid: oklch(28% 0.035 258);
 
@@ -375,7 +376,7 @@
    DECK CONTAINER + TYPOGRAPHY
    ============================================ */
 
-html { background: oklch(0% 0 0); }
+html { background: var(--bg-black); }
 html, body { margin: 0; padding: 0; }
 
 /* Responsive scale: zoom is broadly supported in modern browsers */
