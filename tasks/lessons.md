@@ -248,3 +248,16 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 - `aulas/metanalise/CLAUDE.md` existia mas não aparecia em XREF.md nem docs/README.md.
 - Projeto marcado ATIVO no CLAUDE.md root mas sem referência cruzada nos docs de governança.
 - **Regra:** Ao adicionar projeto ATIVO, registrar em: CLAUDE.md (projects), XREF.md (seção dedicada), docs/README.md (HANDOFFs).
+
+---
+
+## Sessão 16/mar — Pseudo-elements em base.css = contaminação cross-projeto
+
+### NUNCA adicionar pseudo-elements com flex-grow em container base compartilhado
+
+- `::before/::after { flex: 1 0 0px }` em `.slide-inner` (base.css) causou 2 bugs em 2 projetos:
+  - **Cirrose:** archetypes têm `gap: 1rem` → pseudo-elements geram 2 gaps extras = 32px roubados por slide
+  - **Metanalise:** filhos diretos com `flex: 1` competem com pseudo-elements → h2 empurrados 100-180px
+- **Root cause:** pseudo-elements participam do layout flex como qualquer outro item. Combinados com `gap` ou `flex: 1` children, produzem efeitos colaterais invisíveis.
+- **Regra:** `shared/css/base.css` deve conter apenas regras que funcionam com QUALQUER layout filho (grid, flex, custom). Mecanismos de centering/spacing que dependem de contexto flex → responsabilidade da aula, não da base.
+- **`justify-content: flex-start` é suficiente** para o P0 (clipping sempre no bottom, h2 sempre visível). Centering estético = responsabilidade da WT.
