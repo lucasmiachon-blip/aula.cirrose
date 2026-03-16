@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Fixed (2026-03-16 — Pathway wrap + slide integrity fingerprint)
+- `aulas/cirrose/cirrose.css`: override `.screening-pathway` flex-wrap para `nowrap` — 3 cards de rastreio agora ficam na mesma linha (era 991px em 936px de espaço, causando wrap do 3o card).
+- `aulas/cirrose/scripts/build-html.ps1`: gera `.slide-integrity` com SHA-256 de cada slide. Build seguinte compara e alerta se slides mudaram (detecta rollback silencioso apos merge).
+- `scripts/pre-commit.sh`: Guard 4 — bloqueia commit se slide HTMLs mudaram mas `.slide-integrity` nao (build obrigatorio antes de commit). Bypass: `ALLOW_NO_BUILD=1`.
+- Diagnostico: 9 slides com "overflow" sao artefatos de GSAP (elementos opacity:0 ocupando espaco de layout). Conteudo visivel cabe em 720px.
+
 ### Fixed (2026-03-16 — JS deck scaling + anti-rollback hook)
 - `shared/css/base.css`: CSS `zoom` substituido por `transform: scale()` via JS. `#deck` agora `position: absolute` centralizado.
 - `shared/js/deck.js`: `scaleDeck()` com `Math.min(w/1280, h/720)` + `translate(-50%,-50%)`. Handles resize + fullscreen.

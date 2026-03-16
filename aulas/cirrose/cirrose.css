@@ -983,7 +983,7 @@
    State machine: 0=hero, 1=iceberg bars, 2=source
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-#s-a1-01 .archetype-hero-stat {
+#s-a1-01 .slide-inner.archetype-hero-stat {
   grid-template-rows: auto auto auto 1fr auto auto;
   padding: 24px 48px;
 }
@@ -1203,7 +1203,7 @@
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* Layout: center content vertically; tighter padding to fit reveal at 720px */
-#s-a1-vote .archetype-hero-stat {
+#s-a1-vote .slide-inner.archetype-hero-stat {
   align-content: center;
   padding-top: 36px;
   padding-bottom: 32px;
@@ -2654,3 +2654,18 @@
   100% { transform: scale(1); }
 }
 .bounce { animation: bounce-scale 0.4s var(--ease-out-expo) forwards; }
+
+/* ============================================
+   OVERFLOW MITIGATION — fit 720px budget
+   ============================================ */
+
+/* Pathway: prevent 3rd card from wrapping to second row.
+   Inline <style> sets flex-wrap:wrap — override with higher specificity. */
+#slide-viewport .screening-pathway {
+  flex-wrap: nowrap;
+  gap: var(--space-xs);
+}
+#slide-viewport .screening-step {
+  min-width: 0;
+  padding: var(--space-sm);
+}

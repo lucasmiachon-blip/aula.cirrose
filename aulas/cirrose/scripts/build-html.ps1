@@ -35,3 +35,54 @@ $slides = ($files | ForEach-Object {
 $html = (Get-Content $template -Raw -Encoding UTF8) -replace '%%SLIDES%%', $slides
 Set-Content -Path $output -Value $html -NoNewline -Encoding UTF8
 Write-Host "Built index.html ($($files.Count) slides from _manifest.js)"
+
+# ── Integrity fingerprint: detect content rollbacks across merges ──
+$integrityPath = Join-Path $root ".slide-integrity"
+$currentHashes = @()
+foreach ($f in $files) {
+  $content = Get-Content (Join-Path $slidesDir $f) -Raw -Encoding UTF8
+  $hash = [System.BitConverter]::ToString(
+    [System.Security.Cryptography.SHA256]::Create().ComputeHash(
+      [System.Text.Encoding]::UTF8.GetBytes($content)
+    )
+  ).Replace("-","").Substring(0,16)
+  $idMatch = [regex]::Match($content, 'id="([^"]+)"')
+  $sectionId = if ($idMatch.Success) { $idMatch.Groups[1].Value } else { $f }
+  $currentHashes += "$hash $sectionId $f"
+}
+
+if (Test-Path $integrityPath) {
+  $previous = Get-Content $integrityPath -Encoding UTF8
+  $prevCount = ($previous | Where-Object { $_ -match '^\w' }).Count
+  $currCount = $currentHashes.Count
+  if ($currCount -lt $prevCount) {
+    Write-Host ""
+    Write-Host "!! ROLLBACK DETECTADO: slide count caiu de $prevCount para $currCount !!" -ForegroundColor Red
+    Write-Host "!! Verifique se git merge nao reverteu slides. !!" -ForegroundColor Red
+    Write-Host ""
+  }
+  $changed = @()
+  $prevMap = @{}
+  foreach ($line in $previous) {
+    if ($line -match '^(\w+)\s+(\S+)\s+(.+)$') {
+      $prevMap[$Matches[3]] = $Matches[1]
+    }
+  }
+  foreach ($line in $currentHashes) {
+    if ($line -match '^(\w+)\s+(\S+)\s+(.+)$') {
+      $file = $Matches[3]; $newHash = $Matches[1]
+      if ($prevMap.ContainsKey($file) -and $prevMap[$file] -ne $newHash) {
+        $changed += $file
+      }
+    }
+  }
+  if ($changed.Count -gt 0) {
+    Write-Host ""
+    Write-Host "!! ATENCAO: $($changed.Count) slide(s) mudaram desde o ultimo build:" -ForegroundColor Yellow
+    foreach ($c in $changed) { Write-Host "  -> $c" -ForegroundColor Yellow }
+    Write-Host "!! Se isso foi intencional, tudo certo. Se nao, verifique git log." -ForegroundColor Yellow
+    Write-Host ""
+  }
+}
+
+Set-Content -Path $integrityPath -Value ($currentHashes -join "`n") -NoNewline -Encoding UTF8
