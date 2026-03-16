@@ -376,11 +376,13 @@
    DECK CONTAINER + TYPOGRAPHY
    ============================================ */
 
-html { background: var(--bg-black); }
 html, body { margin: 0; padding: 0; }
 
 /* Responsive scale: zoom is broadly supported in modern browsers */
-body { zoom: min(calc(100vw / 1280px), calc(100vh / 720px)); }
+body {
+  zoom: min(calc(100vw / 1280px), calc(100vh / 720px));
+  background: var(--bg-surface);
+}
 
 #deck {
   width: 1280px;
