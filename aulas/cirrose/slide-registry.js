@@ -35,46 +35,26 @@ function inlineCountUp(gsap, el, target, duration = 1.2, delay = 0) {
 export const customAnimations = {
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      s-a1-01 — Rastreio na atenção primária
-     States: 0=hero 83% + pathway (auto), 1=source (click)
+     States: auto only (countUp → rec fadeUp → source fadeIn)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-01': (slide, gsap) => {
-    let state = 0;
-    const maxState = 1;
-
     const heroNum = slide.querySelector('.screening-hero-number');
-    const steps = slide.querySelectorAll('.screening-step');
-    const arrows = slide.querySelectorAll('.screening-arrow');
+    const rec = slide.querySelector('.guideline-rec');
     const sourceTag = slide.querySelector('.source-tag');
 
-    // Auto: countUp 83 + pathway stagger
+    // Auto: countUp 83 → then guideline-rec fadeUp → then source fadeIn
     if (heroNum) inlineCountUp(gsap, heroNum, 83, 1.2, 0.2);
 
-    gsap.set(steps, { opacity: 0 });
-    gsap.set(arrows, { opacity: 0 });
-    gsap.to(steps, { opacity: 1, duration: 0.4, stagger: 0.2, delay: 0.8, ease: 'power2.out' });
-    gsap.to(arrows, { opacity: 1, duration: 0.3, stagger: 0.2, delay: 1.0 });
-
-    function advance() {
-      if (state >= maxState) return false;
-      state++;
-      if (state === 1) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
-      }
-      return true;
+    if (rec) {
+      gsap.set(rec, { opacity: 0, y: 12 });
+      gsap.to(rec, { opacity: 1, y: 0, duration: 0.5, delay: 1.4, ease: 'power2.out' });
     }
 
-    function retreat() {
-      if (state <= 0) return false;
-      if (state === 1) {
-        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      }
-      state--;
-      return true;
+    if (sourceTag) {
+      gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 2.0, ease: 'power2.out' });
     }
 
-    slide.__hookAdvance = advance;
-    slide.__hookRetreat = retreat;
-    slide.__hookCurrentBeat = () => state;
+    // No click-reveals — auto only
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

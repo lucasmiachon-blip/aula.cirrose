@@ -27,6 +27,10 @@
         "NOTION_TOKEN": "${NOTION_TOKEN}"
       }
     },
+    "a11y-contrast": {
+      "command": "npx",
+      "args": ["-y", "a11y-color-contrast-mcp"]
+    },
     "fetch": {
       "command": "npx",
       "args": ["-y", "@anthropic-ai/mcp-server-fetch"]

@@ -983,12 +983,24 @@
    State machine: 0=hero, 1=iceberg bars, 2=source
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-#s-a1-01 .slide-inner.archetype-hero-stat {
-  grid-template-rows: auto auto auto 1fr auto auto;
-  padding: 24px 48px;
+#s-a1-01 .slide-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 36px 48px 24px;
+  text-align: center;
 }
+/* Section-tag anchors to top, auto margin pushes content down */
+#s-a1-01 .section-tag { margin: 0 0 auto; }
+/* Headline pulls away from section-tag, groups with hero+card */
+#s-a1-01 .slide-headline { margin: auto 0 var(--space-sm); }
+#s-a1-01 .screening-hero { margin: 0 0 var(--space-sm); }
 #s-a1-01 .screening-hero-number { font-size: clamp(64px, 5.5vw, 96px); }
-#s-a1-01 .screening-step { padding: var(--space-md) var(--space-lg); }
+/* Card matches footer width */
+#s-a1-01 .guideline-rec { max-width: 600px; box-sizing: border-box; }
+/* Footer anchors to bottom */
+#s-a1-01 .source-tag { color: var(--text-muted); margin-top: auto; }
 
 /* ── Patient context banner (compact breadcrumb) ── */
 .patient-context {
@@ -2523,61 +2535,40 @@
   color: var(--text-muted);
   margin: 0;
 }
-.screening-pathway {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  margin-top: var(--space-md);
-  flex-wrap: wrap;
-}
-.screening-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
+/* Guideline recommendation card (s-a1-01) */
+.guideline-rec {
+  border-left: 3px solid var(--ui-accent);
   background: var(--bg-card);
-  border: 2px solid var(--border);
-  min-width: 140px;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  max-width: min(780px, 100%);
+  align-self: center;
+  text-align: left;
 }
-.screening-step--trigger { border-color: var(--warning); }
-.screening-step--tool    { border-color: var(--ui-accent); }
-.screening-step--action  { border-color: var(--safe); }
-.screening-step-icon {
-  font-size: var(--text-h3);
-  line-height: 1;
-}
-.screening-step--trigger .screening-step-icon { color: var(--warning); }
-.screening-step--tool    .screening-step-icon { color: var(--ui-accent); }
-.screening-step--action  .screening-step-icon { color: var(--safe); }
-.screening-step-label {
+.guideline-rec-text {
   font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 600;
+  font-size: var(--text-small);
+  font-style: italic;
   color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
 }
-.screening-step-detail {
-  font-family: var(--font-mono);
+.guideline-rec-text strong {
+  font-weight: 600;
+  font-style: normal;
+}
+.guideline-rec-source {
+  font-family: var(--font-body);
   font-size: var(--text-caption);
-  color: var(--text-secondary);
-}
-.screening-arrow {
-  font-size: var(--text-h2);
   color: var(--text-muted);
-  line-height: 1;
+  margin: var(--space-xs) 0 0;
 }
 
 /* Failsafe */
-.no-js .screening-step,
-.stage-bad .screening-step {
+.no-js .guideline-rec,
+.stage-bad .guideline-rec {
   opacity: 1 !important;
   transform: none !important;
-}
-.no-js .screening-arrow,
-.stage-bad .screening-arrow {
-  opacity: 1 !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2662,13 +2653,4 @@
    OVERFLOW MITIGATION — fit 720px budget
    ============================================ */
 
-/* Pathway: prevent 3rd card from wrapping to second row.
-   Inline <style> sets flex-wrap:wrap — override with higher specificity. */
-#slide-viewport .screening-pathway {
-  flex-wrap: nowrap;
-  gap: var(--space-xs);
-}
-#slide-viewport .screening-step {
-  min-width: 0;
-  padding: var(--space-sm);
-}
+/* (screening-pathway overflow mitigation removed — pathway replaced by guideline-rec) */

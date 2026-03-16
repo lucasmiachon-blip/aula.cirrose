@@ -1,52 +1,30 @@
 <!-- ============================================================
      s-a1-01 — Rastreio de hepatopatia na atenção primária
-     Archetype: hero-stat (simplified)
-     States: 0=hero 83% + pathway (auto), 1=source (click)
+     Layout: flex column (no archetype dependency)
+     States: auto only (countUp → rec fadeUp). No click-reveals.
      ============================================================ -->
 <section id="s-a1-01"
          data-timing="90"
          data-panel-state="neutral">
 
-  <div class="slide-inner archetype-hero-stat">
+  <div class="slide-inner">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Rastreio primário detectou 83% das hepatopatias ocultas</h2>
-
-    <div class="patient-context">
-      <span>Antônio, 55a</span>
-      <span class="patient-context-sep" aria-hidden="true">—</span>
-      <span>AST 67 · ALT 31 · PLQ 112k · GGT 210 · Alb 3,6 · Bili 1,3 · INR 1,2</span>
-    </div>
+    <h2 class="slide-headline">Por que rastrear?</h2>
 
     <!-- Hero: 83% diagnósticos novos -->
     <div class="screening-hero">
       <span class="screening-hero-number">83</span>
       <span class="screening-hero-unit">%</span>
       <p class="screening-hero-label">dos diagnósticos de cACLD eram novos no rastreio primário</p>
-      <p class="screening-hero-context">Prince 2024 · Liver Toolkit · &gt;32.000 adultos · 9 clínicas</p>
     </div>
 
-    <!-- Pathway: alteração lab → FIB-4 → elastografia -->
-    <div class="screening-pathway">
-      <div class="screening-step screening-step--trigger">
-        <span class="screening-step-icon">⚠</span>
-        <span class="screening-step-label">Alteração laboratorial</span>
-        <span class="screening-step-detail">AST/ALT, PLQ, GGT</span>
-      </div>
-      <span class="screening-arrow" aria-hidden="true">→</span>
-      <div class="screening-step screening-step--tool">
-        <span class="screening-step-icon">✓</span>
-        <span class="screening-step-label">FIB-4</span>
-        <span class="screening-step-detail">&ge; 2,67 → espec. 98,7%</span>
-      </div>
-      <span class="screening-arrow" aria-hidden="true">→</span>
-      <div class="screening-step screening-step--action">
-        <span class="screening-step-icon">✓</span>
-        <span class="screening-step-label">Elastografia</span>
-        <span class="screening-step-detail">LSM + PLQ → estadiar CSPH</span>
-      </div>
+    <!-- Guideline recommendation: case-finding (verbatim EASL-EASD-EASO 2024) -->
+    <div class="guideline-rec" style="opacity:0">
+      <p class="guideline-rec-text">"Healthcare providers should look for MASLD with liver fibrosis either in individuals with <strong>(1)&nbsp;type&nbsp;2 diabetes</strong>; <strong>(2)&nbsp;abdominal obesity</strong> and &ge;1 additional metabolic risk factor(s); or <strong>(3)&nbsp;abnormal liver function tests</strong>."</p>
+      <p class="guideline-rec-source">EASL-EASD-EASO CPG 2024 · LoE 3, strong recommendation</p>
     </div>
 
-    <p class="source-tag" style="opacity:0">Prince DS et al. Hepatol Commun 2024 (PMID 38934697) · LiverPRO: Lindvig KP et al. Lancet GH 2025 (PMID 39674225) · Baveno VII (PMID 35120736)</p>
+    <p class="source-tag" style="opacity:0">Prince 2024 · &gt;32.000 adultos (PMID 38934697) · EASL-EASD-EASO 2024 (PMID 38851997)</p>
   </div>
 
   <aside class="notes">
@@ -60,14 +38,18 @@ PAUSA 2s.
 PAUSA 3s.
 "Esses pacientes estavam na sala de espera. Sem queixas. Igual ao Antônio."
 
-[1:00-1:30] click → source
-"A cascata é simples: alteração laboratorial → FIB-4 → se alto risco → elastografia → classificar."
-"LiverPRO validou: FIB-4 acima de 2,67 tem especificidade de 98,7%."
-"Antônio tem FIB-4 de 5,91. Não tem como ignorar."
+[1:00-1:20] → guideline-rec aparece automaticamente após countUp
+"EASL, EASD e EASO recomendam rastrear MASLD com fibrose em 3 grupos: diabéticos tipo 2, obesidade abdominal com fator metabólico, ou alteração de enzimas hepáticas."
+ÊNFASE: "Antônio tem dois dos três."
+Convergência cross-specialty: AASLD 2023 e ADA 2025 (Standards of Care) também recomendam FIB-4 em diabéticos e prediabéticos. Mesmo algoritmo, 3 sociedades diferentes.
+
+[1:20-1:30] "Antônio tem FIB-4 de 5,91. Não tem como ignorar."
 → avançar
 
-[DATA] Prince DS et al., Hepatol Commun 2024 (PMID 38934697) — Liver Toolkit screening >32k adultos: 83% cACLD eram diagnósticos novos | Verificado: evidence-db.md
-[DATA] LiverPRO: Lindvig KP et al., Lancet Gastroenterol Hepatol 2025 (PMID 39674225) — FIB-4 ≥2,67 especificidade 98,7% (PPV 35,6%) | Verificado: evidence-db.md
+[DATA] Prince DS et al., Hepatol Commun 2024 (PMID 38934697) — Liver Toolkit screening &gt;32k adultos: 83% cACLD eram diagnósticos novos | Verificado: evidence-db.md · WebSearch 2026-03-16
+[DATA] EASL-EASD-EASO CPG MASLD 2024, J Hepatol 2024;81(3):492-542 (PMID 38851997, DOI 10.1016/j.jhep.2024.04.031) — Case-finding: rastrear MASLD+fibrose em T2D, obesidade abdominal+FR, ou LFTs alterados (LoE 3, strong, consensus) | Verificado: PubMed · WebSearch 2026-03-16
+[DATA] AASLD MASLD Practice Guidance 2023 (PMID 36727674) — FIB-4 cutoffs convergem: &lt;1.3 primary care, ≥1.3 → VCTE/ELF, &gt;2.67 → refer | Verificado: PMC10735173 · WebSearch 2026-03-16
+[DATA] ADA Standards of Care 2025 — T2D/prediabetes: calcular FIB-4 como rastreio de fibrose hepática | Verificado: WebSearch 2026-03-16
 [DATA] Baveno VII: de Franchis R et al., J Hepatol 2022 (PMID 35120736) — FIB-4 → elastografia → CSPH pathway | Verificado: evidence-db.md
   </aside>
 </section>
