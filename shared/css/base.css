@@ -377,15 +377,16 @@
    ============================================ */
 
 html { background: var(--bg-black); }
-html, body { margin: 0; padding: 0; }
-
-/* Responsive scale: zoom is broadly supported in modern browsers */
-body { zoom: min(calc(100vw / 1280px), calc(100vh / 720px)); }
+html, body { margin: 0; padding: 0; overflow: hidden; }
+body { width: 100vw; height: 100vh; }
 
 #deck {
   width: 1280px;
   height: 720px;
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
   overflow: hidden;
   font-family: var(--font-body);
   color: var(--text-primary);
@@ -577,8 +578,8 @@ body { zoom: min(calc(100vw / 1280px), calc(100vh / 720px)); }
    PRINT / EXPORT
    ============================================ */
 @media print {
-  body { zoom: 1 !important; }
-  #deck { transform: none !important; width: 1280px; height: auto; overflow: visible; }
+  body { width: auto; height: auto; overflow: visible; }
+  #deck { position: static; transform: none !important; width: 1280px; height: auto; overflow: visible; }
   #slide-viewport { position: static; }
   #slide-viewport > section {
     opacity: 1 !important;
