@@ -1833,6 +1833,7 @@
   border: 1px solid var(--hook-card-border);
   box-shadow: 0 2px 8px oklch(0% 0 0 / 0.07);
   position: relative;
+  opacity: 0; /* GSAP stagger anima para 1; .no-js/.stage-bad força 1 */
 }
 
 .hook-lab-label {
