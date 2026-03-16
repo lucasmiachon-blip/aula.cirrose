@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Fixed (2026-03-16 — Fullscreen zoom + letterbox)
+- `shared/css/base.css`: zoom simplificado para width-only `calc(100vw / 1280px)` (alinha com metanalise).
+- `shared/css/base.css`: `html { background: var(--bg-black) }` — letterbox preto explícito.
+- `shared/css/base.css`: removido `background: var(--bg-surface)` do body — causava ilusão de "conteúdo cortado" em monitores 16:10 (letterbox cream indistinguível do slide).
+
 ### Fixed (2026-03-16 — Full revert of destructive safe-center commit 5222929)
 - `shared/css/base.css`: reverted all 3 destructive rules from commit 5222929:
   (1) `justify-content: flex-start` → restored to `center`
