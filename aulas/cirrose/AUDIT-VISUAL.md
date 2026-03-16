@@ -133,22 +133,22 @@ Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (25 PNGs)
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 6    | Labs grid e ancora visual pos-GSAP. Fill 0% beat 0. Sem h2 hero. GSAP-dependente |
-| T   | 7    | .hook-lab-value sizing consistente. Sem hero typography visivel inicialmente |
-| E   | 4    | Fill 0% beat 0. Melhora pos-GSAP mas render inicial e vazio. Intencional para hook |
-| C   | 8    | #162032 (documentado). Vars escopadas. Lab flag cores. Alto contraste |
-| V   | 7    | Labs grid E evidencia visual. 6 lab values como cards de dados |
-| K   | 6    | Archetype customizado. Nao reutilizado em nenhum outro slide |
-| S   | 8    | GSAP stagger. Vars customizadas escopadas a #s-hook. OKLCH |
-| M   | 6    | Sem h2 assercao. "Qual sua conduta?" e pergunta diretora. 48 palavras com bio+labs |
+| H   | 8    | Nome serif h1 domina. Labs grid 3x2 uniforme. Punchline bold serif = payoff claro |
+| T   | 8    | 4 camadas: serif h1 (nome) → sans body (desc) → mono h3 (valores) → serif bold (punchline). Escala coerente |
+| E   | 8    | space-evenly distribui bio/grid/punchline. Fill ~68% S0, ~80% S1. Grid 80% largura. Zero overflow 1920 |
+| C   | 8    | Tokens escopados a #s-hook. --bg-card + --border ancora cards. Shadow visivel. Sem HEX no body |
+| V   | 8    | 6 lab cards como evidencia visual. Dados = layout tipo laudo |
+| K   | 8    | Cards uniformes (sem hierarquia visual — intencional). Pattern reutilizavel |
+| S   | 8    | GSAP stagger labs + click-reveal punchline. Shadow + border-radius. OKLCH tokens |
+| M   | 8    | "Sem queixas." bold = assertion implicita. "Qual sua conduta?" = CTA. 48 palavras bio+labs |
 | I   | 8    | 1 clickReveal. Advance+retreat OK. ERRO-033 corrigido |
 | D   | 8    | Dados do paciente conferem com CASE.md. Sem claims de evidencia aqui |
-| A   | 7    | Alto contraste. Sem aria-labels explicitos nos labs. Tab order implicito |
-| L   | 7    | 2 conceitos (paciente + pergunta). 6 labs = leitura clinica natural |
+| A   | 8    | Ref text weight 500. Shadow + border para depth cue. Panel 180px legivel |
+| L   | 8    | 2 conceitos (paciente + pergunta). 6 labs = leitura clinica natural. space-evenly reduz densidade |
 | P   | 8    | Caso clinico relevante. Prompt de decisao. Ancora no caso |
 | N   | 8    | Inciting incident. tensionLevel=3. narrativeCritical=true |
 
-Obs: (1) Fill 0% no beat 0 e intencional para hook — GSAP progressive reveal. (2) ~~.stage-bad failsafe nao testado~~ Corrigido 15/mar: failsafes .no-js/.stage-bad adicionados para .hook-lab, .hook-punchline, .hook-question. Se GSAP falhar, bio+labs+punchline ficam visiveis. (3) h3 em vez de h2 e design choice do hook, nao violacao. (4) 720p clipping verificado: 446px < 720px, sem risco.
+Obs: (1) Fill 0% no beat 0 e intencional para hook — GSAP progressive reveal. (2) Failsafes .no-js/.stage-bad adicionados 15/mar para labs+punchline+question. (3) h3 em vez de h2 e design choice do hook, nao violacao. (4) Testado 1920x1080 — zero overflow, punchline+question com margem confortavel. (5) Archetype-adjusted: hook nao tem h2 assertion formal — dims H/M/N refletem archetype, nao regra geral. (6) v8 (16/mar): grid 3x2 responsivo (80%), space-evenly, lab values --text-h3, punchline bold, shadow reforçado, panel 180px, ref text weight 500.
 
 ### s-a1-01 (02-a1-continuum.html)
 

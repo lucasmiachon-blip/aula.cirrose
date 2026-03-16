@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-03-16 — s-hook: visual polish v8 (layout + typography + depth)
+
+Branch: `feat/cirrose-mvp`
+
+- **cirrose.css:** `.hook-stage` `justify-content: space-evenly` + `padding: 1rem 2rem` — distribui conteúdo verticalmente, elimina compressão central
+- **cirrose.css:** `.hook-labs-grid` `repeat(3, 1fr)` + `max-width: min(960px, 80%)` — grid responsivo, preenche largura
+- **cirrose.css:** `.hook-lab-value` `--text-h3` (de `--text-h2`) — libera espaço vertical, evita overflow em 1920×1080
+- **cirrose.css:** `.hook-punchline` `font-weight: 700` (de 400) — impacto visual sem aumentar tamanho
+- **cirrose.css:** `.hook-lab` shadow `0 2px 8px oklch(0% 0 0 / 0.07)` — profundidade visível em full HD
+- **cirrose.css:** `.hook-lab` `--bg-card` + `--border` — cards ancorados no fundo
+- **cirrose.css:** `.hook-patient-ref` `font-weight: 500` — legível em projeção
+- **cirrose.css:** `.hook-lab-ref` `font-weight: 500` + `--text-secondary` — contraste refs em projeção
+- **archetypes.css:** `.case-panel` 140px → 180px — proporcional ao conteúdo
+- Testado 1920×1080: zero overflow, S0 fill ~68%, S1 fill ~80%
+- Build 44 slides OK · Lint PASS · AUDIT-VISUAL.md atualizado (14 dims ≥ 8)
+
+---
+
 ## 2026-03-15 — s-title: navy bg fix + divider removal + brasão fix (regressão pendente)
 
 Branch: `feat/cirrose-mvp`

@@ -480,7 +480,7 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 140px;
+  width: 180px;
   z-index: 20;
   background: var(--bg-elevated, #fff);
   border: 1px solid var(--panel-border, oklch(88% 0.005 258));

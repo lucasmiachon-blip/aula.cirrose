@@ -39,17 +39,13 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 8. Smoke interações no browser
 9. **==> PARAR para loop ralph-qa (Claude Code) <==**
 
-**s-hook (DONE — /review QA pendente):**
+**s-hook (DONE — QA visual PASS archetype-adjusted, 16/mar):**
+- v8 polish (16/mar): grid 3×2 responsivo (`max-width: min(960px, 80%)`), `space-evenly` vertical, lab values `--text-h3`, punchline `font-weight: 700`, shadow `0 2px 8px`, panel 180px, ref text weight 500, `--bg-card` + `--border` para ancorar cards
+- Testado 1920×1080: zero overflow, punchline+question com margem confortável
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)
-- GGT removido → 6 labs grid 3×2 (simétrico)
-- Case panel: neutral (labs no corpo + panel lateral com AST, ALT, PLQ, Albumina, Bili, INR)
-- ALT card: hierarquia padronizada (removido `.hook-lab--success` e tag "normal ✓")
-- CSS órfão limpo: `.hook-lab--success`, `.hook-lab-tag` e derivados (7 regras)
-- ~85 linhas de CSS morto removidas (v1-v4 + sistema .hook-beat órfão)
-- Inline style removido (INR text-transform → classe CSS)
+- Case panel: neutral (labs no corpo + panel lateral)
 - Failsafes `.no-js`/`.stage-bad` para labs + punchline + question
-- `padding-right` para evitar overlap com panel lateral
-- Build ✅ · 3 lints ✅ · `/review` QA pendente
+- Build ✅ · Lint ✅ · AUDIT-VISUAL.md atualizado (14 dims ≥ 8)
 
 ### Backlog
 
