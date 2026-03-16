@@ -280,7 +280,21 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Última atualização: 2026-03-15 · 33/33 erros corrigidos. 0 pendentes.*
+---
+
+## Erros registrados — sessão s-title fix (2026-03-15)
+
+### ERRO-034 · CRITICAL · s-title
+**3 bugs em s-title: bg light em stage-c, divider AI marker, brasão inverte para preto**
+**Root cause sistêmica:** deck.js não parseia `data-background-color` (atributo Reveal.js legacy). Em `.stage-c`, `--text-on-dark` é remapeado para cor escura → texto escuro em fundo que deveria ser navy = invisível. `.stage-c .title-brasao { filter: invert(1) }` transforma PNG branco em preto.
+**Fix aplicado:** `#s-title { background-color: #0d1a2d }` via CSS (não via atributo HTML) + re-scope de tokens `--text-on-dark` dentro do seletor + `#s-title .title-brasao { filter: none }` + `.title-divider` CSS removido + `slide-navy` adicionado ao `.slide-inner`.
+**Regressão (resolvida):** Scroll em todos os slides causado por `<aside class="notes">` visíveis (deck.js não escondia). Fix sistêmico em `base.css`: notes `display:none` + viewport/section `overflow:hidden`.
+**Regra:** Slides que precisam de bg escuro forçado em deck.js DEVEM usar CSS `background-color` no `#slide-id`, não `data-background-color`. Re-escopar tokens de texto dentro do seletor ID.
+**Status:** ✅ Corrigido (s-title fix + scroll sistêmico em base.css).
+
+---
+
+*Última atualização: 2026-03-15 · 34/34 erros corrigidos. 0 pendentes.*
 
 ---
 
@@ -288,7 +302,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
-| CRITICAL   | 5     | 5          | 0 |
+| CRITICAL   | 6     | 6          | 0 |
 | HIGH       | 16    | 16         | 0 |
 | MEDIUM     | 10    | 10         | 0 |
 | LOW        | 2     | 2          | 0 |

@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-03-15 — s-title: navy bg fix + divider removal + brasão fix (regressão pendente)
+
+Branch: `feat/cirrose-mvp`
+
+- **cirrose.css:** `#s-title { background-color: #0d1a2d }` — força navy via CSS (deck.js ignora `data-background-color`)
+- **cirrose.css:** Re-scope `--text-on-dark`, `--text-on-dark-muted`, `--ui-accent-light` dentro de `#s-title` (stage-c remapeia para escuro)
+- **cirrose.css:** `#s-title .title-brasao { filter: none }` — impede inversão em bg navy
+- **cirrose.css:** `.title-divider` removido (AI marker — gradiente decorativo proibido)
+- **00-title.html:** `slide-navy` adicionado ao `.slide-inner` (ativa regras de texto claro de base.css)
+- **Scroll sistêmico resolvido:** `base.css` (main) — notes `display:none` + viewport/section `overflow:hidden` (afeta cirrose + metanálise)
+- **guard-merge.sh fix:** permite absorção main→WT com shared/ changes (era chicken-and-egg)
+- Build 44 slides OK · 3 lints PASS
+- Ver ERRO-034
+
+---
+
 ## 2026-03-15 — Referencing audit: 14 fixes across 3 surfaces
 
 Branch: `feat/cirrose-mvp`

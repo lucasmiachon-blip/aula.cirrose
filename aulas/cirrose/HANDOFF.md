@@ -34,11 +34,14 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 3. ~~**s-hook**~~ ✅ — failsafes .no-js/.stage-bad adicionados (labs + punchline + question)
 4. ~~**s-cp1**~~ ✅ — inline style → .poll-question, aria-labels nos buttons
 
+**Fixes aplicados (15/mar sessão Claude Code):**
+5. ~~**s-title**~~ ✅ — navy bg via CSS, re-scope tokens, brasão filter:none, divider removido. Scroll sistêmico resolvido (base.css: notes hidden + overflow hidden). Ver ERRO-034.
+
 **Próximos passos:**
-5. Re-screenshot Playwright (screenshots atuais estão stale)
-6. Re-score 14 dims nos 4 slides fixados (AUDIT-VISUAL.md)
-7. Smoke interações no browser
-8. **==> PARAR para loop ralph-qa (Claude Code) <==**
+6. Re-screenshot Playwright (screenshots atuais estão stale)
+7. Re-score 14 dims nos slides fixados (AUDIT-VISUAL.md)
+8. Smoke interações no browser
+9. **==> PARAR para loop ralph-qa (Claude Code) <==**
 
 **s-hook (DONE — /review QA pendente):**
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)

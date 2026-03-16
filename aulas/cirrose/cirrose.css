@@ -850,7 +850,23 @@
 /* ===========================================
    TITLE SLIDE — s-title
    Always dark navy regardless of stage mode.
+   deck.js ignores data-background-color (Reveal.js legacy).
    =========================================== */
+
+/* s-title: ALWAYS navy — re-scope tokens so stage-c can't remap to dark text */
+#s-title {
+  background-color: #0d1a2d;
+  --text-on-dark: oklch(95% 0.005 258);
+  --text-on-dark-muted: oklch(70% 0.01 258);
+  --ui-accent-light: oklch(92% 0.03 258);
+}
+
+/* Brasão: never invert on title (bg is always navy) */
+#s-title .title-brasao {
+  filter: none;
+  opacity: 0.65;
+}
+
 .slide-title {
   position: relative;
   display: flex;
@@ -918,19 +934,6 @@
   border-radius: 50%;
   background: var(--ui-accent-light, oklch(60% 0.12 258));
   flex-shrink: 0;
-}
-
-/* Divider line */
-.title-divider {
-  width: clamp(60px, 8vw, 120px);
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--ui-accent-light, oklch(55% 0.10 258)),
-    transparent
-  );
-  margin: 0 0 1.5rem 0;
 }
 
 /* Identity */
@@ -1752,13 +1755,12 @@
    Reversível: ArrowLeft/Up. Sem título.
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* ── Force navy text color; bg handled by data-background-color="#162032" ── */
+/* ── s-hook: ALWAYS navy — deck.js ignores data-background-color (ERRO-035) ── */
 #s-hook {
+  background-color: #162032;
   color: #e8ecf1;
-}
-
-/* ── s-hook scoped design tokens (navy bg, force light) ── */
-#s-hook {
+  --text-on-dark: oklch(95% 0.005 258);
+  --text-on-dark-muted: oklch(70% 0.01 258);
   --hook-text-bright: oklch(95% 0.005 258);
   --hook-text-mid: oklch(79% 0.018 258);
   --hook-text-dim: oklch(63% 0.02 258);
@@ -1767,17 +1769,6 @@
   --hook-lab-ref-color: oklch(57% 0.018 258);
   --hook-card-bg: oklch(25% 0.02 258 / 0.5);
   --hook-card-border: oklch(70% 0.01 258 / 0.2);
-}
-/* stage-c remap: hook tokens for light bg */
-.stage-c #s-hook {
-  --hook-text-bright: oklch(12% 0.015 258);
-  --hook-text-mid: oklch(25% 0.010 258);
-  --hook-text-dim: oklch(38% 0.008 258);
-  --hook-lab-label-color: oklch(30% 0.015 258);
-  --hook-lab-value-color: oklch(12% 0.015 258);
-  --hook-lab-ref-color: oklch(40% 0.010 258);
-  --hook-card-bg: oklch(82% 0.010 258);
-  --hook-card-border: oklch(72% 0.008 258);
 }
 #s-hook .hook-patient-name,
 #s-hook .hook-punchline { color: var(--hook-text-bright); }

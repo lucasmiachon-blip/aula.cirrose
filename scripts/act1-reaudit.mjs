@@ -17,7 +17,9 @@ import { chromium } from 'playwright';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
 
-const BASE = 'http://localhost:3000/aulas/cirrose/index.html';
+const BASE = process.env.QA_PORT
+  ? `http://localhost:${process.env.QA_PORT}/aulas/cirrose/index.html`
+  : 'http://localhost:3000/aulas/cirrose/index.html';
 const OUT = join(process.cwd(), 'aulas/cirrose/qa-screenshots/act1-reaudit');
 
 const ACT1_IDS = ['s-title','s-hook','s-a1-01','s-a1-vote','s-a1-damico','s-a1-baveno','s-a1-fib4','s-a1-rule5','s-a1-meld','s-a1-classify','s-cp1'];
