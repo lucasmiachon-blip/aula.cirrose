@@ -73,7 +73,7 @@ shared/js/case-panel.js → Panel lateral (cirrose)
 
 | Classe | Escopo | Exemplos | Absorção em WT |
 |--------|--------|----------|----------------|
-| **A — Governança** | Doc graph, paths, docs operacionais | CLAUDE.md, XREF.md, rules/, MEMORY.md | Absorver cedo (`git merge main`) |
+| **A — Governança** | Doc graph, paths, docs operacionais | CLAUDE.md, XREF.md, rules/, tasks/lessons.md | Absorver cedo (`git merge main`) |
 | **B — Infra QA** | Scripts, hooks, agentes, observabilidade | agents/, hooks/, skills/, KPIs.md | Absorver cedo |
 | **C — Semântico** | Conteúdo da aula: slides, `_manifest.js`, CSS da aula, refs narrativas | slides/*.html, _manifest.js, cirrose.css, narrative.md | **Quarentena:** NÃO absorver sem triagem humana |
 

@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+### Added (2026-03-16 — Pre-production hardening A/B)
+- `README.md` (root): criado — nome, stack, quick start, links para docs.
+- Git hooks instalados via `install-hooks.sh` (pre-commit, pre-push, post-merge).
+
+### Fixed (2026-03-16 — Pre-production hardening A/B)
+- `.cursor/rules/core-constraints.mdc`: ERROR-LOG path clarificado para `aulas/*/ERROR-LOG.md` (era ambíguo).
+- `CLAUDE.md` (root): Classe A governance — MEMORY.md substituído por `tasks/lessons.md` (SoT real).
+- `aulas/cirrose/CLAUDE.md`: WT State merge SHA atualizado para 87f30e3 (2026-03-16).
+- `aulas/cirrose/HANDOFF.md`: backlog "2 HEX hardcoded" marcado como resolvido (restam apenas fallbacks válidos).
+- `docs/XREF.md`: scripts table — adicionado `post-merge.sh`, Guards 1-4 documentados no pre-commit.sh, data revisão atualizada.
+
 ### Fixed (2026-03-16 — Pathway wrap + slide integrity fingerprint)
 - `aulas/cirrose/cirrose.css`: override `.screening-pathway` flex-wrap para `nowrap` — 3 cards de rastreio agora ficam na mesma linha (era 991px em 936px de espaço, causando wrap do 3o card).
 - `aulas/cirrose/scripts/build-html.ps1`: gera `.slide-integrity` com SHA-256 de cada slide. Build seguinte compara e alerta se slides mudaram (detecta rollback silencioso apos merge).

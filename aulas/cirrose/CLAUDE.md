@@ -68,7 +68,7 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 ## WT State (atualizar a cada sessao)
 
 - **Branch:** feat/cirrose-mvp
-- **Ultimo merge main:** 62a2a6d (2026-03-14)
+- **Ultimo merge main:** 87f30e3 (2026-03-16)
 - **Classe C pendente:** 0 arquivos em main
 - **Infra sync:** OK — main absorvida (Classe A/B), stack-drift cleanup
 - **QA Act 1:** Loop 1 baseline aplicado (14 dim) — fix gargalos E/M/L
