@@ -849,22 +849,19 @@
 
 /* ===========================================
    TITLE SLIDE — s-title
-   Always dark navy regardless of stage mode.
+   Background follows stage tokens (cream in stage-c, navy in stage-a).
    deck.js ignores data-background-color (Reveal.js legacy).
    =========================================== */
-
-/* s-title: ALWAYS navy — re-scope tokens so stage-c can't remap to dark text */
 #s-title {
-  background-color: #0d1a2d;
-  --text-on-dark: oklch(95% 0.005 258);
-  --text-on-dark-muted: oklch(70% 0.01 258);
-  --ui-accent-light: oklch(92% 0.03 258);
+  background: var(--bg-navy);
 }
 
-/* Brasão: never invert on title (bg is always navy) */
 #s-title .title-brasao {
-  filter: none;
   opacity: 0.65;
+}
+.stage-c #s-title .title-brasao {
+  filter: brightness(0);
+  opacity: 0.5;
 }
 
 .slide-title {
@@ -1755,20 +1752,18 @@
    Reversível: ArrowLeft/Up. Sem título.
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* ── s-hook: ALWAYS navy — deck.js ignores data-background-color (ERRO-035) ── */
+/* ── s-hook: bg follows stage tokens (cream in stage-c, navy in stage-a) ── */
 #s-hook {
-  background-color: #162032;
-  color: #e8ecf1;
-  --text-on-dark: oklch(95% 0.005 258);
-  --text-on-dark-muted: oklch(70% 0.01 258);
-  --hook-text-bright: oklch(95% 0.005 258);
-  --hook-text-mid: oklch(79% 0.018 258);
-  --hook-text-dim: oklch(63% 0.02 258);
-  --hook-lab-label-color: oklch(62% 0.022 258);
-  --hook-lab-value-color: oklch(95% 0.005 258);
-  --hook-lab-ref-color: oklch(57% 0.018 258);
-  --hook-card-bg: oklch(25% 0.02 258 / 0.5);
-  --hook-card-border: oklch(70% 0.01 258 / 0.2);
+  background: var(--bg-navy);
+  color: var(--text-on-dark);
+  --hook-text-bright: var(--text-on-dark);
+  --hook-text-mid: var(--text-on-dark-muted);
+  --hook-text-dim: var(--text-muted);
+  --hook-lab-label-color: var(--text-muted);
+  --hook-lab-value-color: var(--text-on-dark);
+  --hook-lab-ref-color: var(--text-muted);
+  --hook-card-bg: var(--bg-card);
+  --hook-card-border: var(--border);
 }
 #s-hook .hook-patient-name,
 #s-hook .hook-punchline { color: var(--hook-text-bright); }
