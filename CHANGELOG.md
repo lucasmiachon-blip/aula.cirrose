@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Fixed (2026-03-16 — Governança: anti-crosspath rule)
+- `core-constraints.mdc`: regra "Isolamento de workspace" — agente em main NUNCA editar arquivos em `../wt-*` via paths absolutos.
+- `CLAUDE.md`: regra "Anti-crosspath" no Worktree Protocol.
+- `tasks/lessons.md`: 5 lições da sessão (scaling, GSAP overflow, flex-wrap, slide-integrity, violação worktree).
+- Worktrees absorveram main: wt-cirrose (clean), wt-metanalise (3 conflitos resolvidos).
+
 ### Fixed (2026-03-16 — JS deck scaling + anti-rollback hook)
 - `shared/css/base.css`: CSS `zoom` substituido por `transform: scale()` via JS. `#deck` agora `position: absolute` centralizado.
 - `shared/js/deck.js`: `scaleDeck()` com `Math.min(w/1280, h/720)` + `translate(-50%,-50%)`. Handles resize + fullscreen.

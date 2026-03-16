@@ -55,6 +55,7 @@ shared/js/case-panel.js → Panel lateral (cirrose)
 - **Classe C guard:** `scripts/pre-commit.sh` bloqueia commits de slides, CSS, JS e references em `main`. Conteudo de aula deve ir pela WT. Bypass emergencial: `ALLOW_MAIN_CONTENT=1 git commit`.
 - **Hook install:** `bash scripts/install-hooks.sh` (rodar uma vez apos clone ou worktree).
 - **Aula CLAUDE.md:** cada `aulas/*/CLAUDE.md` DEVE ter secao `## Worktree` declarando branch esperada e restricoes locais. Sem essa secao, WT agent deve recusar trabalho.
+- **Anti-crosspath:** Agente em main NAO PODE usar paths absolutos para escrever em `../wt-*` ou qualquer diretorio fora do workspace root. Para editar worktree, abrir sessao Cursor naquele diretorio. Hooks git nao impedem escrita direta — a trava eh comportamental.
 
 ## Source of Truth por Camada
 
