@@ -100,28 +100,32 @@ Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
 Evidencia: HTML source code + Playwright metrics (fill ratio, word count, h2 lines, panel overlap, source-tag)
 Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (25 PNGs)
 
-### s-title (00-title.html)
+### s-title (00-title.html) — PASS (archetype-adjusted)
 
 **Headline:** Cirrose Hepática (h1, não h2 — archetype title)
+**Re-audit:** 16/mar/2026 · Playwright 1280x720 stage-c · Screenshot: `qa-screenshots/s-title.png`
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 7    | h1 hero presente. Fill 12% = canvas vazio. Sem F-pattern (title slide) |
-| T   | 8    | Classes .title-hero e .title-pillars. Escala aparentemente correta |
-| E   | 4    | Fill 12%. Titulo intencionalmente esparso mas muito abaixo do limiar 50% |
-| C   | 8    | #162032 em data-background-color (excecao documentada). var() no CSS. Contraste ~15:1 |
-| V   | 5    | Texto + brasao apenas. Sem visualizacao de dados (esperado para title) |
+| H   | 7    | h1 dominante, pilares < identity. Hierarquia clara. Sem Von Restorff (esperado title) |
+| T   | 8    | Instrument Serif title, DM Sans pilares/identity. Clamp sizing funcional. Letter-spacing OK |
+| E   | 5 ★ | Fill ~25-30%. Conteudo no terco superior-central. **Intencional por archetype** |
+| C   | 8    | Stage-c: texto escuro em bg claro. var() tokens. Pillar dots visiveis. Contraste alto |
+| V   | 5 ★ | Texto + brasao. Sem visual de dados. **Intencional por archetype** |
 | K   | 8    | Archetype title consistente com design system |
-| S   | 7    | Limpo. Sem source-tag (esperado). OKLCH tokens |
-| M   | 5    | h1 = rotulo de topico "Cirrose Hepatica", nao assercao clinica. Archetype title |
-| I   | 9    | Sem interacoes necessarias. Sem JS |
-| D   | 9    | Sem dados clinicos necessarios. Sem [TBD] |
-| A   | 8    | aria-hidden em dots decorativos. Alt text no brasao. Alto contraste |
+| S   | 7    | Limpo. Sem clutter. OKLCH tokens. Sem source-tag (correto) |
+| M   | 5 ★ | h1 = rotulo de topico. **Intencional por archetype** (title nao precisa de assercao) |
+| I   | 9    | Sem interacoes. Estatico |
+| D   | 9    | Sem dados clinicos necessarios |
+| A   | 8    | aria-hidden em dots decorativos. Alt text no brasao. Alto contraste stage-c |
 | L   | 9    | Conceito unico. 17 palavras. Zero extraneous |
-| P   | 6    | Sem decisao clinica. Apenas contexto |
+| P   | 6 ★ | Sem decisao clinica. **Intencional por archetype** |
 | N   | 7    | Ancora identidade visual. tensionLevel=0. Nao narrativeCritical |
 
-Obs: (1) Fill 12% e critico pela rubrica mas intencional para title. (2) Panel overlap detectado (cosmetic, title nao tem panel content). (3) h1 em vez de h2 e correto para archetype-title. (4) 4 console 404s detectados (assets missing, nao-bloqueante).
+★ = intencional por archetype (nao forcar nota 9)
+
+**Status:** PASS (archetype-adjusted). Dims E/V/M/P sao intencionalmente baixos para title slide.
+**Gemini audit (pendente):** Avaliar centralização vertical (conteudo ligeiramente acima do centro), coesão do bloco texto (gap pilares→identity), e impacto visual geral do title em projeção real.
 
 ### s-hook (01-hook.html)
 
