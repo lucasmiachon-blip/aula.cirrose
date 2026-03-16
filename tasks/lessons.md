@@ -261,3 +261,36 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 - **Root cause:** pseudo-elements participam do layout flex como qualquer outro item. Combinados com `gap` ou `flex: 1` children, produzem efeitos colaterais invisíveis.
 - **Regra:** `shared/css/base.css` deve conter apenas regras que funcionam com QUALQUER layout filho (grid, flex, custom). Mecanismos de centering/spacing que dependem de contexto flex → responsabilidade da aula, não da base.
 - **`justify-content: flex-start` é suficiente** para o P0 (clipping sempre no bottom, h2 sempre visível). Centering estético = responsabilidade da WT.
+
+## Sessão 16/mar — JS scaling + overflow diagnosis
+
+### Canvas fixo + transform:scale = arquitetura correta para apresentações
+
+- `scaleDeck()`: `Math.min(vw/1280, vh/720)` + `translate(-50%,-50%) scale(s)` em `#deck position:absolute`
+- Responde a `resize` e `fullscreenchange`. Funciona em qualquer tela sem refactor de conteúdo.
+- **Proibido:** `zoom` CSS (não dispara evento resize), `body { display:grid }` em cirrose.css (conflito com scaling global).
+- **Regra:** Scaling é responsabilidade do `shared/js/deck.js`. CSS local NUNCA deve redefinir zoom/transform no body ou #deck.
+
+### overflow=scrollHeight > clientHeight pode ser artefato GSAP
+
+- Elementos com `opacity:0` (estado inicial GSAP) ocupam espaço de layout → scrollHeight inflado.
+- Diagnóstico correto: `Array.from(el.querySelectorAll('*')).filter(c => parseFloat(getComputedStyle(c).opacity)===0 && c.offsetHeight>20)`
+- **Regra:** Antes de "corrigir overflow", verificar se o overflow desaparece quando GSAP revela os elementos. Overflow em medição ≠ overflow visual.
+
+### flex-wrap inline em HTML vence archetype CSS
+
+- CSS inline no `<section>` tem especificidade máxima. Override em `cirrose.css` precisa de seletor mais específico (`#slide-viewport .screening-pathway`).
+- **Regra:** Ao debugar layout, inspecionar regras inline via `document.styleSheets` + `rule.selectorText.includes('classe')`. Não assumir que `archetypes.css` é a única fonte.
+
+### .slide-integrity: fingerprint contra rollback de conteúdo
+
+- `build-html.ps1` gera SHA-256 por slide → `.slide-integrity`. Build seguinte compara e alerta.
+- Pre-commit Guard 4: bloqueia se slides mudaram sem rebuild (`.slide-integrity` desatualizado).
+- **Regra:** Após merge, sempre rodar `npm run build:cirrose` antes de commitar. O Guard 4 vai bloquear se esquecer.
+
+### Agente em main editou worktree via path absoluto = VIOLAÇÃO
+
+- Sessão no workspace `aulas-magnas` (main) escreveu diretamente em `C:\Dev\Projetos\wt-cirrose\` usando paths absolutos.
+- Hooks (pre-commit, pre-push) só disparam no git commit/push — não impedem escrita direta em arquivos.
+- **Regra:** Agente em main NUNCA pode escrever em `../wt-*`. Para editar worktree, abrir sessão Cursor naquele diretório.
+- **Regra:** `scripts/pre-commit.sh` e `tasks/lessons.md` são Classe A/B — sempre commitar em main, nunca direto na WT.
