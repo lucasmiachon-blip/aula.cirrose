@@ -1,5 +1,35 @@
 # NOTES — Cirrose
 
+## [17/03] Auditoria de processos — 76 achados (3 agentes)
+
+Rodamos repo-janitor + rules-audit + docs-audit. Resumo:
+
+### Fixes aplicados nesta sessao (WT)
+- `tasks/lessons.md`: removida secao duplicada verbatim "Sessao 16/mar — JS scaling"
+- `aulas/cirrose/qa-screenshots/README.md`: atualizado para refletir estrutura real (per-slide folders)
+
+### Checklist para sessao em main (Classe A/B)
+
+**P1 — Alto impacto:**
+1. Split `reveal-patterns.md` → `deck-patterns.md` (ativo) + `reveal-legacy.md` (frozen) — resolve 9 achados
+2. Atualizar `docs/SKILLS.md` — adicionar 11 skills Claude Code faltantes + slide-frontend-ux (Cursor)
+3. Codificar 5 ERROs em rules:
+   - css-errors.md: overflow-y:hidden default (ERRO-020), archetype scope (ERRO-018/032), pseudo-elements + flex (metanalise lessons), p margin in flex+gap, justify-content clipping
+   - slide-editing.md: stopPropagation (ERRO-033), init ordering (ERRO-016), deck.js bg-color pattern (ERRO-034), [TBD] placement (ERRO-029)
+4. Atualizar `design-system.md`: documentar Plan C / `.stage-c` como default, corrigir `Reveal.addKeyBinding` → deck.js `C` key
+
+**P2 — Medio impacto:**
+5. Adicionar `slide-identity.md`/`.mdc` a XREF.md e RULES.md
+6. Fix `docs/SETUP.md` linha 165: remover ref a `assertion-evidence.mdc` (nao existe)
+7. Adicionar 3 archive files a XREF.md (CHATGPT_HANDOFF_ACT2, NNT-IC95-REPORT, system-v6.plan)
+
+**P3 — Baixo impacto:**
+8. Consolidar tabelas duplicadas ECOSYSTEM+KPIs (3 tabelas de modelos → 1)
+9. Anotar em README.md/XREF.md que refs metanalise so existem na WT feat/metanalise-mvp
+10. Arquivar ACT2-ARCHITECTURE.md (orfao, nao indexado)
+
+---
+
 ## [16/03] Merge main → cirrose-mvp
 
 - **3 commits absorvidos:** `16732c6` (.gitignore test-results), `f45b1e0` (4 MCPs visuais), `120da6a` (docs sync)

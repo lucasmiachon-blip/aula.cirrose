@@ -1,22 +1,21 @@
 # QA Screenshots — Cirrose
 
-## Estrutura
+## Estrutura atual
 
-| Pasta | Conteúdo |
+| Pasta | Conteudo |
 |-------|----------|
-| `stage-a` | Plan A (dark, 1920×1080) |
-| `stage-b` | Plan B (light, 1280×720, sem animação) |
-| `stage-c` | Plan C (light, 1280×720, com animações) |
+| `browser-qa/` | Screenshots manuais via browser |
+| `act1-reaudit/` | Re-auditoria Act 1 |
+| `first5/` | Primeiros 5 slides (baseline) |
+| `first5-postfix/` | Primeiros 5 slides (pos-fix) |
+| `s-title/`, `s-hook/`, `s-a1-*`, `s-cp1/` | Per-slide QA (Act 1) |
 
-## stage-c/ — batch atual: hook v5 (2 beats)
+Flat PNGs na raiz (`s-hook-s0.png`, `s-title.png`, etc.) sao capturas avulsas.
 
-```
-aulas/cirrose/qa-screenshots/stage-c/
-├── 02-s-hook-beat-00.png   # Antônio + história
-└── 02-s-hook-beat-01.png   # Labs + pergunta
-```
+## Captura
 
-**Comando:** `npm run qa:screenshots:cirrose`
-Requer `npm run dev` (port 3000). Script usa `__hookAdvance()` para capturar cada transição.
+Script: `scripts/qa-batch-screenshot.mjs`
+Requer `npm run dev` (port 3000).
 
-> **Nota:** Batches anteriores tinham 5 beats (cold open → framework). Hook v5 simplificou para 2.
+> **Nota historica:** Batches anteriores usavam `stage-a/`, `stage-b/`, `stage-c/` como subdirs.
+> Estrutura atual migrou para per-slide folders.
