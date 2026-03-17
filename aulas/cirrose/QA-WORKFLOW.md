@@ -333,7 +333,20 @@ Uma sessao tipica cobre 3-4 slides:
 | lint:slides | SIM | Constraint check automatizado |
 | Gemini MCP (@fre4x/gemini) | SIM (GEMINI_API_KEY OK) | Fase 4: deck-level static+dynamic |
 | a11y-contrast MCP | SIM (sem key) | Fase 2: verificacao contraste WCAG |
-| frontend-review MCP (Hyperbolic) | PARCIAL (key em env Windows, nao em bash) | Before/after diff — instalar .env |
+| frontend-review MCP (Hyperbolic) | PARCIAL (key em env Windows, nao em bash) | Before/after visual diff |
+| chrome-devtools MCP | SIM (sem key) | Console errors, computed styles, performance profiling |
+
+### chrome-devtools MCP (novo — 2026-03-16)
+
+Permite inspecionar o browser sem abrir DevTools manualmente:
+- **Console:** capturar erros JS durante animacoes (substitui G6 manual)
+- **Computed styles:** verificar valores CSS resolvidos (contraste real, font-size computado)
+- **Performance:** profiling de GSAP timelines pesadas (util para slides com muitos countUp)
+
+Integrar em:
+- **Gate 1 (Constraint Check):** capturar console errors automaticamente
+- **Gate 2 (Static Visual):** verificar computed contrast ratio vs threshold
+- **Fase 3 (Dynamic):** profiling de animacoes > 16ms frame time
 
 ### Pendencia: HYPERBOLIC_API_KEY
 
