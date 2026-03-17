@@ -1910,13 +1910,19 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-a1-classify — Classificar cedo (ex-screening)
-   States: 0=gancho 1=dado 83% 2=criterios 3=ferramentas 4=Antonio+PREDESCI
+   s-a1-classify — Estadiamento associado ao prognóstico (D'Amico + further decomp)
+   States: 0=D'Amico cards stagger + further decomp (auto), 1=source (click)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-#s-a1-classify .archetype-hero-stat {
-  grid-template-rows: auto auto auto 1fr auto auto;
+#s-a1-classify .slide-inner.archetype-hero-stat {
+  justify-content: flex-start;
+  padding-top: 32px;
+  padding-bottom: 16px;
+  gap: 0.6rem;
 }
+#s-a1-classify .classify-assertions { gap: 6px; }
+#s-a1-classify .classify-card { padding: 8px var(--space-md); }
+#s-a1-classify .section-tag { margin-bottom: 0; }
 
 /* ── s-a1-classify: assertion cards + PREDESCI ── */
 .classify-assertions {
@@ -1944,7 +1950,7 @@
 .classify-card--safe  { border-left-color: var(--safe); }
 .classify-card--safe .classify-card-icon { color: var(--safe); }
 .classify-card--warning  { border-left-color: var(--warning); }
-.classify-card--warning .classify-card-icon { color: var(--warning); }
+.classify-card--warning .classify-card-icon { color: var(--warning-on-light); }
 .classify-card--danger { border-left-color: var(--danger); }
 .classify-card--danger .classify-card-icon { color: var(--danger); }
 
@@ -1968,17 +1974,16 @@
 }
 
 /* PREDESCI hero (visible from auto-entry) */
+/* ── s-a1-classify: PREDESCI context box + hero number ── */
 .classify-predesci {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-sm);
-}
-
-.classify-predesci-hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border-left: 3px solid var(--safe);
+  background: var(--safe-light);
+  border-radius: var(--radius-sm);
+  width: 100%;
 }
 
 .classify-predesci-label {
@@ -1987,12 +1992,25 @@
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
+}
+
+.classify-predesci-outcome {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+}
+
+.classify-predesci-hero {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  justify-content: center;
 }
 
 .classify-predesci-value {
   font-family: var(--font-mono);
-  font-size: var(--text-hero);
+  font-size: var(--text-h1);
   font-weight: 700;
   color: var(--safe);
   line-height: 1;
@@ -2004,18 +2022,38 @@
   color: var(--text-secondary);
 }
 
-.classify-predesci-text {
+/* ── s-a1-classify: further decompensation callout ── */
+.classify-further-decomp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: var(--space-sm) var(--space-md);
+  border-left: 3px solid var(--warning);
+  background: var(--warning-light);
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+
+.classify-further-text {
   font-family: var(--font-body);
   font-size: var(--text-body);
   color: var(--text-primary);
-  text-align: center;
   margin: 0;
-  max-width: 42ch;
 }
 
-/* .classify-predesci-case removed — Antonio callback deferred to later slide */
+.classify-further-text strong {
+  font-weight: 700;
+  color: var(--text-primary);
+}
 
-/* .classify-predesci no longer needs failsafe — visible by default */
+.classify-further-source {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+/* .classify-predesci-support removed — PREDESCI now uses hero classes */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-damico (escores) — Era track + era state machine
@@ -2486,6 +2524,15 @@
 }
 .no-js .classify-card,
 .stage-bad .classify-card {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.no-js .classify-further-decomp,
+.stage-bad .classify-further-decomp,
+.no-js .classify-predesci,
+.stage-bad .classify-predesci,
+.no-js .classify-predesci-hero,
+.stage-bad .classify-predesci-hero {
   opacity: 1 !important;
   transform: none !important;
 }

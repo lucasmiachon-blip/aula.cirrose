@@ -38,8 +38,11 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 **Fixes aplicados (16/mar sessão Claude Code — s-a1-01 polish v3):**
 6. ~~**s-a1-01**~~ ✅ — h2 provocativo "Por que rastrear?", hero context removido, guideline-rec card com bold nos 3 critérios, source-tag footer restaurado, auto-margin vertical distribution. Claude Vision 3.9/5.
 
+**Fixes aplicados (17/mar sessão Claude Code — s-a1-classify redesign):**
+7. ~~**s-a1-classify**~~ ✅ — Redesign + QA polish PASS. Warning icon --warning→--warning-on-light (E15, 3.77→7.03:1). Gate 1+2+3 PASS, 14 dims ≥9. Build ✅ · Lint ✅ · Contraste ✅.
+
 **Próximos passos:**
-7. Per-slide audit Act 1 (Fase 2): constraint check + Claude Vision + score 14 dims
+8. Per-slide audit Act 1 (Fase 2): constraint check + Claude Vision + score 14 dims
 8. Fix loop ate PASS (todas dims >= 9)
 9. Dynamic gate (Fase 3): animacoes + click-reveals
 10. Deck-level Gemini (Fase 4): cross-slide consistency

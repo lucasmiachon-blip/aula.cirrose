@@ -175,26 +175,26 @@ Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) ~~Fill 52%~~ Corrigido 
 
 ### s-a1-classify (02c-a1-classify.html)
 
-**Headline:** Classificar antes da 1ª descompensação reduz eventos
+**Headline:** O estadiamento está fortemente associado ao prognóstico
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 8    | PREDESCI hero HR 0,51 dominante. 3 cards abaixo com hierarquia visual. h2 1 linha |
-| T   | 8    | Hero value countUp. Card text proporcional. h2 1 linha limpo |
-| E   | 8    | Fill 85% excelente. Grid equilibrado hero + cards |
-| C   | 8    | classify-card--safe/warning/danger = cores semanticas. Icones daltonismo. var() |
-| V   | 8    | Hero stat + 3 cards color-coded. D'Amico mortalidade por estagio visivel |
-| K   | 8    | archetype-hero-stat reutilizado. Padrao de cards consistente |
-| S   | 8    | Source-tag. CountUp. OKLCH. Stagger |
-| M   | 8    | h2 E assercao. Hero prova o claim. 1 linha. Body ~40 palavras visiveis |
-| I   | 8    | 1 clickReveal (source). CountUp animation |
-| D   | 9    | 3 PMIDs (30910320, 16298014, 37916970). HR com IC95%. [DATA] tags |
-| A   | 8    | Icones com cores semanticas. Alto contraste. Cards acessiveis |
-| L   | 7    | 2 conceitos (PREDESCI beneficio + 3-estagio mortalidade). 3 cards adicionam densidade |
-| P   | 9    | "Classificar importa" = decisao clinica. Cards mostram desfecho por estagio. Caso ancora (FIB-4 5,91) |
-| N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md |
+| H   | 9    | Section tag → headline → patient → PREDESCI hero → 3 cards → further decomp. Hierarquia visual clara |
+| T   | 9    | Mono para numeros, body para texto, pesos corretos. Caption para sources |
+| E   | 9    | Fill 82%. Flex column. Cards compactos (gap 6px, padding 8px). Sem clipping. Breathing room adequado |
+| C   | 9    | 13/13 pares contraste PASS (min 6:1 sec, 4.5:1 pri). Warning icon corrigido para --warning-on-light (7.03:1) |
+| V   | 9    | 3 cards color-coded + callout further decomp + PREDESCI HR highlight. Sem decoracao gratuita |
+| K   | 9    | archetype-hero-stat. Padrao de cards consistente. Cores seguem design system semantico |
+| S   | 9    | Source-tag click-reveal. Stagger cards. OKLCH tokens. Section-tag visivel. Sem AI markers |
+| M   | 10   | h2 assercao prognostica. 3 cards provam com mortalidade. safe→warning→danger = historia completa |
+| I   | 9    | 1 clickReveal (source). Stagger auto + further decomp delayed + PREDESCI fade |
+| D   | 10   | 3 PMIDs (30910320, 16298014, 37916970). HR com IC95%. n=2.028. [DATA] tags verificados |
+| A   | 9    | Icones reforçam cor (✓⚠✕). Warning icon 7.03:1. Todos pares ≥6:1 |
+| L   | 9    | 3 cards chunking (Cowan 4±1). Further decomp separado = 2 conceitos claros. PREDESCI nao compete |
+| P   | 9    | Estadiamento muda prognostico = decisao clinica. Cards mostram desfecho. Caso ancora (FIB-4 5,91) |
+| N   | 9    | Setup role. tensionLevel=2. safe→danger + further decomp = tensao crescente. PREDESCI = resolucao |
 
-Obs: (1) Melhor slide do Act 1 em equilibrio geral. (2) PREDESCI HR 0,51 com IC95% = ouro no dim D. (3) 3 cards sao chunking eficaz (Sweller). (4) Patient-context inclui FIB-4 highlight — ancora caso.
+Obs: (1) Redesign 17/mar: D'Amico protagonista, PREDESCI suporte (era hero). (2) Further decomp callout separado (D'Amico 2024 n=2.028). (3) MELD calc removido do panel (pertence a s-a1-meld). (4) HDA varicosa removido dos cards (57% e mortalidade aguda, nao anual comparavel). (5) QA polish 17/mar: warning icon --warning→--warning-on-light (E15, 3.77→7.03:1). Gate 1+2+3 PASS.
 
 ### s-a1-vote (02d-a1-vote.html)
 

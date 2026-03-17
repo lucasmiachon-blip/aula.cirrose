@@ -4,6 +4,41 @@
 
 ---
 
+## 2026-03-17 — s-a1-classify QA polish
+
+Branch: `feat/cirrose-mvp`
+
+**QA polish (Gate 1+2+3):**
+- **cirrose.css:** Warning icon .classify-card--warning: --warning → --warning-on-light (E15, 3.77→7.03:1)
+- **AUDIT-VISUAL.md:** Scorecard atualizado — 14 dims ≥9 (C 8→9, A 8→9, M 8→10, D 9→10)
+- Gate 1 PASS: assertion h2, zero ul/ol, notes timing, no display on section, 3 PMIDs, failsafes
+- Gate 2 PASS: 13/13 contrast pairs ≥6:1, warning icon fixed
+- Gate 3 PASS: all 14 dims ≥9
+- Build ✅ · Lint ✅ · Narrative-sync ✅
+
+---
+
+## 2026-03-17 — s-a1-classify redesign (D'Amico protagonista)
+
+Branch: `feat/cirrose-mvp`
+
+**s-a1-classify redesign:**
+- **02c-a1-classify.html:** h2 "O estadiamento está fortemente associado ao prognóstico"
+- **02c-a1-classify.html:** D'Amico 2006 como protagonista — 3 cards mortalidade anual (1%, 3-4%, 20%)
+- **02c-a1-classify.html:** Further decomp callout separado (D'Amico 2024, ~60%, n=2.028)
+- **02c-a1-classify.html:** PREDESCI como suporte menor — HR 0,51 bold teal
+- **02c-a1-classify.html:** HDA varicosa removido dos cards (57% é mortalidade aguda, não anual)
+- **02c-a1-classify.html:** Speaker notes reescritas com novo pacing
+- **cirrose.css:** flex-start + padding compacto (corrige overflow). Callout warning (amber). HR highlight teal
+- **cirrose.css:** .classify-further-decomp, .classify-predesci-support, .predesci-hr (classes novas)
+- **slide-registry.js:** animação atualizada — remove countUp, stagger cards + delayed further decomp + PREDESCI fade
+- **_manifest.js:** headline atualizado. MELD calc removido do panelState (pertence a s-a1-meld)
+- **narrative.md:** headline + nota atualizados
+- **AUDIT-VISUAL.md:** scorecard atualizado (14 dims, L subiu 7→8)
+- Build ✅ · Lint ✅ · Narrative-sync ✅
+
+---
+
 ## 2026-03-16 — Merge main (06fef2a) + dedup .mcp.json
 
 Branch: `feat/cirrose-mvp`

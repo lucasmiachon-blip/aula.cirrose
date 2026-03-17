@@ -148,8 +148,8 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-classify — Classificar muda conduta (PREDESCI hero)
-     State 0: PREDESCI countUp + cards stagger (auto)
+     s-a1-classify — Estadiamento associado ao prognóstico (D'Amico + further decomp)
+     State 0: D'Amico cards stagger + further decomp + PREDESCI hero (auto)
      State 1: source (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-classify': (slide, gsap) => {
@@ -158,16 +158,29 @@ export const customAnimations = {
     let state = 0;
     const maxState = 1;
 
-    const predesciValue = slide.querySelector('.classify-predesci-value');
     const cards = slide.querySelectorAll('.classify-card');
+    const furtherDecomp = slide.querySelector('.classify-further-decomp');
+    const predesciBox = slide.querySelector('.classify-predesci');
+    const predesciHero = slide.querySelector('.classify-predesci-hero');
     const sourceTag = slide.querySelector('.source-tag');
 
-    // Auto: PREDESCI countUp
-    if (predesciValue) inlineCountUp(gsap, predesciValue, 0.51, 1.2, 0.3);
-
-    // Auto: cards stagger (delayed after hero)
+    // Initial hidden states
+    if (predesciBox) gsap.set(predesciBox, { opacity: 0, y: 6 });
+    if (predesciHero) gsap.set(predesciHero, { opacity: 0, y: 6 });
     gsap.set(cards, { opacity: 0, y: 12 });
-    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.8, ease: 'power2.out' });
+    if (furtherDecomp) gsap.set(furtherDecomp, { opacity: 0, y: 8 });
+
+    // Auto: PREDESCI box (context, delay 0.2s)
+    if (predesciBox) gsap.to(predesciBox, { opacity: 1, y: 0, duration: 0.4, delay: 0.2, ease: 'power2.out' });
+
+    // Auto: PREDESCI hero number (delay 0.5s)
+    if (predesciHero) gsap.to(predesciHero, { opacity: 1, y: 0, duration: 0.5, delay: 0.5, ease: 'power2.out' });
+
+    // Auto: D'Amico cards stagger (after hero ~0.9s)
+    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.18, delay: 0.9, ease: 'power2.out' });
+
+    // Auto: further decomp callout (after cards settle ~1.6s)
+    if (furtherDecomp) gsap.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.5, delay: 1.6, ease: 'power2.out' });
 
     function advance() {
       if (state >= maxState) return false;
@@ -374,72 +387,42 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-fib4 — Hero number Antonio + ALT trap
-     States: 0=formula+cutoffs (auto), 1=Antonio inputs+hero, 2=source
+     s-a1-fib4 — Hero FIB-4 + cutoff cards (clean hero-stat)
+     States: 0=hero countUp + cards stagger (auto), 1=source (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-fib4': (slide, gsap) => {
     let state = 0;
-    const maxState = 2;
+    const maxState = 1;
 
-    const formulaBlock = slide.querySelector('.fib4-formula-block');
-    const cutoffs = slide.querySelectorAll('.fib4-cutoff');
-    const antonio = slide.querySelector('.fib4-antonio');
-    const inputCards = slide.querySelectorAll('.fib4-input-card');
     const heroNum = slide.querySelector('[data-countup-target="5.91"]');
-    const mandate = slide.querySelector('.fib4-mandate');
-    const dangerZone = slide.querySelector('.fib4-cutoff--danger');
+    const cards = slide.querySelectorAll('.classify-card');
     const sourceTag = slide.querySelector('.source-tag');
 
-    gsap.set(cutoffs, { opacity: 0, y: 8 });
-    gsap.to(cutoffs, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.3, ease: 'power2.out' });
+    /* Auto: hero countUp + cards stagger */
+    if (heroNum) {
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: 5.91,
+        duration: 1.4,
+        delay: 0.3,
+        ease: 'power1.out',
+        onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
+      });
+    }
+
+    gsap.set(cards, { opacity: 0, y: 8 });
+    gsap.to(cards, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.8, ease: 'power2.out' });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
-
-      if (state === 1) {
-        gsap.to(antonio, { opacity: 1, duration: 0.4, delay: 0.1 });
-
-        gsap.set(inputCards, { opacity: 0, y: 10 });
-        gsap.to(inputCards, { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, delay: 0.2, ease: 'power2.out' });
-
-        if (heroNum) {
-          const obj = { val: 0 };
-          const totalDelay = 0.2 + inputCards.length * 0.12 + 0.3;
-          gsap.to(obj, {
-            val: 5.91,
-            duration: 1.4,
-            delay: totalDelay,
-            ease: 'power1.out',
-            onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
-          });
-        }
-
-        if (dangerZone) {
-          gsap.fromTo(dangerZone,
-            { boxShadow: '0 0 0px oklch(50% 0.18 25 / 0)' },
-            { boxShadow: '0 0 16px oklch(50% 0.18 25 / 0.3)', duration: 0.4,
-              delay: 1.5, yoyo: true, repeat: 1, ease: 'power2.inOut' }
-          );
-        }
-
-        if (mandate) gsap.fromTo(mandate, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, delay: 2.0 });
-      }
-
-      if (state === 2) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
-      }
-
+      if (state === 1) gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 2) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      if (state === 1) {
-        gsap.to(antonio, { opacity: 0, duration: 0.3 });
-        if (heroNum) { gsap.killTweensOf(heroNum); heroNum.textContent = '0'; }
-      }
+      if (state === 1) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       state--;
       return true;
     }

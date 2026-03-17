@@ -24,11 +24,11 @@ export const slides = [
 
   // ── Act 1: CLASSIFICAR ──
   { id: 's-a1-01', file: '02-a1-continuum.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Por que rastrear?', panelState: 'neutral', clickReveals: 0, customAnim: 's-a1-01', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
-  { id: 's-a1-classify', file: '02c-a1-classify.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Classificar antes da 1ª descompensação reduz eventos', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-classify', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
+  { id: 's-a1-classify', file: '02c-a1-classify.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'O estadiamento está fortemente associado ao prognóstico', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-classify', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-vote', file: '02d-a1-vote.html', act: 'A1', archetype: 'poll', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Esse paciente tem cirrose?', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-vote', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-damico', file: '02b-a1-damico.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'De Child-Pugh a D\'Amico: prognóstico virou preditivo', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-damico', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-baveno', file: '03-a1-baveno.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Doença hepática avançada é espectro, não diagnóstico binário', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-baveno', timing: 120, narrativeRole: 'setup', tensionLevel: 1, narrativeCritical: false },
-  { id: 's-a1-fib4', file: '03b-a1-fib4calc.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: '4 dados. 1 número. 1 decisão.', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-fib4', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
+  { id: 's-a1-fib4', file: '03b-a1-fib4calc.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Estadiar precoce diagnostica cALD — e muda a conduta', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-fib4', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-rule5', file: '03d-a1-rule5.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'A cada 5 kPa, muda o estágio e a conduta', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-rule5', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-meld', file: '04-a1-meld.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'MELD-Na estratifica urgência: cada faixa muda a conduta', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-meld', timing: 150, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-cp1', file: '07-cp1.html', act: 'CP', archetype: 'checkpoint', sectionTag: null, headline: 'LSM 21 kPa, plaquetas 112k. Como você estadia?', panelState: 'caution', clickReveals: 3, customAnim: null, timing: 180, narrativeRole: 'checkpoint', tensionLevel: 3, narrativeCritical: true },
@@ -119,10 +119,9 @@ export const panelStates = {
   },
   's-a1-classify': {
     severity: 'neutral',
-    values: { fib4: '5,91', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
-    visibleFields: ['fib4', 'lsm', 'plq', 'meld', 'albumin', 'stage'],
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—', stage: '?' },
+    visibleFields: ['AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
-    calc: 'meld',
   },
   's-cp1': {
     severity: 'caution',
