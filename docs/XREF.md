@@ -129,7 +129,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
 | CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md | ← CLAUDE.md (projects table) |
-| HANDOFF.md | → blueprint.md, narrative.md, evidence-db.md | ← docs/README.md |
+| HANDOFF.md | (pendente) — quando existir: blueprint.md, narrative.md, evidence-db.md | — |
 | references/narrative.md | (canônico narrativa) | ← CLAUDE.md aula, blueprint.md |
 | references/evidence-db.md | (canônico dados clínicos) | ← blueprint.md, slides/ |
 | references/blueprint.md | → narrative.md, evidence-db.md | ← HANDOFF.md |

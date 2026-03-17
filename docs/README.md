@@ -24,10 +24,9 @@
 |-----|-----|
 | [aulas/cirrose/HANDOFF.md](../aulas/cirrose/HANDOFF.md) | Pendências Cirrose |
 | [aulas/cirrose/HANDOFF-CLAUDE-AI.md](../aulas/cirrose/HANDOFF-CLAUDE-AI.md) | Claude.ai (paths, pendências) |
-| [aulas/metanalise/HANDOFF.md](../aulas/metanalise/HANDOFF.md) | Pendências Meta-análise |
-| [aulas/metanalise/CLAUDE.md](../aulas/metanalise/CLAUDE.md) | Regras + estado Meta-análise |
-| aulas/grade/HANDOFF.md | Estado GRADE |
-| aulas/osteoporose/HANDOFF.md | Estado Osteoporose |
+| [aulas/metanalise/CLAUDE.md](../aulas/metanalise/CLAUDE.md) | Regras + estado Meta-análise (HANDOFF pendente) |
+| [aulas/grade/HANDOFF.md](../aulas/grade/HANDOFF.md) | Estado GRADE |
+| aulas/osteoporose/HANDOFF.md | Estado Osteoporose (backlog: link) |
 
 ### MCPs e integrações
 | Doc | Uso |
