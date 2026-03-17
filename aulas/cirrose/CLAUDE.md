@@ -5,7 +5,7 @@
 ## Projeto
 
 - **Título:** Cirrose Hepática — Classificar · Intervir · Reverter
-- **Stack:** deck.js (custom nav) · GSAP 3.12 · Vanilla HTML/CSS/JS · OKLCH design tokens
+- **Stack:** deck.js (custom nav) · GSAP 3.14.2 · Vanilla HTML/CSS/JS · OKLCH design tokens
 - **Resolução:** 1280 × 720 (Plan C) · 1920 × 1080 (Plan A)
 - **Offline-first:** Zero CDN. Todos assets locais.
 
@@ -68,9 +68,9 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 ## WT State (atualizar a cada sessao)
 
 - **Branch:** feat/cirrose-mvp
-- **Ultimo merge main:** 06fef2a (2026-03-16) — 3 commits: .gitignore test-results, 4 MCPs visuais, docs sync
+- **Ultimo merge main:** bfb3268 (2026-03-17) — governance hardening, evolve patches, GSAP 3.14.2, rules split (deck-patterns + reveal-legacy)
 - **Classe C pendente:** 0 arquivos em main
-- **Infra sync:** OK — main absorvida (Classe A/B), 12 MCPs no .mcp.json (chrome-devtools novo)
+- **Infra sync:** OK — main absorvida (Classe A/B), 12 MCPs no .mcp.json
 - **QA Act 1:** Loop 1 baseline aplicado (14 dim) — fix gargalos E/M/L
 
 ## Worktree
