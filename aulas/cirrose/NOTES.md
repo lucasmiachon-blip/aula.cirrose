@@ -1,5 +1,15 @@
 # NOTES — Cirrose
 
+## [16/03] Merge main → cirrose-mvp
+
+- **3 commits absorvidos:** `16732c6` (.gitignore test-results), `f45b1e0` (4 MCPs visuais), `120da6a` (docs sync)
+- **Conflito .mcp.json:** auto-merge sem conflito textual, mas gerou 3 entradas duplicadas (a11y-contrast, gemini, frontend-review). Deduplicado manualmente em `da77cf9`.
+- **chrome-devtools MCP:** novo, só existia em main — agora disponível na WT.
+- **Zero Classe C** — merge seguro.
+- Prompt preparado para metanalise fazer o mesmo merge (ver seção abaixo).
+
+---
+
 ## [15/03] Decisões — s-hook panel + hierarquia labs
 
 - **Panel ativado:** `panelState: 'hidden'` → `'neutral'` — decisão: duplicação intencional familiariza audiência com o panel lateral antes do Act 1

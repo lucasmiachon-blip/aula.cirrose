@@ -14,7 +14,8 @@
 **QA Act 2/3:** ⏳ Bloqueado por Act 1 PASS.
 **QA Workflow:** `QA-WORKFLOW.md` — pipeline 4 fases (batch screenshot → per-slide loop → dynamic gate → deck-level Gemini).
 **QA Script:** `scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
-**Visual Audit MCPs:** gemini, a11y-contrast, frontend-review configurados em `.mcp.json`.
+**Visual Audit MCPs:** gemini, a11y-contrast, frontend-review, chrome-devtools configurados em `.mcp.json`.
+**Ultimo merge main:** `06fef2a` (2026-03-16) — .gitignore, 4 MCPs visuais, docs sync. Zero Classe C.
 
 ---
 

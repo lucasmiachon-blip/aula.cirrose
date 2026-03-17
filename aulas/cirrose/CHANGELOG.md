@@ -4,6 +4,19 @@
 
 ---
 
+## 2026-03-16 — Merge main (06fef2a) + dedup .mcp.json
+
+Branch: `feat/cirrose-mvp`
+
+**Merge main → cirrose-mvp:**
+- 3 commits absorvidos: `.gitignore` (test-results/), 4 MCPs visuais, docs sync (ECOSYSTEM, MCP-ENV-VARS, .env.example)
+- `.mcp.json`: auto-merge gerou 3 MCPs duplicados (a11y-contrast, gemini, frontend-review) — deduplicado em `da77cf9`
+- `chrome-devtools` MCP adicionado (novo, só existia em main)
+- `.mcp-profiles/qa.json` e `full.json` atualizados
+- Zero arquivos Classe C tocados
+
+---
+
 ## 2026-03-16 — QA pipeline + s-a1-01 polish v3 + visual audit MCPs
 
 Branch: `feat/cirrose-mvp`
