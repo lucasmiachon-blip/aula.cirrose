@@ -68,5 +68,8 @@ audit-export/
 diagnostico-temp/
 diagnostico.zip
 
+# Playwright test artifacts
+test-results/
+
 # Windows artifact
 NUL
