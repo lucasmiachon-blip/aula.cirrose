@@ -301,6 +301,93 @@ Agente Opus filtra sugestoes validas → aplica → re-audit slides afetados (vo
 
 ---
 
+## Execution Log
+
+> Registro explicito de cada gate executado por slide. Modelo para futuras sessoes.
+
+### s-a1-classify — 2026-03-17
+
+**Gate 1: Constraint Check**
+| Check | Ferramenta | Resultado |
+|-------|-----------|-----------|
+| h2 = assercao | Read HTML | PASS — "O estadiamento esta fortemente associado ao prognostico" |
+| Zero ul/ol | Grep HTML | PASS — 0 matches |
+| aside.notes com timing | Read HTML | PASS — 3 segmentos [0:00-0:30], [0:30-1:00], [1:00-1:15] |
+| Sem display no section (E07) | Grep style= | PASS — apenas opacity:0 em source-tag |
+| PMIDs com [DATA] | Read notes | PASS — 3 PMIDs (16298014, 37916970, 30910320) |
+| .no-js/.stage-bad failsafes | Grep cirrose.css | PASS — cards + further-decomp + predesci cobertos |
+| Headline match manifest | lint:narrative-sync | PASS |
+
+**Gate 2 passo 1: Layout Metrics**
+- Metodo: visual (screenshot 1280x720 via Playwright)
+- Fill ratio: ~82% (visual estimate — metrics JSON nao extraido)
+- Panel overlap: nenhum
+- PENDENCIA: metrics JSON formal nao extraido. Usar `page.evaluate()` nos proximos slides.
+
+**Gate 2 passo 2: Claude Vision 7-dim**
+- Metodo: analise visual direta do screenshot (Read PNG)
+- PENDENCIA: prompt padronizado do QA-WORKFLOW nao usado formalmente. Integrar nos proximos slides.
+
+**Gate 2 passo 3: Contraste (a11y)**
+- Metodo: Playwright in-browser (canvas toRGB + WCAG luminance calc)
+- 13 pares testados:
+
+| Par | Ratio | Min | Resultado |
+|-----|-------|-----|-----------|
+| Card outcome (1%/ano) — text-muted on bg-card | 9.36:1 | 6:1 | PASS |
+| Card assertion — text-primary on bg-card | 19.10:1 | 6:1 | PASS |
+| PREDESCI label — text-muted on safe-light | 8.00:1 | 6:1 | PASS |
+| PREDESCI outcome — text-secondary on safe-light | 12.84:1 | 6:1 | PASS |
+| HR 0.51 hero (large) — safe on bg-surface | 7.50:1 | 4.5:1 | PASS |
+| CI annotation — text-secondary on bg-surface | 14.62:1 | 6:1 | PASS |
+| Further source — text-muted on warning-light | 7.83:1 | 6:1 | PASS |
+| Further text — text-primary on warning-light | 12.55:1 | 6:1 | PASS |
+| Headline (large) — text-primary on bg-surface | 18.59:1 | 4.5:1 | PASS |
+| Section tag — text-secondary on bg-surface | 14.62:1 | 6:1 | PASS |
+| Safe icon (✓) — safe on bg-card | 7.71:1 | 4.5:1 | PASS |
+| Warning icon (⚠) — warning on bg-card | 3.77:1 | 4.5:1 | **FAIL** |
+| Danger icon (✕) — danger on bg-card | 6.22:1 | 4.5:1 | PASS |
+
+**Gate 2 passo 4: Score 14 dims**
+
+| Dim | Score | Evidencia |
+|-----|-------|-----------|
+| H | 9 | Section tag → headline → patient → PREDESCI → cards → further decomp |
+| T | 9 | Mono numeros, body texto, caption sources |
+| E | 9 | Fill 82%, gaps consistentes, sem clipping |
+| C | 9 | 13/13 PASS apos fix warning icon (7.03:1) |
+| V | 9 | Cards color-coded + callouts. Sem decoracao gratuita |
+| K | 9 | Consistente com design system |
+| S | 9 | OKLCH tokens, sem AI markers |
+| M | 10 | Assercao + 3 cards safe→warning→danger = historia completa |
+| I | 9 | Stagger auto + click-reveal source |
+| D | 10 | 3 PMIDs verificados via PubMed WebFetch. HR com IC95% |
+| A | 9 | Icons reforçam cor. Warning icon 7.03:1 apos fix |
+| L | 9 | 3 cards (Cowan 4±1). 2 conceitos claros |
+| P | 9 | Decisao clinica direta. Caso ancora |
+| N | 9 | Setup role. safe→danger + further decomp = tensao crescente |
+
+**Gate 3: Fix Loop**
+- 1 fix aplicado: `.classify-card--warning .classify-card-icon: --warning → --warning-on-light` (E15)
+- Re-verificacao: 3.77:1 → 7.03:1 PASS
+- Iteracoes: 1/3
+
+**Gate 4: Docs + Commit + Sync**
+- AUDIT-VISUAL.md: scorecard atualizado (14 dims ≥9)
+- HANDOFF.md: s-a1-classify marcado DONE
+- CHANGELOG.md: entry QA polish adicionada
+- Commit: `6607898` — `fix(cirrose): s-a1-classify QA polish — warning icon contrast E15`
+- Push: OK
+- Notion: CIRR-A1-CLASSIFY — Visual QA → pass, Headline PT atualizado, Dado Verificado → Yes
+- PMIDs: 3/3 verificados via PubMed (WebFetch)
+
+**Pendencias para proximos slides (melhorias de processo):**
+1. Extrair metrics JSON formal via `page.evaluate()` (fill ratio, bounding boxes)
+2. Usar prompt padronizado Claude Vision 7-dim (nao analise ad-hoc)
+3. Verificar se a11y-contrast MCP esta disponivel (fallback: Playwright in-browser OK)
+
+---
+
 ## Sessao Tipo (estimativa)
 
 Uma sessao tipica cobre 3-4 slides:
