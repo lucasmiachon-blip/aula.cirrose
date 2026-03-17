@@ -381,10 +381,31 @@ Agente Opus filtra sugestoes validas → aplica → re-audit slides afetados (vo
 - Notion: CIRR-A1-CLASSIFY — Visual QA → pass, Headline PT atualizado, Dado Verificado → Yes
 - PMIDs: 3/3 verificados via PubMed (WebFetch)
 
-**Pendencias para proximos slides (melhorias de processo):**
-1. Extrair metrics JSON formal via `page.evaluate()` (fill ratio, bounding boxes)
-2. Usar prompt padronizado Claude Vision 7-dim (nao analise ad-hoc)
-3. Verificar se a11y-contrast MCP esta disponivel (fallback: Playwright in-browser OK)
+**Gemini 2.5 Flash (per-slide):**
+
+| Dim | Score |
+|-----|-------|
+| visual_hierarchy | 4/5 |
+| spacing | 4/5 |
+| typography | 4/5 |
+| contrast | 5/5 |
+| fill_ratio | 4/5 |
+| cognitive_load | 4/5 |
+| composition | 4/5 |
+| Issues | Patient data denso; PREDESCI label pequeno |
+
+**Hyperbolic/Qwen VL-72B (per-slide):**
+
+| Dim | Score |
+|-----|-------|
+| visual_hierarchy | 4/5 |
+| spacing | 3/5 |
+| typography | 4/5 |
+| contrast | 5/5 |
+| fill_ratio | 3/5 |
+| cognitive_load | 4/5 |
+| composition | 4/5 |
+| Issues | Sidebar (case panel = overlay externo, desconsiderar) |
 
 ---
 
@@ -413,15 +434,34 @@ Uma sessao tipica cobre 3-4 slides:
 
 ## Tooling
 
-| Ferramenta | Disponivel | Uso |
-|-----------|-----------|-----|
-| Playwright (via npx) | SIM | Screenshots, navegacao, metrics, video |
-| Claude Vision (nativo) | SIM | Audit visual 7 dimensoes de screenshots |
-| lint:slides | SIM | Constraint check automatizado |
-| Gemini MCP (@fre4x/gemini) | SIM (GEMINI_API_KEY OK) | Fase 4: deck-level static+dynamic |
-| a11y-contrast MCP | SIM (sem key) | Fase 2: verificacao contraste WCAG |
-| frontend-review MCP (Hyperbolic) | PARCIAL (key em env Windows, nao em bash) | Before/after visual diff |
-| chrome-devtools MCP | SIM (sem key) | Console errors, computed styles, performance profiling |
+| Ferramenta | Disponivel | Modelo/Via | Uso |
+|-----------|-----------|------------|-----|
+| Playwright (via npx) | SIM | — | Screenshots, navegacao, contraste in-browser, video |
+| Claude Vision (nativo) | SIM | Opus 4.6 | Audit visual 7-dim de screenshots |
+| Gemini API (per-slide) | SIM (Tier 1) | `gemini-2.5-flash` | Visual audit 7-dim por slide |
+| Gemini API (Fase 4 final) | SIM (Tier 1) | `gemini-3.1-pro-preview` + `3.1-flash-lite-preview` | Deck-level cross-slide + video |
+| Hyperbolic API | SIM | `Qwen/Qwen2.5-VL-72B-Instruct` | Visual review complementar |
+| lint:slides | SIM | — | Constraint check automatizado |
+| Notion MCP (claude.ai) | SIM | — | Sync status slides |
+| PubMed (WebFetch) | SIM | — | Validar PMIDs |
+
+### Acesso a API keys em sessao Claude Code
+
+Keys estao no Windows User env vars. Se sessao nao herdar (snapshot do inicio):
+```bash
+export GEMINI_API_KEY="$(powershell -Command "[System.Environment]::GetEnvironmentVariable('GEMINI_API_KEY', 'User')")"
+export HYPERBOLIC_API_KEY="$(powershell -Command "[System.Environment]::GetEnvironmentVariable('HYPERBOLIC_API_KEY', 'User')")"
+```
+
+### Modelos Gemini disponiveis (Tier 1, marco/2026)
+
+| Modelo | Contexto | Uso recomendado |
+|--------|----------|-----------------|
+| gemini-2.5-flash | 1M input | Per-slide visual audit (rapido, barato) |
+| gemini-2.5-pro | 1M input | Analise profunda se 2.5-flash insuficiente |
+| gemini-3-flash-preview | 1M input | Alternativa rapida ao 2.5 |
+| gemini-3.1-pro-preview | 1M input | Fase 4: deck-level (melhor visual reasoning) |
+| gemini-3.1-flash-lite-preview | 1M input | Fase 4: segundo reviewer barato |
 
 ### chrome-devtools MCP (novo — 2026-03-16)
 
