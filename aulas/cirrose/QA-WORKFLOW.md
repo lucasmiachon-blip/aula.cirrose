@@ -286,7 +286,7 @@ Agente Opus filtra sugestoes validas → aplica → re-audit slides afetados (vo
 | 1 | s-title | --- | PASS (archetype) | N/A (sem anim) | DONE |
 | 2 | s-hook | --- | PASS (archetype) | pendente | parcial |
 | 3 | s-a1-01 | capturado | em andamento | pendente | ativo |
-| 4 | s-a1-classify | pendente | pendente | pendente | — |
+| 4 | s-a1-classify | capturado | PASS (14 dims ≥9) | pendente | Fase 2 DONE |
 | 5 | s-a1-vote | pendente | pendente | pendente | — |
 | 6 | s-a1-damico | pendente (stale) | pendente | pendente | — |
 | 7 | s-a1-baveno | pendente | pendente | pendente | — |
