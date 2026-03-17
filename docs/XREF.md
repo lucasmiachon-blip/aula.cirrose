@@ -123,6 +123,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
+| QA-WORKFLOW.md | (canônico pipeline QA 4 fases) | ← HANDOFF.md (QA Workflow ref) |
 
 ### aulas/metanalise/
 
@@ -197,6 +198,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Safety gates (hooks) | .claude/settings.json + .claude/hooks/ | — |
 | WT protocol | aulas/*/CLAUDE.md § Worktree | .claude/scripts/ |
 | Audit trail | .claude/hooks/audit-trail.sh | ~/.claude/session-logs/ |
+| QA pipeline (cirrose) | aulas/cirrose/QA-WORKFLOW.md | — |
 
 ---
 

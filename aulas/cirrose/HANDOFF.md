@@ -61,6 +61,8 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 - h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão)
 - Headlines reescritos neste batch: s-a1-01 (verboso→83%), s-a1-damico (verboso→Child-Pugh), s-a1-meld (metáfora→urgência)
 - ~~2 HEX hardcoded em cirrose.css~~ ✅ Resolvido — restam apenas fallbacks `var(..., #hex)` válidos
+- **[MAIN P03]** Bash write-guard hook: fechar bypass sed/echo em shared/ e evidence-db → novo `.claude/hooks/guard-bash-write.sh` + `settings.json` (medium risk)
+- **[MAIN P04]** Remover `python *` da allow list em `settings.json` (low risk)
 - PDF export quebrado (DeckTape)
 - Nomes de arquivo semanticamente enganosos (05-a1-infeccao → s-a2-04, 24-app-ccc → s-a2-13, etc.)
 - [TBD SOURCE]: sarcopenia prevalência, covert HE, centros TIPS Brasil, ESPEN 2019 PMID, QTc threshold

@@ -6,8 +6,8 @@
 
 | Skill | Papel | Quando ativar |
 |-------|-------|--------------|
-| `assertion-evidence` | Valida formato Alley model (não implementa) | Ao editar/revisar `aulas/*/slides/*.html` |
-| `medical-data` | Verifica dados clínicos — trial, effect size, PMID | Ao adicionar qualquer claim numérico |
+| ~~`assertion-evidence`~~ | **DEPRECATED** — coberto por `/review` (v0.4+) | — |
+| ~~`medical-data`~~ | **DEPRECATED** — coberto por `/review` (v0.4+) | — |
 | `evidence` | Busca PubMed — RCT, meta-análise, guideline | "preciso de PMID para X" |
 | `new-slide` | Cria HTML completo com template correto | "criar slide sobre X" |
 | `review` | Auditoria multi-agent com confidence scoring (v0.4, parametrizado por aula) | "revise os slides" |

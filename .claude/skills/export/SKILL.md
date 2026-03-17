@@ -1,5 +1,7 @@
 ---
 name: export
+version: 1.0.0
+context: fork
 description: Exporta slides para PDF e screenshots usando DeckTape. Use quando o usuário pedir "exportar", "gerar PDF", "export slides", "screenshots do deck". Requer servidor rodando.
 disable-model-invocation: true
 argument-hint: "[lecture]"
