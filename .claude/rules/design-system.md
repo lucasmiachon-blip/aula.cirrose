@@ -224,23 +224,22 @@ NOTA: ΔL é aproximação para chroma baixo. Cores saturadas: verificar com fer
 
 ## Modos
 
-### Plano C (padrao — light, 1280x720, GSAP ativo)
-Sala mediana, projetor decente. Fundo creme + texto escuro + animacoes.
+### Plano C (padrao — light, 1280x720)
+Sala mediana, projetor decente. Fundo creme + texto escuro + GSAP ativo.
 CSS `.stage-c` no `<body>`. Tokens remapeados em `base.css`.
-**Este e o default atual para cirrose e metanalise.**
 
 ### Plano A (dark, 1920x1080)
 Sala escura, projetor bom. Navy + texto claro + animacoes.
-CSS `.stage-a` no `<body>` (implementacao pendente — tokens definidos mas nao ativados).
+CSS `.stage-a` no `<body>` (implementacao pendente).
 
 ### Plano B (.stage-bad — light, 1280x720)
 Sala clara, projetor fraco. Fundo branco + texto preto + sem animacao + fontes pesadas.
-CSS `.stage-bad` mantido em base.css (fallback funcional). Ativar via classe no body.
+CSS `.stage-bad` mantido em base.css (fallback funcional). Sem arquivo standalone.
 
 ### Residencia (?mode=residencia)
-Remove `data-visibility="hidden"` dos appendices antes do init (engine.js).
+Remove `data-visibility="hidden"` dos apendices antes do init.
 
-### Alto Contraste (tecla C)
+### Alto Contraste (tecla `C`)
 Toggle `.high-contrast` via deck.js `onKeyDown` handler (tecla C).
 
 ### Reduced Motion

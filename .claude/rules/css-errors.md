@@ -1,6 +1,6 @@
 # CSS Errors — Registry & Prevention
 
-> 35 erros em 5 clusters. Canonico para erros e prevencao.
+> 35 erros em 5 clusters. Canônico para erros e prevenção.
 > Relacionados: [design-system](design-system.md) · [medical-data](medical-data.md) · [slide-editing](slide-editing.md)
 > Prioridade: MUST = fatal/bloqueante | SHOULD = alta | MAY = nice-to-have
 
@@ -18,9 +18,9 @@
 | E26 | MUST (3x) | NUNCA flex:1 igualitário em containers desiguais |
 | E27 | SHOULD | Diagnosticar assimetria ANTES de escolher layout |
 | E28 | SHOULD | ≤3 children para space-between |
-| E32 | MUST | Pseudo-elements com flex-grow PROIBIDOS em containers base compartilhados. `::before/::after` participam do layout flex — combinados com `gap` ou `flex:1` children, geram gaps extras e competem por espaco |
-| E33 | MUST | `justify-content: center` em flex column com overflow = clipping simetrico (h2 desaparece no topo). Fix: `margin-top: auto` no primeiro child real |
-| E34 | SHOULD | `<p>` dentro de flex com `gap` = espacamento duplicado (`gap` + `margin: 1em`). Reset `p { margin: 0 }` dentro de flex layouts com gap |
+| E32 | MUST | Pseudo-elements (::before/::after) com flex-grow PROIBIDOS em containers base compartilhados. Participam do layout flex — combinados com gap ou flex:1, produzem efeitos colaterais |
+| E33 | MUST | `justify-content: center` em flex column com overflow = clipping simétrico (h2 desaparece). Usar `margin-top:auto` no primeiro child |
+| E34 | SHOULD | `<p>` dentro de flex com gap = espaçamento duplicado (gap + margin 1em). Reset `p { margin: 0 }` dentro de flex layouts com gap |
 
 ### Regra Master Flexbox
 ```
@@ -40,8 +40,8 @@ Se filhos têm conteúdo desigual:
 | E23 | MUST (3x) | CHECKLIST OBRIGATÓRIO pré-edição |
 | E24 | SHOULD | Cache-busting `?v=date` em dev; Vite hash em build |
 
-### Por que E07 e fatal (CANONICO)
-O framework (deck.js ou Reveal.js) controla visibilidade dos `<section>`. Um `display` inline sobrescreve o framework e quebra navegacao. Todo layout vai dentro de `.slide-inner` wrapper.
+### Por quê E07 é fatal (CANÔNICO)
+Reveal.js controla visibilidade dos `<section>`. Um `display` inline sobrescreve o framework e quebra navegação. Todo layout vai dentro de `.slide-inner` wrapper.
 
 **Fix se encontrar:** Mover o display para `.slide-inner` DENTRO do `<section>`.
 
@@ -100,7 +100,7 @@ O framework (deck.js ou Reveal.js) controla visibilidade dos `<section>`. Um `di
 Antes de editar CSS:
 1. Ler este arquivo
 2. Identificar cluster relevante
-3. Flexbox? → E06/E10/E18/E22/E26/E27/E28/E32/E33/E34
+3. Flexbox? → E06/E10/E18/E22/E26/E27/E28
 4. Display? → E07/E23
 5. Cor? → E13/E14/E15/E17/E31 + `design-system.md`
 6. Dados? → E21/E25 + `medical-data.md`
