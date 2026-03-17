@@ -19,7 +19,7 @@ npm run lint:narrative-sync # narrative.md ↔ _manifest.js sync
 
 ## Stack
 
-deck.js (custom navigation) · GSAP 3.12 · Vite 6.x · Vanilla HTML/CSS/JS · OKLCH · Zero CDN · Offline-first.
+deck.js (custom navigation) · GSAP 3.14 · Vite 6.x · Vanilla HTML/CSS/JS · OKLCH · Zero CDN · Offline-first.
 
 > **Reveal.js:** legacy — grade/osteoporose (frozen, fallback em Aulas_core). Cirrose e metanalise usam `deck.js`.
 
@@ -143,7 +143,8 @@ cat tasks/lessons.md 2>/dev/null || echo "No lessons yet"
 - Design tokens: @.claude/rules/design-system.md
 - Design principles: @.claude/rules/design-principles.md
 - Medical data: @.claude/rules/medical-data.md
-- Navigation/animation patterns: @.claude/rules/reveal-patterns.md (rename pendente)
+- Deck.js patterns (cirrose, metanalise): @.claude/rules/deck-patterns.md
+- Reveal.js legacy (grade, osteoporose): @.claude/rules/reveal-legacy.md
 - Slide editing: @.claude/rules/slide-editing.md
 - **Slide identity (9 superficies):** @.claude/rules/slide-identity.md
 - Motion QA: @.claude/rules/motion-qa.md
