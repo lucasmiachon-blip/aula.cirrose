@@ -1,61 +1,78 @@
 {
   "mcpServers": {
     "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${PROJECT_DIR}"]
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:/Dev/Projetos/wt-cirrose"
+      ]
     },
     "playwright": {
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp"]
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp"
+      ]
     },
     "eslint": {
-      "command": "npx",
-      "args": ["@eslint/mcp"]
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "@eslint/mcp"
+      ]
     },
     "lighthouse": {
-      "command": "npx",
-      "args": ["@danielsogl/lighthouse-mcp"]
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "@danielsogl/lighthouse-mcp"
+      ]
     },
     "a11y": {
-      "command": "npx",
-      "args": ["-y", "a11y-mcp-server"]
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "a11y-mcp-server"
+      ]
     },
     "notion": {
-      "command": "npx",
-      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ],
       "env": {
         "NOTION_TOKEN": "${NOTION_TOKEN}"
       }
     },
     "fetch": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-server-fetch"]
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@anthropic-ai/mcp-server-fetch"
+      ]
     },
     "sharp": {
-      "command": "npx",
-      "args": ["-y", "sharp-mcp"]
-    },
-    "a11y-contrast": {
-      "command": "npx",
-      "args": ["-y", "a11y-color-contrast-mcp"]
-    },
-    "gemini": {
-      "command": "npx",
-      "args": ["-y", "@fre4x/gemini"],
-      "env": {
-        "GEMINI_API_KEY": "${GEMINI_API_KEY}"
-      }
-    },
-    "frontend-review": {
-      "command": "npx",
-      "args": ["frontend-review-mcp"],
-      "env": {
-        "HYPERBOLIC_API_KEY": "${HYPERBOLIC_API_KEY}"
-      }
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp"]
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "sharp-mcp"
+      ]
     }
   }
 }

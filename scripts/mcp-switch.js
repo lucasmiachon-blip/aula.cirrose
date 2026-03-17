@@ -29,11 +29,26 @@ if (!existsSync(profilePath)) {
   process.exit(1);
 }
 
-const content = readFileSync(profilePath, 'utf-8');
-const parsed = JSON.parse(content);
-const serverCount = Object.keys(parsed.mcpServers).length;
+const raw = readFileSync(profilePath, 'utf-8');
 
-writeFileSync(targetPath, content, 'utf-8');
+// Resolve ${PROJECT_DIR} → repo root (forward slashes for MCP compatibility)
+const content = raw.replaceAll('${PROJECT_DIR}', root.replace(/\\/g, '/'));
+const parsed = JSON.parse(content);
+
+// Windows: wrap npx/uvx with cmd /c (Windows can't execute them directly as MCP commands)
+if (process.platform === 'win32') {
+  for (const [, server] of Object.entries(parsed.mcpServers)) {
+    if (server.command === 'npx' || server.command === 'uvx') {
+      server.args = ['/c', server.command, ...(server.args || [])];
+      server.command = 'cmd';
+    }
+  }
+}
+
+const serverCount = Object.keys(parsed.mcpServers).length;
+const output = JSON.stringify(parsed, null, 2) + '\n';
+
+writeFileSync(targetPath, output, 'utf-8');
 
 console.log(`MCP profile switched to: ${profile} (${serverCount} servers)`);
 console.log(`Restart Claude Code to apply changes.`);

@@ -172,3 +172,4 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 - **Main:** NAO absorver no momento. Ultimo merge: bfb3268.
 - **Push:** Quando seguro — rodar `npm run done:cirrose` (ou `:strict`). Gate 2 (screenshots) pode WARN em iteracao.
 - **Pendente uncommitted:** Verificar `git status` — slide 03b-a1-fib4calc.html pode ter edits locais.
+- **MCP fix (17/mar):** `scripts/mcp-switch.js` agora resolve `${PROJECT_DIR}` e aplica `cmd /c` wrapper para Windows. `.mcp.json` regenerado via `npm run mcp:dev`.

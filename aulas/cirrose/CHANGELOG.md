@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-03-17 — Fix MCP servers for Windows
+
+- **scripts/mcp-switch.js:** Resolve `${PROJECT_DIR}` → repo root (forward slashes). Wrap `npx`/`uvx` com `cmd /c` em `process.platform === 'win32'`. Profiles permanecem portáveis (cross-platform templates).
+- **.mcp.json:** Regenerado via `npm run mcp:dev` — 8 servers, todos com `cmd /c` wrapper.
+- **HANDOFF.md:** Atualizado com MCP fix.
+
+---
+
 ## 2026-03-17 — Rastreio documental + HANDOFF sync
 
 - **HANDOFF-CLAUDE-AI.md:** Atualizado 33→35 erros, data 2026-03-17, main sync bfb3268, "NAO absorver main — push quando seguro"
