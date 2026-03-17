@@ -91,20 +91,31 @@ disable-model-invocation: true  # opcional — só invocação manual
 | Skill | version | context | allowed-tools | Papel |
 |-------|---------|---------|---------------|-------|
 | `assertion-evidence` | 0.2.0 | — | Read, Grep, Glob | Valida formato assertion-evidence em slides HTML |
-| `medical-data` | 0.2.0 | — | Read, Grep | Verifica dados clínicos: trial, IC95%, PMID obrigatórios |
-| `docs-audit` | 0.2.0 | fork / general-purpose | Read, Grep, Glob | Audita docs/*.md: links, redundância, token economy |
-| `review` | 0.2.0 | fork / Explore | Read, Grep, Glob | Audita slides: PASS/WARN/FAIL por dimensão |
-| `evidence` | 0.2.0 | fork / general-purpose | Read, WebSearch | Busca evidências PubMed → citação AMA + dados slide |
+| `medical-data` | 0.2.0 | — | Read, Grep | Verifica dados clinicos: trial, IC95%, PMID obrigatorios |
+| `docs-audit` | 0.2.0 | fork / general-purpose | Read, Grep, Glob | Audita docs/*.md: links, redundancia, token economy |
+| `review` | 0.4.0 | fork / Explore | Read, Grep, Glob | Audita slides: PASS/WARN/FAIL por dimensao. Parametrizado por aula |
+| `evidence` | 0.2.0 | fork / general-purpose | Read, WebSearch | Busca evidencias PubMed → citacao AMA + dados slide |
 | `new-slide` | — | — | — | Cria slide HTML completo com archetype correto |
 | `export` | — | — | — | Exporta slides para PDF/compartilhamento |
+| `context7` | 2.0.0 | — | Read, WebFetch | Injeta docs atualizadas de libs (GSAP, Vite, OKLCH) no contexto |
+| `new-skill` | — | — | Read, Write | Scaffold de nova skill com frontmatter e convencoes do projeto |
+| `repo-janitor` | — | — | Read, Bash, Glob, Grep | Audit orphan files, broken MD links, dead HTML (read-only default) |
+| `audit-rules` | — | — | Read, Grep, Glob | Audita rules para contradicoes, stale refs, gaps vs ERROR-LOG |
+| `evolve` | — | — | * | Comite de evolucao — pesquisa state-of-art + propoe patches para skills/docs/tools |
+| `final-pass` | — | — | Read, Bash | Avaliacao final deck completo via Gemini (pos-Gates 1-3) |
+| `gtd` | — | — | Read, Write | Getting Things Done file-based (inbox, next actions, weekly review) |
+| `mem-search` | — | — | Read, Grep | Busca semantica na memoria do projeto (HANDOFF, NOTES, lessons) |
+| `ralph-qa` | — | — | Read, Write, Bash | QA em 2 loops (Opus lint + Gemini visual) ate PASS por batch |
+| `resolve-conflict` | — | — | Read, Bash | Guia PT-BR para merge conflicts (plan-first, nunca resolve sem aprovacao) |
 
 ### Cursor (`.cursor/skills/`)
 
 | Skill | Papel |
 |-------|-------|
-| `medical-slide` | Notion→HTML, tri-mode, execução completa |
+| `medical-slide` | Notion→HTML, tri-mode, execucao completa |
 | `visual-qa` | Playwright, a11y, screenshots |
-| `docs-audit` | Canônico — Claude Code delega para `.cursor/skills/docs-audit/` |
+| `slide-frontend-ux` | Frontend review UX de slides |
+| `docs-audit` | Canonico — Claude Code delega para `.cursor/skills/docs-audit/` |
 
 ## Papéis — Sem conflito
 

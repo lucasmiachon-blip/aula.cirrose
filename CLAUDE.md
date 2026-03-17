@@ -143,7 +143,8 @@ cat tasks/lessons.md 2>/dev/null || echo "No lessons yet"
 - Design tokens: @.claude/rules/design-system.md
 - Design principles: @.claude/rules/design-principles.md
 - Medical data: @.claude/rules/medical-data.md
-- Navigation/animation patterns: @.claude/rules/reveal-patterns.md (rename pendente)
+- deck.js patterns (active): @.claude/rules/deck-patterns.md
+- Reveal.js legacy (frozen): @.claude/rules/reveal-legacy.md
 - Slide editing: @.claude/rules/slide-editing.md
 - **Slide identity (9 superficies):** @.claude/rules/slide-identity.md
 - Motion QA: @.claude/rules/motion-qa.md

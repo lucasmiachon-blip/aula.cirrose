@@ -224,18 +224,24 @@ NOTA: ΔL é aproximação para chroma baixo. Cores saturadas: verificar com fer
 
 ## Modos
 
-### Plano A (padrão — dark, 1920×1080)
-Sala escura, projetor decente. Navy + texto claro + animações.
+### Plano C (padrao — light, 1280x720, GSAP ativo)
+Sala mediana, projetor decente. Fundo creme + texto escuro + animacoes.
+CSS `.stage-c` no `<body>`. Tokens remapeados em `base.css`.
+**Este e o default atual para cirrose e metanalise.**
 
-### Plano B (.stage-bad — light, 1280×720)
-Sala clara, projetor fraco. Fundo branco + texto preto + sem animação + fontes mais pesadas.
-CSS `.stage-bad` mantido em base.css (fallback funcional). Sem arquivo standalone dedicado — ativar via classe no body.
+### Plano A (dark, 1920x1080)
+Sala escura, projetor bom. Navy + texto claro + animacoes.
+CSS `.stage-a` no `<body>` (implementacao pendente — tokens definidos mas nao ativados).
 
-### Residência (?mode=residencia)
-Remove `data-visibility="hidden"` dos apêndices antes do init.
+### Plano B (.stage-bad — light, 1280x720)
+Sala clara, projetor fraco. Fundo branco + texto preto + sem animacao + fontes pesadas.
+CSS `.stage-bad` mantido em base.css (fallback funcional). Ativar via classe no body.
 
-### Alto Contraste (tecla registrada no Reveal)
-Toggle `.high-contrast` via `Reveal.addKeyBinding`.
+### Residencia (?mode=residencia)
+Remove `data-visibility="hidden"` dos appendices antes do init (engine.js).
+
+### Alto Contraste (tecla C)
+Toggle `.high-contrast` via deck.js `onKeyDown` handler (tecla C).
 
 ### Reduced Motion
 ```css

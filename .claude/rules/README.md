@@ -20,15 +20,17 @@
 | css-errors.md | css-errors.mdc | **.claude** (5 clusters detalhados, E30 regex, reincidências) |
 | design-system.md | design-system.mdc + cirrose-design.mdc | **Split OK** (falta tabela WCAG no .cursor) |
 | motion-qa.md | motion-qa.mdc | **.claude** (workflow 5 tiers, Gemini prompt, adequação por tipo) |
-| reveal-patterns.md | reveal-patterns.mdc | **Ambos** (.claude: fragments, events, viewDistance; .cursor: GSAP timeline) |
+| deck-patterns.md | reveal-patterns.mdc | **.claude** (deck.js ativo, events corrigidos, click-reveal) |
+| slide-identity.md | slide-identity.mdc | **Ambos** |
 
 ## Regras sem par
 
-| Arquivo | Existe em | Observação |
+| Arquivo | Existe em | Observacao |
 |---------|-----------|------------|
 | core-constraints.mdc | .cursor only | Context window thresholds (70/85/95%) |
-| plan-mode.mdc | .cursor only | Escalação por complexidade |
+| plan-mode.mdc | .cursor only | Escalacao por complexidade |
 | notion-mcp.mdc | .cursor only | Workflow Notion + IDs |
+| reveal-legacy.md | .claude only | Reveal.js frozen (grade/osteoporose) |
 
 ## Regra
 
