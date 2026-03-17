@@ -133,6 +133,46 @@ if [ "$BRANCH" != "main" ] && [ -z "$ALLOW_AB_ON_WT" ]; then
   fi
 fi
 
+# ── Guard 6: Ghost content canary ──
+# Blocks commits containing known obsolete content patterns.
+# Patterns declared in aulas/*/.ghost-canary (extensible).
+# Bypass: ALLOW_GHOST_ROLLBACK=1 git commit (DANGEROUS — name is intentional)
+if [ -z "$ALLOW_GHOST_ROLLBACK" ]; then
+  GHOST_FAIL=""
+  for CANARY_FILE in aulas/*/.ghost-canary; do
+    [ -f "$CANARY_FILE" ] || continue
+    AULA_DIR=$(dirname "$CANARY_FILE")
+    while IFS= read -r line; do
+      # Skip comments and empty lines
+      case "$line" in \#*|"") continue ;; esac
+      GHOST_FILE=$(echo "$line" | cut -d'|' -f1)
+      GHOST_PATTERN=$(echo "$line" | cut -d'|' -f2-)
+      STAGED_PATH="$AULA_DIR/slides/$GHOST_FILE"
+      # Only check if this file is staged
+      if git diff --cached --name-only | grep -qF "$STAGED_PATH"; then
+        if git show ":$STAGED_PATH" 2>/dev/null | grep -qE "$GHOST_PATTERN"; then
+          GHOST_FAIL="${GHOST_FAIL}  → ${STAGED_PATH} matches '${GHOST_PATTERN}'\n"
+        fi
+      fi
+    done < "$CANARY_FILE"
+  done
+
+  if [ -n "$GHOST_FAIL" ]; then
+    echo ""
+    echo "╔══════════════════════════════════════════════════════════╗"
+    echo "║  BLOQUEADO: Conteúdo fantasma detectado!                ║"
+    echo "║  Slide staged contém padrão obsoleto listado em         ║"
+    echo "║  .ghost-canary. Isso indica rollback acidental.         ║"
+    echo "║  Bypass: ALLOW_GHOST_ROLLBACK=1 git commit (PERIGOSO)  ║"
+    echo "╚══════════════════════════════════════════════════════════╝"
+    echo ""
+    echo "Matches:"
+    printf "$GHOST_FAIL"
+    echo ""
+    exit 1
+  fi
+fi
+
 # ── Lints ──
 SLIDES_CHANGED=$(git diff --cached --name-only | grep -E 'aulas/.*/slides/.*\.html$' || true)
 CASE_OR_MANIFEST=$(git diff --cached --name-only | grep -E '(CASE\.md|_manifest\.js)$' || true)

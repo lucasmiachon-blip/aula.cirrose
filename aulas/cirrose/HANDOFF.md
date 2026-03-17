@@ -171,5 +171,8 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 
 - **Main:** NAO absorver no momento. Ultimo merge: bfb3268.
 - **Push:** Quando seguro — rodar `npm run done:cirrose` (ou `:strict`). Gate 2 (screenshots) pode WARN em iteracao.
-- **Pendente uncommitted:** Verificar `git status` — slide 03b-a1-fib4calc.html pode ter edits locais.
+- **Working tree:** LIMPA (fib4calc descartado via `git restore`).
+- **Build+Lint:** PASS (44 slides).
+- **Fantasma s-a1-01:** Main tem versão "burden" OBSOLETA. WT tem versão "rastreio" CANÔNICA. Ver NOTES.md [17/03]. NUNCA copiar de main.
+- **QA Act 1:** Reaudit do zero em andamento. Nenhum slide tem aprovação humana final. Workflow: audit → fix → re-audit → docs → commit → plan entre slides.
 - **MCP fix (17/mar):** `scripts/mcp-switch.js` agora resolve `${PROJECT_DIR}` e aplica `cmd /c` wrapper para Windows. `.mcp.json` regenerado via `npm run mcp:dev`.

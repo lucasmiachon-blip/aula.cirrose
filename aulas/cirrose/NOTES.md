@@ -1,5 +1,22 @@
 # NOTES — Cirrose
 
+## [17/03] Fantasma s-a1-01 — versão main obsoleta
+
+**02-a1-continuum.html** existe em duas versões completamente diferentes:
+
+| | **main** (obsoleta) | **WT** (canônica) |
+|---|---|---|
+| h2 | "1,43 milhão morre por ano" | "Por que rastrear?" |
+| Hero | 1.43M mortes (burden/iceberg) | 83% diagnósticos novos |
+| Archetype | hero-stat (3 states) | flex simples (auto) |
+| Fonte | GBD 2021 | Prince 2024 / EASL 2024 |
+
+**Root cause:** Slide reescrito na WT (779b4a5, d20deec, cd8a69a) mas main ficou com versão "burden" (80c4a7c). Main NÃO modificou o arquivo após merge-base (2f9e909) → merge futuro WT→main = sem conflito (git mantém versão WT).
+
+**Risco:** humano/agente copiar conteúdo de main. **Regra:** NUNCA copiar conteúdo de `main:aulas/cirrose/` para a WT.
+
+---
+
 ## [17/03] Auditoria de processos — 76 achados (3 agentes)
 
 Rodamos repo-janitor + rules-audit + docs-audit. Resumo:

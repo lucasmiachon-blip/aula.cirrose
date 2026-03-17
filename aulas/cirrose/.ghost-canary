@@ -1,0 +1,11 @@
+# Ghost Canary — padroes proibidos por slide
+# Formato: arquivo|padrao_grep_extended
+# Um match em staged (pre-commit) ou disco (build) = BLOCK/ABORT
+# Extensivel: adicionar linha para cada fantasma conhecido.
+#
+# Contexto: 02-a1-continuum.html foi reescrito de "burden/GBD 2021"
+# para "Por que rastrear? / Prince 2024". A versao antiga NAO pode voltar.
+02-a1-continuum.html|1,43 milh
+02-a1-continuum.html|burden-metric
+02-a1-continuum.html|iceberg-bar
+02-a1-continuum.html|GBD.+2021

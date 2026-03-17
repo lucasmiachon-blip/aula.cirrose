@@ -28,6 +28,40 @@ foreach ($f in $files) {
   }
 }
 
+# ── Ghost canary: block build with obsolete content ──
+# Reads .ghost-canary and checks slide files on disk before concatenating.
+# If a ghost pattern matches, the build ABORTS before generating index.html.
+$canaryPath = Join-Path $root ".ghost-canary"
+if (Test-Path $canaryPath) {
+  $ghostFails = @()
+  foreach ($line in (Get-Content $canaryPath -Encoding UTF8)) {
+    $line = $line.Trim()
+    if ($line -eq "" -or $line.StartsWith("#")) { continue }
+    $parts = $line -split '\|', 2
+    if ($parts.Count -ne 2) { continue }
+    $ghostFile = $parts[0]
+    $ghostPattern = $parts[1]
+    $ghostPath = Join-Path $slidesDir $ghostFile
+    if (Test-Path $ghostPath) {
+      $content = Get-Content $ghostPath -Raw -Encoding UTF8
+      if ($content -match $ghostPattern) {
+        $ghostFails += "  -> $ghostFile matches '$ghostPattern'"
+      }
+    }
+  }
+  if ($ghostFails.Count -gt 0) {
+    Write-Host ""
+    Write-Host "!! BUILD ABORTADO: Conteudo fantasma detectado !!" -ForegroundColor Red
+    Write-Host "!! Slide contem padrao obsoleto listado em .ghost-canary." -ForegroundColor Red
+    Write-Host "!! Isso indica rollback acidental. Verifique o conteudo." -ForegroundColor Red
+    Write-Host ""
+    foreach ($fail in $ghostFails) { Write-Host $fail -ForegroundColor Red }
+    Write-Host ""
+    Write-Host "Canary: $canaryPath" -ForegroundColor Yellow
+    exit 1
+  }
+}
+
 $slides = ($files | ForEach-Object {
   Get-Content (Join-Path $slidesDir $_) -Raw -Encoding UTF8
 }) -join "`n"
