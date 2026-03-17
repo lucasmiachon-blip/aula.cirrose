@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-03-17 — Ghost canary: trava anti-fantasma (3 camadas)
+
+- **aulas/cirrose/.ghost-canary:** Arquivo declarativo com padroes proibidos por slide (extensivel — 1 linha por fantasma).
+- **scripts/pre-commit.sh Guard 6:** Bloqueia commit se staged HTML contém padrão listado em `.ghost-canary`. Bypass: `ALLOW_GHOST_ROLLBACK=1`.
+- **aulas/cirrose/scripts/build-html.ps1:** Aborta build se HTML em disco contém padrão fantasma (antes de concatenar index.html).
+- **Protege:** s-a1-01 (02-a1-continuum.html) — versão canônica "Por que rastrear?" / Prince 2024 vs obsoleta "burden" / GBD 2021.
+- **Testado:** build limpo PASS, ghost injetado → build ABORT, ghost staged → commit BLOCKED, restaurado → PASS.
+
+---
+
 ## 2026-03-17 — Fix MCP servers for Windows
 
 - **scripts/mcp-switch.js:** Resolve `${PROJECT_DIR}` → repo root (forward slashes). Wrap `npx`/`uvx` com `cmd /c` em `process.platform === 'win32'`. Profiles permanecem portáveis (cross-platform templates).
