@@ -4,7 +4,7 @@
 
 ---
 
-## Estado atual — 2026-03-16 (QA pipeline ativo)
+## Estado atual — 2026-03-17 (QA pipeline ativo)
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
@@ -162,3 +162,11 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 ## Offline
 
 `npm run build:cirrose`, `npm run lint:slides`, `npm run preview` — funcionam offline.
+
+---
+
+## Onde paramos (2026-03-17)
+
+- **Main:** NAO absorver no momento. Ultimo merge: bfb3268.
+- **Push:** Quando seguro — rodar `npm run done:cirrose` (ou `:strict`). Gate 2 (screenshots) pode WARN em iteracao.
+- **Pendente uncommitted:** Verificar `git status` — slide 03b-a1-fib4calc.html pode ter edits locais.

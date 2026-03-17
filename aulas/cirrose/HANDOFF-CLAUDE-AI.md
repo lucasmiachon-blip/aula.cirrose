@@ -1,6 +1,6 @@
 # HANDOFF — Claude.ai (colar no Project Knowledge)
 
-> Cirrose · enxuto · Atualizado: 2026-03-14
+> Cirrose · enxuto · Atualizado: 2026-03-17
 
 ---
 
@@ -9,17 +9,17 @@
 - **Slides:** 44 buildados (10 Act 1 + 16 Act 2 + 7 Act 3 + 3 CP + 2 pre/close + 8 appendix)
 - **Build:** `npm run build:cirrose` OK
 - **Lint:** `npm run lint:slides` + case-sync + narrative-sync = PASS
-- **Erros:** 33/33 corrigidos, 0 pendentes
+- **Erros:** 35/35 corrigidos, 0 pendentes
 - **Branch:** `feat/cirrose-mvp` (WT em `C:\Dev\Projetos\wt-cirrose`)
-- **Main sync:** b771579 (2026-03-14), 0 commits behind
+- **Main:** NAO absorver no momento. Ultimo merge: bfb3268 (2026-03-17). Push quando seguro.
 
 ---
 
 ## Caminho critico
 
-1. **P0:** Conteudo + interacoes + CSS slide a slide (Act 1 done, Act 2/3 pendente)
-2. **P1:** Preencher 4 skeletons Act 3 (s-a3-01, s-a3-03, s-a3-04, s-a3-07)
-3. **Backlog:** QA visual Gemini, h2 assertivos (Lucas decide no browser), PDF export
+1. **P0:** QA Act 1 Fase 2 — per-slide audit (11 slides com screenshot, fix loop ate PASS)
+2. **P1:** Fase 3 dynamic gate + Fase 4 deck-level Gemini
+3. **Backlog:** QA visual Gemini, h2 assertivo fib4 (Lucas decide), PDF export
 
 ---
 

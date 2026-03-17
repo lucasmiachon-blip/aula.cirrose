@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-03-17 — Rastreio documental + HANDOFF sync
+
+- **HANDOFF-CLAUDE-AI.md:** Atualizado 33→35 erros, data 2026-03-17, main sync bfb3268, "NAO absorver main — push quando seguro"
+- **HANDOFF.md:** Data atualizada, secao "Onde paramos" — checkpoint push, pendente uncommitted
+- Rastreio: 44 slides, lints PASS, AUDIT-VISUAL 11/44 (Fase 2 em andamento)
+
+---
+
 ## 2026-03-17 — s-a1-classify QA polish
 
 Branch: `feat/cirrose-mvp`
