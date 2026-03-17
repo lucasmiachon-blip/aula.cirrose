@@ -4,6 +4,32 @@
 
 ---
 
+## 2026-03-16 — QA pipeline + s-a1-01 polish v3 + visual audit MCPs
+
+Branch: `feat/cirrose-mvp`
+
+**s-a1-01 polish v3:**
+- **02-a1-continuum.html:** h2 provocativo "Por que rastrear?" (desvio intencional de assertion-evidence)
+- **02-a1-continuum.html:** hero context removido (Prince/Liver Toolkit → footer + speaker notes only)
+- **02-a1-continuum.html:** guideline-rec card com `<strong>` nos 3 critérios EASL case-finding
+- **02-a1-continuum.html:** source-tag footer restaurado com PMIDs
+- **cirrose.css:** auto-margin vertical distribution (section-tag top, content center, footer bottom)
+- **cirrose.css:** `.guideline-rec` `max-width: 600px; box-sizing: border-box` → alinhado com footer (604px)
+- **slide-registry.js:** sourceTag auto-fadeIn delay 2.0s
+- **_manifest.js:** headline sync "Por que rastrear?"
+- Claude Vision audit: 3.9/5 — PASS
+
+**QA pipeline:**
+- **QA-WORKFLOW.md:** workflow operacional 4 fases (batch screenshot → per-slide loop → dynamic gate → Gemini deck-level)
+- **scripts/qa-batch-screenshot.mjs:** script Playwright automatizado — captura screenshots + bounding box metrics por ato
+- Fase 1 Act 1 DONE: 11 slides, 27 screenshots capturados e verificados
+
+**Visual audit MCPs:**
+- `.mcp.json:` gemini (@fre4x/gemini), a11y-contrast, frontend-review adicionados
+- Pesquisa mar/2026: Gemini substitui Attention Insight (EUR 19/mo) e Stark ($12/mo) para slides narrados
+
+---
+
 ## 2026-03-16 — s-hook: visual polish v8 (layout + typography + depth)
 
 Branch: `feat/cirrose-mvp`

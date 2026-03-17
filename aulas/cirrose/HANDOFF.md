@@ -4,16 +4,17 @@
 
 ---
 
-## Estado atual — 2026-03-16 (pós scaling fix + integrity fingerprint)
+## Estado atual — 2026-03-16 (QA pipeline ativo)
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
-**Scaling:** ✅ JS `scaleDeck()` confirmado — `transform:scale()` responde a resize/fullscreen em qualquer resolução (1024x768, 1366x768, 1920x1080, 1920x1200 testados via Playwright).
-**Pathway:** ✅ `s-a1-01` corrigido — `.screening-pathway flex-wrap:nowrap`, 3 cards em linha única.
-**Overflow aparente:** ✅ Diagnosticado — artefatos GSAP (`opacity:0`). Conteúdo visível cabe em 720px.
-**Integridade:** ✅ `.slide-integrity` SHA-256 por slide + Guard 4 pre-commit (build obrigatório antes de commit).
+**Scaling:** ✅ JS `scaleDeck()` confirmado.
+**Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
 **ERROR-LOG:** 35/35 corrigidos, 0 pendentes.
-**QA Act 1 fixes:** ✅ 4 slides fixados (damico, a1-01, hook, cp1). **Screenshots:** ⚠ Stale — precisam re-screenshot + re-score.
+**QA Act 1:** Fase 1 DONE (27 screenshots capturados, 11 slides). Fase 2 em andamento (per-slide audit).
 **QA Act 2/3:** ⏳ Bloqueado por Act 1 PASS.
+**QA Workflow:** `QA-WORKFLOW.md` — pipeline 4 fases (batch screenshot → per-slide loop → dynamic gate → deck-level Gemini).
+**QA Script:** `scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
+**Visual Audit MCPs:** gemini, a11y-contrast, frontend-review configurados em `.mcp.json`.
 
 ---
 
@@ -33,11 +34,14 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 **Fixes aplicados (15/mar sessão Claude Code):**
 5. ~~**s-title**~~ ✅ — navy bg via CSS, re-scope tokens, brasão filter:none, divider removido. Scroll sistêmico resolvido (base.css: notes hidden + overflow hidden). Ver ERRO-034.
 
+**Fixes aplicados (16/mar sessão Claude Code — s-a1-01 polish v3):**
+6. ~~**s-a1-01**~~ ✅ — h2 provocativo "Por que rastrear?", hero context removido, guideline-rec card com bold nos 3 critérios, source-tag footer restaurado, auto-margin vertical distribution. Claude Vision 3.9/5.
+
 **Próximos passos:**
-6. Re-screenshot Playwright (screenshots atuais estão stale)
-7. Re-score 14 dims nos slides fixados (AUDIT-VISUAL.md)
-8. Smoke interações no browser
-9. **==> PARAR para loop ralph-qa (Claude Code) <==**
+7. Per-slide audit Act 1 (Fase 2): constraint check + Claude Vision + score 14 dims
+8. Fix loop ate PASS (todas dims >= 9)
+9. Dynamic gate (Fase 3): animacoes + click-reveals
+10. Deck-level Gemini (Fase 4): cross-slide consistency
 
 **s-hook (DONE — QA visual PASS archetype-adjusted, 16/mar):**
 - v8 polish (16/mar): grid 3×2 responsivo (`max-width: min(960px, 80%)`), `space-evenly` vertical, lab values `--text-h3`, punchline `font-weight: 700`, shadow `0 2px 8px`, panel 180px, ref text weight 500, `--bg-card` + `--border` para ancorar cards
