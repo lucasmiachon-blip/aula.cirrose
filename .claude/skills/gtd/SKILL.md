@@ -29,6 +29,8 @@ gtd/
 
 Markdown puro — compativel com Obsidian.
 
+**Bootstrap:** Se `gtd/` nao existir, criar o diretorio e os 6 arquivos com headers padrao na primeira invocacao.
+
 ---
 
 ## Comandos

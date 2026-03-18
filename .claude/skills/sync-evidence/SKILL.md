@@ -24,8 +24,8 @@ NAO e um pesquisador — e uma ponte. Se nao houver pesquisa recente, avisar e s
 ## Step 0 — Localizar achados
 
 1. Detectar aula: `git branch --show-current` → `feat/{aula}-*` ou pedir
-2. Checar `.claude/agent-memory/medical-researcher/` por arquivos recentes (memory do agent)
-3. Se nao encontrar memory → pedir ao usuario que cole o report ou rode `/medical-researcher` primeiro
+2. Checar contexto da conversa por output recente do medical-researcher
+3. Se nao encontrar output → pedir ao usuario que cole o report ou rode `/medical-researcher` primeiro
 4. Ler `aulas/{aula}/references/evidence-db.md` (estado atual)
 
 ## Step 1 — Apresentar para aprovacao

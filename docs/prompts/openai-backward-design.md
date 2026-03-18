@@ -45,4 +45,4 @@ Responda em português.
 
 ## Referência completa
 
-`agents/05-backward-design-architect.md`
+Arquivado (pipeline humano superseded). Ver `docs/archive/pipeline/README.md`

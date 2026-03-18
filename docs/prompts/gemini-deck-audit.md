@@ -38,4 +38,4 @@ NÃO reescreva nada. Apenas mapeie e reporte.
 
 ## Referência completa
 
-`agents/11-long-context-auditor.md`
+`docs/external/11-long-context-auditor.md`

@@ -1,6 +1,6 @@
 # HANDOFF — Claude.ai (colar no Project Knowledge)
 
-> Cirrose · enxuto · Atualizado: 2026-03-17
+> Cirrose · enxuto · Atualizado: 2026-03-18
 
 ---
 
@@ -9,10 +9,10 @@
 - **Slides:** 44 buildados (44/44 CONTENT ou acima, zero DRAFT)
 - **Build:** `npm run build:cirrose` OK
 - **Lint:** `npm run lint:slides` + case-sync + narrative-sync = PASS
-- **Erros:** 35/35 corrigidos, 0 pendentes
+- **Erros:** 37/37 corrigidos, 0 pendentes
 - **Branch:** `feat/cirrose-mvp` (WT em `C:\Dev\Projetos\wt-cirrose`)
-- **Main:** NAO absorver no momento. Ultimo merge: bfb3268 (2026-03-17). Push quando seguro.
-- **QA:** 1 DONE (s-a1-classify), 3 LINT-PASS, 40 CONTENT. Proximo: s-title QA.
+- **Main:** Absorvido d7f91b9 (2026-03-18). 4 commits skills+docs. Zero Classe C.
+- **QA:** 1 DONE (s-title), 3 LINT-PASS (s-hook, s-a1-01, s-a1-classify), 40 CONTENT. Proximo: s-hook QA.
 
 ---
 

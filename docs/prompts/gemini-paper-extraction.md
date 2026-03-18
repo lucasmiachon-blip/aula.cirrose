@@ -40,4 +40,4 @@ Se o paper for truncado, declare exatamente onde parou.
 
 ## Referência completa
 
-`agents/11-long-context-auditor.md`
+`docs/external/11-long-context-auditor.md`

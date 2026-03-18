@@ -11,7 +11,7 @@
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
 **ERROR-LOG:** 37/37 corrigidos, 0 pendentes.
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
-**QA Script:** `scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
+**QA Script:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
 **Visual Audit MCPs:** gemini, a11y-contrast, frontend-review, chrome-devtools configurados em `.mcp.json`.
 **Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). API REST direta.
 **Ultimo merge main:** `d7f91b9` (2026-03-18) — 4 commits: skills (medical-researcher, slide-punch, sync-evidence) + docs. Zero Classe C.
@@ -91,9 +91,8 @@
 
 | Estado | Qtd | Slides |
 |--------|-----|--------|
-| DONE | 1 | s-a1-classify |
-| QA | 1 | s-title (CSS fix aplicado, gates pendentes) |
-| LINT-PASS | 2 | s-hook, s-a1-01 |
+| DONE | 1 | s-title |
+| LINT-PASS | 3 | s-hook, s-a1-01, s-a1-classify |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
 
@@ -134,7 +133,7 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 9. Dynamic gate (Fase 3): animacoes + click-reveals
 10. Deck-level Gemini (Fase 4): cross-slide consistency
 
-**s-hook (DONE — QA visual PASS archetype-adjusted, 16/mar):**
+**s-hook (LINT-PASS — archetype-adjusted 14 dims >= 8, sem aprovacao humana QA, 16/mar):**
 - v8 polish (16/mar): grid 3×2 responsivo (`max-width: min(960px, 80%)`), `space-evenly` vertical, lab values `--text-h3`, punchline `font-weight: 700`, shadow `0 2px 8px`, panel 180px, ref text weight 500, `--bg-card` + `--border` para ancorar cards
 - Testado 1920×1080: zero overflow, punchline+question com margem confortável
 - Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)

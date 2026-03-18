@@ -41,4 +41,4 @@ Formato: tabela markdown. Responda em português.
 
 ## Referência completa
 
-`agents/04-narrative-designer.md`
+Arquivado (pipeline humano superseded). Ver `docs/archive/pipeline/README.md`

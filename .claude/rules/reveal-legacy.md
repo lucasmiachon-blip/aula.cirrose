@@ -2,7 +2,7 @@
 
 > FROZEN — grade/osteoporose only. Nao usar para novos projetos.
 > Novos decks (cirrose, metanalise) usam deck.js: ver [deck-patterns](deck-patterns.md).
-> Codigo: `shared/js/engine.js` (initAula legacy path) + Reveal.js 5.2.
+> Codigo: grade/osteoporose usam Reveal.js 5.2 diretamente. engine.js v6 removeu o legacy path.
 
 ---
 
@@ -67,20 +67,15 @@ Reveal.js recicla DOM de slides distantes (`viewDistance` config). GSAP nao pode
 
 ## PDF Export
 
-Config em engine.js (legacy path):
-```js
-pdfSeparateFragments: false,
-pdfMaxPagesPerSlide: 1,
-showNotes: 'separate-page',
-```
+> **NOTA:** engine.js v6 removeu a config legacy abaixo. Grade/osteoporose devem configurar PDF diretamente no Reveal init.
 
 Workflow: `npm run build && npm run preview` → abrir `?print-pdf` → Chrome Ctrl+P → Landscape, sem margens, background ON.
-
-Em modo print-pdf, engine desabilita animacoes e forca estado final.
 
 ---
 
 ## Keyboard Bindings (Reveal API)
+
+> **NOTA:** Nenhuma aula ativa usa `addKeyBinding`. Exemplo para referencia apenas.
 
 ```js
 Reveal.addKeyBinding(
