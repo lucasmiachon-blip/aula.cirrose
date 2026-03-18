@@ -86,7 +86,7 @@ disable-model-invocation: true  # opcional — só invocação manual
 
 ## Skills do Projeto
 
-### Claude Code (`.claude/skills/`) — 18 ativas
+### Claude Code (`.claude/skills/`) — 19 ativas
 
 | Skill | version | context | allowed-tools | Papel |
 |-------|---------|---------|---------------|-------|
@@ -107,6 +107,7 @@ disable-model-invocation: true  # opcional — só invocação manual
 | `evolve` | — | fork / general-purpose | Read, Grep, Glob, WebSearch | Comitê de evolução — pesquisa + patches para skills/docs/tools |
 | `gtd` | — | — | Read, Write | Getting Things Done file-based (inbox, next actions, weekly review) |
 | `resolve-conflict` | — | — | Read, Grep | Guia PT-BR para merge conflicts |
+| `slide-punch` | 1.0.0 | — | Read, Grep, Glob | Avalia encaixe narrativo de 1 slide — transições, gancho retórico, densidade vs respiro |
 | `retro` | — | — | Read, Edit, Write, Grep, Glob | Extrai lições da sessão para tasks/lessons.md |
 
 ### Archived (`.claude/skills/archive/`)

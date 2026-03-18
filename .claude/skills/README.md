@@ -2,7 +2,7 @@
 
 **Superfície:** Claude Code (terminal), Claude.ai (web). Não conflita com .cursor — superfícies diferentes.
 
-## Skills disponíveis (18 ativas + 2 archived)
+## Skills disponíveis (19 ativas + 2 archived)
 
 | Skill | Papel | Quando ativar |
 |-------|-------|--------------|
@@ -23,6 +23,7 @@
 | `resolve-conflict` | Guia passo-a-passo para resolver conflitos git. PT-BR, aprovacao obrigatoria | "resolver conflito", "merge conflict" |
 | `gtd` | Getting Things Done simplificado — inbox, next actions, weekly review (lazy) | "gtd", "inbox", "o que tenho pendente?" |
 | `retro` | Extrai lições da sessão atual em tasks/lessons.md | "retro", "extract lessons", final de sessão |
+| `slide-punch` | Avalia encaixe narrativo de 1 slide — transicoes, gancho retorico, densidade | "slide solto", "nao se vende", "punch", "esse slide funciona?" |
 | `audit-rules` | Audita .claude/rules/*.md — contradições, refs stale, gaps vs ERROR-LOG | "auditar rules", "rules stale?", "audit-rules" |
 
 ### Archived (`.claude/skills/archive/`)
@@ -43,8 +44,10 @@ Pesquisa:   /evidence ──→ /medical-researcher ──→ /sync-evidence
 QA slide:   /review ──→ /ralph-qa ──→ commit
             (diagnóstico)  (fix loop)
 
-QA deck:    /final-pass (Gates 1-3 já passaram)
-            (coerência + empolgação)
+Narrativa:  /slide-punch (1 slide solto/fraco)
+            /final-pass  (deck inteiro, pós Gates 1-3)
+
+QA deck:    /final-pass (Gates 1-3 já passaram, deck inteiro)
 
 Suporte:    /evolve    (melhorar skills/docs)
             /docs-audit (auditar docs)
