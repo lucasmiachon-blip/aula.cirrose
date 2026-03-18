@@ -2,7 +2,7 @@
 
 > Modelos não competem — cada um tem um papel específico no pipeline.
 > Handoff certo = sem retrabalho. Ver pipeline resumido no CLAUDE.md (Step 0).
-> Última atualização: 2026-03-16 (MCPs visuais adicionados)
+> Última atualização: 2026-03-18 (dev profile corrigido, Excalidraw MCP, paths Claude Code)
 
 ---
 
@@ -58,7 +58,7 @@
 | **Notion** | Specs · Bíblia · References | Sim | ✅ MCP |
 | **Zotero** | Referências | Sim | ✅ MCP |
 | **Canva Pro** | Assets visuais | — | Manual |
-| **Excalidraw** | Diagramas · storyboards | — | Notion embed |
+| **Excalidraw** | Diagramas · storyboards | Sim (claude.ai nativo) | ✅ MCP |
 
 ---
 
@@ -87,13 +87,9 @@ Config local: `.mcp.json`. Profiles: `.mcp-profiles/{dev,research,qa,full}.json`
 | eslint | Lint slides |
 | lighthouse | Performance, a11y, SEO |
 | a11y | Acessibilidade WCAG |
-| a11y-contrast | Contraste de cores (detalhado) |
 | notion | Specs, Biblia Narrativa, References DB |
 | fetch | HTTP requests |
 | sharp | Image processing |
-| gemini | CSS debug, video QA, visual analysis |
-| frontend-review | Visual review via Hyperbolic |
-| chrome-devtools | Computed styles, bounding boxes, DOM |
 
 ### Profile research (adiciona ao dev)
 
@@ -115,8 +111,8 @@ Adiciona: biomcp, pubmed-simple, zotero, arxiv, google-scholar, scite, clinicalt
 ## Como Atualizar
 
 1. **Nova ferramenta:** Adicionar nesta tabela com uso + se tem MCP
-2. **MCP novo:** Configurar em `.cursor/mcp.json`, testar `claude mcp list`
-3. **Skill novo:** Criar em `.cursor/skills/[nome]/SKILL.md` (ver [docs/SKILLS.md](SKILLS.md))
-4. **Rule novo:** Criar em `.cursor/rules/[nome].mdc` (ver [docs/RULES.md](RULES.md))
+2. **MCP novo:** Configurar em `.mcp.json` (Claude Code) ou `.cursor/mcp.json` (Cursor), testar `claude mcp list`
+3. **Skill novo:** Criar em `.claude/skills/[nome]/SKILL.md` (Claude Code) ou `.cursor/skills/[nome]/SKILL.md` (Cursor). Ver [docs/SKILLS.md](SKILLS.md)
+4. **Rule novo:** Criar em `.claude/rules/[nome].md` (Claude Code) ou `.cursor/rules/[nome].mdc` (Cursor). Ver [docs/RULES.md](RULES.md)
 5. **Busca semanal:** Rodar prompt em `docs/prompts/weekly-updates.md`
 6. **Benchmarks:** Verificar [arena.ai/leaderboard](https://arena.ai/leaderboard/code) mensalmente

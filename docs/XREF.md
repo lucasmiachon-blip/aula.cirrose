@@ -184,6 +184,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | aulas-magnas-system-v6.plan.md | System plan v6 |
 | audit-rules-report-2026-03-17.md | Relatório audit-rules |
 | docs-audit-report-2026-03-17.md | Relatório docs-audit |
+| runbook-skills-verification-2026-03-12.md | Runbook verificação skills |
 
 ---
 

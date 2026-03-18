@@ -46,6 +46,11 @@
 | [slide-pedagogy.md](slide-pedagogy.md) | Teorias pedagógicas codificadas (Sweller, Mayer, Alley) |
 | [insights-html-cirrose-2026.md](insights-html-cirrose-2026.md) | Análise do HTML Gemini (referência, não entra em slides) |
 
+### Dados clínicos
+| Doc | Uso |
+|-----|-----|
+| [evidence/cirrose-references.json](evidence/cirrose-references.json) | Referências clínicas Cirrose (JSON estruturado) |
+
 ### Referência cruzada
 | Doc | Uso |
 |-----|-----|
