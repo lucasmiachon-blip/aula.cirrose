@@ -98,27 +98,41 @@
 
 ---
 
-## MCPs (Inventário)
+## MCPs (Inventario)
 
-| MCP | Uso no pipeline | Status |
-|-----|----------------|--------|
-| pubmed / pubmed-simple | Verificar PMIDs, buscar evidência | OK |
-| crossref | Validar DOIs | OK |
-| notion | Specs, Bíblia Narrativa, References DB | OK |
-| playwright | Screenshots, QA visual | OK |
-| a11y | Contraste, acessibilidade | OK |
-| eslint | Lint slides | OK |
-| memory | Contexto entre sessões | Fix path |
-| biomcp | Dados biológicos | OK |
-| zotero | Referências | OK |
-| perplexity / arxiv | Pesquisa ampliada | OK |
-| scite | Citações, supporting/contradicting | OK |
-| **gemini** | CSS debug · video QA | OK |
-| **a11y-contrast** | Contraste de cores (detalhado) | OK |
-| **frontend-review** | Visual review via Hyperbolic | OK |
-| **chrome-devtools** | Computed styles, bounding boxes, DOM | OK |
+Config local: `.mcp.json`. Profiles: `.mcp-profiles/{dev,research,qa,full}.json`. Switch: `npm run mcp:dev|research|qa|full`.
 
-**Variáveis de ambiente:** `docs/MCP-ENV-VARS.md` (NOTION_TOKEN, NCBI_API_KEY, GEMINI_API_KEY, etc.)
+### Profile dev (default — .mcp.json)
+
+| MCP | Uso no pipeline |
+|-----|----------------|
+| filesystem | Acesso ao projeto |
+| playwright | Screenshots, QA visual |
+| eslint | Lint slides |
+| lighthouse | Performance, a11y, SEO |
+| a11y | Acessibilidade WCAG |
+| a11y-contrast | Contraste de cores (detalhado) |
+| notion | Specs, Biblia Narrativa, References DB |
+| fetch | HTTP requests |
+| sharp | Image processing |
+| gemini | CSS debug, video QA, visual analysis |
+| frontend-review | Visual review via Hyperbolic |
+| chrome-devtools | Computed styles, bounding boxes, DOM |
+
+### Profile research (adiciona ao dev)
+
+| MCP | Uso |
+|-----|-----|
+| pubmed | Verificar PMIDs, buscar evidencia |
+| crossref | Validar DOIs |
+| semantic-scholar | Busca academica |
+| perplexity | Pesquisa ampliada (pago) |
+
+### Profile full (todos — 26 servers)
+
+Adiciona: biomcp, pubmed-simple, zotero, arxiv, google-scholar, scite, clinicaltrials, memory, ui-ux-pro, attention-insight, design-comparison, page-design-guide, floto.
+
+**Variaveis de ambiente:** `docs/MCP-ENV-VARS.md` · `.env.example` (fonte canonica)
 
 ---
 

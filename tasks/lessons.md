@@ -7,9 +7,8 @@
 ## Sessão Flip + QA (2026-03-04)
 
 ### CSS selector: `#id.class` ≠ `#id .class`
-- `#s-a1-damico.archetype-flow` = mesmo elemento com id E class → nunca casa (section tem id, div filho tem class)
-- `#s-a1-damico .archetype-flow` = descendente → correto
-- **Verificar sempre:** `document.querySelectorAll('seletor').length > 0` antes de assumir que uma rule aplica
+- `.class` no mesmo elemento vs descendente. Verificar: `querySelectorAll('seletor').length > 0`.
+- Ver tambem: css-errors.md Cluster B.
 
 ### Archetype scope: reutilizar elementos de um archetype em outro
 - `.archetype-pathway .pathway-track { display:flex }` → só funciona dentro de `archetype-pathway`
@@ -173,8 +172,7 @@
 
 ### Build artifacts (index.html) não devem ser tracked
 
-- 4× `aulas/*/index.html` estavam tracked, gerando diffs de ~23k linhas em cada rebuild.
-- **Regra:** Arquivo gerado por `npm run build:*` = `.gitignore`. Usar `git rm --cached` para destrackear sem deletar do disco.
+- Gerado por `npm run build:*` = `.gitignore`. Feito em 2026-03-12.
 
 ---
 
@@ -243,8 +241,7 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 
 ### Operational records: atualizar no MESMO batch
 
-- CHANGELOG, ERROR-LOG, lessons.md devem ser atualizados na MESMA sessão em que o trabalho foi feito
-- Deixar para "depois" = invariavelmente esquece, próximo agente não tem contexto
+- CHANGELOG, ERROR-LOG, lessons.md: na MESMA sessao. Ver CLAUDE.md root "Workflow" step 6-7.
 
 ---
 
@@ -252,11 +249,8 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 
 ### NUNCA confiar em PMID gerado por modelo sem verificação
 
-- **5/5 CANDIDATE PMIDs estavam ERRADOS.** Todos foram produzidos por ChatGPT 5.4 Pro e model-based search sem MCP.
-- Tipos de erro: PMID de artigo completamente diferente (herbicida, belatacept, fluoxetine), off-by-4, journal errado.
-- **Regra:** Todo PMID deve ser verificado via PubMed MCP ou WebSearch (pubmed.ncbi.nlm.nih.gov/{PMID}) antes de entrar em evidence-db ou slide.
-- **Regra:** Marcar como `[CANDIDATE]` até verificado. Nunca promover a verificado sem check.
-- **Regra:** Se PubMed MCP indisponível, WebSearch no domínio pubmed.ncbi.nlm.nih.gov é fallback aceitável.
+- 5/5 CANDIDATE PMIDs estavam errados (ChatGPT 5.4 Pro). Sempre verificar via PubMed MCP ou WebSearch.
+- Regra completa: `.claude/rules/medical-data.md` secao "Verificacao de PMIDs".
 
 ### Hooks: usar `node -e`, nunca `python -c`
 
@@ -339,3 +333,27 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 - Hooks (pre-commit, pre-push) só disparam no git commit/push — não impedem escrita direta em arquivos.
 - **Regra:** Agente em main NUNCA pode escrever em `../wt-*`. Para editar worktree, abrir sessão Cursor naquele diretório.
 - **Regra:** `scripts/pre-commit.sh` e `tasks/lessons.md` são Classe A/B — sempre commitar em main, nunca direto na WT.
+
+---
+
+## Lessons adicionadas por auditoria (2026-03-17)
+
+### deck.js bg escuro: CSS seletor, nao data-attribute
+
+- `data-background-color` e convencao Reveal.js — deck.js NAO processa.
+- Pattern correto: `#slide-id .slide-inner { background-color: #0d1a2d; }` no CSS da aula.
+- Adicionar `.slide-navy` no `.slide-inner` para remap de tokens de texto.
+- Ref: deck-patterns.md, slide-editing.md (ERRO-034).
+
+### .no-js failsafe obrigatorio para [data-animate]
+
+- CSS: `[data-animate] { opacity: 0; }` + `.no-js [data-animate] { opacity: 1; }`.
+- Sem isso: GSAP offline/quebrado = slide em branco.
+- Failsafe deve existir em `base.css` (shared) E pode ser reforçado em `{aula}.css`.
+- Ref: CLAUDE.md rule 12, deck-patterns.md secao CSS Failsafe.
+
+### Pseudo-elements com flex-grow: E32 canonizado
+
+- `::before/::after { flex: 1 }` em containers base compartilhados PROIBIDO.
+- Participam do layout flex → com gap ou flex:1 children, produzem efeitos colaterais.
+- Codificado como E32 em css-errors.md. Lesson detalhada: sessao 16/mar neste arquivo.
