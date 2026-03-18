@@ -253,11 +253,13 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 
 ---
 
-## Onde paramos (2026-03-18)
+## Onde paramos (2026-03-18, sessao 2)
 
-- **Main:** Absorvido d7f91b9 (18/mar — 4 commits skills+docs). P1-P3 audit fixes aplicados (aaccaa7).
+- **Main:** Absorvido d7f91b9. Auditoria completa do ecossistema documental (4 agentes paralelos).
+- **Audit:** 26 issues corrigidos em 3 commits (c543a16, 755f89c, b0db811). P0-P5 resolvidos.
+- **Gemini prompt:** QA.3 atualizado com 3 partes: visual + estetica + interacoes/JS. Anti-PPTX.
 - **Build+Lint:** PASS (44 slides).
-- **QA pipeline:** s-title DONE (58f593a). s-hook = proximo (QA.0 content audit PASS).
+- **QA pipeline:** s-title DONE. s-hook = proximo (QA.0 content audit PASS, falta QA.1+).
 - **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
 - **Headline sync:** 44/44 manifest ↔ HTML.
 - **Proximo:** s-hook QA.1 (constraint check).

@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-03-18 — Auditoria documental completa (4 agentes, 26 issues, sessao 2)
+
+- **4 agentes paralelos:** rules audit, docs audit, repo janitor, XREF/HANDOFF verifier.
+- **P0 fixes:** HANDOFF tabela-resumo corrigida (DONE=s-title, LINT-PASS=3). HANDOFF-CLAUDE-AI atualizado (erros 35→37, QA state, merge). ERROR-LOG IDs duplicados renumerados (033/034 SHOULD → 038/039). RULES.md count fix.
+- **P1 fixes:** 5 links quebrados em docs/prompts/ corrigidos. Skills gtd (bootstrap) e sync-evidence (path fix). reveal-legacy.md engine.js stale ref.
+- **P2 fixes:** E35, E36, E37 adicionados a css-errors.md. stage-c obrigatorio em deck-patterns.md.
+- **P3 fixes:** XREF.md — 3 relacoes erradas corrigidas, 7 arquivos cirrose + 2 archive adicionados.
+- **P4 fixes:** .gitignore expandido para qa-screenshots subdirs.
+- **P5 fixes:** ECOSYSTEM.md consolidado (Pipeline+Alianca fundidos, Ferramentas deduplicado). MCP-ACADEMICOS.md env dedup. blueprint-cirrose.md acoes podadas. medical-data.md Tier 1 split hepato/cardio.
+- **Orphans:** 2 MDs arquivados (ACT2-ARCHITECTURE, NOTES-PROMPT-MAIN). 1 runbook arquivado.
+- **Gemini prompt (QA.3):** Expandido com Part B (estetica sem perder legibilidade) + Part C (interacoes/JS, anti-PPTX).
+- **3 commits:** c543a16, 755f89c, b0db811.
+
+---
+
 ## 2026-03-18 — s-title QA PASS (5-stage pipeline + Gemini 3.1 Pro)
 
 - **s-title:** QA completo — 5 stages (QA.0-QA.4) com checkpoints humanos em cada gate.

@@ -213,8 +213,9 @@ Threshold: todas 14 dims >= 9.
 Input para Gemini (TUDO junto):
 1. Raw HTML do slide
 2. Raw CSS (seletores relevantes do cirrose.css)
-3. PNGs de cada estado (S0, S1... SN)
-4. Video .webm da navegacao real
+3. Raw JS (trecho do slide-registry.js para este slide + engine.js dispatcher relevante)
+4. PNGs de cada estado (S0, S1... SN)
+5. Video .webm da navegacao real
 
 **Captura de video (Playwright):**
 
@@ -239,8 +240,9 @@ Resolution: 1280x720, Plan C (good projector, light room).
 I'm providing:
 1. The raw HTML source
 2. The CSS that styles this slide
-3. Screenshots of each visual state (S0 = after entry, S1+ = after clicks)
-4. A video recording of the slide in action (entry animation + interactions)
+3. The JavaScript that wires interactions/animations for this slide
+4. Screenshots of each visual state (S0 = after entry, S1+ = after clicks)
+5. A video recording of the slide in action (entry animation + interactions)
 
 --- HTML ---
 {raw HTML}
@@ -248,28 +250,59 @@ I'm providing:
 --- CSS ---
 {relevant CSS}
 
+--- JS (interactions + animations) ---
+{relevant slide-registry.js excerpt + engine.js dispatcher info}
+
 [Screenshots and video attached]
 
-Assess quality freely. Consider whatever matters:
+## PART A — Visual Quality
+Assess freely. Consider whatever matters:
 - Would this look professional projected at a congress?
 - Visual hierarchy from 5 meters away?
 - Typography for projection (not screen)?
 - Does anything look AI-generated rather than human-designed?
 - Spacing, alignment, composition?
 - Color, contrast, accessibility?
-- How do the animations feel? Too fast? Too slow? Distracting?
-- Does the progressive disclosure (click-reveals) make sense?
-- Anything else you notice?
 
-Be specific and honest. Point to exact elements/CSS properties.
+## PART B — Aesthetics (propose, don't cut legibility)
+Suggest aesthetic improvements that ENHANCE without sacrificing readability:
+- Subtle refinements (shadows, gradients, spacing tweaks, color temperature)
+- Visual breathing room vs density balance
+- Professional polish that separates this from a standard template
+- Any design touch that makes the slide feel crafted, not generated
+IMPORTANT: legibility for projection is non-negotiable. Never sacrifice
+contrast or readability for aesthetics. Propose, don't impose.
+
+## PART C — Interactions & Motion
+Look at the JS and the video. Then consider:
+- Do the current interactions (click-reveals, animations) add value?
+- Could a DIFFERENT interaction pattern work better for THIS content?
+  (e.g., hover-reveal, progressive build, animated transition between states,
+   interactive comparison, toggle between views, zoomed detail on click)
+- Does the slide feel ALIVE or does it feel like a static PowerPoint?
+- If you removed all interactions, would anything be lost?
+- Suggest ONE bold interaction idea (even if risky) that could elevate this slide.
+The goal: this deck must NOT feel like a PPT with extra steps.
+
+Be specific and honest. Point to exact elements/CSS/JS.
 Return JSON:
 {
   "overall_impression": "...",
-  "issues": [
+  "visual_issues": [
     { "element": "...", "problem": "...", "suggestion": "...", "severity": "critical|high|medium|low" }
   ],
+  "aesthetic_suggestions": [
+    { "element": "...", "current": "...", "proposed": "...", "legibility_impact": "none|positive|needs-check" }
+  ],
+  "interaction_review": {
+    "current_value": "1-10 (does current interaction earn its complexity?)",
+    "feels_like_pptx": true/false,
+    "bold_idea": "...",
+    "interaction_suggestions": [
+      { "element": "...", "current_behavior": "...", "proposed_behavior": "...", "rationale": "..." }
+    ]
+  },
   "strengths": ["..."],
-  "animation_notes": "...",
   "score_estimate": "1-10 overall"
 }
 ```
