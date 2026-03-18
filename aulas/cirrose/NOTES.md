@@ -1,5 +1,15 @@
 # NOTES — Cirrose
 
+## [18/03] Fontes woff2 — instaladas mas Vite path errado
+
+**Issue:** `npm run fonts:install` baixou 4 woff2 para `shared/assets/fonts/`. Porem Vite dev server resolve `@font-face url()` para `aulas/assets/fonts/` (404) por causa de `base: './'` no `vite.config.js`.
+**Impacto:** Todos slides renderizam com fallback (Georgia/system-ui) em vez de Instrument Serif/DM Sans/JetBrains Mono. Layout pode shiftar quando fontes carregarem em producao.
+**Fix:** Mudar `vite.config.js` linha 35 para `base: command === 'serve' ? '/' : './'` (condicional dev/build). Infra root-level — preferivel fazer em main.
+**Decisao Lucas:** Deferir para depois do QA pipeline. Pegar junto com outros issues criticos de design.
+**Onde resolver:** Sessao em main, editando `vite.config.js`.
+
+---
+
 ## [17/03] WT-OPERATING.md criado — substitui QA-WORKFLOW.md
 
 **Decisao:** Criar prompt operacional por WT (`WT-OPERATING.md`) com maquina de estados, QA loop 5-stage com Gemini multimodal obrigatorio, anti-drift embutido, e protocolo de sessao.
