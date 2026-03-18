@@ -2,7 +2,7 @@
 
 > Mapa canônico de dependências entre documentos do projeto.
 > Atualizar ao criar, mover ou deletar qualquer .md.
-> Gerado: 2026-03-07. Última revisão: 2026-03-16.
+> Gerado: 2026-03-07. Última revisão: 2026-03-17.
 
 ---
 
@@ -47,6 +47,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
+| README.md | → todos .claude/rules/*.md, .cursor/rules/*.mdc | ← XREF.md (este arquivo) |
 | anti-drift.md | (autônomo — protocolo de foco) | ← CLAUDE.md (workflow step 1) |
 | css-errors.md | → design-system.md, medical-data.md | ← slide-editing.md |
 | design-principles.md | → design-system.md | ← CLAUDE.md |
@@ -123,13 +124,14 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
+| WT-OPERATING.md | (prompt operacional — máquina de estados + QA loop, WT-only) | ← HANDOFF.md |
 
 ### aulas/metanalise/
 
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
 | CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md | ← CLAUDE.md (projects table) |
-| HANDOFF.md | (pendente) — quando existir: blueprint.md, narrative.md, evidence-db.md | — |
+| HANDOFF.md | (não existe — criar quando slides iniciarem) | — |
 | references/narrative.md | (canônico narrativa) | ← CLAUDE.md aula, blueprint.md |
 | references/evidence-db.md | (canônico dados clínicos) | ← blueprint.md, slides/ |
 | references/blueprint.md | → narrative.md, evidence-db.md | ← HANDOFF.md |
