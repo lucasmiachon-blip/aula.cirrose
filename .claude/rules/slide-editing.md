@@ -1,6 +1,6 @@
 # Slide Editing Rules
 
-> Relacionados: [css-errors](css-errors.md) · [design-system](design-system.md) · [deck-patterns](deck-patterns.md) · [reveal-legacy](reveal-legacy.md) · [medical-data](medical-data.md)
+> Relacionados: [css-errors](css-errors.md) · [design-system](design-system.md) · [deck-patterns](deck-patterns.md) · [medical-data](medical-data.md)
 
 ## Checklist Pré-Edição (OBRIGATÓRIO)
 
@@ -13,7 +13,7 @@ Antes de editar QUALQUER slide:
 - [ ] Tags balanceadas
 - [ ] Dados numéricos verificados (ver `medical-data.md`)
 - [ ] Layout em `.slide-inner`, não no `<section>`
-- [ ] Background: `data-background-color` HEX (Reveal legacy) ou CSS class (deck.js)
+- [ ] Background: CSS class no `.slide-inner` (`.slide-navy`, `.slide-deep`)
 - [ ] Se bg escuro: `.slide-inner` tem `.slide-navy`
 - [ ] Sem CDN links
 - [ ] Animações via `data-animate`, NUNCA gsap inline
@@ -54,7 +54,7 @@ Antes de declarar slide "done", verificar:
 Validação automática: `npm run lint:narrative-sync`
 
 Para mudanças em slides narrativeCritical, usar protocolo Decision Record:
-ver `references/decision-protocol.md`
+ver `references/decision-protocol.md` (cirrose only)
 
 ---
 

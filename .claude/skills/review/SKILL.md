@@ -54,7 +54,7 @@ Lançar 4 subagents simultaneamente, cada um com foco único:
 - Espaçamento usa `--space-*`?
 - `.slide-inner` wrapper presente?
 - Slides escuros usam `.slide-navy`?
-- Background via `data-background-color` com HEX literal?
+- Background via CSS class (`.slide-navy`, `.slide-deep`) no `.slide-inner`?
 - Sem `display` inline no `<section>` (E07)?
 
 **Agent D — Acessibilidade + Speaker Notes**

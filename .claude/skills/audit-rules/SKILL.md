@@ -9,7 +9,7 @@ allowed-tools: Read, Grep, Glob
 
 # audit-rules — Auditoria de Regras
 
-Audita os 8 rules files em `.claude/rules/*.md` contra o estado real do projeto.
+Audita os 10 rules files em `.claude/rules/*.md` contra o estado real do projeto.
 
 **Complementar ao `/evolve`:** evolve audita o ecossistema inteiro (skills, docs, tools, deps). audit-rules foca estreito e profundo nas rules.
 

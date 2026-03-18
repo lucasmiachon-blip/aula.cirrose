@@ -30,7 +30,7 @@
 }
 ```
 
-**HEX canônicos** (para `data-background-color`):
+**HEX canônicos** (referência para CSS classes — `.slide-navy`, `.slide-deep`):
 ```
 --bg-navy    = #0d1a2d
 --bg-surface = #f5f5f7
@@ -175,6 +175,8 @@ Referência: Paul Tol color schemes (https://personal.sron.nl/~pault/)
   --text-caption: clamp(11px, 0.7vw, 15px);
 }
 ```
+
+**deck.js:** `scaleDeck()` aplica CSS transform no container — `vw` dentro de `clamp()` refere-se ao viewport real, não ao slide escalado. Na prática, os limites `min`/`max` do `clamp()` governam (ERRO-008). Não usar `vw` sem `clamp()`.
 
 ### Hierarquia
 

@@ -21,7 +21,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 ├── .claude/rules/*.md        ← regras detalhadas (prevalecem sobre .cursor se mais completas)
 ├── .claude/hooks/*.sh        ← safety gates determinísticos (100% enforcement)
 ├── .claude/scripts/*.sh      ← worktree lifecycle (init, cleanup)
-├── .claude/skills/*/SKILL.md ← skills invocáveis (18 ativas + 2 archived)
+├── .claude/skills/*/SKILL.md ← skills invocáveis (19 ativas + 2 archived)
 ├── .cursor/rules/*.mdc       ← regras Cursor (quick-ref com globs)
 ├── docs/*.md                 ← referência expandida
 └── aulas/*/HANDOFF.md        ← estado por aula
@@ -150,7 +150,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
 | WT-OPERATING.md | (prompt operacional — máquina de estados + QA loop, WT-only) | ← HANDOFF.md |
-| QA-WORKFLOW.md | (deprecated — ref de tooling/execution logs) | ← WT-OPERATING.md |
+| ~~QA-WORKFLOW.md~~ | Deletado 2026-03-18 — QA loop em WT-OPERATING.md §4 | — |
 
 ### aulas/metanalise/
 
@@ -226,7 +226,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Safety gates (hooks) | .claude/settings.json + .claude/hooks/ | — |
 | WT protocol | aulas/*/CLAUDE.md § Worktree | .claude/scripts/ |
 | Audit trail | .claude/hooks/audit-trail.sh | ~/.claude/session-logs/ |
-| QA pipeline (cirrose) | aulas/cirrose/QA-WORKFLOW.md | — |
+| QA pipeline (cirrose) | aulas/cirrose/WT-OPERATING.md §4 | — |
 
 ---
 

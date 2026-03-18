@@ -23,7 +23,9 @@ Subagents são agentes especializados com contexto próprio. Cursor: `.cursor/ag
 | **qa-engineer** | .claude/agents/ | Lint, a11y, screenshots |
 | **slide-builder** | .claude/agents/ | Criar slides HTML |
 | **reference-manager** | .claude/agents/ | Validar PMIDs/DOIs |
-| **reference-checker** | .cursor/agents/ | Extrair PMIDs/DOIs de slides (scan-only). Verificação → reference-manager |
+| **reference-checker** | .cursor/agents/ | Extrair PMIDs/DOIs de slides (scan-only). Verificacao → reference-manager |
+| **medical-researcher** | .claude/agents/ | Pesquisa multi-MCP (PubMed, Consensus, Scholar, CrossRef, Scite) com rubrica 8-dim |
+| **notion-sync** | .claude/agents/ | Sync Slides DB entre repo e Notion |
 | **verifier** | .claude/agents/ | Validar trabalho "pronto" (model: sonnet) |
 
 ---
