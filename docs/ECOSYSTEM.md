@@ -14,8 +14,7 @@
 | Modelo | WebDev Arena (Elo) | SWE-bench Verified | GPQA Diamond | OSWorld | Destaque |
 |--------|-------------------|--------------------|--------------|---------|---------|
 | **Gemini 3.1 Pro** | APEX Agents #1 | 80.6% | **94.3%** | — | ARC-AGI-2 77.1% (2× 3 Pro) · LiveCode Elo 2887 · SVG animado |
-| ~~**Gemini 3 Pro**~~ | ~~1487 #1~~ | ~~76.2%~~ | — | — | ❌ **Encerrado 9 mar 2026** — usar 3.1 Pro |
-| **Gemini 3 Flash** | 1416 (#8, ↑↑↑) | **78%** (> 3 Pro) | 90.4% | — | 3× mais rápido · $0.50/M · SWE > Pro |
+| **Gemini 3 Flash** | 1416 (#8, ↑↑↑) | **78%** | 90.4% | — | 3× mais rápido · $0.50/M |
 | **Gemini 3.1 Flash-Lite** | — | — | 86.9% | — | 382 tok/s · $0.25/M input · 2.5× faster TTFA vs 2.5 Flash · lançado 3 mar 2026 |
 | **Claude Opus 4.6** | — | 80.8% | 91.3% | 72.7% | τ²-bench Telecom 99.3% · MRCR 76% · 1M ctx |
 | **Claude Sonnet 4.6** | — | 79.6% | 74.1% | 72.5% | 5× mais barato que Opus · ARC-AGI-2 +4.3× |
@@ -65,16 +64,10 @@
 
 ---
 
-## Ferramentas Completas
+## Ferramentas Completas (non-model tools; modelos → Pipeline acima)
 
 | Ferramenta | Uso no pipeline | MCP | Status |
 |------------|----------------|-----|--------|
-| **Claude Opus 4.6** (claude.ai) | Design decisions · spec · clinical | — | ✅ Ativo |
-| **Claude Code** (Sonnet 4.6) | Implementação · build | — | ✅ Esta sessão |
-| **Gemini 3.1 Pro** | CSS/GSAP debug · SVG · video QA | gemini MCP | ✅ Ativo |
-| **Gemini 3.1 Flash-Lite** | Lint · quick fix · batch | gemini MCP | ✅ Ativo |
-| **Perplexity Computer** | Orquestração multi-agente | — | ⏳ $200/mês Max |
-| **ChatGPT Agent** (GPT-5.4) | Browser QA · auditor clínico/narrativo (nunca edita) | — | ✅ Disponível |
 | **Perplexity Ultra** | Pesquisa em tempo real | Sim | ✅ Ativo |
 | **Scite** | Citações | Sim | ✅ MCP streamableHttp |
 | **Consensus** | Meta-análises | — | Manual |

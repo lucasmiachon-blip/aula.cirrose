@@ -77,20 +77,4 @@ Trocar profile: `npm run mcp:dev|research|qa|full`
 
 ## .env (variaveis academicas)
 
-```env
-# PubMed — opcional (gratis sem key, 3 req/s; com key 10 req/s)
-NCBI_API_KEY=
-PUBMED_EMAIL=
-
-# Semantic Scholar — opcional (gratis sem key, com key limits maiores)
-SEMANTIC_SCHOLAR_API_KEY=
-
-# Perplexity — requer assinatura paga
-PERPLEXITY_API_KEY=
-
-# Zotero — biblioteca local de referencias
-ZOTERO_API_KEY=
-ZOTERO_LIBRARY_ID=
-```
-
-Todas as variaveis estao documentadas em `.env.example` (fonte canonica).
+Ver `docs/MCP-ENV-VARS.md` e `.env.example` (fonte canonica). Keys relevantes: `NCBI_API_KEY`, `SEMANTIC_SCHOLAR_API_KEY`, `PERPLEXITY_API_KEY`, `ZOTERO_API_KEY`.

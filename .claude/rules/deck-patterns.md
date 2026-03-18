@@ -41,6 +41,7 @@ import { initAula, createAnimationDispatcher } from '../../shared/js/engine.js';
 - **Background escuro:** CSS `background-color` com seletor `#slide-id .slide-inner` no arquivo CSS da aula. deck.js NAO parseia `data-background-color`.
 - `.slide-navy` no `.slide-inner` quando bg escuro
 - Todo `<section>` DEVE ter `id` seguindo convencao `s-{act}-{slug}` (ver [slide-identity](slide-identity.md))
+- **`<body class="stage-c">` obrigatorio.** Sem stage class, tokens defaultam para valores root e slides renderizam incorretamente.
 
 ---
 

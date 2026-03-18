@@ -36,12 +36,9 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 ### CLAUDE.md (root) — canônico operacional
 | Referencia | Tipo |
 |-----------|------|
-| → docs/RULES.md | Extensão |
-| → docs/SKILLS.md | Extensão |
-| → docs/SUBAGENTS.md | Extensão |
-| → aulas/cirrose/HANDOFF.md | Estado |
-| → aulas/cirrose/HANDOFF-CLAUDE-AI.md | Estado |
+| → aulas/cirrose/HANDOFF.md | Estado (via Projects table) |
 | → tasks/lessons.md | Self-improvement |
+| → docs/README.md | Índice docs (refs indiretas a RULES, SKILLS, SUBAGENTS) |
 
 ### .claude/rules/
 
@@ -65,13 +62,13 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 |---------|-----------|-----------------|
 | README.md | → todos docs/*.md | (índice) |
 | XREF.md | (este arquivo) | ← README.md |
-| ECOSYSTEM.md | → SKILLS.md, RULES.md, KPIs.md | ← CLAUDE.md |
+| ECOSYSTEM.md | → SKILLS.md, RULES.md, KPIs.md | ← README.md |
 | KPIs.md | (autônomo) | ← ECOSYSTEM.md, README.md |
 | RULES.md | → SUBAGENTS.md, .cursor/rules/*.mdc | ← CLAUDE.md, ECOSYSTEM.md |
 | SKILLS.md | → .cursor/skills/, .claude/skills/ | ← CLAUDE.md, ECOSYSTEM.md |
 | SUBAGENTS.md | → .cursor/rules/core-constraints.mdc | ← CLAUDE.md, RULES.md |
 | SYNC-NOTION-REPO.md | → .env.example (IDs Notion) | ← CLAUDE.md |
-| blueprint-cirrose.md | (autônomo) | ← aulas/cirrose/HANDOFF.md |
+| blueprint-cirrose.md | (autônomo) | ← README.md |
 | biblia-narrativa.md | (autônomo) | ← aulas/cirrose/HANDOFF.md |
 | slide-pedagogy.md | (autônomo — teorias pedagógicas) | ← README.md |
 | insights-html-cirrose-2026.md | (autônomo — análise Gemini HTML) | ← README.md |
@@ -144,7 +141,13 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
-| HANDOFF.md | → blueprint-cirrose.md, biblia-narrativa.md | ← CLAUDE.md (operational record) |
+| HANDOFF.md | (autônomo — pendências ativas) | ← CLAUDE.md (operational record) |
+| CLAUDE.md (cirrose) | → CLAUDE.md (root), WT-OPERATING.md | ← CLAUDE.md (projects table) |
+| references/archetypes.md | (layout archetypes) | ← CLAUDE.md (cirrose) |
+| references/decision-protocol.md | (protocolo decisões narrativeCritical) | ← slide-editing.md |
+| references/coautoria.md | (regras coautoria) | — |
+| references/must-read-trials.md | (trials leitura obrigatória) | — |
+| DONE-GATE.md | (checklist done-gate) | ← WT-OPERATING.md |
 | HANDOFF-CLAUDE-AI.md | → HANDOFF.md | ← CLAUDE.md |
 | CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
@@ -178,6 +181,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | CHATGPT_HANDOFF_ACT2.md | One-shot planning Act 2 |
 | NNT-IC95-REPORT.md | Relatório NNT verificação |
 | aulas-magnas-system-v6.plan.md | System plan v6 |
+| audit-rules-report-2026-03-17.md | Relatório audit-rules |
+| docs-audit-report-2026-03-17.md | Relatório docs-audit |
 
 ---
 

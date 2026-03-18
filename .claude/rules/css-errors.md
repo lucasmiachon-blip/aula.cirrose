@@ -1,6 +1,6 @@
 # CSS Errors — Registry & Prevention
 
-> 32 erros em 5 clusters. Canônico para erros e prevenção.
+> 35 erros em 5 clusters. Canônico para erros e prevenção.
 > Relacionados: [design-system](design-system.md) · [medical-data](medical-data.md) · [slide-editing](slide-editing.md)
 > Prioridade: MUST = fatal/bloqueante | SHOULD = alta | MAY = nice-to-have
 
@@ -21,6 +21,7 @@
 | E32 | MUST | Pseudo-elements (::before/::after) com flex-grow PROIBIDOS em containers base compartilhados. Participam do layout flex — combinados com gap ou flex:1, produzem efeitos colaterais |
 | E33 | MUST | `justify-content: center` em flex column com overflow = clipping simétrico (h2 desaparece). Usar `margin-top:auto` no primeiro child |
 | E34 | SHOULD | `<p>` dentro de flex com gap = espaçamento duplicado (gap + margin 1em). Reset `p { margin: 0 }` dentro de flex layouts com gap |
+| E35 | MUST | CSS inline no HTML tem max specificity — override requer seletor com ID. `flex-wrap: wrap` inline causou layout break (ERRO-035) |
 
 ### Regra Master Flexbox
 ```
@@ -66,6 +67,8 @@ Reveal.js controla visibilidade dos `<section>`. Um `display` inline sobrescreve
 | E15 | MUST | Warning/gold em bg claro = usar --warning-on-light |
 | E17 | SHOULD | Converter para bg-navy → verificar TODOS componentes |
 | E31 | MUST | Cor = semântica clínica. Ver `design-system.md` |
+| E36 | SHOULD | Seletores aula CSS que competem com base.css DEVEM ter ID anchor (`#deck`) para vencer cascata (ERRO-036) |
+| E37 | MUST | Tokens `*-light` (L>85%) NUNCA como foreground em stage-c (bg L=95%). Contraste ~1.1:1 = invisível (ERRO-037) |
 
 ---
 
@@ -102,6 +105,6 @@ Antes de editar CSS:
 2. Identificar cluster relevante
 3. Flexbox? → E06/E10/E18/E22/E26/E27/E28
 4. Display? → E07/E23
-5. Cor? → E13/E14/E15/E17/E31 + `design-system.md`
+5. Cor? → E13/E14/E15/E17/E31/E36/E37 + `design-system.md`
 6. Dados? → E21/E25 + `medical-data.md`
 7. Regex? → E30
