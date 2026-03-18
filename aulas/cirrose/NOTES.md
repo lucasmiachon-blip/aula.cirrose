@@ -1,5 +1,21 @@
 # NOTES — Cirrose
 
+## [17/03] WT-OPERATING.md criado — substitui QA-WORKFLOW.md
+
+**Decisao:** Criar prompt operacional por WT (`WT-OPERATING.md`) com maquina de estados, QA loop 5-stage com Gemini multimodal obrigatorio, anti-drift embutido, e protocolo de sessao.
+
+**Motivacao:** Nenhum slide tem QA fechado. Updates se perdem entre sessoes. Loops nao fecham. Drift acontece apesar de docs anti-drift existirem. Falta sistematicidade.
+
+**Estado real verificado (auditoria 1 a 1):** TODOS 44 slides sao CONTENT (conteudo completo com notes e PMIDs). NENHUM e DRAFT/esqueleto. Classificacao inicial errada foi corrigida.
+
+**QA-WORKFLOW.md:** Mantido como referencia de tooling (Playwright, Gemini models, API keys, execution logs s-a1-classify). Header deprecated aponta para WT-OPERATING.md.
+
+**Pendencias cross-ref (para sessao main):**
+- `docs/XREF.md` — adicionar WT-OPERATING.md como canonico QA pipeline
+- `docs/README.md` — referenciar WT-OPERATING.md na secao cirrose
+
+---
+
 ## [17/03] Fantasma s-a1-01 — versão main obsoleta
 
 **02-a1-continuum.html** existe em duas versões completamente diferentes:

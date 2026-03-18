@@ -8,7 +8,7 @@
 
 - **WT-OPERATING.md:** Criado — prompt operacional por WT. Define maquina de estados (BACKLOG→DONE), checklists de transicao, QA 5-stage com Gemini multimodal, anti-drift embutido, protocolo de sessao.
 - **QA-WORKFLOW.md:** Deprecated — redireciona para WT-OPERATING.md. Mantido como referencia de tooling e execution logs.
-- **HANDOFF.md:** Tabela de estado dos 44 slides na maquina de estados. s-a1-classify = DONE (unico). 3 slides LINT-PASS. 7 slides CONTENT. 33 slides DRAFT.
+- **HANDOFF.md:** Tabela de estado dos 44 slides na maquina de estados (verificados 1 a 1). s-a1-classify = DONE. 3 LINT-PASS. 40 CONTENT. Zero DRAFT — deck completo.
 - **CLAUDE.md:** WT-OPERATING.md adicionado ao reading order (posicao 2).
 
 ---
