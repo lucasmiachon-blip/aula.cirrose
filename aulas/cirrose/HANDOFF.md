@@ -254,7 +254,7 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 
 ## Onde paramos (2026-03-17)
 
-- **Main:** NAO absorver no momento. Ultimo merge: bfb3268.
+- **Main:** Absorvido. Ultimo merge: e7c0801 (17/mar — audit fixes 42 issues).
 - **Push:** Quando seguro — rodar `npm run done:cirrose` (ou `:strict`). Gate 2 (screenshots) pode WARN em iteracao.
 - **Working tree:** LIMPA.
 - **Build+Lint:** PASS (44 slides).
@@ -262,48 +262,13 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 - **WT-OPERATING.md:** Prompt operacional — maquina de estados + QA loop 5-stage com Gemini.
 - **QA Act 1:** s-a1-classify = DONE (unico). 3 LINT-PASS (s-title, s-hook, s-a1-01). 7 CONTENT. Workflow: WT-OPERATING.md secao 4.
 - **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
+- **Headline sync:** 44/44 manifest ↔ HTML (Act 3 accents + s-a1-fib4 semantic fix).
 - **Proximo slide:** s-title (LINT-PASS → QA). Apresentar QA.0 ao Lucas.
-- **Audit MD (17/mar sessao 2):** 8 WT-fixes aplicados (M1-M5 desta sessao + 3 anteriores). 42 issues main-scope registrados abaixo.
 
 ---
 
-## Pendencias main-scope (audit 17/mar — 42 issues)
+## Pendencias main-scope (audit 17/mar) — ✅ RESOLVIDO
 
-> Detectados por auditoria completa (7 agentes, 2 rodadas). Corrigir em sessao main com excecao documental.
-
-### Critico (main)
-
-| # | Arquivo | Issue |
-|---|---------|-------|
-| C1 | `docs/README.md` | Ref `aulas/metanalise/HANDOFF.md` — arquivo nao existe |
-| C2 | `CLAUDE.md` root | Metanalise: "18 slides" — realidade: 0 HTML |
-| C3 | `docs/XREF.md` | Falta `WT-OPERATING.md` no mapa |
-| C4 | `docs/XREF.md` | Falta `.claude/rules/README.md` na tabela |
-| C5 | `docs/MCP-ACADEMICOS.md` | 90% incompleto (5 de ~20 MCPs) |
-
-### Alto (main)
-
-| # | Area | Issue |
-|---|------|-------|
-| H1 | `tasks/lessons.md` | 3 lessons missing: deck.js bg pattern, pseudo+flex conflict, .no-js failsafe |
-| H2 | `tasks/lessons.md` | 4 duplicacoes com rules (CSS selector, PMID, operational timing, build artifact) |
-| H3 | Skills | 4 bloated: ralph-qa (317L), evolve (295L), final-pass (290L), context7 (256L) — ~5600 tokens |
-| H4 | Skills | 2 deprecated sem `deprecated: true` no frontmatter (assertion-evidence, medical-data) |
-| H5 | `docs/ECOSYSTEM.md` | MCP table dessinc com .mcp.json |
-| H6 | `docs/SETUP.md` | Path ~/Library em secao Windows; .env incompleto |
-| H7 | `docs/slide-pedagogy.md` | Wolfe 2024 + Hales 2017 marcados [VERIFICAR] nunca verificados |
-
-### Medio (main)
-
-| # | Area | Issue |
-|---|------|-------|
-| M1 | `tasks/lessons.md` | 4 stale items (ChatGPT 5.4 ref, Issue #17283, rule mapping, path convention) |
-| M2 | `tasks/lessons.md` | 3 verbosity cuts (Auditoria Batches 40→3L, Sessao Infra 50L, append-only rigido) |
-| M3 | `tasks/lessons.md` | 3 cross-refs faltando (ERROR-LOG links, medical-data.md, SUBAGENTS.md) |
-| M4 | Skills gtd | 205 linhas — comprimir core para ~100L |
-| M5 | `docs/MCP-ENV-VARS.md` | Falta PERPLEXITY, SEMANTIC_SCHOLAR |
-| M6 | `docs/XREF.md` | 5 arquivos metanalise listados como existentes (aspiracional) |
-| M7 | `docs/XREF.md` | 8 prompts/external/ omitidos |
-| M8 | `docs/SKILLS.md` | 1 ghost skill dir (19 dirs vs 18 listadas) |
-| M9 | `docs/README.md` | grade/osteoporose HANDOFFs sem markdown links |
-| M10 | `docs/metanalise-scope.md:4` | Ref aspiracional a narrative.md nao existente |
+> 42 issues detectados por auditoria completa (7 agentes, 2 rodadas).
+> Corrigidos em main: commits 5c1976b (C1-C5), df12f1f (H1-H7), e7c0801 (M1-M10).
+> Absorvidos nesta WT via merge e7c0801.

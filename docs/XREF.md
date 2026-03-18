@@ -2,7 +2,7 @@
 
 > Mapa canônico de dependências entre documentos do projeto.
 > Atualizar ao criar, mover ou deletar qualquer .md.
-> Gerado: 2026-03-07. Última revisão: 2026-03-16.
+> Gerado: 2026-03-07. Última revisão: 2026-03-17.
 
 ---
 
@@ -47,6 +47,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
+| README.md | → todos .claude/rules/*.md, .cursor/rules/*.mdc | ← XREF.md (este arquivo) |
 | anti-drift.md | (autônomo — protocolo de foco) | ← CLAUDE.md (workflow step 1) |
 | css-errors.md | → design-system.md, medical-data.md | ← slide-editing.md |
 | design-principles.md | → design-system.md | ← CLAUDE.md |
@@ -80,6 +81,19 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | ZIP-LIMPO-PROTOCOLO.md | (autônomo) | ← README.md |
 | metanalise-scope.md | (autônomo) | ← README.md |
 | archive/pipeline/README.md | (pipeline humano — arquivado) | ← SUBAGENTS.md |
+
+### docs/prompts/ e docs/external/
+
+| Arquivo | Referencia | Referenciado por |
+|---------|-----------|-----------------|
+| prompts/weekly-updates.md | (prompt template) | ← README.md |
+| prompts/research-best-practices.md | (prompt template) | ← README.md |
+| prompts/gemini-deck-audit.md | (prompt template — Gemini) | ← README.md |
+| prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
+| prompts/gemini-transcript-comparison.md | (prompt template — Gemini) | ← README.md |
+| prompts/openai-backward-design.md | (prompt template — OpenAI) | ← README.md |
+| prompts/openai-canvas-storyboard.md | (prompt template — OpenAI) | ← README.md |
+| external/11-long-context-auditor.md | (tool spec — Gemini long-context) | ← README.md |
 
 ### .claude/hooks/ (safety gates — determinísticos)
 
@@ -123,18 +137,19 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
-| QA-WORKFLOW.md | (canônico pipeline QA 4 fases) | ← HANDOFF.md (QA Workflow ref) |
+| WT-OPERATING.md | (prompt operacional — máquina de estados + QA loop, WT-only) | ← HANDOFF.md |
+| QA-WORKFLOW.md | (deprecated — ref de tooling/execution logs) | ← WT-OPERATING.md |
 
 ### aulas/metanalise/
 
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
 | CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md | ← CLAUDE.md (projects table) |
-| HANDOFF.md | → blueprint.md, narrative.md, evidence-db.md | ← docs/README.md |
-| references/narrative.md | (canônico narrativa) | ← CLAUDE.md aula, blueprint.md |
-| references/evidence-db.md | (canônico dados clínicos) | ← blueprint.md, slides/ |
-| references/blueprint.md | → narrative.md, evidence-db.md | ← HANDOFF.md |
-| slides/_manifest.js | (canônico ordem/metadata slides) | ← lint:narrative-sync, index.html |
+| HANDOFF.md | (não existe — criar quando slides iniciarem) | — |
+| references/narrative.md | (não existe — criar com slides) | ← CLAUDE.md aula |
+| references/evidence-db.md | (não existe — criar com slides) | ← slides/ |
+| references/blueprint.md | (não existe — criar com slides) | ← HANDOFF.md |
+| slides/_manifest.js | (não existe — criar com slides) | ← lint:narrative-sync |
 
 ### Arquivados (docs/archive/)
 
