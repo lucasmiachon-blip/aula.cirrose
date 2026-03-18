@@ -307,6 +307,28 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 - **Regra:** Agente em main NUNCA pode escrever em `../wt-*`. Para editar worktree, abrir sessão Cursor naquele diretório.
 - **Regra:** `scripts/pre-commit.sh` e `tasks/lessons.md` são Classe A/B — sempre commitar em main, nunca direto na WT.
 
+## Sessao 18/mar — QA.3 Gemini com codigo stale
+
+### Prompt Gemini DEVE ler arquivos atuais, NUNCA copiar de rodada anterior
+
+- QA.3 enviou ao Gemini o HTML/CSS/JS da v5 do s-hook, enquanto o slide ja era v9 (grid assimetrico, clinical-stutter, blackout).
+- Gemini avaliou codigo que nao existia mais. Sugestoes parcialmente uteis, mas desalinhadas com o estado real.
+- **Custo:** ~$0.03 desperdicados + tempo de implementacao baseada em review impreciso.
+- **Regra (E42):** Prompt Gemini para QA.3 DEVE ser gerado dinamicamente: `Read` nos 3 arquivos (HTML, CSS secao, JS secao) NO MOMENTO do envio. NUNCA copiar prompt de rodada anterior. NUNCA embutir codigo hardcoded.
+- **Processo:** script `send-gemini-qa3.mjs` deve extrair raw code dos arquivos de origem, nao de prompt.txt pre-escrito.
+
+### box-sizing em custom containers
+
+- `.hook-stage` com `width: 100%` + padding causou overflow porque nao tinha `box-sizing: border-box`.
+- base.css so aplica border-box em `section` e `.slide-inner`. Custom containers (hook-stage, archetype wrappers) herdam `content-box`.
+- **Regra:** Todo container custom com `width: 100%` + padding DEVE ter `box-sizing: border-box` explicito.
+
+### Elementos overlay = position absolute, NAO grid area
+
+- Punchline e question compartilhavam `grid-area: punch` numa row `auto` — sobreposicao garantida.
+- Elementos que aparecem SOBRE o slide durante animacao (punchlines, overlays, modals) devem usar `position: absolute` com container `position: relative`.
+- Grid areas sao para layout estrutural, nao para overlays dramaticos.
+
 ---
 
 ## Lessons adicionadas por auditoria (2026-03-17)

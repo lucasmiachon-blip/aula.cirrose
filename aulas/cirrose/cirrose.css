@@ -1764,55 +1764,63 @@
 /* (MELD badges removed — info now in calc input labels) */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-hook v5 — Caso Antônio (congresso, formal)
-   2 beats: Antônio+história (centro) → Labs+pergunta abaixo.
-   Reversível: ArrowLeft/Up. Sem título.
+   s-hook v9 — Caso Antônio (congresso, formal)
+   Asymmetric: bio left (large) + labs right.
+   Clinical-stutter stagger. Blackout punchline.
+   Gemini 3.1 Pro creative review applied.
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* ── s-hook: bg follows stage tokens (cream in stage-c, navy in stage-a) ── */
+/* ── s-hook: tokens ── */
 #s-hook {
   background: var(--bg-navy);
   color: var(--text-on-dark);
   --hook-text-bright: var(--text-on-dark);
   --hook-text-mid: var(--text-on-dark-muted);
   --hook-text-dim: var(--text-muted);
-  --hook-lab-label-color: var(--text-muted);
+  --hook-lab-label-color: oklch(30% 0.01 258);
   --hook-lab-value-color: var(--text-on-dark);
   --hook-lab-ref-color: var(--text-secondary);
+  --hook-alert-value: oklch(42% 0.10 25);  /* muted danger — "sangue seco" for AST/PLQ */
   --hook-card-bg: var(--bg-card);
-  --hook-card-border: var(--border);
+  --hook-card-border: oklch(82% 0.008 258);
 }
 #s-hook .hook-patient-name,
 #s-hook .hook-punchline { color: var(--hook-text-bright); }
 #s-hook .hook-patient-desc { color: var(--hook-text-mid); }
 #s-hook .hook-patient-ref { color: var(--hook-text-dim); }
 
-/* ── Stage container (flat layout — bio + labs + punchline) ── */
+/* ── Stage container (asymmetric grid — bio left, labs right) ── */
 .hook-stage {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "bio labs";
   align-items: center;
-  justify-content: space-evenly;
-  padding: 1rem 2rem;
+  padding: 2.5rem 3.5rem 2rem 3rem;
+  gap: 1rem 2rem;
+  position: relative;
 }
 #deck.has-panel #s-hook .hook-stage {
   padding-right: calc(var(--panel-width) + 2rem);
 }
 
-/* ── Patient identity ── */
+/* ── Patient identity (left, large — "pessoa, não dado") ── */
 .hook-patient {
-  text-align: center;
-  max-width: 680px;
+  grid-area: bio;
+  text-align: left;
+  max-width: 520px;
 }
 
 .hook-patient-name {
   font-family: var(--font-display);
-  font-size: var(--text-h1);
+  font-size: var(--text-hero);
   font-weight: 400;
-  margin: 0 0 0.6rem 0;
+  margin: 0 0 0.8rem 0;
   letter-spacing: 0.01em;
+  line-height: 1.05;
 }
 
 .hook-patient-desc {
@@ -1830,13 +1838,15 @@
   font-style: italic;
 }
 
-/* ── Labs grid (3×2 — compact height, responsive width) ── */
+/* ── Labs grid (3×2 — right column) ── */
 .hook-labs-grid {
+  grid-area: labs;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
   width: 100%;
-  max-width: min(960px, 80%);
+  max-width: 100%;
+  justify-self: center;
 }
 
 .hook-lab {
@@ -1848,9 +1858,15 @@
   border-radius: var(--radius-sm);
   background: var(--hook-card-bg);
   border: 1px solid var(--hook-card-border);
-  box-shadow: 0 2px 8px oklch(0% 0 0 / 0.07);
+  box-shadow: 0 2px 10px oklch(0% 0 0 / 0.10);
   position: relative;
-  opacity: 0; /* GSAP stagger anima para 1; .no-js/.stage-bad força 1 */
+  opacity: 0; /* GSAP stagger → 1; .no-js/.stage-bad → 1 */
+  transition: filter 0.6s ease;
+}
+
+/* ── Alert labs (AST, PLQ — "villain" values) ── */
+.hook-lab--alert .hook-lab-value {
+  color: var(--hook-alert-value);
 }
 
 .hook-lab-label {
@@ -1884,25 +1900,36 @@
   color: var(--hook-lab-ref-color);
 }
 
-/* ── Punchline + question (click reveal) ── */
+/* ── Punchline + question (blackout reveal) ── */
 .hook-punchline {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-family: var(--font-display);
-  font-size: var(--text-h2);
-  font-weight: 700;
+  font-size: var(--text-h1);
+  font-weight: 400;
+  font-style: italic;
   color: var(--hook-text-bright);
   text-align: center;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   margin: 0;
   opacity: 0;
+  z-index: 2;
 }
 .hook-question {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-body);
-  font-size: var(--text-body);
+  font-size: var(--text-h3);
   color: var(--hook-text-mid);
   text-align: center;
   font-style: italic;
   margin: 0;
   opacity: 0;
+  z-index: 2;
 }
 .no-js .hook-lab,
 .no-js .hook-punchline,
@@ -1912,6 +1939,7 @@
 .stage-bad .hook-question {
   opacity: 1 !important;
   transform: none !important;
+  filter: none !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

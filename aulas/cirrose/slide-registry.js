@@ -555,34 +555,56 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-hook — Caso Antônio (flat layout, 1 click)
-     Auto: bio visible + labs stagger
-     State 1: punchline + question (click)
+     s-hook v9 — Caso Antônio (asymmetric, blackout)
+     Auto: bio visible + clinical-stutter labs stagger
+     State 1: blackout bio+labs → punchline (1.2s) → question (sharp)
+     Gemini 3.1 Pro creative review applied.
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-hook': (slide, gsap) => {
     let state = 0;
     const maxState = 1;
 
+    const patient = slide.querySelector('.hook-patient');
+    const labsGrid = slide.querySelector('.hook-labs-grid');
     const labs = [...slide.querySelectorAll('.hook-lab')];
+    const alertLabs = [...slide.querySelectorAll('.hook-lab--alert')];
+    const normalLabs = labs.filter(l => !l.classList.contains('hook-lab--alert'));
     const punchline = slide.querySelector('.hook-punchline');
     const question = slide.querySelector('.hook-question');
 
-    // Auto: labs stagger in
+    // Auto: clinical-stutter stagger
+    // Normal labs enter fast, alert labs (AST, PLQ) enter slower with micro-pause
     gsap.set(labs, { opacity: 0, y: 12 });
-    gsap.to(labs, { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, delay: 0.3, ease: 'power2.out' });
+
+    const tl = gsap.timeline({ delay: 0.3 });
+    // Normal labs first — fluid and fast
+    normalLabs.forEach((lab, i) => {
+      tl.to(lab, { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }, i * 0.1);
+    });
+    // Micro-pause, then alert labs — slower, heavier
+    alertLabs.forEach((lab, i) => {
+      tl.to(lab, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, normalLabs.length * 0.1 + 0.25 + i * 0.35);
+    });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
+        // Blackout: dim bio + labs
+        gsap.to(patient, { opacity: 0.15, filter: 'blur(2px)', duration: 0.6, ease: 'power2.inOut' });
+        gsap.to(labsGrid, { opacity: 0.15, filter: 'blur(2px)', duration: 0.6, ease: 'power2.inOut' });
+
+        // Punchline: long, heavy fade-in (static — no Y movement)
         gsap.fromTo(punchline,
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+          { opacity: 0 },
+          { opacity: 1, duration: 1.2, delay: 0.4, ease: 'power2.out' }
         );
+
+        // Question: sharp cut (no movement, fast)
         if (question) {
           gsap.fromTo(question,
-            { opacity: 0, y: 10 },
-            { opacity: 1, y: 0, duration: 0.5, delay: 0.4, ease: 'power2.out' }
+            { opacity: 0 },
+            { opacity: 1, duration: 0.2, delay: 3.0, ease: 'none' }
           );
         }
       }
@@ -592,8 +614,11 @@ export const customAnimations = {
     function retreat() {
       if (state <= 0) return false;
       if (state === 1) {
-        gsap.to(punchline, { opacity: 0, y: 10, duration: 0.3 });
-        if (question) gsap.to(question, { opacity: 0, y: 10, duration: 0.3 });
+        // Reverse blackout
+        gsap.to(punchline, { opacity: 0, duration: 0.3 });
+        if (question) gsap.to(question, { opacity: 0, duration: 0.2 });
+        gsap.to(patient, { opacity: 1, filter: 'blur(0px)', duration: 0.4, delay: 0.2, ease: 'power2.out' });
+        gsap.to(labsGrid, { opacity: 1, filter: 'blur(0px)', duration: 0.4, delay: 0.2, ease: 'power2.out' });
       }
       state--;
       return true;

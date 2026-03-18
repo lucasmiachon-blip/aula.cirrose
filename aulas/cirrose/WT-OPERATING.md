@@ -211,11 +211,15 @@ Threshold: todas 14 dims >= 9.
 ### QA.3 — Visual Audit (Gemini multimodal)
 
 Input para Gemini (TUDO junto):
-1. Raw HTML do slide
-2. Raw CSS (seletores relevantes do cirrose.css)
-3. Raw JS (trecho do slide-registry.js para este slide + engine.js dispatcher relevante)
-4. PNGs de cada estado (S0, S1... SN)
-5. Video .webm da navegacao real
+1. Raw HTML do slide — **ler do arquivo no momento do envio** (NUNCA copiar de prompt anterior)
+2. Raw CSS (seletores relevantes do cirrose.css) — **extrair live com grep/read**
+3. Raw JS (trecho do slide-registry.js para este slide) — **extrair live com grep/read**
+4. PNGs de cada estado (S0, S1... SN) — **capturar APOS as ultimas edições**
+5. Video .webm/.mp4 da navegacao real — **regravar se houve mudanca de CSS/JS**
+
+**REGRA E42:** Raw code no prompt DEVE ser lido dos arquivos NO MOMENTO do envio.
+NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.
+Prompt com codigo stale = review invalido = dinheiro desperdicado.
 
 **Captura de video (Playwright):**
 
@@ -227,85 +231,9 @@ Input para Gemini (TUDO junto):
 // Salvar em qa-screenshots/{slide-id}/video.webm
 ```
 
-**Prompt Gemini (avaliacao livre, nao-deterministica):**
-
-```
-You are reviewing a single slide for a medical congress presentation
-on hepatic cirrhosis.
-
-Audience: gastroenterologists/hepatologists, Brazilian congress.
-Stack: deck.js, GSAP, OKLCH tokens.
-Resolution: 1280x720, Plan C (good projector, light room).
-
-I'm providing:
-1. The raw HTML source
-2. The CSS that styles this slide
-3. The JavaScript that wires interactions/animations for this slide
-4. Screenshots of each visual state (S0 = after entry, S1+ = after clicks)
-5. A video recording of the slide in action (entry animation + interactions)
-
---- HTML ---
-{raw HTML}
-
---- CSS ---
-{relevant CSS}
-
---- JS (interactions + animations) ---
-{relevant slide-registry.js excerpt + engine.js dispatcher info}
-
-[Screenshots and video attached]
-
-## PART A — Visual Quality
-Assess freely. Consider whatever matters:
-- Would this look professional projected at a congress?
-- Visual hierarchy from 5 meters away?
-- Typography for projection (not screen)?
-- Does anything look AI-generated rather than human-designed?
-- Spacing, alignment, composition?
-- Color, contrast, accessibility?
-
-## PART B — Aesthetics (propose, don't cut legibility)
-Suggest aesthetic improvements that ENHANCE without sacrificing readability:
-- Subtle refinements (shadows, gradients, spacing tweaks, color temperature)
-- Visual breathing room vs density balance
-- Professional polish that separates this from a standard template
-- Any design touch that makes the slide feel crafted, not generated
-IMPORTANT: legibility for projection is non-negotiable. Never sacrifice
-contrast or readability for aesthetics. Propose, don't impose.
-
-## PART C — Interactions & Motion
-Look at the JS and the video. Then consider:
-- Do the current interactions (click-reveals, animations) add value?
-- Could a DIFFERENT interaction pattern work better for THIS content?
-  (e.g., hover-reveal, progressive build, animated transition between states,
-   interactive comparison, toggle between views, zoomed detail on click)
-- Does the slide feel ALIVE or does it feel like a static PowerPoint?
-- If you removed all interactions, would anything be lost?
-- Suggest ONE bold interaction idea (even if risky) that could elevate this slide.
-The goal: this deck must NOT feel like a PPT with extra steps.
-
-Be specific and honest. Point to exact elements/CSS/JS.
-Return JSON:
-{
-  "overall_impression": "...",
-  "visual_issues": [
-    { "element": "...", "problem": "...", "suggestion": "...", "severity": "critical|high|medium|low" }
-  ],
-  "aesthetic_suggestions": [
-    { "element": "...", "current": "...", "proposed": "...", "legibility_impact": "none|positive|needs-check" }
-  ],
-  "interaction_review": {
-    "current_value": "1-10 (does current interaction earn its complexity?)",
-    "feels_like_pptx": true/false,
-    "bold_idea": "...",
-    "interaction_suggestions": [
-      { "element": "...", "current_behavior": "...", "proposed_behavior": "...", "rationale": "..." }
-    ]
-  },
-  "strengths": ["..."],
-  "score_estimate": "1-10 overall"
-}
-```
+**Prompt Gemini:** usar template `docs/prompts/gemini-slide-editor.md`.
+Papel: editor final (nao linter). Liberdade total. Pode dar raw code ou direcao criativa.
+Preencher placeholders `{{...}}` com dados do slide. Nao forcar JSON — resposta livre.
 
 **Output:** JSON do Gemini + interpretacao do agente.
 **→ CHECKPOINT:** apresentar ao Lucas. Lucas aprova/rejeita sugestoes Gemini individualmente.

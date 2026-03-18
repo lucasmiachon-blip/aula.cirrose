@@ -1,18 +1,19 @@
 <!-- ============================================================
      s-hook — Caso Antônio (congresso, formal)
-     Archetype: Custom hook (v8 — flat layout, 1 click)
-     Auto: bio + labs stagger → Click: "Sem queixas." + pergunta
-     Reversível: ArrowLeft/Up. Background: navy.
+     Archetype: Custom hook (v9 — asymmetric, blackout punchline)
+     Auto: bio visible + labs clinical-stutter stagger
+     Click: blackout → "Sem queixas." (1.2s) → "Conduta?" (sharp)
+     Reversível: ArrowLeft/Up. Panel hidden (starts s-a1-01).
      ============================================================ -->
 <section id="s-hook"
          class="slide-navy"
          data-timing="90"
          data-background-color="#162032"
-         data-panel-state="neutral">
+         data-panel-state="hidden">
 
   <div class="hook-stage">
 
-    <!-- Patient bio -->
+    <!-- Patient bio (left, large — Gemini: "pessoa, não dado") -->
     <div class="hook-patient">
       <h3 class="hook-patient-name">Antônio, 55 anos</h3>
       <p class="hook-patient-desc">
@@ -22,9 +23,9 @@
       <p class="hook-patient-ref">Encaminhado da atenção primária</p>
     </div>
 
-    <!-- Labs (auto stagger) -->
+    <!-- Labs (clinical-stutter stagger — alert labs delayed) -->
     <div class="hook-labs-grid">
-      <div class="hook-lab">
+      <div class="hook-lab hook-lab--alert">
         <span class="hook-lab-label">AST</span>
         <span class="hook-lab-value">67</span>
         <span class="hook-lab-ref">U/L</span>
@@ -34,7 +35,7 @@
         <span class="hook-lab-value">31</span>
         <span class="hook-lab-ref">U/L</span>
       </div>
-      <div class="hook-lab">
+      <div class="hook-lab hook-lab--alert">
         <span class="hook-lab-label">PLQ</span>
         <span class="hook-lab-value">112<small>k</small></span>
         <span class="hook-lab-ref">/mm³</span>
@@ -56,7 +57,7 @@
       </div>
     </div>
 
-    <!-- Punchline + directing question (click reveal) -->
+    <!-- Punchline + directing question (blackout reveal) -->
     <p class="hook-punchline">Sem queixas.</p>
     <p class="hook-question">Qual sua conduta?</p>
 

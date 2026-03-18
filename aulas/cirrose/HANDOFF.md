@@ -9,7 +9,7 @@
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 37/37 corrigidos, 0 pendentes.
+**ERROR-LOG:** 40 registrados, 39 corrigidos, 1 processo (E42).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
 **Visual Audit MCPs:** gemini, a11y-contrast, frontend-review, chrome-devtools configurados em `.mcp.json`.
@@ -28,7 +28,7 @@
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
-| 2 | s-hook | LINT-PASS | v8 polish 16/mar. Archetype-adjusted (14 dims >= 8). Sem aprovacao humana QA. |
+| 2 | s-hook | QA | v9 (18/mar). Grid assimetrico, clinical-stutter, blackout punchline. QA.0-QA.2 PASS. QA.3 prompt stale (E42) — re-enviar com template atualizado. ERRO-040 (box-sizing), ERRO-041 (overlap) corrigidos. |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |

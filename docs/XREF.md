@@ -85,7 +85,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 |---------|-----------|-----------------|
 | prompts/weekly-updates.md | (prompt template) | ← README.md |
 | prompts/research-best-practices.md | (prompt template) | ← README.md |
-| prompts/gemini-deck-audit.md | (prompt template — Gemini) | ← README.md |
+| prompts/gemini-deck-audit.md | (prompt template — Gemini, deck completo) | ← README.md |
+| prompts/gemini-slide-editor.md | (prompt template — Gemini, QA.3 por slide) | ← README.md, WT-OPERATING.md |
 | prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
 | prompts/gemini-transcript-comparison.md | (prompt template — Gemini) | ← README.md |
 | prompts/openai-backward-design.md | (prompt template — OpenAI) | ← README.md |

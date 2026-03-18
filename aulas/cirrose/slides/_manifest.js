@@ -78,7 +78,8 @@ export const slides = [
 
 export const panelStates = {
   // ── Pre-Act + Act 1 ──
-  's-hook': {
+  // s-hook: panel hidden (Gemini: "spoiler/ruído no hook")
+  's-a1-01': {
     severity: 'neutral',
     values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—', stage: '?' },
     visibleFields: ['AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],

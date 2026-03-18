@@ -4,6 +4,19 @@
 
 ---
 
+## 2026-03-18 — s-hook v9 QA + prompt Gemini rewrite (sessao 3)
+
+- **s-hook v9:** Grid assimetrico (bio left, labs right), clinical-stutter stagger (normais rapidos, anormais lentos), blackout punchline (dim+blur bio/labs, punchline absolute centered), question sharp cut bottom.
+- **ERRO-040:** box-sizing missing em .hook-stage → clipping 3rd column (PLQ, INR). Fix: `box-sizing: border-box`.
+- **ERRO-041:** punchline/question overlap em grid-area auto. Fix: `position: absolute` (punchline center, question bottom).
+- **ERRO-042 (processo):** QA.3 Gemini recebeu codigo stale (v5 vs v9). Regra E42: raw code DEVE ser lido dos arquivos no momento do envio.
+- **Prompt Gemini rewrite:** Template reutilizavel em `docs/prompts/gemini-slide-editor.md`. Papel: editor final, liberdade total, pode dar raw code ou direcao criativa. Placeholders `{{...}}` para cada slide. WT-OPERATING.md atualizado para referenciar template.
+- **Screenshots QA.4:** 4 PNGs (beat0+beat1 x 1280x720+1707x1067). Script `capture-beats.mjs`.
+- **lessons.md:** 3 licoes (E42 prompt stale, box-sizing custom containers, overlays = absolute).
+- **Arquivos:** cirrose.css, slide-registry.js, 01-hook.html, _manifest.js, WT-OPERATING.md, ERROR-LOG.md, lessons.md, docs/prompts/gemini-slide-editor.md.
+
+---
+
 ## 2026-03-18 — Auditoria documental completa (4 agentes, 26 issues, sessao 2)
 
 - **4 agentes paralelos:** rules audit, docs audit, repo janitor, XREF/HANDOFF verifier.

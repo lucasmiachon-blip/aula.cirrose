@@ -337,9 +337,31 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Tokens `*-light` (L>85%) NUNCA usar como foreground em stage-c (bg L=95%). Sempre verificar contraste com MCP a11y.
 **Status:** ✅ Corrigido (2026-03-18).
 
+### ERRO-040 · HIGH · s-hook (v9)
+**Labs grid clipping — 3rd column (PLQ, INR) cortados na borda direita**
+**Root cause:** `.hook-stage` tem `width: 100%; padding: 2.5rem 3.5rem 2rem 3rem` mas sem `box-sizing: border-box`. Default `content-box` faz padding SOMAR ao 100%, overflow de ~104px.
+**Fix:** Adicionar `box-sizing: border-box` no `.hook-stage`.
+**Regra:** Containers com `width: 100%` + padding DEVEM ter `box-sizing: border-box`. Apenas `section` e `.slide-inner` tem reset global em base.css — custom containers herdam `content-box`.
+**Status:** Corrigido (2026-03-18).
+
+### ERRO-041 · HIGH · s-hook (v9)
+**Punchline e question sobrepostos no beat 1 — ambos em grid-area: punch (auto-height row)**
+**Root cause:** Grid `auto` row com 2 elementos overlapping. `align-self: end` no question nao resolve porque row height = max(content) = 1 linha = ambos empilham.
+**Fix:** Remover do grid flow. `position: absolute` — punchline centered (top:45%), question ancorada (bottom:2.5rem). Container `.hook-stage` ganhou `position: relative`.
+**Regra:** Elementos que aparecem SOBRE o slide (punchline, overlays) devem usar `position: absolute`, nao participar do grid flow. Grid areas `auto` com multiplos filhos = sobreposicao garantida.
+**Status:** Corrigido (2026-03-18).
+
+### ERRO-042 · HIGH · QA pipeline
+**QA.3 Gemini recebeu codigo STALE (v5) enquanto slide era v9 — review criativo avaliou versao errada**
+**Root cause:** Prompt QA.3 tinha HTML/CSS/JS da v5 (flex centrado, stagger simples, sem blackout). O agente nao atualizou o raw code no prompt antes de enviar ao Gemini. Gemini deu sugestoes baseadas em codigo que nao existia mais.
+**Fix:** Regra de processo — prompt QA.3 DEVE ser gerado dinamicamente lendo os arquivos atuais, NUNCA copiando de versao anterior.
+**Impacto:** ~$0.03 de API gastos em review de codigo errado. Sugestoes parcialmente uteis mas desalinhadas.
+**Regra derivada:** E42 — Raw code no prompt Gemini DEVE ser lido dos arquivos NO MOMENTO do envio. NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.
+**Status:** Registrado. Processo atualizado em WT-OPERATING.md.
+
 ---
 
-*Última atualização: 2026-03-18 · 37/37 erros corrigidos. 0 pendentes.*
+*Ultima atualizacao: 2026-03-18 · 40 erros registrados, 39 corrigidos, 1 processo (E42).*
 
 ---
 
