@@ -14,7 +14,7 @@
 **QA Script:** `scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
 **Visual Audit MCPs:** gemini, a11y-contrast, frontend-review, chrome-devtools configurados em `.mcp.json`.
 **Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). API REST direta.
-**Ultimo merge main:** `bfb3268` (2026-03-17) — governance hardening (624ebec), evolve patches (2f9e909), GSAP 3.14.2, rules split deck-patterns/reveal-legacy. Zero Classe C.
+**Ultimo merge main:** `d7f91b9` (2026-03-18) — 4 commits: skills (medical-researcher, slide-punch, sync-evidence) + docs. Zero Classe C.
 
 ---
 
@@ -254,18 +254,14 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 
 ---
 
-## Onde paramos (2026-03-17)
+## Onde paramos (2026-03-18)
 
-- **Main:** Absorvido. Ultimo merge: e7c0801 (17/mar — audit fixes 42 issues).
-- **Push:** Quando seguro — rodar `npm run done:cirrose` (ou `:strict`). Gate 2 (screenshots) pode WARN em iteracao.
-- **Working tree:** LIMPA.
+- **Main:** Absorvido d7f91b9 (18/mar — 4 commits skills+docs). P1-P3 audit fixes aplicados (aaccaa7).
 - **Build+Lint:** PASS (44 slides).
-- **Fantasma s-a1-01:** Main tem versão "burden" OBSOLETA. WT tem versão "rastreio" CANÔNICA. Ver NOTES.md [17/03]. NUNCA copiar de main.
-- **WT-OPERATING.md:** Prompt operacional — maquina de estados + QA loop 5-stage com Gemini.
-- **QA Act 1:** s-a1-classify = DONE (unico). s-title = QA (CSS fix aplicado, gates pendentes). 2 LINT-PASS (s-hook, s-a1-01). 7 CONTENT. Workflow: WT-OPERATING.md secao 4.
+- **QA pipeline:** s-title DONE (58f593a). s-hook = proximo (QA.0 content audit PASS).
 - **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
-- **Headline sync:** 44/44 manifest ↔ HTML (Act 3 accents + s-a1-fib4 semantic fix).
-- **Proximo slide:** s-title (QA gates 0-4 pendentes). Apresentar QA.0 ao Lucas.
+- **Headline sync:** 44/44 manifest ↔ HTML.
+- **Proximo:** s-hook QA.1 (constraint check).
 
 ---
 
