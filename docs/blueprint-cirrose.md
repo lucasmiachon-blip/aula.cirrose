@@ -125,27 +125,18 @@
 
 ---
 
-## 🔴 Ações Pós-Auditoria (25/fev/2026)
+## Ações Pós-Auditoria (25/fev/2026) — ✅ RESOLVIDAS
 
-| # | Ação | Prioridade | Quem |
-|---|------|-----------|------|
-| 1 | Decidir posição HOOK (mover para pos 2 ou manter pos 4) | Crítico | Lucas |
-| 2 | Separar checkpoints em pergunta-só + resposta (2 slides cada) | Crítico | Claude.ai spec → Code |
-| 3 | Inserir transição narrativa bg-navy antes CP2 | Alto | Code |
-| 4 | Inserir mini-pausa narrativa no meio Ato 2 | Alto | Code |
-| 5 | Integrar 10 pérolas ausentes nas speaker notes | Alto | Claude.ai |
-| 6 | Adicionar visuais aos 11 slides text-in-box | Alto | Cursor |
-| 7 | Encurtar headlines A1-02, A1-04, A2-02, A2-06 | Médio | Claude.ai |
-| 8 | Corrigir A1-05: tabela com 10 etiologias (não 3) | Médio | Code |
-| 9 | Reescrever speaker notes tom conversacional | Médio | Claude.ai |
-| 10 | Fix CSS sistêmico (case panel, fill ratio, hero elements) | Crítico | Cursor/Code |
+> Todas as 10 ações foram endereçadas nas sessões de fev-mar/2026.
+> HOOK fixado em pos 2 (dom). Checkpoints, transições, CSS sistêmico — ver CHANGELOG.md.
+> IDs migraram (ver HANDOFF.md § Migração de IDs). Headlines reescritos em batch QA.
 
 **NUNCA cortar:**
-- A1-02 (pipeline FIB-4→CSPH) — ferramenta central
-- A2-01 (Carvedilol/PREDESCI) — coração do Ato 2
-- A2-03 (Albumina 3 indicações) — 2ª decisão do refrão
-- A3-01 (Recompensação) — clímax narrativo
-- Checkpoints — são a interação, tirar mata o BOPPPS
+- s-a1-01 (pipeline FIB-4→CSPH) — ferramenta central
+- s-a2-07 (Carvedilol/PREDESCI) — coração do Ato 2
+- s-app-alb (Albumina 3 indicações) — consolidada no apêndice
+- s-a3-02 (Recompensação) — clímax narrativo
+- Checkpoints (s-cp1, s-cp2, s-cp3) — interação BOPPPS
 
 ---
 
@@ -191,14 +182,14 @@ Retorno ao caso: "Este paciente podia ter sido interceptado com FIB-4 no clínic
 
 ---
 
-## 🔄 Pesquisa Retrógrada Pendente (tier-1, 6/6 meses)
+## Pesquisa Retrógrada Pendente (tier-1, 6/6 meses)
 
 | Período | Status |
 |---------|--------|
 | Jan 2025 – Fev 2026 | ✅ Via Perplexity (22/fev): 19 estudos novos |
-| Set 2024 – Dez 2024 | ☐ Pendente |
-| Mar 2024 – Ago 2024 | ☐ Pendente |
+| Set 2024 – Dez 2024 | Backlog (baixa prioridade — QA visual é P0) |
+| Mar 2024 – Ago 2024 | Backlog |
 
 ---
 
-Exportado do Notion em 25/fev/2026.
+Exportado do Notion em 25/fev/2026. Ações atualizadas em 18/mar/2026.
