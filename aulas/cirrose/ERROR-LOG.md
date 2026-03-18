@@ -320,7 +320,26 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Última atualização: 2026-03-17 · 35/35 erros corrigidos. 0 pendentes.*
+### ERRO-036 · MEDIUM · s-title
+**h1 specificity perdida — titulo renderizava 38px em vez de 56px**
+**Root cause:** `base.css` define `h1 { font-size: var(--text-h1) }` (38px). `cirrose.css` tinha `.slide-title h1` mas especificidade insuficiente — base.css vencia.
+**Fix:** `#deck .slide-title h1 { font-size: var(--text-hero) }` em cirrose.css (specificity bump via #deck).
+**Regra:** Seletores em aula CSS que competem com base.css DEVEM ter ID anchor (#deck) para vencer cascata.
+**Status:** ✅ Corrigido (2026-03-18).
+
+---
+
+### ERRO-037 · HIGH · s-title
+**Pillar dots invisiveis em stage-c — --ui-accent-light quase identico ao background**
+**Root cause:** `.title-pillars .pillar-dot { background: var(--ui-accent-light) }` usa L=92% (oklch). Background stage-c eh L=95% (#eceff2). Contraste ~1.1:1 — invisivel.
+**Fix:** `.stage-c .title-pillars .pillar-dot { background: var(--ui-accent) }` — usa L=35% (#073777). Contraste 9.98:1 AAA.
+**Detectado por:** Gemini 2.5 Flash (QA.3). Confirmado pos-fix por Gemini 3.1 Pro (QA.4).
+**Regra:** Tokens `*-light` (L>85%) NUNCA usar como foreground em stage-c (bg L=95%). Sempre verificar contraste com MCP a11y.
+**Status:** ✅ Corrigido (2026-03-18).
+
+---
+
+*Última atualização: 2026-03-18 · 37/37 erros corrigidos. 0 pendentes.*
 
 ---
 
@@ -329,7 +348,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 6     | 6          | 0 |
-| HIGH       | 17    | 17         | 0 |
-| MEDIUM     | 10    | 10         | 0 |
+| HIGH       | 18    | 18         | 0 |
+| MEDIUM     | 11    | 11         | 0 |
 | LOW        | 2     | 2          | 0 |
-| **Total**  | **35**| **35**     | **0** |
+| **Total**  | **37**| **37**     | **0** |

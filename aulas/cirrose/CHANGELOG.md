@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-03-18 — s-title QA PASS (5-stage pipeline + Gemini 3.1 Pro)
+
+- **s-title:** QA completo — 5 stages (QA.0-QA.4) com checkpoints humanos em cada gate.
+- **ERRO-036 fix:** h1 specificity — `#deck .slide-title h1` (38→56px).
+- **ERRO-037 fix:** Pillar dots invisíveis em stage-c — `.stage-c .pillar-dot { background: var(--ui-accent) }` (1.1:1 → 9.98:1 AAA).
+- **Gemini 3.1 Pro:** Review + re-eval pos-fix. Score 9/10, verdict PASS.
+- **s-a1-classify:** Revertido DONE → LINT-PASS (QA prematuro, sem pipeline 5-stage).
+- **Deferido:** Font woff2 fallback (Vite base path) — registrado em NOTES.md.
+- **Estado:** DONE=1 (s-title), LINT-PASS=3 (s-hook, s-a1-01, s-a1-classify), CONTENT=7.
+
+---
+
 ## 2026-03-17 — Audit completo MDs (sessao 2: 5 fixes WT + 42 main registrados)
 
 - **_manifest.js:** Headline sync 44/44 — 9 accents fixados (Act 3 + CP3 + close), 1 semantic fix (s-a1-fib4: "Estadiar precoce..." → "4 dados. 1 número. 1 decisão.").

@@ -93,40 +93,43 @@ Gemini so sugere (JSON spec) — Opus executa fix.
 
 ## Act 1 — QA Loop 1 (baseline 14/mar, atualizado 17/mar)
 
-**Status QA (este doc):** 1 PASS (s-a1-classify, 14 dims >= 9), 1 PASS archetype-adjusted (s-title), 1 PASS archetype-adjusted (s-hook, dims >= 8), restante em scoring.
-**Status maquina de estados (HANDOFF/WT-OPERATING):** 1 DONE, 3 LINT-PASS, 7 CONTENT.
+**Status QA (este doc):** 1 DONE (s-title, QA 5-stage PASS 18/mar), 1 PASS archetype-adjusted (s-hook, dims >= 8), restante em scoring.
+**Status maquina de estados (HANDOFF/WT-OPERATING):** 1 DONE (s-title), 3 LINT-PASS (s-hook, s-a1-01, s-a1-classify), 7 CONTENT.
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
 Metodo: Playwright Chromium headless 1280x720 · `scripts/act1-reaudit.mjs` (25 screenshots, 11 slides)
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
 Evidencia: HTML source code + Playwright metrics (fill ratio, word count, h2 lines, panel overlap, source-tag)
 Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (25 PNGs)
 
-### s-title (00-title.html) — PASS (archetype-adjusted)
+### s-title (00-title.html) — DONE (QA 5-stage PASS)
 
 **Headline:** Cirrose Hepática (h1, não h2 — archetype title)
-**Re-audit:** 16/mar/2026 · Playwright 1280x720 stage-c · Screenshot: `qa-screenshots/s-title.png`
+**QA completo:** 18/mar/2026 · QA.0-QA.4 pipeline + Gemini 3.1 Pro re-eval
+**Screenshots:** `qa-screenshots/s-title/S0-post-fix.png` (1280x720) · `S0-post-fix-fullscreen.png` (1920x1080)
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 7    | h1 dominante, pilares < identity. Hierarquia clara. Sem Von Restorff (esperado title) |
-| T   | 8    | Instrument Serif title, DM Sans pilares/identity. Clamp sizing funcional. Letter-spacing OK |
+| H   | 8    | h1 56px (#deck specificity fix), pilares + identity subordinados. Hierarquia clara |
+| T   | 7    | System font fallback (Vite base path issue, deferido). Clamp sizing funcional |
 | E   | 5 ★ | Fill ~25-30%. Conteudo no terco superior-central. **Intencional por archetype** |
-| C   | 8    | Stage-c: texto escuro em bg claro. var() tokens. Pillar dots visiveis. Contraste alto |
+| C   | 9    | Pillar dots fix: var(--ui-accent) = 9.98:1 AAA. Texto escuro em bg claro. var() tokens |
 | V   | 5 ★ | Texto + brasao. Sem visual de dados. **Intencional por archetype** |
 | K   | 8    | Archetype title consistente com design system |
 | S   | 7    | Limpo. Sem clutter. OKLCH tokens. Sem source-tag (correto) |
 | M   | 5 ★ | h1 = rotulo de topico. **Intencional por archetype** (title nao precisa de assercao) |
 | I   | 9    | Sem interacoes. Estatico |
 | D   | 9    | Sem dados clinicos necessarios |
-| A   | 8    | aria-hidden em dots decorativos. Alt text no brasao. Alto contraste stage-c |
+| A   | 9    | Contraste AAA verificado (MCP a11y). aria-hidden em dots decorativos. Alt text no brasao |
 | L   | 9    | Conceito unico. 17 palavras. Zero extraneous |
 | P   | 6 ★ | Sem decisao clinica. **Intencional por archetype** |
 | N   | 7    | Ancora identidade visual. tensionLevel=0. Nao narrativeCritical |
 
 ★ = intencional por archetype (nao forcar nota 9)
 
-**Status:** PASS (archetype-adjusted). Dims E/V/M/P sao intencionalmente baixos para title slide.
-**Gemini audit (pendente):** Avaliar centralização vertical (conteudo ligeiramente acima do centro), coesão do bloco texto (gap pilares→identity), e impacto visual geral do title em projeção real.
+**Status:** DONE. QA 5-stage pipeline completo com checkpoints humanos.
+**Fixes aplicados:** ERRO-036 (h1 specificity #deck), ERRO-037 (pillar dots stage-c).
+**Gemini 3.1 Pro:** PASS 9/10 (re-eval pos-fix). Zero novos issues.
+**Deferido:** Font woff2 fallback (Vite base path — registrado em NOTES.md [18/03]).
 
 ### s-hook (01-hook.html)
 

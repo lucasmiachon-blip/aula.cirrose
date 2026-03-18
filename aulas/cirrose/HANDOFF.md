@@ -4,15 +4,16 @@
 
 ---
 
-## Estado atual — 2026-03-17 (QA pipeline ativo)
+## Estado atual — 2026-03-18 (QA pipeline ativo)
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 35/35 corrigidos, 0 pendentes.
-**QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini.
+**ERROR-LOG:** 37/37 corrigidos, 0 pendentes.
+**QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script:** `scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
 **Visual Audit MCPs:** gemini, a11y-contrast, frontend-review, chrome-devtools configurados em `.mcp.json`.
+**Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). API REST direta.
 **Ultimo merge main:** `bfb3268` (2026-03-17) — governance hardening (624ebec), evolve patches (2f9e909), GSAP 3.14.2, rules split deck-patterns/reveal-legacy. Zero Classe C.
 
 ---
@@ -26,10 +27,10 @@
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 1 | s-title | QA | CSS fix aplicado (h1 38→56px, specificity #deck). QA pipeline pendente — gates 0-4 nao completados. |
+| 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | LINT-PASS | v8 polish 16/mar. Archetype-adjusted (14 dims >= 8). Sem aprovacao humana QA. |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
-| 4 | s-a1-classify | DONE | QA PASS 17/mar. 14 dims >= 9. Warning icon fix (E15). |
+| 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
 | 7 | s-a1-baveno | CONTENT | Hero-stat. Conteudo completo, PMIDs em notes. |

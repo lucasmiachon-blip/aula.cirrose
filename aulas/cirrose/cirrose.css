@@ -933,6 +933,11 @@
   flex-shrink: 0;
 }
 
+/* Stage-c: --ui-accent-light is L=92%, bg is L=93% → invisible. Use --ui-accent (L=35%) */
+.stage-c .title-pillars .pillar-dot {
+  background: var(--ui-accent);
+}
+
 /* Identity */
 .title-identity {
   display: flex;
