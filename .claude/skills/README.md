@@ -9,6 +9,8 @@
 | `assertion-evidence` | Valida formato Alley model (não implementa) | Ao editar/revisar `aulas/*/slides/*.html` |
 | `medical-data` | Verifica dados clínicos — trial, effect size, PMID | Ao adicionar qualquer claim numérico |
 | `evidence` | Busca PubMed — RCT, meta-análise, guideline | "preciso de PMID para X" |
+| `medical-researcher` | Orquestrador multi-MCP — 4 agentes paralelos, triangulação, rubrica de profundidade | "pesquisa profunda", "deep research", "avaliar profundidade" |
+| `sync-evidence` | Persiste achados do researcher em evidence-db.md + Notion (opcional) | "sincronizar evidencias", "sync evidence", "salvar pesquisa" |
 | `new-slide` | Cria HTML completo com template correto | "criar slide sobre X" |
 | `review` | Auditoria multi-agent com confidence scoring (v0.4, parametrizado por aula) | "revise os slides" |
 | `final-pass` | Avaliação final deck completo via Gemini (cross-slide, narrativa, ritmo) | "final pass", "acabamento", "deck pronto?" |
@@ -30,10 +32,12 @@
 
 | Padrão | Origem | Skills que usam |
 |--------|--------|----------------|
-| Multi-agent paralelo + confidence scoring | code-review-agents (Anthropic) | `review` |
+| Multi-agent paralelo + confidence scoring | code-review-agents (Anthropic) | `review`, `medical-researcher` |
 | Lazy loading (frontmatter only no startup) | Context7 (Upstash) | `context7`, `mem-search` |
 | 3-step token-efficient search | claude-mem (thedotmack) | `mem-search` |
 | Comitê de votação (≥3/4 para aprovar patch) | Adversarial review pattern | `evolve` |
+| Fan-out paralelo + consolidação + report | research-agent (Anthropic SDK demos) | `medical-researcher` |
+| Rubrica de profundidade 8-dim + triangulação | Evidence-based medicine (GRADE) | `medical-researcher` |
 | Plan-first + ask-if-unsure | manthanabc/paws + Olshansky | `resolve-conflict` |
 | GTD 3-item focus limit | Raven GTD (mcpmarket) | `gtd` |
 

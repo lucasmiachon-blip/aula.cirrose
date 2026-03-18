@@ -95,6 +95,8 @@ disable-model-invocation: true  # opcional — só invocação manual
 | `docs-audit` | 0.2.0 | fork / general-purpose | Read, Grep, Glob | Audita docs/*.md: links, redundância, token economy |
 | `review` | 0.2.0 | fork / Explore | Read, Grep, Glob | Audita slides: PASS/WARN/FAIL por dimensão |
 | `evidence` | 0.2.0 | fork / general-purpose | Read, WebSearch | Busca evidências PubMed → citação AMA + dados slide |
+| `medical-researcher` | 1.0.0 | fork / general-purpose | Read, Grep, Glob, Agent, WebSearch, WebFetch | Orquestrador multi-MCP: 4 agentes paralelos, triangulação, rubrica profundidade 8-dim |
+| `sync-evidence` | 1.0.0 | fork / general-purpose | Read, Write, Grep, Glob, Agent | Ponte pesquisa→persistência: evidence-db.md + Notion (opcional, via reference-manager) |
 | `new-slide` | — | — | — | Cria slide HTML completo com archetype correto |
 | `export` | — | — | — | Exporta slides para PDF/compartilhamento |
 | `context7` | — | — | Read, Grep, Glob | Injeta docs de libs no contexto (GSAP, Reveal, Vite, OKLCH) |
