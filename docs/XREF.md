@@ -82,6 +82,19 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | metanalise-scope.md | (autônomo) | ← README.md |
 | archive/pipeline/README.md | (pipeline humano — arquivado) | ← SUBAGENTS.md |
 
+### docs/prompts/ e docs/external/
+
+| Arquivo | Referencia | Referenciado por |
+|---------|-----------|-----------------|
+| prompts/weekly-updates.md | (prompt template) | ← README.md |
+| prompts/research-best-practices.md | (prompt template) | ← README.md |
+| prompts/gemini-deck-audit.md | (prompt template — Gemini) | ← README.md |
+| prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
+| prompts/gemini-transcript-comparison.md | (prompt template — Gemini) | ← README.md |
+| prompts/openai-backward-design.md | (prompt template — OpenAI) | ← README.md |
+| prompts/openai-canvas-storyboard.md | (prompt template — OpenAI) | ← README.md |
+| external/11-long-context-auditor.md | (tool spec — Gemini long-context) | ← README.md |
+
 ### .claude/hooks/ (safety gates — determinísticos)
 
 | Arquivo | Wired em settings.json | Função |
@@ -132,10 +145,10 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 |---------|-----------|-----------------|
 | CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md | ← CLAUDE.md (projects table) |
 | HANDOFF.md | (não existe — criar quando slides iniciarem) | — |
-| references/narrative.md | (canônico narrativa) | ← CLAUDE.md aula, blueprint.md |
-| references/evidence-db.md | (canônico dados clínicos) | ← blueprint.md, slides/ |
-| references/blueprint.md | → narrative.md, evidence-db.md | ← HANDOFF.md |
-| slides/_manifest.js | (canônico ordem/metadata slides) | ← lint:narrative-sync, index.html |
+| references/narrative.md | (não existe — criar com slides) | ← CLAUDE.md aula |
+| references/evidence-db.md | (não existe — criar com slides) | ← slides/ |
+| references/blueprint.md | (não existe — criar com slides) | ← HANDOFF.md |
+| slides/_manifest.js | (não existe — criar com slides) | ← lint:narrative-sync |
 
 ### Arquivados (docs/archive/)
 
