@@ -256,11 +256,11 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 
 - **Main:** NAO absorver no momento. Ultimo merge: bfb3268.
 - **Push:** Quando seguro — rodar `npm run done:cirrose` (ou `:strict`). Gate 2 (screenshots) pode WARN em iteracao.
-- **Working tree:** LIMPA (fib4calc descartado via `git restore`).
+- **Working tree:** LIMPA.
 - **Build+Lint:** PASS (44 slides).
 - **Fantasma s-a1-01:** Main tem versão "burden" OBSOLETA. WT tem versão "rastreio" CANÔNICA. Ver NOTES.md [17/03]. NUNCA copiar de main.
-- **WT-OPERATING.md:** CRIADO — maquina de estados + QA loop 5-stage com Gemini. Substituiu QA-WORKFLOW.md como processo operacional.
+- **WT-OPERATING.md:** Prompt operacional — maquina de estados + QA loop 5-stage com Gemini.
 - **QA Act 1:** s-a1-classify = DONE (unico). 3 LINT-PASS (s-title, s-hook, s-a1-01). 7 CONTENT. Workflow: WT-OPERATING.md secao 4.
 - **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
 - **Proximo slide:** s-title (LINT-PASS → QA). Apresentar QA.0 ao Lucas.
-- **MCP fix (17/mar):** `scripts/mcp-switch.js` agora resolve `${PROJECT_DIR}` e aplica `cmd /c` wrapper para Windows. `.mcp.json` regenerado via `npm run mcp:dev`.
+- **Audit MD (17/mar):** 3 fixes aplicados nesta WT (C3 AUDIT-VISUAL header, L4 HANDOFF-CLAUDE-AI ref, M2 MEMORY). 6 issues pendentes em main (C1 metanalise fantasma, C2 css-errors contagem, M1/M3/M4 SKILLS+XREF+README, L3 versoes skills).

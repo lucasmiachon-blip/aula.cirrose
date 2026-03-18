@@ -93,7 +93,7 @@ Gemini so sugere (JSON spec) — Opus executa fix.
 
 ## Act 1 — QA Loop 1 Baseline (14/mar/2026)
 
-**Status: BASELINE (nenhum slide PASS)**
+**Status: 2 PASS (s-title archetype-adjusted, s-a1-classify), 1 PASS COM RISCO (s-hook), restante em scoring**
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
 Metodo: Playwright Chromium headless 1280x720 · `scripts/act1-reaudit.mjs` (25 screenshots, 11 slides)
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS

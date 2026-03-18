@@ -33,7 +33,7 @@
 | Changelog | `aulas/cirrose/CHANGELOG.md` |
 | Erros + regras | `aulas/cirrose/ERROR-LOG.md` |
 | Audit visual | `aulas/cirrose/AUDIT-VISUAL.md` |
-| QA tooling (ref) | `aulas/cirrose/QA-WORKFLOW.md` (deprecated — processo em WT-OPERATING) |
+| QA tooling (ref) | `aulas/cirrose/QA-WORKFLOW.md` — **deprecated:** processo QA atual em `WT-OPERATING.md` secao 4 |
 | Dados paciente | `aulas/cirrose/references/CASE.md` |
 | Trials/PMIDs | `aulas/cirrose/references/evidence-db.md` |
 | Arco narrativo | `aulas/cirrose/references/narrative.md` |

@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-03-17 — Audit de inconsistencias MDs (3 fixes WT)
+
+- **AUDIT-VISUAL.md:** Status header corrigido — "BASELINE (nenhum PASS)" → "2 PASS (s-title, s-a1-classify), 1 PASS COM RISCO (s-hook)". Stale desde 14/mar.
+- **HANDOFF-CLAUDE-AI.md:** Referencia QA-WORKFLOW clarificada — aponta explicitamente para WT-OPERATING.md secao 4.
+- **MEMORY.md:** Corrigido ghost skill count — audit-rules existe (18 skills, 3 ghosts, nao 4).
+- **Pendente em main (6 issues):** C1 metanalise fantasma (CLAUDE.md/XREF/README), C2 css-errors contagem 35→32, M1 retro em SKILLS.md, M3 XREF revisao stale, M4 README link metanalise-scope, L3 versoes em SKILLS.md.
+
+---
+
 ## 2026-03-17 — WT-OPERATING.md: maquina de estados + QA loop Gemini
 
 - **WT-OPERATING.md:** Criado — prompt operacional por WT. Define maquina de estados (BACKLOG→DONE), checklists de transicao, QA 5-stage com Gemini multimodal, anti-drift embutido, protocolo de sessao.
