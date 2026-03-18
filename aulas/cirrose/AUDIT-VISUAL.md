@@ -5,7 +5,7 @@
 > Rubrica: **14 dimensoes**, scoring 1-10 (min 9 para PASS).
 > Metodo: Playwright screenshot 1280x720 por estado (S0..SN) + constraint check + checklist.
 > Referencia: AASLD/EASL Postgraduate Course slides + Duarte Sparkline + Sweller CLT + Knowles.
-> Atualizado: 2026-03-14 — rubrica expandida de 8 (H/T/E/C/V/K/S/M) para 14 dimensoes (+ I/D/A/L/P/N).
+> Atualizado: 2026-03-17 — rubrica 14 dimensoes (H/T/E/C/V/K/S/M/I/D/A/L/P/N). Expandida em 14/mar.
 
 ---
 
@@ -91,9 +91,10 @@ Gemini so sugere (JSON spec) — Opus executa fix.
 
 ---
 
-## Act 1 — QA Loop 1 Baseline (14/mar/2026)
+## Act 1 — QA Loop 1 (baseline 14/mar, atualizado 17/mar)
 
-**Status: 2 PASS (s-title archetype-adjusted, s-a1-classify), 1 PASS COM RISCO (s-hook), restante em scoring**
+**Status QA (este doc):** 1 PASS (s-a1-classify, 14 dims >= 9), 1 PASS archetype-adjusted (s-title), 1 PASS archetype-adjusted (s-hook, dims >= 8), restante em scoring.
+**Status maquina de estados (HANDOFF/WT-OPERATING):** 1 DONE, 3 LINT-PASS, 7 CONTENT.
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
 Metodo: Playwright Chromium headless 1280x720 · `scripts/act1-reaudit.mjs` (25 screenshots, 11 slides)
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS

@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-03-17 — Audit completo MDs (sessao 2: 5 fixes WT + 42 main registrados)
+
+- **_manifest.js:** Headline sync 44/44 — 9 accents fixados (Act 3 + CP3 + close), 1 semantic fix (s-a1-fib4: "Estadiar precoce..." → "4 dados. 1 número. 1 decisão.").
+- **AUDIT-VISUAL.md:** Status header reconciliado com WT-OPERATING — dual label (QA scoring + maquina de estados). Data rubrica 14/mar → 17/mar.
+- **HANDOFF.md:** RAW_ACT2/ACT3/ACT3-CONTRACT marcados como referencia historica. Secao "Pendencias main-scope" adicionada (42 issues em 3 prioridades).
+- **42 issues main-scope** registrados em HANDOFF: 5 criticos, 7 altos, 10 medios. Corrigir em sessao main com excecao documental.
+
+---
+
 ## 2026-03-17 — Audit de inconsistencias MDs (3 fixes WT)
 
 - **AUDIT-VISUAL.md:** Status header corrigido — "BASELINE (nenhum PASS)" → "2 PASS (s-title, s-a1-classify), 1 PASS COM RISCO (s-hook)". Stale desde 14/mar.

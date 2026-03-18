@@ -218,9 +218,9 @@ Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 | Trials e PMIDs | `references/evidence-db.md` (#2 autoridade) |
 | Arco narrativo + pacing | `references/narrative.md` (#3 autoridade) |
 | Ordem dos slides | `slides/_manifest.js` (#4 autoridade) |
-| Blueprint Act 2 detalhado | `RAW_ACT2_V2.md` |
-| Blueprint Act 3 detalhado | `RAW_ACT3_V1.md` |
-| Contrato Act 3 | `ACT3-CONTRACT-V1.md` |
+| Blueprint Act 2 detalhado | `RAW_ACT2_V2.md` (referencia historica — decisoes travadas acima) |
+| Blueprint Act 3 detalhado | `RAW_ACT3_V1.md` (referencia historica) |
+| Contrato Act 3 | `ACT3-CONTRACT-V1.md` (referencia historica) |
 | Regras operacionais | `CLAUDE.md` (cirrose) |
 | Design tokens | `.claude/rules/design-system.md` |
 | Erros e prevenção | `ERROR-LOG.md` |
@@ -263,4 +263,47 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 - **QA Act 1:** s-a1-classify = DONE (unico). 3 LINT-PASS (s-title, s-hook, s-a1-01). 7 CONTENT. Workflow: WT-OPERATING.md secao 4.
 - **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
 - **Proximo slide:** s-title (LINT-PASS → QA). Apresentar QA.0 ao Lucas.
-- **Audit MD (17/mar):** 3 fixes aplicados nesta WT (C3 AUDIT-VISUAL header, L4 HANDOFF-CLAUDE-AI ref, M2 MEMORY). 6 issues pendentes em main (C1 metanalise fantasma, C2 css-errors contagem, M1/M3/M4 SKILLS+XREF+README, L3 versoes skills).
+- **Audit MD (17/mar sessao 2):** 8 WT-fixes aplicados (M1-M5 desta sessao + 3 anteriores). 42 issues main-scope registrados abaixo.
+
+---
+
+## Pendencias main-scope (audit 17/mar — 42 issues)
+
+> Detectados por auditoria completa (7 agentes, 2 rodadas). Corrigir em sessao main com excecao documental.
+
+### Critico (main)
+
+| # | Arquivo | Issue |
+|---|---------|-------|
+| C1 | `docs/README.md` | Ref `aulas/metanalise/HANDOFF.md` — arquivo nao existe |
+| C2 | `CLAUDE.md` root | Metanalise: "18 slides" — realidade: 0 HTML |
+| C3 | `docs/XREF.md` | Falta `WT-OPERATING.md` no mapa |
+| C4 | `docs/XREF.md` | Falta `.claude/rules/README.md` na tabela |
+| C5 | `docs/MCP-ACADEMICOS.md` | 90% incompleto (5 de ~20 MCPs) |
+
+### Alto (main)
+
+| # | Area | Issue |
+|---|------|-------|
+| H1 | `tasks/lessons.md` | 3 lessons missing: deck.js bg pattern, pseudo+flex conflict, .no-js failsafe |
+| H2 | `tasks/lessons.md` | 4 duplicacoes com rules (CSS selector, PMID, operational timing, build artifact) |
+| H3 | Skills | 4 bloated: ralph-qa (317L), evolve (295L), final-pass (290L), context7 (256L) — ~5600 tokens |
+| H4 | Skills | 2 deprecated sem `deprecated: true` no frontmatter (assertion-evidence, medical-data) |
+| H5 | `docs/ECOSYSTEM.md` | MCP table dessinc com .mcp.json |
+| H6 | `docs/SETUP.md` | Path ~/Library em secao Windows; .env incompleto |
+| H7 | `docs/slide-pedagogy.md` | Wolfe 2024 + Hales 2017 marcados [VERIFICAR] nunca verificados |
+
+### Medio (main)
+
+| # | Area | Issue |
+|---|------|-------|
+| M1 | `tasks/lessons.md` | 4 stale items (ChatGPT 5.4 ref, Issue #17283, rule mapping, path convention) |
+| M2 | `tasks/lessons.md` | 3 verbosity cuts (Auditoria Batches 40→3L, Sessao Infra 50L, append-only rigido) |
+| M3 | `tasks/lessons.md` | 3 cross-refs faltando (ERROR-LOG links, medical-data.md, SUBAGENTS.md) |
+| M4 | Skills gtd | 205 linhas — comprimir core para ~100L |
+| M5 | `docs/MCP-ENV-VARS.md` | Falta PERPLEXITY, SEMANTIC_SCHOLAR |
+| M6 | `docs/XREF.md` | 5 arquivos metanalise listados como existentes (aspiracional) |
+| M7 | `docs/XREF.md` | 8 prompts/external/ omitidos |
+| M8 | `docs/SKILLS.md` | 1 ghost skill dir (19 dirs vs 18 listadas) |
+| M9 | `docs/README.md` | grade/osteoporose HANDOFFs sem markdown links |
+| M10 | `docs/metanalise-scope.md:4` | Ref aspiracional a narrative.md nao existente |
