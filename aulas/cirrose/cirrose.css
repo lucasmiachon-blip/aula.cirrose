@@ -13,7 +13,7 @@
   align-items: center;
   text-align: center;
 }
-.slide-title h1 {
+#deck .slide-title h1 {
   font-size: var(--text-hero);
   max-width: 18ch;
   margin: 0 auto;

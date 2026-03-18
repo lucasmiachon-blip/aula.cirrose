@@ -96,15 +96,17 @@ Entrar no QA loop (secao 4). Nao ha checklist — e o loop inteiro.
 
 - [ ] Todos sub-stages QA PASS (ou max iteracoes + NOTES.md)
 - [ ] AUDIT-VISUAL.md scorecard atualizado (14 dims)
+- [ ] ERROR-LOG.md atualizado (se erro novo encontrado durante QA)
 - [ ] HANDOFF.md estado = DONE
 - [ ] CHANGELOG.md entry
+- [ ] **→ CHECKPOINT:** apresentar docs updates ao Lucas, esperar OK
 - [ ] Commit: `fix(cirrose): s-{id} QA pass — {resumo}`
 
 ---
 
 ## 4. QA Sub-Loop (dentro do estado QA)
 
-5 sub-stages, 5 checkpoints humanos. Agente NAO avanca sem OK do Lucas.
+5 sub-stages, **6 checkpoints humanos** (QA.4 tem checkpoint antes de DONE). Agente NAO avanca sem OK do Lucas.
 
 ```
 QA.0 CONTENT AUDIT
@@ -120,7 +122,11 @@ QA.3 VISUAL AUDIT (Gemini multimodal)
   → CHECKPOINT LUCAS
 
 QA.4 FIX + RE-AUDIT
-  → DONE quando convergir (max 3 iteracoes)
+  → CHECKPOINT LUCAS (apresentar resultado re-audit)
+
+DOCS + COMMIT
+  → CHECKPOINT LUCAS (aprovar cada doc update)
+  → DONE
 ```
 
 ### QA.0 — Content Audit
@@ -286,6 +292,9 @@ Aplicar fixes aprovados por Lucas:
 - Registrar issues remanescentes em NOTES.md
 - Marcar slide como DONE com ressalvas no AUDIT-VISUAL.md
 - Mover para proximo slide
+
+**Output:** scorecard re-auditado + diff visual.
+**→ CHECKPOINT:** apresentar ao Lucas, esperar OK antes de atualizar docs.
 
 ---
 

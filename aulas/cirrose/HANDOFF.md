@@ -26,7 +26,7 @@
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 1 | s-title | LINT-PASS | Navy bg via CSS, polish 15/mar. Sem QA formal. |
+| 1 | s-title | QA | CSS fix aplicado (h1 38→56px, specificity #deck). QA pipeline pendente — gates 0-4 nao completados. |
 | 2 | s-hook | LINT-PASS | v8 polish 16/mar. Archetype-adjusted (14 dims >= 8). Sem aprovacao humana QA. |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
 | 4 | s-a1-classify | DONE | QA PASS 17/mar. 14 dims >= 9. Warning icon fix (E15). |
@@ -91,7 +91,8 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 1 | s-a1-classify |
-| LINT-PASS | 3 | s-title, s-hook, s-a1-01 |
+| QA | 1 | s-title (CSS fix aplicado, gates pendentes) |
+| LINT-PASS | 2 | s-hook, s-a1-01 |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
 
@@ -260,10 +261,10 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 - **Build+Lint:** PASS (44 slides).
 - **Fantasma s-a1-01:** Main tem versão "burden" OBSOLETA. WT tem versão "rastreio" CANÔNICA. Ver NOTES.md [17/03]. NUNCA copiar de main.
 - **WT-OPERATING.md:** Prompt operacional — maquina de estados + QA loop 5-stage com Gemini.
-- **QA Act 1:** s-a1-classify = DONE (unico). 3 LINT-PASS (s-title, s-hook, s-a1-01). 7 CONTENT. Workflow: WT-OPERATING.md secao 4.
+- **QA Act 1:** s-a1-classify = DONE (unico). s-title = QA (CSS fix aplicado, gates pendentes). 2 LINT-PASS (s-hook, s-a1-01). 7 CONTENT. Workflow: WT-OPERATING.md secao 4.
 - **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
 - **Headline sync:** 44/44 manifest ↔ HTML (Act 3 accents + s-a1-fib4 semantic fix).
-- **Proximo slide:** s-title (LINT-PASS → QA). Apresentar QA.0 ao Lucas.
+- **Proximo slide:** s-title (QA gates 0-4 pendentes). Apresentar QA.0 ao Lucas.
 
 ---
 
