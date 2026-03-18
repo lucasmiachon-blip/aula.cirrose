@@ -1,9 +1,13 @@
 # QA Workflow — Cirrose
 
-> Operacional. Descreve o pipeline completo de QA visual, slide a slide, ato a ato.
+> **DEPRECATED:** O loop de QA agora faz parte do `WT-OPERATING.md` (secao 4).
+> Este arquivo mantido como referencia historica do tooling e execution logs.
+> Para o processo atual, ler `WT-OPERATING.md`.
+
+> ~~Operacional. Descreve o pipeline completo de QA visual, slide a slide, ato a ato.~~
 > Threshold: todas 14 dimensoes >= 9 para PASS. Archetype-adjusted para title/hook/checkpoint.
 > Ferramentas: Playwright, Claude Vision, Gemini MCP, a11y-contrast MCP.
-> Criado: 2026-03-16. Autor: Lucas + Opus 4.6.
+> Criado: 2026-03-16. Autor: Lucas + Opus 4.6. Deprecated: 2026-03-17.
 
 ---
 

@@ -10,12 +10,81 @@
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
 **ERROR-LOG:** 35/35 corrigidos, 0 pendentes.
-**QA Act 1:** Fase 1 DONE (27 screenshots capturados, 11 slides). Fase 2 em andamento (per-slide audit).
-**QA Act 2/3:** ⏳ Bloqueado por Act 1 PASS.
-**QA Workflow:** `QA-WORKFLOW.md` — pipeline 4 fases (batch screenshot → per-slide loop → dynamic gate → deck-level Gemini).
+**QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini.
 **QA Script:** `scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
 **Visual Audit MCPs:** gemini, a11y-contrast, frontend-review, chrome-devtools configurados em `.mcp.json`.
 **Ultimo merge main:** `bfb3268` (2026-03-17) — governance hardening (624ebec), evolve patches (2f9e909), GSAP 3.14.2, rules split deck-patterns/reveal-legacy. Zero Classe C.
+
+---
+
+## Estado dos Slides (maquina de estados — WT-OPERATING.md)
+
+> Estados: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE
+> Verificar 1 a 1 antes de registrar. Nao assumir.
+
+### Pre-Act + Act 1
+
+| # | Slide | Estado | Notas |
+|---|-------|--------|-------|
+| 1 | s-title | LINT-PASS | HTML completo, sem [TBD]. Nunca passou QA formal. |
+| 2 | s-hook | LINT-PASS | v8 polish. Archetype-adjusted (14 dims >= 8). Sem aprovacao humana QA. |
+| 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Sem QA formal. Ghost canary protege. |
+| 4 | s-a1-classify | DONE | QA PASS 17/mar. 14 dims >= 9. Warning icon fix (E15). |
+| 5 | s-a1-vote | CONTENT | HTML completo, poll archetype. Sem sync check. |
+| 6 | s-a1-damico | CONTENT | HTML completo, flow archetype. CSS compactado (fill fix). |
+| 7 | s-a1-baveno | CONTENT | HTML completo. |
+| 8 | s-a1-fib4 | CONTENT | HTML completo. h2 mnemonico (Lucas decide). |
+| 9 | s-a1-rule5 | CONTENT | HTML completo, flow archetype. |
+| 10 | s-a1-meld | CONTENT | HTML completo. MELD-Na calc interativo. |
+| 11 | s-cp1 | CONTENT | Checkpoint. narrativeCritical. Inline style fix. |
+
+### Act 2
+
+| # | Slide | Estado | Notas |
+|---|-------|--------|-------|
+| 12 | s-a2-01 | DRAFT | Esqueleto HTML. |
+| 13 | s-a2-02 | DRAFT | Esqueleto HTML. |
+| 14 | s-a2-03 | DRAFT | Esqueleto HTML. |
+| 15 | s-a2-04 | DRAFT | Esqueleto HTML (migrado de Act 1). |
+| 16 | s-a2-05 | DRAFT | Esqueleto HTML. |
+| 17 | s-a2-06 | DRAFT | Esqueleto HTML. |
+| 18 | s-a2-07 | DRAFT | Esqueleto HTML. |
+| 19 | s-a2-08 | DRAFT | Esqueleto HTML. |
+| 20 | s-a2-09 | DRAFT | Esqueleto HTML. |
+| 21 | s-a2-10 | DRAFT | Esqueleto HTML. |
+| 22 | s-a2-11 | DRAFT | Esqueleto HTML. |
+| 23 | s-a2-12 | DRAFT | Esqueleto HTML. |
+| 24 | s-a2-13 | DRAFT | Esqueleto HTML (migrado de appendix). |
+| 25 | s-a2-14 | DRAFT | Esqueleto HTML (migrado de appendix). |
+| 26 | s-a2-15 | DRAFT | Esqueleto HTML. |
+| 27 | s-cp2 | DRAFT | Checkpoint. narrativeCritical. |
+
+### Act 3
+
+| # | Slide | Estado | Notas |
+|---|-------|--------|-------|
+| 28 | s-a3-01 | DRAFT | Esqueleto HTML. |
+| 29 | s-a3-02 | DRAFT | Esqueleto HTML. |
+| 30 | s-a3-03 | DRAFT | Esqueleto HTML. |
+| 31 | s-a3-04 | DRAFT | Esqueleto HTML. |
+| 32 | s-a3-05 | DRAFT | Esqueleto HTML. |
+| 33 | s-a3-06 | DRAFT | Esqueleto HTML. |
+| 34 | s-a3-07 | DRAFT | Esqueleto HTML. |
+| 35 | s-cp3 | DRAFT | Checkpoint. narrativeCritical. |
+| 36 | s-close | DRAFT | Recap. narrativeCritical. |
+
+### Appendix
+
+| # | Slide | Estado | Notas |
+|---|-------|--------|-------|
+| 37 | s-app-01 | DRAFT | ACLF. |
+| 38 | s-app-02 | DRAFT | Early TIPS. |
+| 39 | s-app-03 | DRAFT | ABCW. |
+| 40 | s-app-04 | DRAFT | NSBB. |
+| 41 | s-app-alb | DRAFT | Albumina. |
+| 42 | s-app-07 | DRAFT | Estatina. |
+| 43 | s-app-08 | DRAFT | CIRROXABAN. |
+| 44 | s-app-etio | DRAFT | Etiologias. |
 
 ---
 
@@ -174,5 +243,7 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 - **Working tree:** LIMPA (fib4calc descartado via `git restore`).
 - **Build+Lint:** PASS (44 slides).
 - **Fantasma s-a1-01:** Main tem versão "burden" OBSOLETA. WT tem versão "rastreio" CANÔNICA. Ver NOTES.md [17/03]. NUNCA copiar de main.
-- **QA Act 1:** Reaudit do zero em andamento. Nenhum slide tem aprovação humana final. Workflow: audit → fix → re-audit → docs → commit → plan entre slides.
+- **WT-OPERATING.md:** CRIADO — maquina de estados + QA loop 5-stage com Gemini. Substituiu QA-WORKFLOW.md como processo operacional.
+- **QA Act 1:** s-a1-classify = DONE (unico). 10 slides restantes em CONTENT ou LINT-PASS. Workflow: WT-OPERATING.md secao 4.
+- **Proximo slide:** s-title (LINT-PASS → QA). Apresentar QA.0 ao Lucas.
 - **MCP fix (17/mar):** `scripts/mcp-switch.js` agora resolve `${PROJECT_DIR}` e aplica `cmd /c` wrapper para Windows. `.mcp.json` regenerado via `npm run mcp:dev`.

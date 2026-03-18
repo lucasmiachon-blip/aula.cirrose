@@ -40,10 +40,11 @@
 ## Documentação (ordem de leitura)
 
 1. **CLAUDE.md** ← você está aqui (regras)
-2. **HANDOFF.md** — Pendências projeto · **HANDOFF-CLAUDE-AI.md** — Claude.ai (paths)
-3. **CHANGELOG.md** — Histórico de batches (read-only, append-only)
-4. **ERROR-LOG.md** — Erros por sessão → regras (atualizar a cada sessão)
-5. **AUDIT-VISUAL.md** — Auditoria visual 44 slides × 14 dimensões
+2. **WT-OPERATING.md** — Maquina de estados + QA loop (ler no inicio de TODA sessao)
+3. **HANDOFF.md** — Pendências projeto · **HANDOFF-CLAUDE-AI.md** — Claude.ai (paths)
+4. **CHANGELOG.md** — Histórico de batches (read-only, append-only)
+5. **ERROR-LOG.md** — Erros por sessão → regras (atualizar a cada sessão)
+6. **AUDIT-VISUAL.md** — Auditoria visual 44 slides × 14 dimensões
 
 ## Reference Hierarchy
 

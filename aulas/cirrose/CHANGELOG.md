@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-03-17 — WT-OPERATING.md: maquina de estados + QA loop Gemini
+
+- **WT-OPERATING.md:** Criado — prompt operacional por WT. Define maquina de estados (BACKLOG→DONE), checklists de transicao, QA 5-stage com Gemini multimodal, anti-drift embutido, protocolo de sessao.
+- **QA-WORKFLOW.md:** Deprecated — redireciona para WT-OPERATING.md. Mantido como referencia de tooling e execution logs.
+- **HANDOFF.md:** Tabela de estado dos 44 slides na maquina de estados. s-a1-classify = DONE (unico). 3 slides LINT-PASS. 7 slides CONTENT. 33 slides DRAFT.
+- **CLAUDE.md:** WT-OPERATING.md adicionado ao reading order (posicao 2).
+
+---
+
 ## 2026-03-17 — Ghost canary: trava anti-fantasma (3 camadas)
 
 - **aulas/cirrose/.ghost-canary:** Arquivo declarativo com padroes proibidos por slide (extensivel — 1 linha por fantasma).
