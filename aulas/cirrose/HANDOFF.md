@@ -254,16 +254,13 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-18, sessao 2)
+## Onde paramos (2026-03-18, sessao 3)
 
-- **Main:** Absorvido d7f91b9. Auditoria completa do ecossistema documental (4 agentes paralelos).
-- **Audit:** 26 issues corrigidos em 3 commits (c543a16, 755f89c, b0db811). P0-P5 resolvidos.
-- **Gemini prompt:** QA.3 atualizado com 3 partes: visual + estetica + interacoes/JS. Anti-PPTX.
-- **Build+Lint:** PASS (44 slides).
-- **QA pipeline:** s-title DONE. s-hook = QA (QA.0-QA.2 PASS, pendente QA.3). Re-enviar com template atualizado (E42).
-- **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
-- **Headline sync:** 44/44 manifest ↔ HTML.
-- **Proximo:** s-hook QA.3 (Gemini multimodal).
+- **Sessao 3:** Diagnostico WT + truthfulness fixes (docs only, zero slides).
+- **Corrigido:** s-hook estado (QA, nao LINT-PASS), MCPs fantasma removidos, contagem 12→8, merge SHA atualizado, Gemini 2.5 removido de WT-OPERATING.
+- **Build+Lint:** PASS (44 slides). Nao re-rodado (zero mudanca em slides/CSS/JS).
+- **QA pipeline:** s-title DONE. s-hook = QA (QA.0-QA.2 PASS, pendente QA.3).
+- **Proximo:** s-hook QA.3 (Gemini multimodal). Re-enviar com template atualizado (E42).
 
 ---
 

@@ -356,13 +356,13 @@ node aulas/cirrose/scripts/qa-batch-screenshot.mjs --act A1
 
 ### Gemini MCP
 
-Modelos disponiveis (Tier 1):
+Modelo unico (decisao Lucas 2026-03-18):
 
-| Modelo | Uso recomendado |
-|--------|-----------------|
-| gemini-2.5-flash | Per-slide visual audit (rapido, barato) |
-| gemini-2.5-pro | Analise profunda se flash insuficiente |
-| gemini-3.1-pro-preview | Deck-level cross-slide (melhor visual reasoning) |
+| Modelo | Uso |
+|--------|-----|
+| gemini-3.1-pro-preview | SEMPRE. Per-slide e deck-level. API REST direta. |
+
+> Gemini 2.5-flash e 2.5-pro descontinuados para este projeto.
 
 ### API Keys
 
@@ -376,7 +376,7 @@ export GEMINI_API_KEY="$(powershell -Command "[System.Environment]::GetEnvironme
 - Texto primario (headlines, valores): >= 7:1 (AAA)
 - Texto secundario (labels, refs): >= 6:1
 - Large text hero: >= 4.5:1 (AA large)
-- Testar com a11y-contrast MCP ou Playwright in-browser calc
+- Testar com a11y MCP (`mcp__a11y__check_color_contrast`) no profile ativo, ou a11y-contrast via profile `qa`
 
 ---
 
