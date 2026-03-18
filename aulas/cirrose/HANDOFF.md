@@ -12,7 +12,7 @@
 **ERROR-LOG:** 40 registrados, 39 corrigidos, 1 processo (E42).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
-**Visual Audit MCPs:** gemini, a11y-contrast, frontend-review, chrome-devtools configurados em `.mcp.json`.
+**Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs (a11y-contrast, design-comparison, floto, chrome-devtools) via profile `qa`. Gemini via API REST direta (nao MCP local).
 **Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). API REST direta.
 **Ultimo merge main:** `d7f91b9` (2026-03-18) — 4 commits: skills (medical-researcher, slide-punch, sync-evidence) + docs. Zero Classe C.
 
@@ -92,7 +92,8 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 1 | s-title |
-| LINT-PASS | 3 | s-hook, s-a1-01, s-a1-classify |
+| QA | 1 | s-hook (QA.0-QA.2 PASS, pendente QA.3) |
+| LINT-PASS | 2 | s-a1-01, s-a1-classify |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
 
@@ -235,7 +236,7 @@ Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 - **attention-insight** (sharp fallback ou API paga)
 - **frontend-review** (Hyperbolic) — before/after visual diff
 
-Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, floto, clinicaltrials, perplexity.
+Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adicional via profile `qa`: design-comparison, floto, a11y-contrast, chrome-devtools. Adicional via profile `full`: ui-ux-pro, clinicaltrials, perplexity, + MCPs de pesquisa.
 
 ---
 
@@ -259,10 +260,10 @@ Stack QA ativo: playwright, lighthouse, a11y, ui-ux-pro, design-comparison, flot
 - **Audit:** 26 issues corrigidos em 3 commits (c543a16, 755f89c, b0db811). P0-P5 resolvidos.
 - **Gemini prompt:** QA.3 atualizado com 3 partes: visual + estetica + interacoes/JS. Anti-PPTX.
 - **Build+Lint:** PASS (44 slides).
-- **QA pipeline:** s-title DONE. s-hook = proximo (QA.0 content audit PASS, falta QA.1+).
+- **QA pipeline:** s-title DONE. s-hook = QA (QA.0-QA.2 PASS, pendente QA.3). Re-enviar com template atualizado (E42).
 - **Deck completo:** 44/44 slides CONTENT ou acima. Zero DRAFT. Zero BACKLOG.
 - **Headline sync:** 44/44 manifest ↔ HTML.
-- **Proximo:** s-hook QA.1 (constraint check).
+- **Proximo:** s-hook QA.3 (Gemini multimodal).
 
 ---
 
