@@ -121,14 +121,14 @@ Editor final criativo. Autoridade total para propor mudancas radicais.
 Primeiro slide de conteudo apos hook. 83% = primeiro numero-impacto do deck. Corroboracao (6.4x, >85%) + convergencia guidelines (3 sociedades).
 
 ### Round context
-Round 5 (re-avaliacao pos-R4). Implementou TODAS 4 propostas do R4 (6.0/10):
-- P1 DONE: Typographic collision fix — hero padding-bottom 0.12em, line-height 0.8, label max-width 16ch + editorial font-size
-- P2 DONE: Reactive metrics — countUp onUpdate triggers metrics when val>=70 (85% progress), causal connection
-- P3 DONE: Subgrid metrics — CSS Grid 1fr 1fr for rigid column alignment (Bloomberg dashboard)
-- P4 RADICAL DONE: Drawer lateral — guideline is full-height right panel (grid 6fr:4fr, zero gap, slides in from x:100% via GSAP power4.out 1.0s). border-radius 24px left-only. Section-tag inside hero-block. Case-panel + guideline cohabit same white panel layer.
-- Specificity fix: section#s-a1-01 beats base.css #slide-viewport specificity.
-- KEPT: Bloomberg hero, SplitText, Flip badge flight, source 13px
-Nota R4: 6.0/10. Objetivo: 8+.
+Round 6 (re-avaliacao pos-R5). Implementou 3 propostas do R5 (4.5/10):
+- P1 DONE: Baseline hero alignment — align-items:baseline on .screening-hero, wider margin hero→label (space-md→space-lg), line-height 0.85. No more text collision.
+- P2 DONE: Editorial drawer — border-radius 0 (was 24px), border-left 1px solid editorial cut, box-shadow REMOVED. Clean vertical division.
+- P3 DONE: Bloomberg metrics — font-mono on values (600 weight), uppercase labels (tracking 0.05em), 2px border-top divider (was 1px faint).
+- P4 RADICAL SKIPPED: Case-panel integration impossible (shared/ read-only in worktree).
+- KEPT from R4/R5: Grid 6fr:4fr, reactive metrics (countUp→70→reveal), SplitText, Flip badge flight, drawer slide-in power4.out, source-tag 13px.
+- Specificity: section#s-a1-01 beats base.css.
+Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5). Objetivo: 8+.
 NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
 
 ### HTML:
@@ -167,11 +167,13 @@ NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser l
 \`\`\`css
 section#s-a1-01 .slide-inner { position:relative; display:grid; grid-template-columns:6fr 4fr; grid-template-rows:1fr; gap:0; padding:0; height:100%; box-sizing:border-box; overflow:hidden; }
 #s-a1-01 .hero-block { grid-column:1; grid-row:1; container-type:inline-size; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; text-align:left; padding:36px 48px 40px; }
-#s-a1-01 .screening-hero { display:flex; align-items:flex-start; padding-bottom:0.12em; }
-#s-a1-01 .screening-hero-number { font-family:var(--font-display); font-size:clamp(140px,15vw,220px); line-height:0.8; letter-spacing:-0.05em; }
-#s-a1-01 .screening-hero-label { max-width:16ch; font-size:clamp(18px,1.5vw,22px); font-weight:500; line-height:1.15; color:oklch(30% 0 0); }
-#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); border-top:1px solid oklch(10% 0 0/0.1); padding-top:var(--space-sm); }
-#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:white; border:none; border-radius:24px 0 0 24px; padding:var(--space-2xl) var(--space-lg) var(--space-lg); box-shadow:-12px 0 32px oklch(0% 0 0/0.05); display:flex; flex-direction:column; justify-content:center; transform-origin:right center; overflow:hidden; }
+#s-a1-01 .screening-hero { display:flex; align-items:baseline; gap:0; }
+#s-a1-01 .screening-hero-number { font-family:var(--font-display); font-size:clamp(140px,15vw,220px); line-height:0.85; letter-spacing:-0.05em; }
+#s-a1-01 .screening-hero-label { max-width:16ch; font-size:clamp(18px,1.5vw,22px); font-weight:500; line-height:1.15; color:oklch(30% 0 0); margin:var(--space-md) 0 var(--space-lg); }
+#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); border-top:2px solid oklch(20% 0.02 258); padding-top:var(--space-sm); }
+#s-a1-01 .screening-metric-value { font-family:var(--font-mono); font-weight:600; letter-spacing:-0.02em; }
+#s-a1-01 .screening-metric-label { text-transform:uppercase; letter-spacing:0.05em; font-size:clamp(11px,0.8vw,13px); color:oklch(40% 0 0); }
+#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:white; border:none; border-left:1px solid oklch(0% 0 0/0.08); border-radius:0; padding:var(--space-2xl) var(--space-lg) var(--space-lg); display:flex; flex-direction:column; justify-content:center; transform-origin:right center; overflow:hidden; }
 #s-a1-01 .guideline-rec-text { font-size:clamp(18px,1.4vw,22px); line-height:1.4; }
 #s-a1-01 .guideline-rec-source { font-family:var(--font-mono); font-size:clamp(12px,0.85vw,14px); color:oklch(45% 0 0); }
 #s-a1-01 .guide-match { display:inline-block; background:oklch(96% 0 0); color:oklch(20% 0 0); padding:2px 8px; border-radius:6px; border:1px solid oklch(92% 0 0); font-family:var(--font-mono); font-size:0.9em; }
@@ -289,8 +291,8 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, 'gemini-qa3-r5.md');
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R5)\n\n` +
+  const outPath = join(QA_DIR, 'gemini-qa3-r6.md');
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R6)\n\n` +
     `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0,10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
