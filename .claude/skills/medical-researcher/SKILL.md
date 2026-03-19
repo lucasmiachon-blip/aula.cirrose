@@ -352,17 +352,18 @@ Score: [X.X]/10 — [SUPERFICIAL/ADEQUADO/PROFUNDO/EXEMPLAR]
 ### MCP awareness (degradacao graciosa)
 Os agentes devem tentar MCPs na seguinte ordem e usar o que estiver disponivel:
 
-| Prioridade | MCP | Tool prefix | Fallback |
-|-----------|-----|-------------|----------|
-| 1 | PubMed (claude.ai) | `mcp__claude_ai_PubMed__` | WebSearch pubmed.ncbi.nlm.nih.gov |
-| 2 | Consensus (claude.ai) | `mcp__claude_ai_Consensus__` | WebSearch consensus.app |
-| 3 | Scholar Gateway (claude.ai) | `mcp__claude_ai_Scholar_Gateway__` | WebSearch scholar.google.com |
-| 4 | CrossRef (local) | `mcp__crossref__` | WebSearch doi.org |
-| 5 | Scite (local) | `mcp__scite__` | Omitir analise de citacoes |
-| 6 | ClinicalTrials (local) | `mcp__clinicaltrials__` | WebSearch clinicaltrials.gov |
-| 7 | BioMCP (local) | `mcp__biomcp__` | WebSearch openFDA |
+| Prioridade | MCP | Tool prefix | Disponibilidade | Fallback |
+|-----------|-----|-------------|-----------------|----------|
+| 1 | PubMed (built-in) | `mcp__claude_ai_PubMed__` | **Sempre** | WebSearch pubmed.ncbi.nlm.nih.gov |
+| 2 | Consensus (built-in) | `mcp__claude_ai_Consensus__` | **Sempre** | WebSearch consensus.app |
+| 3 | Scholar Gateway (built-in) | `mcp__claude_ai_Scholar_Gateway__` | **Sempre** | WebSearch scholar.google.com |
+| 4 | CrossRef (local) | `mcp__crossref__` | Perfil `research` ou `full` | WebSearch doi.org |
+| 5 | Scite (local) | `mcp__scite__` | Perfil `full` apenas | Omitir analise de citacoes |
+| 6 | ClinicalTrials (local) | `mcp__clinicaltrials__` | Removido (2026-03-17) | WebSearch clinicaltrials.gov |
+| 7 | BioMCP (local) | `mcp__biomcp__` | Removido (2026-03-17) | WebSearch openFDA |
 
-Se nenhum MCP academico disponivel → WebSearch como unica fonte. Reportar no cabecalho.
+**Built-ins (linhas 1-3) estao SEMPRE disponiveis** — nao precisam de profile switch.
+Locais (linhas 4-7) requerem `npm run mcp:{profile}`. Reportar perfil ativo no cabecalho do report.
 
 ### Anti-patterns (rejeitar no report)
 - "Estudos mostram que..." → Qual estudo? PMID?
@@ -382,3 +383,5 @@ Este skill pode evoluir para um custom agent (`.claude/agents/medical-researcher
 - Subagents dedicados: `guideline-hunter.md`, `trial-scout.md`, `meta-analyst.md`, `authority-verifier.md`
 
 Por ora, o pattern skill + Agent tool e suficiente e consistente com o ecossistema do projeto.
+
+> **Nota:** Para Q&A em full-text de papers ja obtidos (PDF carregados em notebook), ver tambem `/nlm-skill`. NotebookLM requer autenticacao interativa (`nlm login`), incompativel com subagent autonomo — por isso e skill separado, nao integrado neste agent.
