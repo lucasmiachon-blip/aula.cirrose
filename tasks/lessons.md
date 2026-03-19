@@ -400,3 +400,81 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 - `white-space: nowrap` + `overflow: hidden` + `text-overflow: ellipsis` corta informacao sem aviso visual claro.
 - **Regra:** Source-tags com 3+ citacoes DEVEM ser testadas em AMBAS resolucoes. Fix: `white-space: normal; overflow-wrap: anywhere; max-width: 55%` permite quebra sem overflow.
 - Ref: ERRO-045.
+
+---
+
+## Sessao 16/mar (j) — _manifest.js e a 9a superficie (absorvido de metanalise)
+
+### Editar headline no HTML sem atualizar _manifest.js = drift silencioso
+
+- Hook slide: texto mudou de "80/dia" para "146/dia" no HTML, speaker notes e body.
+- `_manifest.js` headline ficou com "80 revisões..." — drift detectado pelo usuario no browser.
+- **Root cause:** slide-identity.md lista 9 superficies. `_manifest.js` e a superficie #1. Agente atualizou superficies 2 (HTML body) e notes, mas esqueceu a #1.
+- **Regra:** Toda mudanca em texto visivel de slide DEVE incluir `_manifest.js` headline no mesmo Edit batch. Nunca "depois".
+- **Regra:** Antes de commitar mudanca em slides, rodar `npm run lint:narrative-sync` — detecta drift headline automaticamente.
+- **Checklist mental (4 perguntas):** (1) O h2/headline mudou? → `_manifest.js`. (2) O ID mudou? → 9 superficies completas. (3) Dados mudaram? → notes [DATA] tag. (4) Aula tem build script? → rodar build.
+
+### index.html manual = superficie extra
+
+- Vite serve `index.html`, NAO `slides/*.html`. Editar o standalone sem rodar build = usuario ve versao antiga.
+- **Regra:** Toda aula com `_manifest.js` DEVE ter `npm run build:{aula}`. Rodar apos qualquer mudanca em slides.
+- **Verificacao:** `npm run build:{aula}` antes de commitar. Guard 4 (post-merge) detecta drift.
+
+---
+
+## Sessao 17/mar — Doc sync: drift de dados entre docs (absorvido de metanalise)
+
+### Dados duplicados em N docs driftam silenciosamente
+
+- O dado "80 SRs/dia" vivia em 4 docs: blueprint, narrative, evidence-db, reading-list.
+- Quando o hook atualizou para "146/dia", apenas HTML + evidence-db foram atualizados. Blueprint e narrative ficaram com "80/dia".
+- Drift so detectado na auditoria documental — 2 sessoes depois.
+- **Regra:** Ao atualizar dado numerico em slide, grep por TODOS os docs que mencionam o valor antigo: `grep -rn "valor_antigo" aulas/{aula}/`. Atualizar no MESMO batch.
+- **Regra:** evidence-db.md e fonte canonica de dados. Se evidence-db diz X mas narrative.md diz Y → narrative esta errado.
+
+### Candidatos nao-decididos acumulam verbosidade
+
+- 11 candidatos a artigo-ancora com 200+ linhas de dados detalhados permaneceram em evidence-db apos decisao.
+- Apos 3 sessoes, ninguem mais consultava esses dados — mas ocupavam contexto.
+- **Regra:** Apos decisao final sobre candidatos, colapsar os nao-selecionados em tabela-resumo na mesma sessao. Dados completos ficam acessiveis via PMID.
+
+### Referencias cross-doc desatualizadas apos troca de ancora
+
+- reading-list.md referenciava artigo antigo. Ancora mudou 2 sessoes antes.
+- **Regra:** Ao trocar artigo-ancora, grep por nome do antigo em TODOS os docs: `grep -rn "nome_antigo" aulas/{aula}/`. Atualizar ou remover referencias obsoletas.
+
+---
+
+## Sessao 19/mar — Diagnostico WT (absorvido de metanalise)
+
+### Vite cache poisoning entre worktrees (ERRO-010)
+
+- Sintoma: tela preta no dev server, `section { display: none }`, DOM quase vazio.
+- Root cause: `node_modules/.vite/deps/` continha `reveal__js.js` pre-bundled de outra worktree. Vite serviu inline script com `import Reveal`. Reveal.css colapsou todas as sections.
+- Fix: (1) Remover `reveal.js` de dependencies. (2) Excluir frozen aulas de `discoverEntries()` no Vite config. (3) `npm install` invalida hash → cache limpo.
+- Regra: Worktrees deck.js NUNCA devem ter `reveal.js` em dependencies. Se tela preta: checar `.vite/deps/` ANTES de debugar CSS. Rodar `npx vite --force` ao trocar entre WTs.
+
+### "CSS bug" pode ser infra
+
+- CHANGELOG dizia "146 mono nao renderiza (specificity CSS)". Diagnostico errado.
+- Computed styles mostraram JetBrains Mono 72px correto — o CSS SEMPRE esteve certo.
+- A tela preta impedia validacao visual → hipotese de CSS nunca foi testada.
+- Regra: antes de diagnosticar "CSS specificity", verificar se o dev server esta servindo o codigo certo.
+
+### stage-c remap de --text-on-dark afeta elementos com bg local escuro
+
+- `--text-on-dark` em stage-c e remapeado para `oklch(12%)` (texto ESCURO) — correto para slides light.
+- Elemento com bg escuro DENTRO de slide light (ex: verdict pill com --danger bg) herda o remap → texto escuro sobre bg escuro = contraste 3.67:1.
+- **Regra:** Qualquer elemento com background-color proprio escuro em slide light DEVE usar cor explicita (`oklch(95%)` ou HEX), NUNCA `var(--text-on-dark)`.
+
+### SplitText `type: 'chars'` causa word-break
+
+- `SplitText({ type: 'chars' })` envolve cada caractere em `<span>` — browser faz word-break mid-word ("paci/entes").
+- **Fix:** `type: 'words,chars'` — SplitText primeiro agrupa por palavra, depois por char. `&nbsp;` no HTML para espacos non-breaking.
+- **Regra:** NUNCA usar `type: 'chars'` isolado. Sempre `'words,chars'` para manter word boundaries.
+
+### Tom alarmista rejeitado pelo Lucas
+
+- Dados de retracao/fraude geraram tom "escandaloso" no s-hook.
+- Lucas rejeitou: apresentacao sobria e clinica > alarmista. Publico = residentes, nao jornalistas.
+- **Regra:** Nunca usar dados de retracao/fraude para criar medo. Framing clinico: "saber em quem confiar" > "a ciencia esta quebrada".
