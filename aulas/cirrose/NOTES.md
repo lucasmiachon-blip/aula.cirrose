@@ -1,5 +1,13 @@
 # NOTES — Cirrose
 
+## [18/03] Letterbox 16:10 vs 16:9 — teste TV pendente
+
+**Setup Lucas:** Laptop 2560x1600 (16:10, DPR 1.5) → HDMI espelhado → TV (resolucao TBD, provavelmente 16:9).
+**Slides:** desenhados para 16:9 (1280x720). No monitor 16:10, aparecem barras (letterbox) em cima e embaixo.
+**Decisao:** manter design 16:9. Ignorar letterbox no monitor por enquanto. Lucas vai testar na TV em 19/03 para confirmar que preenche 100%.
+**Screenshots QA:** capturados em viewport 1707x1067 (16:10 do monitor). Barras sao esperadas e nao indicam bug.
+**Acao pendente:** apos teste na TV, registrar resolucao real e recapturar screenshots se necessario.
+
 ## [18/03] Fontes woff2 — instaladas mas Vite path errado
 
 **Issue:** `npm run fonts:install` baixou 4 woff2 para `shared/assets/fonts/`. Porem Vite dev server resolve `@font-face url()` para `aulas/assets/fonts/` (404) por causa de `base: './'` no `vite.config.js`.

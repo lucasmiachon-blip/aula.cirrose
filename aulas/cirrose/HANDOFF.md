@@ -28,7 +28,7 @@
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
-| 2 | s-hook | QA | v10 (19/mar). Labs tipograficos (cards removidos), punchline 88-128px com bloom, dim overlay 35%, clinical-stutter DOM-order, reprodutivel (kill+reset). QA.0-QA.2 PASS. QA.3 round 1+2 Gemini aplicados. Pendente: QA.3 round 3 (prompt v2). |
+| 2 | s-hook | QA | v10 (19/mar). QA.0-QA.2 PASS. QA.3 rounds 1+2 Gemini aplicados. Screenshots 2561x1601 (S0+S1) + video .webm capturados na res. do usuario (1707x1067 @1.5x). Prompt v2 preenchido. Pendente: enviar para Gemini QA.3 round 3. |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
@@ -92,7 +92,7 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 1 | s-title |
-| QA | 1 | s-hook (QA.0-QA.2 PASS, pendente QA.3) |
+| QA | 1 | s-hook (QA.0-QA.2 PASS, QA.3 rounds 1+2 done, screenshots+video capturados, pendente envio Gemini round 3) |
 | LINT-PASS | 2 | s-a1-01, s-a1-classify |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
@@ -134,17 +134,18 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 9. Dynamic gate (Fase 3): animacoes + click-reveals
 10. Deck-level Gemini (Fase 4): cross-slide consistency
 
-**s-hook (LINT-PASS — archetype-adjusted 14 dims >= 8, sem aprovacao humana QA, 16/mar):**
-- v8 polish (16/mar): grid 3×2 responsivo (`max-width: min(960px, 80%)`), `space-evenly` vertical, lab values `--text-h3`, punchline `font-weight: 700`, shadow `0 2px 8px`, panel 180px, ref text weight 500, `--bg-card` + `--border` para ancorar cards
-- Testado 1920×1080: zero overflow, punchline+question com margem confortável
-- Pergunta: "Qual sua conduta?" (narrativeCritical aprovado)
-- Case panel: neutral (labs no corpo + panel lateral)
-- Failsafes `.no-js`/`.stage-bad` para labs + punchline + question
-- Build ✅ · Lint ✅ · AUDIT-VISUAL.md atualizado (14 dims ≥ 8)
+**s-hook (QA — v10, QA.3 round 3 em andamento):**
+- v10 (19/mar): 14 fixes Gemini rounds 1+2 aplicados (G1-G14). Labs tipograficos, stagger DOM-order, punchline 88-128px bloom, dim overlay 35%, JS reprodutivel.
+- QA.0-QA.2 PASS.
+- Screenshots QA.3: `qa-screenshots/s-hook/S0-fullscreen.png` + `S1-fullscreen.png` (2561x1601px, @1.5x DPR).
+- Video QA.3: `qa-screenshots/s-hook/s-hook-animation.webm` (2560x1600, ~17s).
+- Prompt Gemini v2 preenchido com raw code live + fluxo interacao.
+- Letterbox 16:10 esperado (monitor usuario). TV congresso 16:9 = sem barras. Teste TV pendente 19/03.
+- Pendente: envio Gemini round 3 → fix aprovados → QA.4 → DONE.
 
 ### Backlog
 
-- QA visual Gemini (estático por state + dinâmico): screenshots state-by-state, vídeo de reveals, monotonia visual Act 2
+- QA visual Gemini: s-hook screenshots+video capturados (QA.3 round 3 pendente envio). Demais slides: screenshots state-by-state, vídeo de reveals, monotonia visual Act 2
 - h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão)
 - Headlines reescritos neste batch: s-a1-01 (verboso→83%), s-a1-damico (verboso→Child-Pugh), s-a1-meld (metáfora→urgência)
 - ~~2 HEX hardcoded em cirrose.css~~ ✅ Resolvido — restam apenas fallbacks `var(..., #hex)` válidos
@@ -254,14 +255,17 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-19, sessao 4)
+## Onde paramos (2026-03-19, sessao 5)
 
-- **Sessao 4:** s-hook QA.3 — 2 rounds Gemini 3.1 Pro + fixes aplicados (v9 → v10).
-- **Fixes aplicados:** G1-G14 (cards removidos, labs tipograficos, stagger DOM-order, cor alerta subida, punchline 88-128px com bloom, dim overlay 35%, question 32-48px weight 600, centro optico, JS reprodutivel com kill+reset).
-- **Prompt Gemini reescrito:** Template v2 em `docs/prompts/gemini-slide-editor.md` — foco UI/UX profissional, hierarquias visuais, menos prescritivo.
+- **Sessao 5:** s-hook QA.3 round 3 — captura visual na resolucao do usuario.
+- **Screenshots capturados:** `qa-screenshots/s-hook/S0-fullscreen.png` + `S1-fullscreen.png` (2561x1601px, viewport 1707x1067 @1.5x DPR).
+- **Video capturado:** `qa-screenshots/s-hook/s-hook-animation.webm` (2560x1600, ~17s: title → stagger → pausa → blackout+bloom).
+- **CDP frames residuais:** limpos.
+- **Prompt Gemini v2 preenchido:** completo com raw HTML/CSS/JS extraidos live + descricao do fluxo. Pronto para envio manual com 2 PNGs + .webm anexados.
+- **Letterbox 16:10 vs 16:9:** documentado em NOTES.md. Barras em cima/embaixo sao esperadas no monitor 16:10 do usuario. TV congresso (16:9 via HDMI espelhado) preenche 100%. Lucas vai testar na TV em 19/03.
 - **Build+Lint:** PASS (44 slides).
-- **QA pipeline:** s-title DONE. s-hook = QA (QA.0-QA.2 PASS, QA.3 rounds 1+2 done, pendente round 3 com prompt v2).
-- **Proximo:** s-hook QA.3 round 3 (fresh eyes com prompt v2) → QA.4 → docs → DONE.
+- **QA pipeline:** s-title DONE. s-hook = QA (QA.0-QA.2 PASS, QA.3 rounds 1+2 done, screenshots+video prontos, pendente envio Gemini round 3).
+- **Proximo:** Lucas envia prompt + anexos para Gemini → aplica sugestoes → QA.4 → docs → DONE.
 
 ---
 

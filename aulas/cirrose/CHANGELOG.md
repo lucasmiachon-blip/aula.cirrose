@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-03-19 — s-hook QA.3 round 3 screenshots + video (sessao 5)
+
+- **Screenshots alta resolucao:** S0-fullscreen.png + S1-fullscreen.png (2561x1601px) capturados com viewport 1707x1067 @1.5x DPR (resolucao real do monitor do usuario).
+- **Video animacao:** s-hook-animation.webm (2560x1600, ~17s) — fluxo completo: title → stagger labs → pausa → blackout+bloom+question.
+- **Prompt Gemini v2 preenchido:** raw HTML/CSS/JS extraidos live dos arquivos. Descricao completa do fluxo de interacao (4 estados). Pronto para envio manual com anexos.
+- **Letterbox documentado:** monitor 16:10 → barras esperadas. TV congresso 16:9 via HDMI espelhado → sem barras. Teste TV pendente.
+- **CDP frames residuais limpos:** `qa-screenshots/s-hook/video-frames/frame-*.png` removidos.
+- **Arquivos:** qa-screenshots/s-hook/ (S0, S1, .webm), NOTES.md, HANDOFF.md, CHANGELOG.md.
+
+---
+
 ## 2026-03-19 — s-hook v10 QA.3 Gemini rounds 1+2 (sessao 4)
 
 - **s-hook v9 → v10:** 14 fixes Gemini aplicados em 2 rounds.

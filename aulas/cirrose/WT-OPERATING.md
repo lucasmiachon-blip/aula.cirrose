@@ -180,7 +180,9 @@ Capturar screenshots e analisar:
 #   metrics.json    ← bounding boxes (opcional)
 ```
 
-Resolucao: 1280x720 @2x (deviceScaleFactor: 2).
+Resolucao padrao: 1280x720 @2x (deviceScaleFactor: 2).
+Resolucao usuario: 1707x1067 @1.5x (monitor 2560x1600 16:10) — usar para QA.3 Gemini.
+Resolucao congresso: TBD (TV via HDMI espelhado, provavelmente 16:9). Ver NOTES.md [18/03].
 
 **Analise (Opus — leitura direta dos PNGs):**
 
