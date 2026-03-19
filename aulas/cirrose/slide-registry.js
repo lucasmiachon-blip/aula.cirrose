@@ -555,97 +555,73 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-hook v11 — Caso Antônio (asymmetric, cinematic blackout)
-     Auto: bio visible + clinical-stutter labs stagger (DOM order)
-     State 1: cinematic overlay (78%) + deep blur + punchline bloom (light on dark) + question snap
-     v10 Gemini rounds 1+2 + v11 QA regression fixes (card surface, overlay depth, text colors).
+     s-hook v16 — Caso Antônio (Gemini R2 proposals 2-5)
+     Auto: bio+punchline visible + clinical-stutter stagger + differential motion
+     Alert labs: color bleeds from black → red. back.out easing.
+     Question: SplitText char-by-char reveal (Instrument Serif italic).
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-hook': (slide, gsap) => {
-    let state = 0;
-    const maxState = 1;
-
-    const patient = slide.querySelector('.hook-patient');
-    const labsGrid = slide.querySelector('.hook-labs-grid');
     const labs = [...slide.querySelectorAll('.hook-lab')];
-    const punchline = slide.querySelector('.hook-punchline');
     const question = slide.querySelector('.hook-question');
-    const overlay = slide.querySelector('.hook-blackout-overlay');
 
-    // Kill any leftover tweens from previous visit (reproducibility)
-    const allTargets = [patient, labsGrid, punchline, question, overlay, ...labs];
-    gsap.killTweensOf(allTargets);
+    // Kill any leftover tweens from previous visit
+    gsap.killTweensOf([...labs, question]);
 
-    // Reset all elements to known initial state
-    state = 0;
-    gsap.set(labs, { opacity: 0, y: 12 });
-    gsap.set(punchline, { opacity: 0, filter: 'blur(10px)', scale: 0.9 });
-    punchline.style.color = '';
-    gsap.set(question, { opacity: 0 });
-    if (question) question.style.color = '';
-    gsap.set(overlay, { opacity: 0 });
-    gsap.set(patient, { opacity: 1, filter: 'blur(0px)', scale: 1 });
-    gsap.set(labsGrid, { opacity: 1, filter: 'blur(0px)', scale: 1 });
+    // Reset labs — alerts start slightly scaled down
+    labs.forEach(lab => {
+      const isAlert = lab.classList.contains('hook-lab--alert');
+      gsap.set(lab, {
+        opacity: 0,
+        y: isAlert ? 15 : 12,
+        scale: isAlert ? 0.95 : 1,
+      });
+      // Alert values start with neutral color, will bleed to red
+      if (isAlert) {
+        const val = lab.querySelector('.hook-lab-value');
+        if (val) gsap.set(val, { color: 'var(--text-primary)' });
+      }
+    });
 
-    // Auto: clinical-stutter stagger (DOM order, alert labs heavier)
+    if (question) gsap.set(question, { opacity: 0 });
+
+    // Auto: clinical-stutter stagger with differential motion
     const tl = gsap.timeline({ delay: 0.3 });
     labs.forEach((lab, i) => {
       const isAlert = lab.classList.contains('hook-lab--alert');
+      const valueNode = lab.querySelector('.hook-lab-value');
+
       tl.to(lab, {
-        opacity: 1, y: 0,
-        duration: isAlert ? 0.6 : 0.3,
-        ease: isAlert ? 'power3.out' : 'power2.out',
-      }, i * 0.12 + (isAlert ? 0.15 : 0));
+        opacity: 1, y: 0, scale: 1,
+        duration: isAlert ? 0.8 : 0.4,
+        ease: isAlert ? 'back.out(1.2)' : 'power2.out',
+      }, i * 0.15);
+
+      // Alert value color bleeds from black → red after landing
+      if (isAlert && valueNode) {
+        tl.to(valueNode, {
+          color: 'var(--hook-alert-value)',
+          duration: 0.5,
+          ease: 'power2.out',
+        }, '-=0.4');
+      }
     });
 
-    function advance() {
-      if (state >= maxState) return false;
-      state++;
-      if (state === 1) {
-        // Dim overlay: darken background for cinematic weight
-        gsap.to(overlay, { opacity: 1, duration: 0.6, ease: 'power2.inOut' });
-
-        // Blackout: deep blur + subtle shrink (cinematic focus pull)
-        gsap.to(patient, { opacity: 0.08, filter: 'blur(10px)', scale: 0.97, duration: 0.6, ease: 'power2.inOut' });
-        gsap.to(labsGrid, { opacity: 0.08, filter: 'blur(10px)', scale: 0.97, duration: 0.6, ease: 'power2.inOut' });
-
-        // Punchline: cream on dark — fade+bloom (blur → sharp, Vertigo micro-effect)
-        punchline.style.color = '#f5f5f7';
-        gsap.fromTo(punchline,
-          { opacity: 0, filter: 'blur(10px)', scale: 0.9 },
-          { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.8, delay: 0.4, ease: 'power2.out' }
-        );
-
-        // Question: sharp cut after 3s silence — light for dark overlay
-        if (question) {
-          question.style.color = '#c8ccd4';
-          gsap.fromTo(question,
-            { opacity: 0 },
-            { opacity: 1, duration: 0.2, delay: 3.0, ease: 'none' }
-          );
-        }
+    // Question: SplitText char-by-char or fallback fade
+    if (question) {
+      if (SplitText) {
+        const split = new SplitText(question, { type: 'words,chars' });
+        gsap.set(split.chars, { opacity: 0, y: 10, filter: 'blur(4px)' });
+        tl.to(question, { opacity: 1, duration: 0.1 }, '>+0.5');
+        tl.to(split.chars, {
+          opacity: 1, y: 0, filter: 'blur(0px)',
+          stagger: 0.03,
+          duration: 0.6,
+          ease: 'power3.out',
+        });
+      } else {
+        tl.to(question, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '>+0.5');
       }
-      return true;
     }
-
-    function retreat() {
-      if (state <= 0) return false;
-      if (state === 1) {
-        // Reverse all: overlay, punchline, question, bio, labs
-        gsap.to(overlay, { opacity: 0, duration: 0.3 });
-        gsap.to(punchline, { opacity: 0, filter: 'blur(10px)', scale: 0.9, duration: 0.3,
-          onComplete: () => { punchline.style.color = ''; } });
-        if (question) gsap.to(question, { opacity: 0, duration: 0.2,
-          onComplete: () => { question.style.color = ''; } });
-        gsap.to(patient, { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.4, delay: 0.2, ease: 'power2.out' });
-        gsap.to(labsGrid, { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.4, delay: 0.2, ease: 'power2.out' });
-      }
-      state--;
-      return true;
-    }
-
-    slide.__hookAdvance = advance;
-    slide.__hookRetreat = retreat;
-    slide.__hookCurrentBeat = () => state;
   },
 };
 

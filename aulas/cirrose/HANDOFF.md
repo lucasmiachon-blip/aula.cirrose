@@ -4,12 +4,12 @@
 
 ---
 
-## Estado atual — 2026-03-18 (QA pipeline ativo)
+## Estado atual — 2026-03-19 (QA pipeline ativo)
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 42 registrados, 41 corrigidos, 1 processo (E42).
+**ERROR-LOG:** 44 registrados, 43 corrigidos, 1 processo (E42).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — captura automatizada por ato.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs (a11y-contrast, design-comparison, floto, chrome-devtools) via profile `qa`. Gemini via API REST direta (nao MCP local).
@@ -28,7 +28,7 @@
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
-| 2 | s-hook | QA | v11 (19/mar). QA.0-QA.2 PASS. QA.3 rounds 1+2 Gemini aplicados. v11: E43 (card surface) + E44 (overlay 78%, text colors) corrigidos. Prompt v3 pronto. Pendente: novos screenshots v11, preencher prompt v3, enviar Gemini round 3. |
+| 2 | s-hook | QA | **v16** (19/mar). QA.3 Gemini R1 (2.5-pro) + R2 (3.1-pro) aplicados. v15: layout reestruturado (story+punchline left, labs right). v16: Gemini R2 propostas 2-5 aplicadas (flat cards, border-left desc, differential motion, SplitText question, Instrument Serif italic). Prompt v6 pronto. Pendente: Gemini R3 com prompt v6, screenshots v16. |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |

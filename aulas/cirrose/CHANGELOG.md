@@ -4,6 +4,27 @@
 
 ---
 
+## 2026-03-19 — s-hook v16 Gemini R2 proposals + prompt v6 (sessao 7)
+
+- **s-hook v15 → v16:** 4 propostas Gemini R2 (3.1-pro) aplicadas.
+  - P2 (typo): `letter-spacing: -0.02em`, `line-height: 1.05` no nome. `border-left` editorial na desc.
+  - P3 (flat cards): Removido box-shadow multi-layer. Background `oklch(100% 0 0 / 0.4)`, border `1px solid oklch(0% 0 0 / 0.08)`. Alertas: bg rosa `oklch(98% 0.01 25 / 0.5)`.
+  - P4 (motion diferencial): Alert labs com `back.out(1.2)`, `scale: 0.95` inicial, color bleed preto → vermelho via GSAP.
+  - P5 (question): Instrument Serif italic, `border-top` separator, SplitText char-by-char com blur desfocando.
+  - P1 (ocultar "Sem queixas.") RECUSADA — contradiz decisao do usuario (visivel desde state 0).
+- **Prompt Gemini v5 → v6:** Reescrita completa com PE avancado.
+  - 5 personas (+UI/UX designer, +front-end engineer)
+  - Scorecard numerico 10 dimensoes obrigatorio
+  - 10 lentes (+paleta/cor, +craft front-end, +legibilidade, +impacto emocional)
+  - Secao "Ideias Radicais" obrigatoria
+  - Scorecard projetado (antes/depois)
+  - Output schema rigido (6 secoes obrigatorias)
+  - Temperature 1.0 + topP 0.95
+- **Build:** PASS (44 slides)
+- **Arquivos:** cirrose.css (v16), slide-registry.js (v16), 01-hook.html (v15), gemini-slide-editor.md (v6)
+
+---
+
 ## 2026-03-19 — s-hook v11 QA regression fixes + prompt v3 (sessao 6)
 
 - **s-hook v10 → v11:** 4 regression fixes identificados e corrigidos.

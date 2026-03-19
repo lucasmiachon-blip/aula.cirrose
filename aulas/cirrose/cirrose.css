@@ -1764,10 +1764,11 @@
 /* (MELD badges removed — info now in calc input labels) */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-hook v11 — Caso Antônio (congresso, formal)
-   Asymmetric: bio left (large) + labs right. Card surface on labs.
-   Clinical-stutter stagger. Cinematic blackout (78% overlay, light text).
-   v10 Gemini rounds 1+2 + v11 QA regression fixes (E43).
+   s-hook v16 — Caso Antônio (Gemini R2 proposals 2-5)
+   Flat cards, border-left editorial, Instrument Serif italic question.
+   Differential motion: alert labs back.out + color bleed.
+   SplitText char-by-char question reveal.
+   "Sem queixas." visible from state 0.
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* ── s-hook: tokens ── */
@@ -1778,56 +1779,67 @@
   --hook-text-mid: var(--text-on-dark-muted);
   --hook-text-dim: var(--text-muted);
   --hook-lab-label-color: oklch(30% 0.01 258);
-  --hook-alert-value: oklch(55% 0.18 25);  /* danger for AST/PLQ — raised chroma for projection */
+  --hook-alert-value: oklch(50% 0.20 25);  /* danger — denser red for projection */
   --hook-card-bg: var(--bg-card);
 }
 #s-hook .hook-patient-name { color: var(--text-primary); }
-#s-hook .hook-punchline { color: oklch(8% 0.02 258); } /* near-black — max contrast vs overlay */
 #s-hook .hook-patient-desc { color: var(--hook-text-mid); }
 #s-hook .hook-patient-ref { color: var(--hook-text-dim); }
 
-/* ── Stage container (asymmetric grid — bio left, labs right) ── */
+/* ── Stage container (story left + labs right, question below) ── */
 .hook-stage {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1.2fr 0.9fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: "bio labs";
-  align-items: center;
-  padding: 2rem 3.5rem 2rem 3rem;
-  gap: 1rem 2rem;
+  grid-template-columns: 1.1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "story labs"
+    "question question";
+  align-content: center;
+  padding: 0 4rem 2rem;
+  gap: 2rem 3.5rem;
   position: relative;
 }
 #deck.has-panel #s-hook .hook-stage {
   padding-right: calc(var(--panel-width) + 2rem);
 }
 
-/* ── Patient identity (left, large — "pessoa, não dado") ── */
-.hook-patient {
-  grid-area: bio;
-  text-align: left;
-  max-width: 520px;
+/* ── Story column (bio + punchline grouped) ── */
+.hook-story {
+  grid-area: story;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
 }
 
-.hook-patient-name {
+/* ── Patient identity (left, large — "pessoa, não dado") ── */
+.hook-patient {
+  text-align: left;
+}
+
+#s-hook .hook-patient-name {
   font-family: var(--font-display);
-  font-size: var(--text-hero);
+  font-size: clamp(3rem, 5vw, 5.5rem);
   font-weight: 400;
-  margin: 0 0 0.8rem 0;
-  letter-spacing: 0.01em;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.02em;
   line-height: 1.05;
 }
 
-.hook-patient-desc {
+#s-hook .hook-patient-desc {
   font-family: var(--font-body);
-  font-size: var(--text-body);
-  line-height: 1.6;
-  margin: 0 0 0.5rem 0;
+  font-size: clamp(20px, 1.2vw, 24px);
+  line-height: 1.4;
+  color: oklch(35% 0.02 258);
+  border-left: 2px solid oklch(0% 0 0 / 0.1);
+  padding-left: 1.2rem;
+  margin: 0 0 0.6rem 0.2rem;
 }
 
-.hook-patient-ref {
+#s-hook .hook-patient-ref {
   font-family: var(--font-body);
   font-size: var(--text-small);
   font-weight: 500;
@@ -1843,23 +1855,28 @@
   gap: 1rem;
   width: 100%;
   max-width: 100%;
-  justify-self: center;
+  align-self: center;
 }
 
 .hook-lab {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
-  padding: 0.7rem 0.6rem;
+  gap: 0.2rem;
+  padding: 1.5rem 1rem;
   position: relative;
   opacity: 0; /* GSAP stagger → 1; .no-js/.stage-bad → 1 */
-  background: var(--hook-card-bg);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06);
+  background: oklch(100% 0 0 / 0.4);
+  border-radius: 6px;
+  border: 1px solid oklch(0% 0 0 / 0.08);
+  will-change: transform, opacity;
 }
 
 /* ── Alert labs (AST, PLQ — "villain" values) ── */
+.hook-lab--alert {
+  background: oklch(98% 0.01 25 / 0.5);
+  border-color: oklch(50% 0.20 25 / 0.15);
+}
 .hook-lab--alert .hook-lab-value {
   color: var(--hook-alert-value);
 }
@@ -1869,7 +1886,7 @@
   font-size: var(--text-small);
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: 0.10em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
@@ -1877,15 +1894,17 @@
 
 .hook-lab-value {
   font-family: var(--font-mono);
-  font-size: var(--text-h2);
+  font-size: clamp(36px, 2.8vw, 50px);
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
 }
 
 .hook-lab-value small {
-  font-size: 0.65em;
-  font-weight: 400;
+  font-size: 0.5em;
+  font-weight: 500;
+  vertical-align: super;
+  margin-left: 2px;
 }
 
 .hook-lab-ref {
@@ -1895,61 +1914,43 @@
   color: var(--text-secondary);
 }
 
-/* ── Punchline + question (blackout reveal) ── */
-.hook-punchline {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* ── Punchline (visible in state 0, inside story column) ── */
+#s-hook p.hook-punchline {
   font-family: var(--font-display);
-  font-size: clamp(88px, 8vw, 128px);
+  font-size: clamp(36px, 3vw, 54px);
   font-weight: 400;
   font-style: italic;
-  color: var(--hook-text-bright);
-  text-align: center;
+  color: var(--text-primary);
+  text-align: left;
   letter-spacing: 0.02em;
-  text-shadow: 0 0 60px oklch(100% 0 0 / 0.25);
   margin: 0;
-  opacity: 0;
-  z-index: 2;
+  max-width: none;
 }
-.hook-question {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-body);
-  font-size: clamp(32px, 3vw, 48px);
-  font-weight: 600;
-  color: oklch(15% 0.02 258);
+
+/* ── Question (centered, spans both columns — Instrument Serif italic) ── */
+#s-hook p.hook-question {
+  grid-area: question;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(28px, 2.5vw, 44px);
+  font-weight: 400;
+  color: var(--text-secondary);
   text-align: center;
+  letter-spacing: 0;
+  border-top: 1px solid oklch(0% 0 0 / 0.1);
+  padding-top: 1.5rem;
   margin: 0;
-  opacity: 0;
-  z-index: 2;
-}
-/* ── Blackout dim overlay (GSAP animates opacity) ── */
-.hook-blackout-overlay {
-  position: absolute;
-  inset: 0;
-  background: oklch(8% 0.01 258 / 0.78);
-  opacity: 0;
-  z-index: 1;
-  pointer-events: none;
+  max-width: none;
+  opacity: 0; /* GSAP fade after stagger */
 }
 
 .no-js .hook-lab,
-.no-js .hook-punchline,
 .no-js .hook-question,
 .stage-bad .hook-lab,
-.stage-bad .hook-punchline,
 .stage-bad .hook-question {
   opacity: 1 !important;
   transform: none !important;
   filter: none !important;
-}
-.no-js .hook-blackout-overlay,
-.stage-bad .hook-blackout-overlay {
-  display: none !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

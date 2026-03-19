@@ -1,9 +1,8 @@
 <!-- ============================================================
      s-hook — Caso Antônio (congresso, formal)
-     Archetype: Custom hook (v9 — asymmetric, blackout punchline)
-     Auto: bio visible + labs clinical-stutter stagger
-     Click: blackout → dim overlay → "Sem queixas." (0.8s bloom) → "Conduta?" (sharp)
-     Reversível: ArrowLeft/Up. Panel hidden (starts s-a1-01).
+     Archetype: Custom hook (v16 — flat cards, differential motion, SplitText question)
+     Auto: bio visible + labs stagger + question fade
+     "Sem queixas." visible from state 0, near patient story.
      ============================================================ -->
 <section id="s-hook"
          class="slide-navy"
@@ -13,14 +12,17 @@
 
   <div class="hook-stage">
 
-    <!-- Patient bio (left, large — Gemini: "pessoa, não dado") -->
-    <div class="hook-patient">
-      <h3 class="hook-patient-name">Antônio, 55 anos</h3>
-      <p class="hook-patient-desc">
-        Caminhoneiro · obeso (IMC 31) · DM2<br>
-        5 latas de cerveja/dia há 20 anos (60 g álcool)
-      </p>
-      <p class="hook-patient-ref">Encaminhado da atenção primária</p>
+    <!-- Patient story: bio + punchline grouped (left column) -->
+    <div class="hook-story">
+      <div class="hook-patient">
+        <h3 class="hook-patient-name">Antônio, 55 anos</h3>
+        <p class="hook-patient-desc">
+          Caminhoneiro · obeso (IMC 31) · DM2<br>
+          5 latas de cerveja/dia há 20 anos (60 g álcool)
+        </p>
+        <p class="hook-patient-ref">Encaminhado da atenção primária</p>
+      </div>
+      <p class="hook-punchline">Sem queixas.</p>
     </div>
 
     <!-- Labs (clinical-stutter stagger — alert labs delayed) -->
@@ -57,11 +59,7 @@
       </div>
     </div>
 
-    <!-- Blackout dim overlay (GSAP animates opacity) -->
-    <div class="hook-blackout-overlay" aria-hidden="true"></div>
-
-    <!-- Punchline + directing question (blackout reveal) -->
-    <p class="hook-punchline">Sem queixas.</p>
+    <!-- Directing question (centered, spans both columns) -->
     <p class="hook-question">Qual sua conduta?</p>
 
   </div>
