@@ -985,7 +985,7 @@
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-01 — Rastreio na atenção primária
-   R5: Drawer lateral + typographic fix + reactive metrics
+   R6: Baseline grid hero + editorial drawer + Bloomberg metrics
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* section#id beats #slide-viewport > section .slide-inner specificity */
@@ -1023,24 +1023,25 @@ section#s-a1-01 .slide-inner {
   font-size: var(--text-h2);
 }
 
-/* Bloomberg hero — massive, tight, sculptural */
+/* Bloomberg hero — massive, tight, sculptural
+   P1 R6: baseline grid keeps number and label optically separated */
 #s-a1-01 .screening-hero {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   margin: 0;
-  padding-bottom: 0.12em;
+  gap: 0;
 }
 #s-a1-01 .screening-hero-number {
   font-family: var(--font-display);
   font-size: clamp(140px, 15vw, 220px);
-  line-height: 0.8;
+  line-height: 0.85;
   letter-spacing: -0.05em;
   transform-origin: left bottom;
 }
 #s-a1-01 .screening-hero-unit {
   font-family: var(--font-display);
   font-size: clamp(48px, 5vw, 72px);
-  line-height: 0.8;
+  line-height: 0.85;
   margin-left: 4px;
   opacity: 0.8;
 }
@@ -1051,28 +1052,39 @@ section#s-a1-01 .slide-inner {
   letter-spacing: -0.01em;
   line-height: 1.15;
   color: oklch(30% 0 0);
-  margin: var(--space-xs) 0 var(--space-md);
+  margin: var(--space-md) 0 var(--space-lg);
 }
 
-/* Secondary metrics — P3 subgrid-like rigid columns */
+/* Secondary metrics — P3 R6: Bloomberg mono values + uppercase labels */
 #s-a1-01 .screening-metrics {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
-  border-top: 1px solid oklch(10% 0 0 / 0.1);
+  border-top: 2px solid oklch(20% 0.02 258);
   padding-top: var(--space-sm);
 }
+#s-a1-01 .screening-metric-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+#s-a1-01 .screening-metric-label {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: clamp(11px, 0.8vw, 13px);
+  color: oklch(40% 0 0);
+}
 
-/* Guideline drawer — full-height right panel, slides in */
+/* Guideline drawer — P2 R6: editorial cut, no rounded corners */
 #s-a1-01 .guideline-rec {
   grid-column: 2;
   grid-row: 1 / -1;
   box-sizing: border-box;
   background: white;
   border: none;
-  border-radius: 24px 0 0 24px;
+  border-left: 1px solid oklch(0% 0 0 / 0.08);
+  border-radius: 0;
   padding: var(--space-2xl) var(--space-lg) var(--space-lg);
-  box-shadow: -12px 0 32px oklch(0% 0 0 / 0.05);
   display: flex;
   flex-direction: column;
   justify-content: center;
