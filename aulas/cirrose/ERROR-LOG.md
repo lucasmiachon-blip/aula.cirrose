@@ -366,9 +366,16 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Blackout overlay cinematico precisa de alpha >= 0.65 para criar contraste dramatico. Textos sobre overlay escuro DEVEM mudar para cores claras via GSAP (mantendo CSS dark para fallback no-js/stage-bad).
 **Status:** Corrigido v11 (2026-03-19).
 
+### ERRO-045 · MEDIUM · s-a1-01 (v3)
+**Source-tag truncated at 1920x1080 — last PMID cut off right edge**
+**Root cause:** `.source-tag` text line is too long for viewport at 1920x1080 when deck.js `scaleDeck()` scales up. No `overflow-wrap`, `text-wrap`, or `max-width` constraint on source-tag within this slide.
+**Fix:** CSS `.source-tag` com `white-space:normal; overflow-wrap:anywhere; text-align:left; max-width:55%`. Confirmado ambas resoluções: scrollW=364, clientW=364.
+**Regra:** Source-tags com 3+ citações DEVEM ser testados em ambas resoluções (1280x720 + 1920x1080). Se truncar, quebrar em 2 linhas ou reduzir font-size.
+**Status:** ✅ Corrigido v4 (2026-03-19).
+
 ---
 
-*Ultima atualizacao: 2026-03-19 · 44 erros registrados, 43 corrigidos, 1 processo (E42).*
+*Ultima atualizacao: 2026-03-19 · 45 erros registrados, 44 corrigidos, 1 processo (E42).*
 
 ---
 
@@ -378,7 +385,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 6     | 6          | 0 |
 | HIGH       | 23    | 23         | 0 |
-| MEDIUM     | 11    | 11         | 0 |
+| MEDIUM     | 12    | 12         | 0 |
 | LOW        | 2     | 2          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **44**| **43**     | **1 (E42 processo)** |
+| **Total**  | **45**| **44**     | **1 (E42 processo)** |

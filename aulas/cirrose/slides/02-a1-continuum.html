@@ -1,7 +1,7 @@
 <!-- ============================================================
      s-a1-01 — Rastreio de hepatopatia na atenção primária
-     Layout: flex column (no archetype dependency)
-     States: auto only (countUp → rec fadeUp). No click-reveals.
+     Layout: CSS Grid 7:5 · Bloomberg monolith · Flip badge flight
+     States: auto (SplitText → countUp → metrics blur → guideline → badge flight)
      ============================================================ -->
 <section id="s-a1-01"
          data-timing="90"
@@ -9,30 +9,30 @@
 
   <div class="slide-inner">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Por que rastrear?</h2>
 
-    <!-- Hero: 83% diagnósticos novos -->
-    <div class="screening-hero">
-      <span class="screening-hero-number">83</span>
-      <span class="screening-hero-unit">%</span>
+    <!-- Hero block: left column — headline + hero number + metrics -->
+    <div class="hero-block">
+      <h2 class="slide-headline">Por que rastrear?</h2>
+      <div class="screening-hero">
+        <span class="screening-hero-number">0</span>
+        <span class="screening-hero-unit">%</span>
+      </div>
       <p class="screening-hero-label">dos diagnósticos de cACLD eram novos</p>
-    </div>
-
-    <!-- Secondary metrics: corroboration + yield -->
-    <div class="screening-metrics" style="opacity:0">
-      <div class="screening-metric">
-        <span class="screening-metric-value">6,4&times;</span>
-        <span class="screening-metric-label">detecção vs rotina</span>
-      </div>
-      <div class="screening-metric">
-        <span class="screening-metric-value">&gt;85%</span>
-        <span class="screening-metric-label">não sabem nos EUA</span>
+      <div class="screening-metrics" style="opacity:0">
+        <div class="screening-metric">
+          <span class="screening-metric-value">6,4&times;</span>
+          <span class="screening-metric-label">detecção vs rotina</span>
+        </div>
+        <div class="screening-metric">
+          <span class="screening-metric-value">&gt;85%</span>
+          <span class="screening-metric-label">não sabem nos EUA</span>
+        </div>
       </div>
     </div>
 
-    <!-- Guideline convergence: 3 societies -->
+    <!-- Guideline convergence: right column, paper-elevated card -->
     <div class="guideline-rec" style="opacity:0">
-      <p class="guideline-rec-text">Rastrear fibrose hepática: <strong>DM2</strong> · <strong>obesidade abdominal</strong> + fator metabólico · <strong>enzimas alteradas</strong></p>
+      <p class="guideline-rec-text">Rastrear fibrose hepática: <strong class="guide-match" data-match="dm2">DM2</strong> · <strong>obesidade abdominal</strong> + fator metabólico · <strong class="guide-match" data-match="enzimas">enzimas alteradas</strong></p>
       <p class="guideline-rec-source">EASL 2024 + AASLD 2023 + ADA 2025 convergem</p>
     </div>
 

@@ -25,7 +25,11 @@
   import gsap from 'gsap';
   import { SplitText } from 'gsap/SplitText';
   import { Flip } from 'gsap/Flip';
-  gsap.registerPlugin(SplitText, Flip);
+  import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+  import { CustomEase } from 'gsap/CustomEase';
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+  gsap.registerPlugin(SplitText, Flip, ScrambleTextPlugin, CustomEase, DrawSVGPlugin, MotionPathPlugin);
   import '../../shared/css/base.css';
   import './cirrose.css';
   import './archetypes.css';

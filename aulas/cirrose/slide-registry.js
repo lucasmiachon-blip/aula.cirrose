@@ -11,6 +11,10 @@ import { panelStates } from './slides/_manifest.js';
 import { getCurrentSlide } from '../../shared/js/deck.js';
 import { SplitText } from 'gsap/SplitText';
 import { Flip } from 'gsap/Flip';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+import { CustomEase } from 'gsap/CustomEase';
+import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 
 /* ────────────────────────────────────────────
    Shared helper: countUp for inline elements
@@ -35,29 +39,156 @@ function inlineCountUp(gsap, el, target, duration = 1.2, delay = 0) {
 export const customAnimations = {
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      s-a1-01 — Rastreio na atenção primária
-     States: auto only (countUp → rec fadeUp → source fadeIn)
+     R4: Monolith countUp → metrics blur → paper card → Flip badge flight
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-01': (slide, gsap) => {
+    // Custom eases (Apple-style cinematic curves)
+    CustomEase.create('appleHero', 'M0,0 C0.05,0.85 0.1,1 1,1');
+    CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
+
+    const headline = slide.querySelector('.slide-headline');
     const heroNum = slide.querySelector('.screening-hero-number');
     const metrics = slide.querySelector('.screening-metrics');
     const rec = slide.querySelector('.guideline-rec');
     const sourceTag = slide.querySelector('.source-tag');
+    const matches = slide.querySelectorAll('.guide-match');
+    const casePanel = document.querySelector('#case-panel');
 
-    // Auto: countUp 83 → metrics fadeUp → guideline-rec fadeUp → source fadeIn
-    if (heroNum) inlineCountUp(gsap, heroNum, 83, 1.2, 0.2);
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
+    // SplitText headline reveal
+    if (headline) {
+      const split = new SplitText(headline, { type: 'chars' });
+      gsap.set(split.chars, { opacity: 0, y: 8 });
+      tl.to(split.chars, { opacity: 1, y: 0, duration: 0.4, stagger: 0.02 }, 0);
+    }
+
+    // Bloomberg CountUp — faster (1.4s P3), blur during count, cinematic ease
+    if (heroNum) {
+      gsap.set(heroNum, { scale: 0.8, opacity: 0, filter: 'blur(6px)' });
+      tl.to(heroNum, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.4, ease: 'snapOut' }, 0.2);
+      const obj = { val: 0 };
+      tl.to(obj, {
+        val: 83,
+        duration: 1.8,
+        ease: 'appleHero',
+        onUpdate() { heroNum.textContent = Math.round(obj.val); },
+      }, 0.2);
+    }
+
+    // Metrics — SplitText chars + blur reveal
     if (metrics) {
-      gsap.set(metrics, { opacity: 0, y: 12 });
-      gsap.to(metrics, { opacity: 1, y: 0, duration: 0.5, delay: 1.4, ease: 'power2.out' });
+      const items = metrics.querySelectorAll('.screening-metric');
+      gsap.set(metrics, { opacity: 0 });
+
+      tl.addLabel('metrics', 1.8);
+      tl.to(metrics, { opacity: 1, duration: 0.01 }, 'metrics');
+
+      items.forEach((item, i) => {
+        const val = item.querySelector('.screening-metric-value');
+        const label = item.querySelector('.screening-metric-label');
+
+        if (val) {
+          const splitV = new SplitText(val, { type: 'chars' });
+          gsap.set(splitV.chars, { opacity: 0, y: 10, filter: 'blur(4px)' });
+          tl.to(splitV.chars, {
+            opacity: 1, y: 0, filter: 'blur(0px)',
+            duration: 0.6, stagger: 0.03, ease: 'back.out(1.5)',
+          }, `metrics+=${i * 0.2}`);
+        }
+        if (label) {
+          gsap.set(label, { clipPath: 'inset(0 100% 0 0)' });
+          tl.to(label, {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 0.5, ease: 'power3.inOut',
+          }, `metrics+=${i * 0.2 + 0.15}`);
+        }
+      });
     }
 
+    // Paper card — scale up from bottom-right
+    tl.addLabel('guideline', 2.8);
     if (rec) {
-      gsap.set(rec, { opacity: 0, y: 12 });
-      gsap.to(rec, { opacity: 1, y: 0, duration: 0.5, delay: 2.0, ease: 'power2.out' });
+      gsap.set(rec, { opacity: 0, y: 24, scale: 0.95 });
+      tl.to(rec, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out' }, 'guideline');
     }
 
+    // Flip badge flight — badges activate → clones fly to case-panel
+    tl.addLabel('punch', 3.6);
+
+    // Badge activation — snap green with ring
+    if (matches.length) {
+      matches.forEach((el, i) => {
+        tl.to(el, {
+          background: 'oklch(40% 0.15 170)',
+          color: '#fff',
+          scale: 1.1,
+          duration: 0.4,
+          ease: 'back.out(2)',
+        }, `punch+=${i * 0.2}`);
+        tl.to(el, { scale: 1, duration: 0.3 }, `punch+=${i * 0.2 + 0.4}`);
+      });
+
+      // Flip badge flight: clone badges → fly to case-panel
+      if (casePanel) {
+        const panelRect = casePanel.getBoundingClientRect();
+        const flyDelay = 0.8; // after badge activation settles
+
+        matches.forEach((el, i) => {
+          const badge = el;
+          tl.add(() => {
+            // Capture badge position (Flip state)
+            const state = Flip.getState(badge);
+
+            // Create flying clone
+            const clone = badge.cloneNode(true);
+            clone.classList.add('badge-clone');
+            clone.style.position = 'fixed';
+            document.body.appendChild(clone);
+
+            // Position clone at badge's current location
+            const badgeRect = badge.getBoundingClientRect();
+            clone.style.left = badgeRect.left + 'px';
+            clone.style.top = badgeRect.top + 'px';
+
+            // Animate clone to case-panel area
+            gsap.to(clone, {
+              left: panelRect.left + panelRect.width / 2 - 30,
+              top: panelRect.top + 40 + (i * 24),
+              scale: 0.85,
+              duration: 0.7,
+              ease: 'power3.inOut',
+              onComplete() {
+                // Ripple burst on arrival
+                gsap.to(clone, {
+                  scale: 1.5,
+                  opacity: 0,
+                  duration: 0.4,
+                  ease: 'power1.out',
+                  onComplete() { clone.remove(); },
+                });
+              },
+            });
+          }, `punch+=${flyDelay + i * 0.25}`);
+        });
+
+        // Case-panel pulse on badge arrival
+        tl.to(casePanel, {
+          boxShadow: '0 0 0 3px oklch(40% 0.15 170 / 0.4)',
+          duration: 0.3,
+          ease: 'power2.out',
+        }, `punch+=${flyDelay + matches.length * 0.25}`);
+        tl.to(casePanel, {
+          boxShadow: '0 0 0 0px oklch(40% 0.15 170 / 0)',
+          duration: 0.6,
+          ease: 'power1.out',
+        }, `punch+=${flyDelay + matches.length * 0.25 + 0.3}`);
+      }
+    }
+
+    // Source-tag
     if (sourceTag) {
-      gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 2.6, ease: 'power2.out' });
+      tl.to(sourceTag, { opacity: 0.7, duration: 0.5 }, 'guideline+=0.4');
     }
 
     // No click-reveals — auto only

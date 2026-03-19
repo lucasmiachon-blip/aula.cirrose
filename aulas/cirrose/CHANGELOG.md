@@ -4,6 +4,26 @@
 
 ---
 
+## 2026-03-19 — s-a1-01 v4 (R4): paper card + Flip badge flight (sessao 11)
+
+- **s-a1-01 v3 → v4:** Gemini QA.3 iterative loop R0→R1→R2→R3→R4.
+  - **KILLED:** glassmorphism guideline card → paper-elevated card (Vercel multi-layer shadows, white bg, border-radius 16px)
+  - **KILLED:** DrawSVG laser lines + MotionPath dots (theatrical, distracts from data)
+  - **NEW:** Flip badge flight — guide-match badges activate teal → clones fly to case-panel → ripple burst + case-panel pulse
+  - **ADJUSTED:** countUp faster (1.8s vs 2.2s) + blur(6px→0) during count
+  - **ADJUSTED:** metrics reveal earlier (t=1.8 vs t=2.0), paper card t=2.8, badge punch t=3.6
+  - **KEPT:** Bloomberg hero 140-220px Instrument Serif, SplitText headline + blur metrics, Grid 7:5, source 13px
+  - CSS: paper card box-shadow 3-layer, `.badge-clone` fixed position, `container-type:inline-size` on hero-block
+  - JS: Flip badge flight with `getBoundingClientRect()` → `gsap.to()` fixed position clones, case-panel boxShadow pulse
+  - E45 fix: source-tag `overflow-wrap:anywhere` + `white-space:normal` — fits at both 1280x720 and 1920x1080
+- **QA.2:** 6 screenshots + 2 videos captured (both resolutions). Source-tag fits (scrollW=364, clientW=364).
+- **Gemini script:** `gemini-qa3.mjs` updated to R4 (HTML/CSS/JS code, round context, output r4).
+- **Capture script:** `capture-s-a1-01.mjs` updated — laser forcing removed, badge-clone cleanup added.
+- **Build:** PASS (44 slides) · **Lint:** PASS
+- **Pendente:** QA.3 Gemini R4 review
+
+---
+
 ## 2026-03-19 — s-a1-01 v3 + Notion sync + QA.0-QA.1 (sessao 10)
 
 - **s-a1-01 v3:** "Por que rastrear?" polish completo.
@@ -15,7 +35,7 @@
   - Speaker notes: 7 [DATA] tags, timing [0:00]-[1:30]
 - **Notion References DB:** 3 entries criadas (reference-manager agent). Journals CGH/Liver Int = "Other" (backlog).
 - **Narrative:** Atualizada via NotebookLM grounded research (cirrose notebook).
-- **QA s-a1-01:** QA.0 PASS (content audit) + QA.1 PASS (constraint check). Pendente: QA.2+.
+- **QA s-a1-01:** QA.0 PASS (content audit) + QA.1 PASS (constraint check) + QA.2 screenshots (1280x720 + 1920x1080). Issue: source-tag truncation at 1920x1080. Pendente: fix + QA.3 Gemini.
 - **s-hook → DONE:** Documental atualizado (v17 QA 5-stage PASS).
 - **Build:** PASS (44 slides) · **Lint:** PASS
 

@@ -984,28 +984,151 @@
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-a1-01 — BURDEN (hero + iceberg bars)
-   State machine: 0=hero, 1=iceberg bars, 2=source
+   s-a1-01 — Rastreio na atenção primária
+   Gemini R4: Monolith + paper card + Flip badge flight
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 #s-a1-01 .slide-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 0 var(--space-xl);
+  padding: 36px 48px 40px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#s-a1-01 .section-tag {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  margin: 0;
+}
+
+/* Hero block: left column, vertically centered */
+#s-a1-01 .hero-block {
+  grid-column: 1;
+  grid-row: 2;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding: 36px 48px 24px;
-  text-align: center;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
 }
-/* Section-tag anchors to top, auto margin pushes content down */
-#s-a1-01 .section-tag { margin: 0 0 auto; }
-/* Headline pulls away from section-tag, groups with hero+card */
-#s-a1-01 .slide-headline { margin: auto 0 var(--space-sm); }
-#s-a1-01 .screening-hero { margin: 0 0 var(--space-sm); }
-#s-a1-01 .screening-hero-number { font-size: clamp(64px, 5.5vw, 96px); }
-/* Card matches footer width */
-#s-a1-01 .guideline-rec { max-width: 600px; box-sizing: border-box; }
-/* Footer anchors to bottom */
-#s-a1-01 .source-tag { color: var(--text-muted); margin-top: auto; }
+
+#s-a1-01 .slide-headline {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-h2);
+}
+
+/* Bloomberg hero — massive, tight, sculptural */
+#s-a1-01 .screening-hero {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+}
+#s-a1-01 .screening-hero-number {
+  font-family: var(--font-display);
+  font-size: clamp(140px, 15vw, 220px);
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  transform-origin: left bottom;
+}
+#s-a1-01 .screening-hero-unit {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: 0.75;
+  margin-left: 4px;
+  opacity: 0.8;
+}
+#s-a1-01 .screening-hero-label {
+  max-width: 320px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: var(--space-xs) 0 var(--space-md);
+}
+
+/* Secondary metrics — left-aligned under hero */
+#s-a1-01 .screening-metrics {
+  gap: var(--space-lg);
+  justify-content: flex-start;
+  border-top: 1px solid oklch(90% 0 0);
+  padding-top: var(--space-sm);
+}
+
+/* Paper-elevated card — Vercel multi-layer shadows */
+#s-a1-01 .guideline-rec {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: end;
+  max-width: none;
+  box-sizing: border-box;
+  background: white;
+  border: none;
+  border-radius: 16px;
+  padding: var(--space-md) var(--space-lg);
+  box-shadow:
+    inset 0 0 0 1px oklch(93% 0 0),
+    0 1px 2px oklch(0% 0 0 / 0.03),
+    0 4px 8px oklch(0% 0 0 / 0.04),
+    0 12px 24px oklch(0% 0 0 / 0.06);
+  transform-origin: bottom right;
+}
+
+/* Guide-match pill badges */
+#s-a1-01 .guide-match {
+  display: inline-block;
+  background: oklch(96% 0 0);
+  color: oklch(20% 0 0);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid oklch(92% 0 0);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+}
+#s-a1-01 .guide-match.active {
+  background: var(--safe);
+  color: oklch(100% 0 0);
+  border-color: var(--safe);
+  box-shadow: 0 0 0 2px oklch(97% 0.005 258), 0 0 0 4px var(--safe);
+}
+
+/* Flying badge clones (created by GSAP Flip) */
+.badge-clone {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--safe);
+  color: oklch(100% 0 0);
+  box-shadow: 0 8px 32px oklch(0% 0 0 / 0.15);
+}
+
+/* Source-tag — monospace, legible at 5m */
+#s-a1-01 .source-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 48px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: oklch(55% 0 0);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+  max-width: 55%;
+  margin: 0;
+}
+
+/* No-js failsafe */
+.no-js #s-a1-01 .screening-metrics,
+.no-js #s-a1-01 .guideline-rec,
+.no-js #s-a1-01 .source-tag { opacity: 1; }
+.no-js #s-a1-01 .targeting-lasers { display: none; }
 
 /* ── Patient context banner (compact breadcrumb) ── */
 .patient-context {
