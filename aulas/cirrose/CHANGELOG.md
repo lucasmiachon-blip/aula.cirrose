@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-03-19 — prompt v6 → v6.1: narrative context variables (sessao 8)
+
+- **Prompt Gemini v6 → v6.1:** Merge metanalise v4.0 context variables.
+  - `{{NARRATIVE_CONTEXT}}` substituido por 5 vars estruturadas: `{{SLIDE_ID}}`, `{{SLIDE_POS}}`, `{{NARRATIVE_ROLE}}`, `{{TENSION_LEVEL}}`, `{{SLIDE_ANTERIOR}}`, `{{SLIDE_SEGUINTE}}`
+  - `{{NOTES_RAW}}` adicionado na secao materials (speaker notes como material separado para Gemini avaliar motion ↔ fala)
+  - Tabela de variaveis adicionada apos Parametros API (16 vars documentadas com fonte)
+- **HANDOFF:** 8 refs prompt v6 → v6.1
+- **Arquivos:** docs/prompts/gemini-slide-editor.md (v6.1)
+
+---
+
 ## 2026-03-19 — s-hook v16 Gemini R2 proposals + prompt v6 (sessao 7)
 
 - **s-hook v15 → v16:** 4 propostas Gemini R2 (3.1-pro) aplicadas.

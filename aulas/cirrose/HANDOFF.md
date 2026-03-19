@@ -28,7 +28,7 @@
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
-| 2 | s-hook | QA | **v16** (19/mar). QA.3 R1+R2 applied. **Screenshots v16 CURRENT** (4 PNGs: S0+S1 x 1280x720+1920x1080 em `qa-screenshots/s-hook/v16/`). Pendente: preencher prompt v6 com raw code + screenshots → enviar Gemini R3. |
+| 2 | s-hook | QA | **v16** (19/mar). QA.3 R1+R2 applied. **Screenshots v16 CURRENT** (4 PNGs: S0+S1 x 1280x720+1920x1080 em `qa-screenshots/s-hook/v16/`). Pendente: preencher prompt v6.1 com raw code + screenshots → enviar Gemini R3. |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
@@ -92,7 +92,7 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 1 | s-title |
-| QA | 1 | s-hook (v16: QA.0-QA.2 PASS, QA.3 R1+R2 applied, screenshots v16 CURRENT, pendente: prompt v6 + Gemini R3) |
+| QA | 1 | s-hook (v16: QA.0-QA.2 PASS, QA.3 R1+R2 applied, screenshots v16 CURRENT, pendente: prompt v6.1 + Gemini R3) |
 | LINT-PASS | 2 | s-a1-01, s-a1-classify |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
@@ -140,14 +140,14 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 - v12-v15: prompt eng iterations (v4 XML+CoT, v4.1 full toolkit, v5 advanced PE). v15: layout reestruturado (story+punchline left, labs right).
 - v16 (19/mar): Gemini R2 (3.1-pro) propostas 2-5 aplicadas — flat cards (no box-shadow, subtle border, alert bg rosa), border-left editorial, differential motion (back.out alerts, color bleed black→red), SplitText question Instrument Serif italic.
 - QA.0-QA.2 PASS.
-- Prompt Gemini v6: `docs/prompts/gemini-slide-editor.md` — 5 personas, 10 lenses, 10-dim scorecard, radical ideas forcing, strict output schema, temperature 1.0.
+- Prompt Gemini v6.1: `docs/prompts/gemini-slide-editor.md` — 5 personas, 10 lenses, 10-dim scorecard, radical ideas forcing, strict output schema, temperature 1.0. v6.1: narrative context variables + speaker notes (merge metanalise v4.0).
 - **Screenshots v16 CURRENT** — 4 PNGs em `qa-screenshots/s-hook/v16/` (S0+S1 x 1280x720+1920x1080). Script: `scripts/capture-s-hook.mjs` (deck.js compatible, Playwright).
 - Letterbox 16:10 esperado (monitor usuario). TV congresso 16:9 = sem barras. Teste TV pendente 19/03.
-- Pendente: preencher prompt v6 com raw code + screenshots → enviar Gemini R3 → fix aprovados → QA.4 → DONE.
+- Pendente: preencher prompt v6.1 com raw code + screenshots → enviar Gemini R3 → fix aprovados → QA.4 → DONE.
 
 ### Backlog
 
-- QA visual Gemini: s-hook v16 — preencher prompt v6, enviar Gemini R3. Demais slides: screenshots state-by-state, video de reveals, monotonia visual Act 2
+- QA visual Gemini: s-hook v16 — preencher prompt v6.1, enviar Gemini R3. Demais slides: screenshots state-by-state, video de reveals, monotonia visual Act 2
 - **[MAIN]** engine.js `?qa=1` não força estado final de custom animations — `forceAnimFinalState()` só trata `[data-animate]`, ignora `customAnimations`. Workaround: script Playwright força via evaluate. Fix longo-prazo em shared/.
 - h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão)
 - Headlines reescritos neste batch: s-a1-01 (verboso→83%), s-a1-damico (verboso→Child-Pugh), s-a1-meld (metáfora→urgência)
@@ -258,18 +258,19 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-19, sessao 7)
+## Onde paramos (2026-03-19, sessao 8)
 
+- **Sessao 8:** prompt v6→v6.1 — merge metanalise v4.0 context variables (NARRATIVE_CONTEXT → 5 vars estruturadas + NOTES_RAW + tabela de variaveis).
 - **Sessao 7:** doc hardening — HANDOFF sync v11→v16, stale IDs corrigidos (evidence-db, narrative.md), cross-ref audit PASS, repo janitor PASS.
 - **Ultimo commit:** `c7f2b45` — s-hook v16 + prompt Gemini v6.
 - **s-hook v11→v16:** v11 regression fixes (E43/E44) → prompt iterations (v4 XML+CoT, v4.1 toolkit, v5 advanced PE) → v15 layout reestruturado (story+punchline left, labs right) → v16 Gemini R2 (3.1-pro) propostas 2-5 aplicadas (flat cards, border-left editorial, differential motion, SplitText question Instrument Serif italic).
-- **Prompt v3→v6:** v3 persona composta → v4 XML+CoT+narrative → v4.1 full GSAP toolkit → v5 advanced PE rewrite → v6 5 personas, 10 lenses, 10-dim scorecard, radical ideas forcing, strict output schema, temperature 1.0.
+- **Prompt v3→v6.1:** v3 persona composta → v4 XML+CoT+narrative → v4.1 full GSAP toolkit → v5 advanced PE rewrite → v6 scorecard+lenses+radical → v6.1 narrative context variables + speaker notes (merge metanalise v4.0).
 - **Gemini rounds:** R1 (2.5-pro) = 14 fixes G1-G14 aplicados em v10. R2 (3.1-pro) = propostas 2-5 aplicadas em v16.
 - **Build+Lint:** PASS (44 slides).
-- **QA pipeline:** s-title DONE. s-hook = QA (v16: QA.0-QA.2 PASS, QA.3 R1+R2 applied, prompt v6 pronto).
+- **QA pipeline:** s-title DONE. s-hook = QA (v16: QA.0-QA.2 PASS, QA.3 R1+R2 applied, prompt v6.1 pronto).
 - **Screenshots:** v16 CURRENT — 4 PNGs em `qa-screenshots/s-hook/v16/` (S0 initial + S1 final × 2 resoluções). Script `capture-s-hook.mjs` criado (deck.js Playwright, `.slide-active` detection).
 - **Vite cache:** Limpo (ghost slide "1,43 milhão" era cache — zero nos sources). Ghost canary ativo.
-- **Proximo:** preencher prompt v6 com raw code + screenshots → enviar Gemini R3 → fix aprovados → QA.4 → DONE.
+- **Proximo:** preencher prompt v6.1 com raw code + screenshots → enviar Gemini R3 → fix aprovados → QA.4 → DONE.
 
 ---
 

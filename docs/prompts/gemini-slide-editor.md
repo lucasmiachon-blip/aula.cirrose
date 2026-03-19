@@ -1,10 +1,10 @@
-# Gemini Slide Editor — Creative Review Prompt v6
+# Gemini Slide Editor — Creative Review Prompt v6.1
 
 > Template reutilizavel para review criativo Gemini 3.1 Pro.
 > Preencher placeholders `{{...}}` com dados do slide sendo avaliado.
 > Raw code DEVE ser extraido dos arquivos no momento do envio (E42).
 > Ref: WT-OPERATING.md §QA.3
-> Changelog: v1 hierarquias · v2 editor final · v3 beauty+calibracao · v4 XML+CoT+narrative · v4.1 full toolkit · v5 advanced PE · **v6 (19/mar) scorecard numerico, exploration mandate, color/typo/front-end lenses, radical ideas forcing, output schema**
+> Changelog: v1 hierarquias · v2 editor final · v3 beauty+calibracao · v4 XML+CoT+narrative · v4.1 full toolkit · v5 advanced PE · **v6 (19/mar) scorecard numerico, exploration mandate, color/typo/front-end lenses, radical ideas forcing, output schema** · **v6.1 (19/mar) narrative context variables + speaker notes (merge metanalise v4.0)**
 
 ## Parametros API
 
@@ -18,6 +18,27 @@
 ```
 
 > **Temperature 1.0** — queremos propostas radicais, nao consenso seguro. topP 0.95 evita lixo sem cortar criatividade.
+
+## Variaveis (preencher por slide)
+
+| Var | Fonte |
+|-----|-------|
+| `{{SLIDE_ID}}` | _manifest.js |
+| `{{SLIDE_NAME}}` | Nome legível do slide |
+| `{{SLIDE_ROLE}}` | Papel narrativo (hook, evidence, checkpoint...) |
+| `{{SLIDE_POS}}` | Posição no deck (ex: "2/44") |
+| `{{SLIDE_ANTERIOR}}` | Slide anterior + narrativeRole |
+| `{{SLIDE_SEGUINTE}}` | Slide seguinte + narrativeRole |
+| `{{NARRATIVE_ROLE}}` | narrativeRole do _manifest.js |
+| `{{TENSION_LEVEL}}` | tensionLevel (1-5) do _manifest.js |
+| `{{CONTEXT_PARAGRAPH}}` | Parágrafo de contexto livre |
+| `{{ROUND_CONTEXT}}` | O que mudou em rounds anteriores |
+| `{{RAW_HTML}}` | slides/NN-slug.html (extrair no momento — E42) |
+| `{{RAW_CSS}}` | Seletores relevantes do cirrose.css |
+| `{{RAW_JS}}` | Entrada do slide-registry.js |
+| `{{NOTES_RAW}}` | aside.notes do slide |
+| `{{INTERACTION_FLOW}}` | Descrição do fluxo de interação |
+| `{{ATTACHMENTS_DESCRIPTION}}` | Lista dos PNGs/vídeos anexados |
 
 ---
 
@@ -102,7 +123,11 @@ Para importar plugin nao registrado, incluir snippet de import no codigo propost
 
 ### Contexto narrativo deste slide
 
-{{NARRATIVE_CONTEXT}}
+- Slide: {{SLIDE_ID}} (posicao {{SLIDE_POS}})
+- narrativeRole: {{NARRATIVE_ROLE}}
+- tensionLevel: {{TENSION_LEVEL}}/5
+- Slide anterior: {{SLIDE_ANTERIOR}}
+- Slide seguinte: {{SLIDE_SEGUINTE}}
 
 </context>
 
@@ -135,6 +160,11 @@ Para importar plugin nao registrado, incluir snippet de import no codigo propost
 **JS (GSAP interactions):**
 ```js
 {{RAW_JS}}
+```
+
+**Speaker Notes:**
+```
+{{NOTES_RAW}}
 ```
 
 **Fluxo da interacao:**
