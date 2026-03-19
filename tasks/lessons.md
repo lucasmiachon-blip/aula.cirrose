@@ -393,3 +393,10 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 - Persona e calibracao sao especificos — NAO transferir cegamente.
 - **Regra:** Apos evoluir prompt em uma aula, avaliar o que e tecnica (transferivel) vs o que e contexto (especifico). Absorver tecnicas, preservar contexto.
 - Aplicado: gemini-slide-editor.md v3→v4 absorveu 4 tecnicas de metanalise v3.0.
+
+### Source-tags longas truncam em resolucoes maiores — E45
+
+- Source-tag com 3+ citacoes (PMIDs) pode caber em 1280x720 mas truncar em 1920x1080 quando `scaleDeck()` amplia.
+- `white-space: nowrap` + `overflow: hidden` + `text-overflow: ellipsis` corta informacao sem aviso visual claro.
+- **Regra:** Source-tags com 3+ citacoes DEVEM ser testadas em AMBAS resolucoes. Fix: `white-space: normal; overflow-wrap: anywhere; max-width: 55%` permite quebra sem overflow.
+- Ref: ERRO-045.

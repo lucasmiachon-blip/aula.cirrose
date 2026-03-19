@@ -24,6 +24,7 @@
 | E35 | MUST | CSS inline no HTML tem max specificity — override requer seletor com ID. `flex-wrap: wrap` inline causou layout break (ERRO-035) |
 | E40 | MUST | `width:100%` + padding sem `box-sizing: border-box` = overflow. Apenas `section` e `.slide-inner` têm reset global — custom containers herdam `content-box` |
 | E41 | SHOULD | Grid `auto` row com 2+ filhos = sobreposição. Overlays/punchlines sobre slide = `position: absolute`, não grid flow |
+| E45 | SHOULD | Source-tags com 3+ citações DEVEM ser testados em 1280x720 + 1920x1080. `white-space:normal; overflow-wrap:anywhere; max-width:55%` para evitar truncamento |
 
 ### Regra Master Flexbox
 ```
@@ -110,7 +111,7 @@ Reveal.js controla visibilidade dos `<section>`. Um `display` inline sobrescreve
 Antes de editar CSS:
 1. Ler este arquivo
 2. Identificar cluster relevante
-3. Flexbox? → E06/E10/E18/E22/E26/E27/E28/E40/E41
+3. Flexbox? → E06/E10/E18/E22/E26/E27/E28/E40/E41/E45
 4. Display/Nav? → E07/E23/E38/E39
 5. Cor? → E13/E14/E15/E17/E31/E36/E37/E43/E44 + `design-system.md`
 6. Dados? → E21/E25 + `medical-data.md`
