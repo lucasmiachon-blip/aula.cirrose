@@ -71,7 +71,8 @@ Multi-agent workflows falham silenciosamente. Sem KPIs, não sabe se:
 
 ## Benchmarks de Referência (Estado Atual)
 
-> Baseline medido em 2026-03-07, pré-pipeline multimodelo.
+> Baseline medido em 2026-03-07, pre-pipeline multimodelo.
+> **Nenhuma medicao posterior registrada.** Pendente: primeiro registro real usando template acima.
 
 | Métrica | Baseline | Meta 30 dias | Meta 90 dias |
 |---------|----------|-------------|-------------|

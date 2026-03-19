@@ -1,5 +1,13 @@
 # NOTES — Cirrose
 
+## [19/03] Doc hardening — backlog estrutural
+
+Itens deferidos (nao-criticos, registrar para futuro):
+- **qa-engineer.md:** extrair JS snippets para reference.md (economia ~80 linhas)
+- **SKILLS.md:** remover secao Cursor skills (irrelevante para Claude Code)
+- **ECOSYSTEM.md:** split em 3 docs (routing estavel + benchmarks volateis + inventario)
+- **XREF.md:** atualizar apos todos os fixes acima
+
 ## [19/03] s-hook v11 — regressoes corrigidas, prompt v3
 
 **Diagnostico:** s-hook v10 ganhou assimetria, clinical stutter e blackout (Gemini rounds 1+2), mas REGREDIU em: (1) lab cards perderam surface treatment (bg/shadow/radius removidos por over-correction), (2) overlay fraco (35% = fog, nao cinema), (3) punchline/question cores inadequadas para overlay escuro.

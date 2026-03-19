@@ -2,7 +2,7 @@
 
 **Template:** defina as variáveis de ambiente do usuário (sysdm.cpl → Variáveis de Ambiente).
 
-O Cursor lê `${VAR}` do mcp.json a partir dessas variáveis.
+Claude Code e Cursor leem `${VAR}` do mcp.json a partir dessas variaveis.
 
 ---
 
@@ -64,4 +64,8 @@ O `pubmed` usa `scripts/run-pubmed-mcp.js` para corrigir o bug tiktoken no Windo
 
 ---
 
-**Sincronizado de Aulas_core em 2026-02-26**
+## Opcionais — smart diff / design QA
+
+| Variavel | MCP | Onde obter |
+|----------|-----|------------|
+| `FLOTO_API_KEY` | floto | [floto.dev](https://floto.dev/) |

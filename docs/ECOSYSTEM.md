@@ -8,6 +8,7 @@
 
 ## Benchmarks — Março 2026
 
+> **Dados de mar/2026.** Verificar [arena.ai/leaderboard](https://arena.ai/leaderboard/code) mensalmente para atualizacoes.
 > Fontes: [WebDev Arena](https://web.lmarena.ai/leaderboard) · [NxCode](https://www.nxcode.io) · [VentureBeat](https://venturebeat.com) · [Vellum](https://www.vellum.ai/blog/claude-opus-4-6-benchmarks)
 > ✅ **Gemini 3 Pro preview encerrado 9 mar 2026** → migrado para Gemini 3.1 Pro ($2/M, mesmo preço)
 
@@ -53,7 +54,7 @@
 |------------|----------------|-----|--------|
 | **Perplexity Ultra** | Pesquisa em tempo real | Sim | ✅ Ativo |
 | **Scite** | Citações | Sim | ✅ MCP streamableHttp |
-| **Consensus** | Meta-análises | — | Manual |
+| **Consensus** | Meta-analises | MCP claude.ai nativo | ✅ Ativo |
 | **Elicit** | Extração de papers | — | Manual |
 | **Notion** | Specs · Bíblia · References | Sim | ✅ MCP |
 | **Zotero** | Referências | Sim | ✅ MCP |
