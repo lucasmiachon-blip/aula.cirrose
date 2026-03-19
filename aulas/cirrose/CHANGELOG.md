@@ -4,6 +4,23 @@
 
 ---
 
+## 2026-03-19 — s-a1-01 v3 + Notion sync + QA.0-QA.1 (sessao 10)
+
+- **s-a1-01 v3:** "Por que rastrear?" polish completo.
+  - Secondary metrics: 6,4x detecção vs rotina (Prince 2024) + >85% unaware (NHANES 2025)
+  - Guideline convergence: EASL 2024 + AASLD 2023 + ADA 2025 (3 sociedades)
+  - 3 novos PMIDs verificados: 40581070 (NHANES cACLD), 40434108 (ADA Consensus), 38291809 (Park cost-effectiveness)
+  - CSS: `.screening-metrics` flex layout, failsafe `.no-js`/`.stage-bad`
+  - Registry: countUp hero + stagger metrics + fadeUp guideline-rec
+  - Speaker notes: 7 [DATA] tags, timing [0:00]-[1:30]
+- **Notion References DB:** 3 entries criadas (reference-manager agent). Journals CGH/Liver Int = "Other" (backlog).
+- **Narrative:** Atualizada via NotebookLM grounded research (cirrose notebook).
+- **QA s-a1-01:** QA.0 PASS (content audit) + QA.1 PASS (constraint check). Pendente: QA.2+.
+- **s-hook → DONE:** Documental atualizado (v17 QA 5-stage PASS).
+- **Build:** PASS (44 slides) · **Lint:** PASS
+
+---
+
 ## 2026-03-19 — s-hook v17: Gemini R3 P1+P2 borderless grid + contraste denso (sessao 9)
 
 - **s-hook v16 → v17:** Gemini R3 (3.1-pro, prompt v6.1) propostas P1+P2 aplicadas.

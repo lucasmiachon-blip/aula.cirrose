@@ -10,6 +10,7 @@
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
 **ERROR-LOG:** 44 registrados, 43 corrigidos, 1 processo (E42).
+**Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script:** `scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `scripts/capture-s-hook.mjs` (s-hook específico, Playwright). Legacy `scripts/qa-screenshots-stage-c.js` usa Reveal.js — OBSOLETO.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs (a11y-contrast, design-comparison, floto, chrome-devtools) via profile `qa`. Gemini via API REST direta (nao MCP local).
@@ -29,7 +30,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
-| 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
+| 3 | s-a1-01 | QA | **v3** (19/mar). QA.0 PASS + QA.1 PASS. Secondary metrics (6,4x + >85%) + 3-society convergence + 7 [DATA] tags. Pendente: QA.2 screenshots. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
