@@ -178,7 +178,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 
 - **Panel:** oculto ou irrelevante (slides independentes)
 - **Propósito:** Backup para perguntas pós-aula. Não fazem parte do arco principal.
-- **Mudanças vs versão anterior:** CCM (s-app-05) e SHP/PPH (s-app-06) movidos para Ato 2 como A2-13 e A2-14. Albumina consolidada adicionada como apêndice novo.
+- **Mudanças vs versão anterior:** CCM (s-a2-13, ex s-app-05) e SHP/PPH (s-a2-14, ex s-app-06) movidos para Ato 2. Albumina consolidada adicionada como apêndice novo.
 
 ## Case Panel — Evolução
 

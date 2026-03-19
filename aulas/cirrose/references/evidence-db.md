@@ -190,7 +190,7 @@
 | s-a1-01 | FIB-4 -> elastografia -> CSPH pathway | Baveno VII (PMID 35120736) |
 | s-a1-fib4 / s-a1-rule5 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
 | s-a1-meld | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
-| s-a2-infec | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
+| s-a2-04 | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
 | s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
 | s-a1-classify | Carvedilol HR 0,51 (IC 0,26-0,97) descomp/morte; HR 0,44 (IC 0,20-0,97) ascite (3 anos, n=201) | PREDESCI (PMID 30910320) |
 | s-a2-01 | **NSBBs** HR 0,51 (nao carvedilol isolado), NNT 9, dose carvedilol 6,25->12,5 mg | PREDESCI (PMID 30910320) |
@@ -265,7 +265,7 @@
 
 | # | Referencia | PMID Candidato | DOI Candidato | Citacao AMA (candidata) | Status |
 |---|-----------|---------------|---------------|------------------------|--------|
-| 1 | PREDICT study — Trebicka et al. J Hepatol 2020 | **32673741** | 10.1016/j.jhep.2020.01.025 | Trebicka J, Fernandez J, Papp M, et al. The PREDICT study uncovers three clinical courses of acutely decompensated cirrhosis that have distinct pathophysiology. J Hepatol. 2020;73(4):842-854. | VERIFICADO via WebSearch 09/mar — nota: follow-up precipitating events = PMID 33227350 (usado no slide s-a2-infec) |
+| 1 | PREDICT study — Trebicka et al. J Hepatol 2020 | **32673741** | 10.1016/j.jhep.2020.01.025 | Trebicka J, Fernandez J, Papp M, et al. The PREDICT study uncovers three clinical courses of acutely decompensated cirrhosis that have distinct pathophysiology. J Hepatol. 2020;73(4):842-854. | VERIFICADO via WebSearch 09/mar — nota: follow-up precipitating events = PMID 33227350 (usado no slide s-a2-04) |
 | 2 | PPI HR 1,75 para PBE | [TBD — fonte desconhecida] | — | Fonte nao identificada. Possiveis candidatos: Terg R et al. Hepatology 2015 ou Bajaj JS et al. Am J Gastroenterol 2009. | FONTE NAO IDENTIFICADA — escalar para Lucas |
 | 3 | Mahmud et al. ACG 2025 — MELD-Na cutoff | [NOT INDEXED — searched 2026-03-07] | — | Mahmud N, et al. [titulo TBD]. Am J Gastroenterol. 2025. | Artigo 2025 — provavelmente nao indexado ou abstract ACG |
 | 4 | AGA 2025 Orman — albumin guidance | [NOT INDEXED — searched 2026-03-07] | — | Orman ES, et al. AGA Clinical Practice Update on Albumin in Cirrhosis. Gastroenterology. 2025. | Artigo 2025 — provavelmente nao indexado ainda |
