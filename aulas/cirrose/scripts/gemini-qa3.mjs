@@ -121,21 +121,22 @@ Editor final criativo. Autoridade total para propor mudancas radicais.
 Primeiro slide de conteudo apos hook. 83% = primeiro numero-impacto do deck. Corroboracao (6.4x, >85%) + convergencia guidelines (3 sociedades).
 
 ### Round context
-Round 4 (re-avaliacao pos-R3). Implementou propostas R3 (5.6/10):
-- KILLED: glassmorphism card → paper-elevated card (Vercel multi-layer shadows, white bg, border-radius 16px)
-- KILLED: DrawSVG laser lines + MotionPath dots (too theatrical, distracts from data)
-- NEW: Flip badge flight — guide-match badges activate teal → clones fly to case-panel (#case-panel) → ripple burst on arrival → case-panel pulse
-- ADJUSTED: countUp faster (1.8s vs 2.2s) + blur(6px→0) during count
-- ADJUSTED: metrics label now at t=1.8 (tighter, less dead time)
-- KEPT: Bloomberg hero 140-220px, SplitText headline + blur metrics, Grid 7:5, source 13px
-Nota R3: 5.6/10. Objetivo: 8+.
+Round 5 (re-avaliacao pos-R4). Implementou TODAS 4 propostas do R4 (6.0/10):
+- P1 DONE: Typographic collision fix — hero padding-bottom 0.12em, line-height 0.8, label max-width 16ch + editorial font-size
+- P2 DONE: Reactive metrics — countUp onUpdate triggers metrics when val>=70 (85% progress), causal connection
+- P3 DONE: Subgrid metrics — CSS Grid 1fr 1fr for rigid column alignment (Bloomberg dashboard)
+- P4 RADICAL DONE: Drawer lateral — guideline is full-height right panel (grid 6fr:4fr, zero gap, slides in from x:100% via GSAP power4.out 1.0s). border-radius 24px left-only. Section-tag inside hero-block. Case-panel + guideline cohabit same white panel layer.
+- Specificity fix: section#s-a1-01 beats base.css #slide-viewport specificity.
+- KEPT: Bloomberg hero, SplitText, Flip badge flight, source 13px
+Nota R4: 6.0/10. Objetivo: 8+.
+NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
 
 ### HTML:
 \`\`\`html
 <section id="s-a1-01" data-timing="90" data-panel-state="neutral">
   <div class="slide-inner">
-    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
     <div class="hero-block">
+      <p class="section-tag">ATO 1 — CLASSIFICAR</p>
       <h2 class="slide-headline">Por que rastrear?</h2>
       <div class="screening-hero">
         <span class="screening-hero-number">0</span>
@@ -164,19 +165,18 @@ Nota R3: 5.6/10. Objetivo: 8+.
 
 ### CSS (key rules):
 \`\`\`css
-#s-a1-01 .slide-inner { position:relative; display:grid; grid-template-columns:7fr 5fr; grid-template-rows:auto 1fr auto; gap:0 var(--space-xl); padding:36px 48px 40px; height:100%; box-sizing:border-box; }
-#s-a1-01 .section-tag { grid-column:1/-1; grid-row:1; }
-#s-a1-01 .hero-block { grid-column:1; grid-row:2; container-type:inline-size; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; text-align:left; }
-#s-a1-01 .screening-hero { display:flex; align-items:flex-start; }
-#s-a1-01 .screening-hero-number { font-family:var(--font-display); font-size:clamp(140px,15vw,220px); line-height:0.75; letter-spacing:-0.05em; }
-#s-a1-01 .screening-hero-unit { font-family:var(--font-display); font-size:clamp(48px,5vw,72px); line-height:0.75; margin-left:4px; opacity:0.8; }
-#s-a1-01 .screening-hero-label { max-width:320px; font-weight:500; letter-spacing:-0.01em; }
-#s-a1-01 .screening-metrics { gap:var(--space-lg); justify-content:flex-start; border-top:1px solid oklch(90% 0 0); padding-top:var(--space-sm); }
-#s-a1-01 .guideline-rec { grid-column:2; grid-row:2; align-self:end; max-width:none; box-sizing:border-box; background:white; border:none; border-radius:16px; padding:var(--space-md) var(--space-lg); box-shadow: inset 0 0 0 1px oklch(93% 0 0), 0 1px 2px oklch(0% 0 0/0.03), 0 4px 8px oklch(0% 0 0/0.04), 0 12px 24px oklch(0% 0 0/0.06); transform-origin:bottom right; }
-#s-a1-01 .guide-match { display:inline-block; background:oklch(96% 0 0); color:oklch(20% 0 0); padding:2px 8px; border-radius:6px; border:1px solid oklch(92% 0 0); font-family:var(--font-mono); font-size:0.9em; transition:all 0.3s cubic-bezier(0.2,1,0.3,1); }
-#s-a1-01 .guide-match.active { background:var(--safe); color:oklch(100% 0 0); border-color:var(--safe); box-shadow:0 0 0 2px oklch(97% 0.005 258), 0 0 0 4px var(--safe); }
-.badge-clone { position:fixed; z-index:100; pointer-events:none; font-family:var(--font-mono); font-size:14px; padding:2px 8px; border-radius:6px; background:var(--safe); color:oklch(100% 0 0); box-shadow:0 8px 32px oklch(0% 0 0/0.15); }
-#s-a1-01 .source-tag { position:absolute; bottom:12px; left:48px; font-family:var(--font-mono); font-size:13px; color:oklch(55% 0 0); white-space:normal; overflow-wrap:anywhere; text-align:left; max-width:55%; margin:0; }
+section#s-a1-01 .slide-inner { position:relative; display:grid; grid-template-columns:6fr 4fr; grid-template-rows:1fr; gap:0; padding:0; height:100%; box-sizing:border-box; overflow:hidden; }
+#s-a1-01 .hero-block { grid-column:1; grid-row:1; container-type:inline-size; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; text-align:left; padding:36px 48px 40px; }
+#s-a1-01 .screening-hero { display:flex; align-items:flex-start; padding-bottom:0.12em; }
+#s-a1-01 .screening-hero-number { font-family:var(--font-display); font-size:clamp(140px,15vw,220px); line-height:0.8; letter-spacing:-0.05em; }
+#s-a1-01 .screening-hero-label { max-width:16ch; font-size:clamp(18px,1.5vw,22px); font-weight:500; line-height:1.15; color:oklch(30% 0 0); }
+#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); border-top:1px solid oklch(10% 0 0/0.1); padding-top:var(--space-sm); }
+#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:white; border:none; border-radius:24px 0 0 24px; padding:var(--space-2xl) var(--space-lg) var(--space-lg); box-shadow:-12px 0 32px oklch(0% 0 0/0.05); display:flex; flex-direction:column; justify-content:center; transform-origin:right center; overflow:hidden; }
+#s-a1-01 .guideline-rec-text { font-size:clamp(18px,1.4vw,22px); line-height:1.4; }
+#s-a1-01 .guideline-rec-source { font-family:var(--font-mono); font-size:clamp(12px,0.85vw,14px); color:oklch(45% 0 0); }
+#s-a1-01 .guide-match { display:inline-block; background:oklch(96% 0 0); color:oklch(20% 0 0); padding:2px 8px; border-radius:6px; border:1px solid oklch(92% 0 0); font-family:var(--font-mono); font-size:0.9em; }
+.badge-clone { position:fixed; z-index:100; pointer-events:none; background:var(--safe); color:oklch(100% 0 0); border-radius:6px; box-shadow:0 8px 32px oklch(0% 0 0/0.15); }
+#s-a1-01 .source-tag { position:absolute; bottom:12px; left:48px; font-family:var(--font-mono); font-size:13px; color:oklch(55% 0 0); max-width:50%; overflow-wrap:anywhere; }
 \`\`\`
 
 ### JS (GSAP timeline — key sections):
@@ -187,8 +187,9 @@ CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
 
 // SplitText headline chars reveal (t=0, 0.4s stagger 0.02)
 // Bloomberg CountUp: scale 0.8→1 + blur(6px→0) (snapOut 1.4s) + countUp 0→83 (appleHero 1.8s) at t=0.2
-// Metrics: SplitText chars + blur(4px→0) + clipPath labels (t=1.8, stagger 0.2)
-// Paper card: scale 0.95→1 + fadeUp (t=2.8, power3.out 0.7s)
+// REACTIVE: when countUp val>=70, triggers revealMetrics() (P2 causal connection)
+// revealMetrics(): SplitText chars + blur(4px→0) + clipPath labels (reactive, not fixed timeline)
+// Drawer: x:'100%'→'0%' (t=2.8, power4.out 1.0s) — full-height panel slides from right edge
 // PUNCH (t=3.6): guide-match badges → teal bg + white text (back.out)
 // Flip badge flight: clone badges → animate fixed position to #case-panel coords → ripple burst on arrival
 // Case-panel pulse: box-shadow ring (teal) 0.3s in, 0.6s out
@@ -288,8 +289,8 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, 'gemini-qa3-r4.md');
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R4)\n\n` +
+  const outPath = join(QA_DIR, 'gemini-qa3-r5.md');
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R5)\n\n` +
     `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0,10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
