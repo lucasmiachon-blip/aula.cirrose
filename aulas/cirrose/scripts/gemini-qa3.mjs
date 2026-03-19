@@ -121,14 +121,13 @@ Editor final criativo. Autoridade total para propor mudancas radicais.
 Primeiro slide de conteudo apos hook. 83% = primeiro numero-impacto do deck. Corroboracao (6.4x, >85%) + convergencia guidelines (3 sociedades).
 
 ### Round context
-Round 7 (re-avaliacao pos-R6). Implementou 4 propostas do R6 (5.35/10):
-- P1 RADICAL DONE: Killed white drawer background → transparent. No more "modal" feel. border-left 1px solid editorial. padding-left only (space-2xl). Guideline text now belongs to Stage-C creme environment.
-- P2 DONE: Hero label max-width 32ch (was 16ch). margin-bottom space-2xl for breathing room before metrics. metrics border-top refined to 1px (was 2px).
-- P3 DONE: Pill badges — border-radius 999px, no border, heavier font-weight 600, background oklch(0%/0.04) neutral state.
-- P5 DONE: Guideline text in Instrument Serif (was DM Sans), font-size clamp(24px,1.8vw,30px) (was 18-22px). Authoritative editorial tone.
-- KEPT: Grid 6fr:4fr, reactive metrics, SplitText, Flip badge flight, Bloomberg mono metrics, source-tag 13px.
-- Specificity: section#s-a1-01 beats base.css.
-Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5)→R6(5.35). Objetivo: 8+.
+Round 8 (re-avaliacao pos-R7). Implementou 4 propostas do R7 (5.7/10):
+- P1 RADICAL DONE: Killed inline badges. HTML restructured: guideline-rec now has .guideline-rec-title (uppercase DM Sans label) + .guideline-items (stacked .guide-item divs in Instrument Serif clamp(26-34px)). Each condition is its own line with em-dash prefix. Massively improved legibility.
+- P2 DONE: Removed ALL borders (border-left on guideline, border-top on metrics). Whitespace-only separation via padding.
+- P3 DONE: New .guide-item pill badges replaced by stacked items with .matched (teal) and .dimmed (gray) CSS classes.
+- P4 DONE: Flip badge flight KILLED. Replaced with in-place match punch: non-match items dim, match items highlight teal + nudge x:8px. Motion serves conclusion, not spectacle.
+- KEPT: Grid 6fr:4fr, reactive metrics (countUp→70→reveal), SplitText headline, Bloomberg mono metrics, source-tag 13px, transparent background.
+Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5)→R6(5.35)→R7(5.7). Objetivo: 8+.
 NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
 
 ### HTML:
@@ -155,8 +154,13 @@ NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser l
       </div>
     </div>
     <div class="guideline-rec" style="opacity:0">
-      <p class="guideline-rec-text">Rastrear fibrose hepatica: <strong class="guide-match" data-match="dm2">DM2</strong> . <strong>obesidade abdominal</strong> + fator metabolico . <strong class="guide-match" data-match="enzimas">enzimas alteradas</strong></p>
-      <p class="guideline-rec-source">EASL 2024 + AASLD 2023 + ADA 2025 convergem</p>
+      <p class="guideline-rec-title">Rastrear fibrose hepatica</p>
+      <div class="guideline-items">
+        <div class="guide-item" data-match="dm2">DM2</div>
+        <div class="guide-item">Obesidade + fator metabolico</div>
+        <div class="guide-item" data-match="enzimas">Enzimas alteradas</div>
+      </div>
+      <p class="guideline-rec-source">EASL 2024 . AASLD 2023 . ADA 2025</p>
     </div>
     <p class="source-tag" style="opacity:0">Prince 2024 (PMID 38934697) . NHANES 2025 (PMID 40581070) . EASL-EASD-EASO 2024 (PMID 38851997)</p>
   </div>
@@ -170,14 +174,16 @@ section#s-a1-01 .slide-inner { position:relative; display:grid; grid-template-co
 #s-a1-01 .screening-hero { display:flex; align-items:baseline; gap:0; }
 #s-a1-01 .screening-hero-number { font-family:var(--font-display); font-size:clamp(140px,15vw,220px); line-height:0.85; letter-spacing:-0.05em; }
 #s-a1-01 .screening-hero-label { max-width:32ch; font-size:clamp(18px,1.5vw,22px); font-weight:500; line-height:1.15; color:oklch(30% 0 0); margin:var(--space-sm) 0 var(--space-2xl); }
-#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); border-top:1px solid oklch(0% 0 0/0.1); padding-top:var(--space-md); }
+#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); padding-top:var(--space-lg); }
 #s-a1-01 .screening-metric-value { font-family:var(--font-mono); font-weight:600; letter-spacing:-0.02em; }
 #s-a1-01 .screening-metric-label { text-transform:uppercase; letter-spacing:0.05em; font-size:clamp(11px,0.8vw,13px); color:oklch(40% 0 0); }
-#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:transparent; border:none; border-left:1px solid oklch(0% 0 0/0.06); border-radius:0; padding:0 0 0 var(--space-2xl); display:flex; flex-direction:column; justify-content:center; transform-origin:right center; overflow:hidden; }
-#s-a1-01 .guideline-rec-text { font-family:var(--font-display); font-size:clamp(24px,1.8vw,30px); line-height:1.25; color:oklch(20% 0 0); }
+#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:transparent; border:none; padding:0 0 0 var(--space-xl); display:flex; flex-direction:column; justify-content:center; }
+#s-a1-01 .guideline-rec-title { font-family:var(--font-body); font-size:clamp(14px,1vw,16px); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:oklch(50% 0 0); }
+#s-a1-01 .guideline-items { display:flex; flex-direction:column; gap:var(--space-sm); }
+#s-a1-01 .guide-item { font-family:var(--font-display); font-size:clamp(26px,2vw,34px); line-height:1.15; color:oklch(25% 0 0); padding-left:24px; position:relative; }
+#s-a1-01 .guide-item::before { content:"—"; position:absolute; left:0; color:oklch(70% 0 0); }
+#s-a1-01 .guide-item.matched { color:var(--safe); } .guide-item.dimmed { color:oklch(75% 0 0); }
 #s-a1-01 .guideline-rec-source { font-family:var(--font-mono); font-size:clamp(12px,0.85vw,14px); color:oklch(45% 0 0); }
-#s-a1-01 .guide-match { display:inline-block; background:oklch(0% 0 0/0.04); color:oklch(20% 0 0); padding:4px 10px; border-radius:999px; border:none; font-family:var(--font-mono); font-size:0.85em; font-weight:600; }
-.badge-clone { position:fixed; z-index:100; pointer-events:none; background:var(--safe); color:oklch(100% 0 0); border-radius:6px; box-shadow:0 8px 32px oklch(0% 0 0/0.15); }
 #s-a1-01 .source-tag { position:absolute; bottom:12px; left:48px; font-family:var(--font-mono); font-size:13px; color:oklch(55% 0 0); max-width:50%; overflow-wrap:anywhere; }
 \`\`\`
 
@@ -189,12 +195,11 @@ CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
 
 // SplitText headline chars reveal (t=0, 0.4s stagger 0.02)
 // Bloomberg CountUp: scale 0.8→1 + blur(6px→0) (snapOut 1.4s) + countUp 0→83 (appleHero 1.8s) at t=0.2
-// REACTIVE: when countUp val>=70, triggers revealMetrics() (P2 causal connection)
+// REACTIVE: when countUp val>=70, triggers revealMetrics() (causal connection)
 // revealMetrics(): SplitText chars + blur(4px→0) + clipPath labels (reactive, not fixed timeline)
-// Drawer: x:'100%'→'0%' (t=2.8, power4.out 1.0s) — full-height panel slides from right edge
-// PUNCH (t=3.6): guide-match badges → teal bg + white text (back.out)
-// Flip badge flight: clone badges → animate fixed position to #case-panel coords → ripple burst on arrival
-// Case-panel pulse: box-shadow ring (teal) 0.3s in, 0.6s out
+// Guideline panel: fadeUp y:20→0 (t=2.8, power3.out 0.8s)
+// Guide items: stagger opacity+x (t=3.1, 0.12s stagger)
+// MATCH PUNCH (t=4.2): non-match items → .dimmed (gray), match items → .matched (teal) + x:8px nudge
 // Source-tag opacity 0.7 at guideline+0.4
 \`\`\`
 
@@ -291,8 +296,8 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, 'gemini-qa3-r7.md');
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R7)\n\n` +
+  const outPath = join(QA_DIR, 'gemini-qa3-r8.md');
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R8)\n\n` +
     `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0,10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
