@@ -985,7 +985,7 @@
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-01 — Rastreio na atenção primária
-   R9: Flex bullets + depth-of-field punch + scaled labels
+   R10: Clinical pill tags + sequential scan + depth-of-field
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* section#id beats #slide-viewport > section .slide-inner specificity */
@@ -1099,41 +1099,43 @@ section#s-a1-01 .slide-inner {
   color: oklch(50% 0 0);
   margin: 0 0 var(--space-md);
 }
-#s-a1-01 .guideline-items {
+#s-a1-01 .guideline-pills {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-sm);
   margin: 0 0 var(--space-lg);
 }
-#s-a1-01 .guide-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-family: var(--font-display);
-  font-size: clamp(26px, 2vw, 34px);
-  line-height: 1.15;
+#s-a1-01 .guide-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: oklch(92% 0.005 258);
+  border: 1px solid oklch(86% 0.01 258);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#s-a1-01 .pill-text {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(18px, 1.4vw, 24px);
   color: oklch(25% 0 0);
-  transition: color 0.4s ease, transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
-#s-a1-01 .guide-item::before {
-  content: "—";
-  flex-shrink: 0;
-  color: oklch(70% 0 0);
-  transition: color 0.4s ease;
+#s-a1-01 .guide-pill.matched {
+  background: var(--safe);
+  border-color: var(--safe);
+  transform: scale(1.05) translateX(8px);
+  box-shadow: 0 8px 20px -6px oklch(40% 0.12 170 / 0.35);
 }
-#s-a1-01 .guide-item.matched {
-  color: var(--safe);
+#s-a1-01 .guide-pill.matched .pill-text {
+  color: oklch(100% 0 0);
 }
-#s-a1-01 .guide-item.matched::before {
-  color: var(--safe);
-}
-#s-a1-01 .guide-item.dimmed {
-  color: oklch(75% 0 0);
-  opacity: 0.25;
-  filter: blur(3px);
-}
-#s-a1-01 .guide-item.dimmed::before {
-  color: oklch(85% 0 0);
+#s-a1-01 .guide-pill.dimmed {
+  opacity: 0.3;
+  filter: blur(2px) grayscale(100%);
+  transform: scale(0.97);
 }
 #s-a1-01 .guideline-rec-source {
   font-family: var(--font-mono);
@@ -1163,7 +1165,7 @@ section#s-a1-01 .slide-inner {
 .no-js #s-a1-01 .screening-metrics,
 .no-js #s-a1-01 .guideline-rec,
 .no-js #s-a1-01 .source-tag { opacity: 1; }
-.no-js #s-a1-01 .guide-item { opacity: 1; transform: none; }
+.no-js #s-a1-01 .guide-pill { opacity: 1; transform: none; filter: none; }
 
 /* ── Patient context banner (compact breadcrumb) ── */
 .patient-context {

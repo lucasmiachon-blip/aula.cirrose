@@ -72,10 +72,10 @@ async function forceAnimFinalState(page) {
       el.style.clipPath = 'inset(0 0% 0 0)';
     });
 
-    // Force guide-items visible + matched state
-    section.querySelectorAll('.guide-item').forEach(el => {
+    // Force guide-pills visible + matched/dimmed state
+    section.querySelectorAll('.guide-pill').forEach(el => {
       el.style.opacity = '1';
-      el.style.transform = 'none';
+      el.style.filter = 'none';
       if (el.dataset.match) el.classList.add('matched');
       else el.classList.add('dimmed');
     });

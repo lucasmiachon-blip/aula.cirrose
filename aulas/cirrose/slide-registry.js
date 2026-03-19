@@ -51,9 +51,9 @@ export const customAnimations = {
     const metrics = slide.querySelector('.screening-metrics');
     const rec = slide.querySelector('.guideline-rec');
     const sourceTag = slide.querySelector('.source-tag');
-    const guideItems = slide.querySelectorAll('.guide-item');
-    const matchItems = slide.querySelectorAll('.guide-item[data-match]');
-    const nonMatchItems = slide.querySelectorAll('.guide-item:not([data-match])');
+    const guidePills = slide.querySelectorAll('.guide-pill');
+    const matchPills = slide.querySelectorAll('.guide-pill[data-match]');
+    const nonMatchPills = slide.querySelectorAll('.guide-pill:not([data-match])');
 
     const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
@@ -129,41 +129,26 @@ export const customAnimations = {
       tl.to(rec, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 'guideline');
     }
 
-    // Stagger guide items after panel appears
-    if (guideItems.length) {
-      gsap.set(guideItems, { opacity: 0, x: -12 });
-      tl.to(guideItems, {
-        opacity: 1, x: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out',
+    // Stagger pills after panel appears
+    if (guidePills.length) {
+      gsap.set(guidePills, { opacity: 0, y: 8, scale: 0.95 });
+      tl.to(guidePills, {
+        opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, ease: 'power2.out',
       }, 'guideline+=0.3');
     }
 
     // Match punch — "Antônio tem dois dos três"
     tl.addLabel('punch', 4.2);
 
-    // Depth-of-field match punch — dimmed items recede, matched items advance
-    if (nonMatchItems.length) {
-      tl.to(nonMatchItems, {
-        opacity: 0.25,
-        filter: 'blur(3px)',
-        scale: 0.98,
-        transformOrigin: 'left center',
-        duration: 0.8,
-        ease: 'power2.inOut',
-        onStart() {
-          nonMatchItems.forEach(el => el.classList.add('dimmed'));
-        },
-      }, 'punch');
-    }
-
-    if (matchItems.length) {
-      matchItems.forEach((el, i) => {
-        tl.to(el, {
-          x: 12,
-          scale: 1.02,
-          duration: 0.8,
-          ease: 'power3.out',
-          onStart() { el.classList.add('matched'); },
-        }, `punch+=${0.1 + i * 0.15}`);
+    // Sequential scan: each pill evaluates in order
+    if (guidePills.length) {
+      guidePills.forEach((pill, i) => {
+        const isMatch = pill.dataset.match !== undefined;
+        tl.to(pill, {
+          duration: 0.5,
+          ease: 'power2.out',
+          onStart() { pill.classList.add(isMatch ? 'matched' : 'dimmed'); },
+        }, `punch+=${i * 0.25}`);
       });
     }
 
