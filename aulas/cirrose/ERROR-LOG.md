@@ -271,13 +271,6 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-| Severidade | Total | Corrigidos | Pendentes |
-|------------|-------|------------|-----------|
-| CRITICAL   | 5     | 5          | 0 |
-| HIGH       | 14    | 14         | 0 |
-| MEDIUM     | 10    | 10         | 0 |
-| LOW        | 2     | 2          | 0 |
-
 ---
 
 ## Erros registrados — sessão D'Amico chromatic + vote elevation (2026-03-10)
@@ -375,7 +368,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Ultima atualizacao: 2026-03-19 · 42 erros registrados, 41 corrigidos, 1 processo (E42).*
+*Ultima atualizacao: 2026-03-19 · 44 erros registrados, 43 corrigidos, 1 processo (E42).*
 
 ---
 
@@ -384,7 +377,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 6     | 6          | 0 |
-| HIGH       | 20    | 20         | 0 |
+| HIGH       | 23    | 23         | 0 |
 | MEDIUM     | 11    | 11         | 0 |
 | LOW        | 2     | 2          | 0 |
-| **Total**  | **39**| **39**     | **0** |
+| SHOULD     | 2     | 2          | 0 |
+| **Total**  | **44**| **43**     | **1 (E42 processo)** |

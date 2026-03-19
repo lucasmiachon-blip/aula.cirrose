@@ -59,6 +59,7 @@ BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE
 - [ ] `<h2>` com assercao (mesmo que provisoria)
 - [ ] `<aside class="notes">` com timing placeholder
 - [ ] Entrada em `_manifest.js` na posicao correta
+- [ ] Screenshot baseline: `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id}` (ou `--act`)
 
 ### DRAFT → CONTENT
 
@@ -356,7 +357,7 @@ node aulas/cirrose/scripts/qa-batch-screenshot.mjs --act A1
 # recordVideo: { dir: 'qa-screenshots/{slide-id}/', size: { width: 1280, height: 720 } }
 ```
 
-### Gemini MCP
+### Gemini API
 
 Modelo unico (decisao Lucas 2026-03-18):
 

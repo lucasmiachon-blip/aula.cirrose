@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Gemini CLI wrapper — calls Gemini 2.5 Pro via Google AI SDK.
+ * Gemini CLI wrapper — calls Gemini 3.1 Pro via Google AI SDK.
  *
  * Usage:
  *   node scripts/gemini.mjs "your prompt here"
@@ -14,7 +14,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { readFileSync } from "fs";
 
-const MODEL = "gemini-2.5-pro";
+const MODEL = "gemini-3.1-pro-preview";
 
 function usage() {
   console.error(`Usage:

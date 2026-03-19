@@ -63,7 +63,7 @@
 5. Issues com nota < 9 → fix cirurgico
 6. Re-audit ate PASS (todas >= 9)
 
-### Loop 2 — Gemini MCP (apos Loop 1 PASS)
+### Loop 2 — Gemini API (apos Loop 1 PASS)
 
 Screenshots/video → Gemini avalia hierarquia, flow, legibilidade, daltonismo, densidade.
 Gemini so sugere (JSON spec) — Opus executa fix.
