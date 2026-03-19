@@ -30,7 +30,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
-| 3 | s-a1-01 | QA | **v4** (19/mar). R0→R4 Gemini loop. Paper card + Flip badge flight. E45 fixed. QA.2 PASS (both resolutions). Pendente: QA.3 Gemini R4 review. |
+| 3 | s-a1-01 | QA | **R11** (19/mar). Gemini loop R0→R10→R11. Ghost Rows + hero typo fix + metric scale + scan effect + case-panel hide + source-tag full-width. Pendente: QA.2 screenshots + QA.3 Gemini R11 review. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |

@@ -4,6 +4,23 @@
 
 ---
 
+## 2026-03-19 — s-a1-01 R11: Ghost Rows + all Gemini proposals (sessao 11 cont.)
+
+- **s-a1-01 R10→R11:** Implemented all 6 Gemini R10 proposals.
+  - **Option D — Ghost Rows:** Replaced pill tags with minimal status-dot + row-text + teal wash on match. Less chromatic mass, hero 83% stays protagonist.
+  - **P1 — Case-panel hide:** GSAP animates `#case-panel` to `opacity:0` on slide enter, restores on exit. No shared/ edits (read-only in WT).
+  - **P2 — Hero % typography:** Larger % (`clamp(60px, 6vw, 100px)`), negative margin (`-0.08em`), `translateY(-15px)` — Gestalt closure with hero number.
+  - **P3 — Metric scale:** `6,4×` and `>85%` bumped to `clamp(32px, 2.5vw, 42px)`, near-black (`oklch(20%)`), editorial border-top baseline.
+  - **P4 — Diagnostic scan:** Scanner line (teal gradient, `position:absolute`) sweeps through guideline-stack before match punch. "The slide thinks."
+  - **P5 — Source-tag:** Full-width (`left:48px; right:48px`), 11px JetBrains Mono, `text-overflow:ellipsis`.
+  - **KILLED:** Pill tags (`.guide-pill`, `.pill-text`) — replaced by Ghost Rows (`.stack-row`, `.row-text`, `.status-dot`).
+  - **KILLED:** Flip badge flight (removed R8) — Ghost Rows use in-place match.
+- **Capture script:** Updated `forceAnimFinalState` for Ghost Row selectors + scanner-line cleanup.
+- **Build:** PASS (44 slides) · **Lint:** PASS
+- **Pendente:** QA.2 screenshots + QA.3 Gemini R11 review
+
+---
+
 ## 2026-03-19 — s-a1-01 v4 (R4): paper card + Flip badge flight (sessao 11)
 
 - **s-a1-01 v3 → v4:** Gemini QA.3 iterative loop R0→R1→R2→R3→R4.

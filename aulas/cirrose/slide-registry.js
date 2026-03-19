@@ -39,7 +39,7 @@ function inlineCountUp(gsap, el, target, duration = 1.2, delay = 0) {
 export const customAnimations = {
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      s-a1-01 — Rastreio na atenção primária
-     R4: Monolith countUp → metrics blur → paper card → Flip badge flight
+     R11: Bloomberg hero → reactive metrics → Ghost Rows → diagnostic scan → match punch
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-01': (slide, gsap) => {
     // Custom eases (Apple-style cinematic curves)
@@ -51,9 +51,20 @@ export const customAnimations = {
     const metrics = slide.querySelector('.screening-metrics');
     const rec = slide.querySelector('.guideline-rec');
     const sourceTag = slide.querySelector('.source-tag');
-    const guidePills = slide.querySelectorAll('.guide-pill');
-    const matchPills = slide.querySelectorAll('.guide-pill[data-match]');
-    const nonMatchPills = slide.querySelectorAll('.guide-pill:not([data-match])');
+    const stackRows = slide.querySelectorAll('.stack-row');
+    const guidelineStack = slide.querySelector('.guideline-stack');
+
+    // P1: Hide case-panel during this slide for clean focus
+    const casePanel = document.querySelector('#case-panel');
+    if (casePanel) {
+      gsap.to(casePanel, { opacity: 0, duration: 0.4, ease: 'power2.out' });
+      // Restore on slide exit via ctx.revert() — add cleanup
+      const restorePanel = () => {
+        gsap.to(casePanel, { opacity: 1, duration: 0.3 });
+        document.removeEventListener('slide:changed', restorePanel);
+      };
+      document.addEventListener('slide:changed', restorePanel);
+    }
 
     const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
@@ -65,7 +76,7 @@ export const customAnimations = {
     }
 
     // Bloomberg CountUp — blur during count, cinematic ease
-    // P2: metrics reveal reactively when countUp passes 70 (85% of 83)
+    // Metrics reveal reactively when countUp passes 70 (85% of 83)
     let metricsRevealed = false;
 
     if (heroNum) {
@@ -78,7 +89,6 @@ export const customAnimations = {
         ease: 'appleHero',
         onUpdate() {
           heroNum.textContent = Math.round(obj.val);
-          // P2: reactive trigger — metrics emerge from the number landing
           if (obj.val >= 70 && !metricsRevealed) {
             metricsRevealed = true;
             revealMetrics();
@@ -122,39 +132,58 @@ export const customAnimations = {
       gsap.set(metrics, { opacity: 0 });
     }
 
-    // Guideline panel — fade up with stagger
+    // Guideline panel — fade up
     tl.addLabel('guideline', 2.8);
     if (rec) {
       gsap.set(rec, { opacity: 0, y: 20 });
       tl.to(rec, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 'guideline');
     }
 
-    // Stagger pills after panel appears
-    if (guidePills.length) {
-      gsap.set(guidePills, { opacity: 0, y: 8, scale: 0.95 });
-      tl.to(guidePills, {
-        opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, ease: 'power2.out',
+    // Stagger Ghost Rows after panel appears
+    if (stackRows.length) {
+      gsap.set(stackRows, { opacity: 0, y: 8 });
+      tl.to(stackRows, {
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out',
       }, 'guideline+=0.3');
     }
 
-    // Match punch — "Antônio tem dois dos três"
-    tl.addLabel('punch', 4.2);
+    // P4: Diagnostic scan — laser line sweeps through rows before match punch
+    tl.addLabel('scan', 4.0);
 
-    // Sequential scan: each pill evaluates in order
-    if (guidePills.length) {
-      guidePills.forEach((pill, i) => {
-        const isMatch = pill.dataset.match !== undefined;
-        tl.to(pill, {
-          duration: 0.5,
-          ease: 'power2.out',
-          onStart() { pill.classList.add(isMatch ? 'matched' : 'dimmed'); },
-        }, `punch+=${i * 0.25}`);
+    if (guidelineStack && stackRows.length) {
+      // Create scanner line element
+      const scannerLine = document.createElement('div');
+      scannerLine.classList.add('scanner-line');
+      guidelineStack.appendChild(scannerLine);
+      gsap.set(scannerLine, { top: 0, opacity: 0 });
+
+      // Scanner sweeps down
+      tl.to(scannerLine, { opacity: 1, duration: 0.15 }, 'scan');
+      tl.to(scannerLine, {
+        top: '100%',
+        duration: 0.6,
+        ease: 'linear',
+      }, 'scan+=0.1');
+      tl.to(scannerLine, { opacity: 0, duration: 0.15 }, 'scan+=0.6');
+    }
+
+    // Match punch — "Antônio tem dois dos três" (after scan completes)
+    tl.addLabel('punch', 4.8);
+
+    if (stackRows.length) {
+      stackRows.forEach((row, i) => {
+        const isMatch = row.dataset.match !== undefined;
+        tl.to(row, {
+          duration: 0.4,
+          ease: isMatch ? 'back.out(1.5)' : 'power2.out',
+          onStart() { row.classList.add(isMatch ? 'matched' : 'dimmed'); },
+        }, `punch+=${i * 0.2}`);
       });
     }
 
     // Source-tag
     if (sourceTag) {
-      tl.to(sourceTag, { opacity: 0.7, duration: 0.5 }, 'guideline+=0.4');
+      tl.to(sourceTag, { opacity: 0.6, duration: 0.5 }, 'guideline+=0.4');
     }
 
     // No click-reveals — auto only

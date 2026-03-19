@@ -1,7 +1,7 @@
 <!-- ============================================================
      s-a1-01 — Rastreio de hepatopatia na atenção primária
-     Layout: CSS Grid 6:4 · Bloomberg monolith · Stacked guideline items
-     States: auto (SplitText → countUp → reactive metrics → guideline → match punch)
+     Layout: CSS Grid 6:4 · Bloomberg monolith · Ghost Rows (R11)
+     States: auto (SplitText → countUp → reactive metrics → guideline → scan → match punch)
      ============================================================ -->
 <section id="s-a1-01"
          data-timing="90"
@@ -30,13 +30,22 @@
       </div>
     </div>
 
-    <!-- Guideline panel: right column, pill tags -->
+    <!-- Guideline panel: right column, Ghost Rows (R11 — Gemini Option D) -->
     <div class="guideline-rec" style="opacity:0">
       <p class="guideline-rec-title">Rastrear fibrose hepática</p>
-      <div class="guideline-pills">
-        <div class="guide-pill" data-match="dm2"><span class="pill-text">DM2</span></div>
-        <div class="guide-pill"><span class="pill-text">Obesidade + fator metabólico</span></div>
-        <div class="guide-pill" data-match="enzimas"><span class="pill-text">Enzimas alteradas</span></div>
+      <div class="guideline-stack">
+        <div class="stack-row" data-match="dm2">
+          <span class="status-dot"></span>
+          <span class="row-text">DM2</span>
+        </div>
+        <div class="stack-row">
+          <span class="status-dot"></span>
+          <span class="row-text">Obesidade + fator metabólico</span>
+        </div>
+        <div class="stack-row" data-match="enzimas">
+          <span class="status-dot"></span>
+          <span class="row-text">Enzimas alteradas</span>
+        </div>
       </div>
       <p class="guideline-rec-source">Recomendação forte · EASL 2024 · AASLD 2023 · ADA 2025</p>
     </div>

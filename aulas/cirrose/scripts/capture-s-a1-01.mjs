@@ -72,13 +72,21 @@ async function forceAnimFinalState(page) {
       el.style.clipPath = 'inset(0 0% 0 0)';
     });
 
-    // Force guide-pills visible + matched/dimmed state
-    section.querySelectorAll('.guide-pill').forEach(el => {
+    // Force Ghost Rows visible + matched/dimmed state
+    section.querySelectorAll('.stack-row').forEach(el => {
       el.style.opacity = '1';
-      el.style.filter = 'none';
+      el.style.transform = 'none';
       if (el.dataset.match) el.classList.add('matched');
       else el.classList.add('dimmed');
     });
+
+    // Force status dots
+    section.querySelectorAll('.status-dot').forEach(el => {
+      el.style.opacity = '1';
+    });
+
+    // Remove scanner line if present
+    section.querySelectorAll('.scanner-line').forEach(el => el.remove());
 
     // Force all opacity:0 elements visible
     section.querySelectorAll('.screening-metrics, .screening-metric, .guideline-rec, .source-tag').forEach(el => {
