@@ -121,13 +121,13 @@ Editor final criativo. Autoridade total para propor mudancas radicais.
 Primeiro slide de conteudo apos hook. 83% = primeiro numero-impacto do deck. Corroboracao (6.4x, >85%) + convergencia guidelines (3 sociedades).
 
 ### Round context
-Round 8 (re-avaliacao pos-R7). Implementou 4 propostas do R7 (5.7/10):
-- P1 RADICAL DONE: Killed inline badges. HTML restructured: guideline-rec now has .guideline-rec-title (uppercase DM Sans label) + .guideline-items (stacked .guide-item divs in Instrument Serif clamp(26-34px)). Each condition is its own line with em-dash prefix. Massively improved legibility.
-- P2 DONE: Removed ALL borders (border-left on guideline, border-top on metrics). Whitespace-only separation via padding.
-- P3 DONE: New .guide-item pill badges replaced by stacked items with .matched (teal) and .dimmed (gray) CSS classes.
-- P4 DONE: Flip badge flight KILLED. Replaced with in-place match punch: non-match items dim, match items highlight teal + nudge x:8px. Motion serves conclusion, not spectacle.
-- KEPT: Grid 6fr:4fr, reactive metrics (countUp→70→reveal), SplitText headline, Bloomberg mono metrics, source-tag 13px, transparent background.
-Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5)→R6(5.35)→R7(5.7). Objetivo: 8+.
+Round 9 (re-avaliacao pos-R8). Implementou 3 propostas do R8 (6.65/10):
+- P1 DONE: Flex bullet alignment — guide-item uses display:flex + gap:12px so em-dash stays fixed when text wraps. No more text going under the dash.
+- P2 DONE: Scaled metric labels from clamp(11-13px) to clamp(13-16px) with white-space:nowrap. Legible at distance.
+- P3 DONE: Depth-of-field match punch — non-match items get opacity:0.25 + blur(3px) + scale:0.98 (Z-axis recession). Matched items get scale:1.02 + x:12px nudge (teal color via CSS class). Cinematic focus effect.
+- ALSO: Hero % sign smaller (44-64px, was 48-72px) with oklch(35%) color for better hierarchy.
+- KEPT: Grid 6fr:4fr, stacked guide-items in Instrument Serif, reactive metrics, SplitText headline, Bloomberg mono, borderless layout, transparent background.
+Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5)→R6(5.35)→R7(5.7)→R8(6.65). Objetivo: 8+.
 NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
 
 ### HTML:
@@ -199,7 +199,7 @@ CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
 // revealMetrics(): SplitText chars + blur(4px→0) + clipPath labels (reactive, not fixed timeline)
 // Guideline panel: fadeUp y:20→0 (t=2.8, power3.out 0.8s)
 // Guide items: stagger opacity+x (t=3.1, 0.12s stagger)
-// MATCH PUNCH (t=4.2): non-match items → .dimmed (gray), match items → .matched (teal) + x:8px nudge
+// MATCH PUNCH (t=4.2): non-match → opacity:0.25+blur(3px)+scale:0.98. match → teal+scale:1.02+x:12px
 // Source-tag opacity 0.7 at guideline+0.4
 \`\`\`
 
@@ -296,8 +296,8 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, 'gemini-qa3-r8.md');
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R8)\n\n` +
+  const outPath = join(QA_DIR, 'gemini-qa3-r9.md');
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R9)\n\n` +
     `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0,10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
