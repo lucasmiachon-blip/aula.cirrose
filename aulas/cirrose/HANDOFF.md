@@ -93,7 +93,7 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 2 | s-title, s-hook |
-| QA | 1 | s-a1-01 (v4: R0→R4 Gemini loop, QA.2 PASS both resolutions, pendente QA.3 Gemini R4) |
+| QA | 1 | s-a1-01 (R11: Ghost Rows, pendente QA.2 screenshots + QA.3 Gemini) |
 | LINT-PASS | 1 | s-a1-classify |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
@@ -262,19 +262,54 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-19, sessao 8)
+## Onde paramos (2026-03-19, sessao 11)
 
-- **Sessao 8:** prompt v6→v6.1 — merge metanalise v4.0 context variables (NARRATIVE_CONTEXT → 5 vars estruturadas + NOTES_RAW + tabela de variaveis).
-- **Sessao 7:** doc hardening — HANDOFF sync v11→v16, stale IDs corrigidos (evidence-db, narrative.md), cross-ref audit PASS, repo janitor PASS.
-- **Ultimo commit:** `c7f2b45` — s-hook v16 + prompt Gemini v6.
-- **s-hook v11→v16:** v11 regression fixes (E43/E44) → prompt iterations (v4 XML+CoT, v4.1 toolkit, v5 advanced PE) → v15 layout reestruturado (story+punchline left, labs right) → v16 Gemini R2 (3.1-pro) propostas 2-5 aplicadas (flat cards, border-left editorial, differential motion, SplitText question Instrument Serif italic).
-- **Prompt v3→v6.1:** v3 persona composta → v4 XML+CoT+narrative → v4.1 full GSAP toolkit → v5 advanced PE rewrite → v6 scorecard+lenses+radical → v6.1 narrative context variables + speaker notes (merge metanalise v4.0).
-- **Gemini rounds:** R1 (2.5-pro) = 14 fixes G1-G14 aplicados em v10. R2 (3.1-pro) = propostas 2-5 aplicadas em v16.
-- **Build+Lint:** PASS (44 slides).
-- **QA pipeline:** s-title DONE. s-hook = QA (v16: QA.0-QA.2 PASS, QA.3 R1+R2 applied, prompt v6.1 pronto).
-- **Screenshots:** v16 CURRENT — 4 PNGs em `qa-screenshots/s-hook/v16/` (S0 initial + S1 final × 2 resoluções). Script `capture-s-hook.mjs` criado (deck.js Playwright, `.slide-active` detection).
-- **Vite cache:** Limpo (ghost slide "1,43 milhão" era cache — zero nos sources). Ghost canary ativo.
-- **Proximo:** preencher prompt v6.1 com raw code + screenshots → enviar Gemini R3 → fix aprovados → QA.4 → DONE.
+### s-a1-01 — QA loop Gemini (R0→R11)
+
+**Evolucao de formato (painel direito guideline):**
+- R0-R4: Paper card + Flip badge flight → KILLED (glassmorphism, laser lines, theatrics)
+- R5-R7: Em-dash stacked list → usuario nao gostou formato ("agrada pouco, local bom")
+- R8-R10: Pill tags (border-radius 999px, matched=teal bg, dimmed=gray) → usuario aprovou formato ("quase la, bom")
+- R11: Ghost Rows (Gemini Option D) — status-dot + row-text + teal wash on match. **USUARIO PEDIU IMPLEMENTAR TODAS propostas Gemini R10, mas NAO viu resultado final ainda.**
+
+**Problema pendente:** Usuario reportou que "perdemos o bloco lateral de ter ficado bem melhor". O painel direito (guideline-rec) pode ter regredido visualmente com a troca de pills para Ghost Rows. **Avaliar visualmente na proxima sessao** — pode ser necessario reverter para pills ou ajustar Ghost Rows.
+
+**Gemini scores (media):** R0(5.1) → R4(6.0) → R8(6.65) → R10(6.65) → R10 projeta 9.1 com Ghost Rows.
+
+**O que esta implementado no codigo agora (R11):**
+- HTML: `guideline-stack` > `stack-row` > `status-dot` + `row-text` (3 rows, 2 com data-match)
+- CSS: Ghost Row matched = teal wash `oklch(40% 0.12 170 / 0.08)` + glow dot + teal text. Dimmed = opacity 0.35 + scale 0.98.
+- CSS P2: Hero `%` maior (`clamp(60px, 6vw, 100px)`), negative margin `-0.08em`, `translateY(-15px)`
+- CSS P3: Metric values `clamp(32px, 2.5vw, 42px)`, `oklch(20%)`, editorial border-top + margin-top:auto
+- CSS P5: Source-tag full-width (`left:48px; right:48px`), 11px, `text-overflow:ellipsis`
+- JS P1: `#case-panel` GSAP `opacity:0` on slide enter, restores on slide:changed
+- JS P4: Scanner line (teal gradient div) sweeps guideline-stack before match punch
+- JS: Sequential scan → match punch com `back.out(1.5)` ease nos matched rows
+
+**Layout mantido:** CSS Grid 6:4, Bloomberg hero (Instrument Serif 140-220px, appleHero/snapOut eases), reactive metrics on countUp >= 70, SplitText headline.
+
+**Capture script:** `capture-s-a1-01.mjs` atualizado para Ghost Row selectors.
+**Gemini prompt:** `gemini-qa3.mjs` precisa ser atualizado para R11 context (Ghost Rows, scanner line, etc.) antes de enviar proxima rodada.
+
+### s-hook — DONE (v17)
+QA 5-stage PASS. Gemini R3 applied. Nada pendente.
+
+### Pipeline geral
+- s-title: DONE, s-hook: DONE
+- s-a1-01: QA (R11, pendente avaliacao visual + QA.2 + QA.3)
+- s-a1-classify: LINT-PASS (precisa QA 5-stage)
+- 40 slides: CONTENT
+
+### Proximos passos (proxima sessao)
+1. **VISUAL CHECK s-a1-01**: `npm run dev` → navegar ate s-a1-01 → avaliar se Ghost Rows ficaram bons ou se precisa reverter para pills
+2. Se bom: capturar QA.2 screenshots + video → enviar QA.3 Gemini R11
+3. Se ruim: revert Ghost Rows → voltar para pills (ultimo commit bom: `dfccdba`)
+4. Quando s-a1-01 atingir score >= 8 → QA.4 PASS → DONE
+5. Proximo slide: s-a1-classify (LINT-PASS → QA pipeline 5-stage)
+
+### Commits esta sessao (16 commits)
+`2888490..f42f593` — s-a1-01 R0→R11, Gemini loop completo, docs sync, Notion 3 PMIDs.
+Todos pushed para `origin/feat/cirrose-mvp`.
 
 ---
 
