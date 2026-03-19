@@ -985,36 +985,37 @@
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-01 — Rastreio na atenção primária
-   Gemini R4: Monolith + paper card + Flip badge flight
+   R5: Drawer lateral + typographic fix + reactive metrics
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-#s-a1-01 .slide-inner {
+/* section#id beats #slide-viewport > section .slide-inner specificity */
+section#s-a1-01 .slide-inner {
   position: relative;
   display: grid;
-  grid-template-columns: 7fr 5fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 0 var(--space-xl);
-  padding: 36px 48px 40px;
+  grid-template-columns: 6fr 4fr;
+  grid-template-rows: 1fr;
+  gap: 0;
+  padding: 0;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* Data side — left: creme bg with own padding */
 #s-a1-01 .section-tag {
-  grid-column: 1 / -1;
-  grid-row: 1;
-  margin: 0;
+  margin: 0 0 var(--space-sm);
 }
 
-/* Hero block: left column, vertically centered */
 #s-a1-01 .hero-block {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 1;
   container-type: inline-size;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   text-align: left;
+  padding: 36px 48px 40px;
 }
 
 #s-a1-01 .slide-headline {
@@ -1027,7 +1028,7 @@
   display: flex;
   align-items: flex-start;
   margin: 0;
-  padding-bottom: 0.12em; /* P1: protect against line-height 0.75 glyph overflow */
+  padding-bottom: 0.12em;
 }
 #s-a1-01 .screening-hero-number {
   font-family: var(--font-display);
@@ -1044,7 +1045,7 @@
   opacity: 0.8;
 }
 #s-a1-01 .screening-hero-label {
-  max-width: 16ch; /* P1: editorial forced line break */
+  max-width: 16ch;
   font-size: clamp(18px, 1.5vw, 22px);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -1053,31 +1054,41 @@
   margin: var(--space-xs) 0 var(--space-md);
 }
 
-/* Secondary metrics — left-aligned under hero */
+/* Secondary metrics — P3 subgrid-like rigid columns */
 #s-a1-01 .screening-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
-  justify-content: flex-start;
-  border-top: 1px solid oklch(90% 0 0);
+  border-top: 1px solid oklch(10% 0 0 / 0.1);
   padding-top: var(--space-sm);
 }
 
-/* Paper-elevated card — Vercel multi-layer shadows */
+/* Guideline drawer — full-height right panel, slides in */
 #s-a1-01 .guideline-rec {
   grid-column: 2;
-  grid-row: 2;
-  align-self: end;
-  max-width: none;
+  grid-row: 1 / -1;
   box-sizing: border-box;
   background: white;
   border: none;
-  border-radius: 16px;
-  padding: var(--space-md) var(--space-lg);
-  box-shadow:
-    inset 0 0 0 1px oklch(93% 0 0),
-    0 1px 2px oklch(0% 0 0 / 0.03),
-    0 4px 8px oklch(0% 0 0 / 0.04),
-    0 12px 24px oklch(0% 0 0 / 0.06);
-  transform-origin: bottom right;
+  border-radius: 24px 0 0 24px;
+  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  box-shadow: -12px 0 32px oklch(0% 0 0 / 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform-origin: right center;
+  overflow: hidden;
+}
+#s-a1-01 .guideline-rec-text {
+  font-size: clamp(18px, 1.4vw, 22px);
+  line-height: 1.4;
+  margin: 0 0 var(--space-md);
+}
+#s-a1-01 .guideline-rec-source {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 0.85vw, 14px);
+  color: oklch(45% 0 0);
+  margin: 0;
 }
 
 /* Guide-match pill badges */
@@ -1113,7 +1124,7 @@
   box-shadow: 0 8px 32px oklch(0% 0 0 / 0.15);
 }
 
-/* Source-tag — monospace, legible at 5m */
+/* Source-tag — pinned to bottom of data side */
 #s-a1-01 .source-tag {
   position: absolute;
   bottom: 12px;
@@ -1124,7 +1135,7 @@
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: left;
-  max-width: 55%;
+  max-width: 50%;
   margin: 0;
 }
 

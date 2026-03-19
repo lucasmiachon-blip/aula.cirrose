@@ -121,11 +121,11 @@ export const customAnimations = {
       gsap.set(metrics, { opacity: 0 });
     }
 
-    // Paper card — scale up from bottom-right
+    // Drawer — slides in from right edge
     tl.addLabel('guideline', 2.8);
     if (rec) {
-      gsap.set(rec, { opacity: 0, y: 24, scale: 0.95 });
-      tl.to(rec, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out' }, 'guideline');
+      gsap.set(rec, { opacity: 0, x: '100%' });
+      tl.to(rec, { opacity: 1, x: '0%', duration: 1.0, ease: 'power4.out' }, 'guideline');
     }
 
     // Flip badge flight — badges activate → clones fly to case-panel
