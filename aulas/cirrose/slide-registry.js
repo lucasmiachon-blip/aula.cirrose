@@ -63,7 +63,10 @@ export const customAnimations = {
       tl.to(split.chars, { opacity: 1, y: 0, duration: 0.4, stagger: 0.02 }, 0);
     }
 
-    // Bloomberg CountUp — faster (1.4s P3), blur during count, cinematic ease
+    // Bloomberg CountUp — blur during count, cinematic ease
+    // P2: metrics reveal reactively when countUp passes 70 (85% of 83)
+    let metricsRevealed = false;
+
     if (heroNum) {
       gsap.set(heroNum, { scale: 0.8, opacity: 0, filter: 'blur(6px)' });
       tl.to(heroNum, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.4, ease: 'snapOut' }, 0.2);
@@ -72,17 +75,23 @@ export const customAnimations = {
         val: 83,
         duration: 1.8,
         ease: 'appleHero',
-        onUpdate() { heroNum.textContent = Math.round(obj.val); },
+        onUpdate() {
+          heroNum.textContent = Math.round(obj.val);
+          // P2: reactive trigger — metrics emerge from the number landing
+          if (obj.val >= 70 && !metricsRevealed) {
+            metricsRevealed = true;
+            revealMetrics();
+          }
+        },
       }, 0.2);
     }
 
-    // Metrics — SplitText chars + blur reveal
-    if (metrics) {
+    // Metrics — SplitText chars + blur reveal (triggered by countUp)
+    function revealMetrics() {
+      if (!metrics) return;
       const items = metrics.querySelectorAll('.screening-metric');
-      gsap.set(metrics, { opacity: 0 });
 
-      tl.addLabel('metrics', 1.8);
-      tl.to(metrics, { opacity: 1, duration: 0.01 }, 'metrics');
+      gsap.to(metrics, { opacity: 1, duration: 0.01 });
 
       items.forEach((item, i) => {
         const val = item.querySelector('.screening-metric-value');
@@ -91,19 +100,25 @@ export const customAnimations = {
         if (val) {
           const splitV = new SplitText(val, { type: 'chars' });
           gsap.set(splitV.chars, { opacity: 0, y: 10, filter: 'blur(4px)' });
-          tl.to(splitV.chars, {
+          gsap.to(splitV.chars, {
             opacity: 1, y: 0, filter: 'blur(0px)',
             duration: 0.6, stagger: 0.03, ease: 'back.out(1.5)',
-          }, `metrics+=${i * 0.2}`);
+            delay: i * 0.2,
+          });
         }
         if (label) {
           gsap.set(label, { clipPath: 'inset(0 100% 0 0)' });
-          tl.to(label, {
+          gsap.to(label, {
             clipPath: 'inset(0 0% 0 0)',
             duration: 0.5, ease: 'power3.inOut',
-          }, `metrics+=${i * 0.2 + 0.15}`);
+            delay: i * 0.2 + 0.15,
+          });
         }
       });
+    }
+
+    if (metrics) {
+      gsap.set(metrics, { opacity: 0 });
     }
 
     // Paper card — scale up from bottom-right

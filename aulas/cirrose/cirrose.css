@@ -1027,25 +1027,29 @@
   display: flex;
   align-items: flex-start;
   margin: 0;
+  padding-bottom: 0.12em; /* P1: protect against line-height 0.75 glyph overflow */
 }
 #s-a1-01 .screening-hero-number {
   font-family: var(--font-display);
   font-size: clamp(140px, 15vw, 220px);
-  line-height: 0.75;
+  line-height: 0.8;
   letter-spacing: -0.05em;
   transform-origin: left bottom;
 }
 #s-a1-01 .screening-hero-unit {
   font-family: var(--font-display);
   font-size: clamp(48px, 5vw, 72px);
-  line-height: 0.75;
+  line-height: 0.8;
   margin-left: 4px;
   opacity: 0.8;
 }
 #s-a1-01 .screening-hero-label {
-  max-width: 320px;
+  max-width: 16ch; /* P1: editorial forced line break */
+  font-size: clamp(18px, 1.5vw, 22px);
   font-weight: 500;
   letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: oklch(30% 0 0);
   margin: var(--space-xs) 0 var(--space-md);
 }
 
