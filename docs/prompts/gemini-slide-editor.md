@@ -4,7 +4,7 @@
 > Preencher placeholders `{{...}}` com dados do slide sendo avaliado.
 > Raw code DEVE ser extraido dos arquivos no momento do envio (E42).
 > Ref: WT-OPERATING.md §QA.3
-> Changelog: v1 (17/mar) hierarquias visuais · v2 (18/mar) editor final · v3 (19/mar) beauty + motion + calibracao · **v4 (19/mar) XML tags, CoT, GSAP plugins, narrative context — absorbed from metanalise v3.0**
+> Changelog: v1 (17/mar) hierarquias visuais · v2 (18/mar) editor final · v3 (19/mar) beauty + motion + calibracao · v4 (19/mar) XML tags, CoT, narrative context — absorbed from metanalise v3.0 · **v4.1 (19/mar) full GSAP toolkit (25 plugins audited, 12 creative plugins documented)**
 
 ---
 
@@ -52,16 +52,41 @@ Antes de comecar, calibre seu olhar neste espectro:
 - **Interacao:** ArrowRight avanca (click-reveal ou proximo slide), ArrowLeft recua. Sem hover (projecao, nao web). O palestrante controla o tempo.
 - **Barra de qualidade:** Este deck NAO pode parecer "HTML com animacoes". Deve parecer editorial de saude do New York Times com a polish de uma keynote da Apple. Beleza profissional COM legibilidade absoluta.
 
-### GSAP — Plugins disponiveis
+### GSAP 3.14 — Toolkit completo (Business license)
 
-O deck importa e registra estes plugins alem do GSAP core. EXPLORE possibilidades avancadas com cada um:
+O projeto tem GSAP 3.14.2 com licenca Business — TODOS os plugins premium estao disponiveis em `node_modules/gsap/`. O `engine.js` oferece primitivas declarativas (`fadeUp`, `stagger`, `countUp`, `drawPath`, `highlight`) via `data-animate`, mas o `slide-registry.js` aceita QUALQUER codigo GSAP custom. NAO se limite ao engine.
 
-| Plugin | Importado | Capacidade |
-|--------|-----------|------------|
-| **SplitText** | `gsap/SplitText` | Divide texto em chars/words/lines para animacao individual. Dissolves, reveals letra-a-letra, efeitos de maquina de escrever, scramble visual. Ja usado em s-a1-baveno (dissolve de termo). |
-| **Flip** | `gsap/Flip` | Anima transicoes de layout automaticamente (posicao, tamanho, opacity). Rearranjo de cards, reordenacao visual, morph entre estados de layout. Ainda NAO usado em nenhum slide — oportunidade. |
+**Plugins ja importados** (prontos para uso em `slide-registry.js`):
 
-O `engine.js` oferece `fadeUp`, `stagger`, `countUp`, `drawPath`, `highlight` via `data-animate`. Mas o `slide-registry.js` aceita QUALQUER codigo GSAP — NAO se limite ao engine. Proponha animacoes que usem SplitText e Flip de formas que o engine nao cobre.
+| Plugin | Import | Capacidade | Uso atual |
+|--------|--------|------------|-----------|
+| **SplitText** | `gsap/SplitText` | Divide texto em chars/words/lines para animacao individual. Dissolves, reveals letra-a-letra, scramble visual. | Usado em s-a1-baveno (dissolve "Cirrose" → "cACLD/dACLD") |
+| **Flip** | `gsap/Flip` | `Flip.getState()` → muda DOM → `Flip.from()` anima transicao automaticamente. Rearranjo de cards, reordenacao, morph entre layouts. | Importado mas NAO usado — oportunidade inexplorada |
+
+**Plugins disponiveis mas NAO importados** (basta `import` + `gsap.registerPlugin()` — zero install):
+
+| Plugin | Capacidade | Uso potencial em slides medicos |
+|--------|------------|--------------------------------|
+| **MorphSVGPlugin** | Morph suave entre SVG shapes. Transforma qualquer path em outro. | Figado saudavel → cirrotico. Icone → grafico. Transformacao visual de estado clinico. |
+| **DrawSVGPlugin** | Stroke animation com controle de start% e end% independentes. Reverse, partial draws. Mais poderoso que o drawPath do engine. | Pathways que se desenham. Diagramas anatomicos. Linhas de evidencia que se revelam progressivamente. |
+| **MotionPathPlugin** | Anima elemento ao longo de SVG path arbitrario. | Dot que percorre cascata hepatica. Marcador que segue pathway de decisao. Timeline animada. |
+| **ScrambleTextPlugin** | Scramble de caracteres → resolve para texto final. Efeito "decoder" ou "slot machine". | Revelar numeros de impacto (NNT, HR) com suspense. Scramble antes de mostrar resultado. |
+| **TextPlugin** | Insere texto letra-a-letra (typewriter). Controle de velocidade e cursor. | Headline que se digita. Pergunta clinica que aparece como se o palestrante estivesse escrevendo. |
+| **CustomEase** | Cria curvas de easing bezier personalizadas. | Ease "heartbeat" (rapido-pausa-rapido). Ease "breathing" (senoidal suave). Dramatizar timing. |
+| **EasePack** | SlowMo (desacelera no meio), RoughEase (tremor organico), ExpoScaleEase (scale + ease combos). | SlowMo para momentos de pausa dramatica. RoughEase para stress/urgencia clinica. |
+| **CSSRulePlugin** | Anima pseudo-elements (::before, ::after). | Linhas decorativas, separadores, indicadores de progresso que usam pseudo-elements. |
+| **Observer** | Deteccao de gestos (touch, scroll, pointer movement). | Sala pequena: interacao por gesto em tablet/touch screen. Parallax por posicao do mouse. |
+| **Physics2DPlugin** | Simulacao fisica 2D (gravidade, velocidade, friccao). | Cards que "caem" com fisica. Dados que se dispersam e reagrupam. |
+| **InertiaPlugin** | Momentum e throw (flick → desaceleracao natural). | Flick de cards diagnosticos. Navegacao com inercia em timeline. |
+| **Draggable** | Drag-and-drop com bounds, snap, inercia. | Sala pequena: arrastar slider de MELD, reordenar prioridades. |
+
+**Para importar um novo plugin** (em `index.template.html`):
+```js
+import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+gsap.registerPlugin(MorphSVGPlugin);
+```
+
+EXPLORE agressivamente — cada plugin e uma ferramenta narrativa. Proponha combinacoes criativas (ex: SplitText + ScrambleText para revelar NNT com suspense, Flip + MorphSVG para transicao de estado clinico).
 
 ### Contexto narrativo deste slide
 
@@ -180,7 +205,7 @@ Animacoes neste deck servem proposito DRAMATICO, nao decoracao. O stagger deveri
 - Os timings (durations, delays, easing curves) comunicam o peso emocional correto?
 - Que animacao voce REMOVERIA (nao agrega)?
 - Que animacao voce ADICIONARIA (agrega narrativa)?
-- **EXPLORE SplitText e Flip** — onde neste slide eles criariam impacto que fadeUp/stagger nao conseguem?
+- **EXPLORE o toolkit completo** — SplitText, Flip, MorphSVG, DrawSVG, ScrambleText, MotionPath, CustomEase, Physics2D. Onde neste slide eles criariam impacto que fadeUp/stagger nao conseguem? Proponha combinacoes.
 
 ### 6. INTERACOES AVANCADAS (sala pequena)
 
@@ -193,10 +218,16 @@ Em sala pequena (10-30 pessoas, TV/monitor, 2-5m), temos licenca para motion sof
 - Micro-interacoes em dados (pulse, glow, peso tipografico mutavel)
 - Grain, noise textures, ou chromatic aberration sutil
 - Transicoes cinematograficas entre estados (wipe, morph, dissolve dirigido)
-- **Flip animations** para rearranjo de layout entre beats
-- **SplitText** para reveals tipograficos dramaticos
+- **Flip** para rearranjo de layout entre beats (cards que se reordenam)
+- **SplitText** para reveals tipograficos dramaticos (char-by-char, word dissolve)
+- **MorphSVG** para transformacao de shapes (icone → grafico, estado A → estado B)
+- **ScrambleText** para revelar numeros com suspense (scramble → NNT final)
+- **DrawSVG** para pathways que se desenham com controle de start/end%
+- **MotionPath** para elementos que percorrem trajetorias (dot em timeline, marcador em pathway)
+- **Physics2D** para cards que caem, se dispersam ou reagem com fisica
+- **CustomEase** para curvas dramaticas (heartbeat, breathing, tension-release)
 
-**Constraint:** devem degradar graciosamente para auditorio (viram fade/opacity simples em tela grande). Nunca sacrificar legibilidade. GSAP 3.14 + CSS vanilla.
+**Constraint:** devem degradar graciosamente para auditorio (viram fade/opacity simples em tela grande). Nunca sacrificar legibilidade. GSAP 3.14 + CSS vanilla. Para plugins nao importados, incluir snippet de import.
 
 ### 7. O QUE NAO ESTOU VENDO
 
