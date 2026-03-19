@@ -1778,14 +1778,10 @@
   --hook-text-mid: var(--text-on-dark-muted);
   --hook-text-dim: var(--text-muted);
   --hook-lab-label-color: oklch(30% 0.01 258);
-  --hook-lab-value-color: var(--text-on-dark);
-  --hook-lab-ref-color: var(--text-secondary);
-  --hook-alert-value: oklch(42% 0.10 25);  /* muted danger — "sangue seco" for AST/PLQ */
-  --hook-card-bg: var(--bg-card);
-  --hook-card-border: oklch(82% 0.008 258);
+  --hook-alert-value: oklch(55% 0.18 25);  /* danger for AST/PLQ — raised chroma for projection */
 }
-#s-hook .hook-patient-name,
-#s-hook .hook-punchline { color: var(--hook-text-bright); }
+#s-hook .hook-patient-name { color: var(--text-primary); }
+#s-hook .hook-punchline { color: oklch(8% 0.02 258); } /* near-black — max contrast vs overlay */
 #s-hook .hook-patient-desc { color: var(--hook-text-mid); }
 #s-hook .hook-patient-ref { color: var(--hook-text-dim); }
 
@@ -1799,7 +1795,7 @@
   grid-template-rows: 1fr;
   grid-template-areas: "bio labs";
   align-items: center;
-  padding: 2.5rem 3.5rem 2rem 3rem;
+  padding: 2rem 3.5rem 2rem 3rem;
   gap: 1rem 2rem;
   position: relative;
 }
@@ -1853,15 +1849,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  padding: 0.75rem 0.5rem;
-  border-radius: var(--radius-sm);
-  background: var(--hook-card-bg);
-  border: 1px solid var(--hook-card-border);
-  box-shadow: 0 2px 10px oklch(0% 0 0 / 0.10);
+  gap: 0.15rem;
+  padding: 0.5rem 0;
   position: relative;
   opacity: 0; /* GSAP stagger → 1; .no-js/.stage-bad → 1 */
-  transition: filter 0.6s ease;
 }
 
 /* ── Alert labs (AST, PLQ — "villain" values) ── */
@@ -1871,10 +1862,10 @@
 
 .hook-lab-label {
   font-family: var(--font-body);
-  font-size: var(--text-caption);
-  font-weight: 500;
-  color: var(--hook-lab-label-color);
-  letter-spacing: 0.12em;
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.10em;
   text-transform: uppercase;
 }
 
@@ -1882,9 +1873,9 @@
 
 .hook-lab-value {
   font-family: var(--font-mono);
-  font-size: var(--text-h3);
+  font-size: var(--text-h2);
   font-weight: 700;
-  color: var(--hook-lab-value-color);
+  color: var(--text-primary);
   line-height: 1;
 }
 
@@ -1897,22 +1888,23 @@
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 500;
-  color: var(--hook-lab-ref-color);
+  color: var(--text-secondary);
 }
 
 /* ── Punchline + question (blackout reveal) ── */
 .hook-punchline {
   position: absolute;
-  top: 45%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: var(--font-display);
-  font-size: var(--text-h1);
+  font-size: clamp(88px, 8vw, 128px);
   font-weight: 400;
   font-style: italic;
   color: var(--hook-text-bright);
   text-align: center;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 32px oklch(100% 0 0 / 0.6);
   margin: 0;
   opacity: 0;
   z-index: 2;
@@ -1923,14 +1915,24 @@
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-body);
-  font-size: var(--text-h3);
-  color: var(--hook-text-mid);
+  font-size: clamp(32px, 3vw, 48px);
+  font-weight: 600;
+  color: oklch(15% 0.02 258);
   text-align: center;
-  font-style: italic;
   margin: 0;
   opacity: 0;
   z-index: 2;
 }
+/* ── Blackout dim overlay (GSAP animates opacity) ── */
+.hook-blackout-overlay {
+  position: absolute;
+  inset: 0;
+  background: oklch(15% 0.01 258 / 0.35);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .no-js .hook-lab,
 .no-js .hook-punchline,
 .no-js .hook-question,
@@ -1940,6 +1942,10 @@
   opacity: 1 !important;
   transform: none !important;
   filter: none !important;
+}
+.no-js .hook-blackout-overlay,
+.stage-bad .hook-blackout-overlay {
+  display: none !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

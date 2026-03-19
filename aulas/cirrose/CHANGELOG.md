@@ -4,6 +4,27 @@
 
 ---
 
+## 2026-03-19 — s-hook v10 QA.3 Gemini rounds 1+2 (sessao 4)
+
+- **s-hook v9 → v10:** 14 fixes Gemini aplicados em 2 rounds.
+  - G1: Cards removidos, labs puramente tipograficos (editorial, nao dashboard).
+  - G2: Stagger DOM-order (sem buracos no grid). Alert labs mais lentos/pesados.
+  - G3: Cor alerta oklch(42% → 55% 0.18 25) — visivel em projecao.
+  - G6: Blackout blur 2px → 10px + scale(0.97) — cinematic focus pull.
+  - G7/G13: Punchline clamp(88px, 8vw, 128px) com text-shadow branco.
+  - G8: Punchline fade 1.2s → 0.8s com bloom (blur 10px + scale 0.9 → 0).
+  - G9: Question clamp(32px, 3vw, 48px) weight 600, sem italic.
+  - G10: Efeito Vertigo micro (punchline nasce do blur/scale).
+  - G11: Labs sem background/border/shadow — tipografia pura sobre creme.
+  - G12: Labels font-size small → text-small, weight 700, color text-primary.
+  - G14: Dim overlay oklch(15% / 0.35) — escurece fundo para peso cinematico.
+- **JS reprodutibilidade:** killTweensOf + gsap.set reset no re-entry. Retreat limpo com overlay.
+- **Prompt Gemini v2:** Template reescrito para profissional UI/UX. Hierarquias visuais (5 tipos) como lente de analise. Menos prescritivo, mais aberto.
+- **CSS cleanup:** Tokens orfaos removidos (hook-card-bg, hook-card-border, hook-lab-value-color, hook-lab-ref-color).
+- **Arquivos:** 01-hook.html, cirrose.css, slide-registry.js, docs/prompts/gemini-slide-editor.md.
+
+---
+
 ## 2026-03-18 — s-hook v9 QA + prompt Gemini rewrite (sessao 3)
 
 - **s-hook v9:** Grid assimetrico (bio left, labs right), clinical-stutter stagger (normais rapidos, anormais lentos), blackout punchline (dim+blur bio/labs, punchline absolute centered), question sharp cut bottom.

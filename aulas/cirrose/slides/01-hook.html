@@ -2,7 +2,7 @@
      s-hook — Caso Antônio (congresso, formal)
      Archetype: Custom hook (v9 — asymmetric, blackout punchline)
      Auto: bio visible + labs clinical-stutter stagger
-     Click: blackout → "Sem queixas." (1.2s) → "Conduta?" (sharp)
+     Click: blackout → dim overlay → "Sem queixas." (0.8s bloom) → "Conduta?" (sharp)
      Reversível: ArrowLeft/Up. Panel hidden (starts s-a1-01).
      ============================================================ -->
 <section id="s-hook"
@@ -56,6 +56,9 @@
         <span class="hook-lab-ref"></span>
       </div>
     </div>
+
+    <!-- Blackout dim overlay (GSAP animates opacity) -->
+    <div class="hook-blackout-overlay" aria-hidden="true"></div>
 
     <!-- Punchline + directing question (blackout reveal) -->
     <p class="hook-punchline">Sem queixas.</p>

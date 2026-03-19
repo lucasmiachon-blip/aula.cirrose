@@ -28,7 +28,7 @@
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
-| 2 | s-hook | QA | v9 (18/mar). Grid assimetrico, clinical-stutter, blackout punchline. QA.0-QA.2 PASS. QA.3 prompt stale (E42) — re-enviar com template atualizado. ERRO-040 (box-sizing), ERRO-041 (overlap) corrigidos. |
+| 2 | s-hook | QA | v10 (19/mar). Labs tipograficos (cards removidos), punchline 88-128px com bloom, dim overlay 35%, clinical-stutter DOM-order, reprodutivel (kill+reset). QA.0-QA.2 PASS. QA.3 round 1+2 Gemini aplicados. Pendente: QA.3 round 3 (prompt v2). |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
@@ -254,13 +254,14 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-18, sessao 3)
+## Onde paramos (2026-03-19, sessao 4)
 
-- **Sessao 3:** Diagnostico WT + truthfulness fixes (docs only, zero slides).
-- **Corrigido:** s-hook estado (QA, nao LINT-PASS), MCPs fantasma removidos, contagem 12→8, merge SHA atualizado, Gemini 2.5 removido de WT-OPERATING.
-- **Build+Lint:** PASS (44 slides). Nao re-rodado (zero mudanca em slides/CSS/JS).
-- **QA pipeline:** s-title DONE. s-hook = QA (QA.0-QA.2 PASS, pendente QA.3).
-- **Proximo:** s-hook QA.3 (Gemini multimodal). Re-enviar com template atualizado (E42).
+- **Sessao 4:** s-hook QA.3 — 2 rounds Gemini 3.1 Pro + fixes aplicados (v9 → v10).
+- **Fixes aplicados:** G1-G14 (cards removidos, labs tipograficos, stagger DOM-order, cor alerta subida, punchline 88-128px com bloom, dim overlay 35%, question 32-48px weight 600, centro optico, JS reprodutivel com kill+reset).
+- **Prompt Gemini reescrito:** Template v2 em `docs/prompts/gemini-slide-editor.md` — foco UI/UX profissional, hierarquias visuais, menos prescritivo.
+- **Build+Lint:** PASS (44 slides).
+- **QA pipeline:** s-title DONE. s-hook = QA (QA.0-QA.2 PASS, QA.3 rounds 1+2 done, pendente round 3 com prompt v2).
+- **Proximo:** s-hook QA.3 round 3 (fresh eyes com prompt v2) → QA.4 → docs → DONE.
 
 ---
 
