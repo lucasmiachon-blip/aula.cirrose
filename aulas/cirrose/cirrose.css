@@ -1779,7 +1779,7 @@
   --hook-text-mid: var(--text-on-dark-muted);
   --hook-text-dim: var(--text-muted);
   --hook-lab-label-color: oklch(30% 0.01 258);
-  --hook-alert-value: oklch(50% 0.20 25);  /* danger — denser red for projection */
+  --hook-alert-value: oklch(42% 0.22 25);  /* P2: danger — darker/denser for projection contrast */
   --hook-card-bg: var(--bg-card);
 }
 #s-hook .hook-patient-name { color: var(--text-primary); }
@@ -1861,21 +1861,18 @@
 .hook-lab {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 1.5rem 1rem;
+  align-items: flex-start; /* P1: left-align → vertical invisible line (editorial) */
+  gap: 0.1rem;
+  padding: 1.5rem 0; /* P1: no lateral padding, whitespace is the container */
   position: relative;
   opacity: 0; /* GSAP stagger → 1; .no-js/.stage-bad → 1 */
-  background: oklch(100% 0 0 / 0.4);
-  border-radius: 6px;
-  border: 1px solid oklch(0% 0 0 / 0.08);
+  border-top: 1px solid oklch(0% 0 0 / 0.4); /* P1: top separator — bold for projection */
   will-change: transform, opacity;
 }
 
 /* ── Alert labs (AST, PLQ — "villain" values) ── */
 .hook-lab--alert {
-  background: oklch(98% 0.01 25 / 0.5);
-  border-color: oklch(50% 0.20 25 / 0.15);
+  border-color: var(--hook-alert-value); /* P1: red separator line = the only visual cue besides color */
 }
 .hook-lab--alert .hook-lab-value {
   color: var(--hook-alert-value);
@@ -1894,24 +1891,27 @@
 
 .hook-lab-value {
   font-family: var(--font-mono);
-  font-size: clamp(36px, 2.8vw, 50px);
+  font-size: clamp(40px, 3.5vw, 56px); /* P2: larger values — hero hierarchy */
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
+  letter-spacing: -0.03em; /* P2: tighter tracking at larger size */
 }
 
 .hook-lab-value small {
-  font-size: 0.5em;
-  font-weight: 500;
+  font-size: 0.35em; /* P2: smaller units — value dominates */
+  font-weight: 400;
+  opacity: 0.6; /* P2: de-emphasize unit */
   vertical-align: super;
   margin-left: 2px;
 }
 
 .hook-lab-ref {
   font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: 500;
+  font-size: 0.65rem; /* P2: smaller ref — labs breathe */
+  font-weight: 400;
   color: var(--text-secondary);
+  opacity: 0.7; /* P2: tertiary hierarchy */
 }
 
 /* ── Punchline (visible in state 0, inside story column) ── */

@@ -4,6 +4,19 @@
 
 ---
 
+## 2026-03-19 — s-hook v17: Gemini R3 P1+P2 borderless grid + contraste denso (sessao 9)
+
+- **s-hook v16 → v17:** Gemini R3 (3.1-pro, prompt v6.1) propostas P1+P2 aplicadas.
+  - P1 (Borderless Grid): cards removidos (bg, border-radius, border lateral). Substituidos por `border-top` separators estilo Bloomberg/FT editorial. `align-items: flex-start` (left-align).
+  - P2 (Contraste Denso): `--hook-alert-value` oklch L50→L42, chroma 0.20→0.22. Lab values +20% (`clamp(40px,3.5vw,56px)`), `letter-spacing: -0.03em`. Units `0.35em` opacity 0.6. Refs `0.65rem` opacity 0.7.
+  - Separator tuning iterativo com usuario: opacity 0.05→0.15→0.25→0.40 (aprovado).
+  - P3 (DrawLine Motion) e Radical (ScrambleText) deferidos.
+- **Gemini R3:** Prompt v6.1 preenchido com raw code + 2 PNGs + video .webm. Scorecard 7.1/10 → 9.2/10 projetado. Script: `qa-screenshots/s-hook/capture-R3.mjs` + `send-R3.mjs`. Resposta: `R3-gemini-response.md`.
+- **Build:** PASS (44 slides)
+- **Arquivos:** cirrose.css (v17), qa-screenshots/s-hook/P1P2-*.png
+
+---
+
 ## 2026-03-19 — prompt v6 → v6.1: narrative context variables (sessao 8)
 
 - **Prompt Gemini v6 → v6.1:** Merge metanalise v4.0 context variables.

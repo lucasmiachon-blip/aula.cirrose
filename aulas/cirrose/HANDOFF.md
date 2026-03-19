@@ -28,7 +28,7 @@
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
-| 2 | s-hook | QA | **v16** (19/mar). QA.3 R1+R2 applied. **Screenshots v16 CURRENT** (4 PNGs: S0+S1 x 1280x720+1920x1080 em `qa-screenshots/s-hook/v16/`). Pendente: preencher prompt v6.1 com raw code + screenshots → enviar Gemini R3. |
+| 2 | s-hook | QA | **v17** (19/mar). QA.3 R3 applied (Gemini 3.1 Pro). P1 (borderless grid) + P2 (contraste denso) + separator tuning. Pendente: QA.4 reeval screenshots → DONE. |
 | 3 | s-a1-01 | LINT-PASS | v3 polish "Por que rastrear?". Ghost canary protege. Sem QA formal. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
@@ -92,7 +92,7 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 1 | s-title |
-| QA | 1 | s-hook (v16: QA.0-QA.2 PASS, QA.3 R1+R2 applied, screenshots v16 CURRENT, pendente: prompt v6.1 + Gemini R3) |
+| QA | 1 | s-hook (v17: QA.0-QA.2 PASS, QA.3 R1-R3 applied, pendente: QA.4 reeval → DONE) |
 | LINT-PASS | 2 | s-a1-01, s-a1-classify |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
@@ -134,20 +134,23 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 9. Dynamic gate (Fase 3): animacoes + click-reveals
 10. Deck-level Gemini (Fase 4): cross-slide consistency
 
-**s-hook (QA — v16, Gemini R2 proposals applied + prompt v6):**
+**s-hook (QA — v17, Gemini R3 proposals applied):**
 - v10 (19/mar): 14 fixes Gemini R1 (2.5-pro) aplicados (G1-G14).
-- v11 (19/mar): QA regression fixes — E43 (card surface restaurado: bg-card, radius, shadow) + E44 (overlay 35%→78%, punchline cream via GSAP, question light gray via GSAP, text-shadow bloom 60px).
-- v12-v15: prompt eng iterations (v4 XML+CoT, v4.1 full toolkit, v5 advanced PE). v15: layout reestruturado (story+punchline left, labs right).
-- v16 (19/mar): Gemini R2 (3.1-pro) propostas 2-5 aplicadas — flat cards (no box-shadow, subtle border, alert bg rosa), border-left editorial, differential motion (back.out alerts, color bleed black→red), SplitText question Instrument Serif italic.
-- QA.0-QA.2 PASS.
-- Prompt Gemini v6.1: `docs/prompts/gemini-slide-editor.md` — 5 personas, 10 lenses, 10-dim scorecard, radical ideas forcing, strict output schema, temperature 1.0. v6.1: narrative context variables + speaker notes (merge metanalise v4.0).
-- **Screenshots v16 CURRENT** — 4 PNGs em `qa-screenshots/s-hook/v16/` (S0+S1 x 1280x720+1920x1080). Script: `scripts/capture-s-hook.mjs` (deck.js compatible, Playwright).
-- Letterbox 16:10 esperado (monitor usuario). TV congresso 16:9 = sem barras. Teste TV pendente 19/03.
-- Pendente: preencher prompt v6.1 com raw code + screenshots → enviar Gemini R3 → fix aprovados → QA.4 → DONE.
+- v11 (19/mar): QA regression fixes — E43 (card surface restaurado) + E44 (overlay blackout).
+- v12-v15: prompt eng iterations. v15: layout reestruturado (story+punchline left, labs right).
+- v16 (19/mar): Gemini R2 (3.1-pro) propostas 2-5 aplicadas — flat cards, border-left editorial, differential motion, SplitText question.
+- v17 (19/mar): Gemini R3 (3.1-pro, prompt v6.1) propostas P1+P2 aplicadas:
+  - P1 (Borderless Grid): cards → flat separators (Bloomberg/FT editorial). align-items flex-start, border-top separator, removido background/border-radius/border lateral.
+  - P2 (Contraste Denso): `--hook-alert-value` L50→L42 (darker red), lab values clamp(40px,3.5vw,56px) +20%, units 0.35em opacity 0.6, refs 0.65rem opacity 0.7.
+  - Separator tuning: opacity 0.05→0.15→0.25→0.40 (user-approved final).
+- QA.0-QA.3 PASS. Pendente: QA.4 reeval screenshots → DONE.
+- **Screenshots v17 CURRENT** — `qa-screenshots/s-hook/P1P2-final-1280x720.png`.
+- Prompt Gemini v6.1: `docs/prompts/gemini-slide-editor.md`.
+- Letterbox 16:10 esperado (monitor usuario). TV congresso 16:9 = sem barras.
 
 ### Backlog
 
-- QA visual Gemini: s-hook v16 — preencher prompt v6.1, enviar Gemini R3. Demais slides: screenshots state-by-state, video de reveals, monotonia visual Act 2
+- QA visual Gemini: s-hook v17 — QA.4 reeval (screenshots pos-fix → Gemini reavaliar). Demais slides: screenshots state-by-state, video de reveals, monotonia visual Act 2
 - **[MAIN]** engine.js `?qa=1` não força estado final de custom animations — `forceAnimFinalState()` só trata `[data-animate]`, ignora `customAnimations`. Workaround: script Playwright força via evaluate. Fix longo-prazo em shared/.
 - h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão)
 - Headlines reescritos neste batch: s-a1-01 (verboso→83%), s-a1-damico (verboso→Child-Pugh), s-a1-meld (metáfora→urgência)
