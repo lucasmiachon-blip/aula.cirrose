@@ -1,38 +1,198 @@
 #!/usr/bin/env node
 /**
  * Send QA.3 creative review to Gemini 3.1 Pro via REST API.
- * Uploads video + PNGs, sends filled prompt, saves response.
+ * Reads HTML/CSS/JS DYNAMICALLY from source files (E42 compliance).
  *
- * Usage: node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01
+ * Usage: node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --round 11
  * Requires: GEMINI_API_KEY env var
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const AULA_DIR = join(__dirname, '..');
 const API_KEY = process.env.GEMINI_API_KEY;
 if (!API_KEY) { console.error('GEMINI_API_KEY not set'); process.exit(1); }
 
 const MODEL = 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
 
-// --- Config ---
-const SLIDE_ID = 's-a1-01';
-const QA_DIR = join(__dirname, '..', 'qa-screenshots', SLIDE_ID);
+// --- CLI args ---
+const args = process.argv.slice(2);
+function getArg(name, fallback) {
+  const idx = args.indexOf(`--${name}`);
+  return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
+}
 
-const VIDEO_FILE = join(QA_DIR, 'animation-1280x720.webm');
-const S0_FILE = join(QA_DIR, 'S0-1280x720.png');
-const S1_FILE = join(QA_DIR, 'S1-1280x720.png');
-const S2_FILE = join(QA_DIR, 'S2-final-1280x720.png');
+const SLIDE_ID = getArg('slide', 's-a1-01');
+const ROUND = parseInt(getArg('round', '11'), 10);
+const QA_DIR = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);
+
+// --- Dynamic source extraction (E42) ---
+
+function findSlideFile(slideId) {
+  const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
+  const manifest = readFileSync(manifestPath, 'utf8');
+  const regex = new RegExp(`id:\\s*['"]${slideId}['"][^}]*file:\\s*['"]([^'"]+)['"]`);
+  const match = manifest.match(regex);
+  if (match) return join(AULA_DIR, 'slides', match[1]);
+  // Fallback: scan slides dir
+  const files = readdirSync(join(AULA_DIR, 'slides')).filter(f => f.endsWith('.html'));
+  for (const f of files) {
+    const content = readFileSync(join(AULA_DIR, 'slides', f), 'utf8');
+    if (content.includes(`id="${slideId}"`)) return join(AULA_DIR, 'slides', f);
+  }
+  return null;
+}
+
+function extractHTML(slideId) {
+  const filePath = findSlideFile(slideId);
+  if (!filePath || !existsSync(filePath)) {
+    console.error(`Slide file not found for ${slideId}`);
+    process.exit(1);
+  }
+  console.log(`  HTML: ${filePath}`);
+  return readFileSync(filePath, 'utf8');
+}
+
+function extractCSS(slideId) {
+  const cssPath = join(AULA_DIR, 'cirrose.css');
+  const css = readFileSync(cssPath, 'utf8');
+  const lines = css.split('\n');
+  const result = [];
+  let capturing = false;
+  let braceDepth = 0;
+  let blockStart = -1;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    // Start capturing when we see the slide ID in a selector or comment
+    if (!capturing && line.includes(slideId)) {
+      // Look back for comment block start
+      let commentStart = i;
+      while (commentStart > 0 && lines[commentStart - 1].trim().startsWith('/*') || lines[commentStart - 1].trim().startsWith('*')) {
+        commentStart--;
+      }
+      if (commentStart < i && lines[commentStart].includes('/*')) {
+        for (let j = commentStart; j < i; j++) result.push(lines[j]);
+      }
+      capturing = true;
+      blockStart = i;
+    }
+
+    if (capturing) {
+      result.push(line);
+      braceDepth += (line.match(/\{/g) || []).length;
+      braceDepth -= (line.match(/\}/g) || []).length;
+
+      // Stop capturing after closing brace of current rule, but keep going
+      // if next non-empty line still references the slide ID
+      if (braceDepth === 0 && result.length > 1) {
+        // Peek ahead for more rules with this ID
+        let nextContentLine = i + 1;
+        while (nextContentLine < lines.length && lines[nextContentLine].trim() === '') nextContentLine++;
+        if (nextContentLine < lines.length && lines[nextContentLine].includes(slideId)) {
+          result.push(''); // blank separator
+          continue;
+        }
+        // Also peek for .no-js rules referencing this ID
+        if (nextContentLine < lines.length && lines[nextContentLine].includes('.no-js') && lines[nextContentLine].includes(slideId)) {
+          result.push('');
+          continue;
+        }
+        capturing = false;
+      }
+    }
+  }
+
+  console.log(`  CSS: ${result.length} lines extracted for ${slideId}`);
+  return result.join('\n');
+}
+
+function extractJS(slideId) {
+  const regPath = join(AULA_DIR, 'slide-registry.js');
+  const js = readFileSync(regPath, 'utf8');
+  const marker = `'${slideId}'`;
+  const idx = js.indexOf(marker);
+  if (idx === -1) return '// No custom animation for this slide';
+
+  // Find the function body — count braces from the opening
+  let start = js.indexOf('{', js.indexOf('=>', idx));
+  if (start === -1) return '// Parse error';
+
+  let depth = 0;
+  let end = start;
+  for (let i = start; i < js.length; i++) {
+    if (js[i] === '{') depth++;
+    if (js[i] === '}') depth--;
+    if (depth === 0) { end = i + 1; break; }
+  }
+
+  const body = js.slice(js.indexOf(marker), end);
+  console.log(`  JS: ${body.split('\n').length} lines extracted for ${slideId}`);
+  return body;
+}
+
+function extractNotes(html) {
+  const match = html.match(/<aside class="notes">([\s\S]*?)<\/aside>/);
+  return match ? match[1].trim() : '(no notes)';
+}
+
+// --- Slide metadata from manifest ---
+function getSlideMetadata(slideId) {
+  const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
+  const manifest = readFileSync(manifestPath, 'utf8');
+
+  // Parse slides array entries
+  const idRegex = /\{\s*id:\s*['"]([^'"]+)['"]/g;
+  const ids = [];
+  let m;
+  while ((m = idRegex.exec(manifest)) !== null) ids.push(m[1]);
+
+  const pos = ids.indexOf(slideId);
+  const prev = pos > 0 ? ids[pos - 1] : '(first)';
+  const next = pos < ids.length - 1 ? ids[pos + 1] : '(last)';
+
+  return { pos: `${pos + 1}/${ids.length}`, prev, next };
+}
+
+// --- Round context per slide (update when changing slides) ---
+const ROUND_CONTEXTS = {
+  's-a1-01': `Round 11 (R11) — Ghost Rows + hero typography + metric scale + scan effect + case-panel hide.
+Evolucao de formato (painel direito guideline):
+- R0-R4: Paper card + Flip badge → KILLED (glassmorphism)
+- R5-R7: Em-dash stacked list → usuario nao gostou ("agrada pouco")
+- R8-R10: Pill tags (border-radius 999px, teal bg match, gray dimmed) → usuario aprovou formato ("quase la")
+- R11: Ghost Rows (Gemini Option D) — status-dot + row-text + teal wash on match + scanner line effect.
+
+O que mudou em R11 vs R10:
+- HTML: guideline-pills → guideline-stack > stack-row > status-dot + row-text (3 rows, 2 com data-match)
+- CSS: Ghost Row matched = teal wash oklch(40% 0.12 170 / 0.08) + glow dot + teal text. Dimmed = opacity 0.35 + scale 0.98.
+- CSS P2: Hero "%" maior (clamp 60px-100px), negative margin -0.08em, translateY(-15px)
+- CSS P3: Metric values clamp(32px-42px), oklch(20%), editorial border-top + margin-top:auto
+- CSS P5: Source-tag full-width (left:48px; right:48px), 11px, text-overflow:ellipsis
+- JS P1: #case-panel GSAP opacity:0 on slide enter, restores on slide:changed
+- JS P4: Scanner line (teal gradient div) sweeps guideline-stack before match punch
+- JS: Sequential scan → match punch com back.out(1.5) ease nos matched rows
+
+SCORES historico: R0(5.1) → R4(6.0) → R8(6.65) → R10(6.65) → R10 projetou 9.1 com Ghost Rows.
+Objetivo: 8+. Se < 7, algo regrediu.
+
+NOTA: usuario reportou que "perdemos o bloco lateral de ter ficado bem melhor". Avaliar se Ghost Rows regrediram vs pills.
+Manter: Grid 6fr:4fr, Bloomberg hero (Instrument Serif 140-220px, appleHero/snapOut eases), reactive metrics on countUp >= 70, SplitText headline.`,
+};
 
 // --- File upload ---
 async function uploadFile(filePath, mimeType, displayName) {
+  if (!existsSync(filePath)) {
+    console.warn(`  SKIP (not found): ${filePath}`);
+    return null;
+  }
   const data = readFileSync(filePath);
   const size = data.length;
 
-  // Start resumable upload
   const startRes = await fetch(`${BASE}/upload/v1beta/files?key=${API_KEY}`, {
     method: 'POST',
     headers: {
@@ -48,7 +208,6 @@ async function uploadFile(filePath, mimeType, displayName) {
   const uploadUrl = startRes.headers.get('x-goog-upload-url');
   if (!uploadUrl) throw new Error('No upload URL returned');
 
-  // Upload bytes
   const uploadRes = await fetch(uploadUrl, {
     method: 'POST',
     headers: {
@@ -77,24 +236,32 @@ async function waitForProcessing(fileName) {
   return state === 'ACTIVE';
 }
 
-// --- Prompt ---
-function buildPrompt(videoUri, s0Uri, s1Uri, s2Uri) {
-  const text = `Voce e cinco profissionais fundidos em um:
+// --- Prompt builder (uses v6.1 template) ---
+function buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris) {
+  const roundCtx = ROUND_CONTEXTS[slideId] || `Round ${round}. No previous round context documented.`;
 
-1. Art director que projeta keynotes para Apple Health e Stripe Sessions — obsessivo com whitespace, profundidade de superficie e tensao entre minimalismo e impacto
-2. Motion designer estilo Kurzgesagt — cada frame tem intencao narrativa
-3. Tipografo editorial da Bloomberg Businessweek — hierarquia tipografica cria arquitetura visual
-4. UI/UX designer senior da Linear/Vercel — craft obsessivo com micro-interacoes, espacamento, cor como sistema
-5. Front-end engineer que implementa as visoes dos 4 acima — GSAP, CSS moderno (oklch, container queries, has(), grid subgrid)
+  const text = `<system>
 
-Editor final criativo. Autoridade total para propor mudancas radicais.
+Voce e cinco profissionais fundidos em um:
+
+1. **Art director** que projeta keynotes para Apple Health e Stripe Sessions — obsessivo com whitespace, profundidade de superficie e a tensao entre minimalismo e impacto
+2. **Motion designer** que trabalhou em explainers medicos estilo Kurzgesagt — cada frame tem intencao narrativa, cada transicao carrega significado emocional
+3. **Tipografo editorial** da Bloomberg Businessweek — hierarquia tipografica cria arquitetura visual, nao apenas organiza texto
+4. **UI/UX designer** senior da Linear/Vercel — craft obsessivo com micro-interacoes, espacamento, cor como sistema, polish sub-pixel
+5. **Front-end engineer** que implementa as visoes dos 4 acima — domina GSAP, CSS moderno (oklch, container queries, has(), grid subgrid), performance de animacao, acessibilidade sem theater
+
+Voce foi contratado como **editor final criativo**. Autoridade total para propor mudancas radicais.
 
 ### Mentalidade
-- NAO e linter nem QA bot. E a pessoa que diz "esse frame nao respira".
+- NAO e linter. NAO e QA bot. Voce e a pessoa que diz "esse frame nao respira".
 - CAMADAS: projetor a 10m / TV a 3m / designer a 50cm.
 - Todo pixel e decisao. Sem motivo = ruido.
 
 ### Calibracao: Nivel 1 (PowerPoint) a 5 (Keynote-grade Apple WWDC). Target: 4-5.
+
+</system>
+
+<context>
 
 ### Apresentacao
 - Cirrose Hepatica — Classificar, Intervir, Reverter
@@ -109,173 +276,147 @@ Editor final criativo. Autoridade total para propor mudancas radicais.
 ### GSAP 3.14 Business: SplitText, Flip importados. Disponiveis: ScrambleText, MorphSVG, DrawSVG, MotionPath, TextPlugin, CustomEase, EasePack, Physics2D, CSSRule.
 
 ### Contexto narrativo
-- s-a1-01 (posicao 3/44), narrativeRole: setup, tensionLevel: 2/5
-- Anterior: s-hook (hook) — caso clinico Antonio, labs stagger, punchline "Qual sua conduta?"
-- Seguinte: s-a1-classify (setup) — estadiamento + prognostico, PREDESCI HR 0.51
+- ${slideId} (posicao ${meta.pos}), narrativeRole: setup, tensionLevel: 2/5
+- Anterior: ${meta.prev}
+- Seguinte: ${meta.next}
 
-### Material visual anexado
-1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.
-2. PNG S0 — estado inicial (section-tag + h2 + hero mid-countUp, metade inferior vazia)
-3. PNG S1 — estado intermediario (countUp em andamento ~80, metricas aparecendo)
-4. PNG S2 — estado final (todos elementos visiveis, pills matched/dimmed)
+</context>
 
-### Slide: Rastreio de hepatopatia na atencao primaria
-Primeiro slide de conteudo apos hook. 83% = primeiro numero-impacto do deck. Corroboracao (6.4x, >85%) + convergencia guidelines (3 sociedades).
+<materials>
 
 ### Round context
-Round 10 (re-avaliacao pos-R9). Implementou propostas R8+R9 (6.65/10):
-- PILL TAGS DONE: Inline badges e em-dash list substituidos por pill tags (border-radius 999px, DM Sans 600). Cada condicao eh um "objeto" visual independente — ativavel, dimavel, com massa cromatica legivel a 5m.
-- MATCH PUNCH DONE: Pills matched (DM2, Enzimas) → teal bg + white text + scale 1.05 + shadow. Pill dimmed (Obesidade) → opacity 0.55 + gray bg (visivel mas desfocado hierarquicamente). Sequential scan: cada pill avalia em ordem (0.25s stagger).
-- TITLE CONTRAST: "RASTREAR FIBROSE HEPATICA" agora oklch(30%) weight 600 (era 50% 500).
-- REC GRADE: Adicionado "Recomendacao forte" ao source line.
-- KEPT: Grid 6fr:4fr, reactive metrics (countUp→70→reveal), SplitText headline, Bloomberg mono, borderless layout, transparent right panel, % sign smaller.
-Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5)→R6(5.35)→R7(5.7)→R8(6.65). Objetivo: 8+.
-NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
+${roundCtx}
+
+> NAO repita sugestoes ja implementadas. Foque no que AINDA nao funciona e no que REGREDIU.
 
 ### HTML:
 \`\`\`html
-<section id="s-a1-01" data-timing="90" data-panel-state="neutral">
-  <div class="slide-inner">
-    <div class="hero-block">
-      <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-      <h2 class="slide-headline">Por que rastrear?</h2>
-      <div class="screening-hero">
-        <span class="screening-hero-number">0</span>
-        <span class="screening-hero-unit">%</span>
-      </div>
-      <p class="screening-hero-label">dos diagnosticos de cACLD eram novos</p>
-      <div class="screening-metrics" style="opacity:0">
-        <div class="screening-metric">
-          <span class="screening-metric-value">6,4x</span>
-          <span class="screening-metric-label">deteccao vs rotina</span>
-        </div>
-        <div class="screening-metric">
-          <span class="screening-metric-value">>85%</span>
-          <span class="screening-metric-label">nao sabem nos EUA</span>
-        </div>
-      </div>
-    </div>
-    <div class="guideline-rec" style="opacity:0">
-      <p class="guideline-rec-title">Rastrear fibrose hepatica</p>
-      <div class="guideline-pills">
-        <div class="guide-pill" data-match="dm2"><span class="pill-text">DM2</span></div>
-        <div class="guide-pill"><span class="pill-text">Obesidade + fator metabolico</span></div>
-        <div class="guide-pill" data-match="enzimas"><span class="pill-text">Enzimas alteradas</span></div>
-      </div>
-      <p class="guideline-rec-source">Recomendacao forte . EASL 2024 . AASLD 2023 . ADA 2025</p>
-    </div>
-    <p class="source-tag" style="opacity:0">Prince 2024 (PMID 38934697) . NHANES 2025 (PMID 40581070) . EASL-EASD-EASO 2024 (PMID 38851997)</p>
-  </div>
-</section>
+${rawHTML}
 \`\`\`
 
 ### CSS (key rules):
 \`\`\`css
-section#s-a1-01 .slide-inner { position:relative; display:grid; grid-template-columns:6fr 4fr; grid-template-rows:1fr; gap:0; padding:0; height:100%; box-sizing:border-box; overflow:hidden; }
-#s-a1-01 .hero-block { grid-column:1; grid-row:1; container-type:inline-size; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; text-align:left; padding:36px 48px 40px; }
-#s-a1-01 .screening-hero { display:flex; align-items:baseline; gap:0; }
-#s-a1-01 .screening-hero-number { font-family:var(--font-display); font-size:clamp(140px,15vw,220px); line-height:0.85; letter-spacing:-0.05em; }
-#s-a1-01 .screening-hero-label { max-width:32ch; font-size:clamp(18px,1.5vw,22px); font-weight:500; line-height:1.15; color:oklch(30% 0 0); margin:var(--space-sm) 0 var(--space-2xl); }
-#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); padding-top:var(--space-lg); }
-#s-a1-01 .screening-metric-value { font-family:var(--font-mono); font-weight:600; letter-spacing:-0.02em; }
-#s-a1-01 .screening-metric-label { text-transform:uppercase; letter-spacing:0.05em; font-size:clamp(11px,0.8vw,13px); color:oklch(40% 0 0); }
-#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:transparent; border:none; padding:0 0 0 var(--space-xl); display:flex; flex-direction:column; justify-content:center; }
-#s-a1-01 .guideline-rec-title { font-family:var(--font-body); font-size:clamp(14px,1vw,16px); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:oklch(30% 0 0); }
-#s-a1-01 .guideline-pills { display:flex; flex-direction:column; align-items:flex-start; gap:var(--space-sm); }
-#s-a1-01 .guide-pill { display:inline-flex; align-items:center; padding:12px 24px; border-radius:999px; background:oklch(92% 0.005 258); border:1px solid oklch(86% 0.01 258); }
-#s-a1-01 .pill-text { font-family:var(--font-body); font-weight:600; font-size:clamp(18px,1.4vw,24px); color:oklch(25% 0 0); white-space:nowrap; }
-#s-a1-01 .guide-pill.matched { background:var(--safe); border-color:var(--safe); transform:scale(1.05) translateX(8px); box-shadow:0 8px 20px -6px oklch(40% 0.12 170/0.35); }
-#s-a1-01 .guide-pill.matched .pill-text { color:oklch(100% 0 0); }
-#s-a1-01 .guide-pill.dimmed { opacity:0.55; background:oklch(94% 0 0); border-color:oklch(90% 0 0); transform:scale(0.97); }
-#s-a1-01 .guide-pill.dimmed .pill-text { color:oklch(60% 0 0); }
-#s-a1-01 .guideline-rec-source { font-family:var(--font-mono); font-size:clamp(12px,0.85vw,14px); color:oklch(45% 0 0); }
-#s-a1-01 .source-tag { position:absolute; bottom:12px; left:48px; font-family:var(--font-mono); font-size:13px; color:oklch(55% 0 0); max-width:50%; overflow-wrap:anywhere; }
+${rawCSS}
 \`\`\`
 
-### JS (GSAP timeline — key sections):
+### JS (GSAP custom animation):
 \`\`\`js
-// Custom eases
-CustomEase.create('appleHero', 'M0,0 C0.05,0.85 0.1,1 1,1');
-CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
-
-// SplitText headline chars reveal (t=0, 0.4s stagger 0.02)
-// Bloomberg CountUp: scale 0.8→1 + blur(6px→0) (snapOut 1.4s) + countUp 0→83 (appleHero 1.8s) at t=0.2
-// REACTIVE: when countUp val>=70, triggers revealMetrics() (causal connection)
-// revealMetrics(): SplitText chars + blur(4px→0) + clipPath labels (reactive, not fixed timeline)
-// Guideline panel: fadeUp y:20→0 (t=2.8, power3.out 0.8s)
-// Pills: stagger opacity+y+scale (t=3.1, 0.12s stagger)
-// MATCH PUNCH (t=4.2): sequential scan — each pill evaluates in order (0.25s stagger). match → .matched class (teal bg+white+scale 1.05). non-match → .dimmed class (opacity 0.55+gray+scale 0.97)
-// Source-tag opacity 0.7 at guideline+0.4
+${rawJS}
 \`\`\`
 
 ### Speaker Notes:
-[0:00-0:30] "Antonio chegou assintomatico. ALT normal." PAUSA 2s. "Mas o medico da UBS pediu um FIB-4."
-[0:30-1:00] "Prince 2024: rastrearam >32 mil. 83% eram diagnosticos novos." PAUSA 3s. Metricas aparecem. NHANES >85% nao sabem. 6.4x yield.
-[1:00-1:20] Guideline-rec aparece. "EASL, AASLD e ADA convergem." ENFASE: "Antonio tem dois dos tres."
-[1:20-1:30] "Antonio tem FIB-4 de 5,91." -> avancar
+\`\`\`
+${notes}
+\`\`\`
 
-### TAREFA (passos obrigatorios, nao pular nenhum):
+### Material visual anexado
+${mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)'}
+${mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)'}
+${mediaUris.s1 ? '3. PNG S1 — estado intermediario (countUp em andamento, metricas aparecendo)' : '(sem S1)'}
+${mediaUris.s2 ? '4. PNG S2 — estado final (todos elementos visiveis, Ghost Rows matched/dimmed)' : '(sem S2)'}
 
-1. OLHAR — PRIMEIRO o video. Depois PNGs. Impressao visceral. Depois codigo.
-2. OBSERVAR — scratchpad: composicao, hierarquia, ritmo, peso visual, fluxo do olhar. O que funciona (MECANISMO). O que incomoda (MECANISMO). Motion = emocao. "Se eu so pudesse mudar UMA coisa?"
-3. SCORECARD — tabela 10 dimensoes (Beleza geral, Superficie/profundidade, Tipografia como arquitetura, Paleta/contraste, Composicao/respiro, Motion como narrativa, Interacoes avancadas GSAP, Craft front-end, Legibilidade a 5m, Impacto emocional, MEDIA). Notas 1-10.
-4. AVALIAR 10 lentes — cada com SCORE IMPACT.
-5. PROPOR 3-7 — formato: Proposta N / O que / Por que (mecanismo) / Como (snippet) / Impacto / Prioridade (MUST|SHOULD|COULD).
-6. RADICAL — minimo 1 ideia ousada.
-7. AUTOCRITICA — contradiz outra? API GSAP incorreta? Sacrifica legibilidade?
-8. PROJECAO — scorecard antes/depois.
+</materials>
 
-### PERGUNTA OBRIGATORIA (responder ANTES das propostas):
-O palestrante NAO gostou do formato de lista com em-dashes ("— DM2 / — Obesidade / — Enzimas"). Ele quer manter o LOCAL (painel direito, background transparente, grid 6:4) mas mudar o FORMATO das condicoes. Avalie e ESCOLHA a melhor opcao entre:
-A) Paragrafo corrido em Instrument Serif grande: "DM2 . obesidade abdominal + fator metabolico . enzimas alteradas" (sem badges inline, so texto)
-B) Stack limpo SEM prefixo — mesmas linhas empilhadas mas sem "—", so texto grande
-C) Pill tags empilhadas — cada condicao como chip/pill separado (fundo sutil, border-radius 999px)
-D) Outra opcao que voce considere superior (descrever com snippet)
-Justifique com mecanismo visual (legibilidade a 5m, hierarquia, fluxo do olhar, Gestalt). Dar snippet CSS/HTML da opcao escolhida.
+<task>
 
-### Nao quero: checklist PASS/FAIL, elogios genericos, patterns de web, sugestoes timidas, accessibility theater, ignorar o video.
-### Tom: direto, honesto, PT-BR, codigo em ingles, 1500-3000 tokens.`;
+Siga estes passos NA ORDEM. Nao pule nenhum.
+
+### Passo 1 — OLHAR antes de pensar
+Olhe PRIMEIRO o video (se houver). Depois os PNGs por estado. Forme impressao visceral. Depois leia o codigo.
+
+### Passo 2 — OBSERVAR (scratchpad obrigatorio)
+Escreva bloco \`## Observacao\`: composicao, hierarquia, ritmo, peso visual, fluxo do olhar. O que funciona (MECANISMO). O que incomoda (MECANISMO). Motion = emocao. "Se eu so pudesse mudar UMA coisa?"
+
+### Passo 3 — SCORECARD (tabela 10 dimensoes, notas 1-10)
+| Dimensao | Nota | Justificativa |
+|----------|------|---------------|
+| Beleza geral | ?/10 | |
+| Superficie e profundidade | ?/10 | |
+| Tipografia como arquitetura | ?/10 | |
+| Paleta de cores e contraste | ?/10 | |
+| Composicao e respiro | ?/10 | |
+| Motion como narrativa | ?/10 | |
+| Interacoes avancadas (GSAP) | ?/10 | |
+| Craft front-end (CSS/HTML) | ?/10 | |
+| Legibilidade a 5m | ?/10 | |
+| Impacto emocional | ?/10 | |
+| **MEDIA** | ?/10 | |
+
+### Passo 4 — AVALIAR 10 lentes (cada com SCORE IMPACT)
+Lente 1-BELEZA, 2-SUPERFICIE, 3-TIPOGRAFIA, 4-COR, 5-COMPOSICAO, 6-MOTION, 7-INTERACOES, 8-CRAFT, 9-LEGIBILIDADE, 10-IMPACTO.
+
+### Passo 5 — PROPOR 3-7 propostas
+Formato: Proposta N / O que / Por que (mecanismo) / Como (snippet) / Impacto / Prioridade (MUST|SHOULD|COULD).
+
+### Passo 6 — RADICAL (minimo 1 ideia ousada)
+
+### Passo 7 — AUTOCRITICA (contradiz? API errada? sacrifica legibilidade?)
+
+### Passo 8 — PROJECAO (scorecard antes/depois)
+
+</task>
+
+<constraints>
+Nao quero: checklist PASS/FAIL, elogios genericos, patterns de web, sugestoes timidas, accessibility theater, ignorar o video.
+Tom: direto, honesto, PT-BR, codigo em ingles, 1500-3000 tokens.
+PREZE pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
+</constraints>`;
+
+  // Build parts array with text + media
+  const parts = [{ text }];
+  if (mediaUris.video) parts.push({ fileData: { mimeType: 'video/webm', fileUri: mediaUris.video } });
+  if (mediaUris.s0) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s0 } });
+  if (mediaUris.s1) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s1 } });
+  if (mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
 
   return {
-    contents: [{
-      parts: [
-        { text },
-        { fileData: { mimeType: 'video/webm', fileUri: videoUri } },
-        { fileData: { mimeType: 'image/png', fileUri: s0Uri } },
-        { fileData: { mimeType: 'image/png', fileUri: s1Uri } },
-        { fileData: { mimeType: 'image/png', fileUri: s2Uri } },
-      ]
-    }],
-    generationConfig: {
-      temperature: 1.0,
-      topP: 0.95,
-      maxOutputTokens: 16384,
-    }
+    contents: [{ parts }],
+    generationConfig: { temperature: 1.0, topP: 0.95, maxOutputTokens: 16384 },
   };
 }
 
 // --- Main ---
 async function main() {
-  console.log(`=== QA.3 Gemini Creative Review — ${SLIDE_ID} ===`);
-  console.log(`Model: ${MODEL}`);
+  console.log(`=== QA.3 Gemini Creative Review — ${SLIDE_ID} R${ROUND} ===`);
+  console.log(`Model: ${MODEL}\n`);
 
-  // Upload files
-  console.log('\n1. Uploading media...');
-  const video = await uploadFile(VIDEO_FILE, 'video/webm', `${SLIDE_ID}-animation`);
-  const s0 = await uploadFile(S0_FILE, 'image/png', `${SLIDE_ID}-S0-initial`);
-  const s1 = await uploadFile(S1_FILE, 'image/png', `${SLIDE_ID}-S1-mid`);
-  const s2 = await uploadFile(S2_FILE, 'image/png', `${SLIDE_ID}-S2-final`);
+  // Step 0: Extract source code dynamically (E42)
+  console.log('0. Extracting source code from files...');
+  const rawHTML = extractHTML(SLIDE_ID);
+  const rawCSS = extractCSS(SLIDE_ID);
+  const rawJS = extractJS(SLIDE_ID);
+  const notes = extractNotes(rawHTML);
+  const meta = getSlideMetadata(SLIDE_ID);
+  console.log(`  Metadata: pos=${meta.pos}, prev=${meta.prev}, next=${meta.next}\n`);
+
+  // Step 1: Upload media
+  console.log('1. Uploading media...');
+  const videoPath = join(QA_DIR, 'animation-1280x720.webm');
+  const s0Path = join(QA_DIR, 'S0-1280x720.png');
+  const s1Path = join(QA_DIR, 'S1-mid-1280x720.png');
+  const s2Path = join(QA_DIR, 'S2-final-1280x720.png');
+
+  const video = await uploadFile(videoPath, 'video/webm', `${SLIDE_ID}-animation`);
+  const s0 = await uploadFile(s0Path, 'image/png', `${SLIDE_ID}-S0-initial`);
+  const s1 = await uploadFile(s1Path, 'image/png', `${SLIDE_ID}-S1-mid`);
+  const s2 = await uploadFile(s2Path, 'image/png', `${SLIDE_ID}-S2-final`);
 
   // Wait for video processing
-  if (video.state === 'PROCESSING') {
+  if (video?.state === 'PROCESSING') {
     process.stdout.write('  Waiting for video processing');
     const ok = await waitForProcessing(video.name);
     if (!ok) { console.error('Video processing failed'); process.exit(1); }
   }
 
-  // Build and send prompt
+  // Step 2: Build and send prompt
   console.log('\n2. Sending prompt...');
-  const payload = buildPrompt(video.uri, s0.uri, s1.uri, s2.uri);
+  const mediaUris = {
+    video: video?.uri,
+    s0: s0?.uri,
+    s1: s1?.uri,
+    s2: s2?.uri,
+  };
+  const payload = buildPrompt(SLIDE_ID, ROUND, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);
 
   const inputTokens = JSON.stringify(payload).length / 4; // rough estimate
   const costEstimate = (inputTokens / 1_000_000) * 2.0;
@@ -311,9 +452,9 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, 'gemini-qa3-r10.md');
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R10)\n\n` +
-    `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0,10)}\n` +
+  const outPath = join(QA_DIR, `gemini-qa3-r${ROUND}.md`);
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R${ROUND})\n\n` +
+    `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0, 10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
   console.log(`\n3. Response saved → ${outPath}`);
@@ -324,7 +465,7 @@ async function main() {
 
   // Cleanup uploaded files
   console.log('\n4. Cleaning up uploads...');
-  for (const f of [video, s0, s2]) {
+  for (const f of [video, s0, s1, s2].filter(Boolean)) {
     try {
       await fetch(`${BASE}/v1beta/${f.name}?key=${API_KEY}`, { method: 'DELETE' });
     } catch (_) {}
