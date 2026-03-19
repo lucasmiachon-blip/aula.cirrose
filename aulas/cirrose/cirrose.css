@@ -985,7 +985,7 @@
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-01 — Rastreio na atenção primária
-   R6: Baseline grid hero + editorial drawer + Bloomberg metrics
+   R7: Transparent panel + Instrument Serif guideline + pill badges
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* section#id beats #slide-viewport > section .slide-inner specificity */
@@ -1046,22 +1046,22 @@ section#s-a1-01 .slide-inner {
   opacity: 0.8;
 }
 #s-a1-01 .screening-hero-label {
-  max-width: 16ch;
+  max-width: 32ch;
   font-size: clamp(18px, 1.5vw, 22px);
   font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1.15;
   color: oklch(30% 0 0);
-  margin: var(--space-md) 0 var(--space-lg);
+  margin: var(--space-sm) 0 var(--space-2xl);
 }
 
-/* Secondary metrics — P3 R6: Bloomberg mono values + uppercase labels */
+/* Secondary metrics — R7: refined divider + Bloomberg mono */
 #s-a1-01 .screening-metrics {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
-  border-top: 2px solid oklch(20% 0.02 258);
-  padding-top: var(--space-sm);
+  border-top: 1px solid oklch(0% 0 0 / 0.1);
+  padding-top: var(--space-md);
 }
 #s-a1-01 .screening-metric-value {
   font-family: var(--font-mono);
@@ -1075,16 +1075,16 @@ section#s-a1-01 .slide-inner {
   color: oklch(40% 0 0);
 }
 
-/* Guideline drawer — P2 R6: editorial cut, no rounded corners */
+/* Guideline panel — R7: transparent bg, editorial border, Instrument Serif */
 #s-a1-01 .guideline-rec {
   grid-column: 2;
   grid-row: 1 / -1;
   box-sizing: border-box;
-  background: white;
+  background: transparent;
   border: none;
-  border-left: 1px solid oklch(0% 0 0 / 0.08);
+  border-left: 1px solid oklch(0% 0 0 / 0.06);
   border-radius: 0;
-  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  padding: 0 0 0 var(--space-2xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1092,8 +1092,10 @@ section#s-a1-01 .slide-inner {
   overflow: hidden;
 }
 #s-a1-01 .guideline-rec-text {
-  font-size: clamp(18px, 1.4vw, 22px);
-  line-height: 1.4;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 1.8vw, 30px);
+  line-height: 1.25;
+  color: oklch(20% 0 0);
   margin: 0 0 var(--space-md);
 }
 #s-a1-01 .guideline-rec-source {
@@ -1103,23 +1105,24 @@ section#s-a1-01 .slide-inner {
   margin: 0;
 }
 
-/* Guide-match pill badges */
+/* Guide-match pill badges — R7: pill shape, heavier weight */
 #s-a1-01 .guide-match {
   display: inline-block;
-  background: oklch(96% 0 0);
+  background: oklch(0% 0 0 / 0.04);
   color: oklch(20% 0 0);
-  padding: 2px 8px;
-  border-radius: 6px;
-  border: 1px solid oklch(92% 0 0);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: none;
   font-family: var(--font-mono);
-  font-size: 0.9em;
-  transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+  font-size: 0.85em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 #s-a1-01 .guide-match.active {
   background: var(--safe);
   color: oklch(100% 0 0);
-  border-color: var(--safe);
-  box-shadow: 0 0 0 2px oklch(97% 0.005 258), 0 0 0 4px var(--safe);
+  box-shadow: 0 4px 12px oklch(40% 0.12 170 / 0.3);
 }
 
 /* Flying badge clones (created by GSAP Flip) */
