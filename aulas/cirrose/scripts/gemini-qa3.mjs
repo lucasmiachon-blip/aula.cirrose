@@ -24,6 +24,7 @@ const QA_DIR = join(__dirname, '..', 'qa-screenshots', SLIDE_ID);
 
 const VIDEO_FILE = join(QA_DIR, 'animation-1280x720.webm');
 const S0_FILE = join(QA_DIR, 'S0-1280x720.png');
+const S1_FILE = join(QA_DIR, 'S1-1280x720.png');
 const S2_FILE = join(QA_DIR, 'S2-final-1280x720.png');
 
 // --- File upload ---
@@ -77,7 +78,7 @@ async function waitForProcessing(fileName) {
 }
 
 // --- Prompt ---
-function buildPrompt(videoUri, s0Uri, s2Uri) {
+function buildPrompt(videoUri, s0Uri, s1Uri, s2Uri) {
   const text = `Voce e cinco profissionais fundidos em um:
 
 1. Art director que projeta keynotes para Apple Health e Stripe Sessions — obsessivo com whitespace, profundidade de superficie e tensao entre minimalismo e impacto
@@ -115,18 +116,19 @@ Editor final criativo. Autoridade total para propor mudancas radicais.
 ### Material visual anexado
 1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.
 2. PNG S0 — estado inicial (section-tag + h2 + hero mid-countUp, metade inferior vazia)
-3. PNG S2 — estado final (todos elementos visiveis)
+3. PNG S1 — estado intermediario (countUp em andamento ~80, metricas aparecendo)
+4. PNG S2 — estado final (todos elementos visiveis, pills matched/dimmed)
 
 ### Slide: Rastreio de hepatopatia na atencao primaria
 Primeiro slide de conteudo apos hook. 83% = primeiro numero-impacto do deck. Corroboracao (6.4x, >85%) + convergencia guidelines (3 sociedades).
 
 ### Round context
-Round 9 (re-avaliacao pos-R8). Implementou 3 propostas do R8 (6.65/10):
-- P1 DONE: Flex bullet alignment — guide-item uses display:flex + gap:12px so em-dash stays fixed when text wraps. No more text going under the dash.
-- P2 DONE: Scaled metric labels from clamp(11-13px) to clamp(13-16px) with white-space:nowrap. Legible at distance.
-- P3 DONE: Depth-of-field match punch — non-match items get opacity:0.25 + blur(3px) + scale:0.98 (Z-axis recession). Matched items get scale:1.02 + x:12px nudge (teal color via CSS class). Cinematic focus effect.
-- ALSO: Hero % sign smaller (44-64px, was 48-72px) with oklch(35%) color for better hierarchy.
-- KEPT: Grid 6fr:4fr, stacked guide-items in Instrument Serif, reactive metrics, SplitText headline, Bloomberg mono, borderless layout, transparent background.
+Round 10 (re-avaliacao pos-R9). Implementou propostas R8+R9 (6.65/10):
+- PILL TAGS DONE: Inline badges e em-dash list substituidos por pill tags (border-radius 999px, DM Sans 600). Cada condicao eh um "objeto" visual independente — ativavel, dimavel, com massa cromatica legivel a 5m.
+- MATCH PUNCH DONE: Pills matched (DM2, Enzimas) → teal bg + white text + scale 1.05 + shadow. Pill dimmed (Obesidade) → opacity 0.55 + gray bg (visivel mas desfocado hierarquicamente). Sequential scan: cada pill avalia em ordem (0.25s stagger).
+- TITLE CONTRAST: "RASTREAR FIBROSE HEPATICA" agora oklch(30%) weight 600 (era 50% 500).
+- REC GRADE: Adicionado "Recomendacao forte" ao source line.
+- KEPT: Grid 6fr:4fr, reactive metrics (countUp→70→reveal), SplitText headline, Bloomberg mono, borderless layout, transparent right panel, % sign smaller.
 Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5)→R6(5.35)→R7(5.7)→R8(6.65). Objetivo: 8+.
 NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
 
@@ -155,12 +157,12 @@ NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser l
     </div>
     <div class="guideline-rec" style="opacity:0">
       <p class="guideline-rec-title">Rastrear fibrose hepatica</p>
-      <div class="guideline-items">
-        <div class="guide-item" data-match="dm2">DM2</div>
-        <div class="guide-item">Obesidade + fator metabolico</div>
-        <div class="guide-item" data-match="enzimas">Enzimas alteradas</div>
+      <div class="guideline-pills">
+        <div class="guide-pill" data-match="dm2"><span class="pill-text">DM2</span></div>
+        <div class="guide-pill"><span class="pill-text">Obesidade + fator metabolico</span></div>
+        <div class="guide-pill" data-match="enzimas"><span class="pill-text">Enzimas alteradas</span></div>
       </div>
-      <p class="guideline-rec-source">EASL 2024 . AASLD 2023 . ADA 2025</p>
+      <p class="guideline-rec-source">Recomendacao forte . EASL 2024 . AASLD 2023 . ADA 2025</p>
     </div>
     <p class="source-tag" style="opacity:0">Prince 2024 (PMID 38934697) . NHANES 2025 (PMID 40581070) . EASL-EASD-EASO 2024 (PMID 38851997)</p>
   </div>
@@ -178,11 +180,14 @@ section#s-a1-01 .slide-inner { position:relative; display:grid; grid-template-co
 #s-a1-01 .screening-metric-value { font-family:var(--font-mono); font-weight:600; letter-spacing:-0.02em; }
 #s-a1-01 .screening-metric-label { text-transform:uppercase; letter-spacing:0.05em; font-size:clamp(11px,0.8vw,13px); color:oklch(40% 0 0); }
 #s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:transparent; border:none; padding:0 0 0 var(--space-xl); display:flex; flex-direction:column; justify-content:center; }
-#s-a1-01 .guideline-rec-title { font-family:var(--font-body); font-size:clamp(14px,1vw,16px); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:oklch(50% 0 0); }
-#s-a1-01 .guideline-items { display:flex; flex-direction:column; gap:var(--space-sm); }
-#s-a1-01 .guide-item { font-family:var(--font-display); font-size:clamp(26px,2vw,34px); line-height:1.15; color:oklch(25% 0 0); padding-left:24px; position:relative; }
-#s-a1-01 .guide-item::before { content:"—"; position:absolute; left:0; color:oklch(70% 0 0); }
-#s-a1-01 .guide-item.matched { color:var(--safe); } .guide-item.dimmed { color:oklch(75% 0 0); }
+#s-a1-01 .guideline-rec-title { font-family:var(--font-body); font-size:clamp(14px,1vw,16px); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:oklch(30% 0 0); }
+#s-a1-01 .guideline-pills { display:flex; flex-direction:column; align-items:flex-start; gap:var(--space-sm); }
+#s-a1-01 .guide-pill { display:inline-flex; align-items:center; padding:12px 24px; border-radius:999px; background:oklch(92% 0.005 258); border:1px solid oklch(86% 0.01 258); }
+#s-a1-01 .pill-text { font-family:var(--font-body); font-weight:600; font-size:clamp(18px,1.4vw,24px); color:oklch(25% 0 0); white-space:nowrap; }
+#s-a1-01 .guide-pill.matched { background:var(--safe); border-color:var(--safe); transform:scale(1.05) translateX(8px); box-shadow:0 8px 20px -6px oklch(40% 0.12 170/0.35); }
+#s-a1-01 .guide-pill.matched .pill-text { color:oklch(100% 0 0); }
+#s-a1-01 .guide-pill.dimmed { opacity:0.55; background:oklch(94% 0 0); border-color:oklch(90% 0 0); transform:scale(0.97); }
+#s-a1-01 .guide-pill.dimmed .pill-text { color:oklch(60% 0 0); }
 #s-a1-01 .guideline-rec-source { font-family:var(--font-mono); font-size:clamp(12px,0.85vw,14px); color:oklch(45% 0 0); }
 #s-a1-01 .source-tag { position:absolute; bottom:12px; left:48px; font-family:var(--font-mono); font-size:13px; color:oklch(55% 0 0); max-width:50%; overflow-wrap:anywhere; }
 \`\`\`
@@ -198,8 +203,8 @@ CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
 // REACTIVE: when countUp val>=70, triggers revealMetrics() (causal connection)
 // revealMetrics(): SplitText chars + blur(4px→0) + clipPath labels (reactive, not fixed timeline)
 // Guideline panel: fadeUp y:20→0 (t=2.8, power3.out 0.8s)
-// Guide items: stagger opacity+x (t=3.1, 0.12s stagger)
-// MATCH PUNCH (t=4.2): non-match → opacity:0.25+blur(3px)+scale:0.98. match → teal+scale:1.02+x:12px
+// Pills: stagger opacity+y+scale (t=3.1, 0.12s stagger)
+// MATCH PUNCH (t=4.2): sequential scan — each pill evaluates in order (0.25s stagger). match → .matched class (teal bg+white+scale 1.05). non-match → .dimmed class (opacity 0.55+gray+scale 0.97)
 // Source-tag opacity 0.7 at guideline+0.4
 \`\`\`
 
@@ -220,6 +225,14 @@ CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
 7. AUTOCRITICA — contradiz outra? API GSAP incorreta? Sacrifica legibilidade?
 8. PROJECAO — scorecard antes/depois.
 
+### PERGUNTA OBRIGATORIA (responder ANTES das propostas):
+O palestrante NAO gostou do formato de lista com em-dashes ("— DM2 / — Obesidade / — Enzimas"). Ele quer manter o LOCAL (painel direito, background transparente, grid 6:4) mas mudar o FORMATO das condicoes. Avalie e ESCOLHA a melhor opcao entre:
+A) Paragrafo corrido em Instrument Serif grande: "DM2 . obesidade abdominal + fator metabolico . enzimas alteradas" (sem badges inline, so texto)
+B) Stack limpo SEM prefixo — mesmas linhas empilhadas mas sem "—", so texto grande
+C) Pill tags empilhadas — cada condicao como chip/pill separado (fundo sutil, border-radius 999px)
+D) Outra opcao que voce considere superior (descrever com snippet)
+Justifique com mecanismo visual (legibilidade a 5m, hierarquia, fluxo do olhar, Gestalt). Dar snippet CSS/HTML da opcao escolhida.
+
 ### Nao quero: checklist PASS/FAIL, elogios genericos, patterns de web, sugestoes timidas, accessibility theater, ignorar o video.
 ### Tom: direto, honesto, PT-BR, codigo em ingles, 1500-3000 tokens.`;
 
@@ -229,6 +242,7 @@ CustomEase.create('snapOut', 'M0,0 C0.2,1 0.3,1 1,1');
         { text },
         { fileData: { mimeType: 'video/webm', fileUri: videoUri } },
         { fileData: { mimeType: 'image/png', fileUri: s0Uri } },
+        { fileData: { mimeType: 'image/png', fileUri: s1Uri } },
         { fileData: { mimeType: 'image/png', fileUri: s2Uri } },
       ]
     }],
@@ -249,6 +263,7 @@ async function main() {
   console.log('\n1. Uploading media...');
   const video = await uploadFile(VIDEO_FILE, 'video/webm', `${SLIDE_ID}-animation`);
   const s0 = await uploadFile(S0_FILE, 'image/png', `${SLIDE_ID}-S0-initial`);
+  const s1 = await uploadFile(S1_FILE, 'image/png', `${SLIDE_ID}-S1-mid`);
   const s2 = await uploadFile(S2_FILE, 'image/png', `${SLIDE_ID}-S2-final`);
 
   // Wait for video processing
@@ -260,7 +275,7 @@ async function main() {
 
   // Build and send prompt
   console.log('\n2. Sending prompt...');
-  const payload = buildPrompt(video.uri, s0.uri, s2.uri);
+  const payload = buildPrompt(video.uri, s0.uri, s1.uri, s2.uri);
 
   const inputTokens = JSON.stringify(payload).length / 4; // rough estimate
   const costEstimate = (inputTokens / 1_000_000) * 2.0;
@@ -296,8 +311,8 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, 'gemini-qa3-r9.md');
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R9)\n\n` +
+  const outPath = join(QA_DIR, 'gemini-qa3-r10.md');
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R10)\n\n` +
     `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0,10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
