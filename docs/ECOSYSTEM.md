@@ -2,7 +2,7 @@
 
 > Modelos não competem — cada um tem um papel específico no pipeline.
 > Handoff certo = sem retrabalho. Ver pipeline resumido no CLAUDE.md (Step 0).
-> Última atualização: 2026-03-18 (dev profile corrigido, Excalidraw MCP, paths Claude Code)
+> Última atualização: 2026-03-19 (NotebookLM MCP + nlm-skill, skill count 19→20)
 
 ---
 
@@ -99,10 +99,11 @@ Config local: `.mcp.json`. Profiles: `.mcp-profiles/{dev,research,qa,full}.json`
 | crossref | Validar DOIs |
 | semantic-scholar | Busca academica |
 | perplexity | Pesquisa ampliada (pago) |
+| notebooklm | Q&A grounded em artigos (PDFs completos) |
 
-### Profile full (todos — 26 servers)
+### Profile full (todos — 27 servers)
 
-Adiciona: biomcp, pubmed-simple, zotero, arxiv, google-scholar, scite, clinicaltrials, memory, ui-ux-pro, attention-insight, design-comparison, page-design-guide, floto.
+Adiciona: notebooklm, biomcp, pubmed-simple, zotero, arxiv, google-scholar, scite, clinicaltrials, memory, ui-ux-pro, attention-insight, design-comparison, page-design-guide, floto.
 
 **Variaveis de ambiente:** `docs/MCP-ENV-VARS.md` · `.env.example` (fonte canonica)
 

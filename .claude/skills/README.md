@@ -2,7 +2,7 @@
 
 **Superfície:** Claude Code (terminal), Claude.ai (web). Não conflita com .cursor — superfícies diferentes.
 
-## Skills disponíveis (19 ativas + 2 archived)
+## Skills disponíveis (20 ativas + 2 archived)
 
 | Skill | Papel | Quando ativar |
 |-------|-------|--------------|
@@ -24,6 +24,7 @@
 | `gtd` | Getting Things Done simplificado — inbox, next actions, weekly review (lazy) | "gtd", "inbox", "o que tenho pendente?" |
 | `retro` | Extrai lições da sessão atual em tasks/lessons.md | "retro", "extract lessons", final de sessão |
 | `slide-punch` | Avalia encaixe narrativo de 1 slide — transicoes, gancho retorico, densidade | "slide solto", "nao se vende", "punch", "esse slide funciona?" |
+| `nlm-skill` | Expert guide NotebookLM CLI (`nlm`) + MCP — Q&A grounded em artigos (PDFs completos) | "nlm", "notebooklm", "podcast generation" |
 | `audit-rules` | Audita .claude/rules/*.md — contradições, refs stale, gaps vs ERROR-LOG | "auditar rules", "rules stale?", "audit-rules" |
 
 ### Archived (`.claude/skills/archive/`)
@@ -40,6 +41,7 @@
 ```
 Pesquisa:   /evidence ──→ /medical-researcher ──→ /sync-evidence
                 (rápida)      (profunda)           (persistir)
+            /nlm-skill (Q&A grounded em PDFs via NotebookLM)
 
 QA slide:   /review ──→ /ralph-qa ──→ commit
             (diagnóstico)  (fix loop)

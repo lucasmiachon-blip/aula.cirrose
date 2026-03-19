@@ -2,7 +2,7 @@
 
 > Mapa canônico de dependências entre documentos do projeto.
 > Atualizar ao criar, mover ou deletar qualquer .md.
-> Gerado: 2026-03-07. Última revisão: 2026-03-18.
+> Gerado: 2026-03-07. Última revisão: 2026-03-19.
 
 ---
 
@@ -21,7 +21,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 ├── .claude/rules/*.md        ← regras detalhadas (prevalecem sobre .cursor se mais completas)
 ├── .claude/hooks/*.sh        ← safety gates determinísticos (100% enforcement)
 ├── .claude/scripts/*.sh      ← worktree lifecycle (init, cleanup)
-├── .claude/skills/*/SKILL.md ← skills invocáveis (19 ativas + 2 archived)
+├── .claude/skills/*/SKILL.md ← skills invocáveis (20 ativas + 2 archived)
 ├── .cursor/rules/*.mdc       ← regras Cursor (quick-ref com globs)
 ├── docs/*.md                 ← referência expandida
 └── aulas/*/HANDOFF.md        ← estado por aula

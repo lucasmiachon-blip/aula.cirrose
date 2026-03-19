@@ -2,7 +2,7 @@
 
 > Inventario completo de MCPs para pesquisa academica/clinica.
 > Config local: `.mcp.json` (perfil ativo). Profiles: `.mcp-profiles/*.json`.
-> Ultima revisao: 2026-03-17.
+> Ultima revisao: 2026-03-19.
 
 ---
 
