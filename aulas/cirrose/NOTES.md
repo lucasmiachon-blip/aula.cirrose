@@ -283,3 +283,5 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 - AUDIT-VISUAL.md: 4 slides re-scored com evidência dos fixes
 - narrative.md: drift s-cp1 corrigido ("Como estadia?" → "Como você estadia?")
 - CHANGELOG.md, HANDOFF.md: atualizados no commit anterior
+
+[2026-03-19 20:34] [BUILD] OK — npm run build:cirrose 2>&1 | tail -3 && npm run lint:slides 2>&1 | tail -3
