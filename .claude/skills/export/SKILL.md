@@ -17,7 +17,7 @@ Exporta `$ARGUMENTS` para PDF + screenshots. Exemplo: `/export cirrose`
 - **grade, osteoporose** (Reveal.js): DeckTape `reveal` plugin funciona normalmente.
 - **cirrose, metanalise** (deck.js): DeckTape `reveal` plugin NAO funciona. Usar:
   - DeckTape com `--slides` manual (flag `generic` plugin), ou
-  - Playwright screenshot loop (preferido — ver `qa-screenshots-stage-c.js` como referencia)
+  - Playwright screenshot loop (preferido — ver `qa-batch-screenshot.mjs` como referencia)
 
 ## Passos (Reveal.js — grade/osteoporose)
 

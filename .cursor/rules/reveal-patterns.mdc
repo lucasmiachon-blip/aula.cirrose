@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Navigation + GSAP Patterns
 
-> Canônico para: speaker notes, fragments, data-animate, PDF export.
+> Quick-ref para ambos stacks. **Referência completa:** `.claude/rules/deck-patterns.md` (deck.js) e `.claude/rules/reveal-legacy.md` (Reveal.js).
 > Cirrose/metanálise: `deck.js` (custom). Grade/osteoporose: Reveal.js (legacy frozen).
 
 ## Estrutura de Slide

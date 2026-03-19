@@ -72,7 +72,8 @@ Multi-agent workflows falham silenciosamente. Sem KPIs, não sabe se:
 ## Benchmarks de Referência (Estado Atual)
 
 > Baseline medido em 2026-03-07, pre-pipeline multimodelo.
-> **Nenhuma medicao posterior registrada.** Pendente: primeiro registro real usando template acima.
+> **Nenhuma medicao posterior registrada.** Tracking deferred until QA pipeline stabilizes (Act 1).
+> First measurement planned after s-a1-classify reaches DONE.
 
 | Métrica | Baseline | Meta 30 dias | Meta 90 dias |
 |---------|----------|-------------|-------------|
