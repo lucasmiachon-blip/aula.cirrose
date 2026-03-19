@@ -72,14 +72,13 @@ async function forceAnimFinalState(page) {
       el.style.clipPath = 'inset(0 0% 0 0)';
     });
 
-    // Force guide-match badges active
-    section.querySelectorAll('.guide-match').forEach(el => {
-      el.style.background = 'oklch(40% 0.15 170)';
-      el.style.color = '#fff';
+    // Force guide-items visible + matched state
+    section.querySelectorAll('.guide-item').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      if (el.dataset.match) el.classList.add('matched');
+      else el.classList.add('dimmed');
     });
-
-    // Remove any lingering badge-clones (Flip flight artifacts)
-    document.querySelectorAll('.badge-clone').forEach(el => el.remove());
 
     // Force all opacity:0 elements visible
     section.querySelectorAll('.screening-metrics, .screening-metric, .guideline-rec, .source-tag').forEach(el => {

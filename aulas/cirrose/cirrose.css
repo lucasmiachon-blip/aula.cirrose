@@ -985,7 +985,7 @@
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-01 — Rastreio na atenção primária
-   R7: Transparent panel + Instrument Serif guideline + pill badges
+   R8: Stacked guideline items + borderless + match punch
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* section#id beats #slide-viewport > section .slide-inner specificity */
@@ -1055,13 +1055,12 @@ section#s-a1-01 .slide-inner {
   margin: var(--space-sm) 0 var(--space-2xl);
 }
 
-/* Secondary metrics — R7: refined divider + Bloomberg mono */
+/* Secondary metrics — R8: borderless, Bloomberg mono */
 #s-a1-01 .screening-metrics {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
-  border-top: 1px solid oklch(0% 0 0 / 0.1);
-  padding-top: var(--space-md);
+  padding-top: var(--space-lg);
 }
 #s-a1-01 .screening-metric-value {
   font-family: var(--font-mono);
@@ -1075,28 +1074,63 @@ section#s-a1-01 .slide-inner {
   color: oklch(40% 0 0);
 }
 
-/* Guideline panel — R7: transparent bg, editorial border, Instrument Serif */
+/* Guideline panel — R8: borderless, stacked items, Instrument Serif */
 #s-a1-01 .guideline-rec {
   grid-column: 2;
   grid-row: 1 / -1;
   box-sizing: border-box;
   background: transparent;
   border: none;
-  border-left: 1px solid oklch(0% 0 0 / 0.06);
   border-radius: 0;
-  padding: 0 0 0 var(--space-2xl);
+  padding: 0 0 0 var(--space-xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
   transform-origin: right center;
   overflow: hidden;
 }
-#s-a1-01 .guideline-rec-text {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 1.8vw, 30px);
-  line-height: 1.25;
-  color: oklch(20% 0 0);
+#s-a1-01 .guideline-rec-title {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: oklch(50% 0 0);
   margin: 0 0 var(--space-md);
+}
+#s-a1-01 .guideline-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0 0 var(--space-lg);
+}
+#s-a1-01 .guide-item {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2vw, 34px);
+  line-height: 1.15;
+  color: oklch(25% 0 0);
+  padding-left: 24px;
+  position: relative;
+  transition: color 0.4s ease, transform 0.4s ease;
+}
+#s-a1-01 .guide-item::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: oklch(70% 0 0);
+  transition: color 0.4s ease;
+}
+#s-a1-01 .guide-item.matched {
+  color: var(--safe);
+}
+#s-a1-01 .guide-item.matched::before {
+  color: var(--safe);
+}
+#s-a1-01 .guide-item.dimmed {
+  color: oklch(75% 0 0);
+}
+#s-a1-01 .guide-item.dimmed::before {
+  color: oklch(85% 0 0);
 }
 #s-a1-01 .guideline-rec-source {
   font-family: var(--font-mono);
@@ -1105,39 +1139,7 @@ section#s-a1-01 .slide-inner {
   margin: 0;
 }
 
-/* Guide-match pill badges — R7: pill shape, heavier weight */
-#s-a1-01 .guide-match {
-  display: inline-block;
-  background: oklch(0% 0 0 / 0.04);
-  color: oklch(20% 0 0);
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: none;
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-#s-a1-01 .guide-match.active {
-  background: var(--safe);
-  color: oklch(100% 0 0);
-  box-shadow: 0 4px 12px oklch(40% 0.12 170 / 0.3);
-}
-
-/* Flying badge clones (created by GSAP Flip) */
-.badge-clone {
-  position: fixed;
-  z-index: 100;
-  pointer-events: none;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  padding: 2px 8px;
-  border-radius: 6px;
-  background: var(--safe);
-  color: oklch(100% 0 0);
-  box-shadow: 0 8px 32px oklch(0% 0 0 / 0.15);
-}
+/* (guide-match pill badges + badge-clone removed in R8 — replaced by stacked guide-items) */
 
 /* Source-tag — pinned to bottom of data side */
 #s-a1-01 .source-tag {
@@ -1158,7 +1160,7 @@ section#s-a1-01 .slide-inner {
 .no-js #s-a1-01 .screening-metrics,
 .no-js #s-a1-01 .guideline-rec,
 .no-js #s-a1-01 .source-tag { opacity: 1; }
-.no-js #s-a1-01 .targeting-lasers { display: none; }
+.no-js #s-a1-01 .guide-item { opacity: 1; transform: none; }
 
 /* ── Patient context banner (compact breadcrumb) ── */
 .patient-context {

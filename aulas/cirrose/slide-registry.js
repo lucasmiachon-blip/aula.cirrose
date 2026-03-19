@@ -51,8 +51,9 @@ export const customAnimations = {
     const metrics = slide.querySelector('.screening-metrics');
     const rec = slide.querySelector('.guideline-rec');
     const sourceTag = slide.querySelector('.source-tag');
-    const matches = slide.querySelectorAll('.guide-match');
-    const casePanel = document.querySelector('#case-panel');
+    const guideItems = slide.querySelectorAll('.guide-item');
+    const matchItems = slide.querySelectorAll('.guide-item[data-match]');
+    const nonMatchItems = slide.querySelectorAll('.guide-item:not([data-match])');
 
     const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
@@ -121,84 +122,45 @@ export const customAnimations = {
       gsap.set(metrics, { opacity: 0 });
     }
 
-    // Drawer — slides in from right edge
+    // Guideline panel — fade up with stagger
     tl.addLabel('guideline', 2.8);
     if (rec) {
-      gsap.set(rec, { opacity: 0, x: '100%' });
-      tl.to(rec, { opacity: 1, x: '0%', duration: 1.0, ease: 'power4.out' }, 'guideline');
+      gsap.set(rec, { opacity: 0, y: 20 });
+      tl.to(rec, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 'guideline');
     }
 
-    // Flip badge flight — badges activate → clones fly to case-panel
-    tl.addLabel('punch', 3.6);
+    // Stagger guide items after panel appears
+    if (guideItems.length) {
+      gsap.set(guideItems, { opacity: 0, x: -12 });
+      tl.to(guideItems, {
+        opacity: 1, x: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out',
+      }, 'guideline+=0.3');
+    }
 
-    // Badge activation — snap green with ring
-    if (matches.length) {
-      matches.forEach((el, i) => {
+    // Match punch — "Antônio tem dois dos três"
+    tl.addLabel('punch', 4.2);
+
+    // Dim non-matching items
+    if (nonMatchItems.length) {
+      tl.to(nonMatchItems, {
+        duration: 0.5,
+        ease: 'power2.out',
+        onStart() {
+          nonMatchItems.forEach(el => el.classList.add('dimmed'));
+        },
+      }, 'punch');
+    }
+
+    // Highlight matching items
+    if (matchItems.length) {
+      matchItems.forEach((el, i) => {
         tl.to(el, {
-          background: 'oklch(40% 0.15 170)',
-          color: '#fff',
-          scale: 1.1,
-          duration: 0.4,
-          ease: 'back.out(2)',
-        }, `punch+=${i * 0.2}`);
-        tl.to(el, { scale: 1, duration: 0.3 }, `punch+=${i * 0.2 + 0.4}`);
-      });
-
-      // Flip badge flight: clone badges → fly to case-panel
-      if (casePanel) {
-        const panelRect = casePanel.getBoundingClientRect();
-        const flyDelay = 0.8; // after badge activation settles
-
-        matches.forEach((el, i) => {
-          const badge = el;
-          tl.add(() => {
-            // Capture badge position (Flip state)
-            const state = Flip.getState(badge);
-
-            // Create flying clone
-            const clone = badge.cloneNode(true);
-            clone.classList.add('badge-clone');
-            clone.style.position = 'fixed';
-            document.body.appendChild(clone);
-
-            // Position clone at badge's current location
-            const badgeRect = badge.getBoundingClientRect();
-            clone.style.left = badgeRect.left + 'px';
-            clone.style.top = badgeRect.top + 'px';
-
-            // Animate clone to case-panel area
-            gsap.to(clone, {
-              left: panelRect.left + panelRect.width / 2 - 30,
-              top: panelRect.top + 40 + (i * 24),
-              scale: 0.85,
-              duration: 0.7,
-              ease: 'power3.inOut',
-              onComplete() {
-                // Ripple burst on arrival
-                gsap.to(clone, {
-                  scale: 1.5,
-                  opacity: 0,
-                  duration: 0.4,
-                  ease: 'power1.out',
-                  onComplete() { clone.remove(); },
-                });
-              },
-            });
-          }, `punch+=${flyDelay + i * 0.25}`);
-        });
-
-        // Case-panel pulse on badge arrival
-        tl.to(casePanel, {
-          boxShadow: '0 0 0 3px oklch(40% 0.15 170 / 0.4)',
-          duration: 0.3,
-          ease: 'power2.out',
-        }, `punch+=${flyDelay + matches.length * 0.25}`);
-        tl.to(casePanel, {
-          boxShadow: '0 0 0 0px oklch(40% 0.15 170 / 0)',
+          x: 8,
           duration: 0.6,
-          ease: 'power1.out',
-        }, `punch+=${flyDelay + matches.length * 0.25 + 0.3}`);
-      }
+          ease: 'back.out(1.5)',
+          onStart() { el.classList.add('matched'); },
+        }, `punch+=${0.1 + i * 0.15}`);
+      });
     }
 
     // Source-tag

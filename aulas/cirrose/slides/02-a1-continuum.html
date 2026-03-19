@@ -1,7 +1,7 @@
 <!-- ============================================================
      s-a1-01 — Rastreio de hepatopatia na atenção primária
-     Layout: CSS Grid 6:4 · Bloomberg monolith · Drawer + Flip badge
-     States: auto (SplitText → countUp → reactive metrics → drawer → badge flight)
+     Layout: CSS Grid 6:4 · Bloomberg monolith · Stacked guideline items
+     States: auto (SplitText → countUp → reactive metrics → guideline → match punch)
      ============================================================ -->
 <section id="s-a1-01"
          data-timing="90"
@@ -30,10 +30,15 @@
       </div>
     </div>
 
-    <!-- Guideline drawer: right panel, full-height, slides in -->
+    <!-- Guideline panel: right column, stacked items -->
     <div class="guideline-rec" style="opacity:0">
-      <p class="guideline-rec-text">Rastrear fibrose hepática: <strong class="guide-match" data-match="dm2">DM2</strong> · <strong>obesidade abdominal</strong> + fator metabólico · <strong class="guide-match" data-match="enzimas">enzimas alteradas</strong></p>
-      <p class="guideline-rec-source">EASL 2024 + AASLD 2023 + ADA 2025 convergem</p>
+      <p class="guideline-rec-title">Rastrear fibrose hepática</p>
+      <div class="guideline-items">
+        <div class="guide-item" data-match="dm2">DM2</div>
+        <div class="guide-item">Obesidade + fator metabólico</div>
+        <div class="guide-item" data-match="enzimas">Enzimas alteradas</div>
+      </div>
+      <p class="guideline-rec-source">EASL 2024 · AASLD 2023 · ADA 2025</p>
     </div>
 
     <p class="source-tag" style="opacity:0">Prince 2024 (PMID 38934697) · NHANES 2025 (PMID 40581070) · EASL-EASD-EASO 2024 (PMID 38851997)</p>
