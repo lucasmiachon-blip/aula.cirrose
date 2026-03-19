@@ -224,7 +224,10 @@ Input para Gemini (TUDO junto):
 NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.
 Prompt com codigo stale = review invalido = dinheiro desperdicado.
 
-**Captura de video (Playwright):**
+**Captura de video (Playwright):** `[TODO — not yet implemented]`
+
+> Pipeline atual usa screenshots por estado (S0/S1/SN via `qa-batch-screenshot.mjs`).
+> Video capture = enhancement futuro. Pseudocode abaixo para referencia:
 
 ```js
 // recordVideo: navegar ao slide, esperar, interagir, sair
@@ -344,18 +347,18 @@ Estas sao sugestoes, nao gates. O agente pode registrar em NOTES.md para Lucas d
 
 ## 9. Tooling Reference
 
-### Playwright (screenshots + video)
+### Playwright (screenshots)
 
 ```bash
 # Dev server deve estar ativo
 npm run dev
 
-# Screenshots manuais via script (quando disponivel)
+# Screenshots por batch (pipeline ativo)
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --act A1
-
-# Video via Playwright API
-# recordVideo: { dir: 'qa-screenshots/{slide-id}/', size: { width: 1280, height: 720 } }
 ```
+
+> Video capture via Playwright `recordVideo` API: `[TODO — not yet implemented]`.
+> Referencia futura: `recordVideo: { dir: 'qa-screenshots/{slide-id}/', size: { width: 1280, height: 720 } }`
 
 ### Gemini API
 

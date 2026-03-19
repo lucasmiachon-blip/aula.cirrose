@@ -8,7 +8,8 @@ Usar no Google AI Studio (ai.google.dev) com Gemini 3.1 Pro — NÃO o app consu
 ## Prompt
 
 ```
-Analise TODO o HTML abaixo de uma apresentação Reveal.js sobre [TEMA] para [PÚBLICO].
+Analise TODO o HTML abaixo de uma apresentação sobre [TEMA] para [PÚBLICO].
+(Navegação: deck.js para cirrose/metanalise, Reveal.js para grade/osteoporose.)
 
 Para cada <section> (slide), extraia e organize numa tabela:
 

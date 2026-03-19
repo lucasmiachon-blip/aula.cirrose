@@ -40,6 +40,15 @@
 | `{{INTERACTION_FLOW}}` | Descrição do fluxo de interação |
 | `{{ATTACHMENTS_DESCRIPTION}}` | Lista dos PNGs/vídeos anexados |
 
+**Formato `{{ATTACHMENTS_DESCRIPTION}}`:**
+```
+- S0.png — estado inicial (slide entry, antes de animacoes)
+- S1.png — estado apos primeiro click-reveal
+- SN.png — estado final (todos reveals + animacoes concluidas)
+- metrics.json — dimensoes, contraste WCAG, fill ratio (quando disponivel)
+- video.webm — navegacao real com animacoes [TODO — quando implementado]
+```
+
 ---
 
 <system>
