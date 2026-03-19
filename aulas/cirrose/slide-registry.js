@@ -140,24 +140,28 @@ export const customAnimations = {
     // Match punch — "Antônio tem dois dos três"
     tl.addLabel('punch', 4.2);
 
-    // Dim non-matching items
+    // Depth-of-field match punch — dimmed items recede, matched items advance
     if (nonMatchItems.length) {
       tl.to(nonMatchItems, {
-        duration: 0.5,
-        ease: 'power2.out',
+        opacity: 0.25,
+        filter: 'blur(3px)',
+        scale: 0.98,
+        transformOrigin: 'left center',
+        duration: 0.8,
+        ease: 'power2.inOut',
         onStart() {
           nonMatchItems.forEach(el => el.classList.add('dimmed'));
         },
       }, 'punch');
     }
 
-    // Highlight matching items
     if (matchItems.length) {
       matchItems.forEach((el, i) => {
         tl.to(el, {
-          x: 8,
-          duration: 0.6,
-          ease: 'back.out(1.5)',
+          x: 12,
+          scale: 1.02,
+          duration: 0.8,
+          ease: 'power3.out',
           onStart() { el.classList.add('matched'); },
         }, `punch+=${0.1 + i * 0.15}`);
       });
