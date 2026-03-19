@@ -10,7 +10,7 @@ tools:
   - mcp:notion
   - mcp:scite
   - mcp:zotero
-model: opus-4.6
+model: sonnet
 ralph_phase: act
 ---
 
@@ -24,11 +24,10 @@ Antes de qualquer tarefa: detectar aula via `git branch --show-current` → `fea
 PMID inválido → STOP, flag + reportar ao Lucas. Retração → remoção imediata + alerta ao Lucas. Escolha de papers → NÃO. Só valida e organiza o que recebe.
 **NUNCA verificar de memória. SEMPRE via MCP.**
 
-## STOP Gate — Aula Ativa
+## Multi-Aula
 
-**Se a aula ativa NÃO for Cirrose → STOP imediatamente.**
-Retornar mensagem: "Reference manager bloqueado para aulas fora de Cirrose. Ver docs/SYNC-NOTION-REPO.md § Multi-Aula Sync."
-Motivo: References DB e Slides DB não possuem filtros por aula. Operar em outra aula pode criar entradas órfãs ou corromper relações existentes.
+Slides DB possui propriedade `Aula` (relation). Filtrar por aula ao queryar e ao criar entries.
+Verificar filtro por Aula antes de criar/atualizar — operar sem filtro pode criar entradas orfas ou misturar relacoes entre aulas.
 
 ## Quick Rules
 

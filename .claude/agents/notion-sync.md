@@ -17,11 +17,10 @@ Antes de qualquer tarefa: detectar aula via `git branch --show-current` → `fea
 > Scope: **Slides DB only.** References DB sync is handled by `reference-manager`.
 > IDs: read from `docs/SYNC-NOTION-REPO.md` (single source of truth). NEVER hardcode.
 
-## STOP Gate — Aula Ativa
+## Multi-Aula
 
-**Se a aula ativa NÃO for Cirrose → STOP imediatamente.**
-Retornar mensagem: "Notion sync bloqueado para aulas fora de Cirrose. Ver docs/SYNC-NOTION-REPO.md § Multi-Aula Sync."
-Motivo: Slides DB não possui propriedade `Aula` nem filtros por aula. Operar em outra aula pode corromper dados de Cirrose.
+Slides DB possui propriedade `Aula` (relation). Filtrar por aula ao queryar.
+Verificar filtro por Aula antes de criar/atualizar pages — operar sem filtro pode misturar dados entre aulas.
 
 ## Setup
 

@@ -1,28 +1,35 @@
-# Rules — Melhores Práticas
+# Rules — Melhores Praticas
 
-> Baseado em: [Cursor Docs — Rules](https://cursor.com/docs/context/rules), plano v6.
-> Ver também: [SKILLS.md](SKILLS.md) · [SUBAGENTS.md](SUBAGENTS.md) · [XREF.md](XREF.md)
-
----
-
-## O que são Rules
-
-Rules fornecem instruções persistentes ao Agent. São arquivos `.mdc` em `.cursor/rules/` com frontmatter YAML.
+> Regras vivem em dois diretorios complementares.
+> Ver tambem: [SKILLS.md](SKILLS.md) · [SUBAGENTS.md](SUBAGENTS.md) · [XREF.md](XREF.md)
 
 ---
 
-## Tipos de Ativação
+## Dois Diretorios, Um Proposito
+
+| Diretorio | Formato | Papel |
+|-----------|---------|-------|
+| `.claude/rules/*.md` | Markdown puro | Referencia completa (clusters detalhados, workflows, E-codes) |
+| `.cursor/rules/*.mdc` | Markdown + frontmatter YAML (globs, alwaysApply) | Quick reference com ativacao por arquivo |
+
+**Em caso de conflito:** conteudo mais detalhado prevalece, independente do diretorio.
+
+---
+
+## Ativacao (`.cursor/rules/*.mdc`)
 
 | Tipo | Propriedade | Quando aplica |
 |------|-------------|---------------|
-| Always Apply | `alwaysApply: true` | Toda sessão |
-| Apply Intelligently | `alwaysApply: false`, sem globs | Agent decide por relevância |
-| Apply to Specific Files | `globs: "**/*.ts"` | Arquivo aberto corresponde ao padrão |
+| Always Apply | `alwaysApply: true` | Toda sessao |
+| Apply Intelligently | `alwaysApply: false`, sem globs | Agent decide por relevancia |
+| Apply to Specific Files | `globs: "**/*.ts"` | Arquivo aberto corresponde ao padrao |
 | Apply Manually | — | Quando @-mencionado no chat |
+
+`.claude/rules/*.md` sao carregadas sob demanda pelo Claude Code (sem frontmatter).
 
 ---
 
-## Estrutura .mdc
+## Estrutura .mdc (Cursor)
 
 ```yaml
 ---
@@ -31,50 +38,80 @@ globs: "**/*.html"   # Opcional; vazio = Apply Intelligently
 alwaysApply: false   # true = sempre aplica
 ---
 
-# Título da Rule
+# Titulo da Rule
 
-Conteúdo em markdown...
+Conteudo em markdown...
 ```
-
----
-
-## Melhores Práticas (Cursor Docs)
-
-1. **Focadas e acionáveis:** Como docs internos claros
-2. **Referenciar arquivos:** Não copiar código — apontar para exemplos canônicos
-3. **Exemplos concretos:** Correto vs incorreto
-4. **Split rules grandes:** > 500 linhas → dividir em módulos
-5. **Evitar:** Vagas, duplicar codebase, documentar edge cases raros
 
 ---
 
 ## Regras do Projeto
 
-| Rule | Globs | Sempre | Uso |
-|------|-------|--------|-----|
-| core-constraints | — | Sim | Documentação, CSS, Git, refator |
-| medical-data | — | Sim | Dados clínicos, NNT, HR, RR |
-| slide-editing | **/slides/**/*.html | Não | Edição HTML slides |
-| plan-mode | — | Não | Tarefas multi-step |
-| design-principles | **/*.html,**/*.css | Não | Miller, Gestalt, Mayer, Tufte, Duarte |
-| cirrose-design | **/*.css,**/*.html | Não | Tokens, cores, fontes |
-| design-system | **/*.css | Não | OKLCH tokens, semântica cores, tipografia |
-| motion-qa | **/*.js | Não | Heurísticas GSAP, timing, validação |
-| reveal-patterns | **/*.html,**/*.js | Não | (**DEPRECATED** — split em deck-patterns + reveal-legacy) |
-| css-errors | **/*.css | Não | 35 erros em 5 clusters |
-| slide-identity | **/slides/**/*.html | Não | 9 superficies de slide ID |
-| notion-mcp | — | Não | Notion MCP, specs |
+### `.claude/rules/` (Claude Code — referencia completa)
+
+| Rule | Escopo |
+|------|--------|
+| anti-drift.md | Protocolo de foco de sessao |
+| css-errors.md | 44 erros em 5 clusters |
+| deck-patterns.md | deck.js: navegacao, GSAP, click-reveal, eventos |
+| design-principles.md | 27 principios (Alley, Sweller, Mayer, Tufte, Duarte, Knowles) |
+| design-system.md | OKLCH tokens, semantica cores, tipografia, WCAG |
+| medical-data.md | Dados clinicos, NNT, HR, RR, Tier 1 |
+| motion-qa.md | Heuristicas GSAP, timing, workflow 5 tiers |
+| reveal-legacy.md | Reveal.js (FROZEN — grade/osteoporose only) |
+| slide-editing.md | Checklist pre-edicao, batch workflow, E-codes |
+| slide-identity.md | 9 superficies de slide ID |
+
+### `.cursor/rules/` (Cursor — quick reference)
+
+| Rule | Globs | Sempre | Nota |
+|------|-------|--------|------|
+| core-constraints | — | Sim | Context window thresholds (70/85/95%) |
+| medical-data | — | Sim | Subset de .claude/rules/medical-data.md |
+| slide-editing | `**/slides/**/*.html` | Nao | Tri-mode (create/edit/delete) |
+| plan-mode | — | Nao | Escalacao por complexidade |
+| design-principles | `**/*.html,**/*.css` | Nao | 11 principios (subset) |
+| cirrose-design | `**/*.css,**/*.html` | Nao | Tokens cirrose |
+| design-system | `**/*.css` | Nao | OKLCH tokens |
+| motion-qa | `**/*.js` | Nao | Heuristicas GSAP |
+| reveal-patterns | `**/*.html,**/*.js` | Nao | **DEPRECATED** — split em deck-patterns + reveal-legacy |
+| css-errors | `**/*.css` | Nao | 44 erros em 5 clusters |
+| slide-identity | `**/slides/**/*.html` | Nao | 9 superficies |
+| notion-mcp | — | Nao | Workflow Notion + IDs |
 
 ---
 
-## Context Window (core-constraints)
+## Pares .claude ↔ .cursor
 
-Ver tabela canônica em `docs/SUBAGENTS.md` § Context Window.
-Regra em `.cursor/rules/core-constraints.mdc`.
+| .claude/rules/ | .cursor/rules/ | Mais completo |
+|----------------|---------------|--------------|
+| css-errors.md | css-errors.mdc | .claude |
+| design-principles.md | design-principles.mdc | .claude (27 vs 11 principios) |
+| design-system.md | cirrose-design.mdc + design-system.mdc | Split OK |
+| medical-data.md | medical-data.mdc | .claude |
+| motion-qa.md | motion-qa.mdc | .claude |
+| deck-patterns.md | reveal-patterns.mdc | .claude (deck.js specifics) |
+| reveal-legacy.md | — | .claude only (FROZEN) |
+| slide-editing.md | slide-editing.mdc | Ambos |
+| slide-identity.md | slide-identity.mdc | .claude |
 
-## Manutenção
+**Sem par em .claude:** core-constraints.mdc, plan-mode.mdc, notion-mcp.mdc (so .cursor).
 
-- Incluir novas experiências do projeto
-- Remover padrões obsoletos
+---
+
+## Melhores Praticas
+
+1. **Focadas e acionaveis:** Como docs internos claros
+2. **Referenciar arquivos:** Nao copiar codigo — apontar para exemplos canonicos
+3. **Exemplos concretos:** Correto vs incorreto
+4. **Split rules grandes:** > 500 linhas → dividir em modulos
+5. **Evitar:** Vagas, duplicar codebase, documentar edge cases raros
+
+---
+
+## Manutencao
+
+- Incluir novas experiencias do projeto
+- Remover padroes obsoletos
 - Testar com prompts diversos
 - Versionar no git

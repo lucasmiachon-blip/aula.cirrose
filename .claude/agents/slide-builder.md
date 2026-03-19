@@ -1,6 +1,6 @@
 ---
 name: slide-builder
-description: "Builds and updates Reveal.js slide HTML from specs. Use PROACTIVELY when slides need creation, update, or refactoring based on narrative/evidence changes."
+description: "Builds and updates deck.js slide HTML from specs. Use PROACTIVELY when slides need creation, update, or refactoring based on narrative/evidence changes."
 tools:
   - Read
   - Write
@@ -13,7 +13,6 @@ ralph_phase: act
 # Slide Builder (Claude Code Subagent)
 
 > **Escopo:** Claude Code terminal (sem Notion MCP direto). Recebe spec manual.
-> **Cursor:** Usar `.cursor/skills/medical-slide/` (tem Notion MCP, lê spec do DB).
 
 ## RALPH Gate (Act)
 
@@ -57,8 +56,8 @@ git commit -m "[AULA] batch N — desc"
 ## Template
 
 ```html
-<section data-timing="120">
-  <div class="slide-inner">
+<section id="s-{act}-{slug}">
+  <div class="slide-inner slide-navy">
     <h2>[Assertion em português]</h2>
     <div class="evidence" data-animate="fadeUp">
       <!-- Visual -->
