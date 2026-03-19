@@ -55,7 +55,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
-| 2 | s-a1-01 | Rastreio primário detectou 83% das hepatopatias ocultas | **Ponte**: Antônio veio do rastreio — por que isso importa | ●●○○○ |
+| 2 | s-a1-01 | Por que rastrear? | **Ponte**: Antônio veio do rastreio — 83% eram diagnósticos novos (Prince 2024) | ●●○○○ |
 | 3 | s-a1-classify | O estadiamento está fortemente associado ao prognóstico | **Premissa do ato**: D'Amico protagonista — mortalidade escala por estágio + further decomp | ●●○○○ |
 | 4 | s-a1-vote | Esse paciente tem cirrose? | **Engajamento**: audiência aplica o que acabou de aprender | ●●○○○ |
 | 5 | s-a1-damico | De Child-Pugh a D'Amico: prognóstico virou preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |

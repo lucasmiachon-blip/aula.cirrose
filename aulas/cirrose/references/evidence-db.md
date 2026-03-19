@@ -185,7 +185,10 @@
 
 | Slide ID | Dado critico | Fonte |
 |----------|-------------|-------|
-| s-a1-01 | Rastreio primario: 83% dos diagnosticos de cACLD eram novos | Prince DS 2024 (PMID 38934697) |
+| s-a1-01 | Rastreio primario: 83% dos diagnosticos de cACLD eram novos; 6,4x yield vs GP | Prince DS 2024 (PMID 38934697) |
+| s-a1-01 | >85% dos adultos com cACLD nos EUA nao sabem; ~5M adultos | NHANES 2025 (PMID 40581070) |
+| s-a1-01 | Convergencia: EASL 2024 + AASLD 2023 + ADA 2025 recomendam FIB-4 | ADA Consensus 2025 (PMID 40434108) |
+| s-a1-01 | FIB-4+TE screening: ICER $14.949/QALY (custo-efetivo) | Park 2024 (PMID 38291809) |
 | s-a1-01 | FIB-4 >=2,67: especificidade 98,7% (PPV 35,6%) | LiverPRO: Lindvig 2025 (PMID 39674225) |
 | s-a1-01 | FIB-4 -> elastografia -> CSPH pathway | Baveno VII (PMID 35120736) |
 | s-a1-fib4 / s-a1-rule5 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
@@ -219,10 +222,13 @@
 
 | Paper | PMID | Journal/Ano | Dado-chave |
 |-------|------|-------------|-----------|
-| Prince DS, Hoque S et al. ("The Liver Toolkit") | **38934697** | Hepatol Commun 2024 | Screening >32k adultos (9 clinicas): **83% dos pacientes com cACLD tinham diagnostico novo** (n=23/179 recalled). Etiologia MASLD: 83%. |
+| Prince DS, Hoque S et al. ("The Liver Toolkit") | **38934697** | Hepatol Commun 2024 | Screening >32k adultos (9 clinicas): **83% dos pacientes com cACLD tinham diagnostico novo** (n=23/179 recalled). Yield 6,4x vs GP referral (22,9% vs 3,6%, p=0,021). Etiologia MASLD: 83%. |
+| NHANES cACLD Epidemiology | **40581070** | 2025 | Prevalencia cACLD EUA: 2,4%. **>85% nao sabem** do diagnostico. ~5 milhoes adultos. Corrobora Prince 2024. |
+| ADA Consensus Report | **40434108** | Diabetes Care 2025 | Primeira recomendacao ADA de FIB-4 screening rotineiro em todo DM2/pre-DM. Convergencia EASL+AASLD+ADA. |
+| Park H et al. (cost-effectiveness) | **38291809** | Liver Int 2024 | FIB-4+TE screening em populacao at-risk NAFLD: ICER **$14.949/QALY** (altamente custo-efetivo). |
 
 > **Dado confirmado:** "the majority of patients are only diagnosed when they exhibit features of end-stage decompensated disease"
-> **Uso:** slide 02c-a1-classify.html, Estado 1 — percentual de pacientes assintomaticos/nao diagnosticados.
+> **Uso:** slide s-a1-01 — hero 83% + metricas secundarias (6,4x, >85%) + convergencia 3 sociedades.
 
 ### FIB-4 — Cutoffs e Performance Diagnostica (Tier-1)
 

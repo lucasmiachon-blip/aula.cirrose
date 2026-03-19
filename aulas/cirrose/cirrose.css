@@ -2447,6 +2447,7 @@
   transform: none !important;
 }
 .no-js .screening-hero, .stage-bad .screening-hero,
+.no-js .screening-metrics, .stage-bad .screening-metrics,
 .no-js .screening-criteria, .stage-bad .screening-criteria,
 .no-js .screening-tool-card, .stage-bad .screening-tool-card,
 .no-js .screening-predesci-pill, .stage-bad .screening-predesci-pill {
@@ -2626,6 +2627,33 @@
   color: var(--text-muted);
   margin: 0;
 }
+/* Secondary screening metrics (s-a1-01) */
+.screening-metrics {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  margin: var(--space-xs) 0;
+}
+.screening-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.screening-metric-value {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.screening-metric-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 /* Guideline recommendation card (s-a1-01) */
 .guideline-rec {
   border-left: 3px solid var(--ui-accent);

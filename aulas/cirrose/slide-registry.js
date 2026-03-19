@@ -39,19 +39,25 @@ export const customAnimations = {
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-01': (slide, gsap) => {
     const heroNum = slide.querySelector('.screening-hero-number');
+    const metrics = slide.querySelector('.screening-metrics');
     const rec = slide.querySelector('.guideline-rec');
     const sourceTag = slide.querySelector('.source-tag');
 
-    // Auto: countUp 83 → then guideline-rec fadeUp → then source fadeIn
+    // Auto: countUp 83 → metrics fadeUp → guideline-rec fadeUp → source fadeIn
     if (heroNum) inlineCountUp(gsap, heroNum, 83, 1.2, 0.2);
+
+    if (metrics) {
+      gsap.set(metrics, { opacity: 0, y: 12 });
+      gsap.to(metrics, { opacity: 1, y: 0, duration: 0.5, delay: 1.4, ease: 'power2.out' });
+    }
 
     if (rec) {
       gsap.set(rec, { opacity: 0, y: 12 });
-      gsap.to(rec, { opacity: 1, y: 0, duration: 0.5, delay: 1.4, ease: 'power2.out' });
+      gsap.to(rec, { opacity: 1, y: 0, duration: 0.5, delay: 2.0, ease: 'power2.out' });
     }
 
     if (sourceTag) {
-      gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 2.0, ease: 'power2.out' });
+      gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 2.6, ease: 'power2.out' });
     }
 
     // No click-reveals — auto only
