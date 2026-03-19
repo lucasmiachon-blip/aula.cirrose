@@ -1093,10 +1093,10 @@ section#s-a1-01 .slide-inner {
 #s-a1-01 .guideline-rec-title {
   font-family: var(--font-body);
   font-size: clamp(14px, 1vw, 16px);
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: oklch(50% 0 0);
+  color: oklch(30% 0 0);
   margin: 0 0 var(--space-md);
 }
 #s-a1-01 .guideline-pills {
@@ -1133,9 +1133,13 @@ section#s-a1-01 .slide-inner {
   color: oklch(100% 0 0);
 }
 #s-a1-01 .guide-pill.dimmed {
-  opacity: 0.3;
-  filter: blur(2px) grayscale(100%);
+  opacity: 0.55;
+  background: oklch(94% 0 0);
+  border-color: oklch(90% 0 0);
   transform: scale(0.97);
+}
+#s-a1-01 .guide-pill.dimmed .pill-text {
+  color: oklch(60% 0 0);
 }
 #s-a1-01 .guideline-rec-source {
   font-family: var(--font-mono);
