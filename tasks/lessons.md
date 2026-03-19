@@ -352,3 +352,44 @@ Tokens não importam. Retrabalho é sinal de aprendizado — mas não pode paral
 - `::before/::after { flex: 1 }` em containers base compartilhados PROIBIDO.
 - Participam do layout flex → com gap ou flex:1 children, produzem efeitos colaterais.
 - Codificado como E32 em css-errors.md. Lesson detalhada: sessao 16/mar neste arquivo.
+
+---
+
+## Sessao 19/mar — s-hook v11 + prompt engineering cross-pollination
+
+### CSS specificity: seletores de aula DEVEM ter ID anchor (#deck) — E36
+
+- `base.css` define `h1 { font-size: var(--text-h1) }` (specificity 0-0-1).
+- `cirrose.css` com `.slide-title h1` (0-1-1) AINDA perde se base.css tiver ID selector.
+- **Regra:** Seletores em aula CSS que competem com base.css DEVEM usar `#deck` como anchor: `#deck .slide-title h1`.
+- Ref: ERRO-036.
+
+### Tokens *-light (L>85%) NUNCA como foreground em stage-c — E37
+
+- `--ui-accent-light` (L=92%) sobre bg stage-c (L=95%) = contraste ~1.1:1 = invisivel.
+- Tokens `*-light` foram desenhados para BACKGROUND (badges, tags, cards), nao foreground.
+- **Regra:** Em stage-c, foreground DEVE usar token base (ex: `--ui-accent` L=35%) ou token explicito. Nunca `*-light`.
+- Ref: ERRO-037. Detectado por Gemini 2.5 Flash.
+
+### Mudar LAYOUT =/= remover SURFACE — E43
+
+- Gemini pediu layout assimetrico. Ao implementar, cards perderam bg/shadow/radius (surface treatment).
+- Layout e surface sao dimensoes ORTOGONAIS. Mudar grid/flex nao implica remover card elevation.
+- **Regra:** Ao refatorar layout por sugestao criativa, verificar checklist: bg preservado? shadow preservado? radius preservado? Se nao, justificar explicitamente.
+- Ref: ERRO-043.
+
+### Blackout overlay: alpha >= 0.65 para efeito cinematico — E44
+
+- `oklch(15% 0.01 258 / 0.35)` = area resultante L~67% (cinza medio). Nao parece "luzes apagando".
+- Para blackout dramatico: alpha >= 0.65, idealmente 0.75-0.85.
+- Textos sobre overlay escuro DEVEM mudar para cores claras via GSAP (CSS mantem dark para fallback no-js).
+- **Regra:** Testar overlay composite: `L_resultado = L_bg * (1-alpha) + L_overlay * alpha`. Se L_resultado > 40%, overlay fraco demais.
+- Ref: ERRO-044.
+
+### Cross-pollination de prompts entre projetos
+
+- Prompts Gemini evoluem independentemente por aula (cirrose v3, metanalise v3.0).
+- Tecnicas de prompt engineering (XML tags, CoT, exploration mandate) sao transferiveis entre projetos.
+- Persona e calibracao sao especificos — NAO transferir cegamente.
+- **Regra:** Apos evoluir prompt em uma aula, avaliar o que e tecnica (transferivel) vs o que e contexto (especifico). Absorver tecnicas, preservar contexto.
+- Aplicado: gemini-slide-editor.md v3→v4 absorveu 4 tecnicas de metanalise v3.0.
