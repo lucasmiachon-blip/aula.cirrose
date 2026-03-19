@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-03-19 — s-hook v11 QA regression fixes + prompt v3 (sessao 6)
+
+- **s-hook v10 → v11:** 4 regression fixes identificados e corrigidos.
+  - E43: Lab cards surface treatment restaurado (bg-card, radius-sm, shadow sutil). Gap labs 0.75rem → 1rem. Padding 0.5rem → 0.7rem 0.6rem.
+  - E44: Overlay blackout escurecido (35% → 78% alpha). Resultado visual: L~26% (cinematic) vs L~67% anterior (fog).
+  - Punchline cor: CSS dark (fallback no-js) + GSAP set #f5f5f7 (cream on dark overlay). Text-shadow: bloom 60px/25%.
+  - Question cor: CSS dark (fallback) + GSAP set #c8ccd4 (light gray on dark overlay). onComplete clearProps.
+- **Prompt Gemini v3:** `docs/prompts/gemini-slide-editor.md` reescrito com eng de prompt:
+  - Persona composta (Apple Health + Kurzgesagt + Bloomberg)
+  - Escala de calibracao 5 niveis (PowerPoint → Keynote-grade)
+  - 7 lentes: beleza, superficie/profundidade, tipografia, composicao, motion, interacoes avancadas (sala pequena), o nao-visto
+  - Dual contexto: auditorio (500 pessoas) + sala pequena (10-30 pessoas)
+  - Round context placeholder + anti-repeticao de sugestoes ja implementadas
+- **Build:** PASS (44 slides) · **Lint:** PASS
+- **Arquivos:** cirrose.css (v11), slide-registry.js (v11), docs/prompts/gemini-slide-editor.md (v3)
+
+---
+
 ## 2026-03-19 — s-hook QA.3 round 3 screenshots + video (sessao 5)
 
 - **Screenshots alta resolucao:** S0-fullscreen.png + S1-fullscreen.png (2561x1601px) capturados com viewport 1707x1067 @1.5x DPR (resolucao real do monitor do usuario).

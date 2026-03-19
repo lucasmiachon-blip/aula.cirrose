@@ -1764,10 +1764,10 @@
 /* (MELD badges removed — info now in calc input labels) */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-hook v9 — Caso Antônio (congresso, formal)
-   Asymmetric: bio left (large) + labs right.
-   Clinical-stutter stagger. Blackout punchline.
-   Gemini 3.1 Pro creative review applied.
+   s-hook v11 — Caso Antônio (congresso, formal)
+   Asymmetric: bio left (large) + labs right. Card surface on labs.
+   Clinical-stutter stagger. Cinematic blackout (78% overlay, light text).
+   v10 Gemini rounds 1+2 + v11 QA regression fixes (E43).
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* ── s-hook: tokens ── */
@@ -1779,6 +1779,7 @@
   --hook-text-dim: var(--text-muted);
   --hook-lab-label-color: oklch(30% 0.01 258);
   --hook-alert-value: oklch(55% 0.18 25);  /* danger for AST/PLQ — raised chroma for projection */
+  --hook-card-bg: var(--bg-card);
 }
 #s-hook .hook-patient-name { color: var(--text-primary); }
 #s-hook .hook-punchline { color: oklch(8% 0.02 258); } /* near-black — max contrast vs overlay */
@@ -1839,7 +1840,7 @@
   grid-area: labs;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  gap: 1rem;
   width: 100%;
   max-width: 100%;
   justify-self: center;
@@ -1850,9 +1851,12 @@
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
-  padding: 0.5rem 0;
+  padding: 0.7rem 0.6rem;
   position: relative;
   opacity: 0; /* GSAP stagger → 1; .no-js/.stage-bad → 1 */
+  background: var(--hook-card-bg);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06);
 }
 
 /* ── Alert labs (AST, PLQ — "villain" values) ── */
@@ -1904,7 +1908,7 @@
   color: var(--hook-text-bright);
   text-align: center;
   letter-spacing: 0.02em;
-  text-shadow: 0 2px 32px oklch(100% 0 0 / 0.6);
+  text-shadow: 0 0 60px oklch(100% 0 0 / 0.25);
   margin: 0;
   opacity: 0;
   z-index: 2;
@@ -1927,7 +1931,7 @@
 .hook-blackout-overlay {
   position: absolute;
   inset: 0;
-  background: oklch(15% 0.01 258 / 0.35);
+  background: oklch(8% 0.01 258 / 0.78);
   opacity: 0;
   z-index: 1;
   pointer-events: none;

@@ -1,5 +1,13 @@
 # NOTES — Cirrose
 
+## [19/03] s-hook v11 — regressoes corrigidas, prompt v3
+
+**Diagnostico:** s-hook v10 ganhou assimetria, clinical stutter e blackout (Gemini rounds 1+2), mas REGREDIU em: (1) lab cards perderam surface treatment (bg/shadow/radius removidos por over-correction), (2) overlay fraco (35% = fog, nao cinema), (3) punchline/question cores inadequadas para overlay escuro.
+**Decisao:** Corrigir regressoes ANTES de enviar para Gemini round 3. Gemini deve avaliar slide em estado visual competente, nao gastar tokens em issues obvios.
+**Fixes aplicados:** E43 (cards), E44 (overlay+colors). GSAP agora faz color swap (dark CSS → light inline) no advance, clearProps no retreat. Fallback no-js mantido.
+**Prompt v3:** Template reescrito com eng de prompt (persona composta, escala calibracao 5 niveis, 7 lentes com beleza como #1, interacoes avancadas para sala pequena, round context). Salvo em `docs/prompts/gemini-slide-editor.md`.
+**Proximo:** Capturar novos screenshots v11, preencher prompt v3 com raw code atualizado, enviar para Gemini.
+
 ## [18/03] Letterbox 16:10 vs 16:9 — teste TV pendente
 
 **Setup Lucas:** Laptop 2560x1600 (16:10, DPR 1.5) → HDMI espelhado → TV (resolucao TBD, provavelmente 16:9).

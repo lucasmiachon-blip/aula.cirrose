@@ -359,9 +359,23 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra derivada:** E42 — Raw code no prompt Gemini DEVE ser lido dos arquivos NO MOMENTO do envio. NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.
 **Status:** Registrado. Processo atualizado em WT-OPERATING.md.
 
+### ERRO-043 · HIGH · s-hook (v10 → v11)
+**Lab cards perderam surface treatment (bg, border-radius, shadow) na refatoracao v10**
+**Root cause:** Gemini QA.3 round 1 criticou layout centralizado com cards como "dashboard". Ao implementar assimetria (v10), cards foram removidos por over-correction — Gemini pediu mudanca de LAYOUT, nao remocao de SURFACE. Resultado: labs como texto flutuando sem container, perda de profundidade visual e hierarquia de superficie.
+**Fix:** Restaurar `background: var(--bg-card)`, `border-radius: var(--radius-sm)`, `box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06)` em `.hook-lab`. Sem `border` (evita look "dashboard"). Gap aumentado de `0.75rem` para `1rem`.
+**Regra:** Ao implementar sugestoes criativas, preservar layers de superficie existentes. Mudar LAYOUT =/= remover SURFACE. Sao dimensoes ortogonais. Sempre verificar se a refatoracao manteve card bg/shadow/radius.
+**Status:** Corrigido v11 (2026-03-19).
+
+### ERRO-044 · HIGH · s-hook (v10 → v11)
+**Overlay blackout muito fraco (35% opacity) — efeito fog em vez de cinematic blackout**
+**Root cause:** `oklch(15% 0.01 258 / 0.35)` no overlay = area resultante L~67% (cinza medio). Punchline dark (L=8%) em cinza medio = contraste OK mas estetica pobre. Nao parece "luzes apagando" — parece "tudo ficou embaçado".
+**Fix:** Overlay escurecido para `oklch(8% 0.01 258 / 0.78)` = area resultante L~26%. Punchline mudou para cream (#f5f5f7) via GSAP (CSS mantem dark para fallback no-js). Question mudou para light gray (#c8ccd4) via GSAP. Text-shadow ajustado para bloom suave (60px spread, 25% opacity).
+**Regra:** Blackout overlay cinematico precisa de alpha >= 0.65 para criar contraste dramatico. Textos sobre overlay escuro DEVEM mudar para cores claras via GSAP (mantendo CSS dark para fallback no-js/stage-bad).
+**Status:** Corrigido v11 (2026-03-19).
+
 ---
 
-*Ultima atualizacao: 2026-03-18 · 40 erros registrados, 39 corrigidos, 1 processo (E42).*
+*Ultima atualizacao: 2026-03-19 · 42 erros registrados, 41 corrigidos, 1 processo (E42).*
 
 ---
 
@@ -370,7 +384,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 6     | 6          | 0 |
-| HIGH       | 18    | 18         | 0 |
+| HIGH       | 20    | 20         | 0 |
 | MEDIUM     | 11    | 11         | 0 |
 | LOW        | 2     | 2          | 0 |
-| **Total**  | **37**| **37**     | **0** |
+| **Total**  | **39**| **39**     | **0** |

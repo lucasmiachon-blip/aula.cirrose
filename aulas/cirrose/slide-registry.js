@@ -555,10 +555,10 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-hook v10 — Caso Antônio (asymmetric, blackout)
+     s-hook v11 — Caso Antônio (asymmetric, cinematic blackout)
      Auto: bio visible + clinical-stutter labs stagger (DOM order)
-     State 1: dim overlay + deep blur + punchline bloom + question snap
-     Gemini 3.1 Pro rounds 1+2 applied.
+     State 1: cinematic overlay (78%) + deep blur + punchline bloom (light on dark) + question snap
+     v10 Gemini rounds 1+2 + v11 QA regression fixes (card surface, overlay depth, text colors).
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-hook': (slide, gsap) => {
     let state = 0;
@@ -579,7 +579,9 @@ export const customAnimations = {
     state = 0;
     gsap.set(labs, { opacity: 0, y: 12 });
     gsap.set(punchline, { opacity: 0, filter: 'blur(10px)', scale: 0.9 });
+    punchline.style.color = '';
     gsap.set(question, { opacity: 0 });
+    if (question) question.style.color = '';
     gsap.set(overlay, { opacity: 0 });
     gsap.set(patient, { opacity: 1, filter: 'blur(0px)', scale: 1 });
     gsap.set(labsGrid, { opacity: 1, filter: 'blur(0px)', scale: 1 });
@@ -606,14 +608,16 @@ export const customAnimations = {
         gsap.to(patient, { opacity: 0.08, filter: 'blur(10px)', scale: 0.97, duration: 0.6, ease: 'power2.inOut' });
         gsap.to(labsGrid, { opacity: 0.08, filter: 'blur(10px)', scale: 0.97, duration: 0.6, ease: 'power2.inOut' });
 
-        // Punchline: fade+bloom (blur → sharp, scale up — Vertigo micro-effect)
+        // Punchline: cream on dark — fade+bloom (blur → sharp, Vertigo micro-effect)
+        punchline.style.color = '#f5f5f7';
         gsap.fromTo(punchline,
           { opacity: 0, filter: 'blur(10px)', scale: 0.9 },
           { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.8, delay: 0.4, ease: 'power2.out' }
         );
 
-        // Question: sharp cut after 3s silence
+        // Question: sharp cut after 3s silence — light for dark overlay
         if (question) {
+          question.style.color = '#c8ccd4';
           gsap.fromTo(question,
             { opacity: 0 },
             { opacity: 1, duration: 0.2, delay: 3.0, ease: 'none' }
@@ -628,8 +632,10 @@ export const customAnimations = {
       if (state === 1) {
         // Reverse all: overlay, punchline, question, bio, labs
         gsap.to(overlay, { opacity: 0, duration: 0.3 });
-        gsap.to(punchline, { opacity: 0, filter: 'blur(10px)', scale: 0.9, duration: 0.3 });
-        if (question) gsap.to(question, { opacity: 0, duration: 0.2 });
+        gsap.to(punchline, { opacity: 0, filter: 'blur(10px)', scale: 0.9, duration: 0.3,
+          onComplete: () => { punchline.style.color = ''; } });
+        if (question) gsap.to(question, { opacity: 0, duration: 0.2,
+          onComplete: () => { question.style.color = ''; } });
         gsap.to(patient, { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.4, delay: 0.2, ease: 'power2.out' });
         gsap.to(labsGrid, { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 0.4, delay: 0.2, ease: 'power2.out' });
       }
