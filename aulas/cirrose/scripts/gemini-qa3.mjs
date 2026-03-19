@@ -121,14 +121,14 @@ Editor final criativo. Autoridade total para propor mudancas radicais.
 Primeiro slide de conteudo apos hook. 83% = primeiro numero-impacto do deck. Corroboracao (6.4x, >85%) + convergencia guidelines (3 sociedades).
 
 ### Round context
-Round 6 (re-avaliacao pos-R5). Implementou 3 propostas do R5 (4.5/10):
-- P1 DONE: Baseline hero alignment — align-items:baseline on .screening-hero, wider margin hero→label (space-md→space-lg), line-height 0.85. No more text collision.
-- P2 DONE: Editorial drawer — border-radius 0 (was 24px), border-left 1px solid editorial cut, box-shadow REMOVED. Clean vertical division.
-- P3 DONE: Bloomberg metrics — font-mono on values (600 weight), uppercase labels (tracking 0.05em), 2px border-top divider (was 1px faint).
-- P4 RADICAL SKIPPED: Case-panel integration impossible (shared/ read-only in worktree).
-- KEPT from R4/R5: Grid 6fr:4fr, reactive metrics (countUp→70→reveal), SplitText, Flip badge flight, drawer slide-in power4.out, source-tag 13px.
+Round 7 (re-avaliacao pos-R6). Implementou 4 propostas do R6 (5.35/10):
+- P1 RADICAL DONE: Killed white drawer background → transparent. No more "modal" feel. border-left 1px solid editorial. padding-left only (space-2xl). Guideline text now belongs to Stage-C creme environment.
+- P2 DONE: Hero label max-width 32ch (was 16ch). margin-bottom space-2xl for breathing room before metrics. metrics border-top refined to 1px (was 2px).
+- P3 DONE: Pill badges — border-radius 999px, no border, heavier font-weight 600, background oklch(0%/0.04) neutral state.
+- P5 DONE: Guideline text in Instrument Serif (was DM Sans), font-size clamp(24px,1.8vw,30px) (was 18-22px). Authoritative editorial tone.
+- KEPT: Grid 6fr:4fr, reactive metrics, SplitText, Flip badge flight, Bloomberg mono metrics, source-tag 13px.
 - Specificity: section#s-a1-01 beats base.css.
-Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5). Objetivo: 8+.
+Scores R0(5.1)→R1(4.5)→R2(5.9)→R3(5.6)→R4(6.0)→R5(4.5)→R6(5.35). Objetivo: 8+.
 NOTA IMPORTANTE: preze pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
 
 ### HTML:
@@ -169,14 +169,14 @@ section#s-a1-01 .slide-inner { position:relative; display:grid; grid-template-co
 #s-a1-01 .hero-block { grid-column:1; grid-row:1; container-type:inline-size; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; text-align:left; padding:36px 48px 40px; }
 #s-a1-01 .screening-hero { display:flex; align-items:baseline; gap:0; }
 #s-a1-01 .screening-hero-number { font-family:var(--font-display); font-size:clamp(140px,15vw,220px); line-height:0.85; letter-spacing:-0.05em; }
-#s-a1-01 .screening-hero-label { max-width:16ch; font-size:clamp(18px,1.5vw,22px); font-weight:500; line-height:1.15; color:oklch(30% 0 0); margin:var(--space-md) 0 var(--space-lg); }
-#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); border-top:2px solid oklch(20% 0.02 258); padding-top:var(--space-sm); }
+#s-a1-01 .screening-hero-label { max-width:32ch; font-size:clamp(18px,1.5vw,22px); font-weight:500; line-height:1.15; color:oklch(30% 0 0); margin:var(--space-sm) 0 var(--space-2xl); }
+#s-a1-01 .screening-metrics { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); border-top:1px solid oklch(0% 0 0/0.1); padding-top:var(--space-md); }
 #s-a1-01 .screening-metric-value { font-family:var(--font-mono); font-weight:600; letter-spacing:-0.02em; }
 #s-a1-01 .screening-metric-label { text-transform:uppercase; letter-spacing:0.05em; font-size:clamp(11px,0.8vw,13px); color:oklch(40% 0 0); }
-#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:white; border:none; border-left:1px solid oklch(0% 0 0/0.08); border-radius:0; padding:var(--space-2xl) var(--space-lg) var(--space-lg); display:flex; flex-direction:column; justify-content:center; transform-origin:right center; overflow:hidden; }
-#s-a1-01 .guideline-rec-text { font-size:clamp(18px,1.4vw,22px); line-height:1.4; }
+#s-a1-01 .guideline-rec { grid-column:2; grid-row:1/-1; background:transparent; border:none; border-left:1px solid oklch(0% 0 0/0.06); border-radius:0; padding:0 0 0 var(--space-2xl); display:flex; flex-direction:column; justify-content:center; transform-origin:right center; overflow:hidden; }
+#s-a1-01 .guideline-rec-text { font-family:var(--font-display); font-size:clamp(24px,1.8vw,30px); line-height:1.25; color:oklch(20% 0 0); }
 #s-a1-01 .guideline-rec-source { font-family:var(--font-mono); font-size:clamp(12px,0.85vw,14px); color:oklch(45% 0 0); }
-#s-a1-01 .guide-match { display:inline-block; background:oklch(96% 0 0); color:oklch(20% 0 0); padding:2px 8px; border-radius:6px; border:1px solid oklch(92% 0 0); font-family:var(--font-mono); font-size:0.9em; }
+#s-a1-01 .guide-match { display:inline-block; background:oklch(0% 0 0/0.04); color:oklch(20% 0 0); padding:4px 10px; border-radius:999px; border:none; font-family:var(--font-mono); font-size:0.85em; font-weight:600; }
 .badge-clone { position:fixed; z-index:100; pointer-events:none; background:var(--safe); color:oklch(100% 0 0); border-radius:6px; box-shadow:0 8px 32px oklch(0% 0 0/0.15); }
 #s-a1-01 .source-tag { position:absolute; bottom:12px; left:48px; font-family:var(--font-mono); font-size:13px; color:oklch(55% 0 0); max-width:50%; overflow-wrap:anywhere; }
 \`\`\`
@@ -291,8 +291,8 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, 'gemini-qa3-r6.md');
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R6)\n\n` +
+  const outPath = join(QA_DIR, 'gemini-qa3-r7.md');
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R7)\n\n` +
     `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0,10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
