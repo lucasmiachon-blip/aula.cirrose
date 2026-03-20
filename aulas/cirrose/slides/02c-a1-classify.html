@@ -1,7 +1,7 @@
 <!-- ============================================================
-     s-a1-classify — O estadiamento está fortemente associado ao prognóstico (D'Amico + further decomp)
+     s-a1-classify — O estadiamento está fortemente associado ao prognóstico
      Archetype: hero-stat
-     States: 0=D'Amico cards stagger + further decomp (auto), 1=source (click)
+     States: 0=D'Amico cards (auto), 1=further decomp (click), 2=PREDESCI (click), 3=source (click)
      ============================================================ -->
 <section id="s-a1-classify"
          data-timing="90"
@@ -19,34 +19,24 @@
       <span class="patient-context-highlight">FIB-4 5,91</span>
     </div>
 
-    <!-- PREDESCI — context + hero number -->
-    <div class="classify-predesci">
-      <span class="classify-predesci-label">PREDESCI</span>
-      <span class="classify-predesci-outcome">↓ 1ª descompensação em compensados com CSPH</span>
-    </div>
-    <div class="classify-predesci-hero">
-      <span class="classify-predesci-value">0,51</span>
-      <span class="classify-predesci-ci">HR · IC 95%: 0,26–0,97</span>
-    </div>
-
-    <!-- D'Amico 2006 — 3 estágios, mortalidade anual -->
+    <!-- D'Amico 2006 — natural history (problem) -->
     <div class="classify-assertions">
       <div class="classify-card classify-card--safe">
-        <span class="classify-card-icon">✓</span>
+        <span class="classify-card-icon">&#10003;</span>
         <div class="classify-card-body">
           <span class="classify-card-assertion">Compensado sem varizes</span>
           <span class="classify-card-outcome">1%/ano</span>
         </div>
       </div>
       <div class="classify-card classify-card--warning">
-        <span class="classify-card-icon">⚠</span>
+        <span class="classify-card-icon">&#9888;</span>
         <div class="classify-card-body">
           <span class="classify-card-assertion">Compensado com varizes</span>
           <span class="classify-card-outcome">3-4%/ano</span>
         </div>
       </div>
       <div class="classify-card classify-card--danger">
-        <span class="classify-card-icon">✕</span>
+        <span class="classify-card-icon">&#10005;</span>
         <div class="classify-card-body">
           <span class="classify-card-assertion">1ª descompensação</span>
           <span class="classify-card-outcome">20%/ano</span>
@@ -54,12 +44,23 @@
       </div>
     </div>
 
-    <!-- Further decompensation — destaque separado (D'Amico 2024) -->
+    <!-- Further decompensation — editorial annotation (D'Amico 2024) -->
     <div class="classify-further-decomp">
+      <span class="classify-further-arrow" aria-hidden="true">&#8627;</span>
       <p class="classify-further-text">
         ~60% dos descompensados progridem para <strong>further decompensation</strong> — mortalidade dobra
       </p>
       <span class="classify-further-source">D'Amico 2024 · n=2.028</span>
+    </div>
+
+    <!-- PREDESCI — intervention (solution) -->
+    <div class="classify-predesci">
+      <span class="classify-predesci-label">PREDESCI</span>
+      <span class="classify-predesci-outcome">&#8595; 1ª descompensação em compensados com CSPH</span>
+    </div>
+    <div class="classify-predesci-hero">
+      <span class="classify-predesci-value">0,51</span>
+      <span class="classify-predesci-ci">HR · IC 95%: 0,26–0,97</span>
     </div>
 
     <p class="source-tag" style="opacity:0">
@@ -77,15 +78,15 @@
 "Primeira descompensação — ascite: 20%."
 PAUSA 3s.
 
-[0:30-1:00] Further decomp destaque
+[0:30-1:00] → Click 1: Further decomp
 "E não para por aí. D'Amico 2024, dois mil pacientes."
 "60% dos descompensados progridem. E a mortalidade? Dobra."
 PAUSA 2s.
 
-[1:00-1:15] PREDESCI reforço
+[1:00-1:15] → Click 2: PREDESCI
 "Por isso o PREDESCI importa: NSBBs nos compensados com CSPH — HR 0,51."
 "Classificar antes muda o desfecho."
-→ avançar para vote
+→ Click 3: fonte · avançar para vote
 
 [DATA] D'Amico 2006: PMID 16298014 | 3 estágios, mortalidade anual | Verificado
 [DATA] D'Amico 2024: PMID 37916970 | further decomp ~60%, dobra mortalidade | n=2.028 | Verificado

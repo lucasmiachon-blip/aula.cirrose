@@ -995,7 +995,7 @@ section#s-a1-01 .slide-inner {
   grid-template-columns: 6fr 4fr;
   grid-template-rows: 1fr;
   gap: 0;
-  padding: 0;
+  padding: 0 210px 0 0; /* case-panel clearance (180px + 16px margin + 14px breathing) */
   height: 100%;
   box-sizing: border-box;
   overflow: hidden;
@@ -2153,21 +2153,23 @@ section#s-a1-01 .slide-inner {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-a1-classify — Estadiamento associado ao prognóstico (D'Amico + further decomp)
-   States: 0=D'Amico cards stagger + further decomp (auto), 1=source (click)
+   s-a1-classify — Estadiamento associado ao prognóstico
+   States: 0=D'Amico cards (auto), 1=further decomp (click), 2=PREDESCI (click), 3=source (click)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 #s-a1-classify .slide-inner.archetype-hero-stat {
   justify-content: flex-start;
-  padding-top: 32px;
-  padding-bottom: 16px;
-  gap: 0.6rem;
+  padding-top: 24px;
+  padding-bottom: 8px;
+  gap: 0.35rem;
+  overflow: hidden;
 }
-#s-a1-classify .classify-assertions { gap: 6px; }
-#s-a1-classify .classify-card { padding: 8px var(--space-md); }
+#s-a1-classify .classify-assertions { gap: 4px; }
+#s-a1-classify .classify-card { padding: 6px var(--space-md); }
 #s-a1-classify .section-tag { margin-bottom: 0; }
+#s-a1-classify .slide-headline { font-size: clamp(24px, 2vw, 34px); margin-bottom: 0; }
 
-/* ── s-a1-classify: assertion cards + PREDESCI ── */
+/* ── s-a1-classify: D'Amico assertion cards (no fill — clean editorial) ── */
 .classify-assertions {
   display: flex;
   flex-direction: column;
@@ -2182,9 +2184,7 @@ section#s-a1-01 .slide-inner {
   gap: var(--space-sm);
   align-items: center;
   padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  border-left: 4px solid var(--border);
-  background: var(--bg-card);
+  border-left: 3px solid var(--border);
 }
 
 .classify-card-icon {
@@ -2216,17 +2216,55 @@ section#s-a1-01 .slide-inner {
   color: var(--text-muted);
 }
 
-/* PREDESCI hero (visible from auto-entry) */
-/* ── s-a1-classify: PREDESCI context box + hero number ── */
+/* ── s-a1-classify: further decomp — editorial annotation ── */
+.classify-further-decomp {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  border-top: 1px dashed var(--danger);
+  width: 100%;
+  max-width: 700px;
+}
+
+.classify-further-arrow {
+  font-size: var(--text-body);
+  color: var(--danger);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.classify-further-text {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.classify-further-text strong {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.classify-further-source {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── s-a1-classify: PREDESCI intervention (solution — keeps fill for payoff weight) ── */
 .classify-predesci {
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-md);
+  padding: 6px var(--space-md);
   border-left: 3px solid var(--safe);
   background: var(--safe-light);
   border-radius: var(--radius-sm);
   width: 100%;
+  max-width: 700px;
 }
 
 .classify-predesci-label {
@@ -2249,11 +2287,14 @@ section#s-a1-01 .slide-inner {
   align-items: baseline;
   gap: var(--space-sm);
   justify-content: center;
+  margin: 0.15rem 0;
+  max-width: 700px;
+  width: 100%;
 }
 
 .classify-predesci-value {
   font-family: var(--font-mono);
-  font-size: var(--text-h1);
+  font-size: clamp(32px, 2.8vw, 48px);
   font-weight: 700;
   color: var(--safe);
   line-height: 1;
@@ -2264,39 +2305,6 @@ section#s-a1-01 .slide-inner {
   font-size: var(--text-small);
   color: var(--text-secondary);
 }
-
-/* ── s-a1-classify: further decompensation callout ── */
-.classify-further-decomp {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
-  padding: var(--space-sm) var(--space-md);
-  border-left: 3px solid var(--warning);
-  background: var(--warning-light);
-  border-radius: var(--radius-md);
-  width: 100%;
-}
-
-.classify-further-text {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.classify-further-text strong {
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.classify-further-source {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-}
-
-/* .classify-predesci-support removed — PREDESCI now uses hero classes */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-damico (escores) — Era track + era state machine

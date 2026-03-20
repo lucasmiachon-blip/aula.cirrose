@@ -373,9 +373,16 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Source-tags com 3+ citações DEVEM ser testados em ambas resoluções (1280x720 + 1920x1080). Se truncar, quebrar em 2 linhas ou reduzir font-size.
 **Status:** ✅ Corrigido v4 (2026-03-19).
 
+### ERRO-046 · HIGH · s-a1-01 (R11)
+**GSAP inline opacity override cria race condition com case-panel.js**
+**Root cause:** Custom animation P1 fazia `gsap.to(casePanel, { opacity: 0 })` no slide enter e `gsap.to(casePanel, { opacity: 1 })` no slide:changed. GSAP inline style (specificity maxima) vencia a classe `.hidden { opacity: 0 }` do CSS. Resultado: (1) case-panel invisivel em s-a1-01 onde deveria aparecer (primeiro panelState registrado); (2) case-panel visivel em s-hook ao navegar para tras (restorePanel GSAP vence .hidden CSS).
+**Fix:** Remover bloco P1 inteiramente. case-panel.js controla visibilidade sozinho via classe .hidden. Adicionado padding-right: 210px ao .slide-inner para clearance visual do case-panel.
+**Regra:** NUNCA usar GSAP para controlar opacidade de elementos gerenciados por outro sistema (case-panel.js). GSAP inline style vence CSS classes e cria race conditions. Se precisar esconder elemento gerenciado, usar a API do gerenciador.
+**Status:** ✅ Corrigido (2026-03-20).
+
 ---
 
-*Ultima atualizacao: 2026-03-19 · 45 erros registrados, 44 corrigidos, 1 processo (E42).*
+*Ultima atualizacao: 2026-03-20 · 46 erros registrados, 45 corrigidos, 1 processo (E42).*
 
 ---
 
@@ -384,7 +391,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 6     | 6          | 0 |
-| HIGH       | 23    | 23         | 0 |
+| HIGH       | 24    | 24         | 0 |
 | MEDIUM     | 12    | 12         | 0 |
 | LOW        | 2     | 2          | 0 |
 | SHOULD     | 2     | 2          | 0 |

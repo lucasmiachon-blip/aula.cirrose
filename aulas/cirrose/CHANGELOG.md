@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-03-20 — s-a1-01 DONE: case-panel fix + grid clearance (sessao 12)
+
+- **s-a1-01 R11 → DONE:** Fix case-panel race condition (ERRO-046).
+  - **Removido P1:** GSAP hide/restore do case-panel criava race com case-panel.js (inline opacity vencia .hidden CSS). Case-panel agora controlado exclusivamente por case-panel.js.
+  - **Grid clearance:** `padding-right: 210px` no `.slide-inner` — case-panel (180px + 16px margin) não sobrepõe guideline-rec.
+  - Ghost Rows estéticos confirmados pelo usuário.
+- **Build:** PASS (44 slides)
+
+---
+
 ## 2026-03-19 — s-a1-01 R11: Ghost Rows + all Gemini proposals (sessao 11 cont.)
 
 - **s-a1-01 R10→R11:** Implemented all 6 Gemini R10 proposals.

@@ -4,12 +4,12 @@
 
 ---
 
-## Estado atual — 2026-03-19 (QA pipeline ativo)
+## Estado atual — 2026-03-20 (QA pipeline ativo)
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 45 registrados, 44 corrigidos, 1 processo (E42).
+**ERROR-LOG:** 46 registrados, 45 corrigidos, 1 processo (E42).
 **Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script:** `scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `scripts/capture-s-hook.mjs` (s-hook) · `scripts/capture-s-a1-01.mjs` (s-a1-01) · `scripts/gemini-qa3.mjs` (Gemini REST API). Legacy `scripts/qa-screenshots-stage-c.js` — OBSOLETO.
@@ -30,7 +30,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
-| 3 | s-a1-01 | QA | **R11** (19/mar). Gemini loop R0→R10→R11. Ghost Rows + hero typo fix + metric scale + scan effect + case-panel hide + source-tag full-width. Pendente: QA.2 screenshots + QA.3 Gemini R11 review. |
+| 3 | s-a1-01 | DONE | **R11** (20/mar). Ghost Rows (estéticos). ERRO-046 fix: P1 case-panel hide removido (race condition GSAP vs .hidden CSS). Grid clearance 210px para case-panel. |
 | 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
@@ -92,8 +92,7 @@
 
 | Estado | Qtd | Slides |
 |--------|-----|--------|
-| DONE | 2 | s-title, s-hook |
-| QA | 1 | s-a1-01 (R11: Ghost Rows, pendente QA.2 screenshots + QA.3 Gemini) |
+| DONE | 3 | s-title, s-hook, s-a1-01 |
 | LINT-PASS | 1 | s-a1-classify |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
@@ -151,7 +150,7 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 
 ### Backlog
 
-- QA visual Gemini: s-hook v17 — QA.4 reeval (screenshots pos-fix → Gemini reavaliar). Demais slides: screenshots state-by-state, video de reveals, monotonia visual Act 2
+- QA visual Gemini: Demais slides: screenshots state-by-state, video de reveals, monotonia visual Act 2
 - **[MAIN]** engine.js `?qa=1` não força estado final de custom animations — `forceAnimFinalState()` só trata `[data-animate]`, ignora `customAnimations`. Workaround: script Playwright força via evaluate. Fix longo-prazo em shared/.
 - h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão)
 - Headlines reescritos neste batch: s-a1-01 (verboso→83%), s-a1-damico (verboso→Child-Pugh), s-a1-meld (metáfora→urgência)
@@ -262,54 +261,20 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-19, sessao 11)
+## Onde paramos (2026-03-20, sessao 12)
 
-### s-a1-01 — QA loop Gemini (R0→R11)
+### s-a1-01 — DONE (R11 + ERRO-046 fix)
 
-**Evolucao de formato (painel direito guideline):**
-- R0-R4: Paper card + Flip badge flight → KILLED (glassmorphism, laser lines, theatrics)
-- R5-R7: Em-dash stacked list → usuario nao gostou formato ("agrada pouco, local bom")
-- R8-R10: Pill tags (border-radius 999px, matched=teal bg, dimmed=gray) → usuario aprovou formato ("quase la, bom")
-- R11: Ghost Rows (Gemini Option D) — status-dot + row-text + teal wash on match. **USUARIO PEDIU IMPLEMENTAR TODAS propostas Gemini R10, mas NAO viu resultado final ainda.**
-
-**Problema pendente:** Usuario reportou que "perdemos o bloco lateral de ter ficado bem melhor". O painel direito (guideline-rec) pode ter regredido visualmente com a troca de pills para Ghost Rows. **Avaliar visualmente na proxima sessao** — pode ser necessario reverter para pills ou ajustar Ghost Rows.
-
-**Gemini scores (media):** R0(5.1) → R4(6.0) → R8(6.65) → R10(6.65) → R10 projeta 9.1 com Ghost Rows.
-
-**O que esta implementado no codigo agora (R11):**
-- HTML: `guideline-stack` > `stack-row` > `status-dot` + `row-text` (3 rows, 2 com data-match)
-- CSS: Ghost Row matched = teal wash `oklch(40% 0.12 170 / 0.08)` + glow dot + teal text. Dimmed = opacity 0.35 + scale 0.98.
-- CSS P2: Hero `%` maior (`clamp(60px, 6vw, 100px)`), negative margin `-0.08em`, `translateY(-15px)`
-- CSS P3: Metric values `clamp(32px, 2.5vw, 42px)`, `oklch(20%)`, editorial border-top + margin-top:auto
-- CSS P5: Source-tag full-width (`left:48px; right:48px`), 11px, `text-overflow:ellipsis`
-- JS P1: `#case-panel` GSAP `opacity:0` on slide enter, restores on slide:changed
-- JS P4: Scanner line (teal gradient div) sweeps guideline-stack before match punch
-- JS: Sequential scan → match punch com `back.out(1.5)` ease nos matched rows
-
-**Layout mantido:** CSS Grid 6:4, Bloomberg hero (Instrument Serif 140-220px, appleHero/snapOut eases), reactive metrics on countUp >= 70, SplitText headline.
-
-**Capture script:** `capture-s-a1-01.mjs` atualizado para Ghost Row selectors.
-**Gemini prompt:** `gemini-qa3.mjs` precisa ser atualizado para R11 context (Ghost Rows, scanner line, etc.) antes de enviar proxima rodada.
-
-### s-hook — DONE (v17)
-QA 5-stage PASS. Gemini R3 applied. Nada pendente.
+Ghost Rows confirmados esteticamente pelo usuario. ERRO-046 (case-panel race condition) corrigido: P1 removido, padding-right 210px para clearance. Sem QA.2/QA.3 Gemini formal — usuario aprovou direto.
 
 ### Pipeline geral
-- s-title: DONE, s-hook: DONE
-- s-a1-01: QA (R11, pendente avaliacao visual + QA.2 + QA.3)
-- s-a1-classify: LINT-PASS (precisa QA 5-stage)
+- s-title: DONE, s-hook: DONE, s-a1-01: DONE
+- s-a1-classify: LINT-PASS (proximo — precisa QA pipeline 5-stage)
 - 40 slides: CONTENT
 
-### Proximos passos (proxima sessao)
-1. **VISUAL CHECK s-a1-01**: `npm run dev` → navegar ate s-a1-01 → avaliar se Ghost Rows ficaram bons ou se precisa reverter para pills
-2. Se bom: capturar QA.2 screenshots + video → enviar QA.3 Gemini R11
-3. Se ruim: revert Ghost Rows → voltar para pills (ultimo commit bom: `dfccdba`)
-4. Quando s-a1-01 atingir score >= 8 → QA.4 PASS → DONE
-5. Proximo slide: s-a1-classify (LINT-PASS → QA pipeline 5-stage)
-
-### Commits esta sessao (16 commits)
-`2888490..f42f593` — s-a1-01 R0→R11, Gemini loop completo, docs sync, Notion 3 PMIDs.
-Todos pushed para `origin/feat/cirrose-mvp`.
+### Proximo slide: s-a1-classify
+- Estado atual: LINT-PASS (QA prematuro revertido 18/mar)
+- Precisa: QA.0 (lint+constraints) → QA.1 (Claude Vision) → QA.2 (screenshots) → QA.3 (Gemini) → QA.4 (reeval)
 
 ---
 

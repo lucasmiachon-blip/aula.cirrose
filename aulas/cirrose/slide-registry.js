@@ -54,18 +54,6 @@ export const customAnimations = {
     const stackRows = slide.querySelectorAll('.stack-row');
     const guidelineStack = slide.querySelector('.guideline-stack');
 
-    // P1: Hide case-panel during this slide for clean focus
-    const casePanel = document.querySelector('#case-panel');
-    if (casePanel) {
-      gsap.to(casePanel, { opacity: 0, duration: 0.4, ease: 'power2.out' });
-      // Restore on slide exit via ctx.revert() — add cleanup
-      const restorePanel = () => {
-        gsap.to(casePanel, { opacity: 1, duration: 0.3 });
-        document.removeEventListener('slide:changed', restorePanel);
-      };
-      document.addEventListener('slide:changed', restorePanel);
-    }
-
     const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
     // SplitText headline reveal
@@ -280,15 +268,17 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-classify — Estadiamento associado ao prognóstico (D'Amico + further decomp)
-     State 0: D'Amico cards stagger + further decomp + PREDESCI hero (auto)
-     State 1: source (click)
+     s-a1-classify — Estadiamento associado ao prognóstico
+     State 0: D'Amico cards stagger (auto — problem)
+     State 1: further decomp (click — consequence)
+     State 2: PREDESCI box + hero (click — solution)
+     State 3: source (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-classify': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
 
     let state = 0;
-    const maxState = 1;
+    const maxState = 3;
 
     const cards = slide.querySelectorAll('.classify-card');
     const furtherDecomp = slide.querySelector('.classify-further-decomp');
@@ -297,27 +287,25 @@ export const customAnimations = {
     const sourceTag = slide.querySelector('.source-tag');
 
     // Initial hidden states
-    if (predesciBox) gsap.set(predesciBox, { opacity: 0, y: 6 });
-    if (predesciHero) gsap.set(predesciHero, { opacity: 0, y: 6 });
     gsap.set(cards, { opacity: 0, y: 12 });
     if (furtherDecomp) gsap.set(furtherDecomp, { opacity: 0, y: 8 });
+    if (predesciBox) gsap.set(predesciBox, { opacity: 0, y: 6 });
+    if (predesciHero) gsap.set(predesciHero, { opacity: 0, y: 6 });
 
-    // Auto: PREDESCI box (context, delay 0.2s)
-    if (predesciBox) gsap.to(predesciBox, { opacity: 1, y: 0, duration: 0.4, delay: 0.2, ease: 'power2.out' });
-
-    // Auto: PREDESCI hero number (delay 0.5s)
-    if (predesciHero) gsap.to(predesciHero, { opacity: 1, y: 0, duration: 0.5, delay: 0.5, ease: 'power2.out' });
-
-    // Auto: D'Amico cards stagger (after hero ~0.9s)
-    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.18, delay: 0.9, ease: 'power2.out' });
-
-    // Auto: further decomp callout (after cards settle ~1.6s)
-    if (furtherDecomp) gsap.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.5, delay: 1.6, ease: 'power2.out' });
+    // Auto: D'Amico cards stagger (problem — the natural history)
+    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.18, delay: 0.3, ease: 'power2.out' });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
+        // Further decomp (consequence — escalation)
+        gsap.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+      } else if (state === 2) {
+        // PREDESCI (solution — the payoff)
+        gsap.to(predesciBox, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+        gsap.to(predesciHero, { opacity: 1, y: 0, duration: 0.5, delay: 0.2, ease: 'power2.out' });
+      } else if (state === 3) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
       }
       return true;
@@ -325,7 +313,14 @@ export const customAnimations = {
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 1) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      if (state === 1) {
+        gsap.to(furtherDecomp, { opacity: 0, y: 8, duration: 0.3 });
+      } else if (state === 2) {
+        gsap.to(predesciHero, { opacity: 0, y: 6, duration: 0.3 });
+        gsap.to(predesciBox, { opacity: 0, y: 6, duration: 0.3 });
+      } else if (state === 3) {
+        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      }
       state--;
       return true;
     }

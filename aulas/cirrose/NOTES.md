@@ -285,3 +285,17 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 - CHANGELOG.md, HANDOFF.md: atualizados no commit anterior
 
 [2026-03-19 20:34] [BUILD] OK — npm run build:cirrose 2>&1 | tail -3 && npm run lint:slides 2>&1 | tail -3
+
+[2026-03-20 10:17] [BUILD] OK — npm run build:cirrose 2>&1 | tail -5
+
+[2026-03-20 10:35] [unknown:a22f835d] — concluído. Status: PARTIAL
+
+[2026-03-20 10:42] [BUILD] OK — npm run build:cirrose 2>&1 | tail -3
+
+[2026-03-20 10:58] [unknown:a550f4cf] — concluído. Status: PARTIAL
+
+[2026-03-20 12:04] [BUILD] OK — npm run build:cirrose 2>&1 | tail -5
+
+[2026-03-20 12:27] [unknown:a936b119] — concluído. Status: PASS
+
+[2026-03-20 12:37] [general-purpose:ab5067be] — concluído. Status: PARTIAL
