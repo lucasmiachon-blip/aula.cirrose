@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-03-20 — Gemini CLI pipeline + cleanup (sessao 13)
+
+- **Gemini CLI canonico:** `scripts/gemini.mjs` reescrito para multimodal (texto+PNG+video). Auto-extrai HTML/JS/CSS via `_manifest.js` + `slide-registry.js`. Output: `.audit/{id}_result.json`. Video via File API (`@google/generative-ai/server`).
+- **WT-OPERATING.md:** QA.3 atualizado com bloco CLI real (substitui TODO pseudocode).
+- **Plano absorcao:** `_archive/ABSORB-PLAN-gemini-qa3.md` — 3 features alta prioridade do ad-hoc (ROUND_CONTEXTS, cost estimation, per-round naming).
+- **Debris limpo:** 6 scripts one-shot de `qa-screenshots/` movidos para `_archive/qa-screenshots-legacy/`.
+- **`.gitignore`:** adicionado `_archive/`.
+- **Pendente proxima sessao:**
+  - `qa-video.js` quebrado (Reveal.js refs) — corrigir para deck.js
+  - `gemini.mjs --video` nunca testado end-to-end
+  - Absorver features do `gemini-qa3.mjs` no canonico
+
+---
+
 ## 2026-03-20 — s-a1-01 DONE: case-panel fix + grid clearance (sessao 12)
 
 - **s-a1-01 R11 → DONE:** Fix case-panel race condition (ERRO-046).

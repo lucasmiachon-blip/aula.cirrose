@@ -12,9 +12,12 @@
 **ERROR-LOG:** 46 registrados, 45 corrigidos, 1 processo (E42).
 **Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
-**QA Script:** `scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `scripts/capture-s-hook.mjs` (s-hook) · `scripts/capture-s-a1-01.mjs` (s-a1-01) · `scripts/gemini-qa3.mjs` (Gemini REST API). Legacy `scripts/qa-screenshots-stage-c.js` — OBSOLETO.
-**Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs (a11y-contrast, design-comparison, floto, chrome-devtools) via profile `qa`. Gemini via API REST direta (nao MCP local).
-**Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). API REST direta.
+**QA Script — Gemini CLI:** `scripts/gemini.mjs` (canonico, multimodal: texto+PNG+video). Auto-extrai HTML/JS/CSS do slide. Output: `.audit/{id}_result.json`.
+**QA Script — Captura:** `scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `scripts/capture-s-hook.mjs` (s-hook) · `scripts/capture-s-a1-01.mjs` (s-a1-01).
+**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API, ROUND_CONTEXTS). Plano de absorcao em `_archive/ABSORB-PLAN-gemini-qa3.md`.
+**QA Script — Video:** `scripts/qa/qa-video.js` — **QUEBRADO** (usa `window.Reveal`, cirrose e deck.js). Correcao pendente.
+**Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`scripts/gemini.mjs`).
+**Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via SDK `@google/generative-ai`.
 **Ultimo merge main:** `d7f91b9` (2026-03-18) — 4 commits: skills (medical-researcher, slide-punch, sync-evidence) + docs. Zero Classe C.
 
 ---
