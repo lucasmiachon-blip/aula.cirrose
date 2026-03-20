@@ -118,6 +118,22 @@ shared/js/case-panel.js → Panel lateral (cirrose)
 6. Apos correcao do usuario → atualizar `tasks/lessons.md`.
 7. Sessao termina → atualizar HANDOFF.md do projeto ativo.
 
+## Auditoria Visual — Gemini CLI
+
+REGRA: Gemini NUNCA edita arquivos. Só produz JSON de sugestões.
+Só Claude Code lê o JSON e decide o que implementar.
+
+```bash
+# Auditoria completa (CSS + PNG + MP4)
+node scripts/gemini.mjs --slide {id} --css {arquivo.css} --png {screenshot.png} --video {animacao.mp4}
+
+# Só código + screenshot
+node scripts/gemini.mjs --slide {id} --css {arquivo.css} --png {screenshot.png}
+```
+
+Output: `.audit/{slide-id}_result.json`
+Threshold: score < 7 → registrar problema, aguardar decisão de Lucas
+
 ## Operational Records
 
 Cada projeto tem seus proprios registros (HANDOFF, CHANGELOG, ERROR-LOG, NOTES).

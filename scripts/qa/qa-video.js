@@ -25,6 +25,7 @@
  */
 import { chromium } from 'playwright';
 import { mkdirSync, existsSync, renameSync, rmSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -166,8 +167,18 @@ async function main() {
   for (const { index, id } of targets) {
     const label = id || `slide-${String(index).padStart(2, '0')}`;
     process.stdout.write(`  [${String(index).padStart(2, '0')}] ${label} → gravando...`);
-    const path = await recordSlide(browser, index, label);
-    process.stdout.write(` ✓ ${label}.webm\n`);
+    const webmPath = await recordSlide(browser, index, label);
+    process.stdout.write(` ✓ .webm`);
+
+    // Convert .webm → .mp4 via ffmpeg
+    const mp4Path = webmPath.replace(/\.webm$/, '.mp4');
+    try {
+      execSync(`ffmpeg -i "${webmPath}" -c:v libx264 -crf 23 -y "${mp4Path}"`, { stdio: 'pipe' });
+      rmSync(webmPath);
+      process.stdout.write(` → .mp4 ✓\n`);
+    } catch (e) {
+      process.stdout.write(` (ffmpeg failed, keeping .webm)\n`);
+    }
   }
 
   await browser.close();
@@ -175,9 +186,7 @@ async function main() {
 
   console.log(`\n✓ Vídeos → qa-screenshots/videos/`);
   console.log(`\nPróximo passo:`);
-  console.log(`  1. Abrir qa-screenshots/videos/`);
-  console.log(`  2. Upload do .webm para Gemini Ultra`);
-  console.log(`  3. Prompt: "Analise esta apresentação médica para hepatologistas..."`);
+  console.log(`  node scripts/gemini.mjs --slide SLIDE_ID --css cirrose.css --png SCREENSHOT --video qa-screenshots/videos/SLIDE_ID.mp4`);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
