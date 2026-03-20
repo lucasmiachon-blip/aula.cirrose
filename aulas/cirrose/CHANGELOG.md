@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-03-20 — qa-video.js dual framework (sessao 14)
+
+- **qa-video.js migrado:** suporte dual deck.js + Reveal.js. Base da versao metanalise + 3 bug fixes:
+  - **Fix A:** FRAMEWORK invertido — cirrose agora corretamente detectado como `deck` (era `reveal`)
+  - **Fix B:** `window.deck.goTo()` (inexistente) substituido por DOM manipulation + dispatch `slide:changed`/`slide:entered`
+  - **Fix C:** `.active` → `.slide-active` (classe real do deck.js)
+- **Novas features (da versao metanalise):** `--aula` flag (default cirrose), `--url` override, `maxRecording: 15000ms`, sem dependencia de ffmpeg
+- **Testado:** 2 slides (s-title, s-hook) gravados com sucesso como .mp4
+- **Backup:** `scripts/qa/_archive/qa-video-reveal-only.js` (gitignored)
+
+---
+
 ## 2026-03-20 — Gemini CLI pipeline + cleanup (sessao 13)
 
 - **Gemini CLI canonico:** `scripts/gemini.mjs` reescrito para multimodal (texto+PNG+video). Auto-extrai HTML/JS/CSS via `_manifest.js` + `slide-registry.js`. Output: `.audit/{id}_result.json`. Video via File API (`@google/generative-ai/server`).
@@ -12,7 +24,7 @@
 - **Debris limpo:** 6 scripts one-shot de `qa-screenshots/` movidos para `_archive/qa-screenshots-legacy/`.
 - **`.gitignore`:** adicionado `_archive/`.
 - **Pendente proxima sessao:**
-  - `qa-video.js` quebrado (Reveal.js refs) — corrigir para deck.js
+  - ~~`qa-video.js` quebrado (Reveal.js refs) — corrigir para deck.js~~ DONE sessao 14
   - `gemini.mjs --video` nunca testado end-to-end
   - Absorver features do `gemini-qa3.mjs` no canonico
 

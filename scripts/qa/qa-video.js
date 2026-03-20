@@ -1,31 +1,31 @@
 #!/usr/bin/env node
 /**
- * QA Video — Grava .webm de cada slide com animações reais
+ * QA Video — Grava .mp4 de cada slide com animações reais
  *
  * Playwright recordVideo captura o browser real:
  *   → GSAP rodando (countUp, stagger, drawPath)
- *   → Transições Reveal.js
- *   → Fragment reveals
+ *   → Transições deck.js ou Reveal.js
  *   → Click-reveal progressivo
  *
- * Output: qa-screenshots/videos/{slide-id}.webm
+ * Output: qa-screenshots/videos/{slide-id}.mp4
  *
  * Usage:
- *   npm run qa:video                     # todos os slides
- *   npm run qa:video -- --slide=s-hook   # slide específico
- *   npm run qa:video -- --batch=0,5      # slides 0 a 4
+ *   npm run qa:video                                # cirrose (default)
+ *   npm run qa:video -- --aula=metanalise           # metanalise (deck.js)
+ *   npm run qa:video -- --slide=s-hook              # slide específico
+ *   npm run qa:video -- --batch=0,5                 # slides 0 a 4
+ *   npm run qa:video -- --url=http://localhost:3001/aulas/metanalise/index.html
  *
  * Workflow:
  *   1. Rodar: npm run qa:video
  *   2. Abrir qa-screenshots/videos/
- *   3. Upload do .webm para Gemini Ultra
+ *   3. Upload do .mp4 para Gemini
  *   4. Gemini analisa animação real com contexto clínico
  *
  * Requer servidor: npm run dev  (ou npm run preview)
  */
 import { chromium } from 'playwright';
 import { mkdirSync, existsSync, renameSync, rmSync } from 'node:fs';
-import { execSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -35,7 +35,6 @@ const OUT_ROOT = join(ROOT, 'qa-screenshots', 'videos');
 const TMP_DIR = join(ROOT, 'qa-screenshots', '.video-tmp');
 
 const PORT = process.env.PORT || 3000;
-const BASE_URL = `http://localhost:${PORT}/aulas/cirrose/index.html`;
 const VIEWPORT = { width: 1280, height: 720 };
 
 // Quanto tempo esperar entre cada ação (ms)
@@ -43,34 +42,122 @@ const TIMING = {
   afterNav: 800,        // após navegar para o slide
   afterTransition: 600, // após cada fragment/reveal
   endPause: 1000,       // pausa final antes de parar gravação
+  maxRecording: 15000,  // timeout máximo por slide (15s, limit inlineData ~20MB)
 };
 
 const args = process.argv.slice(2);
 const slideFilter = args.find(a => a.startsWith('--slide='))?.split('=')[1];
 const batchArg = args.find(a => a.startsWith('--batch='))?.split('=')[1];
+const aulaArg = args.find(a => a.startsWith('--aula='))?.split('=')[1] || 'cirrose';
+const urlArg = args.find(a => a.startsWith('--url='))?.split('=')[1];
+
+const BASE_URL = urlArg || `http://localhost:${PORT}/aulas/${aulaArg}/index.html`;
+const FRAMEWORK = (aulaArg === 'grade' || aulaArg === 'osteoporose')
+  ? 'reveal' : 'deck';
+
 let batchRange = null;
 if (batchArg) {
   const [from, to] = batchArg.split(',').map(Number);
   batchRange = { from, to };
 }
 
-async function waitForReveal(page) {
-  await page.waitForFunction(
-    () => typeof window.Reveal !== 'undefined' && window.Reveal.isReady?.(),
-    { timeout: 15000 }
-  );
+// ── Framework-specific helpers ──
+
+async function waitForReady(page) {
+  if (FRAMEWORK === 'reveal') {
+    await page.waitForFunction(
+      () => typeof window.Reveal !== 'undefined' && window.Reveal.isReady?.(),
+      { timeout: 15000 }
+    );
+  } else {
+    // deck.js: wait for first section to be visible
+    await page.waitForFunction(
+      () => document.querySelector('section') !== null,
+      { timeout: 15000 }
+    );
+    // Wait for engine.js to finish init (slide:entered fires on first slide)
+    await page.waitForTimeout(800);
+  }
 }
 
-async function getFragmentCount(page) {
-  return page.evaluate(() => {
-    const slide = window.Reveal.getCurrentSlide();
-    if (!slide) return 0;
-    return slide.querySelectorAll('.fragment:not(.visible)').length;
-  });
+async function getRevealCount(page) {
+  if (FRAMEWORK === 'reveal') {
+    return page.evaluate(() => {
+      const slide = window.Reveal.getCurrentSlide();
+      if (!slide) return 0;
+      return slide.querySelectorAll('.fragment:not(.visible)').length;
+    });
+  } else {
+    // deck.js: count unrevealed [data-reveal] elements in current slide
+    return page.evaluate(() => {
+      const current = document.querySelector('section.slide-active');
+      if (!current) return 0;
+      return current.querySelectorAll('[data-reveal]:not(.revealed)').length;
+    });
+  }
 }
+
+async function goToSlide(page, slideIndex) {
+  if (FRAMEWORK === 'reveal') {
+    await page.evaluate((idx) => {
+      window.Reveal.configure({ transition: 'none' });
+      window.Reveal.slide(idx);
+    }, slideIndex);
+    await page.waitForTimeout(200);
+    await page.evaluate(() => {
+      window.Reveal.configure({ transition: 'fade' });
+    });
+  } else {
+    // deck.js: goTo is ESM-only (not on window), so manipulate DOM directly
+    await page.evaluate((idx) => {
+      const vp = document.querySelector('#slide-viewport');
+      const sections = vp ? vp.querySelectorAll(':scope > section') : document.querySelectorAll('section');
+      const current = document.querySelector('section.slide-active');
+      if (current) current.classList.remove('slide-active');
+      if (sections[idx]) {
+        sections[idx].classList.add('slide-active');
+        document.dispatchEvent(new CustomEvent('slide:changed', {
+          detail: { currentSlide: sections[idx], previousSlide: current, indexh: idx }
+        }));
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent('slide:entered', {
+            detail: { currentSlide: sections[idx], indexh: idx }
+          }));
+        }, 100);
+      }
+    }, slideIndex);
+    // Wait for slide:entered + animations to start
+    await page.waitForTimeout(600);
+  }
+}
+
+async function getSlideMap(browser) {
+  const ctx = await browser.newContext({ viewport: VIEWPORT });
+  const page = await ctx.newPage();
+  await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+  await waitForReady(page);
+
+  let slideMap;
+  if (FRAMEWORK === 'reveal') {
+    slideMap = await page.evaluate(() =>
+      window.Reveal.getSlides().map((el, i) => ({ index: i, id: el.id || null }))
+    );
+  } else {
+    slideMap = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('section[id]')).map((el, i) => ({
+        index: i,
+        id: el.id || null
+      }))
+    );
+  }
+
+  await ctx.close();
+  return slideMap;
+}
+
+// ── Recording ──
 
 async function recordSlide(browser, slideIndex, slideId) {
-  // Cada slide precisa de um contexto separado para ter o próprio vídeo
   const tmpSlideDir = join(TMP_DIR, `slide-${slideIndex}`);
   mkdirSync(tmpSlideDir, { recursive: true });
 
@@ -84,44 +171,31 @@ async function recordSlide(browser, slideIndex, slideId) {
 
   const page = await context.newPage();
 
-  // Navegar e ir direto ao slide (sem hash navigation para não pegar transição da homepage)
   await page.goto(BASE_URL, { waitUntil: 'networkidle' });
-  await waitForReveal(page);
-
-  // Ir para o slide alvo (sem animação de transição da homepage)
-  await page.evaluate((idx) => {
-    window.Reveal.configure({ transition: 'none' });
-    window.Reveal.slide(idx);
-  }, slideIndex);
-
-  await page.waitForTimeout(200);
-
-  // Restaurar transição normal (para mostrar no vídeo)
-  await page.evaluate(() => {
-    window.Reveal.configure({ transition: 'fade' });
-  });
-
+  await waitForReady(page);
+  await goToSlide(page, slideIndex);
   await page.waitForTimeout(TIMING.afterNav);
 
-  // Avançar todos os fragments um por um
+  // Advance all reveals one by one (respecting max timeout)
+  const recordStart = Date.now();
   let safetyCounter = 0;
   while (safetyCounter < 20) {
-    const remaining = await getFragmentCount(page);
+    if (Date.now() - recordStart > TIMING.maxRecording - TIMING.endPause) break;
+    const remaining = await getRevealCount(page);
     if (remaining === 0) break;
     await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(TIMING.afterTransition);
     safetyCounter++;
   }
 
-  // Pausa final para mostrar estado completo
-  await page.waitForTimeout(TIMING.endPause);
+  // Final pause to show completed state
+  const timeLeft = TIMING.maxRecording - (Date.now() - recordStart);
+  await page.waitForTimeout(Math.min(TIMING.endPause, Math.max(200, timeLeft)));
 
-  // Fechar contexto → Playwright salva o vídeo
   const videoPath = await page.video()?.path();
   await context.close();
 
-  // Mover para output final com nome correto
-  const finalName = `${slideId}.webm`;
+  const finalName = `${slideId}.mp4`;
   const finalPath = join(OUT_ROOT, finalName);
 
   if (videoPath && existsSync(videoPath)) {
@@ -131,27 +205,16 @@ async function recordSlide(browser, slideIndex, slideId) {
   return finalPath;
 }
 
-async function getSlideMap(browser) {
-  const ctx = await browser.newContext({ viewport: VIEWPORT });
-  const page = await ctx.newPage();
-  await page.goto(BASE_URL, { waitUntil: 'networkidle' });
-  await waitForReveal(page);
-  const slideMap = await page.evaluate(() =>
-    window.Reveal.getSlides().map((el, i) => ({ index: i, id: el.id || null }))
-  );
-  await ctx.close();
-  return slideMap;
-}
+// ── Main ──
 
 async function main() {
-  // Preparar dirs
   try { rmSync(TMP_DIR, { recursive: true }); } catch {}
   mkdirSync(OUT_ROOT, { recursive: true });
   mkdirSync(TMP_DIR, { recursive: true });
 
   const browser = await chromium.launch({ headless: true });
 
-  console.log(`QA Video → ${BASE_URL}\n`);
+  console.log(`QA Video → ${BASE_URL} (${FRAMEWORK})\n`);
   const slideMap = await getSlideMap(browser);
 
   let targets = slideMap;
@@ -167,18 +230,8 @@ async function main() {
   for (const { index, id } of targets) {
     const label = id || `slide-${String(index).padStart(2, '0')}`;
     process.stdout.write(`  [${String(index).padStart(2, '0')}] ${label} → gravando...`);
-    const webmPath = await recordSlide(browser, index, label);
-    process.stdout.write(` ✓ .webm`);
-
-    // Convert .webm → .mp4 via ffmpeg
-    const mp4Path = webmPath.replace(/\.webm$/, '.mp4');
-    try {
-      execSync(`ffmpeg -i "${webmPath}" -c:v libx264 -crf 23 -y "${mp4Path}"`, { stdio: 'pipe' });
-      rmSync(webmPath);
-      process.stdout.write(` → .mp4 ✓\n`);
-    } catch (e) {
-      process.stdout.write(` (ffmpeg failed, keeping .webm)\n`);
-    }
+    await recordSlide(browser, index, label);
+    process.stdout.write(` ✓ ${label}.mp4\n`);
   }
 
   await browser.close();
@@ -186,7 +239,7 @@ async function main() {
 
   console.log(`\n✓ Vídeos → qa-screenshots/videos/`);
   console.log(`\nPróximo passo:`);
-  console.log(`  node scripts/gemini.mjs --slide SLIDE_ID --css cirrose.css --png SCREENSHOT --video qa-screenshots/videos/SLIDE_ID.mp4`);
+  console.log(`  node scripts/gemini.mjs --slide {id} --file {html} --png {png} --mp4 {mp4} --json`);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
