@@ -82,5 +82,8 @@ diagnostico.zip
 # Playwright test artifacts
 test-results/
 
+# Archive (local triage, not versioned)
+_archive/
+
 # Windows artifact
 NUL

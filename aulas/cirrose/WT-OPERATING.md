@@ -224,22 +224,26 @@ Input para Gemini (TUDO junto):
 NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.
 Prompt com codigo stale = review invalido = dinheiro desperdicado.
 
-**Captura de video (Playwright):** `[TODO — not yet implemented]`
+**Invocacao CLI** (gemini.mjs auto-preenche template `docs/prompts/gemini-slide-editor.md`):
 
-> Pipeline atual usa screenshots por estado (S0/S1/SN via `qa-batch-screenshot.mjs`).
-> Video capture = enhancement futuro. Pseudocode abaixo para referencia:
+```bash
+# Código + screenshot (padrão)
+node scripts/gemini.mjs --slide s-a1-classify --css cirrose.css --png qa-screenshots/s-a1-classify/s0.png
 
-```js
-// recordVideo: navegar ao slide, esperar, interagir, sair
-// Slides sem animacao: video curto (entrada + estado final)
-// Slides com click-reveals: video com cada click
-// Slides com data-animate: video mostrando a animacao
-// Salvar em qa-screenshots/{slide-id}/video.webm
+# Código + múltiplos estados + vídeo
+node scripts/gemini.mjs --slide s-a1-classify --css cirrose.css \
+  --png qa-screenshots/s-a1-classify/s0.png \
+  --png qa-screenshots/s-a1-classify/s1.png \
+  --video qa-screenshots/videos/s-a1-classify.mp4
+
+# Com contexto de rodada anterior
+node scripts/gemini.mjs --slide s-a1-classify --css cirrose.css \
+  --png s0.png --round "R2: corrigido contraste, adicionado elevation"
 ```
 
-**Prompt Gemini:** usar template `docs/prompts/gemini-slide-editor.md`.
-Papel: editor final (nao linter). Liberdade total. Pode dar raw code ou direcao criativa.
-Preencher placeholders `{{...}}` com dados do slide. Nao forcar JSON — resposta livre.
+`--slide` auto-extrai HTML (via `_manifest.js`), CSS (via `--css`), JS (via `slide-registry.js`).
+Output salvo automaticamente em `.audit/{slide-id}_result.json`.
+Papel: editor final (nao linter). Liberdade total. Resposta livre (nao JSON).
 
 **Output:** JSON do Gemini + interpretacao do agente.
 **→ CHECKPOINT:** apresentar ao Lucas. Lucas aprova/rejeita sugestoes Gemini individualmente.
