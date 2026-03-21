@@ -1,9 +1,28 @@
 # NOTES — Cirrose
 
-## [20/03] Pendencia infra main — npm script qa:video
+## [20/03] Crash Bun + hardening pos-crash
 
-`package.json` nao tem script `qa:video`. Invocacao atual e manual: `node scripts/qa/qa-video.js`.
-Adicionar em main: `"qa:video": "node scripts/qa/qa-video.js"` (Classe A — infra, nao WT).
+**Evento:** Bun segfault apos 11h uptime. Processo morreu sem aviso.
+**Causa:** Playwright sem browser_close() acumulou instancias Chromium (300-500MB cada) + audit-trail.sh spawnando `node -e` a cada tool call (~150ms overhead).
+**Impacto:** Trabalho em andamento nao commitado perdido. Sem dados corrompidos.
+**Acoes tomadas:**
+1. WT-OPERATING.md: §9 (regras de sessao) + §10 (browser_close obrigatorio) — commitado `513424a`
+2. ERRO-047 registrado no ERROR-LOG
+3. Main absorvida (`542949b` — qa:video npm script)
+**Pendencias P1 (branch main):**
+- audit-trail.sh: eliminar `node -e`, substituir por bash puro (reduz ~80% overhead)
+- audit-trail.sh: filtrar read-only tools (Read/Glob/Grep) para reduzir ~60% dos spawns
+
+## [20/03] Env vars pendentes
+
+- **GEMINI_API_KEY:** OK (presente no env)
+- **PERPLEXITY_API_KEY:** Ausente. Necessaria quando for usar Perplexity MCP (pesquisa profunda).
+- **SCITE:** OAuth, nao API key. Pendente verificacao de tokens.
+- **Acao:** Setar antes de sessoes que usem esses MCPs. Nao bloqueia QA pipeline (usa Gemini).
+
+## [20/03] Pendencia infra main — npm script qa:video (RESOLVIDO)
+
+~~`package.json` nao tem script `qa:video`.~~ Resolvido: commit `542949b` em main, absorvido nesta sessao.
 
 ## [19/03] Doc hardening — backlog estrutural
 
@@ -320,3 +339,5 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-20 21:06] [Explore:abb89af8] — concluído. Status: PARTIAL
 
 [2026-03-20 21:07] [Explore:a03f92b7] — concluído. Status: PARTIAL
+
+[2026-03-20 21:37] [BUILD] OK — npm run build:cirrose

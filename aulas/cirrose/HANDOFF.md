@@ -9,7 +9,7 @@
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 46 registrados, 45 corrigidos, 1 processo (E42).
+**ERROR-LOG:** 47 registrados, 45 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
 **Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script — Gemini CLI:** `scripts/gemini.mjs` (canonico, multimodal: texto+PNG+video). Auto-extrai HTML/JS/CSS do slide. Output: `.audit/{id}_result.json`.
@@ -18,7 +18,9 @@
 **QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`scripts/gemini.mjs`).
 **Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via SDK `@google/generative-ai`.
-**Ultimo merge main:** `d7f91b9` (2026-03-18) — 4 commits: skills (medical-researcher, slide-punch, sync-evidence) + docs. Zero Classe C.
+**Ultimo merge main:** `542949b` (2026-03-20) — 1 commit: `chore: add qa:video npm script`. Zero Classe C.
+**Crash 20/mar:** Bun segfault apos 11h uptime. Causa: Playwright sem browser_close() + hooks pesados. Ver ERRO-047. Regras de restart adicionadas em WT-OPERATING.md §9.
+**Env vars:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente (setar quando necessario). SCITE OAuth pendente.
 
 ---
 

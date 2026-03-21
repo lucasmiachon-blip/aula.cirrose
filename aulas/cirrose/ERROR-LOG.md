@@ -380,9 +380,19 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** NUNCA usar GSAP para controlar opacidade de elementos gerenciados por outro sistema (case-panel.js). GSAP inline style vence CSS classes e cria race conditions. Se precisar esconder elemento gerenciado, usar a API do gerenciador.
 **Status:** ✅ Corrigido (2026-03-20).
 
+### ERRO-047 · CRITICAL · infra (Bun runtime)
+**Bun crashou com segfault apos 11h de uptime continuo**
+**Root cause:** Playwright browser instances sem `browser_close()` acumularam memoria (300-500MB cada). Combinado com hooks pesados (audit-trail.sh spawnando `node -e` a cada tool call), RSS do processo cresceu ate segfault.
+**Fix:** 3 medidas implementadas:
+1. WT-OPERATING.md §9: restart obrigatorio a cada 2-3h, checkpoint pre-QA, monitor RAM >3GB
+2. WT-OPERATING.md §10: `browser_close()` obrigatorio apos toda sessao Playwright
+3. (Pendente) audit-trail.sh: eliminar spawn de `node -e`, substituir por bash puro
+**Regra:** Sessoes longas (>2h) com Playwright = alto risco de crash. Restart preventivo. Sempre commitar checkpoint antes de operacoes pesadas.
+**Status:** ✅ Parcialmente corrigido (docs). Otimizacao audit-trail pendente (P1 — branch main).
+
 ---
 
-*Ultima atualizacao: 2026-03-20 · 46 erros registrados, 45 corrigidos, 1 processo (E42).*
+*Ultima atualizacao: 2026-03-20 · 47 erros registrados, 45 corrigidos, 1 processo (E42), 1 parcial (E47).*
 
 ---
 
@@ -390,9 +400,9 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
-| CRITICAL   | 6     | 6          | 0 |
+| CRITICAL   | 7     | 6          | 1 (E47 parcial) |
 | HIGH       | 24    | 24         | 0 |
 | MEDIUM     | 12    | 12         | 0 |
 | LOW        | 2     | 2          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **45**| **44**     | **1 (E42 processo)** |
+| **Total**  | **47**| **45**     | **2 (E42 processo, E47 parcial)** |

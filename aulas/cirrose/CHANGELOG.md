@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-03-20 — Hardening pos-crash Bun (sessao 15)
+
+- **Crash Bun:** Segfault apos 11h uptime. Causa: Playwright leak + hooks pesados. ERRO-047 registrado.
+- **WT-OPERATING.md:** §9 regras de sessao (restart 2-3h, checkpoint pre-QA, monitor RAM). §10 browser_close() obrigatorio.
+- **Main absorvida:** `542949b` (qa:video npm script). Merge limpo, apenas `package.json`.
+- **Env vars:** GEMINI OK, PERPLEXITY ausente (nao bloqueia), SCITE OAuth pendente.
+- **Build:** PASS (44 slides). **Lint:** PASS.
+
+---
+
 ## 2026-03-20 — qa-video.js dual framework (sessao 14)
 
 - **qa-video.js migrado:** suporte dual deck.js + Reveal.js. Base da versao metanalise + 3 bug fixes:
