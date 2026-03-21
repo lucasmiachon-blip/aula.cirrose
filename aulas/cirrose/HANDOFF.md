@@ -4,7 +4,7 @@
 
 ---
 
-## Estado atual — 2026-03-20 (QA pipeline ativo)
+## Estado atual — 2026-03-22 (QA pipeline ativo)
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
@@ -18,7 +18,7 @@
 **QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`scripts/gemini.mjs`).
 **Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via SDK `@google/generative-ai`.
-**Ultimo merge main:** `542949b` (2026-03-20) — 1 commit: `chore: add qa:video npm script`. Zero Classe C.
+**Ultimo merge main:** `99092b7` (2026-03-22) — hardening: reveal.js removido, orphan scripts deletados, audit-trail narrowed, build:metanalise real. Zero Classe C.
 **Crash 20/mar:** Bun segfault apos 11h uptime. Causa: Playwright sem browser_close() + hooks pesados. Ver ERRO-047. Regras de restart adicionadas em WT-OPERATING.md §9.
 **Env vars:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente (setar quando necessario). SCITE OAuth pendente.
 
@@ -232,9 +232,9 @@ Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 | Trials e PMIDs | `references/evidence-db.md` (#2 autoridade) |
 | Arco narrativo + pacing | `references/narrative.md` (#3 autoridade) |
 | Ordem dos slides | `slides/_manifest.js` (#4 autoridade) |
-| Blueprint Act 2 detalhado | `RAW_ACT2_V2.md` (referencia historica — decisoes travadas acima) |
-| Blueprint Act 3 detalhado | `RAW_ACT3_V1.md` (referencia historica) |
-| Contrato Act 3 | `ACT3-CONTRACT-V1.md` (referencia historica) |
+| Blueprint Act 2 detalhado | `_archive/RAW_ACT2_V2_2026-03.md` (referencia historica — decisoes travadas acima) |
+| Blueprint Act 3 detalhado | `_archive/RAW_ACT3_V1_2026-03.md` (referencia historica) |
+| Contrato Act 3 | `_archive/ACT3-CONTRACT-V1_2026-03.md` (referencia historica) |
 | Regras operacionais | `CLAUDE.md` (cirrose) |
 | Design tokens | `.claude/rules/design-system.md` |
 | Erros e prevenção | `ERROR-LOG.md` |
@@ -266,11 +266,20 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-20, sessao 12)
+## Onde paramos (2026-03-22, sessao 13)
 
-### s-a1-01 — DONE (R11 + ERRO-046 fix)
+### Sessao 13 — Diagnostico + Hardening documental
 
-Ghost Rows confirmados esteticamente pelo usuario. ERRO-046 (case-panel race condition) corrigido: P1 removido, padding-right 210px para clearance. Sem QA.2/QA.3 Gemini formal — usuario aprovou direto.
+Sessao de suporte (zero slides avancados). Objetivo: alinhar estado da WT com main.
+
+**Acoes executadas:**
+1. Diagnostico completo read-only da WT (git, disco, docs, configs, slides)
+2. Merge main `e77dcec` → `99092b7`: reveal.js removido, 4 orphan scripts deletados, audit-trail narrowed, build:metanalise real
+3. Conflito `scripts/act1-reaudit.mjs` (modify/delete) resolvido: aceita delecao
+4. 3 PNGs debug removidos da raiz (untracked)
+5. 3 blueprints historicos arquivados: RAW_ACT2_V2, RAW_ACT3_V1, ACT3-CONTRACT-V1 → `_archive/`
+6. GSAP version no README: 3.12 → 3.14.2
+7. Merge SHA no CLAUDE.md cirrose: d7f91b9 → 99092b7
 
 ### Pipeline geral
 - s-title: DONE, s-hook: DONE, s-a1-01: DONE
@@ -280,6 +289,12 @@ Ghost Rows confirmados esteticamente pelo usuario. ERRO-046 (case-panel race con
 ### Proximo slide: s-a1-classify
 - Estado atual: LINT-PASS (QA prematuro revertido 18/mar)
 - Precisa: QA.0 (lint+constraints) → QA.1 (Claude Vision) → QA.2 (screenshots) → QA.3 (Gemini) → QA.4 (reeval)
+
+---
+
+## Sessao 12 (2026-03-20) — s-a1-01 DONE
+
+s-a1-01 R11: Ghost Rows confirmados esteticamente pelo usuario. ERRO-046 (case-panel race condition) corrigido: P1 removido, padding-right 210px para clearance. Sem QA.2/QA.3 Gemini formal — usuario aprovou direto.
 
 ---
 
