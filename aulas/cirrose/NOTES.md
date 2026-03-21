@@ -316,3 +316,7 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-20 20:40] [BUILD] OK — cd C:/Dev/Projetos/wt-cirrose && npm run build:cirrose 2>&1 | tail -3
 
 [2026-03-20 20:42] [unknown:ac2d7430] — concluído. Status: PASS
+
+[2026-03-20 21:06] [Explore:abb89af8] — concluído. Status: PARTIAL
+
+[2026-03-20 21:07] [Explore:a03f92b7] — concluído. Status: PARTIAL
