@@ -110,7 +110,7 @@
         ]
       },
       {
-        "matcher": "*",
+        "matcher": "Write|Edit|StrReplace|Bash|Agent|Skill|NotebookEdit|TaskCreate|TaskUpdate",
         "hooks": [
           {
             "type": "command",
@@ -132,7 +132,7 @@
         ]
       },
       {
-        "matcher": "*",
+        "matcher": "Write|Edit|StrReplace|Bash|Agent|Skill|NotebookEdit|TaskCreate|TaskUpdate",
         "hooks": [
           {
             "type": "command",
