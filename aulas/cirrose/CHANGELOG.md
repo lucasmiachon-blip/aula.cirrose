@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-03-21 — Evolve patches: security, perf, stale refs (sessao 14)
+
+- **Evolve skill:** Comite 4 agentes (Archaeologist, Researcher, Auditor, Tools Inspector). 10 patches aprovados unanimemente.
+- **P01:** `Bash(python *)` removido do allow list (Python nao e dependencia).
+- **P02-P04:** Refs mortas corrigidas (`qa-screenshots-stage-c.js` → `qa-batch-screenshot.mjs` em export, motion-qa; Reveal.js removido do prompt Gemini em ralph-qa).
+- **P05-P06:** `guard-shared.sh` e `session-tracker.sh` migrados para pure bash (0 node spawns).
+- **P07:** `new-slide` skill agora inclui checklist 9 superficies pos-criacao.
+- **P08:** XREF.md atualizado com 2 hooks faltantes (task-completed-gate, teammate-idle-gate).
+- **P09-P10:** `build-monitor.sh` (3→1 node) e `subagent-stop-log.sh` (4→1 node) consolidados. OK builds nao poluem mais NOTES.md.
+- **Impacto:** -7 node spawns por ciclo de hooks. Context7 injetado (GSAP 3.14.2, Vite 6→8 path).
+- **Build:** PASS (44 slides). **Lint:** PASS.
+
+---
+
 ## 2026-03-22 — Diagnostico + Hardening + Janitor (sessao 13)
 
 - **Diagnostico read-only:** Audit completo WT (git, disco, docs, configs, slides). 6 inconsistencias detectadas.
