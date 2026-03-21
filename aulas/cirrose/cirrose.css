@@ -42,6 +42,12 @@
   text-align: center;
   white-space: nowrap;
 }
+/* Projection contrast fix: --text-muted (4.61:1) → 7.01:1 AAA.
+   Font-size bumped from 10-11px to 11-14px for legibility at distance. */
+.stage-c .source-tag {
+  color: oklch(42% 0.01 258);
+  font-size: clamp(11px, 0.65vw, 14px);
+}
 
 /* --- Figure slide (paper image) --- */
 .slide-figure {
@@ -2165,80 +2171,103 @@ section#s-a1-01 .slide-inner {
   gap: 0.35rem;
   overflow: hidden;
 }
-#s-a1-classify .classify-assertions { gap: 6px; }
-#s-a1-classify .classify-card {
-  padding: 10px var(--space-md);
-  background: oklch(100% 0 0);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06);
-  border-left-width: 4px;
-}
+#s-a1-classify .section-tag + .slide-headline { margin-top: var(--space-xs); }
 #s-a1-classify .section-tag { margin-bottom: 0; }
-#s-a1-classify .slide-headline { font-size: clamp(24px, 2vw, 34px); margin-bottom: 0; }
+#s-a1-classify .slide-headline {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.2vw, 38px);
+  margin-bottom: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
 
-/* ── s-a1-classify: D'Amico assertion cards (no fill — clean editorial) ── */
+/* ── s-a1-classify: shared axis (P1 R8 — Gestalt Continuity) ── */
+/* All blocks share --col-icon width for vertical alignment */
+#s-a1-classify { --col-icon: 28px; --col-bar: 4px; }
+
 .classify-assertions {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 10px;
   width: 100%;
   max-width: 700px;
 }
 
 .classify-card {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--space-sm);
+  grid-template-columns: var(--col-icon) 1fr auto;
   align-items: center;
-  padding: var(--space-sm) var(--space-md);
-  border-left: 3px solid var(--border);
+  gap: 0 12px;
+  padding: 14px 20px;
+  background: oklch(100% 0 0);
+  border-radius: var(--radius-md);
+  box-shadow: inset 4px 0 0 0 var(--border), 0 4px 12px oklch(0% 0 0 / 0.03);
 }
+.classify-card--safe  { box-shadow: inset 4px 0 0 0 var(--safe), 0 4px 12px oklch(0% 0 0 / 0.03); }
+.classify-card--warning { box-shadow: inset 4px 0 0 0 var(--warning), 0 4px 12px oklch(0% 0 0 / 0.03); }
+.classify-card--danger { box-shadow: inset 4px 0 0 0 var(--danger), 0 4px 12px oklch(0% 0 0 / 0.03); }
 
 .classify-card-icon {
-  font-size: var(--text-h3);
+  justify-self: center;
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1;
 }
-.classify-card--safe  { border-left-color: var(--safe); }
 .classify-card--safe .classify-card-icon { color: var(--safe); }
-.classify-card--warning  { border-left-color: var(--warning); }
 .classify-card--warning .classify-card-icon { color: var(--warning-on-light); }
-.classify-card--danger { border-left-color: var(--danger); }
 .classify-card--danger .classify-card-icon { color: var(--danger); }
-
-.classify-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
+.classify-card-icon--svg {
+  width: 1.1em;
+  height: 1.1em;
 }
 
 .classify-card-assertion {
   font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.classify-card-outcome {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
+  font-weight: 500;
   color: var(--text-muted);
 }
 
-/* ── s-a1-classify: further decomp — editorial annotation ── */
+.classify-card-outcome {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.5vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: right;
+}
+.classify-card--safe .classify-card-outcome { color: var(--safe); }
+.classify-card--warning .classify-card-outcome { color: var(--warning-on-light); }
+.classify-card--danger .classify-card-outcome { color: var(--danger); }
+/* Von Restorff: danger outcome escalates visually */
+.classify-card--danger .classify-card-outcome {
+  font-size: clamp(36px, 3.2vw, 52px);
+}
+
+/* ── s-a1-classify: further decomp — same axis as cards ── */
 .classify-further-decomp {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-xs);
-  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  display: grid;
+  grid-template-columns: var(--col-icon) 1fr auto;
+  gap: 0 12px;
+  align-items: start;
+  padding: var(--space-sm) 0 var(--space-sm) 20px;
   border-top: 1px dashed var(--danger);
   width: 100%;
   max-width: 700px;
 }
 
 .classify-further-arrow {
-  font-size: var(--text-body);
   color: var(--danger);
-  flex-shrink: 0;
-  line-height: 1;
+  width: 24px;
+  height: 32px;
+  justify-self: center;
+  margin-top: 2px;
+}
+
+.classify-further-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
 }
 
 .classify-further-text {
@@ -2253,70 +2282,113 @@ section#s-a1-01 .slide-inner {
   color: var(--text-primary);
 }
 
+.badge-fatal {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 0.65vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: oklch(95% 0 0);
+  background: var(--danger);
+  padding: 4px 12px;
+  border-radius: 4px;
+  transform-origin: left center;
+  box-shadow: 0 0 12px color-mix(in oklch, var(--danger) 40%, transparent);
+}
+
 .classify-further-source {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   color: var(--text-muted);
   white-space: nowrap;
-  flex-shrink: 0;
+  align-self: end;
+  padding-bottom: 2px;
 }
 
-/* ── s-a1-classify: PREDESCI lockup (label + hero unified) ── */
+/* ── s-a1-classify: PREDESCI lockup (sidebar + editorial hero) ── */
 .classify-predesci-lockup {
   display: grid;
   grid-template-columns: auto 1fr;
-  background: oklch(96% 0.03 170);
-  border-radius: var(--radius-md);
-  border: 1px solid oklch(88% 0.06 170);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   width: 100%;
   max-width: 700px;
+  box-shadow:
+    0 20px 40px -10px oklch(0% 0 0 / 0.12),
+    0 0 0 1px oklch(0% 0 0 / 0.04);
 }
 
 .classify-predesci-label {
-  background: oklch(35% 0.10 170);
+  background: oklch(30% 0.10 170);
   color: oklch(95% 0.01 170);
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-md) var(--space-sm);
   font-family: var(--font-mono);
-  font-size: var(--text-small);
+  font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  display: flex;
-  align-items: center;
-  writing-mode: horizontal-tb;
+  letter-spacing: 0.08em;
+  display: grid;
+  place-items: center;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
 }
 
 .classify-predesci-content {
   display: flex;
   flex-direction: column;
-  padding: var(--space-xs) var(--space-md);
-  gap: 2px;
+  gap: var(--space-sm);
+  padding: 24px 32px;
 }
 
 .classify-predesci-outcome {
   font-family: var(--font-body);
   font-size: var(--text-caption);
-  color: var(--text-secondary);
+  color: var(--text-muted);
+  letter-spacing: -0.01em;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid oklch(0% 0 0 / 0.07);
 }
 
 .classify-predesci-hero {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-sm);
+  align-items: flex-end;
+  gap: var(--space-md);
 }
 
 .classify-predesci-value {
   font-family: var(--font-display);
-  font-size: clamp(36px, 3vw, 54px);
+  font-size: clamp(64px, 6vw, 100px);
   font-weight: 400;
-  color: oklch(32% 0.10 170);
-  line-height: 1;
+  color: oklch(30% 0.12 170);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+}
+
+.classify-predesci-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  border-left: 2px solid oklch(40% 0.08 170);
+  padding-left: var(--space-sm);
+  padding-bottom: 6px;
+}
+
+.classify-predesci-stat {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
 }
 
 .classify-predesci-ci {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  color: var(--text-secondary);
+  color: var(--text-muted);
+  line-height: 1.3;
 }
 
 /* Legacy selectors (hidden states, fallback) */
@@ -2794,6 +2866,7 @@ section#s-a1-01 .slide-inner {
 .stage-bad .classify-card {
   opacity: 1 !important;
   transform: none !important;
+  filter: none !important;
 }
 .no-js .classify-further-decomp,
 .stage-bad .classify-further-decomp,
@@ -2801,6 +2874,17 @@ section#s-a1-01 .slide-inner {
 .stage-bad .classify-predesci-lockup {
   opacity: 1 !important;
   transform: none !important;
+  filter: none !important;
+}
+.no-js .badge-fatal,
+.stage-bad .badge-fatal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.no-js .classify-further-path,
+.stage-bad .classify-further-path {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
 }
 .no-js .antonio-pin,
 .stage-bad .antonio-pin {

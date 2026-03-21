@@ -390,9 +390,23 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Sessoes longas (>2h) com Playwright = alto risco de crash. Restart preventivo. Sempre commitar checkpoint antes de operacoes pesadas.
 **Status:** ✅ Parcialmente corrigido (docs). Otimizacao audit-trail pendente (P1 — branch main).
 
+### ERRO-048 · HIGH · s-a1-classify (QA pipeline)
+**Gemini pipeline incompleto — 1 PNG enviado em vez de 4, sem video**
+**Root cause:** Primeiras rodadas Gemini (R3-R5) enviaram apenas 1 screenshot estático em vez de 4 PNGs (1 por estado de click-reveal) + video .mp4 das animações. Gemini avaliava layout estático sem ver estados intermediários (further decomp, PREDESCI, blur). Score ficou preso em 5.6/10 por 3 rodadas.
+**Fix:** Pipeline corrigido para enviar `--png S0.png --png S1.png --png S2.png --png S3.png --video s-a1-classify.mp4`. Score saltou para 7.2 na rodada seguinte.
+**Regra:** Pipeline Gemini DEVE enviar 1 PNG por estado de click-reveal + video .mp4. NUNCA enviar apenas 1 screenshot. Registrado em memória `feedback_gemini_pipeline_complete.md`.
+**Status:** ✅ Corrigido (pipeline padronizado, 2026-03-21).
+
+### ERRO-049 · MEDIUM · s-a1-classify (QA Gemini)
+**Gemini propôs remover elementos aprovados pelo usuário sem flag de conflito**
+**Root cause:** Gemini R8 propôs remover barra lateral verde do PREDESCI e estilo inset box-shadow dos cards — ambos previamente aprovados pelo usuário. Implementação cega das propostas gerou regressão visual. Usuário: "não consegue deixar com a barra lateral" + "por um momento os cards estavam com um efeito bonito mas não reproduziu mais".
+**Fix:** Revertido sidebar verde + inset box-shadow. `--round` context passou a incluir bloco "DECISOES ANTERIORES MANTIDAS (NAO sugerir novamente)" com lista explícita de decisões travadas.
+**Regra:** Propostas Gemini que contradigam decisões do usuário DEVEM ser filtradas antes de implementar. Incluir no `--round` context todas as decisões travadas com "NAO sugerir novamente". Registrado em memória `feedback_gemini_override_user.md`.
+**Status:** ✅ Corrigido (2026-03-21).
+
 ---
 
-*Ultima atualizacao: 2026-03-20 · 47 erros registrados, 45 corrigidos, 1 processo (E42), 1 parcial (E47).*
+*Ultima atualizacao: 2026-03-21 · 49 erros registrados, 47 corrigidos, 1 processo (E42), 1 parcial (E47).*
 
 ---
 
@@ -401,8 +415,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 7     | 6          | 1 (E47 parcial) |
-| HIGH       | 24    | 24         | 0 |
-| MEDIUM     | 12    | 12         | 0 |
+| HIGH       | 25    | 25         | 0 |
+| MEDIUM     | 13    | 13         | 0 |
 | LOW        | 2     | 2          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **47**| **45**     | **2 (E42 processo, E47 parcial)** |
+| **Total**  | **49**| **47**     | **2 (E42 processo, E47 parcial)** |

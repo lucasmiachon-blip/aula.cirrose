@@ -15,44 +15,50 @@
     <div class="classify-assertions">
       <div class="classify-card classify-card--safe">
         <span class="classify-card-icon">&#10003;</span>
-        <div class="classify-card-body">
-          <span class="classify-card-assertion">Compensado sem varizes</span>
-          <span class="classify-card-outcome">1%/ano</span>
-        </div>
+        <span class="classify-card-assertion">Compensado sem varizes</span>
+        <span class="classify-card-outcome">1%/ano</span>
       </div>
       <div class="classify-card classify-card--warning">
         <span class="classify-card-icon">&#9888;</span>
-        <div class="classify-card-body">
-          <span class="classify-card-assertion">Compensado com varizes</span>
-          <span class="classify-card-outcome">3-4%/ano</span>
-        </div>
+        <span class="classify-card-assertion">Compensado com varizes</span>
+        <span class="classify-card-outcome">3-4%/ano</span>
       </div>
       <div class="classify-card classify-card--danger">
-        <span class="classify-card-icon">&#10005;</span>
-        <div class="classify-card-body">
-          <span class="classify-card-assertion">1ª descompensação</span>
-          <span class="classify-card-outcome">20%/ano</span>
-        </div>
+        <svg class="classify-card-icon classify-card-icon--svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path class="danger-x-morph" d="M6,6 L18,18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path class="danger-x-fade" d="M18,6 L6,18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span class="classify-card-assertion">1ª descompensação</span>
+        <span class="classify-card-outcome">20%/ano</span>
       </div>
     </div>
 
     <!-- Further decompensation — editorial annotation (D'Amico 2024) -->
     <div class="classify-further-decomp">
-      <span class="classify-further-arrow" aria-hidden="true">&#8627;</span>
-      <p class="classify-further-text">
-        ~60% dos descompensados progridem para <strong>further decompensation</strong> — mortalidade dobra
-      </p>
+      <svg class="classify-further-arrow" aria-hidden="true" viewBox="0 0 24 32" width="24" height="32">
+        <path class="classify-further-path" d="M4,2 L4,22 Q4,28 10,28 L20,28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16,24 L20,28 L16,32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="classify-further-body">
+        <p class="classify-further-text">
+          ~60% dos descompensados progridem para <strong>further decompensation</strong>
+        </p>
+        <span class="badge-fatal">MORTALIDADE DOBRA</span>
+      </div>
       <span class="classify-further-source">D'Amico 2024 · n=2.028</span>
     </div>
 
-    <!-- PREDESCI — intervention lockup (solution) -->
+    <!-- PREDESCI — lockup with sidebar + editorial hero -->
     <div class="classify-predesci-lockup">
       <span class="classify-predesci-label">PREDESCI</span>
       <div class="classify-predesci-content">
         <span class="classify-predesci-outcome">&#8595; 1ª descompensação em compensados com CSPH</span>
         <div class="classify-predesci-hero">
           <span class="classify-predesci-value">0,51</span>
-          <span class="classify-predesci-ci">HR · IC 95%: 0,26–0,97</span>
+          <div class="classify-predesci-meta">
+            <span class="classify-predesci-stat">HR</span>
+            <span class="classify-predesci-ci">IC 95%: 0,26–0,97</span>
+          </div>
         </div>
       </div>
     </div>

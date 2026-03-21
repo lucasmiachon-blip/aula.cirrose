@@ -1,5 +1,28 @@
 # NOTES — Cirrose
 
+## [21/03] s-a1-classify — QA visual R3-R10 (10 rodadas Gemini)
+
+### Decisões travadas pelo usuário
+1. **Blur state 2:** "sutil" = opacity 0.5 + blur 2px. Gemini propôs remover em R9 — REJEITADO.
+2. **Sidebar verde PREDESCI:** `writing-mode: vertical-lr`, bg `oklch(30% 0.10 170)`. Gemini R8 propôs remover ("UI corporativa") — REJEITADO. Usuário: "não consegue deixar com a barra lateral".
+3. **Cards inset box-shadow:** `inset 4px 0 0 0 var(--safe/warning/danger)` + `border-radius: var(--radius-md)`. Gemini R8 propôs pseudo-element `::before` bar — implementado mas perdeu efeito visual. Revertido a pedido do usuário.
+4. **MorphSVG ✕→L-arrow:** Aprovado ("vamos tentar todas"). Gemini R9 chamou de "gimmick" — mantido.
+
+### Pipeline Gemini — lições
+- **ERRO-048:** Rodadas R3-R5 travaram em 5.6/10 porque enviavam 1 PNG. Após enviar 4 PNGs + video, score saltou para 7.2.
+- **ERRO-049:** Gemini ignora decisões do usuário se não receber contexto explícito. `--round` DEVE listar "DECISOES ANTERIORES MANTIDAS (NAO sugerir novamente)".
+- **Estimativa de tokens:** ~18-22K tokens/rodada (prompt 8K + 4 imgs 5K + video 4K + output 3K). ~$0.40-0.45 para 10 rodadas.
+- **Score flutuou:** 5.6→7.2→6.9→6.8→6.5→7.1. Cada rodada traz novas propostas que às vezes regridem outras dimensões. Usuário decidiu parar em R10 e avançar.
+
+### Implementações técnicas
+- **MorphSVGPlugin:** `danger-x-morph` path `M6,6 L18,18` → `M4,2 L4,18 Q4,22 8,22 L18,22` (L-arrow shape). `danger-x-fade` faz opacity 0 durante morph.
+- **DrawSVGPlugin:** `classify-further-path` com `drawSVG: '0%'` → `'100%'`.
+- **ScrambleText:** "further decompensation" com chars `░▒▓█▄▀`.
+- **3D cards:** `rotationX: -12, transformPerspective: 800` no initial state. Landing effect com `back.out(1.2)`.
+- **CSS Grid alignment:** `--col-icon: 28px` compartilhado entre cards e further-decomp (Gestalt continuidade).
+
+---
+
 ## [20/03] Crash Bun + hardening pos-crash
 
 **Evento:** Bun segfault apos 11h uptime. Processo morreu sem aviso.
@@ -361,3 +384,15 @@ ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory 
 [2026-03-21 14:02] [repo-janitor:a91f74e1] — concluído. Status: PARTIAL
 
 [2026-03-21 14:08] [unknown:a73a13f9] — concluído. Status: PARTIAL
+
+[2026-03-21 14:19] [general-purpose:a9e1ee89] — concluído. Status: PARTIAL
+
+[2026-03-21 16:08] [unknown:a54ddf2e] — concluído. Status: PASS
+
+[2026-03-21 16:42] [unknown:a3eef9c0] — concluído. Status: PARTIAL
+
+[2026-03-21 17:05] [unknown:a236ee7a] — concluído. Status: PARTIAL
+
+[2026-03-21 17:58] [unknown:a9a1d9de] — concluído. Status: PARTIAL
+
+[2026-03-21 18:29] [unknown:a5c1d36e] — concluído. Status: PASS

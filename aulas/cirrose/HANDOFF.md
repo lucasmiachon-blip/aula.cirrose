@@ -9,7 +9,7 @@
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 47 registrados, 45 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
+**ERROR-LOG:** 49 registrados, 47 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
 **Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script — Gemini CLI:** `scripts/gemini.mjs` (canonico, multimodal: texto+PNG+video). Auto-extrai HTML/JS/CSS do slide. Output: `.audit/{id}_result.json`.
@@ -37,7 +37,7 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
 | 3 | s-a1-01 | DONE | **R11** (20/mar). Ghost Rows (estéticos). ERRO-046 fix: P1 case-panel hide removido (race condition GSAP vs .hidden CSS). Grid clearance 210px para case-panel. |
-| 4 | s-a1-classify | LINT-PASS | QA prematuro (sem pipeline 5-stage). Revertido DONE → LINT-PASS 18/mar. Precisa QA.0-QA.4 completo. |
+| 4 | s-a1-classify | QA | **R10** (21/mar). Gemini 7.1/10. 10 rodadas. MorphSVG+DrawSVG+ScrambleText. Blur sutil + sidebar verde + inset cards (user-locked). Próximo: QA.4 reeval ou avançar. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
 | 7 | s-a1-baveno | CONTENT | Hero-stat. Conteudo completo, PMIDs em notes. |
@@ -99,7 +99,7 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 3 | s-title, s-hook, s-a1-01 |
-| LINT-PASS | 1 | s-a1-classify |
+| QA | 1 | s-a1-classify (R10, Gemini 7.1/10) |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
 
@@ -266,31 +266,35 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-22, sessao 13)
+## Onde paramos (2026-03-21, sessao 16)
 
-### Sessao 13 — Diagnostico + Hardening documental
+### Sessao 16 — s-a1-classify QA visual R3-R10 (10 rodadas Gemini)
 
-Sessao de suporte (zero slides avancados). Objetivo: alinhar estado da WT com main.
+Sessao de produto. 1 slide avancado (LINT-PASS → QA).
 
 **Acoes executadas:**
-1. Diagnostico completo read-only da WT (git, disco, docs, configs, slides)
-2. Merge main `e77dcec` → `99092b7`: reveal.js removido, 4 orphan scripts deletados, audit-trail narrowed, build:metanalise real
-3. Conflito `scripts/act1-reaudit.mjs` (modify/delete) resolvido: aceita delecao
-4. 3 PNGs debug removidos da raiz (untracked)
-5. 3 blueprints historicos arquivados: RAW_ACT2_V2, RAW_ACT3_V1, ACT3-CONTRACT-V1 → `_archive/`
-6. GSAP version no README: 3.12 → 3.14.2
-7. Merge SHA no CLAUDE.md cirrose: d7f91b9 → 99092b7
-8. Janitor audit (9 findings): npm script dead ref FIXED, attention-insight MCP FIXED (2 configs), HANDOFF paths FIXED, 3 orphan docs archived
-9. Deferido: AUDIT-VISUAL.md refs historicas (falsificaria audit trail), 6 CSS selectors archetypes (possivelmente usados Act 2/3)
+1. Pipeline Gemini corrigido: 4 PNGs (S0-S3) + video .mp4 por rodada (ERRO-048)
+2. 10 rodadas Gemini 3.1 Pro (R3-R10). Score: 5.6→7.2→6.9→6.8→6.5→7.1
+3. HTML: SVG 2-path para MorphSVG (danger ✕→L-arrow), DrawSVG arrow, badge "MORTALIDADE DOBRA", PREDESCI reestruturado
+4. CSS: cards inset box-shadow + border-radius, further-decomp grid alinhado, PREDESCI sidebar verde, badge glow, failsafes .no-js/.stage-bad
+5. JS: MorphSVGPlugin importado, state 0 (3D landing), state 1 (morph+draw+scramble+badge), state 2 (blur sutil+PREDESCI expo.out), retreats implementados
+6. ERRO-049: Gemini removeu sidebar verde + card style aprovados pelo usuário. Revertido + `--round` context com decisões travadas.
+7. Erros registrados: ERRO-048, ERRO-049
+
+**Decisões do usuário (travadas):**
+- Blur: "sutil" (opacity 0.5 + blur 2px) — Gemini propôs remover, REJEITADO
+- Sidebar verde PREDESCI: MANTER — Gemini propôs remover, REJEITADO
+- Cards: inset box-shadow com border-radius — Gemini propôs pseudo-element bar, REJEITADO
+- MorphSVG ✕→arrow: APROVADO pelo usuário ("vamos tentar todas")
 
 ### Pipeline geral
 - s-title: DONE, s-hook: DONE, s-a1-01: DONE
-- s-a1-classify: LINT-PASS (proximo — precisa QA pipeline 5-stage)
+- s-a1-classify: QA (R10, Gemini 7.1/10) — decisão: parar iteração, avançar
 - 40 slides: CONTENT
 
-### Proximo slide: s-a1-classify
-- Estado atual: LINT-PASS (QA prematuro revertido 18/mar)
-- Precisa: QA.0 (lint+constraints) → QA.1 (Claude Vision) → QA.2 (screenshots) → QA.3 (Gemini) → QA.4 (reeval)
+### Próximo slide: s-a1-vote (ou continuar s-a1-classify QA.4 reeval)
+- s-a1-classify pendente: QA.4 (reeval final) ou aceitar R10 como baseline e avançar
+- s-a1-vote: CONTENT → iniciar QA pipeline 5-stage
 
 ---
 

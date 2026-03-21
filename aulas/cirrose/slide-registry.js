@@ -15,6 +15,7 @@ import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { CustomEase } from 'gsap/CustomEase';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
 
 /* ────────────────────────────────────────────
    Shared helper: countUp for inline elements
@@ -277,7 +278,7 @@ export const customAnimations = {
   's-a1-classify': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
 
-    gsap.registerPlugin(ScrambleTextPlugin);
+    gsap.registerPlugin(ScrambleTextPlugin, DrawSVGPlugin, MorphSVGPlugin);
 
     let state = 0;
     const maxState = 3;
@@ -285,41 +286,102 @@ export const customAnimations = {
     const cards = slide.querySelectorAll('.classify-card');
     const furtherDecomp = slide.querySelector('.classify-further-decomp');
     const furtherStrong = slide.querySelector('.classify-further-text strong');
+    const furtherPath = slide.querySelector('.classify-further-path');
+    const badgeFatal = slide.querySelector('.badge-fatal');
     const lockup = slide.querySelector('.classify-predesci-lockup');
     const sourceTag = slide.querySelector('.source-tag');
+    const hrValue = slide.querySelector('.classify-predesci-value');
+    // MorphSVG elements (Radical: ✕ transforms into arrow)
+    const dangerXMorph = slide.querySelector('.danger-x-morph');
+    const dangerXFade = slide.querySelector('.danger-x-fade');
+    const dangerIconSvg = dangerXMorph?.closest('svg');
 
-    // Initial hidden states
-    gsap.set(cards, { opacity: 0, y: 12 });
+    // SplitText on HR value — chars reveal one by one (mic drop)
+    let hrSplit = null;
+    if (hrValue) {
+      hrSplit = new SplitText(hrValue, { type: 'words,chars' });
+      gsap.set(hrSplit.chars, { opacity: 0, y: 20 });
+    }
+
+    // Initial hidden states (P4: 3D perspective — cards "land" instead of float)
+    gsap.set(cards, { opacity: 0, y: 30, rotationX: -12, transformPerspective: 800 });
     if (furtherDecomp) gsap.set(furtherDecomp, { opacity: 0, y: 8 });
-    if (lockup) gsap.set(lockup, { opacity: 0, scale: 0.95, transformOrigin: 'left center' });
+    if (furtherPath) gsap.set(furtherPath, { drawSVG: '0%' });
+    if (badgeFatal) gsap.set(badgeFatal, { opacity: 0, scale: 0.8 });
+    if (lockup) gsap.set(lockup, { opacity: 0, y: 60, scale: 0.97 });
 
-    // Auto: D'Amico cards — weighted stagger (clinical gravity)
+    // Auto: D'Amico cards — gravity landing with 3D perspective
     const tl = gsap.timeline({ delay: 0.3 });
-    if (cards[0]) tl.to(cards[0], { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
-    if (cards[1]) tl.to(cards[1], { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '+=0.12');
-    if (cards[2]) tl.to(cards[2], { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '+=0.18');
+    if (cards[0]) tl.to(cards[0], { y: 0, opacity: 1, rotationX: 0, duration: 0.6, ease: 'back.out(1.2)' });
+    if (cards[1]) tl.to(cards[1], { y: 0, opacity: 1, rotationX: 0, duration: 0.7, ease: 'back.out(1.2)' }, '+=0.15');
+    if (cards[2]) tl.to(cards[2], { y: 0, opacity: 1, rotationX: 0, duration: 0.9, ease: 'back.out(1.4)' }, '+=0.4');
 
     function advance() {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
-        // Further decomp (consequence — escalation)
-        gsap.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-        // P4: ScrambleText on "further decompensation" — micro-discomfort
+        // Chained timeline: icon morph → arrow draw → scramble → badge
+        const tl1 = gsap.timeline();
+
+        // Phase 1: Danger ✕ pulses — triggers the fall
+        if (dangerIconSvg) {
+          tl1.to(dangerIconSvg, { scale: 1.4, duration: 0.25, ease: 'power2.out' });
+          // Second X line fades, first morphs into arrow shape
+          if (dangerXFade) tl1.to(dangerXFade, { opacity: 0, duration: 0.3 }, '<0.1');
+          if (dangerXMorph) {
+            tl1.to(dangerXMorph, {
+              morphSVG: 'M4,2 L4,18 Q4,22 8,22 L18,22',
+              duration: 0.7, ease: 'power2.inOut'
+            }, '<0.1');
+          }
+          // Icon dissolves downward
+          tl1.to(dangerIconSvg, {
+            y: 20, opacity: 0, scale: 0.7,
+            duration: 0.4, ease: 'power2.in'
+          }, '-=0.2');
+        }
+
+        // Phase 2: Further decomp block enters + arrow draws
+        tl1.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, dangerIconSvg ? '-=0.3' : 0);
+        if (furtherPath) {
+          tl1.to(furtherPath, { drawSVG: '100%', duration: 0.6, ease: 'power2.inOut' }, '<0.1');
+        }
+
+        // Phase 3: ScrambleText — clinical discomfort
         if (furtherStrong) {
-          gsap.to(furtherStrong, {
+          tl1.to(furtherStrong, {
             scrambleText: { text: 'further decompensation', chars: '░▒▓█▄▀', speed: 0.8 },
-            duration: 1.0,
-            delay: 0.3,
-            ease: 'power2.inOut'
-          });
+            duration: 0.8, ease: 'none'
+          }, '-=0.3');
+        }
+
+        // Phase 4: Badge punches in AFTER scramble resolves
+        if (badgeFatal) {
+          tl1.fromTo(badgeFatal,
+            { opacity: 0, scale: 0.5, x: -8 },
+            { opacity: 1, scale: 1, x: 0, duration: 0.45, ease: 'back.out(2.5)' },
+            '>'
+          );
         }
       } else if (state === 2) {
-        // Radical: cards + further recede, lockup takes over
-        gsap.to(cards, { opacity: 0.35, scale: 0.97, duration: 0.6, ease: 'power2.inOut' });
-        gsap.to(furtherDecomp, { opacity: 0.35, duration: 0.5, ease: 'power2.inOut' });
-        // PREDESCI lockup enters with authority
-        gsap.to(lockup, { opacity: 1, scale: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+        // Depth-of-field: cards + further decomp blur into background
+        if (furtherStrong) gsap.to(furtherStrong, { color: 'var(--text-muted)', duration: 0.5 });
+        gsap.to([...cards, furtherDecomp], {
+          opacity: 0.5, scale: 0.97, filter: 'blur(2px)',
+          duration: 0.8, ease: 'power2.inOut'
+        });
+        // PREDESCI enters with gravitational mass — expo.out = heavy deceleration
+        gsap.fromTo(lockup,
+          { opacity: 0, y: 60, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.2, delay: 0.3, ease: 'expo.out' }
+        );
+        // SplitText: HR chars snap into place after lockup settles
+        if (hrSplit) {
+          gsap.to(hrSplit.chars, {
+            opacity: 1, y: 0, stagger: 0.08,
+            duration: 0.6, ease: 'back.out(2)', delay: 0.9
+          });
+        }
       } else if (state === 3) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
       }
@@ -330,11 +392,21 @@ export const customAnimations = {
       if (state <= 0) return false;
       if (state === 1) {
         gsap.to(furtherDecomp, { opacity: 0, y: 8, duration: 0.3 });
+        if (furtherPath) gsap.to(furtherPath, { drawSVG: '0%', duration: 0.3 });
+        if (badgeFatal) gsap.to(badgeFatal, { opacity: 0, scale: 0.5, x: -8, duration: 0.2 });
+        // Reverse MorphSVG: restore ✕ icon
+        if (dangerXMorph) gsap.to(dangerXMorph, { morphSVG: 'M6,6 L18,18', duration: 0.3 });
+        if (dangerXFade) gsap.to(dangerXFade, { opacity: 1, duration: 0.3 });
+        if (dangerIconSvg) gsap.to(dangerIconSvg, { y: 0, opacity: 1, scale: 1, duration: 0.3 });
       } else if (state === 2) {
-        // Reverse radical: restore cards + further, hide lockup
-        gsap.to(cards, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' });
-        gsap.to(furtherDecomp, { opacity: 1, duration: 0.3 });
-        gsap.to(lockup, { opacity: 0, scale: 0.95, duration: 0.3 });
+        // Reverse: restore clarity
+        gsap.to([...cards, furtherDecomp], {
+          opacity: 1, scale: 1, filter: 'none',
+          duration: 0.4, ease: 'power2.out'
+        });
+        if (furtherStrong) gsap.to(furtherStrong, { color: 'var(--text-primary)', duration: 0.3 });
+        if (hrSplit) gsap.to(hrSplit.chars, { opacity: 0, y: 20, duration: 0.2 });
+        gsap.to(lockup, { opacity: 0, y: 60, scale: 0.97, duration: 0.4 });
       } else if (state === 3) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }

@@ -4,6 +4,32 @@
 
 ---
 
+## 2026-03-21 — s-a1-classify QA visual R3-R10 (sessao 16)
+
+- **Slide:** s-a1-classify (LINT-PASS → QA). 10 rodadas Gemini 3.1 Pro. Score: 5.6 (R3-R5, pipeline incompleto) → 7.2 (R6) → 6.5-7.1 (R7-R10, iterações finas).
+- **Pipeline Gemini corrigido:** ERRO-048 — agora envia 4 PNGs (1/estado) + video .mp4 por rodada. Padronizado em memória.
+- **HTML refatorado:**
+  - Ícone danger ✕ convertido de unicode para SVG 2-path (`danger-x-morph` + `danger-x-fade`) para MorphSVGPlugin.
+  - Arrow ↳ convertido de unicode para SVG com DrawSVGPlugin (`.classify-further-path`).
+  - Badge "MORTALIDADE DOBRA" (`.badge-fatal`) com glow vermelho.
+  - PREDESCI reestruturado: wrapper `.classify-predesci-content`, hero grid com value + meta.
+- **CSS (cirrose.css — seção s-a1-classify):**
+  - Cards: CSS Grid 3-col com `inset box-shadow` colored bar (safe/warning/danger) + `border-radius: var(--radius-md)`.
+  - Further-decomp: grid alinhado ao eixo dos cards via `--col-icon: 28px`.
+  - PREDESCI: barra lateral verde (`writing-mode: vertical-lr`), hero value 64-100px Instrument Serif.
+  - Badge-fatal: mono 700, glow `color-mix(in oklch, var(--danger) 40%, transparent)`.
+  - Failsafes `.no-js`/`.stage-bad` para badge e DrawSVG path.
+- **JS (slide-registry.js):**
+  - `MorphSVGPlugin` importado e registrado.
+  - State 0 (auto): cards com `rotationX: -12, transformPerspective: 800`, easing `back.out`.
+  - State 1 (click): morph ✕→L-arrow + DrawSVG + ScrambleText "further decompensation" + badge punch.
+  - State 2 (click): blur `2px` + `opacity: 0.5` (user-approved "sutil") + PREDESCI `expo.out 1.2s`.
+  - Retreat states implementados com morph reverso + DrawSVG reset.
+- **Decisões do usuário travadas:** blur sutil (ERRO-049 — Gemini override revertido), barra lateral verde PREDESCI, inset box-shadow cards.
+- **Build:** PASS (44 slides). **Lint:** PASS.
+
+---
+
 ## 2026-03-21 — Evolve patches: security, perf, stale refs (sessao 14)
 
 - **Evolve skill:** Comite 4 agentes (Archaeologist, Researcher, Auditor, Tools Inspector). 10 patches aprovados unanimemente.
