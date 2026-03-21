@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-03-22 — Diagnostico + Hardening + Janitor (sessao 13)
+
+- **Diagnostico read-only:** Audit completo WT (git, disco, docs, configs, slides). 6 inconsistencias detectadas.
+- **Main absorvida:** `e77dcec` → merge `99092b7`. Reveal.js removido, 4 orphan scripts deletados, audit-trail narrowed. Zero Classe C.
+- **Conflito:** `scripts/act1-reaudit.mjs` (modify/delete) — aceita delecao (orphan).
+- **Cleanup:** 3 PNGs debug raiz removidos, 3 blueprints historicos → `_archive/` (RAW_ACT2_V2, RAW_ACT3_V1, ACT3-CONTRACT-V1).
+- **README:** GSAP 3.12 → 3.14.2. **CLAUDE.md cirrose:** merge SHA atualizado.
+- **Janitor (9 findings):** 6 FIXED, 1 SKIP (historico), 1 DEFERRED (CSS Act 2/3).
+  - CRIT: npm script `qa:screenshots:cirrose` → `qa-batch-screenshot.mjs` (apontava arquivo arquivado)
+  - HIGH: attention-insight MCP removido de `.cursor/mcp.json` + `.mcp-profiles/full.json` (script deletado)
+  - MED: HANDOFF paths captura corrigidos (root-relative → `aulas/cirrose/scripts/`)
+  - LOW: 3 docs orphans (interactive-patterns-reference, qa-checklist, slide-refactor) → `_archive/`
+- **Build:** PASS (44 slides). **Lint:** PASS.
+
+---
+
 ## 2026-03-20 — Hardening pos-crash Bun (sessao 15)
 
 - **Crash Bun:** Segfault apos 11h uptime. Causa: Playwright leak + hooks pesados. ERRO-047 registrado.

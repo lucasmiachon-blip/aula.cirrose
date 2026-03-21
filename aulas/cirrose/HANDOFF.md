@@ -245,7 +245,6 @@ Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 
 ## MCPs — não usar a princípio
 
-- **attention-insight** (sharp fallback ou API paga)
 - **frontend-review** (Hyperbolic) — before/after visual diff
 
 Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adicional via profile `qa`: design-comparison, floto, a11y-contrast, chrome-devtools. Adicional via profile `full`: ui-ux-pro, clinicaltrials, perplexity, + MCPs de pesquisa.
@@ -280,6 +279,8 @@ Sessao de suporte (zero slides avancados). Objetivo: alinhar estado da WT com ma
 5. 3 blueprints historicos arquivados: RAW_ACT2_V2, RAW_ACT3_V1, ACT3-CONTRACT-V1 → `_archive/`
 6. GSAP version no README: 3.12 → 3.14.2
 7. Merge SHA no CLAUDE.md cirrose: d7f91b9 → 99092b7
+8. Janitor audit (9 findings): npm script dead ref FIXED, attention-insight MCP FIXED (2 configs), HANDOFF paths FIXED, 3 orphan docs archived
+9. Deferido: AUDIT-VISUAL.md refs historicas (falsificaria audit trail), 6 CSS selectors archetypes (possivelmente usados Act 2/3)
 
 ### Pipeline geral
 - s-title: DONE, s-hook: DONE, s-a1-01: DONE
