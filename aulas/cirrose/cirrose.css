@@ -95,6 +95,7 @@
   white-space: normal;
   overflow-wrap: anywhere;
   max-width: 100%;
+  color: var(--text-muted);
 }
 /* ============================================
    STAGE-C OVERRIDES (Plan C: light + animated)
@@ -2164,8 +2165,14 @@ section#s-a1-01 .slide-inner {
   gap: 0.35rem;
   overflow: hidden;
 }
-#s-a1-classify .classify-assertions { gap: 4px; }
-#s-a1-classify .classify-card { padding: 6px var(--space-md); }
+#s-a1-classify .classify-assertions { gap: 6px; }
+#s-a1-classify .classify-card {
+  padding: 10px var(--space-md);
+  background: oklch(100% 0 0);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06);
+  border-left-width: 4px;
+}
 #s-a1-classify .section-tag { margin-bottom: 0; }
 #s-a1-classify .slide-headline { font-size: clamp(24px, 2vw, 34px); margin-bottom: 0; }
 
@@ -2254,31 +2261,41 @@ section#s-a1-01 .slide-inner {
   flex-shrink: 0;
 }
 
-/* ── s-a1-classify: PREDESCI intervention (solution — keeps fill for payoff weight) ── */
-.classify-predesci {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-sm);
-  padding: 6px var(--space-md);
-  border-left: 3px solid var(--safe);
-  background: var(--safe-light);
-  border-radius: var(--radius-sm);
+/* ── s-a1-classify: PREDESCI lockup (label + hero unified) ── */
+.classify-predesci-lockup {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  background: oklch(96% 0.03 170);
+  border-radius: var(--radius-md);
+  border: 1px solid oklch(88% 0.06 170);
+  overflow: hidden;
   width: 100%;
   max-width: 700px;
 }
 
 .classify-predesci-label {
-  font-family: var(--font-body);
+  background: oklch(35% 0.10 170);
+  color: oklch(95% 0.01 170);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-mono);
   font-size: var(--text-small);
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  writing-mode: horizontal-tb;
+}
+
+.classify-predesci-content {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xs) var(--space-md);
+  gap: 2px;
 }
 
 .classify-predesci-outcome {
   font-family: var(--font-body);
-  font-size: var(--text-small);
+  font-size: var(--text-caption);
   color: var(--text-secondary);
 }
 
@@ -2286,25 +2303,24 @@ section#s-a1-01 .slide-inner {
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
-  justify-content: center;
-  margin: 0.15rem 0;
-  max-width: 700px;
-  width: 100%;
 }
 
 .classify-predesci-value {
-  font-family: var(--font-mono);
-  font-size: clamp(32px, 2.8vw, 48px);
-  font-weight: 700;
-  color: var(--safe);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3vw, 54px);
+  font-weight: 400;
+  color: oklch(32% 0.10 170);
   line-height: 1;
 }
 
 .classify-predesci-ci {
   font-family: var(--font-mono);
-  font-size: var(--text-small);
+  font-size: var(--text-caption);
   color: var(--text-secondary);
 }
+
+/* Legacy selectors (hidden states, fallback) */
+.classify-predesci { display: none; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-damico (escores) — Era track + era state machine
@@ -2781,10 +2797,8 @@ section#s-a1-01 .slide-inner {
 }
 .no-js .classify-further-decomp,
 .stage-bad .classify-further-decomp,
-.no-js .classify-predesci,
-.stage-bad .classify-predesci,
-.no-js .classify-predesci-hero,
-.stage-bad .classify-predesci-hero {
+.no-js .classify-predesci-lockup,
+.stage-bad .classify-predesci-lockup {
   opacity: 1 !important;
   transform: none !important;
 }

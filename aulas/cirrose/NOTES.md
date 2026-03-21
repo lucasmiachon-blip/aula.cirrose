@@ -1,5 +1,10 @@
 # NOTES — Cirrose
 
+## [20/03] Pendencia infra main — npm script qa:video
+
+`package.json` nao tem script `qa:video`. Invocacao atual e manual: `node scripts/qa/qa-video.js`.
+Adicionar em main: `"qa:video": "node scripts/qa/qa-video.js"` (Classe A — infra, nao WT).
+
 ## [19/03] Doc hardening — backlog estrutural
 
 Itens deferidos (nao-criticos, registrar para futuro):
@@ -301,3 +306,13 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-20 12:37] [general-purpose:ab5067be] — concluído. Status: PARTIAL
 
 [2026-03-20 13:31] [unknown:a2264cdd] — concluído. Status: PARTIAL
+
+[2026-03-20 20:21] [unknown:aed59641] — concluído. Status: PARTIAL
+
+[2026-03-20 20:22] [BUILD] OK — cd C:/Dev/Projetos/wt-cirrose && npm run build:cirrose 2>&1 | tail -5
+
+[2026-03-20 20:32] [BUILD] OK — cd C:/Dev/Projetos/wt-cirrose && npm run build:cirrose 2>&1 | tail -5
+
+[2026-03-20 20:40] [BUILD] OK — cd C:/Dev/Projetos/wt-cirrose && npm run build:cirrose 2>&1 | tail -3
+
+[2026-03-20 20:42] [unknown:ac2d7430] — concluído. Status: PASS

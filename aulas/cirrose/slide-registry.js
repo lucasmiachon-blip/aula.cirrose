@@ -277,23 +277,27 @@ export const customAnimations = {
   's-a1-classify': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
 
+    gsap.registerPlugin(ScrambleTextPlugin);
+
     let state = 0;
     const maxState = 3;
 
     const cards = slide.querySelectorAll('.classify-card');
     const furtherDecomp = slide.querySelector('.classify-further-decomp');
-    const predesciBox = slide.querySelector('.classify-predesci');
-    const predesciHero = slide.querySelector('.classify-predesci-hero');
+    const furtherStrong = slide.querySelector('.classify-further-text strong');
+    const lockup = slide.querySelector('.classify-predesci-lockup');
     const sourceTag = slide.querySelector('.source-tag');
 
     // Initial hidden states
     gsap.set(cards, { opacity: 0, y: 12 });
     if (furtherDecomp) gsap.set(furtherDecomp, { opacity: 0, y: 8 });
-    if (predesciBox) gsap.set(predesciBox, { opacity: 0, y: 6 });
-    if (predesciHero) gsap.set(predesciHero, { opacity: 0, y: 6 });
+    if (lockup) gsap.set(lockup, { opacity: 0, scale: 0.95, transformOrigin: 'left center' });
 
-    // Auto: D'Amico cards stagger (problem — the natural history)
-    gsap.to(cards, { opacity: 1, y: 0, duration: 0.4, stagger: 0.18, delay: 0.3, ease: 'power2.out' });
+    // Auto: D'Amico cards — weighted stagger (clinical gravity)
+    const tl = gsap.timeline({ delay: 0.3 });
+    if (cards[0]) tl.to(cards[0], { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+    if (cards[1]) tl.to(cards[1], { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '+=0.12');
+    if (cards[2]) tl.to(cards[2], { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '+=0.18');
 
     function advance() {
       if (state >= maxState) return false;
@@ -301,10 +305,21 @@ export const customAnimations = {
       if (state === 1) {
         // Further decomp (consequence — escalation)
         gsap.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+        // P4: ScrambleText on "further decompensation" — micro-discomfort
+        if (furtherStrong) {
+          gsap.to(furtherStrong, {
+            scrambleText: { text: 'further decompensation', chars: '░▒▓█▄▀', speed: 0.8 },
+            duration: 1.0,
+            delay: 0.3,
+            ease: 'power2.inOut'
+          });
+        }
       } else if (state === 2) {
-        // PREDESCI (solution — the payoff)
-        gsap.to(predesciBox, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
-        gsap.to(predesciHero, { opacity: 1, y: 0, duration: 0.5, delay: 0.2, ease: 'power2.out' });
+        // Radical: cards + further recede, lockup takes over
+        gsap.to(cards, { opacity: 0.35, scale: 0.97, duration: 0.6, ease: 'power2.inOut' });
+        gsap.to(furtherDecomp, { opacity: 0.35, duration: 0.5, ease: 'power2.inOut' });
+        // PREDESCI lockup enters with authority
+        gsap.to(lockup, { opacity: 1, scale: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
       } else if (state === 3) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
       }
@@ -316,8 +331,10 @@ export const customAnimations = {
       if (state === 1) {
         gsap.to(furtherDecomp, { opacity: 0, y: 8, duration: 0.3 });
       } else if (state === 2) {
-        gsap.to(predesciHero, { opacity: 0, y: 6, duration: 0.3 });
-        gsap.to(predesciBox, { opacity: 0, y: 6, duration: 0.3 });
+        // Reverse radical: restore cards + further, hide lockup
+        gsap.to(cards, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' });
+        gsap.to(furtherDecomp, { opacity: 1, duration: 0.3 });
+        gsap.to(lockup, { opacity: 0, scale: 0.95, duration: 0.3 });
       } else if (state === 3) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }

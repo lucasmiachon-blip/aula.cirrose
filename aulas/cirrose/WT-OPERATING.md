@@ -218,7 +218,7 @@ Input para Gemini (TUDO junto):
 2. Raw CSS (seletores relevantes do cirrose.css) — **extrair live com grep/read**
 3. Raw JS (trecho do slide-registry.js para este slide) — **extrair live com grep/read**
 4. PNGs de cada estado (S0, S1... SN) — **capturar APOS as ultimas edições**
-5. Video .webm/.mp4 da navegacao real — **regravar se houve mudanca de CSS/JS**
+5. Video .mp4 da navegacao real — **regravar se houve mudanca de CSS/JS**
 
 **REGRA E42:** Raw code no prompt DEVE ser lido dos arquivos NO MOMENTO do envio.
 NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.

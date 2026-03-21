@@ -26,7 +26,7 @@
 | Arquivo | Papel |
 |---------|-------|
 | `../../shared/css/base.css` | Design system tokens |
-| `../../shared/js/engine.js` | GSAP dispatcher + Reveal init |
+| `../../shared/js/engine.js` | GSAP dispatcher + deck init |
 | `../../shared/js/case-panel.js` | Case panel lateral |
 | `../../shared/js/click-reveal.js` | Progressive disclosure por ArrowRight |
 | `../../shared/js/interactions/meld-calc.js` | Calculadora MELD-Na interativa |
