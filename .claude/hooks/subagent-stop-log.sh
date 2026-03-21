@@ -1,28 +1,22 @@
 #!/usr/bin/env bash
 # Hook 4 — SubagentStop: Append 1-line summary to NOTES.md for every subagent that completes.
-# Format: [DATA] [AGENT:id] — concluído. Status: [PASS/FAIL/PARTIAL]
+# Single node call for JSON parsing (4→1 spawn).
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-AGENT_TYPE=$(node -e "
+# Single node call extracts all fields
+PARSED=$(node -e "
 const d=JSON.parse(process.argv[1] || '{}');
 console.log(d.agent_type||'unknown');
-" "$INPUT" 2>/dev/null)
-
-AGENT_ID=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
 console.log((d.agent_id||'?').slice(0,8));
-" "$INPUT" 2>/dev/null)
-
-LAST_MSG=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
-console.log((d.last_assistant_message||'').slice(0,300));
-" "$INPUT" 2>/dev/null)
-
-CWD=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
+console.log((d.last_assistant_message||'').slice(0,300).replace(/\\n/g,' '));
 console.log(d.cwd||'.');
-" "$INPUT" 2>/dev/null)
+" "$INPUT" 2>/dev/null) || exit 0
+
+AGENT_TYPE=$(echo "$PARSED" | sed -n '1p')
+AGENT_ID=$(echo "$PARSED" | sed -n '2p')
+LAST_MSG=$(echo "$PARSED" | sed -n '3p')
+CWD_VAL=$(echo "$PARSED" | sed -n '4p')
 
 DATE=$(date '+%Y-%m-%d %H:%M')
 BRANCH=$(git branch --show-current 2>/dev/null)
@@ -34,7 +28,13 @@ case "$BRANCH" in
   *osteo*)       AULA="osteoporose" ;;
   *)             AULA="unknown" ;;
 esac
-NOTES="$CWD/aulas/$AULA/NOTES.md"
+
+# Skip if no valid aula
+if [ "$AULA" = "unknown" ] || [ ! -d "${CWD_VAL:-.}/aulas/$AULA" ]; then
+    exit 0
+fi
+
+NOTES="${CWD_VAL:-.}/aulas/$AULA/NOTES.md"
 
 # Infer status from last message content
 LOWER_MSG=$(echo "$LAST_MSG" | tr '[:upper:]' '[:lower:]')

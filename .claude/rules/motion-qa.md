@@ -123,7 +123,7 @@ Contexto: público e tema definidos em aulas/{aula}/CLAUDE.md (consultar antes d
 
 ## Integração com QA Script
 
-O script `qa-screenshots-stage-c.js` navega todos os slides do deck dinamicamente.
+O script de QA (e.g., `qa-batch-screenshot.mjs`) navega todos os slides do deck dinamicamente.
 Para adicionar motion QA:
 
 1. **Antes** de forçar estado final: capturar estado inicial

@@ -121,6 +121,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | post-compact-reinject.sh | SessionStart (compact) | Reinjecta HANDOFF + git log após /compact |
 | session-tracker.sh | SessionStart, SessionEnd | Lifecycle de sessão (3-terminal tracking) |
 | subagent-stop-log.sh | SubagentStop | Loga conclusão de subagents |
+| task-completed-gate.sh | TaskCompleted | Verificação de quality gates em task completada |
+| teammate-idle-gate.sh | TeammateIdle | Validação de quality gates do teammate |
 
 ### .claude/scripts/
 

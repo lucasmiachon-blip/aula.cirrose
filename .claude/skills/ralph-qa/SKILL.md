@@ -50,7 +50,7 @@ Spec format por issue:
 }
 ```
 
-Prompt Gemini: aula medica, Reveal.js/deck.js Plan C 1280x720, design system OKLCH. Avaliar: hierarquia visual, flow narrativo (comparar estados S0→SN), legibilidade, daltonismo, densidade (<=30 palavras). Issues com confidence >= 80 apenas.
+Prompt Gemini: aula medica, deck.js Plan C 1280x720, design system OKLCH. Avaliar: hierarquia visual, flow narrativo (comparar estados S0→SN), legibilidade, daltonismo, densidade (<=30 palavras). Issues com confidence >= 80 apenas.
 
 ## Seguranca
 

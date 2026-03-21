@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 # Safety Gate: Block edits to shared/ unless on main branch
-# Uses node for JSON parsing.
+# Pure bash — no node dependency.
 
 set -euo pipefail
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-FILE=$(node -e "
-const i = JSON.parse(process.argv[1] || '{}');
-console.log((i.tool_input || {}).file_path || '');
-" "$INPUT" 2>/dev/null || echo "")
+# Extract file_path from JSON without node/jq
+FILE=$(echo "$INPUT" | grep -o '"file_path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"file_path"[[:space:]]*:[[:space:]]*"//;s/"$//')
 
 # Only care about shared/ files
 if ! echo "$FILE" | grep -qi '/shared/'; then

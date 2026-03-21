@@ -1,24 +1,23 @@
 #!/usr/bin/env bash
-# Hook 3 — PostToolUse + PostToolUseFailure: Log build results to NOTES.md
-# Filters: npm run build* or build-html.ps1 commands only.
+# Hook 3 — PostToolUse + PostToolUseFailure: Log build FAILURES to NOTES.md
+# OK builds are skipped (reduces NOTES noise). Single node call for JSON parsing.
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Extract fields
-CMD=$(node -e "
+# Single node call extracts all fields (4→1 spawn)
+PARSED=$(node -e "
 const d=JSON.parse(process.argv[1] || '{}');
-console.log((d.tool_input||{}).command||'');
-" "$INPUT" 2>/dev/null)
-
-EVENT=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
+const ti=d.tool_input||{};
+console.log(ti.command||'');
 console.log(d.hook_event_name||'');
-" "$INPUT" 2>/dev/null)
-
-CWD=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
 console.log(d.cwd||'.');
-" "$INPUT" 2>/dev/null)
+console.log(d.error||'exit code != 0');
+" "$INPUT" 2>/dev/null) || exit 0
+
+CMD=$(echo "$PARSED" | sed -n '1p')
+EVENT=$(echo "$PARSED" | sed -n '2p')
+CWD=$(echo "$PARSED" | sed -n '3p')
+ERROR=$(echo "$PARSED" | sed -n '4p')
 
 # Filter: only build commands
 if [[ "$CMD" != *"npm run build"* ]] && \
@@ -38,27 +37,22 @@ case "$BRANCH" in
   *)             AULA="unknown" ;;
 esac
 
-NOTES="$CWD/aulas/$AULA/NOTES.md"
-DATE=$(date '+%Y-%m-%d %H:%M')
-
-# Skip NOTES write if aula is unknown (e.g., on main without aula context)
-if [ "$AULA" = "unknown" ] || [ ! -d "$CWD/aulas/$AULA" ]; then
+# Skip if aula unknown or dir missing
+if [ "$AULA" = "unknown" ] || [ ! -d "${CWD:-.}/aulas/$AULA" ]; then
     exit 0
 fi
+
+NOTES="${CWD:-.}/aulas/$AULA/NOTES.md"
+DATE=$(date '+%Y-%m-%d %H:%M')
 
 # Create NOTES.md if it doesn't exist
 if [ ! -f "$NOTES" ]; then
     printf "# NOTES — %s\n\n" "$AULA" > "$NOTES"
 fi
 
+# Only log failures — OK builds are noise
 if [[ "$EVENT" == "PostToolUseFailure" ]]; then
-    ERROR=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
-console.log(d.error||'exit code != 0');
-" "$INPUT" 2>/dev/null)
     printf "\n[%s] [BUILD] FAIL — %s | cmd: %s\n" "$DATE" "$ERROR" "$CMD" >> "$NOTES"
-else
-    printf "\n[%s] [BUILD] OK — %s\n" "$DATE" "$CMD" >> "$NOTES"
 fi
 
 exit 0
