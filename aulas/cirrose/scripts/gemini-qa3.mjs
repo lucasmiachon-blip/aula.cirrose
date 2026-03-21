@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 /**
- * Send QA.3 creative review to Gemini 3.1 Pro via REST API.
+ * Gemini QA pipeline — Gate 0 (defect inspector) + Gate 4 (editorial review).
  * Reads HTML/CSS/JS DYNAMICALLY from source files (E42 compliance).
  *
- * Usage: node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --round 11
+ * Usage:
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --inspect        # Gate 0 only (default)
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --full --round 5 # Gate 0 → Gate 4
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --editorial --round 5  # Gate 4 only (legacy)
+ *
  * Requires: GEMINI_API_KEY env var
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -29,6 +33,14 @@ function getArg(name, fallback) {
 const SLIDE_ID = getArg('slide', 's-a1-01');
 const ROUND = parseInt(getArg('round', '11'), 10);
 const QA_DIR = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);
+
+// --- Mode flags ---
+function hasFlag(name) { return args.includes(`--${name}`); }
+const MODE = hasFlag('full') ? 'full' : hasFlag('editorial') ? 'editorial' : 'inspect';
+
+// --- Gate 0 constants ---
+const REPO_ROOT = join(AULA_DIR, '..', '..');
+const GATE0_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gemini-gate0-inspector.md');
 
 // --- Dynamic source extraction (E42) ---
 
@@ -156,6 +168,122 @@ function getSlideMetadata(slideId) {
   const next = pos < ids.length - 1 ? ids[pos + 1] : '(last)';
 
   return { pos: `${pos + 1}/${ids.length}`, prev, next };
+}
+
+// --- Gate 0: Defect Inspector ---
+
+function findStatePng(qaDir, state) {
+  const candidates = {
+    S0: ['S0-1280x720.png', 'S0.png'],
+    S1: ['S1-mid-1280x720.png', 'S1.png'],
+    S2: ['S2-final-1280x720.png', 'S2.png'],
+  };
+  for (const name of (candidates[state] || [`${state}.png`])) {
+    const p = join(qaDir, name);
+    if (existsSync(p)) return p;
+  }
+  return null;
+}
+
+function buildGate0Payload(slideId, qaDir) {
+  if (!existsSync(GATE0_PROMPT_PATH)) {
+    console.error(`Gate 0 prompt not found: ${GATE0_PROMPT_PATH}`);
+    process.exit(1);
+  }
+  const promptTemplate = readFileSync(GATE0_PROMPT_PATH, 'utf8');
+  const prompt = promptTemplate.replace(/\{\{SLIDE_ID\}\}/g, slideId);
+
+  const parts = [{ text: prompt }];
+  const statesReceived = [];
+
+  for (const state of ['S0', 'S1', 'S2']) {
+    const pngPath = findStatePng(qaDir, state);
+    if (pngPath) {
+      const data = readFileSync(pngPath).toString('base64');
+      parts.push({ inlineData: { mimeType: 'image/png', data } });
+      statesReceived.push(state);
+      console.log(`  ${state}: ${pngPath}`);
+    }
+  }
+
+  if (statesReceived.length === 0) {
+    console.error(`No PNGs found in ${qaDir}. Run qa-batch-screenshot.mjs first.`);
+    process.exit(1);
+  }
+
+  return {
+    payload: {
+      contents: [{ parts }],
+      generationConfig: { temperature: 0.1, topP: 0.9, maxOutputTokens: 1024, responseMimeType: 'application/json' },
+    },
+    statesReceived,
+  };
+}
+
+async function runGate0(slideId, qaDir) {
+  console.log(`\n=== GATE 0 — Defect Inspector — ${slideId} ===\n`);
+  console.log('0. Finding PNGs...');
+
+  const { payload, statesReceived } = buildGate0Payload(slideId, qaDir);
+
+  const inputTokens = JSON.stringify(payload).length / 4;
+  console.log(`\n1. Sending to Gemini (est. ~${Math.round(inputTokens)} tokens, ~$${(inputTokens / 1_000_000 * 2.0).toFixed(4)})...`);
+
+  const res = await fetch(
+    `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (!res.ok) {
+    const err = await res.text();
+    console.error(`API Error ${res.status}:`, err.slice(0, 500));
+    process.exit(1);
+  }
+
+  const result = await res.json();
+  const usage = result.usageMetadata || {};
+  const totalCost = ((usage.promptTokenCount || 0) / 1_000_000 * 2.0) + ((usage.candidatesTokenCount || 0) / 1_000_000 * 12.0);
+  console.log(`  Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(4)}`);
+
+  // Parse JSON response
+  const rawText = result.candidates?.[0]?.content?.parts
+    ?.map(p => p.text).filter(Boolean).join('') || '{}';
+
+  let gate0Result;
+  try {
+    gate0Result = JSON.parse(rawText);
+  } catch (e) {
+    console.error('Failed to parse Gate 0 JSON response:', rawText.slice(0, 300));
+    // Save raw response for debugging
+    mkdirSync(qaDir, { recursive: true });
+    writeFileSync(join(qaDir, 'gate0-raw.txt'), rawText);
+    process.exit(1);
+  }
+
+  // Save result
+  mkdirSync(qaDir, { recursive: true });
+  const outPath = join(qaDir, 'gate0.json');
+  writeFileSync(outPath, JSON.stringify(gate0Result, null, 2));
+  console.log(`\n2. Result saved -> ${outPath}`);
+
+  // Report
+  if (gate0Result.must_pass === false) {
+    console.log(`\n  GATE 0 FAIL — ${slideId}`);
+    console.log(`  ${gate0Result.summary || '(no summary)'}`);
+    console.log(`  Corrigir defeitos antes de rodar QA editorial (--full ou --editorial).`);
+    console.log(`  Detalhes: ${outPath}`);
+  } else {
+    console.log(`\n  GATE 0 PASS — ${slideId}`);
+    if (!gate0Result.should_pass) {
+      console.log(`  Warnings: ${gate0Result.summary || '(no summary)'}`);
+    }
+  }
+
+  return gate0Result;
 }
 
 // --- Round context per slide (update when changing slides) ---
@@ -375,31 +503,31 @@ PREZE pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bo
   };
 }
 
-// --- Main ---
-async function main() {
-  console.log(`=== QA.3 Gemini Creative Review — ${SLIDE_ID} R${ROUND} ===`);
+// --- Gate 4: Editorial Review (existing behavior) ---
+async function runEditorial(slideId, round, qaDir) {
+  console.log(`\n=== GATE 4 — Editorial Review — ${slideId} R${round} ===`);
   console.log(`Model: ${MODEL}\n`);
 
   // Step 0: Extract source code dynamically (E42)
   console.log('0. Extracting source code from files...');
-  const rawHTML = extractHTML(SLIDE_ID);
-  const rawCSS = extractCSS(SLIDE_ID);
-  const rawJS = extractJS(SLIDE_ID);
+  const rawHTML = extractHTML(slideId);
+  const rawCSS = extractCSS(slideId);
+  const rawJS = extractJS(slideId);
   const notes = extractNotes(rawHTML);
-  const meta = getSlideMetadata(SLIDE_ID);
+  const meta = getSlideMetadata(slideId);
   console.log(`  Metadata: pos=${meta.pos}, prev=${meta.prev}, next=${meta.next}\n`);
 
   // Step 1: Upload media
   console.log('1. Uploading media...');
-  const videoPath = join(QA_DIR, 'animation-1280x720.webm');
-  const s0Path = join(QA_DIR, 'S0-1280x720.png');
-  const s1Path = join(QA_DIR, 'S1-mid-1280x720.png');
-  const s2Path = join(QA_DIR, 'S2-final-1280x720.png');
+  const videoPath = join(qaDir, 'animation-1280x720.webm');
+  const s0Path = join(qaDir, 'S0-1280x720.png');
+  const s1Path = join(qaDir, 'S1-mid-1280x720.png');
+  const s2Path = join(qaDir, 'S2-final-1280x720.png');
 
-  const video = await uploadFile(videoPath, 'video/webm', `${SLIDE_ID}-animation`);
-  const s0 = await uploadFile(s0Path, 'image/png', `${SLIDE_ID}-S0-initial`);
-  const s1 = await uploadFile(s1Path, 'image/png', `${SLIDE_ID}-S1-mid`);
-  const s2 = await uploadFile(s2Path, 'image/png', `${SLIDE_ID}-S2-final`);
+  const video = await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
+  const s0 = await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`);
+  const s1 = await uploadFile(s1Path, 'image/png', `${slideId}-S1-mid`);
+  const s2 = await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`);
 
   // Wait for video processing
   if (video?.state === 'PROCESSING') {
@@ -416,7 +544,7 @@ async function main() {
     s1: s1?.uri,
     s2: s2?.uri,
   };
-  const payload = buildPrompt(SLIDE_ID, ROUND, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);
+  const payload = buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);
 
   const inputTokens = JSON.stringify(payload).length / 4; // rough estimate
   const costEstimate = (inputTokens / 1_000_000) * 2.0;
@@ -452,12 +580,12 @@ async function main() {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(QA_DIR, `gemini-qa3-r${ROUND}.md`);
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${SLIDE_ID} (R${ROUND})\n\n` +
+  const outPath = join(qaDir, `gemini-qa3-r${round}.md`);
+  writeFileSync(outPath, `# QA.3 Gemini Review — ${slideId} (R${round})\n\n` +
     `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0, 10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
-  console.log(`\n3. Response saved → ${outPath}`);
+  console.log(`\n3. Response saved -> ${outPath}`);
 
   // Print response
   console.log('\n' + '='.repeat(60));
@@ -471,6 +599,29 @@ async function main() {
     } catch (_) {}
   }
   console.log('  Done.');
+}
+
+// --- Main ---
+async function main() {
+  console.log(`Mode: ${MODE} | Slide: ${SLIDE_ID} | Model: ${MODEL}\n`);
+
+  // Gate 0: Defect inspection
+  if (MODE === 'inspect' || MODE === 'full') {
+    const gate0Result = await runGate0(SLIDE_ID, QA_DIR);
+
+    if (gate0Result.must_pass === false) {
+      process.exit(1);
+    }
+
+    if (MODE === 'inspect') {
+      process.exit(0);
+    }
+  }
+
+  // Gate 4: Editorial review
+  if (MODE === 'editorial' || MODE === 'full') {
+    await runEditorial(SLIDE_ID, ROUND, QA_DIR);
+  }
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

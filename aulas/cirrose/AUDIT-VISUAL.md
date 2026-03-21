@@ -48,6 +48,16 @@
 
 ## Protocolo de auditoria (14 dimensoes)
 
+### Gate 0 — Inspeção de Defeitos (pré-requisito)
+
+Antes de qualquer auditoria dimensional, rodar Gate 0 para detectar defeitos visuais mecânicos (clipping, overflow, overlap, invisible, missing_media, animation_state, alignment, spacing, readability). Gate 0 é binário (PASS/FAIL), custa ~$0.002/slide, e bloqueia QA.3 se MUST checks falharem.
+
+```bash
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
+```
+
+Prompt: `docs/prompts/gemini-gate0-inspector.md`. Output: `qa-screenshots/{id}/gate0.json`.
+
 ### Loop 1 — Opus (sem Gemini)
 
 1. `npm run lint:slides` — confirmar PASS

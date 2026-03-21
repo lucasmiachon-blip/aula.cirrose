@@ -14,7 +14,8 @@
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script — Gemini CLI:** `scripts/gemini.mjs` (canonico, multimodal: texto+PNG+video). Auto-extrai HTML/JS/CSS do slide. Output: `.audit/{id}_result.json`.
 **QA Script — Captura:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `aulas/cirrose/scripts/capture-s-hook.mjs` (s-hook) · `aulas/cirrose/scripts/capture-s-a1-01.mjs` (s-a1-01).
-**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API, ROUND_CONTEXTS). Plano de absorcao em `_archive/ABSORB-PLAN-gemini-qa3.md`.
+**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API, ROUND_CONTEXTS). Flags: `--inspect` (Gate 0, default), `--full` (Gate 0 → Gate 4), `--editorial` (Gate 4 only). Plano de absorcao em `_archive/ABSORB-PLAN-gemini-qa3.md`.
+**Gate 0 — Inspetor de Defeitos:** `docs/prompts/gemini-gate0-inspector.md`. 9 checks binários (6 MUST + 3 SHOULD). ~$0.002/slide. MUST FAIL bloqueia Gate 4.
 **QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`scripts/gemini.mjs`).
 **Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via SDK `@google/generative-ai`.

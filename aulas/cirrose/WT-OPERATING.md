@@ -119,6 +119,9 @@ QA.1 CONSTRAINT CHECK
 QA.2 VISUAL AUDIT (Opus)
   → CHECKPOINT LUCAS
 
+GATE 0 — DEFECT INSPECTION (Gemini, binário)
+  → MUST FAIL bloqueia QA.3
+
 QA.3 VISUAL AUDIT (Gemini multimodal)
   → CHECKPOINT LUCAS
 
@@ -210,6 +213,46 @@ Threshold: todas 14 dims >= 9.
 
 **Output:** scorecard 14 dims com evidencias.
 **→ CHECKPOINT:** apresentar ao Lucas, esperar OK.
+
+### Gate 0 — Inspeção de Defeitos Visuais
+
+**Quando:** Após captura de PNGs (QA.2), ANTES de qualquer QA editorial (QA.3).
+**Custo:** ~$0.002/slide (~800 tokens input, ~200 output).
+**Natureza:** Binário (PASS/FAIL). NÃO é review criativo — apenas defeitos mecânicos.
+
+**Comando:**
+
+```bash
+# Gate 0 only (default)
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
+
+# Gate 0 → Gate 4 sequencial (bloqueia se MUST FAIL)
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --full --round N
+```
+
+**9 checks (6 MUST + 3 SHOULD):**
+
+| # | Check | Tipo | O que procura |
+|---|-------|------|---------------|
+| 1 | CLIPPING | MUST | Texto cortado em bordas |
+| 2 | OVERFLOW | MUST | Conteúdo além de 1280×720 |
+| 3 | OVERLAP | MUST | Sobreposição não intencional |
+| 4 | INVISIBLE | MUST | Espaço vazio onde deveria ter conteúdo |
+| 5 | MISSING_MEDIA | MUST | Imagem/ícone/gráfico faltando |
+| 6 | ANIMATION_STATE | MUST | Elementos ocultos/parciais em S2 |
+| 7 | ALIGNMENT | SHOULD | Desalinhamento entre elementos similares |
+| 8 | SPACING | SHOULD | Espaçamento inconsistente |
+| 9 | READABILITY | SHOULD | Texto ilegível (tamanho/contraste) |
+
+**Regras:**
+- `must_pass: false` → **BLOQUEIA** QA.3. Corrigir defeitos antes.
+- `should_pass: false` → **WARNING**. Registrar, não bloqueia.
+- Prompt carregado de `docs/prompts/gemini-gate0-inspector.md` (NUNCA hardcoded).
+- Output salvo em `qa-screenshots/{slide-id}/gate0.json`.
+- Falso positivo > falso negativo (preferir alertar).
+- NÃO requer checkpoint humano — é gate automático. Lucas vê resultado no terminal.
+
+---
 
 ### QA.3 — Visual Audit (Gemini multimodal)
 
