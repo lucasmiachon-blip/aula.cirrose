@@ -65,11 +65,6 @@
       "args": ["frontend-review-mcp"],
       "env": { "HYPERBOLIC_API_KEY": "${HYPERBOLIC_API_KEY}" }
     },
-    "attention-insight": {
-      "command": "node",
-      "args": ["scripts/mcp-attention-insight.js"],
-      "env": { "ATTENTION_INSIGHT_API_KEY": "${ATTENTION_INSIGHT_API_KEY}" }
-    },
     "clinicaltrials": {
       "command": "npx",
       "args": ["-y", "clinicaltrialsgov-mcp-server"]

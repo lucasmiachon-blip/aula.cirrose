@@ -19,7 +19,7 @@
     "lint:narrative-sync": "node scripts/lint-narrative-sync.js",
     "export:pdf": "node scripts/export-pdf.js",
     "qa:a11y": "node scripts/qa-accessibility.js",
-    "qa:screenshots:cirrose": "node aulas/cirrose/scripts/qa-screenshots-stage-c.js",
+    "qa:screenshots:cirrose": "node aulas/cirrose/scripts/qa-batch-screenshot.mjs",
     "qa:video": "node scripts/qa/qa-video.js",
     "build:cirrose": "powershell -ExecutionPolicy Bypass -File aulas/cirrose/scripts/build-html.ps1",
     "build:grade": "powershell -ExecutionPolicy Bypass -File aulas/grade/scripts/build-html.ps1",

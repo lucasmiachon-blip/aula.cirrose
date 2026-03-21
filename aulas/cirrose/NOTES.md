@@ -357,3 +357,7 @@ ls: cannot access 'scripts/act1-reaudit.mjs': No such file or directory
 ls: cannot access 'scripts/act1-surgical-qa.mjs': No such file or directory
 ls: cannot access 'scripts/attention-insight.js': No such file or directory
 ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory | cmd: echo "=== PÓS-MERGE ===" && git status --short && echo "Último commit: $(git log --oneline -1)" && echo "" && echo "reveal.js em dependencies:" && node -e "console.log(require('./package.json').dependencies?.['reveal.js'] || 'REMOVIDO')" && echo "" && echo "build:metanalise:" && node -e "console.log(require('./package.json').scripts['build:metanalise'])" && echo "" && echo "orphan scripts (devem dar erro):" && ls scripts/act1-reaudit.mjs scripts/act1-surgical-qa.mjs scripts/attention-insight.js scripts/mcp-attention-insight.js 2>&1
+
+[2026-03-21 14:02] [repo-janitor:a91f74e1] — concluído. Status: PARTIAL
+
+[2026-03-21 14:08] [unknown:a73a13f9] — concluído. Status: PARTIAL
