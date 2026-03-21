@@ -4,7 +4,7 @@ Plataforma de apresentações médicas interativas para hepatologistas seniores 
 
 ## Stack
 
-deck.js (custom navigation) · GSAP 3.12 · Vite 6.x · Vanilla HTML/CSS/JS · OKLCH · Zero CDN · Offline-first.
+deck.js (custom navigation) · GSAP 3.14.2 · Vite 6.x · Vanilla HTML/CSS/JS · OKLCH · Zero CDN · Offline-first.
 
 ## Projetos
 

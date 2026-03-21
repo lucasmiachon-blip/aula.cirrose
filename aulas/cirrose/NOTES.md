@@ -341,3 +341,19 @@ Detalhes: ver `references/coautoria.md` (renomeado para AI Disclosure).
 [2026-03-20 21:07] [Explore:a03f92b7] — concluído. Status: PARTIAL
 
 [2026-03-20 21:37] [BUILD] OK — npm run build:cirrose
+
+[2026-03-21 13:18] [BUILD] FAIL — Exit code 2
+=== PÓS-MERGE ===
+Último commit: 99092b7 merge: absorve hardening main (e77dcec)
+
+reveal.js em dependencies:
+REMOVIDO
+
+build:metanalise:
+powershell -ExecutionPolicy Bypass -File aulas/metanalise/scripts/build-html.ps1
+
+orphan scripts (devem dar erro):
+ls: cannot access 'scripts/act1-reaudit.mjs': No such file or directory
+ls: cannot access 'scripts/act1-surgical-qa.mjs': No such file or directory
+ls: cannot access 'scripts/attention-insight.js': No such file or directory
+ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory | cmd: echo "=== PÓS-MERGE ===" && git status --short && echo "Último commit: $(git log --oneline -1)" && echo "" && echo "reveal.js em dependencies:" && node -e "console.log(require('./package.json').dependencies?.['reveal.js'] || 'REMOVIDO')" && echo "" && echo "build:metanalise:" && node -e "console.log(require('./package.json').scripts['build:metanalise'])" && echo "" && echo "orphan scripts (devem dar erro):" && ls scripts/act1-reaudit.mjs scripts/act1-surgical-qa.mjs scripts/attention-insight.js scripts/mcp-attention-insight.js 2>&1

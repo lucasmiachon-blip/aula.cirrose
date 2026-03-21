@@ -69,7 +69,7 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 ## WT State (atualizar a cada sessao)
 
 - **Branch:** feat/cirrose-mvp
-- **Ultimo merge main:** d7f91b9 (2026-03-18) — skills (medical-researcher, slide-punch, sync-evidence) + docs. Zero Classe C.
+- **Ultimo merge main:** 99092b7 (2026-03-22) — hardening: reveal.js removido, orphan scripts deletados, audit-trail narrowed, build:metanalise real. Zero Classe C.
 - **Classe C pendente:** 0 arquivos em main
 - **Infra sync:** OK — main absorvida (Classe A/B), 8 MCPs no .mcp.json (profile dev). Visual audit MCPs via profile qa/full.
 - **QA Act 1:** Loop 1 baseline aplicado (14 dim) — fix gargalos E/M/L
