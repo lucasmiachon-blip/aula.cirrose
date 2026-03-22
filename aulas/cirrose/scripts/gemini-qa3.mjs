@@ -41,10 +41,12 @@ const CONTEXT_PARAGRAPH = getArg('context', '');
 // --- Mode flags ---
 function hasFlag(name) { return args.includes(`--${name}`); }
 const MODE = hasFlag('full') ? 'full' : hasFlag('editorial') ? 'editorial' : 'inspect';
+const FORCE_VIDEO = hasFlag('with-video');
 
 // --- Gate 0 constants ---
 const REPO_ROOT = join(AULA_DIR, '..', '..');
 const GATE0_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gemini-gate0-inspector.md');
+const ERROR_DIGEST_PATH = join(REPO_ROOT, 'docs', 'prompts', 'error-digest.md');
 
 // --- Dynamic source extraction (E42) ---
 
@@ -393,42 +395,43 @@ async function runGate0(slideId, qaDir) {
   return gate0Result;
 }
 
-// --- Round context per slide (update when changing slides) ---
-const ROUND_CONTEXTS = {
-  's-a1-01': `Round 11 (R11) — Ghost Rows + hero typography + metric scale + scan effect + case-panel hide.
-Evolucao de formato (painel direito guideline):
-- R0-R4: Paper card + Flip badge → KILLED (glassmorphism)
-- R5-R7: Em-dash stacked list → usuario nao gostou ("agrada pouco")
-- R8-R10: Pill tags (border-radius 999px, teal bg match, gray dimmed) → usuario aprovou formato ("quase la")
-- R11: Ghost Rows (Gemini Option D) — status-dot + row-text + teal wash on match + scanner line effect.
+// --- Error digest (top 10 project errors injected into Gate 4 prompt) ---
+function readErrorDigest() {
+  if (existsSync(ERROR_DIGEST_PATH)) {
+    return readFileSync(ERROR_DIGEST_PATH, 'utf8').trim();
+  }
+  return '';
+}
 
-O que mudou em R11 vs R10:
-- HTML: guideline-pills → guideline-stack > stack-row > status-dot + row-text (3 rows, 2 com data-match)
-- CSS: Ghost Row matched = teal wash oklch(40% 0.12 170 / 0.08) + glow dot + teal text. Dimmed = opacity 0.35 + scale 0.98.
-- CSS P2: Hero "%" maior (clamp 60px-100px), negative margin -0.08em, translateY(-15px)
-- CSS P3: Metric values clamp(32px-42px), oklch(20%), editorial border-top + margin-top:auto
-- CSS P5: Source-tag full-width (left:48px; right:48px), 11px, text-overflow:ellipsis
-- JS P1: #case-panel GSAP opacity:0 on slide enter, restores on slide:changed
-- JS P4: Scanner line (teal gradient div) sweeps guideline-stack before match punch
-- JS: Sequential scan → match punch com back.out(1.5) ease nos matched rows
+// --- Round context per slide (externalized to qa-rounds/{slideId}.md) ---
+const QA_ROUNDS_DIR = join(AULA_DIR, 'qa-rounds');
 
-SCORES historico: R0(5.1) → R4(6.0) → R8(6.65) → R10(6.65) → R10 projetou 9.1 com Ghost Rows.
-Objetivo: 8+. Se < 7, algo regrediu.
+function readRoundContext(slideId) {
+  const filePath = join(QA_ROUNDS_DIR, `${slideId}.md`);
+  if (existsSync(filePath)) {
+    const content = readFileSync(filePath, 'utf8');
+    console.log(`  Round context: ${filePath} (${content.length} chars)`);
+    return content;
+  }
+  return `Round ${ROUND}. Nenhum contexto anterior documentado. Primeiro review deste slide.`;
+}
 
-NOTA: usuario reportou que "perdemos o bloco lateral de ter ficado bem melhor". Avaliar se Ghost Rows regrediram vs pills.
-Manter: Grid 6fr:4fr, Bloomberg hero (Instrument Serif 140-220px, appleHero/snapOut eases), reactive metrics on countUp >= 70, SplitText headline.
+function appendRoundSummary(slideId, round, score, proposals) {
+  mkdirSync(QA_ROUNDS_DIR, { recursive: true });
+  const filePath = join(QA_ROUNDS_DIR, `${slideId}.md`);
+  const date = new Date().toISOString().slice(0, 10);
 
-R12 (22/mar): Source-tag revertido 13px→11px (regressao de wrapping). Ghost Rows HC aplicados (matched=safe-light+halo, dimmed=0.55+grayscale80%). Border editorial 2px. Scanner CSS removido. Sequential eval dots (JS).
+  const proposalLines = proposals.map((p, i) => `- P${i + 1}: ${p}`).join('\n');
+  const block = `\n\n## Round ${round} Gate 4 (${date})\n\nScore: ${score}\nPropostas:\n${proposalLines}\nStatus: PENDENTE — preencher manualmente\n`;
 
-R2 Gate 4 (22/mar): Score 6.7/10. Decisoes:
-- P1 padding fantasma 210px: REJEITADO (case panel visivel, padding necessario).
-- P2 monolito/bloco: VETADO pelo Lucas (2x, R1+R2). NAO repropar.
-- P3 dimmed visibility: APROVADO adaptado — opacity 0.55→0.65, grayscale 80%→40%.
-- P4 dots color: APROVADO — oklch(60% 0 0) → var(--ui-accent) (azul=analisando, verde=confirmado).
-- Radical clipPath: REJEITADO.
-
-SCORES historico: R0(5.1) → R4(6.0) → R8(6.65) → R10(6.65) → R11(6.75) → R2-Gate4(6.7).`,
-};
+  if (existsSync(filePath)) {
+    const existing = readFileSync(filePath, 'utf8');
+    writeFileSync(filePath, existing + block);
+  } else {
+    writeFileSync(filePath, `# Round Context — ${slideId}\n\n> Append-only. Script gemini-qa3.mjs lê e injeta no prompt Gate 4.\n\n---\n` + block);
+  }
+  console.log(`  Round summary appended -> ${filePath}`);
+}
 
 // --- File upload ---
 async function uploadFile(filePath, mimeType, displayName) {
@@ -484,7 +487,7 @@ async function waitForProcessing(fileName) {
 
 // --- Prompt builder (uses v6.1 template) ---
 function buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris) {
-  const roundCtx = ROUND_CONTEXTS[slideId] || `Round ${round}. No previous round context documented.`;
+  const roundCtx = readRoundContext(slideId);
 
   const text = `<system>
 
@@ -530,6 +533,10 @@ ${CONTEXT_PARAGRAPH ? `\n### Contexto adicional\n${CONTEXT_PARAGRAPH}` : ''}
 
 </context>
 
+<guardrails>
+${readErrorDigest() || '(no error digest found)'}
+</guardrails>
+
 <materials>
 
 ### Round context
@@ -567,47 +574,55 @@ ${mediaUris.s2 ? '4. PNG S2 — estado final (todos elementos visiveis, Ghost Ro
 
 <task>
 
-Siga estes passos NA ORDEM. Nao pule nenhum.
+5 passos NA ORDEM. Nao pule.
 
-### Passo 1 — OLHAR antes de pensar
-Olhe PRIMEIRO o video (se houver). Depois os PNGs por estado. Forme impressao visceral. Depois leia o codigo.
+### Passo 1 — OLHAR + OBSERVAR
+Olhe video (se houver), depois PNGs, depois codigo. Escreva \`## Observacao\`:
+- Composicao, hierarquia, ritmo, peso visual, fluxo do olhar
+- O que funciona (MECANISMO, nao opiniao)
+- O que incomoda (MECANISMO)
+- Motion: o que comunica emocionalmente
+- "Se eu so pudesse mudar UMA coisa?"
 
-### Passo 2 — OBSERVAR (scratchpad obrigatorio)
-Escreva bloco \`## Observacao\`: composicao, hierarquia, ritmo, peso visual, fluxo do olhar. O que funciona (MECANISMO). O que incomoda (MECANISMO). Motion = emocao. "Se eu so pudesse mudar UMA coisa?"
-
-### Passo 3 — SCORECARD (tabela 10 dimensoes, notas 1-10)
-| Dimensao | Nota | Justificativa |
-|----------|------|---------------|
-| Beleza geral | ?/10 | |
-| Superficie e profundidade | ?/10 | |
-| Tipografia como arquitetura | ?/10 | |
-| Paleta de cores e contraste | ?/10 | |
+### Passo 2 — SCORECARD (7 dimensoes, notas 1-10)
+| Dimensao | Nota | Justificativa (1 frase) |
+|----------|------|-------------------------|
+| Tipografia e hierarquia | ?/10 | |
+| Cor, contraste e superficie | ?/10 | |
 | Composicao e respiro | ?/10 | |
-| Motion como narrativa | ?/10 | |
-| Interacoes avancadas (GSAP) | ?/10 | |
-| Craft front-end (CSS/HTML) | ?/10 | |
+| Motion e interacoes GSAP | ?/10 | |
 | Legibilidade a 5m | ?/10 | |
 | Impacto emocional | ?/10 | |
+| Craft front-end | ?/10 | |
 | **MEDIA** | ?/10 | |
 
-### Passo 4 — AVALIAR 10 lentes (cada com SCORE IMPACT)
-Lente 1-BELEZA, 2-SUPERFICIE, 3-TIPOGRAFIA, 4-COR, 5-COMPOSICAO, 6-MOTION, 7-INTERACOES, 8-CRAFT, 9-LEGIBILIDADE, 10-IMPACTO.
+Pontuacao: <=3 problematico, 4-5 funcional sem craft, 6-7 competente, 8 editorial, 9-10 keynote-grade.
 
-### Passo 5 — PROPOR 3-7 propostas
-Formato: Proposta N / O que / Por que (mecanismo) / Como (snippet) / Impacto / Prioridade (MUST|SHOULD|COULD).
+### Passo 3 — PROPOSTAS (3-5 max)
+Para cada proposta:
+\`\`\`
+### Proposta N: [titulo]
+**O que** — issue ou oportunidade
+**Por que** — mecanismo perceptual/cognitivo (NUNCA "fica melhor")
+**Como** — snippet CSS/JS/HTML pronto para copiar
+**Prioridade** — MUST (bloqueia nivel 4) | SHOULD (4→5) | COULD (polish)
+\`\`\`
 
-### Passo 6 — RADICAL (minimo 1 ideia ousada)
+Inclua pelo menos 1 proposta RADICAL (ousada, pode ser recusada). Marque com **[RADICAL]**.
 
-### Passo 7 — AUTOCRITICA (contradiz? API errada? sacrifica legibilidade?)
+### Passo 4 — AUTOCRITICA
+Revise suas propostas: contradiz outra? API GSAP incorreta? Sacrifica legibilidade a 5m? Repete ROUND CONTEXT? Se sim, corrija.
 
-### Passo 8 — PROJECAO (scorecard antes/depois)
+### Passo 5 — SCORE PROJETADO
+Se MUST+SHOULD implementados, qual seria o novo scorecard? Preencha tabela projetada.
 
 </task>
 
 <constraints>
 Nao quero: checklist PASS/FAIL, elogios genericos, patterns de web, sugestoes timidas, accessibility theater, ignorar o video.
-Tom: direto, honesto, PT-BR, codigo em ingles, 1500-3000 tokens.
-PREZE pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bonito.
+Tom: direto, honesto, PT-BR, codigo em ingles. Max 2000 tokens.
+PREZE pela legibilidade a 5m — slide DEVE ser legivel, nao so bonito.
+Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
 </constraints>`;
 
   // Build parts array with text + media
@@ -644,7 +659,10 @@ async function runEditorial(slideId, round, qaDir) {
   const s1Path = join(qaDir, 'S1-mid-1280x720.png');
   const s2Path = join(qaDir, 'S2-final-1280x720.png');
 
-  const video = await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
+  // Skip video on R1 unless --with-video (saves ~2K tokens + upload time)
+  const skipVideo = round <= 1 && !FORCE_VIDEO;
+  if (skipVideo) console.log('  Video skipped (R1 — use --with-video to override)');
+  const video = skipVideo ? null : await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
   const s0 = await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`);
   const s1 = await uploadFile(s1Path, 'image/png', `${slideId}-S1-mid`);
   const s2 = await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`);
@@ -712,8 +730,18 @@ async function runEditorial(slideId, round, qaDir) {
   console.log('\n' + '='.repeat(60));
   console.log(text);
 
+  // Auto-append round summary to qa-rounds file
+  console.log('\n4. Appending round summary...');
+  const scoreMatch = text.match(/\*\*MEDIA\*\*\s*\|\s*([\d.]+)/);
+  const score = scoreMatch ? scoreMatch[1] + '/10' : '?/10';
+  const proposalMatches = [...text.matchAll(/###\s*Proposta\s*\d+[:\s]*([^\n]+)/gi)];
+  const proposals = proposalMatches.length > 0
+    ? proposalMatches.map(m => m[1].trim())
+    : ['(parse proposals manually from response)'];
+  appendRoundSummary(slideId, round, score, proposals);
+
   // Cleanup uploaded files
-  console.log('\n4. Cleaning up uploads...');
+  console.log('\n5. Cleaning up uploads...');
   for (const f of [video, s0, s1, s2].filter(Boolean)) {
     try {
       await fetch(`${BASE}/v1beta/${f.name}?key=${API_KEY}`, { method: 'DELETE' });
