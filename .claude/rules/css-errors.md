@@ -25,6 +25,7 @@
 | E40 | MUST | `width:100%` + padding sem `box-sizing: border-box` = overflow. Apenas `section` e `.slide-inner` têm reset global — custom containers herdam `content-box` |
 | E41 | SHOULD | Grid `auto` row com 2+ filhos = sobreposição. Overlays/punchlines sobre slide = `position: absolute`, não grid flow |
 | E45 | SHOULD | Source-tags com 3+ citações DEVEM ser testados em 1280x720 + 1920x1080. `white-space:normal; overflow-wrap:anywhere; max-width:55%` para evitar truncamento |
+| E52 | MUST | NUNCA usar `vw`/`vh` em font-size de slides deck.js. `scaleDeck()` aplica `transform:scale()` mas `vw` referencia viewport real → fonts crescem em viewports >1280px, estourando o container 1280x720. Usar `px` fixo. |
 
 ### Regra Master Flexbox
 ```

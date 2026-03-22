@@ -9,7 +9,7 @@
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 51 registrados, 49 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
+**ERROR-LOG:** 52 registrados, 50 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
 **Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script — Gemini CLI:** `aulas/cirrose/scripts/gemini-qa3.mjs` (canonico, Gate 0 + Gate 4, REST API). Auto-extrai HTML/JS/CSS. Antigo `scripts/gemini.mjs` arquivado em `scripts/_archive/`.
@@ -38,7 +38,7 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
 | 3 | s-a1-01 | QA | **R11→R12 prep** (22/mar). Gate 0 PASS (9/9 MUST, READABILITY SHOULD warning). Gate 4 R1: score 6.75/10 — 4 propostas (monolito, ghost rows alto contraste, matar scanner, alinhamento métricas). Fixes: clipping métricas, source-tag contraste/wrap, capture S0 forced-final. Aguarda decisão Lucas sobre propostas Gemini. |
-| 4 | s-a1-classify | QA | **R10** (21/mar). Gemini 7.1/10. 10 rodadas. MorphSVG+DrawSVG+ScrambleText. Blur sutil + sidebar verde + inset cards (user-locked). Próximo: QA.4 reeval ou avançar. |
+| 4 | s-a1-classify | QA | **R10** (21/mar). Gemini 7.1/10. 10 rodadas. vw→px fix aplicado (ERRO-052). Gate 0 PASS. Próximo: pipeline completo (Gate 0 → Gate 4 Gemini) com eval tokens + animações. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
 | 7 | s-a1-baveno | CONTENT | Hero-stat. Conteudo completo, PMIDs em notes. |
@@ -99,8 +99,8 @@
 
 | Estado | Qtd | Slides |
 |--------|-----|--------|
-| DONE | 3 | s-title, s-hook, s-a1-01 |
-| QA | 1 | s-a1-classify (R10, Gemini 7.1/10) |
+| DONE | 2 | s-title, s-hook |
+| QA | 2 | s-a1-01 (Gate 0 PASS, Gate 4 R1 pendente), s-a1-classify (Gate 0 PASS, pipeline completo pendente) |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
 
@@ -154,6 +154,18 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 - **Screenshots v17 CURRENT** — `qa-screenshots/s-hook/P1P2-final-1280x720.png`.
 - Prompt Gemini v6.1: `docs/prompts/gemini-slide-editor.md`.
 - Letterbox 16:10 esperado (monitor usuario). TV congresso 16:9 = sem barras.
+
+### P0 Próxima sessão (23/mar)
+
+Pipeline completo slide-a-slide em s-a1-classify:
+1. Gate 0 (PASS — já feito)
+2. Gate 4 Gemini (enviar para Gemini 3.1 Pro: raw code + 4 PNGs + video .mp4)
+3. Avaliar eficiência de tokens no payload Gemini (custo por slide)
+4. Avaliar animações (MorphSVG+DrawSVG+ScrambleText) — motion QA
+5. Aplicar propostas Gemini aprovadas pelo Lucas
+6. Repetir em s-a1-01 (Gate 4 R1 pendente — 4 propostas aguardam decisão)
+
+**ERRO-052 fix sistêmico:** vw→px em 36 clamp(). Todos slides afetados. Verificar visualmente nos próximos QA.
 
 ### Backlog
 

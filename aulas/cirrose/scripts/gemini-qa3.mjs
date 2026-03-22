@@ -269,8 +269,8 @@ function buildInteractionFlow(clickReveals) {
 function findStatePng(qaDir, state) {
   const candidates = {
     S0: ['S0-1280x720.png', 'S0.png'],
-    S1: ['S1-mid-1280x720.png', 'S1.png'],
-    S2: ['S2-final-1280x720.png', 'S2.png'],
+    S1: ['S1-mid-1280x720.png', 'S1-1280x720.png', 'S1.png'],
+    S2: ['S2-final-1280x720.png', 'S2-1280x720.png', 'S2.png'],
   };
   for (const name of (candidates[state] || [`${state}.png`])) {
     const p = join(qaDir, name);

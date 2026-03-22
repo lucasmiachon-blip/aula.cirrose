@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-03-22 — fix sistêmico vw→px + s-a1-classify pipeline prep (sessao 18)
+
+- **ERRO-052 — vw em clamp() causa overflow com scaleDeck():**
+  - deck.js `scaleDeck()` aplica `transform:scale()` mas CSS calcula com viewport real
+  - 36 `clamp(min, Xvw, max)` onde vw era ativo (1280-1920 range) substituídos por px fixo @1280
+  - cirrose.css (29 edits) + archetypes.css (7 edits). 4 dead code preservados. base.css intocado.
+  - Slides afetados: s-title, s-hook, s-a1-01, s-a1-classify, s-a1-vote, e archetypes globais
+- **gemini-qa3.mjs:** Fallback filenames adicionados para S1/S2 screenshots (`S1-1280x720.png`, `S2-1280x720.png`)
+- **s-a1-classify Gate 0:** PASS 9/9 (pós-fix). Overflow PREDESCI resolvido.
+- **Build:** PASS (44 slides). **Lint:** PASS.
+- **Pendência próxima sessão:** Pipeline completo slide-a-slide (Gate 0 → Gate 4 Gemini) com avaliação de eficiência de tokens e animações.
+
+---
+
 ## 2026-03-22 — s-a1-01 Gate 0 fix + Gate 4 R1 + pipeline hardening (sessao 17)
 
 - **Gate 0 pipeline end-to-end:** Testado em s-a1-01. 9 iterações até PASS (6 MUST + 3 SHOULD). Custo ~$0.01/slide.

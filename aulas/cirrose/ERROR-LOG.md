@@ -418,9 +418,16 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Gemini 3.1 Pro com `responseMimeType: 'application/json'` pode truncar prematuramente. Remover e confiar no prompt para formato. `maxOutputTokens` mínimo 8192 para responses JSON estruturados.
 **Status:** ✅ Corrigido (2026-03-22).
 
+### ERRO-052 · HIGH · cirrose.css + archetypes.css
+**vw em clamp() causa overflow em viewports >1280px com deck.js scaleDeck()**
+**Root cause:** `scaleDeck()` aplica `transform: scale(s)` onde `s = Math.min(innerWidth/1280, innerHeight/720)`. Isso é visual — CSS layout calcula com o viewport real. `clamp(min, Xvw, max)` onde `X*12.8` está entre min e max faz fontes crescerem em viewports maiores (ex: 1920x1080), estourando o container 1280x720 do slide. s-a1-classify tinha PREDESCI `clamp(64px, 6vw, 100px)` = 76.8px@1280 mas 100px@1920 = overflow + clipping.
+**Fix:** 36 clamp() com vw ativo substituídos por px fixo calculado em 1280px. cirrose.css (29) + archetypes.css (7). 4 clamp() dead code (vw >= max em 1280) preservados. :root tokens em base.css não tocados.
+**Regra:** Em deck.js com scaleDeck(), NUNCA usar vw/vh em font-size de slides. Usar px fixo. vw referencia viewport real, não container escalado.
+**Status:** ✅ Corrigido (2026-03-22).
+
 ---
 
-*Ultima atualizacao: 2026-03-22 · 51 erros registrados, 49 corrigidos, 1 processo (E42), 1 parcial (E47).*
+*Ultima atualizacao: 2026-03-22 · 52 erros registrados, 50 corrigidos, 1 processo (E42), 1 parcial (E47).*
 
 ---
 
@@ -429,8 +436,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 7     | 6          | 1 (E47 parcial) |
-| HIGH       | 25    | 25         | 0 |
+| HIGH       | 26    | 26         | 0 |
 | MEDIUM     | 15    | 15         | 0 |
 | LOW        | 2     | 2          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **51**| **49**     | **2 (E42 processo, E47 parcial)** |
+| **Total**  | **52**| **50**     | **2 (E42 processo, E47 parcial)** |
