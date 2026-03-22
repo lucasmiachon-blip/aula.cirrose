@@ -360,10 +360,10 @@ export const customAnimations = {
           );
         }
       } else if (state === 2) {
-        // Depth-of-field: cards + further decomp blur into background
+        // Depth-of-field: cards + further decomp ghost into background (P2 R1 — no blur on projector)
         if (furtherStrong) gsap.to(furtherStrong, { color: 'var(--text-muted)', duration: 0.5 });
         gsap.to([...cards, furtherDecomp], {
-          opacity: 0.5, scale: 0.97, filter: 'blur(2px)',
+          opacity: 0.2, scale: 0.98, filter: 'grayscale(100%)',
           duration: 0.8, ease: 'power2.inOut'
         });
         // PREDESCI enters with gravitational mass — expo.out = heavy deceleration
@@ -397,7 +397,7 @@ export const customAnimations = {
       } else if (state === 2) {
         // Reverse: restore clarity
         gsap.to([...cards, furtherDecomp], {
-          opacity: 1, scale: 1, filter: 'none',
+          opacity: 1, scale: 1, filter: 'grayscale(0%)',
           duration: 0.4, ease: 'power2.out'
         });
         if (furtherStrong) gsap.to(furtherStrong, { color: 'var(--text-primary)', duration: 0.3 });
