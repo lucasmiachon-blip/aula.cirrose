@@ -404,9 +404,23 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Propostas Gemini que contradigam decisões do usuário DEVEM ser filtradas antes de implementar. Incluir no `--round` context todas as decisões travadas com "NAO sugerir novamente". Registrado em memória `feedback_gemini_override_user.md`.
 **Status:** ✅ Corrigido (2026-03-21).
 
+### ERRO-050 · MEDIUM · Gate 0 pipeline
+**Gate 0 S0 capture mid-animation causa false positives (CLIPPING, INVISIBLE, ANIMATION_STATE)**
+**Root cause:** `capture-s-a1-01.mjs` capturava S0 a 150ms do `slide:entered` — GSAP já em execução. Métricas tinham `clipPath` parcial (labels cortados), blur em valores, e countUp em progresso. Gemini interpretava artefatos de animação como defeitos de layout.
+**Fix:** S0 agora usa `forceAnimFinalState()` para layout limpo (mesma lógica do S2). S1 recarrega página para captura mid-animation independente. Gate 0 payload usa S0+S2 (S1 excluído — mid-animation causa false positives).
+**Regra:** Captures para Gate 0 (inspeção de defeitos) DEVEM mostrar layouts estabilizados (pre ou post-animation). Mid-animation screenshots só para Gate 4 (editorial/motion review) ou videos. GSAP escopado em módulo ES não é acessível via `typeof gsap` no page context — usar `forceAnimFinalState` no Playwright.
+**Status:** ✅ Corrigido (2026-03-22).
+
+### ERRO-051 · MEDIUM · gemini-qa3.mjs
+**Gate 0 maxOutputTokens insuficiente + responseMimeType causa truncamento**
+**Root cause:** `maxOutputTokens: 1024` com `responseMimeType: 'application/json'` no Gemini 3.1 Pro causava `finishReason: MAX_TOKENS` com apenas 31-81 tokens. Modelo truncava JSON prematuramente. Mesmo a 2048 tokens continuava truncando.
+**Fix:** `maxOutputTokens: 8192`, `responseMimeType` removido. Parsing robusto: strip markdown fences, handle array responses, finishReason logging.
+**Regra:** Gemini 3.1 Pro com `responseMimeType: 'application/json'` pode truncar prematuramente. Remover e confiar no prompt para formato. `maxOutputTokens` mínimo 8192 para responses JSON estruturados.
+**Status:** ✅ Corrigido (2026-03-22).
+
 ---
 
-*Ultima atualizacao: 2026-03-21 · 49 erros registrados, 47 corrigidos, 1 processo (E42), 1 parcial (E47).*
+*Ultima atualizacao: 2026-03-22 · 51 erros registrados, 49 corrigidos, 1 processo (E42), 1 parcial (E47).*
 
 ---
 
@@ -416,7 +430,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 7     | 6          | 1 (E47 parcial) |
 | HIGH       | 25    | 25         | 0 |
-| MEDIUM     | 13    | 13         | 0 |
+| MEDIUM     | 15    | 15         | 0 |
 | LOW        | 2     | 2          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **49**| **47**     | **2 (E42 processo, E47 parcial)** |
+| **Total**  | **51**| **49**     | **2 (E42 processo, E47 parcial)** |

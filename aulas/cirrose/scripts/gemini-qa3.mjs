@@ -290,7 +290,9 @@ function buildGate0Payload(slideId, qaDir) {
   const parts = [{ text: prompt }];
   const statesReceived = [];
 
-  for (const state of ['S0', 'S1', 'S2']) {
+  // Gate 0 uses S0 + S2. S1 (mid-animation) causes false positives.
+  // Slides with complex animations may only have clean S2 — that's enough.
+  for (const state of ['S0', 'S2']) {
     const pngPath = findStatePng(qaDir, state);
     if (pngPath) {
       const data = readFileSync(pngPath).toString('base64');

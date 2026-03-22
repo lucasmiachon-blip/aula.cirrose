@@ -9,16 +9,16 @@
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
 **Scaling:** ✅ JS `scaleDeck()` confirmado.
 **Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 49 registrados, 47 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
+**ERROR-LOG:** 51 registrados, 49 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
 **Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script — Gemini CLI:** `aulas/cirrose/scripts/gemini-qa3.mjs` (canonico, Gate 0 + Gate 4, REST API). Auto-extrai HTML/JS/CSS. Antigo `scripts/gemini.mjs` arquivado em `scripts/_archive/`.
 **QA Script — Captura:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `aulas/cirrose/scripts/capture-s-hook.mjs` (s-hook) · `aulas/cirrose/scripts/capture-s-a1-01.mjs` (s-a1-01).
 **QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API, ROUND_CONTEXTS). Flags: `--inspect` (Gate 0, default), `--full` (Gate 0 → Gate 4), `--editorial` (Gate 4 only). Plano de absorcao em `_archive/ABSORB-PLAN-gemini-qa3.md`.
-**Gate 0 — Inspetor de Defeitos:** `docs/prompts/gemini-gate0-inspector.md`. 9 checks binários (6 MUST + 3 SHOULD). ~$0.002/slide. MUST FAIL bloqueia Gate 4.
+**Gate 0 — Inspetor de Defeitos:** `docs/prompts/gemini-gate0-inspector.md`. 9 checks binários (6 MUST + 3 SHOULD). ~$0.01/slide. MUST FAIL bloqueia Gate 4. Usa S0+S2 (S1 mid-animation excluído — causa false positives). Capture S0 usa `forceAnimFinalState` para layout limpo.
 **QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`aulas/cirrose/scripts/gemini-qa3.mjs`).
-**Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via SDK `@google/generative-ai`.
+**Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via REST API (fetch). SDK `@google/generative-ai` removido do pipeline ativo.
 **Ultimo merge main:** `99092b7` (2026-03-22) — hardening: reveal.js removido, orphan scripts deletados, audit-trail narrowed, build:metanalise real. Zero Classe C.
 **Evolve 21/mar:** 10 patches aplicados (abf0eb8). -7 node spawns/ciclo. Python removido do allow list. Stale refs corrigidas. new-slide agora tem checklist 9-superficies.
 **Crash 20/mar:** Bun segfault apos 11h uptime. Causa: Playwright sem browser_close() + hooks pesados. Ver ERRO-047. Regras de restart adicionadas em WT-OPERATING.md §9.
@@ -37,7 +37,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
-| 3 | s-a1-01 | DONE | **R11** (20/mar). Ghost Rows (estéticos). ERRO-046 fix: P1 case-panel hide removido (race condition GSAP vs .hidden CSS). Grid clearance 210px para case-panel. |
+| 3 | s-a1-01 | QA | **R11→R12 prep** (22/mar). Gate 0 PASS (9/9 MUST, READABILITY SHOULD warning). Gate 4 R1: score 6.75/10 — 4 propostas (monolito, ghost rows alto contraste, matar scanner, alinhamento métricas). Fixes: clipping métricas, source-tag contraste/wrap, capture S0 forced-final. Aguarda decisão Lucas sobre propostas Gemini. |
 | 4 | s-a1-classify | QA | **R10** (21/mar). Gemini 7.1/10. 10 rodadas. MorphSVG+DrawSVG+ScrambleText. Blur sutil + sidebar verde + inset cards (user-locked). Próximo: QA.4 reeval ou avançar. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |

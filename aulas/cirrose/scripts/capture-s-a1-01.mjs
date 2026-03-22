@@ -46,6 +46,57 @@ const VIEWPORTS = [
   { width: 1920, height: 1080, label: '1920x1080' },
 ];
 
+async function forceAllVisible(page) {
+  // Force ALL elements visible at rest — no blur, no clip, no animation artifacts.
+  // Used for S0 so Gate 0 can inspect layout without animation interference.
+  await page.evaluate((slideId) => {
+    const section = document.querySelector(`#${slideId}`);
+    if (!section) return;
+
+    // Kill all active GSAP tweens on this slide
+    if (typeof gsap !== 'undefined') {
+      gsap.killTweensOf(section.querySelectorAll('*'));
+    }
+
+    // Hero number at "0" (initial display value)
+    const heroNum = section.querySelector('.screening-hero-number');
+    if (heroNum) heroNum.textContent = '0';
+
+    // Force all opacity:0 elements visible and de-animated
+    section.querySelectorAll('[style*="opacity"]').forEach(el => {
+      el.style.opacity = '1';
+    });
+    section.querySelectorAll('.screening-metrics, .guideline-rec, .source-tag').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.visibility = 'visible';
+    });
+
+    // Clear blur/clipPath from metric labels + values
+    section.querySelectorAll('.screening-metric-value, .screening-metric-label').forEach(el => {
+      el.style.opacity = '1';
+      el.style.filter = 'none';
+      el.style.clipPath = 'none';
+      el.style.webkitClipPath = 'none';
+    });
+
+    // SplitText chars visible
+    section.querySelectorAll('.slide-headline div, .slide-headline span').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+
+    // Ghost rows visible at rest (no matched/dimmed)
+    section.querySelectorAll('.stack-row').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    section.querySelectorAll('.status-dot').forEach(el => {
+      el.style.opacity = '1';
+    });
+  }, SLIDE_ID);
+}
+
 async function forceAnimFinalState(page) {
   await page.evaluate((slideId) => {
     const section = document.querySelector(`#${slideId}`);
@@ -144,20 +195,30 @@ async function captureAtViewport(browser, vp) {
     return null;
   }
 
-  // S0: initial state — capture before animations advance
+  // S0: baseline layout — use forceAnimFinalState for clean defect-free capture
   await page.waitForTimeout(150);
+  await forceAnimFinalState(page);
+  await page.waitForTimeout(300);
   const s0Path = join(OUT_DIR, `S0-${vp.label}.png`);
   await page.screenshot({ path: s0Path, type: 'png' });
-  console.log(`  S0 captured (initial state)`);
+  console.log(`  S0 captured (baseline — forced final state)`);
+
+  // Reload page for clean S1 capture (S0 killed GSAP tweens)
+  await page.goto(PAGE_URL, { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => {
+    return document.querySelector('#slide-viewport > section.slide-active') !== null;
+  }, { timeout: 10000 });
+  await page.waitForTimeout(2000);
+  await navigateToSlide(page);
 
   // S1: mid-animation (~1s into countUp)
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(950);
   const s1Path = join(OUT_DIR, `S1-mid-${vp.label}.png`);
   await page.screenshot({ path: s1Path, type: 'png' });
   console.log(`  S1 captured (mid countUp)`);
 
   // Wait for full animation to complete
-  await page.waitForTimeout(ANIM_SETTLE_MS - 800 - 150);
+  await page.waitForTimeout(ANIM_SETTLE_MS);
 
   // Force final state
   await forceAnimFinalState(page);

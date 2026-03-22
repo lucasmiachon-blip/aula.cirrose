@@ -4,6 +4,29 @@
 
 ---
 
+## 2026-03-22 — s-a1-01 Gate 0 fix + Gate 4 R1 + pipeline hardening (sessao 17)
+
+- **Gate 0 pipeline end-to-end:** Testado em s-a1-01. 9 iterações até PASS (6 MUST + 3 SHOULD). Custo ~$0.01/slide.
+- **CSS fixes (cirrose.css — seção s-a1-01):**
+  - Hero-label margin reduzida (space-2xl → 14px) — resolvia clipping das métricas
+  - Métricas: `margin-top: auto` → `var(--space-md)` (flow-based, evita empurrar ao fundo do container)
+  - Metric labels: `white-space: nowrap` → `normal`, font-size 13-15px → 10-12px, letter-spacing 0.05→0.02em
+  - Hero-block: justify-content center→flex-start, padding 36/48/40 → 28/48/56
+  - Hero-label font-size clamp 18-22px → 16-20px
+  - Source-tag: contraste oklch(60%) → oklch(42%), white-space nowrap → normal, right clearance 210px
+- **Capture script (capture-s-a1-01.mjs):**
+  - S0 agora usa `forceAnimFinalState` (layout limpo, sem artefatos de animação)
+  - Adicionado `forceAllVisible()` (não usado no fluxo final mas disponível)
+  - S1 reload de página para captura mid-animation limpa após GSAP kill
+- **gemini-qa3.mjs:**
+  - Gate 0 payload: S0+S2 only (S1 mid-animation excluído — causava false positives INVISIBLE/ANIMATION_STATE)
+  - maxOutputTokens 1024→8192, responseMimeType removido, finishReason logging, array/fence handling
+- **Gate 4 R1:** Score 6.75/10. 4 propostas Gemini: (1) retorno monolito bg-elevated, (2) ghost rows dimmed 0.35→0.55, (3) matar scanner laser, (4) alinhamento métricas editorial. Salvo em `qa-screenshots/s-a1-01/gemini-qa3-r1.md`.
+- **Infra limpa:** qa-static.js deletado, gemini.mjs arquivado, CSS 3-layer extraction (base+archetype+slide).
+- **Build:** PASS (44 slides). **Lint:** PASS.
+
+---
+
 ## 2026-03-21 — s-a1-classify QA visual R3-R10 (sessao 16)
 
 - **Slide:** s-a1-classify (LINT-PASS → QA). 10 rodadas Gemini 3.1 Pro. Score: 5.6 (R3-R5, pipeline incompleto) → 7.2 (R6) → 6.5-7.1 (R7-R10, iterações finas).

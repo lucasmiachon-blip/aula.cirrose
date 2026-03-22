@@ -184,7 +184,7 @@ Obs: (1) Fill 0% no beat 0 e intencional para hook — GSAP progressive reveal. 
 | P   | 8    | Relevancia do screening explicita. Pathway acionavel. Caso ancora |
 | N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md |
 
-Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) ~~Fill 52%~~ Corrigido 15/mar: padding reduzido (24/48), hero number ampliado (clamp 64-96px), pathway steps com padding maior. Fill ~65%. (3) Word count inclui source-tag opacity:0; body visivel e menor mas ainda >30 palavras. (4) 3 PMIDs Tier-1 = forte em D.
+Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) ~~Fill 52%~~ Corrigido 15/mar: padding reduzido (24/48), hero number ampliado (clamp 64-96px), pathway steps com padding maior. Fill ~65%. (3) Word count inclui source-tag opacity:0; body visivel e menor mas ainda >30 palavras. (4) 3 PMIDs Tier-1 = forte em D. (5) **22/mar:** Gate 0 PASS (9/9 MUST). Fixes: metric label clipping (white-space normal, font-size reduced), source-tag contraste bumped (oklch 60→42%), hero-label margin tightened. Gate 4 R1 score 6.75/10 — propostas pendentes (monolito bg, ghost rows contraste, matar scanner).
 
 ### s-a1-classify (02c-a1-classify.html)
 
