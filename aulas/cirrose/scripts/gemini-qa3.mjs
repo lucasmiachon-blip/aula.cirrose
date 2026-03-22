@@ -634,7 +634,7 @@ Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
 
   return {
     contents: [{ parts }],
-    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 16384 },
+    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 4096 },
   };
 }
 
@@ -655,17 +655,19 @@ async function runEditorial(slideId, round, qaDir) {
   // Step 1: Upload media
   console.log('1. Uploading media...');
   const videoPath = join(qaDir, 'animation-1280x720.webm');
-  const s0Path = join(qaDir, 'S0-1280x720.png');
-  const s1Path = join(qaDir, 'S1-mid-1280x720.png');
-  const s2Path = join(qaDir, 'S2-final-1280x720.png');
+
+  // Reuse findStatePng fallback logic (S0-1280x720.png → S0.png etc.)
+  const s0Path = findStatePng(qaDir, 'S0');
+  const s1Path = findStatePng(qaDir, 'S1');
+  const s2Path = findStatePng(qaDir, 'S2');
 
   // Skip video on R1 unless --with-video (saves ~2K tokens + upload time)
   const skipVideo = round <= 1 && !FORCE_VIDEO;
   if (skipVideo) console.log('  Video skipped (R1 — use --with-video to override)');
   const video = skipVideo ? null : await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
-  const s0 = await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`);
-  const s1 = await uploadFile(s1Path, 'image/png', `${slideId}-S1-mid`);
-  const s2 = await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`);
+  const s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
+  const s1 = s1Path ? await uploadFile(s1Path, 'image/png', `${slideId}-S1-mid`) : null;
+  const s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
 
   // Wait for video processing
   if (video?.state === 'PROCESSING') {
@@ -732,7 +734,7 @@ async function runEditorial(slideId, round, qaDir) {
 
   // Auto-append round summary to qa-rounds file
   console.log('\n4. Appending round summary...');
-  const scoreMatch = text.match(/\*\*MEDIA\*\*\s*\|\s*([\d.]+)/);
+  const scoreMatch = text.match(/\*\*M[EÉ]DIA\*\*\s*\|\s*\*?\*?([\d.]+)/i);
   const score = scoreMatch ? scoreMatch[1] + '/10' : '?/10';
   const proposalMatches = [...text.matchAll(/###\s*Proposta\s*\d+[:\s]*([^\n]+)/gi)];
   const proposals = proposalMatches.length > 0
