@@ -37,7 +37,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
-| 3 | s-a1-01 | QA | **R11→R12 prep** (22/mar). Gate 0 PASS (9/9 MUST, READABILITY SHOULD warning). Gate 4 R1: score 6.75/10 — 4 propostas (monolito, ghost rows alto contraste, matar scanner, alinhamento métricas). Fixes: clipping métricas, source-tag contraste/wrap, capture S0 forced-final. Aguarda decisão Lucas sobre propostas Gemini. |
+| 3 | s-a1-01 | DONE | **R12** (22/mar). Gate 0 PASS. Gate 4 R2: 6.7/10. P3 (dimmed 0.65/grayscale 40%) + P4 (dots ui-accent) aplicados. P2 monolito vetado 2x. Source-tag revert 13→11px. Fechado por validação visual Lucas. |
 | 4 | s-a1-classify | QA | **R10** (21/mar). Gemini 7.1/10. 10 rodadas. vw→px fix aplicado (ERRO-052). Gate 0 PASS. Próximo: pipeline completo (Gate 0 → Gate 4 Gemini) com eval tokens + animações. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
@@ -99,8 +99,8 @@
 
 | Estado | Qtd | Slides |
 |--------|-----|--------|
-| DONE | 2 | s-title, s-hook |
-| QA | 2 | s-a1-01 (Gate 0 PASS, Gate 4 R1 pendente), s-a1-classify (Gate 0 PASS, pipeline completo pendente) |
+| DONE | 3 | s-title, s-hook, s-a1-01 |
+| QA | 1 | s-a1-classify (Gate 0 PASS, pipeline completo pendente) |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
 
@@ -295,15 +295,19 @@ Sessao de suporte (0 slides avancados).
 **Nenhum erro novo.**
 
 ### Pipeline geral
-- s-title: DONE, s-hook: DONE
-- s-a1-01: QA (Gate 0 PASS, Gate 4 R1: 6.75/10 — 4 propostas Gemini pendentes)
+- s-title: DONE, s-hook: DONE, s-a1-01: DONE
 - s-a1-classify: QA (Gate 0 PASS, R10: 7.1/10 — Gate 4 nao executado)
 - 40 slides: CONTENT
 
 ### Proximo (decisoes pendentes)
-- s-a1-01: Lucas decide sobre 4 propostas Gemini (monolito, ghost rows, scanner, metricas)
 - s-a1-classify: Gate 4 Gemini ou aceitar R10 como baseline
-- Apos fechar ambos QA: s-a1-vote (CONTENT → QA pipeline 5-stage)
+- Apos fechar s-a1-classify QA: s-a1-vote (CONTENT → QA pipeline 5-stage)
+
+---
+
+### Sessao 20 (2026-03-22) — s-a1-01 DONE (R12)
+
+s-a1-01 fechado. Gate 4 R1 (6.75) + R2 (6.7): P3 dimmed 0.55→0.65 + grayscale 80%→40%, P4 dots oklch→ui-accent. P2 monolito vetado 2x. Source-tag regressao global (13px→11px) revertida. ROUND_CONTEXTS atualizado com historico R12+R2.
 
 ---
 
