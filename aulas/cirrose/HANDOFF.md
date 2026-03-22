@@ -14,7 +14,7 @@
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script — Gemini CLI:** `aulas/cirrose/scripts/gemini-qa3.mjs` (canonico, Gate 0 + Gate 4, REST API). Auto-extrai HTML/JS/CSS. Antigo `scripts/gemini.mjs` arquivado em `scripts/_archive/`.
 **QA Script — Captura:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `aulas/cirrose/scripts/capture-s-hook.mjs` (s-hook) · `aulas/cirrose/scripts/capture-s-a1-01.mjs` (s-a1-01).
-**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API, ROUND_CONTEXTS). Flags: `--inspect` (Gate 0, default), `--full` (Gate 0 → Gate 4), `--editorial` (Gate 4 only). Plano de absorcao em `../../_archive/ABSORB-PLAN-gemini-qa3.md`.
+**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API). Flags: `--inspect` (Gate 0, default), `--full` (Gate 0 → Gate 4), `--editorial` (Gate 4 only), `--with-video` (força video em R1). ROUND_CONTEXTS externalizado em `qa-rounds/{slide}.md` (append automático). Error digest injetado via `<guardrails>`. Output 5 passos, max 6144 tokens. Video skip R1 (enviar R2+). Template morto arquivado em `docs/prompts/_archive/`.
 **Gate 0 — Inspetor de Defeitos:** `docs/prompts/gemini-gate0-inspector.md`. 9 checks binários (6 MUST + 3 SHOULD). ~$0.01/slide. MUST FAIL bloqueia Gate 4. Usa S0+S2 (S1 mid-animation excluído — causa false positives). Capture S0 usa `forceAnimFinalState` para layout limpo.
 **QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`aulas/cirrose/scripts/gemini-qa3.mjs`).
@@ -38,7 +38,7 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
 | 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
 | 3 | s-a1-01 | DONE | **R12** (22/mar). Gate 0 PASS. Gate 4 R2: 6.7/10. P3 (dimmed 0.65/grayscale 40%) + P4 (dots ui-accent) aplicados. P2 monolito vetado 2x. Source-tag revert 13→11px. Fechado por validação visual Lucas. |
-| 4 | s-a1-classify | QA | **R10** (21/mar). Gemini 7.1/10. 10 rodadas. vw→px fix aplicado (ERRO-052). Gate 0 PASS. Próximo: pipeline completo (Gate 0 → Gate 4 Gemini) com eval tokens + animações. |
+| 4 | s-a1-classify | QA | **Gate 4 R1** (22/mar). Score 4.8/10, 4 propostas. P2 parcial aplicado (blur→grayscale, PREDESCI sidebar→badge, HR 77→86px). Source-tag overflow:hidden removido (Fix B). **Pendente:** conteúdo excede 720px (source-tag fora viewport), 4 propostas Gemini aguardam decisão, Gate 4 R2. qa-rounds/s-a1-classify.md. |
 | 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
 | 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
 | 7 | s-a1-baveno | CONTENT | Hero-stat. Conteudo completo, PMIDs em notes. |
@@ -100,7 +100,7 @@
 | Estado | Qtd | Slides |
 |--------|-----|--------|
 | DONE | 3 | s-title, s-hook, s-a1-01 |
-| QA | 1 | s-a1-classify (Gate 0 PASS, pipeline completo pendente) |
+| QA | 1 | s-a1-classify (Gate 4 R1: 4.8/10, P2 parcial aplicado, source-tag fix parcial) |
 | CONTENT | 40 | Todos os demais |
 | DRAFT | 0 | — |
 
@@ -157,13 +157,17 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 
 ### P0 Próxima sessão (23/mar)
 
-Pipeline completo slide-a-slide em s-a1-classify:
-1. Gate 0 (PASS — já feito)
-2. Gate 4 Gemini (enviar para Gemini 3.1 Pro: raw code + 4 PNGs + video .mp4)
-3. Avaliar eficiência de tokens no payload Gemini (custo por slide)
-4. Avaliar animações (MorphSVG+DrawSVG+ScrambleText) — motion QA
-5. Aplicar propostas Gemini aprovadas pelo Lucas
-6. Repetir em s-a1-01 (Gate 4 R1 pendente — 4 propostas aguardam decisão)
+s-a1-classify — Fix B completo + propostas Gemini:
+1. Fix source-tag: conteúdo excede 720px. Opções: comprimir gaps/paddings, source-tag absolute, reduzir HR hero, ou combo
+2. Decidir 4 propostas Gemini R1 (P1 Bloomberg Grid, P2 Redesign PREDESCI [parcial aplicado], P3 DrawSVG, P4 HR hero-stat). Propostas em `qa-rounds/s-a1-classify.md`
+3. Gate 4 R2 após fixes
+4. Próximo slide: s-a1-vote ou s-a1-damico
+
+**Pipeline QA otimizado (sessão 22/mar):**
+- 5 OPTs implementadas, 3 bugs smoke test corrigidos
+- ROUND_CONTEXTS externalizado, error digest injetado, output comprimido
+- Custo: ~$0.058/chamada Gate 4, ~$0.014/chamada Gate 0
+- Estimativa 40 slides restantes: ~$6-9 (2-3 rounds média)
 
 **ERRO-052 fix sistêmico:** vw→px em 36 clamp(). Todos slides afetados. Verificar visualmente nos próximos QA.
 
