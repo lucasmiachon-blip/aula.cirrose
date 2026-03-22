@@ -576,27 +576,24 @@ ${mediaUris.s2 ? '4. PNG S2 — estado final (todos elementos visiveis, Ghost Ro
 
 5 passos NA ORDEM. Nao pule.
 
-### Passo 1 — OLHAR + OBSERVAR
-Olhe video (se houver), depois PNGs, depois codigo. Escreva \`## Observacao\`:
-- Composicao, hierarquia, ritmo, peso visual, fluxo do olhar
-- O que funciona (MECANISMO, nao opiniao)
-- O que incomoda (MECANISMO)
-- Motion: o que comunica emocionalmente
+### Passo 1 — OLHAR + OBSERVAR (max 150 palavras, seja cirurgico)
+Video (se houver) → PNGs → codigo. Escreva \`## Observacao\`:
+- O que funciona (MECANISMO) e o que incomoda (MECANISMO)
 - "Se eu so pudesse mudar UMA coisa?"
 
 ### Passo 2 — SCORECARD (7 dimensoes, notas 1-10)
-| Dimensao | Nota | Justificativa (1 frase) |
-|----------|------|-------------------------|
-| Tipografia e hierarquia | ?/10 | |
-| Cor, contraste e superficie | ?/10 | |
-| Composicao e respiro | ?/10 | |
-| Motion e interacoes GSAP | ?/10 | |
-| Legibilidade a 5m | ?/10 | |
-| Impacto emocional | ?/10 | |
-| Craft front-end | ?/10 | |
-| **MEDIA** | ?/10 | |
+| Dimensao | Nota |
+|----------|------|
+| Tipografia e hierarquia | ?/10 |
+| Cor, contraste e superficie | ?/10 |
+| Composicao e respiro | ?/10 |
+| Motion e interacoes GSAP | ?/10 |
+| Legibilidade a 5m | ?/10 |
+| Impacto emocional | ?/10 |
+| Craft front-end | ?/10 |
+| **MEDIA** | ?/10 |
 
-Pontuacao: <=3 problematico, 4-5 funcional sem craft, 6-7 competente, 8 editorial, 9-10 keynote-grade.
+Justificar APENAS scores <=5. Scores >=6 nao precisam de justificativa.
 
 ### Passo 3 — PROPOSTAS (3-5 max)
 Para cada proposta:
@@ -634,7 +631,7 @@ Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
 
   return {
     contents: [{ parts }],
-    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 4096 },
+    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 6144 },
   };
 }
 
