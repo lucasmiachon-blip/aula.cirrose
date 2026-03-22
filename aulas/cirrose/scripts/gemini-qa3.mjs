@@ -416,7 +416,18 @@ SCORES historico: R0(5.1) → R4(6.0) → R8(6.65) → R10(6.65) → R10 projeto
 Objetivo: 8+. Se < 7, algo regrediu.
 
 NOTA: usuario reportou que "perdemos o bloco lateral de ter ficado bem melhor". Avaliar se Ghost Rows regrediram vs pills.
-Manter: Grid 6fr:4fr, Bloomberg hero (Instrument Serif 140-220px, appleHero/snapOut eases), reactive metrics on countUp >= 70, SplitText headline.`,
+Manter: Grid 6fr:4fr, Bloomberg hero (Instrument Serif 140-220px, appleHero/snapOut eases), reactive metrics on countUp >= 70, SplitText headline.
+
+R12 (22/mar): Source-tag revertido 13px→11px (regressao de wrapping). Ghost Rows HC aplicados (matched=safe-light+halo, dimmed=0.55+grayscale80%). Border editorial 2px. Scanner CSS removido. Sequential eval dots (JS).
+
+R2 Gate 4 (22/mar): Score 6.7/10. Decisoes:
+- P1 padding fantasma 210px: REJEITADO (case panel visivel, padding necessario).
+- P2 monolito/bloco: VETADO pelo Lucas (2x, R1+R2). NAO repropar.
+- P3 dimmed visibility: APROVADO adaptado — opacity 0.55→0.65, grayscale 80%→40%.
+- P4 dots color: APROVADO — oklch(60% 0 0) → var(--ui-accent) (azul=analisando, verde=confirmado).
+- Radical clipPath: REJEITADO.
+
+SCORES historico: R0(5.1) → R4(6.0) → R8(6.65) → R10(6.65) → R11(6.75) → R2-Gate4(6.7).`,
 };
 
 // --- File upload ---

@@ -1168,8 +1168,8 @@ section#s-a1-01 .slide-inner {
 
 /* Ghost Row: dimmed state — projector-safe (0.55 + grayscale) */
 #s-a1-01 .stack-row.dimmed {
-  opacity: 0.55;
-  filter: grayscale(80%);
+  opacity: 0.65;
+  filter: grayscale(40%);
   transform: scale(0.98);
 }
 

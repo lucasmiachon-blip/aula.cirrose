@@ -144,7 +144,7 @@ export const customAnimations = {
       // Flash de processamento — simula checklist diagnostica
       tl.to(dots, {
         scale: 1.4,
-        backgroundColor: 'oklch(60% 0 0)',
+        backgroundColor: 'var(--ui-accent)',
         duration: 0.15,
         stagger: 0.1,
         yoyo: true,
