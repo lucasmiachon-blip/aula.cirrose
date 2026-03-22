@@ -14,7 +14,7 @@
 **QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
 **QA Script — Gemini CLI:** `aulas/cirrose/scripts/gemini-qa3.mjs` (canonico, Gate 0 + Gate 4, REST API). Auto-extrai HTML/JS/CSS. Antigo `scripts/gemini.mjs` arquivado em `scripts/_archive/`.
 **QA Script — Captura:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `aulas/cirrose/scripts/capture-s-hook.mjs` (s-hook) · `aulas/cirrose/scripts/capture-s-a1-01.mjs` (s-a1-01).
-**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API, ROUND_CONTEXTS). Flags: `--inspect` (Gate 0, default), `--full` (Gate 0 → Gate 4), `--editorial` (Gate 4 only). Plano de absorcao em `_archive/ABSORB-PLAN-gemini-qa3.md`.
+**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API, ROUND_CONTEXTS). Flags: `--inspect` (Gate 0, default), `--full` (Gate 0 → Gate 4), `--editorial` (Gate 4 only). Plano de absorcao em `../../_archive/ABSORB-PLAN-gemini-qa3.md`.
 **Gate 0 — Inspetor de Defeitos:** `docs/prompts/gemini-gate0-inspector.md`. 9 checks binários (6 MUST + 3 SHOULD). ~$0.01/slide. MUST FAIL bloqueia Gate 4. Usa S0+S2 (S1 mid-animation excluído — causa false positives). Capture S0 usa `forceAnimFinalState` para layout limpo.
 **QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`aulas/cirrose/scripts/gemini-qa3.mjs`).
@@ -279,35 +279,40 @@ Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adi
 
 ---
 
-## Onde paramos (2026-03-21, sessao 16)
+## Onde paramos (2026-03-22, sessao 19)
 
-### Sessao 16 — s-a1-classify QA visual R3-R10 (10 rodadas Gemini)
+### Sessao 19 — Repo map + janitor + housekeeping
 
-Sessao de produto. 1 slide avancado (LINT-PASS → QA).
+Sessao de suporte (0 slides avancados).
 
 **Acoes executadas:**
-1. Pipeline Gemini corrigido: 4 PNGs (S0-S3) + video .mp4 por rodada (ERRO-048)
-2. 10 rodadas Gemini 3.1 Pro (R3-R10). Score: 5.6→7.2→6.9→6.8→6.5→7.1
-3. HTML: SVG 2-path para MorphSVG (danger ✕→L-arrow), DrawSVG arrow, badge "MORTALIDADE DOBRA", PREDESCI reestruturado
-4. CSS: cards inset box-shadow + border-radius, further-decomp grid alinhado, PREDESCI sidebar verde, badge glow, failsafes .no-js/.stage-bad
-5. JS: MorphSVGPlugin importado, state 0 (3D landing), state 1 (morph+draw+scramble+badge), state 2 (blur sutil+PREDESCI expo.out), retreats implementados
-6. ERRO-049: Gemini removeu sidebar verde + card style aprovados pelo usuário. Revertido + `--round` context com decisões travadas.
-7. Erros registrados: ERRO-048, ERRO-049
+1. Arvore completa do repositorio gerada (746 arquivos mapeados)
+2. Repo-janitor audit: 0 orphan HTMLs, 0 broken MD links, 1 dangling ref corrigida
+3. Limpeza local: 80 arquivos `.playwright-mcp/` (32 logs + 48 PNGs) + 2 orphan PNGs na raiz
+4. Dangling ref `_archive/ABSORB-PLAN-gemini-qa3.md` corrigida (path relativo errado)
+5. Documentacao atualizada (HANDOFF, CHANGELOG)
 
-**Decisões do usuário (travadas):**
-- Blur: "sutil" (opacity 0.5 + blur 2px) — Gemini propôs remover, REJEITADO
-- Sidebar verde PREDESCI: MANTER — Gemini propôs remover, REJEITADO
-- Cards: inset box-shadow com border-radius — Gemini propôs pseudo-element bar, REJEITADO
-- MorphSVG ✕→arrow: APROVADO pelo usuário ("vamos tentar todas")
+**Nenhum erro novo.**
 
 ### Pipeline geral
-- s-title: DONE, s-hook: DONE, s-a1-01: DONE
-- s-a1-classify: QA (R10, Gemini 7.1/10) — decisão: parar iteração, avançar
+- s-title: DONE, s-hook: DONE
+- s-a1-01: QA (Gate 0 PASS, Gate 4 R1: 6.75/10 — 4 propostas Gemini pendentes)
+- s-a1-classify: QA (Gate 0 PASS, R10: 7.1/10 — Gate 4 nao executado)
 - 40 slides: CONTENT
 
-### Próximo slide: s-a1-vote (ou continuar s-a1-classify QA.4 reeval)
-- s-a1-classify pendente: QA.4 (reeval final) ou aceitar R10 como baseline e avançar
-- s-a1-vote: CONTENT → iniciar QA pipeline 5-stage
+### Proximo (decisoes pendentes)
+- s-a1-01: Lucas decide sobre 4 propostas Gemini (monolito, ghost rows, scanner, metricas)
+- s-a1-classify: Gate 4 Gemini ou aceitar R10 como baseline
+- Apos fechar ambos QA: s-a1-vote (CONTENT → QA pipeline 5-stage)
+
+---
+
+### Sessao 16 (2026-03-21) — s-a1-classify QA visual R3-R10
+
+Sessao de produto. 1 slide avancado (LINT-PASS → QA).
+10 rodadas Gemini 3.1 Pro. Score final: 7.1/10.
+Decisoes travadas: blur sutil MANTER, sidebar verde MANTER, cards inset MANTER, MorphSVG APROVADO.
+Erros: ERRO-048, ERRO-049.
 
 ---
 

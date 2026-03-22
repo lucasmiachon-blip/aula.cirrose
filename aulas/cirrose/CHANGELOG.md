@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-03-22 — Repo map + janitor housekeeping (sessao 19)
+
+- **Repo tree:** Arvore completa mapeada (746 arquivos). Estrutura documentada no plan file.
+- **Janitor audit:** 44/44 slides no manifest, 0 orphans HTML, 0 broken MD links. 3 CSS WARNs (dead selectors: `.etiology-table`, `.framework-box`, `.predict-bars` — backlog).
+- **Limpeza local:** 80 arquivos `.playwright-mcp/` deletados (32 console logs + 48 frame PNGs). 2 orphan PNGs raiz deletados (`check-current-slide.png`, `s-a1-classify-1280x720-post-fix.png`). Nao tracked — zero impacto git.
+- **Dangling ref fix:** `_archive/ABSORB-PLAN-gemini-qa3.md` path corrigido em HANDOFF.md (arquivo existe na raiz, ref apontava para `aulas/cirrose/_archive/`).
+- **Sessao suporte:** 0 slides avancados. Decisoes QA pendentes para s-a1-01 e s-a1-classify.
+
+---
+
 ## 2026-03-22 — fix sistêmico vw→px + s-a1-classify pipeline prep (sessao 18)
 
 - **ERRO-052 — vw em clamp() causa overflow com scaleDeck():**
