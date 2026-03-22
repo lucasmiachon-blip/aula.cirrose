@@ -1022,7 +1022,7 @@ section#s-a1-01 .slide-inner {
   align-items: flex-start;
   justify-content: center;
   text-align: left;
-  padding: 36px 48px 40px;
+  padding: 36px 48px 60px; /* 60px bottom clearance for source-tag */
 }
 
 #s-a1-01 .slide-headline {
@@ -1060,7 +1060,7 @@ section#s-a1-01 .slide-inner {
   letter-spacing: -0.01em;
   line-height: 1.15;
   color: oklch(30% 0 0);
-  margin: calc(var(--space-sm) - 10px) 0 var(--space-2xl);
+  margin: var(--space-md) 0 0;
 }
 
 /* P3: Secondary metrics — larger, bolder, baseline gravity */
@@ -1069,8 +1069,8 @@ section#s-a1-01 .slide-inner {
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
   border-top: 1px solid oklch(0% 0 0 / 0.08);
-  padding-top: var(--space-md);
-  margin-top: auto;
+  padding-top: var(--space-sm);
+  margin-top: var(--space-lg);
 }
 #s-a1-01 .screening-metric-value {
   font-family: var(--font-mono);
@@ -1083,10 +1083,10 @@ section#s-a1-01 .slide-inner {
 #s-a1-01 .screening-metric-label {
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: clamp(13px, 1vw, 15px);
+  font-size: clamp(11px, 0.85vw, 13px);
   font-weight: 600;
   color: oklch(45% 0 0);
-  white-space: nowrap;
+  white-space: normal;
   margin-top: 4px;
 }
 
@@ -1193,15 +1193,15 @@ section#s-a1-01 .slide-inner {
 /* P5: Source-tag — full width, JetBrains Mono, clean baseline */
 #s-a1-01 .source-tag {
   position: absolute;
-  bottom: 16px;
+  bottom: 12px;
   left: 48px;
-  right: 48px;
+  right: 210px; /* case-panel clearance */
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: oklch(60% 0 0);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: clamp(11px, 0.65vw, 13px);
+  color: oklch(42% 0.01 258);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
   text-align: left;
   margin: 0;
 }
