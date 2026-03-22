@@ -308,7 +308,7 @@ function buildGate0Payload(slideId, qaDir) {
   return {
     payload: {
       contents: [{ parts }],
-      generationConfig: { temperature: 0.1, topP: 0.9, maxOutputTokens: 1024, responseMimeType: 'application/json' },
+      generationConfig: { temperature: 0.1, topP: 0.9, maxOutputTokens: 8192 },
     },
     statesReceived,
   };
@@ -340,19 +340,30 @@ async function runGate0(slideId, qaDir) {
 
   const result = await res.json();
   const usage = result.usageMetadata || {};
+  const finishReason = result.candidates?.[0]?.finishReason || 'UNKNOWN';
   const totalCost = ((usage.promptTokenCount || 0) / 1_000_000 * 2.0) + ((usage.candidatesTokenCount || 0) / 1_000_000 * 12.0);
   console.log(`  Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(4)}`);
+  console.log(`  Finish reason: ${finishReason}`);
+
+  if (finishReason !== 'STOP') {
+    console.error(`  WARNING: Response did not finish normally (${finishReason}). Output may be truncated.`);
+  }
 
   // Parse JSON response
-  const rawText = result.candidates?.[0]?.content?.parts
+  let rawText = result.candidates?.[0]?.content?.parts
     ?.map(p => p.text).filter(Boolean).join('') || '{}';
+
+  // Strip markdown fences if model wrapped response
+  rawText = rawText.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
 
   let gate0Result;
   try {
-    gate0Result = JSON.parse(rawText);
+    let parsed = JSON.parse(rawText);
+    // Handle array response (take first element)
+    if (Array.isArray(parsed)) parsed = parsed[0];
+    gate0Result = parsed;
   } catch (e) {
-    console.error('Failed to parse Gate 0 JSON response:', rawText.slice(0, 300));
-    // Save raw response for debugging
+    console.error('Failed to parse Gate 0 JSON response:', rawText.slice(0, 500));
     mkdirSync(qaDir, { recursive: true });
     writeFileSync(join(qaDir, 'gate0-raw.txt'), rawText);
     process.exit(1);

@@ -396,3 +396,7 @@ ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory 
 [2026-03-21 17:58] [unknown:a9a1d9de] — concluído. Status: PARTIAL
 
 [2026-03-21 18:29] [unknown:a5c1d36e] — concluído. Status: PASS
+
+[2026-03-21 20:21] [unknown:aa4b9a16] — concluído. Status: PARTIAL
+
+[2026-03-21 21:18] [unknown:ade3d0b2] — concluído. Status: PASS
