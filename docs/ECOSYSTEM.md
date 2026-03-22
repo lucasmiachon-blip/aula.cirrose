@@ -60,7 +60,7 @@
 | **Zotero** | Referências | Sim | ✅ MCP |
 | **Canva Pro** | Assets visuais | — | Manual |
 | **Excalidraw** | Diagramas · storyboards | Sim (claude.ai nativo) | ✅ MCP |
-| **Gemini 3.1 Pro** | CSS/GSAP debug · visual QA · auditoria via CLI headless | CLI (scripts/gemini.mjs) — cloud MCP desativado para auditoria | ✅ Ativo |
+| **Gemini 3.1 Pro** | CSS/GSAP debug · visual QA · auditoria via CLI headless | CLI (aulas/cirrose/scripts/gemini-qa3.mjs) — Gate 0 + Gate 4 | ✅ Ativo |
 
 ---
 

@@ -6,7 +6,8 @@
  * Usage:
  *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --inspect        # Gate 0 only (default)
  *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --full --round 5 # Gate 0 → Gate 4
- *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --editorial --round 5  # Gate 4 only (legacy)
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --editorial --round 5  # Gate 4 only
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --full --temp 0.8 --output custom.json --context "..."
  *
  * Requires: GEMINI_API_KEY env var
  */
@@ -33,6 +34,9 @@ function getArg(name, fallback) {
 const SLIDE_ID = getArg('slide', 's-a1-01');
 const ROUND = parseInt(getArg('round', '11'), 10);
 const QA_DIR = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);
+const CUSTOM_OUTPUT = getArg('output', null);
+const CUSTOM_TEMP = getArg('temp', null);
+const CONTEXT_PARAGRAPH = getArg('context', '');
 
 // --- Mode flags ---
 function hasFlag(name) { return args.includes(`--${name}`); }
@@ -152,22 +156,52 @@ function extractNotes(html) {
   return match ? match[1].trim() : '(no notes)';
 }
 
-// --- Slide metadata from manifest ---
+// --- Slide metadata from manifest (absorbed from gemini.mjs) ---
 function getSlideMetadata(slideId) {
   const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
-  const manifest = readFileSync(manifestPath, 'utf8');
+  const text = readFileSync(manifestPath, 'utf8');
 
-  // Parse slides array entries
-  const idRegex = /\{\s*id:\s*['"]([^'"]+)['"]/g;
-  const ids = [];
-  let m;
-  while ((m = idRegex.exec(manifest)) !== null) ids.push(m[1]);
+  const slides = [];
+  for (const line of text.split('\n')) {
+    const idMatch = line.match(/id:\s*'([^']+)'/);
+    if (!idMatch) continue;
 
-  const pos = ids.indexOf(slideId);
-  const prev = pos > 0 ? ids[pos - 1] : '(first)';
-  const next = pos < ids.length - 1 ? ids[pos + 1] : '(last)';
+    const get = (key) => {
+      const m = line.match(new RegExp(`${key}:\\s*'([^']*(?:\\\\'[^']*)*)'`));
+      return m ? m[1].replace(/\\'/g, "'") : '';
+    };
+    const getNum = (key) => {
+      const m = line.match(new RegExp(`${key}:\\s*(\\d+)`));
+      return m ? parseInt(m[1]) : 0;
+    };
 
-  return { pos: `${pos + 1}/${ids.length}`, prev, next };
+    slides.push({
+      id: idMatch[1],
+      file: get('file'),
+      headline: get('headline'),
+      archetype: get('archetype'),
+      narrativeRole: get('narrativeRole') || 'null',
+      tensionLevel: getNum('tensionLevel'),
+      clickReveals: getNum('clickReveals'),
+    });
+  }
+
+  const idx = slides.findIndex(s => s.id === slideId);
+  if (idx === -1) return { pos: '?/?', prev: '(unknown)', next: '(unknown)', slide: null };
+
+  return {
+    pos: `${idx + 1}/${slides.length}`,
+    prev: idx > 0 ? `${slides[idx - 1].id} (${slides[idx - 1].narrativeRole})` : '(first)',
+    next: idx < slides.length - 1 ? `${slides[idx + 1].id} (${slides[idx + 1].narrativeRole})` : '(last)',
+    slide: slides[idx],
+  };
+}
+
+function buildInteractionFlow(clickReveals) {
+  if (clickReveals === 0) return 'Slide estatico — sem click-reveals. Animacoes automaticas no slide:entered.';
+  const states = ['S0 — Estado inicial (slide entry, antes de reveals)'];
+  for (let i = 1; i <= clickReveals; i++) states.push(`S${i} — ArrowRight #${i} → reveal grupo ${i}`);
+  return states.join('\n');
 }
 
 // --- Gate 0: Defect Inspector ---
@@ -404,9 +438,11 @@ Voce foi contratado como **editor final criativo**. Autoridade total para propor
 ### GSAP 3.14 Business: SplitText, Flip importados. Disponiveis: ScrambleText, MorphSVG, DrawSVG, MotionPath, TextPlugin, CustomEase, EasePack, Physics2D, CSSRule.
 
 ### Contexto narrativo
-- ${slideId} (posicao ${meta.pos}), narrativeRole: setup, tensionLevel: 2/5
+- ${slideId} (posicao ${meta.pos}), narrativeRole: ${meta.slide?.narrativeRole || 'null'}, tensionLevel: ${meta.slide?.tensionLevel || '?'}/5
 - Anterior: ${meta.prev}
 - Seguinte: ${meta.next}
+- Interacao: ${buildInteractionFlow(meta.slide?.clickReveals || 0)}
+${CONTEXT_PARAGRAPH ? `\n### Contexto adicional\n${CONTEXT_PARAGRAPH}` : ''}
 
 </context>
 
@@ -499,7 +535,7 @@ PREZE pela legibilidade a 5m em projetor — o slide DEVE ser legivel, nao so bo
 
   return {
     contents: [{ parts }],
-    generationConfig: { temperature: 1.0, topP: 0.95, maxOutputTokens: 16384 },
+    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 16384 },
   };
 }
 
@@ -580,9 +616,10 @@ async function runEditorial(slideId, round, qaDir) {
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
-  const outPath = join(qaDir, `gemini-qa3-r${round}.md`);
+  const temp = CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0;
+  const outPath = CUSTOM_OUTPUT || join(qaDir, `gemini-qa3-r${round}.md`);
   writeFileSync(outPath, `# QA.3 Gemini Review — ${slideId} (R${round})\n\n` +
-    `Model: ${MODEL} | Temp: 1.0 | Date: ${new Date().toISOString().slice(0, 10)}\n` +
+    `Model: ${MODEL} | Temp: ${temp} | Date: ${new Date().toISOString().slice(0, 10)}\n` +
     `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
     text + '\n');
   console.log(`\n3. Response saved -> ${outPath}`);

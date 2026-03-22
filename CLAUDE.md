@@ -124,14 +124,17 @@ REGRA: Gemini NUNCA edita arquivos. Só produz JSON de sugestões.
 Só Claude Code lê o JSON e decide o que implementar.
 
 ```bash
-# Auditoria completa (CSS + PNG + MP4)
-node scripts/gemini.mjs --slide {id} --css {arquivo.css} --png {screenshot.png} --video {animacao.mp4}
+# Gate 0 (inspeção defeitos, default)
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
 
-# Só código + screenshot
-node scripts/gemini.mjs --slide {id} --css {arquivo.css} --png {screenshot.png}
+# Gate 0 → Gate 4 (inspeção + editorial)
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --full --round N
+
+# Gate 4 only (editorial)
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 ```
 
-Output: `.audit/{slide-id}_result.json`
+Output: `qa-screenshots/{slide-id}/gate0.json` (Gate 0) e `gemini-qa3-rN.md` (Gate 4)
 Threshold: score < 7 → registrar problema, aguardar decisão de Lucas
 
 ## Operational Records

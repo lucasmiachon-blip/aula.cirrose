@@ -267,25 +267,21 @@ Input para Gemini (TUDO junto):
 NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.
 Prompt com codigo stale = review invalido = dinheiro desperdicado.
 
-**Invocacao CLI** (gemini.mjs auto-preenche template `docs/prompts/gemini-slide-editor.md`):
+**Invocacao CLI** (gemini-qa3.mjs — canonico):
 
 ```bash
-# Código + screenshot (padrão)
-node scripts/gemini.mjs --slide s-a1-classify --css cirrose.css --png qa-screenshots/s-a1-classify/s0.png
+# Gate 4 editorial only
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --editorial --round 5
 
-# Código + múltiplos estados + vídeo
-node scripts/gemini.mjs --slide s-a1-classify --css cirrose.css \
-  --png qa-screenshots/s-a1-classify/s0.png \
-  --png qa-screenshots/s-a1-classify/s1.png \
-  --video qa-screenshots/videos/s-a1-classify.mp4
+# Gate 0 → Gate 4 sequencial
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --full --round 5
 
-# Com contexto de rodada anterior
-node scripts/gemini.mjs --slide s-a1-classify --css cirrose.css \
-  --png s0.png --round "R2: corrigido contraste, adicionado elevation"
+# Com temperatura e output custom
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --editorial --round 5 --temp 0.8 --output custom.json
 ```
 
-`--slide` auto-extrai HTML (via `_manifest.js`), CSS (via `--css`), JS (via `slide-registry.js`).
-Output salvo automaticamente em `.audit/{slide-id}_result.json`.
+Auto-extrai HTML (via `_manifest.js`), CSS (via `cirrose.css`), JS (via `slide-registry.js`).
+Output salvo em `qa-screenshots/{slide-id}/gemini-qa3-rN.md`.
 Papel: editor final (nao linter). Liberdade total. Resposta livre (nao JSON).
 
 **Output:** JSON do Gemini + interpretacao do agente.
