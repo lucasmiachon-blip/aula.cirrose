@@ -42,11 +42,12 @@
   text-align: center;
   white-space: nowrap;
 }
-/* Projection contrast fix: --text-muted (4.61:1) → 7.01:1 AAA.
-   Font-size bumped from 10-11px to 11-14px for legibility at distance. */
+/* Source-tag — padronizado para projecao (wrap global, tamanho original) */
 .stage-c .source-tag {
   color: oklch(42% 0.01 258);
   font-size: 11px;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 /* --- Figure slide (paper image) --- */
@@ -93,8 +94,7 @@
   opacity: 1 !important;
 }
 
-/* Wrap-safe: longest source-tags overflow at narrow viewports with nowrap.
-   Scoped to slides with >90 chars of reference text. */
+/* Per-slide source-tag overrides (color muted for light-bg slides) */
 #s-a1-damico .source-tag,
 #s-a1-classify .source-tag,
 #s-a1-baveno .source-tag {
@@ -1068,7 +1068,7 @@ section#s-a1-01 .slide-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-md);
-  border-top: 1px solid oklch(0% 0 0 / 0.08);
+  border-top: 2px solid var(--text-primary);
   padding-top: var(--space-xs);
   margin-top: var(--space-md);
 }
@@ -1151,37 +1151,26 @@ section#s-a1-01 .slide-inner {
   letter-spacing: -0.01em;
 }
 
-/* Ghost Row: matched state — teal wash + glow dot */
+/* Ghost Row: matched state — solid teal wash on white bg, halo dot */
 #s-a1-01 .stack-row.matched {
-  background: oklch(40% 0.12 170 / 0.08);
-  border-color: oklch(40% 0.12 170 / 0.2);
-  transform: translateX(8px);
+  background: var(--safe-light);
+  border-color: color-mix(in oklch, var(--safe) 30%, transparent);
+  transform: translateX(4px);
 }
 #s-a1-01 .stack-row.matched .status-dot {
   background: var(--safe);
-  box-shadow: 0 0 12px 2px oklch(40% 0.12 170 / 0.4);
+  box-shadow: 0 0 0 3px var(--safe-light);
 }
 #s-a1-01 .stack-row.matched .row-text {
   color: var(--safe);
   font-weight: 600;
 }
 
-/* Ghost Row: dimmed state — subtle fade */
+/* Ghost Row: dimmed state — projector-safe (0.55 + grayscale) */
 #s-a1-01 .stack-row.dimmed {
-  opacity: 0.35;
+  opacity: 0.55;
+  filter: grayscale(80%);
   transform: scale(0.98);
-}
-
-/* Scanner line — diagnostic scan effect (P4) */
-#s-a1-01 .scanner-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, oklch(40% 0.12 170 / 0.6), transparent);
-  border-radius: 1px;
-  pointer-events: none;
-  z-index: 1;
 }
 
 #s-a1-01 .guideline-rec-source {
@@ -1191,18 +1180,12 @@ section#s-a1-01 .slide-inner {
   margin: 0;
 }
 
-/* P5: Source-tag — full width, JetBrains Mono, clean baseline */
+/* P5: Source-tag — position override for grid layout (style from global .stage-c) */
 #s-a1-01 .source-tag {
   position: absolute;
   bottom: 12px;
   left: 48px;
   right: 210px; /* case-panel clearance */
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: oklch(42% 0.01 258);
-  white-space: normal;
-  overflow-wrap: anywhere;
-  line-height: 1.4;
   text-align: left;
   margin: 0;
 }

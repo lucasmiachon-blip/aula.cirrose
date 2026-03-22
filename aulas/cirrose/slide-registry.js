@@ -136,28 +136,24 @@ export const customAnimations = {
       }, 'guideline+=0.3');
     }
 
-    // P4: Diagnostic scan — laser line sweeps through rows before match punch
-    tl.addLabel('scan', 4.0);
+    // P4: Sequential Eval — dots flash in sequence before match punch (R12)
+    tl.addLabel('eval', 4.0);
 
-    if (guidelineStack && stackRows.length) {
-      // Create scanner line element
-      const scannerLine = document.createElement('div');
-      scannerLine.classList.add('scanner-line');
-      guidelineStack.appendChild(scannerLine);
-      gsap.set(scannerLine, { top: 0, opacity: 0 });
-
-      // Scanner sweeps down
-      tl.to(scannerLine, { opacity: 1, duration: 0.15 }, 'scan');
-      tl.to(scannerLine, {
-        top: '100%',
-        duration: 0.6,
-        ease: 'linear',
-      }, 'scan+=0.1');
-      tl.to(scannerLine, { opacity: 0, duration: 0.15 }, 'scan+=0.6');
+    if (stackRows.length) {
+      const dots = Array.from(stackRows).map(row => row.querySelector('.status-dot'));
+      // Flash de processamento — simula checklist diagnostica
+      tl.to(dots, {
+        scale: 1.4,
+        backgroundColor: 'oklch(60% 0 0)',
+        duration: 0.15,
+        stagger: 0.1,
+        yoyo: true,
+        repeat: 1,
+      }, 'eval');
     }
 
-    // Match punch — "Antônio tem dois dos três" (after scan completes)
-    tl.addLabel('punch', 4.8);
+    // Match punch — "Antônio tem dois dos três" (after eval completes)
+    tl.addLabel('punch', 4.6);
 
     if (stackRows.length) {
       stackRows.forEach((row, i) => {
