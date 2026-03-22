@@ -73,29 +73,25 @@ function extractHTML(slideId) {
   return readFileSync(filePath, 'utf8');
 }
 
-function extractCSS(slideId) {
+function extractSlideCSS(slideId) {
   const cssPath = join(AULA_DIR, 'cirrose.css');
   const css = readFileSync(cssPath, 'utf8');
   const lines = css.split('\n');
   const result = [];
   let capturing = false;
   let braceDepth = 0;
-  let blockStart = -1;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    // Start capturing when we see the slide ID in a selector or comment
     if (!capturing && line.includes(slideId)) {
-      // Look back for comment block start
       let commentStart = i;
-      while (commentStart > 0 && lines[commentStart - 1].trim().startsWith('/*') || lines[commentStart - 1].trim().startsWith('*')) {
+      while (commentStart > 0 && (lines[commentStart - 1].trim().startsWith('/*') || lines[commentStart - 1].trim().startsWith('*'))) {
         commentStart--;
       }
       if (commentStart < i && lines[commentStart].includes('/*')) {
         for (let j = commentStart; j < i; j++) result.push(lines[j]);
       }
       capturing = true;
-      blockStart = i;
     }
 
     if (capturing) {
@@ -103,18 +99,10 @@ function extractCSS(slideId) {
       braceDepth += (line.match(/\{/g) || []).length;
       braceDepth -= (line.match(/\}/g) || []).length;
 
-      // Stop capturing after closing brace of current rule, but keep going
-      // if next non-empty line still references the slide ID
       if (braceDepth === 0 && result.length > 1) {
-        // Peek ahead for more rules with this ID
         let nextContentLine = i + 1;
         while (nextContentLine < lines.length && lines[nextContentLine].trim() === '') nextContentLine++;
         if (nextContentLine < lines.length && lines[nextContentLine].includes(slideId)) {
-          result.push(''); // blank separator
-          continue;
-        }
-        // Also peek for .no-js rules referencing this ID
-        if (nextContentLine < lines.length && lines[nextContentLine].includes('.no-js') && lines[nextContentLine].includes(slideId)) {
           result.push('');
           continue;
         }
@@ -122,9 +110,81 @@ function extractCSS(slideId) {
       }
     }
   }
+  return result;
+}
 
-  console.log(`  CSS: ${result.length} lines extracted for ${slideId}`);
+function extractBaseTokens() {
+  const basePath = join(AULA_DIR, '..', '..', 'shared', 'css', 'base.css');
+  if (!existsSync(basePath)) return '/* base.css not found */';
+  const css = readFileSync(basePath, 'utf8');
+
+  // Extract :root block (design tokens)
+  const rootMatch = css.match(/:root\s*\{[^}]*\}/s);
+  if (!rootMatch) return '/* :root not found in base.css */';
+  return rootMatch[0];
+}
+
+function extractArchetypeCSS(html) {
+  const archPath = join(AULA_DIR, 'archetypes.css');
+  if (!existsSync(archPath)) return '/* archetypes.css not found */';
+  const css = readFileSync(archPath, 'utf8');
+
+  // Find archetype class used by this slide
+  const archMatch = html.match(/archetype-([a-z-]+)/);
+  if (!archMatch) return '/* No archetype class found in HTML */';
+  const archClass = `.archetype-${archMatch[1]}`;
+
+  // Extract all rule blocks that reference this archetype class
+  const lines = css.split('\n');
+  const result = [];
+  let capturing = false;
+  let braceDepth = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (!capturing && line.includes(archClass)) {
+      capturing = true;
+      braceDepth = 0;
+    }
+    if (capturing) {
+      result.push(line);
+      braceDepth += (line.match(/\{/g) || []).length;
+      braceDepth -= (line.match(/\}/g) || []).length;
+      if (braceDepth === 0 && result.length > 1) {
+        capturing = false;
+        result.push('');
+      }
+    }
+  }
   return result.join('\n');
+}
+
+function extractCSS(slideId, html) {
+  const sections = [];
+
+  // 1. Design tokens from base.css
+  const tokens = extractBaseTokens();
+  sections.push('/* === Design Tokens (base.css :root) === */');
+  sections.push(tokens);
+
+  // 2. Archetype CSS (matched to this slide's archetype class)
+  const archCSS = extractArchetypeCSS(html);
+  if (archCSS && !archCSS.startsWith('/*')) {
+    sections.push('\n/* === Archetype CSS === */');
+    sections.push(archCSS);
+  }
+
+  // 3. Slide-specific CSS from cirrose.css (#slideId selectors)
+  const slideLines = extractSlideCSS(slideId);
+  if (slideLines.length > 0) {
+    sections.push('\n/* === Slide-specific CSS (cirrose.css) === */');
+    sections.push(slideLines.join('\n'));
+  }
+
+  const combined = sections.join('\n');
+  const lineCount = combined.split('\n').length;
+  console.log(`  CSS: ${lineCount} lines (tokens + archetype + slide-specific)`);
+  return combined;
 }
 
 function extractJS(slideId) {
@@ -547,7 +607,7 @@ async function runEditorial(slideId, round, qaDir) {
   // Step 0: Extract source code dynamically (E42)
   console.log('0. Extracting source code from files...');
   const rawHTML = extractHTML(slideId);
-  const rawCSS = extractCSS(slideId);
+  const rawCSS = extractCSS(slideId, rawHTML);
   const rawJS = extractJS(slideId);
   const notes = extractNotes(rawHTML);
   const meta = getSlideMetadata(slideId);
