@@ -106,10 +106,9 @@ Gemini so sugere (JSON spec) — Opus executa fix.
 **Status QA (este doc):** 1 DONE (s-title, QA 5-stage PASS 18/mar), 1 PASS archetype-adjusted (s-hook, dims >= 8), restante em scoring.
 **Status maquina de estados (HANDOFF/WT-OPERATING):** 1 DONE (s-title), 3 LINT-PASS (s-hook, s-a1-01, s-a1-classify), 7 CONTENT.
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
-Metodo: Playwright Chromium headless 1280x720 · `scripts/act1-reaudit.mjs` (25 screenshots, 11 slides)
+Metodo: Playwright Chromium headless 1280x720 · qa-batch-screenshot.mjs (por ato/slide)
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
 Evidencia: HTML source code + Playwright metrics (fill ratio, word count, h2 lines, panel overlap, source-tag)
-Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (25 PNGs)
 
 ### s-title (00-title.html) — DONE (QA 5-stage PASS)
 
@@ -397,8 +396,8 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) ~~Inline
 
 **Status: PASS COM RISCOS**
 Agente: Claude Code (Opus 4.6) · Sessao: 10/mar/2026 (rodada 3 — hardening + re-QA consolidado)
-Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 27 screenshots · `scripts/act1-reaudit.mjs`
-Screenshots: `aulas/cirrose/qa-screenshots/act1-reaudit/` (27 PNGs, gitignored)
+Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 27 screenshots
+Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 
 ### Resultado consolidado por slide (11)
 
