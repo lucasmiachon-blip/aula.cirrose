@@ -155,21 +155,27 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 - Prompt Gemini v6.1: `docs/prompts/gemini-slide-editor.md`.
 - Letterbox 16:10 esperado (monitor usuario). TV congresso 16:9 = sem barras.
 
-### P0 Próxima sessão (23/mar)
+### P0 Sprint — 9 dias para congresso (31/mar)
 
-s-a1-classify — Fix B completo + propostas Gemini:
-1. Fix source-tag: conteúdo excede 720px. Opções: comprimir gaps/paddings, source-tag absolute, reduzir HR hero, ou combo
-2. Decidir 4 propostas Gemini R1 (P1 Bloomberg Grid, P2 Redesign PREDESCI [parcial aplicado], P3 DrawSVG, P4 HR hero-stat). Propostas em `qa-rounds/s-a1-classify.md`
-3. Gate 4 R2 após fixes
-4. Próximo slide: s-a1-vote ou s-a1-damico
+**Mudanca de processo (sessao 22/mar noite):**
+- Refletir com Lucas ANTES de implementar CSS/GSAP (Lucas e iniciante)
+- Gemini Gate 4: max 1 round por slide, so se Lucas pedir
+- Sem multi-round, sem AUDIT-VISUAL scoring, sem screenshots multi-resolucao
+- HANDOFF atualizado 1x por sessao, commit batch 3-5 slides
 
-**Pipeline QA otimizado (sessão 22/mar):**
+**Limpeza pipeline (sessao 22/mar noite):**
+- settings.local.json: 129 → 61 entries (-68 lixo: commits one-off, debug, orfas)
+- guard-destructive.sh arquivado (redundante com deny list)
+- Pipeline QA (gemini-qa3.mjs, Gate 0, scripts captura) INTACTA
+
+**Proximo:** s-a1-classify (fechar: source-tag overflow, decidir propostas Gemini) → sequencia manifest
+
+**Pipeline QA otimizado (sessao 22/mar):**
 - 5 OPTs implementadas, 3 bugs smoke test corrigidos
 - ROUND_CONTEXTS externalizado, error digest injetado, output comprimido
 - Custo: ~$0.058/chamada Gate 4, ~$0.014/chamada Gate 0
-- Estimativa 40 slides restantes: ~$6-9 (2-3 rounds média)
 
-**ERRO-052 fix sistêmico:** vw→px em 36 clamp(). Todos slides afetados. Verificar visualmente nos próximos QA.
+**ERRO-052 fix sistemico:** vw→px em 36 clamp(). Todos slides afetados.
 
 ### Backlog
 
