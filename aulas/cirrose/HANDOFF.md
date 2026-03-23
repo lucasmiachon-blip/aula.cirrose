@@ -59,7 +59,7 @@
 - Fontes woff2: Vite base condicional aplicado (23/mar). Testar `npm run dev` para confirmar @font-face resolve
 - ECOSYSTEM.md split (3 naturezas misturadas) — pos-congresso
 - SKILLS.md: 11 skills Claude Code faltando — pos-congresso
-- SETUP.md: ref a `assertion-evidence.mdc` inexistente — 1 linha, pos-congresso
+- ~~SETUP.md: ref a `assertion-evidence.mdc`~~ — verificado 23/mar: ref já não existe em SETUP.md
 
 ---
 

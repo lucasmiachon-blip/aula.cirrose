@@ -2,7 +2,7 @@
 
 > Mapa canônico de dependências entre documentos do projeto.
 > Atualizar ao criar, mover ou deletar qualquer .md.
-> Gerado: 2026-03-07. Última revisão: 2026-03-22.
+> Gerado: 2026-03-07. Última revisão: 2026-03-23.
 
 ---
 
@@ -20,7 +20,6 @@
 CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.md)
 ├── .claude/rules/*.md        ← regras detalhadas (prevalecem sobre .cursor se mais completas)
 ├── .claude/hooks/*.sh        ← safety gates determinísticos (100% enforcement)
-├── .claude/scripts/*.sh      ← utility scripts
 ├── .claude/skills/*/SKILL.md ← skills invocáveis (20 ativas + 2 archived)
 ├── .cursor/rules/*.mdc       ← regras Cursor (quick-ref com globs)
 ├── docs/*.md                 ← referência expandida
@@ -86,6 +85,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | prompts/weekly-updates.md | (prompt template) | ← README.md |
 | prompts/research-best-practices.md | (prompt template) | ← README.md |
 | prompts/gemini-deck-audit.md | (prompt template — Gemini, deck completo) | ← README.md |
+| prompts/gemini-gate0-inspector.md | (prompt template — Gate 0 inspect, Gemini) | ← README.md |
 | ~~prompts/gemini-slide-editor.md~~ | Arquivado em `prompts/_archive/` (2026-03-22) | — |
 | prompts/error-digest.md | (prompt template — error digest para Gemini) | ← README.md |
 | prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
@@ -114,8 +114,9 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | build-monitor.sh | PostToolUse, PostToolUseFailure (Bash) | Detecta falhas de build |
 | check-evidence-db.sh | PreToolUse (Write) | Valida dados clínicos antes de escrever |
 | guard-evidence-db.sh | PreToolUse (Write) | Protege evidence-db de edições não autorizadas |
+| guard-generated.sh | PreToolUse (Write\|Edit\|StrReplace) | exit 2 bloqueia Write em index.html gerado |
 | ~~guard-shared.sh~~ | Removido 2026-03-22 | Obsoleto: shared/ internalizado, sem worktree |
-| guard-destructive.sh | (dormant — coberto por deny permissions) | Backup: bloqueia comandos destrutivos |
+| ~~guard-destructive.sh~~ | Movido para _archive/ — coberto por deny permissions | Obsoleto: backup redundante |
 | ~~guard-merge.sh~~ | Removido 2026-03-22 | Obsoleto: sem worktree protocol |
 | guard-secrets.sh | PreToolUse (Bash) | WARN-only: escaneia staged files por padrões de secrets |
 | ~~warn-class-c.sh~~ | Removido 2026-03-22 | Obsoleto: sem Class A/B/C |
@@ -124,13 +125,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | subagent-stop-log.sh | SubagentStop | Loga conclusão de subagents |
 | task-completed-gate.sh | TaskCompleted | Verificação de quality gates em task completada |
 | teammate-idle-gate.sh | TeammateIdle | Validação de quality gates do teammate |
-
-### .claude/scripts/
-
-| Arquivo | Função |
-|---------|--------|
-| ~~worktree-init.sh~~ | Removido 2026-03-22 — worktree protocol removido |
-| ~~worktree-cleanup.sh~~ | Removido 2026-03-22 — worktree protocol removido |
 
 ### scripts/ (git hooks — versionados)
 
@@ -163,7 +157,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
-| CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md | ← CLAUDE.md (projects table) |
+| CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md (WT State + Worktree removidos 23/mar) | ← CLAUDE.md (projects table) |
 | HANDOFF.md | (não existe — criar quando slides iniciarem) | — |
 | references/narrative.md | (não existe — criar com slides) | ← CLAUDE.md aula |
 | references/evidence-db.md | (não existe — criar com slides) | ← slides/ |
@@ -215,10 +209,10 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 |---------|-----------------|----------|
 | Anti-drift / foco de sessão | .claude/rules/anti-drift.md | — |
 | Operacional (stack, regras, workflow) | CLAUDE.md | — |
-| Tokens OKLCH | .claude/rules/design-system.md | base.css :root |
+| Tokens OKLCH | .claude/rules/design-system.md | aulas/cirrose/shared/css/base.css :root |
 | Erros CSS | .claude/rules/css-errors.md | — |
 | Dados médicos | .claude/rules/medical-data.md | — |
-| Animações GSAP | .claude/rules/motion-qa.md | shared/js/engine.js |
+| Animações GSAP | .claude/rules/motion-qa.md | aulas/cirrose/shared/js/engine.js |
 | Deck.js patterns (ativo) | .claude/rules/deck-patterns.md | — |
 | Reveal.js patterns (frozen) | .claude/rules/reveal-legacy.md | — |
 | Assertion-Evidence | .claude/rules/slide-editing.md | design-principles.md §1 |

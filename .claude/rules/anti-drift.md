@@ -117,4 +117,4 @@ Após 3 commits consecutivos sem arquivo em `aulas/*/slides/` ou `aulas/*/*.css`
 
 - `docs/ECOSYSTEM.md` mistura 3 naturezas: regras estáveis, inventário operacional, benchmarks voláteis
   - Proposta: split em ECOSYSTEM.md (regras) + TOOLING.md (inventário) + benchmarks para seção datada ou archive
-  - Fazer após QA Bloco 1 ter ≥1 slide passando
+  - Condição original (≥1 slide Bloco 1 DONE) atingida (3 DONE). Re-adiado para pós-congresso (31/mar)

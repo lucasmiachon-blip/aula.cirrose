@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-03-23 — Infra polish + docs debt cleanup (sessao 22)
+
+- **Vite base condicional:** `command === 'serve' ? '/' : './'`. Fontes resolvem no dev server.
+- **Dead CSS removido:** `.framework-box` e `.predict-bars` (10 regras) de cirrose.css. `.etiology-table` preservada (viva).
+- **shared/ imports:** grade/osteo/metanalise atualizados de `../../shared/` para `../cirrose/shared/`. Rebuilds OK.
+- **Janitor cleanup:** `.bak`, empty dirs, orphan task files, orphan QA MDs removidos.
+- **Docs debt:** XREF.md 7 fixes (guard-generated adicionado, guard-destructive archived, .claude/scripts/ removido, gate0-inspector prompt, paths canonicos corrigidos). Grade/osteo/metanalise CLAUDE.md: secoes Worktree removidas (WT protocol deletado). anti-drift.md: ECOSYSTEM split re-adiado pos-congresso. HANDOFF: assertion-evidence.mdc clearado.
+- **Sessao suporte:** 0 slides avancados.
+
+---
+
 ## 2026-03-22 — Standalone + best practices (sessoes 20-21)
 
 - **Standalone:** shared/ internalizado em `./shared/`. Worktree protocol removido (Class A/B/C, guard-shared, guard-merge, warn-class-c, worktree-init/cleanup). 6 imports atualizados. Build OK.
