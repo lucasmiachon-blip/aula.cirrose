@@ -71,13 +71,40 @@ aulas/cirrose/shared/js/case-panel.js → Panel lateral (cirrose)
 
 ## Workflow
 
-1. **Anti-drift:** Ler HANDOFF do projeto → caminho critico → propor ao usuario.
-2. Plan mode para tarefas >=3 steps.
-3. Subagents para pesquisa — manter contexto principal limpo.
-4. Verificar antes de declarar done: `npm run lint:slides`.
+### Sessao
+
+1. **Start:** `git log --oneline -5 && git status` → ler HANDOFF.md → caminho critico → propor ao usuario.
+2. **Slide a slide.** Nunca batch-plan. Um slide por vez no QA pipeline.
+3. Plan mode para tarefas >=3 steps. Subagents para pesquisa.
+4. Verificar antes de declarar done: `npm run lint:slides`. Pre-commit hook automatico.
 5. Handoff: codigo → visual = Gemini. Visual → clinico = Opus.
-6. Apos correcao do usuario → atualizar `tasks/lessons.md`.
-7. Sessao termina → atualizar HANDOFF.md do projeto ativo.
+6. **End:** atualizar HANDOFF.md do projeto ativo. Commit + push.
+
+### Aprendizado com erros
+
+```
+Erro → ERROR-LOG.md → se 3x recorrente → regra em .claude/rules/
+Correcao do usuario → tasks/lessons.md
+```
+
+Regras em `.claude/rules/` sao reativas — nasceram de 52 erros reais. NUNCA criar regra para problema que aconteceu 1x.
+
+### Guardrails automaticos (zero cerimonia)
+
+| Guard | Funcao |
+|-------|--------|
+| Pre-commit | Slide-count regression, slide-integrity, ghost canary, lints |
+| evidence-db hooks | Protege dados clinicos de edicoes nao autorizadas |
+| Audit trail | Log JSONL de toda tool call |
+
+### Complexidade
+
+Complexidade so entra se paga o custo no mesmo dia.
+
+- NUNCA criar hook/guard/protocol sem erro real motivando.
+- NUNCA refatorar docs por >1 sessao sem tocar em slides.
+- NUNCA criar abstracoes preventivas "para o futuro".
+- Anti-drift completo: @.claude/rules/anti-drift.md
 
 ## Auditoria Visual — Gemini CLI
 
@@ -102,14 +129,6 @@ Threshold: score < 7 → registrar problema, aguardar decisão de Lucas
 
 Cada projeto tem seus proprios registros (HANDOFF, CHANGELOG, ERROR-LOG, NOTES).
 Cross-project: `tasks/lessons.md` (padroes de auto-correcao).
-
-## Session Start
-
-```bash
-git log --oneline -5 && git status
-cat aulas/{PROJETO_ATIVO}/HANDOFF.md
-cat tasks/lessons.md 2>/dev/null || echo "No lessons yet"
-```
 
 ## Context Management
 
