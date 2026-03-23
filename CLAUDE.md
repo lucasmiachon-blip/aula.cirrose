@@ -36,53 +36,14 @@ Publico: medicos (Brasil). Publico varia por aula — ver CLAUDE.md de cada proj
 
 ## Shared Infrastructure
 
+shared/ agora vive dentro de `aulas/cirrose/shared/` (internalizado 2026-03-22).
+
 ```
-shared/css/base.css    → Tokens OKLCH, tipografia, stages
-shared/js/engine.js    → data-animate dispatcher + modes
-shared/js/deck.js      → Navegacao vanilla
-shared/js/case-panel.js → Panel lateral (cirrose)
+aulas/cirrose/shared/css/base.css    → Tokens OKLCH, tipografia, stages
+aulas/cirrose/shared/js/engine.js    → data-animate dispatcher + modes
+aulas/cirrose/shared/js/deck.js      → Navegacao vanilla
+aulas/cirrose/shared/js/case-panel.js → Panel lateral (cirrose)
 ```
-
-**`shared/` is READ-ONLY in worktrees.** Edits to shared/ must happen on `main` and be absorbed by WTs via `git merge main`. Never edit shared/ inside a feature branch.
-
-## Worktree Protocol
-
-- **Create:** `git worktree add ../aulas-magnas-wt-<slug> -b feat/<slug>-mvp`
-- **Merge back:** `git merge --no-ff feat/<slug>-mvp` (on main). Preserva historico.
-- **Absorb main updates:** Inside WT, `git merge main`. NUNCA `git rebase` em branch publicada.
-- **Cleanup:** `git worktree remove ../aulas-magnas-wt-<slug>` apos merge.
-- **shared/ guard:** WT agents MUST NOT edit files under `shared/`. If a shared change is needed, flag it and defer to a main-branch session.
-- **Classe C guard:** `scripts/pre-commit.sh` bloqueia commits de slides, CSS, JS e references em `main`. Conteudo de aula deve ir pela WT. Bypass emergencial: `ALLOW_MAIN_CONTENT=1 git commit`.
-- **Hook install:** `bash scripts/install-hooks.sh` (rodar uma vez apos clone ou worktree).
-- **Aula CLAUDE.md:** cada `aulas/*/CLAUDE.md` DEVE ter secao `## Worktree` declarando branch esperada e restricoes locais. Sem essa secao, WT agent deve recusar trabalho.
-- **Anti-crosspath:** Agente em main NAO PODE usar paths absolutos para escrever em `../wt-*` ou qualquer diretorio fora do workspace root. Para editar worktree, abrir sessao Cursor naquele diretorio. Hooks git nao impedem escrita direta — a trava eh comportamental.
-
-## Source of Truth por Camada
-
-| Camada | Dono | Onde vive | Quem pode editar |
-|--------|------|-----------|-------------------|
-| Infra (hooks, scripts, settings) | main | .claude/, scripts/ | Apenas main |
-| Governanca (rules, skills, docs) | main | .claude/rules/, .claude/skills/, docs/ | Apenas main |
-| Design system (tokens, base.css) | main | shared/ | Apenas main |
-| Conteudo cirrose | feat/cirrose-mvp | aulas/cirrose/ | Apenas WT cirrose |
-| Conteudo metanalise | feat/metanalise-mvp | aulas/metanalise/ | Apenas WT metanalise |
-| Docs de aula | WT respectiva | docs/{aula}-*.md | WT da aula + main apos merge |
-
-## Merge Safety / Quarentena Semântica
-
-### Classes de mudança
-
-| Classe | Escopo | Exemplos | Absorção em WT |
-|--------|--------|----------|----------------|
-| **A — Governança** | Doc graph, paths, docs operacionais | CLAUDE.md, XREF.md, rules/, tasks/lessons.md | Absorver cedo (`git merge main`) |
-| **B — Infra QA** | Scripts, hooks, agentes, observabilidade | agents/, hooks/, skills/, KPIs.md | Absorver cedo |
-| **C — Semântico** | Conteúdo da aula: slides, `_manifest.js`, CSS da aula, refs narrativas | slides/*.html, _manifest.js, cirrose.css, narrative.md | **Quarentena:** NÃO absorver sem triagem humana |
-
-### Regras
-
-1. **Classe C não entra cegamente** em worktree ativa. Antes de `git merge main` numa WT de aula, verificar se main tem commits Classe C. Se sim, triagem obrigatória: ler diff de cada arquivo semântico antes de absorver.
-2. **Nunca misturar** hardening sistêmico (A/B) e mudança semântica do deck (C) na mesma rodada/branch. Branches separadas, commits separados.
-3. **Docs-only hardening** deve ocorrer fora da worktree ativa da aula (branch dedicada em main ou branch `claude/system-*`).
 
 ## Conventions
 
@@ -100,7 +61,7 @@ shared/js/case-panel.js → Panel lateral (cirrose)
 6. **Daltonismo:** icone obrigatorio junto a cor semantica.
 7. **`data-animate` declarativo.** NUNCA gsap inline.
 8. **Zero CDN. Offline-first.**
-9. **NUNCA reescrever `shared/` ou `index.html` inteiro** sem aprovacao.
+9. **NUNCA reescrever `index.html` inteiro** sem aprovacao.
 10. **Corpo do slide <= 30 palavras.**
 11. **Speaker notes em portugues.**
 12. **GSAP failsafe:** `[data-animate]` → `opacity:0` em CSS. `.no-js` forca `opacity:1`.

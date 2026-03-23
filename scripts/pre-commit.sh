@@ -7,46 +7,6 @@ set -e
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
 
-# ── Guard 1: Classe C content blocked on main ──
-# Slides, CSS, JS, references = content. Must go through worktree branches.
-# Bypass: ALLOW_MAIN_CONTENT=1 git commit (emergency only)
-if [ "$BRANCH" = "main" ] && [ -z "$ALLOW_MAIN_CONTENT" ]; then
-  CLASSE_C=$(git diff --cached --name-only | grep -E '^aulas/.*/slides/|^aulas/.*\.(css|js)$|^aulas/.*/references/' || true)
-  if [ -n "$CLASSE_C" ]; then
-    echo ""
-    echo "╔══════════════════════════════════════════════════════════╗"
-    echo "║  BLOQUEADO: Classe C (conteúdo) em main                 ║"
-    echo "║  Slides, CSS, JS e references devem ir pela worktree.   ║"
-    echo "║  Bypass emergencial: ALLOW_MAIN_CONTENT=1 git commit    ║"
-    echo "╚══════════════════════════════════════════════════════════╝"
-    echo ""
-    echo "Arquivos bloqueados:"
-    echo "$CLASSE_C" | sed 's/^/  → /'
-    echo ""
-    exit 1
-  fi
-fi
-
-# ── Guard 2: shared/ is READ-ONLY on feature branches ──
-# Only main can edit shared/. WTs must defer changes to main session.
-# Bypass: ALLOW_SHARED_EDIT=1 git commit (emergency only)
-if [ "$BRANCH" != "main" ] && [ -z "$ALLOW_SHARED_EDIT" ]; then
-  SHARED_EDITS=$(git diff --cached --name-only | grep -E '^shared/' || true)
-  if [ -n "$SHARED_EDITS" ]; then
-    echo ""
-    echo "╔══════════════════════════════════════════════════════════╗"
-    echo "║  BLOQUEADO: shared/ é READ-ONLY em worktrees            ║"
-    echo "║  Edições em shared/ devem ir pelo branch main.          ║"
-    echo "║  Bypass emergencial: ALLOW_SHARED_EDIT=1 git commit     ║"
-    echo "╚══════════════════════════════════════════════════════════╝"
-    echo ""
-    echo "Arquivos bloqueados:"
-    echo "$SHARED_EDITS" | sed 's/^/  → /'
-    echo ""
-    exit 1
-  fi
-fi
-
 # ── Guard 3: Slide-count regression gate ──
 # After merges, verify slide count didn't decrease. Catches silent rollbacks.
 # Each aula declares expected count in _manifest.js (grep for 'id:' entries).
@@ -109,27 +69,6 @@ if [ "$BRANCH" != "main" ]; then
     if [ -z "$ALLOW_NO_BUILD" ]; then
       exit 1
     fi
-  fi
-fi
-
-# ── Guard 5: Class A/B governance files should live on main ──
-# Warns and blocks when governance/infra files are edited on feature branches.
-# Files inside aulas/*/ are Class C (aula-specific docs) and are excluded.
-# Bypass: ALLOW_AB_ON_WT=1 git commit
-if [ "$BRANCH" != "main" ] && [ -z "$ALLOW_AB_ON_WT" ]; then
-  AB_EDITS=$(git diff --cached --name-only | grep -E '^(\.cursor/rules/|\.claude/|CLAUDE\.md$|docs/|tasks/|scripts/|\.gitignore$|vite\.config\.js$|README\.md$|ERROR-LOG\.md$|CHANGELOG\.md$)' | grep -v '^aulas/' || true)
-  if [ -n "$AB_EDITS" ]; then
-    echo ""
-    echo "╔══════════════════════════════════════════════════════════╗"
-    echo "║  BLOQUEADO: Classe A/B editada em feature branch        ║"
-    echo "║  Governança/infra deve ser commitada em main.           ║"
-    echo "║  Bypass: ALLOW_AB_ON_WT=1 git commit                   ║"
-    echo "╚══════════════════════════════════════════════════════════╝"
-    echo ""
-    echo "Arquivos bloqueados:"
-    echo "$AB_EDITS" | sed 's/^/  → /'
-    echo ""
-    exit 1
   fi
 fi
 

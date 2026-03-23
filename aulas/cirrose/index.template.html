@@ -30,13 +30,13 @@
   import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
   import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
   gsap.registerPlugin(SplitText, Flip, ScrambleTextPlugin, CustomEase, DrawSVGPlugin, MotionPathPlugin);
-  import '../../shared/css/base.css';
+  import './shared/css/base.css';
   import './cirrose.css';
   import './archetypes.css';
-  import { initAula, createAnimationDispatcher } from '../../shared/js/engine.js';
-  import { initDeck } from '../../shared/js/deck.js';
-  import { ClickReveal } from '../../shared/js/click-reveal.js';
-  import { CasePanel } from '../../shared/js/case-panel.js';
+  import { initAula, createAnimationDispatcher } from './shared/js/engine.js';
+  import { initDeck } from './shared/js/deck.js';
+  import { ClickReveal } from './shared/js/click-reveal.js';
+  import { CasePanel } from './shared/js/case-panel.js';
   import { wireAll } from './slide-registry.js';
 
   initDeck('#slide-viewport');

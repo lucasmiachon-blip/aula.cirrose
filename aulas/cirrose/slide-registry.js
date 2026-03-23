@@ -8,7 +8,7 @@
  */
 
 import { panelStates } from './slides/_manifest.js';
-import { getCurrentSlide } from '../../shared/js/deck.js';
+import { getCurrentSlide } from './shared/js/deck.js';
 import { SplitText } from 'gsap/SplitText';
 import { Flip } from 'gsap/Flip';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';

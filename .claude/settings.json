@@ -18,7 +18,6 @@
       "Bash(git merge*)",
       "Bash(git check-*)",
       "Bash(git remote*)",
-      "Bash(git worktree*)",
       "Bash(git -C *)",
       "Bash(grep *)",
       "Bash(rg *)",
@@ -64,12 +63,6 @@
             "command": "bash .claude/hooks/guard-evidence-db.sh",
             "timeout": 5,
             "statusMessage": "Verificando permissão evidence-db..."
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/guard-shared.sh",
-            "timeout": 5,
-            "statusMessage": "Verificando permissão shared/..."
           }
         ]
       },
@@ -78,21 +71,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/guard-merge.sh",
-            "timeout": 10,
-            "statusMessage": "Validando merge..."
-          },
-          {
-            "type": "command",
             "command": "bash .claude/hooks/guard-secrets.sh",
             "timeout": 10,
             "statusMessage": "Escaneando secrets..."
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/warn-class-c.sh",
-            "timeout": 10,
-            "statusMessage": "Verificando Class C..."
           }
         ]
       }

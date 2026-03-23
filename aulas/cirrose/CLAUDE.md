@@ -21,15 +21,15 @@
 | `cirrose.css` | Estilos específicos desta aula |
 | `archetypes.css` | Layout archetypes |
 
-### Shared (não alterar sem autorização)
+### Shared (internalizado)
 
 | Arquivo | Papel |
 |---------|-------|
-| `../../shared/css/base.css` | Design system tokens |
-| `../../shared/js/engine.js` | GSAP dispatcher + deck init |
-| `../../shared/js/case-panel.js` | Case panel lateral |
-| `../../shared/js/click-reveal.js` | Progressive disclosure por ArrowRight |
-| `../../shared/js/interactions/meld-calc.js` | Calculadora MELD-Na interativa |
+| `./shared/css/base.css` | Design system tokens |
+| `./shared/js/engine.js` | GSAP dispatcher + deck init |
+| `./shared/js/case-panel.js` | Case panel lateral |
+| `./shared/js/click-reveal.js` | Progressive disclosure por ArrowRight |
+| `./shared/js/interactions/meld-calc.js` | Calculadora MELD-Na interativa |
 
 ### Fluxo de edição
 
@@ -66,27 +66,12 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 | `ERROR-LOG.md` | Erros → regras | Quando encontrar erro novo |
 | `NOTES.md` | Decisoes entre agentes | Durante a sessao |
 
-## WT State (atualizar a cada sessao)
+## SPRINT MODE (ate 31/mar)
 
 - **Branch:** feat/cirrose-mvp
-- **Ultimo merge main:** 99092b7 (2026-03-22) — hardening: reveal.js removido, orphan scripts deletados, audit-trail narrowed, build:metanalise real. Zero Classe C.
-- **Classe C pendente:** 0 arquivos em main
-- **Infra sync:** OK — main absorvida (Classe A/B), 8 MCPs no .mcp.json (profile dev). Visual audit MCPs via profile qa/full.
+- **shared/ internalizado:** `./shared/` (editavel diretamente)
 - **QA Act 1:** Loop 1 baseline aplicado (14 dim) — fix gargalos E/M/L
-
-## Worktree
-
-- **Branch pattern:** `feat/cirrose-{feature}-mvp`
-- **WT location:** `../wt-cirrose` (path real: `C:/Dev/Projetos/wt-cirrose`)
-- **shared/ restrictions:** READ-ONLY. Se mudanca necessaria, registrar em NOTES.md e deferir para sessao em main.
-- **Pre-merge checklist:**
-  - [ ] `git diff --name-only main...HEAD | grep shared/` retorna vazio
-  - [ ] `npm run build:cirrose` passa sem erros
-  - [ ] `npm run lint:slides` passa
-  - [ ] Speaker notes tem `[DATA]` tags para dados numericos
-  - [ ] `git status` limpo (nada uncommitted)
-- **Merge protocol:** No main: `git merge --no-ff feat/cirrose-{feature}-mvp`
-- **Cleanup:** `bash .claude/scripts/worktree-cleanup.sh cirrose-{feature}`
+- **Pre-commit checks:** slide-count regression, slide integrity, ghost canary, lints
 
 ## Slide Identity — Regra Inviolavel
 
@@ -133,17 +118,8 @@ ERRO-024 (notas stale) e hardening 10/mar (headline drift) são precedentes reai
 - NUNCA deletar `<aside class="notes">`. Apenas append de staging cues permitido.
 
 ### Git
-- Branch ativa: `feat/cirrose-mvp` (worktree isolada)
-- Commits: prefixo semântico (`fix:`, `feat:`, `refactor:`, `docs:`)
-
-## Worktree — Escopo e Restrições
-
-- **Path:** `C:\Dev\Projetos\wt-cirrose`
-- **Branch:** `feat/cirrose-mvp`
-- **Upstream:** `origin/feat/cirrose-mvp`
-- **Escopo:** APENAS `aulas/cirrose/` e seus sub-diretórios
-- **Proibido:** `shared/`, `docs/` raiz, `CLAUDE.md` raiz, qualquer outra `aulas/*/`
-- **Exceção documental:** somente por autorização explícita do usuário, restrita a `CLAUDE.md` raiz, `docs/SYNC-NOTION-REPO.md`, `.claude/agents/*.md`
+- Branch ativa: `feat/cirrose-mvp`
+- Commits: prefixo semantico (`fix:`, `feat:`, `refactor:`, `docs:`)
 
 ## Context window hygiene
 
