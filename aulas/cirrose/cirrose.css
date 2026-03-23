@@ -42,12 +42,16 @@
   text-align: center;
   white-space: nowrap;
 }
-/* Source-tag — padronizado para projecao (wrap global, tamanho original) */
+/* Source-tag — padronizado para projecao */
 .stage-c .source-tag {
-  color: oklch(42% 0.01 258);
-  font-size: 11px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
   white-space: normal;
   overflow-wrap: anywhere;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* --- Figure slide (paper image) --- */
@@ -94,15 +98,7 @@
   opacity: 1 !important;
 }
 
-/* Per-slide source-tag overrides (color muted for light-bg slides) */
-#s-a1-damico .source-tag,
-#s-a1-classify .source-tag,
-#s-a1-baveno .source-tag {
-  white-space: normal;
-  overflow-wrap: anywhere;
-  max-width: 100%;
-  color: var(--text-muted);
-}
+/* Per-slide source-tag overrides removidos — cobertos por .stage-c .source-tag */
 /* ============================================
    STAGE-C OVERRIDES (Plan C: light + animated)
    Tokens already remapped in base.css .stage-c.
@@ -1122,6 +1118,7 @@ section#s-a1-01 .slide-inner {
   right: 0; /* pai já tem padding-right: 210px para case-panel */
   text-align: left;
   margin: 0;
+  font-size: 0.85rem;
 }
 
 /* No-js failsafe */
@@ -1511,12 +1508,21 @@ section#s-a1-01 .slide-inner {
   margin: 0;
 }
 
+.vote-cutoff {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--warning);
+  text-align: center;
+  margin: var(--space-sm) 0 0;
+}
+
 .vote-explanation {
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--text-secondary);
   text-align: center;
-  margin: 0;
+  margin: var(--space-xs) 0 0;
 }
 
 /* Failsafe */
@@ -1634,6 +1640,14 @@ section#s-a1-01 .slide-inner {
   text-align: center;
   margin-top: var(--space-sm);
   max-width: 600px;
+}
+
+.paradigm-predesci {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  margin-top: var(--space-md);
+  line-height: 1.4;
 }
 
 .paradigm-question {
@@ -2223,18 +2237,30 @@ section#s-a1-01 .slide-inner {
   padding-bottom: 2px;
 }
 
-/* ── s-a1-classify: PREDESCI lockup (P2 R1 — badge horizontal, no sidebar) ── */
+/* ── s-a1-classify: PREDESCI lockup (header band + hero below) ── */
 .classify-predesci-lockup {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
   background: var(--bg-elevated);
   border: 1px solid var(--safe);
   border-radius: var(--radius-md);
-  padding: 20px 28px;
+  overflow: hidden;
   width: 100%;
   max-width: 700px;
   box-shadow: 0 12px 32px oklch(0% 0 0 / 0.06);
+}
+
+.classify-predesci-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--color-primary, #2d5016);
+  color: #fff;
+  padding: 14px 28px;
+}
+
+.classify-predesci-header * {
+  color: #fff;
 }
 
 .classify-predesci-label {
@@ -2242,22 +2268,20 @@ section#s-a1-01 .slide-inner {
   font-size: var(--text-caption);
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--safe);
 }
 
 .classify-predesci-content {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  padding: 16px 28px 20px;
 }
 
 .classify-predesci-outcome {
   font-family: var(--font-body);
   font-size: var(--text-caption);
-  color: var(--text-muted);
+  color: oklch(85% 0.02 170);
   letter-spacing: -0.01em;
-  padding-bottom: var(--space-xs);
-  border-bottom: 1px solid oklch(0% 0 0 / 0.07);
 }
 
 .classify-predesci-hero {

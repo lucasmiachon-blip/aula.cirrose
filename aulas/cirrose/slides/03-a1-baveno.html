@@ -1,8 +1,7 @@
 <!-- ============================================================
-     s-a1-baveno — Doença hepática avançada é espectro + pathway diagnóstico
+     s-a1-baveno — Doença hepática avançada é espectro + PREDESCI
      Archetype: hero-stat (state machine)
-     States: 0=auto SplitText dissolve, 1=pathway 3-step, 2=source
-     Fundido: antigo s-a1-baveno + s-a1-elasto
+     States: 0=auto SplitText dissolve + PREDESCI, 1=source
      ============================================================ -->
 <section id="s-a1-baveno"
          data-timing="120"
@@ -25,39 +24,12 @@
       </div>
       <span class="paradigm-ref">Baveno VII, J Hepatol 2022</span>
 
-      <!-- Click 1: pathway diagnostic (merged from elasto) -->
-      <p class="paradigm-question">Se não biópsia — como?</p>
-
-      <div class="elasto-pathway">
-        <div class="elasto-step elasto-step--triagem">
-          <span class="elasto-step-num">1</span>
-          <div class="elasto-step-content">
-            <span class="elasto-step-title">FIB-4</span>
-            <span class="elasto-step-detail">FIB-4 >2,67 → elastografia</span>
-          </div>
-          <span class="elasto-step-arrow" aria-hidden="true">→</span>
-        </div>
-        <div class="elasto-step elasto-step--confirma">
-          <span class="elasto-step-num">2</span>
-          <div class="elasto-step-content">
-            <span class="elasto-step-title">Elastografia</span>
-            <span class="elasto-step-detail">AUROC 0,90 para F≥3</span>
-          </div>
-          <span class="elasto-step-badge">AUROC 0,90</span>
-          <span class="elasto-step-arrow" aria-hidden="true">→</span>
-        </div>
-        <div class="elasto-step elasto-step--estadia">
-          <span class="elasto-step-num">3</span>
-          <div class="elasto-step-content">
-            <span class="elasto-step-title">Rule of 5</span>
-            <span class="elasto-step-detail">kPa define estágio e conduta</span>
-          </div>
-        </div>
-      </div>
+      <!-- PREDESCI callout -->
+      <p class="paradigm-predesci" style="opacity:0">PREDESCI (2019): intervir no espectro compensado reduziu 1ª descompensação — HR 0,51 (IC 95%: 0,26–0,97)</p>
 
     </div>
 
-    <p class="source-tag" style="opacity:0">de Franchis et al. J Hepatol 2022 (PMID 35120736) · Duarte-Rojo, Hepatology 2025 (PMID 38489521)</p>
+    <p class="source-tag" style="opacity:0">Villanueva 2019 (PMID 31584562) · Baveno VII, J Hepatol 2022</p>
   </div>
 
   <aside class="notes">
@@ -68,18 +40,15 @@ E dACLD — decompensated."
 "Não é sim-ou-não. É um continuum."
 PAUSA 2s.
 
-[0:30-1:00] Click 1 → pathway
-"Se não biópsia — como classificar?"
-Pergunta aparece fadeUp. Pathway 3-step stagger vertical.
-"Sequência: FIB-4 triagem — se acima de 2,67, elastografia.
-AUROC 0,90 para fibrose avançada. Substitui biópsia na maioria dos casos.
-E Rule of 5 — que vamos ver no próximo slide — define estágio e conduta."
+[0:30-1:00] Auto: PREDESCI callout aparece
+"E já sabemos que intervir nesse espectro muda desfecho.
+PREDESCI, 2019: betabloqueadores em compensados com CSPH reduziram a primeira descompensação pela metade. HR 0,51."
+PAUSA 2s.
 
-[1:00-1:30] Click 2 → source
-"Baveno VII, de Franchis et al., 2022. Duarte-Rojo e Sterling, 2025."
-→ avançar para FIB-4
+[1:00-1:15] Click 1 → source
+→ avançar
 
-[DATA] Baveno VII: PMID 35120736 | cACLD/dACLD + NITs pathway | Verificado: 2026-03-04
-[DATA] Duarte-Rojo & Sterling: PMID 38489521 | AUROC 0,90 F≥3 | Verificado: 2026-03-05
+[DATA] Baveno VII: PMID 35120736 | cACLD/dACLD nomenclatura | Verificado: 2026-03-04
+[DATA] PREDESCI: Villanueva 2019 PMID 31584562 | HR 0,51 (IC 95% 0,26–0,97) | Verificado: usuario
   </aside>
 </section>

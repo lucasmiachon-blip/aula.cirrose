@@ -175,93 +175,56 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-vote — Audience poll with FIB-4 reveal
-     State 0: question visible. State 1: reveal FIB-4 + verdict
+     s-a1-vote — Aplicando ao Antônio (FIB-4 hero + cutoff)
+     State 0: auto countUp + cutoff + explanation. State 1: source
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-vote': (slide, gsap) => {
-    const options = slide.querySelectorAll('.vote-option');
-    const reveal = slide.querySelector('.vote-reveal');
-    const instruction = slide.querySelector('.vote-instruction');
+    let state = 0;
+    const maxState = 1;
+
     const heroNum = slide.querySelector('.vote-hero-number');
-    const verdict = slide.querySelector('.vote-verdict');
+    const cutoff = slide.querySelector('.vote-cutoff');
     const explanation = slide.querySelector('.vote-explanation');
-    const animTargets = [reveal, instruction, verdict, explanation].filter(Boolean);
+    const sourceTag = slide.querySelector('.source-tag');
 
-    // Reset leftover DOM state from previous visit (ctx.revert only undoes GSAP)
-    options.forEach(btn => {
-      btn.classList.remove('vote-option--correct', 'vote-option--dimmed');
-    });
-    gsap.set(reveal, { opacity: 0, visibility: 'hidden' });
-    gsap.set([verdict, explanation].filter(Boolean), { opacity: 0, y: 8 });
-    if (instruction) gsap.set(instruction, { opacity: 1 });
-    if (heroNum) heroNum.textContent = '5,91';
+    gsap.set([cutoff, explanation].filter(Boolean), { opacity: 0, y: 8 });
+    if (heroNum) heroNum.textContent = '0';
 
-    let revealed = false;
-
-    function doReveal() {
-      if (revealed) return false;
-      revealed = true;
-
-      options.forEach(btn => {
-        const vote = btn.dataset.vote;
-        if (vote === 'B') {
-          btn.classList.add('vote-option--correct');
-        } else {
-          btn.classList.add('vote-option--dimmed');
-        }
+    // Auto: countUp + stagger cutoff/explanation
+    if (heroNum) {
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: 5.91,
+        duration: 1.4,
+        delay: 0.8,
+        ease: 'power1.out',
+        onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
       });
+    }
+    if (cutoff) gsap.to(cutoff, { opacity: 1, y: 0, duration: 0.5, delay: 2.0, ease: 'power2.out' });
+    if (explanation) gsap.to(explanation, { opacity: 1, y: 0, duration: 0.5, delay: 2.4, ease: 'power2.out' });
 
-      if (instruction) gsap.to(instruction, { opacity: 0, duration: 0.3 });
-
-      gsap.to(reveal, { opacity: 1, visibility: 'visible', duration: 0.4, delay: 0.3 });
-
-      if (heroNum) {
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: 5.91,
-          duration: 1.4,
-          delay: 0.5,
-          ease: 'power1.out',
-          onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
-        });
+    function advance() {
+      if (state >= maxState) return false;
+      state++;
+      if (state === 1) {
+        gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
       }
-
-      if (verdict) gsap.fromTo(verdict, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.2 });
-      if (explanation) gsap.fromTo(explanation, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.5 });
-
       return true;
     }
 
-    function undoReveal() {
-      if (!revealed) return false;
-      revealed = false;
-
-      // Kill in-flight tweens before reversing
-      gsap.killTweensOf(animTargets);
-
-      options.forEach(btn => {
-        btn.classList.remove('vote-option--correct', 'vote-option--dimmed');
-      });
-
-      if (instruction) gsap.to(instruction, { opacity: 1, duration: 0.3 });
-      gsap.to(reveal, { opacity: 0, duration: 0.3, onComplete() {
-        reveal.style.visibility = 'hidden';
-        gsap.set([verdict, explanation].filter(Boolean), { opacity: 0, y: 8 });
-      }});
-      if (heroNum) heroNum.textContent = '5,91';
-
+    function retreat() {
+      if (state <= 0) return false;
+      if (state === 1) {
+        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      }
+      state--;
       return true;
     }
 
-    // stopPropagation prevents deck.js viewport click from advancing slide
-    options.forEach(btn => btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      doReveal();
-    }));
-
-    slide.__hookAdvance = doReveal;
-    slide.__hookRetreat = undoReveal;
-    slide.__hookCurrentBeat = () => revealed ? 1 : 0;
+    slide.__hookAdvance = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => state;
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -523,24 +486,18 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-baveno — Paradigma Baveno VII (SplitText dissolve)
-     States: 0=auto dissolve, 1=source
+     s-a1-baveno — Paradigma Baveno VII (SplitText dissolve + PREDESCI)
+     States: 0=auto dissolve + PREDESCI callout, 1=source
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-baveno': (slide, gsap) => {
     let state = 0;
-    const maxState = 2;
+    const maxState = 1;
 
     const oldTerm = slide.querySelector('.paradigm-old');
     const spectrum = slide.querySelector('.paradigm-spectrum');
     const bavRef = slide.querySelector('.paradigm-ref');
-    const question = slide.querySelector('.paradigm-question');
-    const pathway = slide.querySelector('.elasto-pathway');
-    const pathSteps = slide.querySelectorAll('.elasto-step');
+    const predesci = slide.querySelector('.paradigm-predesci');
     const sourceTag = slide.querySelector('.source-tag');
-
-    if (question) gsap.set(question, { opacity: 0, y: 8 });
-    if (pathway) gsap.set(pathway, { opacity: 0 });
-    gsap.set(pathSteps, { opacity: 0, y: 12 });
 
     let splitInstance = null;
 
@@ -560,20 +517,17 @@ export const customAnimations = {
       tl.set(oldTerm, { display: 'none' });
       tl.to(spectrum, { opacity: 1, duration: 0.6, ease: 'power2.out' });
       tl.to(bavRef, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
+      if (predesci) tl.to(predesci, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '+=0.3');
     } else {
       gsap.set(spectrum, { opacity: 1 });
       gsap.set(bavRef, { opacity: 1 });
+      if (predesci) gsap.set(predesci, { opacity: 1 });
     }
 
     function advance() {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
-        if (question) gsap.to(question, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
-        if (pathway) gsap.to(pathway, { opacity: 1, duration: 0.3, delay: 0.2 });
-        gsap.to(pathSteps, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.3, ease: 'power2.out' });
-      }
-      if (state === 2) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
       }
       return true;
@@ -581,13 +535,8 @@ export const customAnimations = {
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 2) {
-        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      }
       if (state === 1) {
-        if (question) gsap.to(question, { opacity: 0, y: 8, duration: 0.3 });
-        if (pathway) gsap.to(pathway, { opacity: 0, duration: 0.3 });
-        gsap.to(pathSteps, { opacity: 0, y: 12, duration: 0.3 });
+        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }
       state--;
       return true;

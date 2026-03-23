@@ -23,14 +23,17 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | DONE | R12 (22/mar). Fechado por validacao visual Lucas. |
-| 4 | s-a1-classify | QA | Gate 4 R1: 4.8/10. P2 parcial aplicado. Source-tag fora viewport. 4 propostas Gemini pendentes. `qa-rounds/s-a1-classify.md`. |
-| 5-11 | s-a1-vote → s-cp1 | CONTENT | Act 1 restante. |
+| 3 | s-a1-01 | DONE | R12 (22/mar). Fechado por validacao visual Lucas. Source-tag 0.85rem (23/mar). |
+| 4 | s-a1-baveno | CONTENT | Refatorado 23/mar: removido pathway, adicionado PREDESCI callout. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
+| 5 | s-a1-classify | CONTENT | Refatorado 23/mar: header PREDESCI verde (#2d5016), source-tag visivel. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
+| 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
+| 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 3 DONE · 1 QA · 40 CONTENT
+**Resumo:** 3 DONE · 41 CONTENT
+**QA Act 1:** Pipeline nao iniciado nos 3 slides refatorados. ERRO-053: tentativa de QA falhou (pipeline ignorado). Reiniciar do Gate 1.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -43,16 +46,18 @@
 
 ## Caminho critico
 
-1. **s-a1-classify** — fechar: source-tag overflow, decidir propostas Gemini, Gate 4 R2
-2. **s-a1-vote → s-cp1** — sequencia manifest, slide a slide no QA pipeline
-3. **Act 2 → Act 3** — apos Act 1 DONE
+1. **s-a1-baveno** — QA pipeline completo (Gate 1→4), slide-a-slide
+2. **s-a1-classify** — QA pipeline completo. PREDESCI card cortado no bottom (detectado em screenshot 23/mar)
+3. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
+4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide
+5. **Act 2 → Act 3** — apos Act 1 DONE
 
 ---
 
 ## Backlog
 
 - engine.js `?qa=1` nao forca estado final de custom animations (workaround: Playwright evaluate). Custom anims sao state machines — forcar "ultimo estado" requer saber qual estado e o final.
-- h2 assertivo fib4: Lucas decide no browser
+- ~~h2 assertivo fib4: Lucas decide no browser~~ → refatorado para hero-stat "Aplicando ao Antonio" (23/mar)
 - PDF export quebrado (DeckTape) — nao bloqueia congresso (projecao ao vivo)
 - Nomes de arquivo enganosos (ver slide-identity.md §9) — cosmetic, ID no manifest importa
 - ~~3 dead CSS selectors~~ → `.framework-box` e `.predict-bars` removidos (23/mar). `.etiology-table` viva (05-a1-infeccao.html)

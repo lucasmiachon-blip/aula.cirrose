@@ -1,5 +1,23 @@
 # NOTES — Cirrose
 
+## [23/03] Refatoracao Act 1 (baveno, classify, vote) + ERRO-053
+
+### Mudancas aplicadas
+- **Source-tag padronizado:** .stage-c .source-tag global (0.85rem, centered, max-width 90%). Overrides per-slide removidos exceto s-a1-01 (absolute positioning).
+- **s-a1-baveno:** Removido pathway diagnostico (FIB-4/Elastografia/Rule of 5). Adicionado PREDESCI callout. States 3→2.
+- **s-a1-classify:** Header PREDESCI verde (#2d5016) com texto branco. Source-tag visivel (removido opacity:0).
+- **s-a1-vote:** Quiz removido. Refatorado para hero FIB-4 5,91 + cutoff + burnt-out. Archetype poll→hero-stat.
+- **Manifest:** Act 1 reordenado (baveno movido de pos 5 para pos 2).
+- **Screenshots:** Atualizados via qa-batch-screenshot.mjs para os 3 slides.
+
+### ERRO-053 (CRITICAL)
+Pipeline QA ignorado. Gemini rodado sem Gates 1-2, com PNGs stale, 3 calls paralelas (2 ECONNRESET). 8 memorias de feedback violadas. Diagnostico completo em ERROR-LOG.md. Memoria feedback_qa_never_skip_pipeline.md criada.
+
+### Pendente
+- QA pipeline dos 3 slides NAO iniciado. Reiniciar do Gate 1 na proxima sessao.
+
+---
+
 ## [21/03] s-a1-classify — QA visual R3-R10 (10 rodadas Gemini)
 
 ### Decisões travadas pelo usuário
@@ -464,3 +482,7 @@ ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory 
 [2026-03-23 11:18] [Explore:a322ecab] — concluído. Status: PASS
 
 [2026-03-23 11:21] [Plan:a3789e6d] — concluído. Status: PASS
+
+[2026-03-23 12:02] [unknown:a56898ab] — concluído. Status: PASS
+
+[2026-03-23 12:34] [unknown:a194e9a5] — concluído. Status: PARTIAL

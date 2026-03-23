@@ -425,9 +425,17 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Em deck.js com scaleDeck(), NUNCA usar vw/vh em font-size de slides. Usar px fixo. vw referencia viewport real, não container escalado.
 **Status:** ✅ Corrigido (2026-03-22).
 
+### ERRO-053 · CRITICAL · processo (QA pipeline)
+**Pipeline QA inteiro ignorado — 8 memorias de feedback violadas em 1 sessao**
+**Root cause:** Ao receber pedido "rode ciclo QA nos 3 slides", interpretei como "executar script Gemini 3x" em vez de seguir o pipeline de 6 gates documentado em WT-OPERATING.md §4. Nao li o documento operacional. Nao consultei memorias de feedback. Executei no modo "fazer rapido".
+**Violacoes:** (1) Gemini com PNGs stale (pre-mudanca), (2) 3 calls paralelas → ECONNRESET em 2/3, (3) zero Gates 1-2 antes do Gemini, (4) zero checkpoints com usuario, (5) batch em vez de slide-a-slide, (6) sem screenshots 1920x1080, (7) sem video, (8) sem reflexao pre-execucao.
+**Fix:** Memoria feedback_qa_never_skip_pipeline.md criada. Pipeline slide-a-slide com checkpoints entre CADA gate.
+**Regra:** "Rodar QA" = apresentar plano dos gates ANTES de executar. NUNCA atalhar pipeline. NUNCA batch Gemini.
+**Status:** Registrado (2026-03-23). Pipeline reiniciado.
+
 ---
 
-*Ultima atualizacao: 2026-03-22 · 52 erros registrados, 50 corrigidos, 1 processo (E42), 1 parcial (E47).*
+*Ultima atualizacao: 2026-03-23 · 53 erros registrados, 50 corrigidos, 2 processo (E42, E53), 1 parcial (E47).*
 
 ---
 
@@ -435,7 +443,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
-| CRITICAL   | 7     | 6          | 1 (E47 parcial) |
+| CRITICAL   | 8     | 6          | 2 (E47 parcial, E53 processo) |
 | HIGH       | 26    | 26         | 0 |
 | MEDIUM     | 15    | 15         | 0 |
 | LOW        | 2     | 2          | 0 |
