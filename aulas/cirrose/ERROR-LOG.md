@@ -433,9 +433,30 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** "Rodar QA" = apresentar plano dos gates ANTES de executar. NUNCA atalhar pipeline. NUNCA batch Gemini.
 **Status:** Registrado (2026-03-23). Pipeline reiniciado.
 
+### ERRO-054 · HIGH · s-a1-01 (GSAP vs CSS race condition)
+**Match punch animation quebrada: CSS classes nao sobrescrevem GSAP inline styles**
+**Root cause:** GSAP stagger entry seta `opacity:1` e `transform` inline (max specificity). CSS `.matched` e `.dimmed` tentam aplicar `opacity:0.65` e `transform:scale(0.98)` mas perdem para inline. Gemini QA3-R1 detectou (Motion 4/10, Craft 4/10).
+**Fix:** Mover opacity/transform/x/scale para GSAP timeline no slide-registry.js. CSS mantem apenas bg/border/filter (paint properties).
+**Regra:** GSAP controla layout props (opacity, transform). CSS controla paint props (background, border, filter). NUNCA competir.
+**Status:** ✅ Corrigido (2026-03-23). slide-registry.js + cirrose.css atualizados.
+
+### ERRO-055 · MEDIUM · global (source-tag vs case-panel)
+**Source-tag sobreposta pelo case-panel em slides com panel ativo**
+**Root cause:** `.case-panel` e position:absolute right:16px width:180px z-index:20. Source-tags com max-width:90% podem fluir por baixo do panel. s-a1-01 (grid layout) tinha source-tag com right:0 ignorando padding.
+**Fix:** (1) Global: `#deck.has-panel .source-tag { max-width: calc(100% - 220px) }`. (2) Defensivo: `.stage-c .source-tag { grid-column: 1 / -1 }`. (3) Local s-a1-01: `right: 210px; max-width: none`.
+**Regra:** Todo componente que flui ate a borda direita DEVE respeitar clearance do case-panel (220px). Usar `#deck.has-panel` como seletor.
+**Status:** ✅ Corrigido (2026-03-23).
+
+### ERRO-056 · MEDIUM · processo (Playwright MCP + deck.js)
+**Playwright MCP browser_press_key nao navega deck.js**
+**Root cause:** deck.js escuta `keydown` no `document`. Playwright MCP envia keyboard events mas deck.js nao recebe — provavel falta de focus no page. Hash navigation (#slide-id, #/N) tambem nao funciona (deck.js usa transform, nao scroll). `scrollIntoView()` nao navega slides.
+**Workaround:** Usar Playwright Node script standalone com `page.locator().click()` + `page.keyboard.press()` em loop, verificando `.slide-active` a cada step.
+**Regra:** Para screenshots de slides especificos, usar script Node standalone (nao Playwright MCP). Verificar `.slide-active` apos cada navegacao.
+**Status:** Registrado (2026-03-23). Workaround funcional.
+
 ---
 
-*Ultima atualizacao: 2026-03-23 · 53 erros registrados, 50 corrigidos, 2 processo (E42, E53), 1 parcial (E47).*
+*Ultima atualizacao: 2026-03-23 · 56 erros registrados, 52 corrigidos, 2 processo (E42, E53), 1 parcial (E47), 1 workaround (E56).*
 
 ---
 
@@ -444,8 +465,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 8     | 6          | 2 (E47 parcial, E53 processo) |
-| HIGH       | 26    | 26         | 0 |
-| MEDIUM     | 15    | 15         | 0 |
+| HIGH       | 27    | 27         | 0 |
+| MEDIUM     | 17    | 16         | 1 (E56 workaround) |
 | LOW        | 2     | 2          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **52**| **50**     | **2 (E42 processo, E47 parcial)** |
+| **Total**  | **56**| **53**     | **3 (E42, E47, E56)** |

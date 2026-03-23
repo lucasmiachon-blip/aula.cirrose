@@ -159,6 +159,9 @@ export const customAnimations = {
       stackRows.forEach((row, i) => {
         const isMatch = row.dataset.match !== undefined;
         tl.to(row, {
+          x: isMatch ? 4 : 0,
+          scale: isMatch ? 1 : 0.98,
+          opacity: isMatch ? 1 : 0.65,
           duration: 0.4,
           ease: isMatch ? 'back.out(1.5)' : 'power2.out',
           onStart() { row.classList.add(isMatch ? 'matched' : 'dimmed'); },

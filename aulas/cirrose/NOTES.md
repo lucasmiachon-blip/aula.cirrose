@@ -1,5 +1,23 @@
 # NOTES — Cirrose
 
+## [23/03] Sessao 3 — s-a1-01 fixes CSS/GSAP + source-tag global
+
+### Fixes aplicados
+- **GSAP vs CSS race condition (E54):** slide-registry.js match punch agora controla opacity/transform/x/scale via GSAP. CSS .matched/.dimmed so mantem bg/border/filter.
+- **Border-left guideline-rec:** 1px solid color-mix (tensao arquitetonica Gemini Proposta 2).
+- **Source-tag s-a1-01 (E55):** position:absolute, right:210px, max-width:none (respeita case-panel).
+- **Source-tag global (E55):** `#deck.has-panel .source-tag { max-width: calc(100% - 220px) }` + `grid-column: 1 / -1` defensivo.
+
+### Blocker encontrado
+- **Playwright MCP nao navega deck.js (E56).** Testado: browser_press_key (ArrowRight, PageDown), hash navigation (#id, #/N), scrollIntoView, CustomEvent dispatch. Nenhum funciona. deck.js escuta keydown no document mas MCP nao entrega. Workaround: script Node standalone com click + keyboard.press em loop.
+
+### Pendente para proxima sessao
+1. Recapturar screenshots s-a1-01 (S0, S2, video) com fixes aplicados
+2. Gate 4 Gemini editorial com assets atualizados
+3. Seguir pipeline: s-a1-baveno
+
+---
+
 ## [23/03] Sessao 2 — QA s-a1-01 Gate 0
 
 ### Resultado
@@ -506,3 +524,9 @@ ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory 
 [2026-03-23 12:02] [unknown:a56898ab] — concluído. Status: PASS
 
 [2026-03-23 12:34] [unknown:a194e9a5] — concluído. Status: PARTIAL
+
+[2026-03-23 16:04] [Explore:a6a1463d] — concluído. Status: PASS
+
+[2026-03-23 16:16] [Explore:afc26667] — concluído. Status: PARTIAL
+
+[2026-03-23 17:53] [unknown:a512c775] — concluído. Status: PASS

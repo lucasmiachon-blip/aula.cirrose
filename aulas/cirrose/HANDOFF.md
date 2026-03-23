@@ -23,7 +23,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | CONTENT | R12 (22/mar). Source-tag 0.85rem (23/mar). Gate 0 PASS (23/mar). Gate 4 pendente. |
+| 3 | s-a1-01 | CONTENT | R12 (22/mar). Gate 0 PASS. GSAP race fix (E54) + source-tag fix (E55) + border-left guideline aplicados (23/mar). Gate 4 pendente — recapturar screenshots pos-fix. |
 | 4 | s-a1-baveno | CONTENT | Refatorado 23/mar: removido pathway, adicionado PREDESCI callout. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 5 | s-a1-classify | CONTENT | Refatorado 23/mar: header PREDESCI verde (#2d5016), source-tag visivel. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
@@ -33,7 +33,8 @@
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 2 DONE · 42 CONTENT
-**QA Act 1:** s-a1-01 Gate 0 PASS (23/mar), Gate 4 pendente. 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
+**QA Act 1:** s-a1-01 Gate 0 PASS, fixes CSS/GSAP aplicados (E54/E55), Gate 4 pendente (recapturar screenshots). 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
+**Global:** Source-tag vs case-panel fix aplicado (`#deck.has-panel .source-tag`, E55). Playwright MCP nao navega deck.js (E56, workaround: script Node standalone).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -66,6 +67,7 @@
 - SKILLS.md: 11 skills Claude Code faltando — pos-congresso
 - ~~SETUP.md: ref a `assertion-evidence.mdc`~~ — verificado 23/mar: ref já não existe em SETUP.md
 - qa-batch-screenshot.mjs so captura 1 estado (S0). Antes capturava S0/S1-mid/S2-final em 2 resolucoes — investigar pos-congresso
+- Playwright MCP nao navega deck.js (E56). Usar script Node standalone para screenshots de slides especificos
 
 ---
 

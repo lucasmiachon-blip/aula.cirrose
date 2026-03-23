@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-03-23 — s-a1-01 CSS/GSAP fixes + source-tag global (sessao 23)
+
+- **GSAP race condition fix (E54):** slide-registry.js match punch — opacity/transform/x/scale movidos para GSAP timeline. CSS .matched/.dimmed so mantem paint props (bg, border, filter).
+- **Border-left guideline-rec:** Tensao arquitetonica editorial (Gemini Proposta 2). 1px solid color-mix.
+- **Source-tag global fix (E55):** `#deck.has-panel .source-tag { max-width: calc(100% - 220px) }` — respeita case-panel em todos 44 slides. `grid-column: 1 / -1` defensivo para grid layouts.
+- **Source-tag s-a1-01:** position:absolute, right:210px, max-width:none (fix local para grid layout).
+- **Playwright MCP blocker (E56):** Navegacao deck.js nao funciona via MCP. Documentado workaround (script Node standalone).
+- **Docs:** ERROR-LOG +3 (E54-E56), HANDOFF atualizado, NOTES sessao 3.
+
+---
+
 ## 2026-03-23 — Infra polish + docs debt cleanup (sessao 22)
 
 - **Vite base condicional:** `command === 'serve' ? '/' : './'`. Fontes resolvem no dev server.

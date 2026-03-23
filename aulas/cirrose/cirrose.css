@@ -52,6 +52,11 @@
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
+  grid-column: 1 / -1;
+}
+/* Source-tag clearance quando case-panel presente */
+#deck.has-panel .source-tag {
+  max-width: calc(100% - 220px);
 }
 
 /* --- Figure slide (paper image) --- */
@@ -1028,6 +1033,7 @@ section#s-a1-01 .slide-inner {
   box-sizing: border-box;
   background: transparent;
   border: none;
+  border-left: 1px solid color-mix(in oklch, var(--text-primary) 12%, transparent);
   border-radius: 0;
   padding: 0 0 0 var(--space-xl);
   display: flex;
@@ -1085,7 +1091,6 @@ section#s-a1-01 .slide-inner {
 #s-a1-01 .stack-row.matched {
   background: var(--safe-light);
   border-color: color-mix(in oklch, var(--safe) 30%, transparent);
-  transform: translateX(4px);
 }
 #s-a1-01 .stack-row.matched .status-dot {
   background: var(--safe);
@@ -1098,9 +1103,7 @@ section#s-a1-01 .slide-inner {
 
 /* Ghost Row: dimmed state — projector-safe (0.55 + grayscale) */
 #s-a1-01 .stack-row.dimmed {
-  opacity: 0.65;
   filter: grayscale(40%);
-  transform: scale(0.98);
 }
 
 #s-a1-01 .guideline-rec-source {
@@ -1115,7 +1118,8 @@ section#s-a1-01 .slide-inner {
   position: absolute;
   bottom: 12px;
   left: 48px;
-  right: 0; /* pai já tem padding-right: 210px para case-panel */
+  right: 210px; /* respeitar clearance case-panel */
+  max-width: none;
   text-align: left;
   margin: 0;
   font-size: 0.85rem;
