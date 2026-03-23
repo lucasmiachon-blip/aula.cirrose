@@ -4,7 +4,7 @@
 
 ---
 
-## Estado — 2026-03-22
+## Estado — 2026-03-23
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅
 **Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
@@ -51,11 +51,15 @@
 
 ## Backlog
 
-- engine.js `?qa=1` nao forca estado final de custom animations (workaround: Playwright evaluate)
+- engine.js `?qa=1` nao forca estado final de custom animations (workaround: Playwright evaluate). Custom anims sao state machines — forcar "ultimo estado" requer saber qual estado e o final.
 - h2 assertivo fib4: Lucas decide no browser
-- PDF export quebrado (DeckTape)
-- Nomes de arquivo enganosos (ver slide-identity.md §9)
-- 3 dead CSS selectors (`.etiology-table`, `.framework-box`, `.predict-bars`)
+- PDF export quebrado (DeckTape) — nao bloqueia congresso (projecao ao vivo)
+- Nomes de arquivo enganosos (ver slide-identity.md §9) — cosmetic, ID no manifest importa
+- ~~3 dead CSS selectors~~ → `.framework-box` e `.predict-bars` removidos (23/mar). `.etiology-table` viva (05-a1-infeccao.html)
+- Fontes woff2: Vite base condicional aplicado (23/mar). Testar `npm run dev` para confirmar @font-face resolve
+- ECOSYSTEM.md split (3 naturezas misturadas) — pos-congresso
+- SKILLS.md: 11 skills Claude Code faltando — pos-congresso
+- SETUP.md: ref a `assertion-evidence.mdc` inexistente — 1 linha, pos-congresso
 
 ---
 

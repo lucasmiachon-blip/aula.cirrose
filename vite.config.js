@@ -30,9 +30,9 @@ function discoverEntries() {
   return entries;
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   root: '.',
-  base: './',
+  base: command === 'serve' ? '/' : './',
   server: {
     port: 3000,
     open: '/aulas/cirrose/index.html',
@@ -44,4 +44,4 @@ export default defineConfig({
       input: discoverEntries()
     }
   }
-});
+}));

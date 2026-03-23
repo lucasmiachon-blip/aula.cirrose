@@ -125,37 +125,6 @@
   min-width: 0;
 }
 
-.framework-box {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
-}
-
-/* (v1-v4 hook selectors removed — dead code, HTML v8 uses .hook-* classes) */
-
-.framework-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  padding: var(--space-sm);
-  border-left: 4px solid var(--cmp-1);
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
-}
-
-.framework-item .label {
-  font-family: var(--font-display);
-  font-size: var(--text-h3);
-  font-weight: 700;
-  color: var(--cmp-1);
-}
-
-.framework-item .value {
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-}
-
 /* --- Case card (base — used by checkpoints too) --- */
 .case-card {
   padding: var(--space-md);
@@ -290,42 +259,7 @@
 }
 
 /* ============================================
-   PREDICT BARS (A1-04)
-   ============================================ */
-.predict-bars {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  max-width: min(700px, 100%);
-  margin: var(--space-lg) 0;
-}
-.predict-bar {
-  display: grid;
-  grid-template-columns: 140px 1fr 60px;
-  align-items: center;
-  gap: var(--space-sm);
-}
-.predict-label {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 600;
-  text-align: right;
-}
-.predict-fill {
-  height: 32px;
-  border-radius: var(--radius-sm);
-  background: var(--bar-color, var(--cmp-1));
-  width: var(--bar-pct, 50%);
-  transition: width 0.8s ease;
-}
-.predict-value {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: var(--text-h3);
-}
-
-/* ============================================
-   ETIOLOGY TABLE (A1-05) — legacy, preserved for ref
+   ETIOLOGY TABLE (A1-05) — used by 05-a1-infeccao.html
    ============================================ */
 .etiology-table {
   width: 100%;

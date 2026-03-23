@@ -452,3 +452,5 @@ ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory 
 [2026-03-22 22:39] [general-purpose:ac4822e4] — concluído. Status: FAIL
 
 [2026-03-22 22:46] [Explore:ad5488ee] — concluído. Status: PARTIAL
+
+[2026-03-23 10:29] [BUILD] FAIL — Exit code 1 | cmd: cd /d "C:\Dev\Projetos\wt-cirrose" && npm run build:cirrose 2>&1 | tail -5
