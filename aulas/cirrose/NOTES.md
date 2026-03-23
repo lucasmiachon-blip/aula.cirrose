@@ -430,3 +430,13 @@ ls: cannot access 'scripts/mcp-attention-insight.js': No such file or directory 
 [2026-03-22 21:35] [Explore:adff0515] — concluído. Status: FAIL
 
 [2026-03-22 21:38] [unknown:ae61c9fd] — concluído. Status: PARTIAL
+
+[2026-03-22 21:51] [BUILD] FAIL — Exit code 1 | cmd: cd /d "C:\Dev\Projetos\wt-cirrose" && npm run build:cirrose 2>&1 | head -50
+
+[2026-03-22 21:51] [Explore:aa4b94b7] — concluído. Status: PASS
+
+[2026-03-22 21:51] [Explore:a0ab7f67] — concluído. Status: PASS
+
+[2026-03-22 21:51] [Explore:afb6557d] — concluído. Status: PARTIAL
+
+[2026-03-22 22:08] [unknown:af86c309] — concluído. Status: PARTIAL

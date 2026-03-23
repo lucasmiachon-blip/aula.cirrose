@@ -2,7 +2,7 @@
 
 > Mapa canônico de dependências entre documentos do projeto.
 > Atualizar ao criar, mover ou deletar qualquer .md.
-> Gerado: 2026-03-07. Última revisão: 2026-03-19.
+> Gerado: 2026-03-07. Última revisão: 2026-03-22.
 
 ---
 
@@ -20,7 +20,7 @@
 CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.md)
 ├── .claude/rules/*.md        ← regras detalhadas (prevalecem sobre .cursor se mais completas)
 ├── .claude/hooks/*.sh        ← safety gates determinísticos (100% enforcement)
-├── .claude/scripts/*.sh      ← worktree lifecycle (init, cleanup)
+├── .claude/scripts/*.sh      ← utility scripts
 ├── .claude/skills/*/SKILL.md ← skills invocáveis (20 ativas + 2 archived)
 ├── .cursor/rules/*.mdc       ← regras Cursor (quick-ref com globs)
 ├── docs/*.md                 ← referência expandida
@@ -114,11 +114,11 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | build-monitor.sh | PostToolUse, PostToolUseFailure (Bash) | Detecta falhas de build |
 | check-evidence-db.sh | PreToolUse (Write) | Valida dados clínicos antes de escrever |
 | guard-evidence-db.sh | PreToolUse (Write) | Protege evidence-db de edições não autorizadas |
-| guard-shared.sh | PreToolUse (Write, Edit) | Bloqueia edição de shared/ em branches não-main |
+| ~~guard-shared.sh~~ | Removido 2026-03-22 | Obsoleto: shared/ internalizado, sem worktree |
 | guard-destructive.sh | (dormant — coberto por deny permissions) | Backup: bloqueia comandos destrutivos |
-| guard-merge.sh | PreToolUse (Bash) | Valida merge: --no-ff em main, bloqueia shared/ changes |
+| ~~guard-merge.sh~~ | Removido 2026-03-22 | Obsoleto: sem worktree protocol |
 | guard-secrets.sh | PreToolUse (Bash) | WARN-only: escaneia staged files por padrões de secrets |
-| warn-class-c.sh | PreToolUse (Bash) | WARN-only: lista arquivos Classe C ao fazer git merge main em WT |
+| ~~warn-class-c.sh~~ | Removido 2026-03-22 | Obsoleto: sem Class A/B/C |
 | post-compact-reinject.sh | SessionStart (compact) | Reinjecta HANDOFF + git log após /compact |
 | session-tracker.sh | SessionStart, SessionEnd | Lifecycle de sessão (3-terminal tracking) |
 | subagent-stop-log.sh | SubagentStop | Loga conclusão de subagents |
@@ -129,14 +129,14 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Arquivo | Função |
 |---------|--------|
-| worktree-init.sh | Cria WT com validação, logging, regras |
-| worktree-cleanup.sh | Valida estado, confirma merge, remove WT |
+| ~~worktree-init.sh~~ | Removido 2026-03-22 — worktree protocol removido |
+| ~~worktree-cleanup.sh~~ | Removido 2026-03-22 — worktree protocol removido |
 
 ### scripts/ (git hooks — versionados)
 
 | Arquivo | Função | Wired via |
 |---------|--------|-----------|
-| pre-commit.sh | Guard 1 (Classe C em main) + Guard 2 (shared/ em WT) + Guard 3 (slide-count regression) + Guard 4 (slide-integrity build) + lint | .git/hooks/pre-commit (delegator) |
+| pre-commit.sh | Guard 3 (slide-count regression) + Guard 4 (slide-integrity build) + Guard 6 (ghost canary) + lint | .git/hooks/pre-commit (delegator) |
 | pre-push.sh | done-gate --strict para aula detectada na branch | .git/hooks/pre-push (delegator) |
 | post-merge.sh | Anti-rollback: slide count loss + content diff detection pós-merge | .git/hooks/post-merge (delegator) |
 | install-hooks.sh | Instala pre-commit + pre-push + post-merge em .git/hooks/ | Manual: `bash scripts/install-hooks.sh` |
@@ -156,7 +156,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
-| WT-OPERATING.md | (prompt operacional — máquina de estados + QA loop, WT-only) | ← HANDOFF.md |
+| WT-OPERATING.md | (prompt operacional — máquina de estados + QA loop) | ← HANDOFF.md |
 | ~~QA-WORKFLOW.md~~ | Deletado 2026-03-18 — QA loop em WT-OPERATING.md §4 | — |
 
 ### aulas/metanalise/
@@ -234,7 +234,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Benchmarks modelos | docs/ECOSYSTEM.md | — |
 | Pesquisa médica profunda | .claude/skills/medical-researcher/SKILL.md | .claude/rules/medical-data.md, docs/MCP-ACADEMICOS.md |
 | Safety gates (hooks) | .claude/settings.json + .claude/hooks/ | — |
-| WT protocol | aulas/*/CLAUDE.md § Worktree | .claude/scripts/ |
+| ~~WT protocol~~ | Removido 2026-03-22 — standalone, sem worktree | — |
 | Audit trail | .claude/hooks/audit-trail.sh | ~/.claude/session-logs/ |
 | QA pipeline (cirrose) | aulas/cirrose/WT-OPERATING.md §4 | — |
 

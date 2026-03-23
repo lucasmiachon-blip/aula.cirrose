@@ -1,8 +1,8 @@
-# WT-OPERATING — Cirrose (prompt operacional)
+# OPERATING — Cirrose (prompt operacional)
 
-> Maquina de estados para sessoes de trabalho nesta worktree.
+> Maquina de estados + QA loop para sessoes de trabalho.
 > Ler isto INTEIRO no inicio de TODA sessao. Sem excecoes.
-> Criado: 2026-03-17. Coautoria: Lucas + Opus 4.6.
+> Criado: 2026-03-17. Atualizado: 2026-03-22 (standalone, sem worktree).
 
 ---
 

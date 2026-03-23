@@ -85,7 +85,7 @@ O hook `pre-push` roda `done-gate --strict` automaticamente antes de cada `git p
 bash scripts/install-hooks.sh
 ```
 
-Instala tanto `pre-commit` (lint) quanto `pre-push` (done-gate strict). Funciona em repos normais e worktrees.
+Instala tanto `pre-commit` (lint) quanto `pre-push` (done-gate strict).
 
 ### Comportamento
 

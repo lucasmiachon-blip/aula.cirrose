@@ -19,9 +19,8 @@
 **QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
 **Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`aulas/cirrose/scripts/gemini-qa3.mjs`).
 **Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via REST API (fetch). SDK `@google/generative-ai` removido do pipeline ativo.
-**Ultimo merge main:** `99092b7` (2026-03-22) — hardening: reveal.js removido, orphan scripts deletados, audit-trail narrowed, build:metanalise real. Zero Classe C.
-**Evolve 21/mar:** 10 patches aplicados (abf0eb8). -7 node spawns/ciclo. Python removido do allow list. Stale refs corrigidas. new-slide agora tem checklist 9-superficies.
-**Crash 20/mar:** Bun segfault apos 11h uptime. Causa: Playwright sem browser_close() + hooks pesados. Ver ERRO-047. Regras de restart adicionadas em WT-OPERATING.md §9.
+**Standalone:** `f192cec` (2026-03-22) — shared/ internalizado em `aulas/cirrose/shared/`, worktree protocol removido. Sem Class A/B/C, sem guard-shared, sem merge ceremonies. Sprint mode ate 31/mar.
+**Crash 20/mar:** Bun segfault apos 11h uptime. Causa: Playwright sem browser_close() + hooks pesados. Ver ERRO-047.
 **Env vars:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente (setar quando necessario). SCITE OAuth pendente.
 
 ---
