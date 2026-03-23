@@ -62,7 +62,8 @@
 | [prompts/weekly-updates.md](prompts/weekly-updates.md) | Prompt busca semanal de atualizacoes |
 | [prompts/research-best-practices.md](prompts/research-best-practices.md) | Prompt pesquisa melhores praticas |
 | [prompts/gemini-deck-audit.md](prompts/gemini-deck-audit.md) | Audit visual Gemini (deck completo) |
-| [prompts/gemini-slide-editor.md](prompts/gemini-slide-editor.md) | QA.3 editor final por slide (template reutilizavel) |
+| ~~[prompts/gemini-slide-editor.md](prompts/_archive/gemini-slide-editor.md)~~ | ~~QA.3 editor final por slide~~ (arquivado — substituido por gemini-qa3.mjs) |
+| [prompts/error-digest.md](prompts/error-digest.md) | Error digest para Gemini QA pipeline |
 | [prompts/gemini-paper-extraction.md](prompts/gemini-paper-extraction.md) | Extracao de papers Gemini |
 | [prompts/gemini-transcript-comparison.md](prompts/gemini-transcript-comparison.md) | Comparacao transcripts Gemini |
 | [prompts/openai-backward-design.md](prompts/openai-backward-design.md) | Backward design OpenAI |

@@ -204,7 +204,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 4     | 4          | 0 |
-| HIGH       | 12    | 12         | 0 |
+| HIGH       | 13    | 13         | 0 |
 | MEDIUM     | 9     | 9          | 0 |
 | LOW        | 1     | 1          | 0         |
 
@@ -231,7 +231,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 5     | 5          | 0 |
-| HIGH       | 13    | 13         | 0 |
+| HIGH       | 14    | 14         | 0 |
 | MEDIUM     | 9     | 9          | 0 |
 | LOW        | 1     | 1          | 0         |
 
