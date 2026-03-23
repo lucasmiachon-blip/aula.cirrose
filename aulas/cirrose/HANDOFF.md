@@ -167,6 +167,7 @@ Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L)
 - settings.local.json: 129 → 61 entries (-68 lixo: commits one-off, debug, orfas)
 - guard-destructive.sh arquivado (redundante com deny list)
 - Pipeline QA (gemini-qa3.mjs, Gate 0, scripts captura) INTACTA
+- MEMORY.md: 42 → 35 arquivos. 10 stale/duplicados deletados, reescrita do zero. Feedbacks comportamentais mantidos, inventario de infra removido. user_profile.md criado.
 
 **Proximo:** s-a1-classify (fechar: source-tag overflow, decidir propostas Gemini) → sequencia manifest
 
