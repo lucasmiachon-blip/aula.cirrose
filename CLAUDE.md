@@ -61,7 +61,7 @@ aulas/cirrose/shared/js/case-panel.js → Panel lateral (cirrose)
 6. **Daltonismo:** icone obrigatorio junto a cor semantica.
 7. **`data-animate` declarativo.** NUNCA gsap inline.
 8. **Zero CDN. Offline-first.**
-9. **NUNCA reescrever `index.html` inteiro** sem aprovacao.
+9. **index.html e gerado.** Editar slides/*.html + build. Hook bloqueia Write direto.
 10. **Corpo do slide <= 30 palavras.**
 11. **Speaker notes em portugues.**
 12. **GSAP failsafe:** `[data-animate]` → `opacity:0` em CSS. `.no-js` forca `opacity:1`.
@@ -84,18 +84,19 @@ aulas/cirrose/shared/js/case-panel.js → Panel lateral (cirrose)
 
 ```
 Erro → ERROR-LOG.md → se 3x recorrente → regra em .claude/rules/
-Correcao do usuario → tasks/lessons.md
+Correcao do usuario → tasks/lessons.md (se nao coberta por rules)
 ```
 
-Regras em `.claude/rules/` sao reativas — nasceram de 52 erros reais. NUNCA criar regra para problema que aconteceu 1x.
+Regras em `.claude/rules/` sao reativas — nasceram de 52 erros reais. NUNCA criar regra para problema que aconteceu 1x. Enforcement real = hooks (bloqueiam), nao docs (informam).
 
 ### Guardrails automaticos (zero cerimonia)
 
-| Guard | Funcao |
-|-------|--------|
-| Pre-commit | Slide-count regression, slide-integrity, ghost canary, lints |
-| evidence-db hooks | Protege dados clinicos de edicoes nao autorizadas |
-| Audit trail | Log JSONL de toda tool call |
+| Guard | Funcao | Tipo |
+|-------|--------|------|
+| Pre-commit | Slide-count regression, slide-integrity, ghost canary, lints | exit 1 bloqueia commit |
+| evidence-db hooks | Protege dados clinicos de edicoes nao autorizadas | warn (exit 0) |
+| guard-generated | Bloqueia Write em index.html gerado | exit 2 bloqueia tool |
+| Audit trail | Log JSONL de toda tool call | passivo |
 
 ### Complexidade
 
@@ -128,7 +129,7 @@ Threshold: score < 7 → registrar problema, aguardar decisão de Lucas
 ## Operational Records
 
 Cada projeto tem seus proprios registros (HANDOFF, CHANGELOG, ERROR-LOG, NOTES).
-Cross-project: `tasks/lessons.md` (padroes de auto-correcao).
+Cross-project: `tasks/lessons.md` — apenas licoes NAO codificadas em rules. E-codes → css-errors.md.
 
 ## Context Management
 
