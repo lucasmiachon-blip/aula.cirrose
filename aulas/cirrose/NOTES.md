@@ -1,5 +1,28 @@
 # NOTES — Cirrose
 
+## [23/03] Sessao 2 — Tentativa QA s-a1-01 (abortada)
+
+### Problemas encontrados
+1. **Playwright vs Chrome:** Playwright MCP usa Chrome do sistema. Com Chrome do usuario aberto, falha com "Opening in existing browser session". `browser_install` nao resolve (instala mesmo Chrome). Solucao: usuario fecha Chrome antes.
+2. **Dev server instavel:** Vite morreu entre chamadas — precisou reiniciar (port 3002 → 3003).
+3. **Hash navigation deck.js:** `#s-a1-01` na URL NAO navega ao slide. deck.js usa `goTo(index)` via ESM — nao exposto no `window`.
+4. **Navegacao programatica:** `window.deck` existe mas sem metodos (objeto vazio). `goTo`/`navigate` sao exports ESM inacessiveis via `page.evaluate`.
+5. **Workaround manual:** `classList.add('slide-active')` + `scrollIntoView()` mostra o slide mas NAO dispara animacoes custom (pipeline GSAP depende de `slide:entered` via deck.js interno).
+6. **`slide:entered` dispatch manual:** Disparar o evento via `CustomEvent` nao triggou as animacoes — provavelmente o dispatcher ja estava conectado ao slide errado ou o contexto GSAP nao estava inicializado para aquele slide.
+
+### Acoes para proxima sessao
+- Expor `goTo` no `window` (1 linha em deck.js: `window.deckNav = { goTo, navigate }`) para Playwright conseguir navegar
+- OU usar `?slide=N` query param (implementar em deck.js)
+- OU navegar via teclas ArrowRight N vezes (fragil mas funcional)
+- Fechar Chrome ANTES de abrir Playwright (documentar no WT-OPERATING)
+
+### Estado
+- s-a1-01: CONTENT (nao mudou). Screenshot estado inicial capturado mas sem animacoes.
+- HANDOFF atualizado: s-a1-01 revertido de DONE para CONTENT.
+- Zero slides avancaram (sessao de suporte/debug).
+
+---
+
 ## [23/03] Refatoracao Act 1 (baveno, classify, vote) + ERRO-053
 
 ### Mudancas aplicadas

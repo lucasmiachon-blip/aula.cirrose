@@ -23,7 +23,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | DONE | R12 (22/mar). Fechado por validacao visual Lucas. Source-tag 0.85rem (23/mar). |
+| 3 | s-a1-01 | CONTENT | R12 (22/mar). Source-tag 0.85rem (23/mar). QA pipeline pendente. |
 | 4 | s-a1-baveno | CONTENT | Refatorado 23/mar: removido pathway, adicionado PREDESCI callout. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 5 | s-a1-classify | CONTENT | Refatorado 23/mar: header PREDESCI verde (#2d5016), source-tag visivel. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
@@ -32,7 +32,7 @@
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 3 DONE · 41 CONTENT
+**Resumo:** 2 DONE · 42 CONTENT
 **QA Act 1:** Pipeline nao iniciado nos 3 slides refatorados. ERRO-053: tentativa de QA falhou (pipeline ignorado). Reiniciar do Gate 1.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
