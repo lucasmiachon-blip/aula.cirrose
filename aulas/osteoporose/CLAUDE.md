@@ -26,8 +26,8 @@
 
 | Arquivo | Papel |
 |---------|-------|
-| `../../shared/css/base.css` | Design system tokens |
-| `../../shared/js/engine.js` | GSAP dispatcher + Reveal init |
+| `../cirrose/shared/css/base.css` | Design system tokens |
+| `../cirrose/shared/js/engine.js` | GSAP dispatcher + Reveal init |
 
 ### Fluxo de edicao
 

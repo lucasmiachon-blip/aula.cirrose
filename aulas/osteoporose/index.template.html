@@ -16,10 +16,10 @@
   import Notes from 'reveal.js/plugin/notes/notes.esm.js';
   import gsap from 'gsap';
   import 'reveal.js/dist/reveal.css';
-  import '../../shared/css/base.css';
+  import '../cirrose/shared/css/base.css';
   import './osteoporose.css';
   import './archetypes.css';
-  import { initAula, createAnimationDispatcher } from '../../shared/js/engine.js';
+  import { initAula, createAnimationDispatcher } from '../cirrose/shared/js/engine.js';
 
   const deck = await initAula(Reveal, gsap, { plugins: [Notes], width: 1280, height: 720 });
   window.Reveal = Reveal;

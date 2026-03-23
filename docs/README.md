@@ -63,6 +63,7 @@
 | [prompts/research-best-practices.md](prompts/research-best-practices.md) | Prompt pesquisa melhores praticas |
 | [prompts/gemini-deck-audit.md](prompts/gemini-deck-audit.md) | Audit visual Gemini (deck completo) |
 | ~~[prompts/gemini-slide-editor.md](prompts/_archive/gemini-slide-editor.md)~~ | ~~QA.3 editor final por slide~~ (arquivado — substituido por gemini-qa3.mjs) |
+| [prompts/gemini-gate0-inspector.md](prompts/gemini-gate0-inspector.md) | Gate 0 inspetor de defeitos visuais (Gemini) |
 | [prompts/error-digest.md](prompts/error-digest.md) | Error digest para Gemini QA pipeline |
 | [prompts/gemini-paper-extraction.md](prompts/gemini-paper-extraction.md) | Extracao de papers Gemini |
 | [prompts/gemini-transcript-comparison.md](prompts/gemini-transcript-comparison.md) | Comparacao transcripts Gemini |
