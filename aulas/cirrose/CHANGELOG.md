@@ -4,6 +4,25 @@
 
 ---
 
+## 2026-03-22 — Standalone + best practices (sessoes 20-21)
+
+- **Standalone:** shared/ internalizado em `./shared/`. Worktree protocol removido (Class A/B/C, guard-shared, guard-merge, warn-class-c, worktree-init/cleanup). 6 imports atualizados. Build OK.
+- **s-a1-01 DONE (R12):** Gate 4 R2 6.7/10. P3 dimmed + P4 dots aplicados. Fechado por validacao visual Lucas.
+- **CLAUDE.md best practices:** Workflow reescrito (sessao, erros, guardrails, complexidade). 151 linhas (<200 recomendado Anthropic).
+- **lessons.md podado:** 481→88 linhas. 34 redundantes (ja em rules) + 5 obsoletas (worktree) removidas.
+- **guard-generated.sh:** Hook PreToolUse exit 2 bloqueia Write em index.html gerado.
+- **HANDOFF.md podado:** 344→120 linhas. Historico de sessoes movido para CHANGELOG.
+- **Memory cleanup:** 4 feedbacks worktree deletados. Best practices salvo.
+- **Docs cleanup:** XREF.md, HANDOFF-CLAUDE-AI.md, DONE-GATE.md — refs worktree removidas.
+
+### Sessoes historicas movidas do HANDOFF
+
+- **Sessao 20 (22/mar):** s-a1-01 R12 DONE. P3+P4 aplicados. Source-tag revert 13→11px.
+- **Sessao 16 (21/mar):** s-a1-classify QA visual R3-R10. Score 7.1/10. ERRO-048, ERRO-049.
+- **Sessao 12 (20/mar):** s-a1-01 R11 Ghost Rows confirmados. ERRO-046 corrigido.
+
+---
+
 ## 2026-03-22 — Repo map + janitor housekeeping (sessao 19)
 
 - **Repo tree:** Arvore completa mapeada (746 arquivos). Estrutura documentada no plan file.

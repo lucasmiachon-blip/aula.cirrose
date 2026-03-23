@@ -1,235 +1,92 @@
-# HANDOFF — Cirrose (projeto)
+# HANDOFF — Cirrose
 
-> Só pendências ativas. Histórico → CHANGELOG.md. Erros → ERROR-LOG.md. Claude.ai → HANDOFF-CLAUDE-AI.md
-
----
-
-## Estado atual — 2026-03-22 (QA pipeline ativo)
-
-**Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅
-**Scaling:** ✅ JS `scaleDeck()` confirmado.
-**Integridade:** ✅ `.slide-integrity` SHA-256 + Guard 4 pre-commit.
-**ERROR-LOG:** 52 registrados, 50 corrigidos, 1 processo (E42), 1 parcial (E47 crash Bun).
-**Notion References DB:** 3 PMIDs sincronizados 19/mar (40581070, 40434108, 38291809). Journals CGH e Liver Int = "Other" (backlog: adicionar opções).
-**QA Workflow:** `WT-OPERATING.md` — maquina de estados + QA loop 5-stage com Gemini 3.1 Pro.
-**QA Script — Gemini CLI:** `aulas/cirrose/scripts/gemini-qa3.mjs` (canonico, Gate 0 + Gate 4, REST API). Auto-extrai HTML/JS/CSS. Antigo `scripts/gemini.mjs` arquivado em `scripts/_archive/`.
-**QA Script — Captura:** `aulas/cirrose/scripts/qa-batch-screenshot.mjs` (batch por ato, deck.js) · `aulas/cirrose/scripts/capture-s-hook.mjs` (s-hook) · `aulas/cirrose/scripts/capture-s-a1-01.mjs` (s-a1-01).
-**QA Script — Ad-hoc:** `aulas/cirrose/scripts/gemini-qa3.mjs` (REST API). Flags: `--inspect` (Gate 0, default), `--full` (Gate 0 → Gate 4), `--editorial` (Gate 4 only), `--with-video` (força video em R1). ROUND_CONTEXTS externalizado em `qa-rounds/{slide}.md` (append automático). Error digest injetado via `<guardrails>`. Output 5 passos, max 6144 tokens. Video skip R1 (enviar R2+). Template morto arquivado em `docs/prompts/_archive/`.
-**Gate 0 — Inspetor de Defeitos:** `docs/prompts/gemini-gate0-inspector.md`. 9 checks binários (6 MUST + 3 SHOULD). ~$0.01/slide. MUST FAIL bloqueia Gate 4. Usa S0+S2 (S1 mid-animation excluído — causa false positives). Capture S0 usa `forceAnimFinalState` para layout limpo.
-**QA Script — Video:** `scripts/qa/qa-video.js` — dual deck.js/Reveal.js. `--aula` flag (default cirrose). Testado 20/mar.
-**Profile ativo (.mcp.json):** 8 MCPs base (filesystem, playwright, eslint, lighthouse, a11y, notion, fetch, sharp). Visual audit MCPs via profile `qa`. Gemini via CLI (`aulas/cirrose/scripts/gemini-qa3.mjs`).
-**Gemini modelo:** `gemini-3.1-pro-preview` (SEMPRE). Via REST API (fetch). SDK `@google/generative-ai` removido do pipeline ativo.
-**Standalone:** `f192cec` (2026-03-22) — shared/ internalizado em `aulas/cirrose/shared/`, worktree protocol removido. Sem Class A/B/C, sem guard-shared, sem merge ceremonies. Sprint mode ate 31/mar.
-**Crash 20/mar:** Bun segfault apos 11h uptime. Causa: Playwright sem browser_close() + hooks pesados. Ver ERRO-047.
-**Env vars:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente (setar quando necessario). SCITE OAuth pendente.
+> Pendencias ativas. Historico → CHANGELOG.md. Erros → ERROR-LOG.md.
 
 ---
 
-## Estado dos Slides (maquina de estados — WT-OPERATING.md)
+## Estado — 2026-03-22
+
+**Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅
+**Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + audit trail.
+**QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`.
+**Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).
+**Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente. SCITE OAuth pendente.
+
+---
+
+## Slides
 
 > Estados: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE
-> Verificar 1 a 1 antes de registrar. Nao assumir.
-
-### Pre-Act + Act 1
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 1 | s-title | DONE | QA 5-stage PASS 18/mar. Gemini 3.1 Pro 9/10. ERRO-036 (h1 specificity) + ERRO-037 (pillar dots). Font fallback deferido. |
-| 2 | s-hook | DONE | **v17** (19/mar). QA 5-stage PASS. Gemini 3.1 Pro R3: P1 (borderless grid) + P2 (contraste denso) + separator tuning. |
-| 3 | s-a1-01 | DONE | **R12** (22/mar). Gate 0 PASS. Gate 4 R2: 6.7/10. P3 (dimmed 0.65/grayscale 40%) + P4 (dots ui-accent) aplicados. P2 monolito vetado 2x. Source-tag revert 13→11px. Fechado por validação visual Lucas. |
-| 4 | s-a1-classify | QA | **Gate 4 R1** (22/mar). Score 4.8/10, 4 propostas. P2 parcial aplicado (blur→grayscale, PREDESCI sidebar→badge, HR 77→86px). Source-tag overflow:hidden removido (Fix B). **Pendente:** conteúdo excede 720px (source-tag fora viewport), 4 propostas Gemini aguardam decisão, Gate 4 R2. qa-rounds/s-a1-classify.md. |
-| 5 | s-a1-vote | CONTENT | Poll archetype. Conteudo completo, notes com timing. |
-| 6 | s-a1-damico | CONTENT | Flow archetype. CSS compactado (fill fix 15/mar). |
-| 7 | s-a1-baveno | CONTENT | Hero-stat. Conteudo completo, PMIDs em notes. |
-| 8 | s-a1-fib4 | CONTENT | Hero-stat + calc interativo. h2 mnemonico (Lucas decide). |
-| 9 | s-a1-rule5 | CONTENT | Flow archetype. Conteudo completo. |
-| 10 | s-a1-meld | CONTENT | Hero-stat + MELD-Na calc. Conteudo completo. |
-| 11 | s-cp1 | CONTENT | Checkpoint. narrativeCritical. Inline style fix 15/mar. |
+| 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
+| 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
+| 3 | s-a1-01 | DONE | R12 (22/mar). Fechado por validacao visual Lucas. |
+| 4 | s-a1-classify | QA | Gate 4 R1: 4.8/10. P2 parcial aplicado. Source-tag fora viewport. 4 propostas Gemini pendentes. `qa-rounds/s-a1-classify.md`. |
+| 5-11 | s-a1-vote → s-cp1 | CONTENT | Act 1 restante. |
+| 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
+| 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
+| 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-### Act 2
+**Resumo:** 3 DONE · 1 QA · 40 CONTENT
 
-| # | Slide | Estado | Notas |
-|---|-------|--------|-------|
-| 12 | s-a2-01 | CONTENT | Gatilhos descompensacao. Conteudo completo, PMIDs em notes. |
-| 13 | s-a2-02 | CONTENT | Ascite dx. Conteudo completo. |
-| 14 | s-a2-03 | CONTENT | Ascite manejo. Conteudo completo. |
-| 15 | s-a2-04 | CONTENT | Infeccao. [TBD SOURCE] em notes (PPI/PBE meta-analise). |
-| 16 | s-a2-05 | CONTENT | PBE. Conteudo completo, NNT + PMID. |
-| 17 | s-a2-06 | CONTENT | HDA varicosa. Conteudo completo. |
-| 18 | s-a2-07 | CONTENT | NSBBs/carvedilol. 3 click-reveals. Conteudo completo. |
-| 19 | s-a2-08 | CONTENT | Encefalopatia. Conteudo completo. |
-| 20 | s-a2-09 | CONTENT | Nutricao/sarcopenia. [TBD SOURCE] em notes (prevalencia meta). |
-| 21 | s-a2-10 | CONTENT | Transplante. Conteudo completo. |
-| 22 | s-a2-11 | CONTENT | HRS-AKI. Conteudo completo, CONFIRM trial. |
-| 23 | s-a2-12 | CONTENT | Ascite refrataria. Conteudo completo. |
-| 24 | s-a2-13 | CONTENT | Cardiomiopatia cirrotica. Conteudo completo. |
-| 25 | s-a2-14 | CONTENT | SHP vs HPP. Conteudo completo. |
-| 26 | s-a2-15 | CONTENT | Early TIPS. Conteudo completo. |
-| 27 | s-cp2 | CONTENT | Checkpoint. narrativeCritical. Conteudo completo. |
-
-### Act 3
-
-| # | Slide | Estado | Notas |
-|---|-------|--------|-------|
-| 28 | s-a3-01 | CONTENT | Bridge/cura etiologica. HR 0,46/0,35. Conteudo completo. |
-| 29 | s-a3-02 | CONTENT | Recompensacao Baveno VII. Conteudo completo. |
-| 30 | s-a3-03 | CONTENT | Criterio expandido 37,6%. Conteudo completo. |
-| 31 | s-a3-04 | CONTENT | Etiologia e recompensacao. [TBD SOURCE] em notes (alcool 1/3 em 5a). |
-| 32 | s-a3-05 | CONTENT | SVR/CSPH 53%. Conteudo completo. |
-| 33 | s-a3-06 | CONTENT | Vigilancia 6 meses. Conteudo completo. |
-| 34 | s-a3-07 | CONTENT | Fechamento ato 3. Conteudo completo. |
-| 35 | s-cp3 | CONTENT | Checkpoint. narrativeCritical. Interativo. |
-| 36 | s-close | CONTENT | Recap. narrativeCritical. "5 numeros, 3 decisoes." |
-
-### Appendix
-
-| # | Slide | Estado | Notas |
-|---|-------|--------|-------|
-| 37 | s-app-01 | CONTENT | ACLF grau 3, mortalidade. Conteudo completo. |
-| 38 | s-app-02 | CONTENT | Early TIPS NNT 4. Conteudo completo. |
-| 39 | s-app-03 | CONTENT | ABCW etiologias raras. Conteudo completo. |
-| 40 | s-app-04 | CONTENT | NSBB Turco 2024 IPD. [PMID pendente] em notes. |
-| 41 | s-app-alb | CONTENT | Albumina 3 indicacoes. Conteudo completo. |
-| 42 | s-app-07 | CONTENT | Estatina LIVERHOPE. Conteudo completo. |
-| 43 | s-app-08 | CONTENT | CIRROXABAN p=0,058. Conteudo completo. |
-| 44 | s-app-etio | CONTENT | 10 etiologias. Conteudo completo. |
-
-### Resumo estados
-
-| Estado | Qtd | Slides |
-|--------|-----|--------|
-| DONE | 3 | s-title, s-hook, s-a1-01 |
-| QA | 1 | s-a1-classify (Gate 4 R1: 4.8/10, P2 parcial aplicado, source-tag fix parcial) |
-| CONTENT | 40 | Todos os demais |
-| DRAFT | 0 | — |
-
-### [TBD SOURCE] em notes (nao projetado — nao bloqueia QA visual)
+### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
 - s-a2-04: PPI meta-analise OR ~2.17 PBE
 - s-a2-09: sarcopenia prevalencia meta-analise
 - s-a3-04: taxa recompensacao alcool "1/3 em 5a"
-- s-app-04: PMID Turco 2024 IPD (publicado, PMID registry lag)
+- s-app-04: PMID Turco 2024 IPD
 
 ---
 
-## CAMINHO CRÍTICO
+## Caminho critico
 
-### P0 ATUAL: Fix gargalos QA Loop 1 (E, M, L) slide a slide
+1. **s-a1-classify** — fechar: source-tag overflow, decidir propostas Gemini, Gate 4 R2
+2. **s-a1-vote → s-cp1** — sequencia manifest, slide a slide no QA pipeline
+3. **Act 2 → Act 3** — apos Act 1 DONE
 
-Foco em produto: corrigir gargalos identificados no QA Loop 1 baseline (E, M, L) slide a slide.
-**Plano detalhado:** Cursor plan `qa_bloco_1_execucao` (arquivo externo ao repo)
+---
 
-**Fixes aplicados (15/mar sessão Cursor):**
-1. ~~**s-a1-damico**~~ ✅ — era-source removidos, tags trimmed, CSS compactado (fill 196%→~90%)
-2. ~~**s-a1-01**~~ ✅ — padding reduzido, hero ampliado, pathway steps maiores (fill 52%→~65%)
-3. ~~**s-hook**~~ ✅ — failsafes .no-js/.stage-bad adicionados (labs + punchline + question)
-4. ~~**s-cp1**~~ ✅ — inline style → .poll-question, aria-labels nos buttons
+## Backlog
 
-**Fixes aplicados (15/mar sessão Claude Code):**
-5. ~~**s-title**~~ ✅ — navy bg via CSS, re-scope tokens, brasão filter:none, divider removido. Scroll sistêmico resolvido (base.css: notes hidden + overflow hidden). Ver ERRO-034.
-
-**Fixes aplicados (16/mar sessão Claude Code — s-a1-01 polish v3):**
-6. ~~**s-a1-01**~~ ✅ — h2 provocativo "Por que rastrear?", hero context removido, guideline-rec card com bold nos 3 critérios, source-tag footer restaurado, auto-margin vertical distribution. Claude Vision 3.9/5.
-
-**Fixes aplicados (17/mar sessão Claude Code — s-a1-classify redesign):**
-7. ~~**s-a1-classify**~~ ✅ — Redesign + QA polish PASS. Warning icon --warning→--warning-on-light (E15, 3.77→7.03:1). Gate 1+2+3 PASS, 14 dims ≥9. Build ✅ · Lint ✅ · Contraste ✅.
-
-**Próximos passos:**
-8. Per-slide audit Act 1 (Fase 2): constraint check + Claude Vision + score 14 dims
-8. Fix loop ate PASS (todas dims >= 9)
-9. Dynamic gate (Fase 3): animacoes + click-reveals
-10. Deck-level Gemini (Fase 4): cross-slide consistency
-
-**s-hook (QA — v17, Gemini R3 proposals applied):**
-- v10 (19/mar): 14 fixes Gemini R1 (2.5-pro) aplicados (G1-G14).
-- v11 (19/mar): QA regression fixes — E43 (card surface restaurado) + E44 (overlay blackout).
-- v12-v15: prompt eng iterations. v15: layout reestruturado (story+punchline left, labs right).
-- v16 (19/mar): Gemini R2 (3.1-pro) propostas 2-5 aplicadas — flat cards, border-left editorial, differential motion, SplitText question.
-- v17 (19/mar): Gemini R3 (3.1-pro, prompt v6.1) propostas P1+P2 aplicadas:
-  - P1 (Borderless Grid): cards → flat separators (Bloomberg/FT editorial). align-items flex-start, border-top separator, removido background/border-radius/border lateral.
-  - P2 (Contraste Denso): `--hook-alert-value` L50→L42 (darker red), lab values clamp(40px,3.5vw,56px) +20%, units 0.35em opacity 0.6, refs 0.65rem opacity 0.7.
-  - Separator tuning: opacity 0.05→0.15→0.25→0.40 (user-approved final).
-- QA.0-QA.3 PASS. Pendente: QA.4 reeval screenshots → DONE.
-- **Screenshots v17 CURRENT** — `qa-screenshots/s-hook/P1P2-final-1280x720.png`.
-- Prompt Gemini v6.1: `docs/prompts/gemini-slide-editor.md`.
-- Letterbox 16:10 esperado (monitor usuario). TV congresso 16:9 = sem barras.
-
-### P0 Sprint — 9 dias para congresso (31/mar)
-
-**Mudanca de processo (sessao 22/mar noite):**
-- Refletir com Lucas ANTES de implementar CSS/GSAP (Lucas e iniciante)
-- Gemini Gate 4: max 1 round por slide, so se Lucas pedir
-- Sem multi-round, sem AUDIT-VISUAL scoring, sem screenshots multi-resolucao
-- HANDOFF atualizado 1x por sessao, commit batch 3-5 slides
-
-**Limpeza pipeline (sessao 22/mar noite):**
-- settings.local.json: 129 → 61 entries (-68 lixo: commits one-off, debug, orfas)
-- guard-destructive.sh arquivado (redundante com deny list)
-- Pipeline QA (gemini-qa3.mjs, Gate 0, scripts captura) INTACTA
-- MEMORY.md: 42 → 35 arquivos. 10 stale/duplicados deletados, reescrita do zero. Feedbacks comportamentais mantidos, inventario de infra removido. user_profile.md criado.
-
-**Proximo:** s-a1-classify (fechar: source-tag overflow, decidir propostas Gemini) → sequencia manifest
-
-**Pipeline QA otimizado (sessao 22/mar):**
-- 5 OPTs implementadas, 3 bugs smoke test corrigidos
-- ROUND_CONTEXTS externalizado, error digest injetado, output comprimido
-- Custo: ~$0.058/chamada Gate 4, ~$0.014/chamada Gate 0
-
-**ERRO-052 fix sistemico:** vw→px em 36 clamp(). Todos slides afetados.
-
-### Backlog
-
-- QA visual Gemini: Demais slides: screenshots state-by-state, video de reveals, monotonia visual Act 2
-- **[MAIN]** engine.js `?qa=1` não força estado final de custom animations — `forceAnimFinalState()` só trata `[data-animate]`, ignora `customAnimations`. Workaround: script Playwright força via evaluate. Fix longo-prazo em shared/.
-- h2 assertivo fib4: Lucas decide no browser (mnemônico mantido por decisão)
-- Headlines reescritos neste batch: s-a1-01 (verboso→83%), s-a1-damico (verboso→Child-Pugh), s-a1-meld (metáfora→urgência)
-- ~~2 HEX hardcoded em cirrose.css~~ ✅ Resolvido — restam apenas fallbacks `var(..., #hex)` válidos
-- **[MAIN P03]** Bash write-guard hook: fechar bypass sed/echo em shared/ e evidence-db → novo `.claude/hooks/guard-bash-write.sh` + `settings.json` (medium risk)
-- **[MAIN P04]** Remover `python *` da allow list em `settings.json` (low risk)
+- engine.js `?qa=1` nao forca estado final de custom animations (workaround: Playwright evaluate)
+- h2 assertivo fib4: Lucas decide no browser
 - PDF export quebrado (DeckTape)
-- Nomes de arquivo semanticamente enganosos (05-a1-infeccao → s-a2-04, 24-app-ccc → s-a2-13, etc.)
-- [TBD SOURCE]: sarcopenia prevalência, covert HE, centros TIPS Brasil, ESPEN 2019 PMID, QTc threshold
+- Nomes de arquivo enganosos (ver slide-identity.md §9)
+- 3 dead CSS selectors (`.etiology-table`, `.framework-box`, `.predict-bars`)
 
 ---
 
-## FORA DE ESCOPO AGORA
+## Decisoes travadas (NAO reabrir)
 
-Headings explicitamente adiados para batch posterior ao QA baseline do Act 1:
+### Act 2
+- Cascata clinica do MESMO paciente (nao lista de topicos)
+- 15 slides + CP2 na ordem de narrative.md
+- NSBB pos-HDA = profilaxia SECUNDARIA (PREDESCI NNT 9 = callback Act 1)
+- HRS-AKI lidera headline (CONFIRM NNT 7, NNH 12)
+- MELDs intermediarios: construcoes narrativas → narrative.md + _manifest.js. NAO em CASE.md.
 
-1. Renomear D'Amico para "Child, MELD e D'Amico: os modelos prognóstico"
-2. Sequência "Testes não invasivos — mudança de paradigma"
-3. Sequência "Scores e nuances"
-4. Slide explicativo de elastografia
-5. The Rule of 5 (redesign/expansão)
-6. MELD / MELD-Na / MELD 3.0 (redesign/expansão)
-7. Checkpoint "qual o próximo passo?"
-8. Slide final do Ato 1: "Trajetórias — Cirrose e suas descompensações"
-
-Acts 2 e 3: bloqueados até Act 1 atingir PASS (todas 14 dimensões >= 9).
+### Act 3
+- Cenario HIPOTETICO, nao continuacao direta. CP2 fecha o caso real.
 
 ---
 
-## Decisões TRAVADAS — Ato 2
+## Fora de escopo (batch posterior)
 
-### Estrutura (NÃO reabrir)
-- Cascata clínica do MESMO paciente (não lista de tópicos)
-- 15 slides + CP2 (16 total) na ordem definida em narrative.md
-- 5 interações: PBE (A2-05), HDA/TIPS (A2-06), BB/NSBB toggle (A2-07), TX (A2-10), ICA checklist (A2-12)
-- Albumina distribuída (LVP + PBE + ACLF challenge), consolidada no apêndice
-- NSBB pós-HDA = profilaxia SECUNDÁRIA (PREDESCI NNT 9 = callback Act 1, não hero)
-- HRS-AKI lidera headline (CONFIRM NNT 7, NNH 12). ACLF = contexto de severidade
-- Nutrição = slide próprio (INCONTESTÁVEL)
-
-### MELDs intermediários
-Canônicos (CASE.md): ~10, 28, 12. Os valores 12/14/17/18/24 são CONSTRUÇÕES NARRATIVAS.
-Moram em: narrative.md + _manifest.js panelStates. NÃO em CASE.md.
-
-### Ato 3
-Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
+1. Renomear D'Amico para "Child, MELD e D'Amico"
+2. Sequencia "Testes nao invasivos"
+3. Sequencia "Scores e nuances"
+4. Slide elastografia
+5. Rule of 5 redesign
+6. MELD / MELD-Na / MELD 3.0 redesign
+7. Checkpoint "qual o proximo passo?"
+8. Slide final Ato 1: "Trajetorias"
 
 ---
 
-## Migração de IDs (referência)
+## Migracao de IDs (referencia)
 
 | Arquivo | ID antigo | ID novo |
 |---------|-----------|---------|
@@ -248,96 +105,16 @@ Cenário HIPOTÉTICO, não continuação direta. CP2 fecha o caso real.
 
 ---
 
-## Referências cruzadas (para próximo agente)
+## Referencias
 
-| O quê | Onde |
+| O que | Onde |
 |-------|------|
-| Dados do paciente | `references/CASE.md` (#1 autoridade) |
-| Trials e PMIDs | `references/evidence-db.md` (#2 autoridade) |
-| Arco narrativo + pacing | `references/narrative.md` (#3 autoridade) |
-| Ordem dos slides | `slides/_manifest.js` (#4 autoridade) |
-| Blueprint Act 2 detalhado | `_archive/RAW_ACT2_V2_2026-03.md` (referencia historica — decisoes travadas acima) |
-| Blueprint Act 3 detalhado | `_archive/RAW_ACT3_V1_2026-03.md` (referencia historica) |
-| Contrato Act 3 | `_archive/ACT3-CONTRACT-V1_2026-03.md` (referencia historica) |
+| Dados do paciente | `references/CASE.md` (#1) |
+| Trials e PMIDs | `references/evidence-db.md` (#2) |
+| Arco narrativo | `references/narrative.md` (#3) |
+| Ordem dos slides | `slides/_manifest.js` (#4) |
 | Regras operacionais | `CLAUDE.md` (cirrose) |
+| QA pipeline | `WT-OPERATING.md` |
 | Design tokens | `.claude/rules/design-system.md` |
-| Erros e prevenção | `ERROR-LOG.md` |
-| Lições aprendidas | `tasks/lessons.md` |
-| PMIDs Tier-1 verificados | `.claude/rules/medical-data.md` |
-
----
-
-## MCPs — não usar a princípio
-
-- **frontend-review** (Hyperbolic) — before/after visual diff
-
-Stack QA no profile ativo (.mcp.json): playwright, lighthouse, a11y, eslint. Adicional via profile `qa`: design-comparison, floto, a11y-contrast, chrome-devtools. Adicional via profile `full`: ui-ux-pro, clinicaltrials, perplexity, + MCPs de pesquisa.
-
----
-
-## Enforcement (implementado)
-
-- lint:case-sync, lint:narrative-sync, lint:slides — todos passam
-- Decision Record protocol para slides narrativeCritical
-- 5 slides narrative-critical: s-hook, s-cp1, s-cp2, s-cp3, s-close
-
----
-
-## Offline
-
-`npm run build:cirrose`, `npm run lint:slides`, `npm run preview` — funcionam offline.
-
----
-
-## Onde paramos (2026-03-22, sessao 19)
-
-### Sessao 19 — Repo map + janitor + housekeeping
-
-Sessao de suporte (0 slides avancados).
-
-**Acoes executadas:**
-1. Arvore completa do repositorio gerada (746 arquivos mapeados)
-2. Repo-janitor audit: 0 orphan HTMLs, 0 broken MD links, 1 dangling ref corrigida
-3. Limpeza local: 80 arquivos `.playwright-mcp/` (32 logs + 48 PNGs) + 2 orphan PNGs na raiz
-4. Dangling ref `_archive/ABSORB-PLAN-gemini-qa3.md` corrigida (path relativo errado)
-5. Documentacao atualizada (HANDOFF, CHANGELOG)
-
-**Nenhum erro novo.**
-
-### Pipeline geral
-- s-title: DONE, s-hook: DONE, s-a1-01: DONE
-- s-a1-classify: QA (Gate 0 PASS, R10: 7.1/10 — Gate 4 nao executado)
-- 40 slides: CONTENT
-
-### Proximo (decisoes pendentes)
-- s-a1-classify: Gate 4 Gemini ou aceitar R10 como baseline
-- Apos fechar s-a1-classify QA: s-a1-vote (CONTENT → QA pipeline 5-stage)
-
----
-
-### Sessao 20 (2026-03-22) — s-a1-01 DONE (R12)
-
-s-a1-01 fechado. Gate 4 R1 (6.75) + R2 (6.7): P3 dimmed 0.55→0.65 + grayscale 80%→40%, P4 dots oklch→ui-accent. P2 monolito vetado 2x. Source-tag regressao global (13px→11px) revertida. ROUND_CONTEXTS atualizado com historico R12+R2.
-
----
-
-### Sessao 16 (2026-03-21) — s-a1-classify QA visual R3-R10
-
-Sessao de produto. 1 slide avancado (LINT-PASS → QA).
-10 rodadas Gemini 3.1 Pro. Score final: 7.1/10.
-Decisoes travadas: blur sutil MANTER, sidebar verde MANTER, cards inset MANTER, MorphSVG APROVADO.
-Erros: ERRO-048, ERRO-049.
-
----
-
-## Sessao 12 (2026-03-20) — s-a1-01 DONE
-
-s-a1-01 R11: Ghost Rows confirmados esteticamente pelo usuario. ERRO-046 (case-panel race condition) corrigido: P1 removido, padding-right 210px para clearance. Sem QA.2/QA.3 Gemini formal — usuario aprovou direto.
-
----
-
-## Pendencias main-scope (audit 17/mar) — ✅ RESOLVIDO
-
-> 42 issues detectados por auditoria completa (7 agentes, 2 rodadas).
-> Corrigidos em main: commits 5c1976b (C1-C5), df12f1f (H1-H7), e7c0801 (M1-M10).
-> Absorvidos nesta WT via merge e7c0801.
+| Erros e prevencao | `ERROR-LOG.md` + `.claude/rules/css-errors.md` |
+| Licoes unicas | `tasks/lessons.md` (so o que NAO esta em rules) |
