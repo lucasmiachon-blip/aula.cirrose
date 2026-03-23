@@ -1,25 +1,22 @@
 # NOTES — Cirrose
 
-## [23/03] Sessao 2 — Tentativa QA s-a1-01 (abortada)
+## [23/03] Sessao 2 — QA s-a1-01 Gate 0
 
-### Problemas encontrados
-1. **Playwright vs Chrome:** Playwright MCP usa Chrome do sistema. Com Chrome do usuario aberto, falha com "Opening in existing browser session". `browser_install` nao resolve (instala mesmo Chrome). Solucao: usuario fecha Chrome antes.
-2. **Dev server instavel:** Vite morreu entre chamadas — precisou reiniciar (port 3002 → 3003).
-3. **Hash navigation deck.js:** `#s-a1-01` na URL NAO navega ao slide. deck.js usa `goTo(index)` via ESM — nao exposto no `window`.
-4. **Navegacao programatica:** `window.deck` existe mas sem metodos (objeto vazio). `goTo`/`navigate` sao exports ESM inacessiveis via `page.evaluate`.
-5. **Workaround manual:** `classList.add('slide-active')` + `scrollIntoView()` mostra o slide mas NAO dispara animacoes custom (pipeline GSAP depende de `slide:entered` via deck.js interno).
-6. **`slide:entered` dispatch manual:** Disparar o evento via `CustomEvent` nao triggou as animacoes — provavelmente o dispatcher ja estava conectado ao slide errado ou o contexto GSAP nao estava inicializado para aquele slide.
+### Resultado
+- **Gate 0 PASS** (9/9 checks via gemini-qa3.mjs --inspect)
+- S0.png capturado via qa-batch-screenshot.mjs (1280x720, estado final)
+- qa-batch-screenshot.mjs so captura 1 estado (investigar pos-congresso)
 
-### Acoes para proxima sessao
-- Expor `goTo` no `window` (1 linha em deck.js: `window.deckNav = { goTo, navigate }`) para Playwright conseguir navegar
-- OU usar `?slide=N` query param (implementar em deck.js)
-- OU navegar via teclas ArrowRight N vezes (fragil mas funcional)
-- Fechar Chrome ANTES de abrir Playwright (documentar no WT-OPERATING)
+### Decisoes
+- **Playwright MCP:** NAO usar para screenshots neste sprint. Conflita com Chrome do usuario.
+- **Screenshots:** qa-batch-screenshot.mjs (Puppeteer isolado) unico metodo.
+- **Animacoes/estados intermediarios:** Lucas valida visualmente no browser.
+- **deck.js:** NAO modificar no sprint. Zero infra.
 
-### Estado
-- s-a1-01: CONTENT (nao mudou). Screenshot estado inicial capturado mas sem animacoes.
-- HANDOFF atualizado: s-a1-01 revertido de DONE para CONTENT.
-- Zero slides avancaram (sessao de suporte/debug).
+### Problemas Playwright (referencia, NAO corrigir agora)
+- Chrome do sistema conflita com sessao aberta do usuario
+- deck.js ESM nao expoe navegacao via window
+- Dev server Vite instavel entre chamadas (port drift)
 
 ---
 

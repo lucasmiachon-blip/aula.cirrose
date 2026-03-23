@@ -23,7 +23,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | CONTENT | R12 (22/mar). Source-tag 0.85rem (23/mar). QA pipeline pendente. |
+| 3 | s-a1-01 | CONTENT | R12 (22/mar). Source-tag 0.85rem (23/mar). Gate 0 PASS (23/mar). Gate 4 pendente. |
 | 4 | s-a1-baveno | CONTENT | Refatorado 23/mar: removido pathway, adicionado PREDESCI callout. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 5 | s-a1-classify | CONTENT | Refatorado 23/mar: header PREDESCI verde (#2d5016), source-tag visivel. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
@@ -33,7 +33,7 @@
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 2 DONE · 42 CONTENT
-**QA Act 1:** Pipeline nao iniciado nos 3 slides refatorados. ERRO-053: tentativa de QA falhou (pipeline ignorado). Reiniciar do Gate 1.
+**QA Act 1:** s-a1-01 Gate 0 PASS (23/mar), Gate 4 pendente. 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -65,6 +65,7 @@
 - ECOSYSTEM.md split (3 naturezas misturadas) — pos-congresso
 - SKILLS.md: 11 skills Claude Code faltando — pos-congresso
 - ~~SETUP.md: ref a `assertion-evidence.mdc`~~ — verificado 23/mar: ref já não existe em SETUP.md
+- qa-batch-screenshot.mjs so captura 1 estado (S0). Antes capturava S0/S1-mid/S2-final em 2 resolucoes — investigar pos-congresso
 
 ---
 
