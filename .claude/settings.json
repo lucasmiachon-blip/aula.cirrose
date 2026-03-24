@@ -69,6 +69,12 @@
             "command": "bash .claude/hooks/guard-generated.sh",
             "timeout": 5,
             "statusMessage": "Verificando arquivo gerado..."
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/guard-product-files.sh",
+            "timeout": 5,
+            "statusMessage": "Verificando arquivo de produto..."
           }
         ]
       },

@@ -87,6 +87,7 @@ Regras em `.claude/rules/` sao reativas — nasceram de 52 erros reais. NUNCA cr
 | Pre-commit | Slide-count regression, slide-integrity, ghost canary, lints | exit 1 bloqueia commit |
 | evidence-db hooks | Protege dados clinicos de edicoes nao autorizadas | warn (exit 0) |
 | guard-generated | Bloqueia Write em index.html gerado | exit 2 bloqueia tool |
+| guard-product-files | Bloqueia edição em slides/CSS/JS sem confirmação humana | exit 2 bloqueia tool |
 | Audit trail | Log JSONL de toda tool call | passivo |
 
 ### Complexidade

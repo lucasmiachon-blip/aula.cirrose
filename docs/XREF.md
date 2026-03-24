@@ -123,6 +123,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | subagent-stop-log.sh | SubagentStop | Loga conclusão de subagents |
 | task-completed-gate.sh | TaskCompleted | Verificação de quality gates em task completada |
 | teammate-idle-gate.sh | TeammateIdle | Validação de quality gates do teammate |
+| guard-product-files.sh | PreToolUse (Write\|Edit\|StrReplace) | exit 2 bloqueia edição em arquivos de produto sem confirmação humana |
 
 ### scripts/ (git hooks — versionados)
 
