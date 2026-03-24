@@ -454,9 +454,22 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Para screenshots de slides especificos, usar script Node standalone (nao Playwright MCP). Verificar `.slide-active` apos cada navegacao.
 **Status:** Registrado (2026-03-23). Workaround funcional.
 
+### ERRO-057 · HIGH · global (CSS import order)
+**Cascata CSS invertida: base → cirrose → archetypes (deveria ser base → archetypes → cirrose)**
+**Root cause:** `index.template.html` importava CSS na ordem `base.css → cirrose.css → archetypes.css`. Archetypes (genérico) vinha DEPOIS de cirrose (específico), vencendo na cascata em seletores de mesma specificity. `.slide-headline` em archetypes.css:48 sobrescrevia cirrose.css:28. Documentação (CLAUDE.md cirrose) já dizia a ordem correta, mas o código não batia.
+**Fix:** Trocada ordem para `base → archetypes → cirrose`. Comment de archetypes.css atualizado.
+**Regra derivada:** E57 → validate-css.sh Check 1 verifica import order automaticamente.
+**Status:** ✅ Corrigido (2026-03-24).
+
+### ERRO-058 · LOW · cirrose.css (duplicate selector)
+**`.stage-bad .source-tag` definido 2x em cirrose.css (linhas 96 e 102)**
+**Root cause:** Propriedades diferentes (color vs opacity) no mesmo seletor, em blocos separados.
+**Fix:** Unificados num único bloco com ambas propriedades.
+**Status:** ✅ Corrigido (2026-03-24).
+
 ---
 
-*Ultima atualizacao: 2026-03-23 · 56 erros registrados, 52 corrigidos, 2 processo (E42, E53), 1 parcial (E47), 1 workaround (E56).*
+*Ultima atualizacao: 2026-03-24 · 58 erros registrados, 55 corrigidos, 2 processo (E42, E53), 1 parcial (E47), 1 workaround (E56).*
 
 ---
 
@@ -465,8 +478,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 8     | 6          | 2 (E47 parcial, E53 processo) |
-| HIGH       | 27    | 27         | 0 |
+| HIGH       | 28    | 28         | 0 |
 | MEDIUM     | 17    | 16         | 1 (E56 workaround) |
-| LOW        | 2     | 2          | 0 |
+| LOW        | 3     | 3          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **56**| **53**     | **3 (E42, E47, E56)** |
+| **Total**  | **58**| **55**     | **3 (E42, E47, E56)** |

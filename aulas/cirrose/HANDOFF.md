@@ -4,11 +4,12 @@
 
 ---
 
-## Estado — 2026-03-23
+## Estado — 2026-03-24
 
-**Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅
+**Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅ · **CSS cascade:** ✅ (validate-css.sh)
 **Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + audit trail.
+**CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.
 **QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`.
 **Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente. SCITE OAuth pendente.
@@ -34,7 +35,7 @@
 
 **Resumo:** 2 DONE · 42 CONTENT
 **QA Act 1:** s-a1-01 Gate 0 PASS, fixes CSS/GSAP aplicados (E54/E55), Gate 4 pendente (recapturar screenshots). 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
-**Global:** Source-tag vs case-panel fix aplicado (`#deck.has-panel .source-tag`, E55). Playwright MCP nao navega deck.js (E56, workaround: script Node standalone).
+**Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag vs case-panel fix (E55). Playwright MCP workaround (E56).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 

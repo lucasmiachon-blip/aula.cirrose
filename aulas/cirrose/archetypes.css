@@ -1,7 +1,7 @@
 /**
  * Archetypes CSS — Batch 0 Foundation
  * 4 reusable slide layouts + case panel + click-reveal states
- * Imports AFTER cirrose.css (overrides where archetype class present)
+ * Imports AFTER base.css, BEFORE cirrose.css (generic → specific cascade)
  *
  * Z-INDEX MAP: case-panel=20 | burden=3 | scoring-badge/panel-tab=2 | badge-focus=1
  */

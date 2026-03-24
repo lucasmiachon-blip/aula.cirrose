@@ -1,5 +1,37 @@
 # NOTES — Cirrose
 
+## [24/03] Sessao 1 — Diagnostico CSS + C3/C1/C2 fix + validate-css.sh
+
+### Contexto
+- Lucas rodou diagnostico completo do repo (501 arquivos, 61K linhas)
+- Identificou 8 conflitos CSS reais (C1-C8) nunca detectados em sessoes anteriores
+- Ratio infra:produto = 47%:53% (158 vs 179 arquivos)
+
+### Fixes aplicados
+- **C3 (E57):** Import order corrigido em `index.template.html`: `base → archetypes → cirrose` (era `base → cirrose → archetypes`). Docs (CLAUDE.md cirrose) ja diziam a ordem correta, codigo estava invertido.
+- **C1 (E58):** `.stage-bad .source-tag` duplicado em cirrose.css unificado (color + opacity num bloco so).
+- **C2:** Comment de archetypes.css atualizado para refletir nova posicao na cascata.
+
+### Ferramenta criada
+- `scripts/validate-css.sh` — 4 checks: import order, bare selector conflicts, !important audit, inline style audit. STATUS: PASS.
+
+### Validacao
+- `npm run build:cirrose` → 44 slides OK
+- `npm run lint:slides` → PASS
+- `validate-css.sh` → PASS (import order correto, 7 WARNs benignos de stage modifiers)
+
+### Decisoes
+- `.slide-headline`: archetypes.css so define `max-width: 85ch`, cirrose.css define font/color — propriedades diferentes, nao conflito real. Apos C3, cirrose vem por ultimo e vence se houver overlap futuro.
+- `.source-tag`: 11 regras em 3 arquivos, cascata OK apos C3. `base.css` = tokens, `cirrose.css` = lecture-specific, `archetypes.css` = archetype-specific (specificity mais alta).
+- `!important` audit: 65 total nos 3 CSS. Todos em contextos permitidos (`.no-js`, `.stage-bad`, `@media print`, `prefers-reduced-motion`).
+
+### Meta-observacao (diagnostico do Lucas)
+- Agente driftava lendo 156 MDs em vez de inspecionar CSS real
+- `npm run lint:slides` so checa assertion-evidence, NAO checa cascata CSS
+- validate-css.sh preenche esse gap
+
+---
+
 ## [23/03] Sessao 3 — s-a1-01 fixes CSS/GSAP + source-tag global
 
 ### Fixes aplicados

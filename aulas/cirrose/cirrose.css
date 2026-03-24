@@ -93,13 +93,11 @@
 .stage-bad .slide-headline {
   color: var(--text-primary);
 }
-.stage-bad .source-tag {
-  color: var(--text-muted);
-}
 /* Failsafe: source-tag uses inline style="opacity:0" for GSAP reveal.
-   Without JS, these remain invisible — fix with !important. */
+   Without JS or stage-bad, these remain invisible — fix with !important. */
 .no-js .source-tag,
 .stage-bad .source-tag {
+  color: var(--text-muted);
   opacity: 1 !important;
 }
 
