@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-03-24 — lint:gsap-race detector (sessao 24)
+
+- **lint-gsap-css-race.mjs:** Linter read-only detecta race conditions CSS/GSAP (ERRO-054).
+  Detector A: class-state races (classList toggle + CSS property + GSAP inline).
+  Detector B: direct style= assignments. v1 = warnings only (exit 0).
+- **package.json:** `npm run lint:gsap-race`
+
+---
+
 ## 2026-03-24 — guard-product-files hook (sessao 24)
 
 - **guard-product-files.sh:** Hook PreToolUse exit 2 bloqueia Write/Edit/StrReplace em arquivos de produto (slides HTML, CSS aula, base.css, JS shared, slide-registry.js, index.html) sem confirmação humana. Fallback `"path"` além de `"file_path"`.
