@@ -7,6 +7,7 @@
 ## Estado — 2026-03-24
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅ · **CSS cascade:** ✅ (validate-css.sh)
+**Repo:** `aula.cirrose` (separado de Aulas 24/mar). Branch: `feat/cirrose-mvp`.
 **Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + audit trail.
 **CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.

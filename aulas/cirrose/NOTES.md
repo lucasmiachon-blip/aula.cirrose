@@ -25,6 +25,11 @@
 - `.source-tag`: 11 regras em 3 arquivos, cascata OK apos C3. `base.css` = tokens, `cirrose.css` = lecture-specific, `archetypes.css` = archetype-specific (specificity mais alta).
 - `!important` audit: 65 total nos 3 CSS. Todos em contextos permitidos (`.no-js`, `.stage-bad`, `@media print`, `prefers-reduced-motion`).
 
+### Repo split
+- Repo renomeado/separado: `Aulas` → `aula.cirrose` (novo repo GitHub)
+- `feat/cirrose-mvp` removida do Aulas, agora vive em `aula.cirrose`
+- Remote local atualizado: `origin → github.com/lucasmiachon-blip/aula.cirrose.git`
+
 ### Meta-observacao (diagnostico do Lucas)
 - Agente driftava lendo 156 MDs em vez de inspecionar CSS real
 - `npm run lint:slides` so checa assertion-evidence, NAO checa cascata CSS
