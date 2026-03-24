@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-03-24 — guard-product-files hook (sessao 24)
+
+- **guard-product-files.sh:** Hook PreToolUse exit 2 bloqueia Write/Edit/StrReplace em arquivos de produto (slides HTML, CSS aula, base.css, JS shared, slide-registry.js, index.html) sem confirmação humana. Fallback `"path"` além de `"file_path"`.
+- **Motivação:** ERRO-053 (QA pipeline bypassed) e ERRO-049 (elementos aprovados removidos por Gemini).
+- **Docs:** CLAUDE.md guardrails table, XREF.md hooks table, HANDOFF.md, CHANGELOG.md atualizados.
+
+---
+
 ## 2026-03-23 — s-a1-01 CSS/GSAP fixes + source-tag global (sessao 23)
 
 - **GSAP race condition fix (E54):** slide-registry.js match punch — opacity/transform/x/scale movidos para GSAP timeline. CSS .matched/.dimmed so mantem paint props (bg, border, filter).
