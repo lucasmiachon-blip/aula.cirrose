@@ -51,7 +51,7 @@ Conteudo em markdown...
 
 | Rule | Escopo |
 |------|--------|
-| anti-drift.md | Protocolo de foco de sessao |
+| anti-drift.md | Auto-diagnostico do agente (nao do usuario) |
 | css-errors.md | 44 erros em 5 clusters |
 | deck-patterns.md | deck.js: navegacao, GSAP, click-reveal, eventos |
 | design-principles.md | 27 principios (Alley, Sweller, Mayer, Tufte, Duarte, Knowles) |

@@ -1,120 +1,66 @@
 # Anti-Drift Protocol
 
-> Previne sessões gastas em trabalho que não avança o produto.
-> Produto = slides prontos para congresso. Todo o resto é suporte.
+> Previne o agente de gastar a sessao em loops internos que nao produzem artefato.
+> Drift = o agente girando em circulos, nao o usuario pedindo algo.
 
 ---
 
-## Definição de Drift
+## Definicao de Drift
 
-Drift = trabalho que não move slides em direção a "pronto para projetar".
+Drift = o AGENTE fazendo trabalho circular sem producao concreta.
 
-Exemplos de drift:
-- Refatorar docs por 2+ sessões sem tocar em slides
-- Reorganizar rules/skills sem bug ou blocker motivando
-- Pesquisar benchmarks de modelos sem task de slide pendente
-- Criar abstrações, protocolos ou frameworks "para o futuro"
-- Otimizar ferramentas que já funcionam
+Exemplos de drift (agente):
+- Reescrever o mesmo trecho 3+ vezes sem melhora mensuravel
+- Pesquisar recursivamente sem convergir em resposta
+- Criar abstracoes, protocolos ou frameworks "para o futuro"
+- Otimizar ferramentas que ja funcionam sem pedido do usuario
+- Gerar docs sobre docs sobre docs
 
-Exemplos de NÃO-drift (mesmo sem tocar em slides):
-- Corrigir regra que causou erro real em slide (ERROR-LOG motivado)
-- Protocolo que previne classe inteira de erros futuros (este arquivo)
-- Pesquisar PMID para dado [TBD] em slide existente
+**NAO e drift:**
+- O usuario pedir inventario, auditoria, limpeza de repo, diagnostico
+- O usuario pedir trabalho de infra, docs, ou qualquer coisa que NAO seja slide
+- Sessao inteira sem tocar em slides — se o usuario decidiu, esta decidido
 
 ---
 
-## Checkpoints Obrigatórios
+## Regra Central
 
-### Início de sessão — antes de qualquer trabalho
+**O usuario decide o que e prioritario. O agente executa.**
 
+- NUNCA bloquear, pausar ou redirecionar o usuario para outro trabalho
+- NUNCA dizer "caminho critico e X, quer voltar?"
+- NUNCA classificar o pedido do usuario como "drift"
+- Se o agente perceber que ELE MESMO esta em loop → parar e perguntar ao usuario
+
+---
+
+## Auto-diagnostico (agente apenas)
+
+O agente DEVE monitorar a si mesmo:
+
+1. **3+ edits no mesmo trecho sem progresso** → parar, explicar o bloqueio, perguntar
+2. **Pesquisa recursiva sem convergencia** → entregar o que tem, admitir lacuna
+3. **Gerando meta-trabalho** (docs sobre docs, rules sobre rules) → parar
+
+Formato:
 ```
-1. Ler HANDOFF.md → identificar caminho crítico
-2. Caminho crítico = o que bloqueia slides de passarem no QA
-3. Perguntar ambiente: usuário tem computador? Pode rodar dev/build/QA?
-4. Propor ao usuário: "Caminho crítico é X. Concordo em fazer Y?"
-5. Se o usuário pedir algo fora do caminho crítico → PAUSA (ver abaixo)
-```
-
-### Sessão sem computador (mobile/tablet)
-
-Quando o usuário não pode rodar build/dev/QA:
-- Docs e decisões clínicas são o trabalho de maior valor
-- Priorizar decisões que DESBLOQUEIAM a próxima sessão com computador
-- Registrar decisões tomadas em NOTES.md para o agente da próxima sessão
-- NÃO contar como drift — é preparação legítima
-
-### PAUSA anti-drift — quando ativada
-
-Ativar quando:
-- Usuário pede tarefa que não está no caminho crítico
-- Agente percebe que está há >30 min sem produzir artefato de slide
-- Segunda tarefa consecutiva de docs/rules/skills sem slide no meio
-
-Formato da pausa:
-```
-"Pausa anti-drift: [tarefa pedida] não está no caminho crítico.
-Caminho crítico atual: [X pendências bloqueiam QA].
-Contraponto: [razão concreta para fazer ou não fazer agora].
-Quer continuar com [tarefa pedida] ou voltar ao caminho crítico?"
-```
-
-O agente DEVE dar contraponto mesmo quando concorda com o usuário.
-
-### Final de sessão — antes de encerrar
-
-```
-1. Quantos slides avançaram nesta sessão? (meta: ≥1)
-2. Se zero slides avançaram → registrar em NOTES.md como sessão de suporte
-3. Atualizar HANDOFF.md com estado real
+"Estou preso em [X]. Opcoes: [A] ou [B]. O que prefere?"
 ```
 
 ---
 
-## Contraponto Obrigatório
+## Inicio de sessao
 
-O agente NUNCA deve apenas concordar com uma proposta do usuário.
+1. `git log --oneline -5 && git status`
+2. Ler HANDOFF.md
+3. Resumir estado em 3 linhas
+4. Perguntar: "O que quer fazer?"
 
-Para toda decisão não-trivial, o agente deve:
-1. Apresentar o lado oposto — mesmo que concorde no fundo
-2. Explicitar trade-offs (tempo, risco, custo de oportunidade)
-3. Só então dar sua recomendação
-
-Formato mínimo:
-```
-"Concordo com X, mas o trade-off é Y.
-Alternativa seria Z.
-Recomendo X porque [razão]."
-```
-
-Exceções (não precisa de contraponto):
-- Correção factual óbvia (typo, link quebrado, build quebrado)
-- Tarefa que o usuário já decidiu e está executando
-- Pergunta direta com resposta objetiva
+Sem proposta de caminho critico. Sem contraponto. O usuario sabe o que quer.
 
 ---
 
-## Classificação de Tarefas
+## Final de sessao
 
-| Tipo | Exemplos | Limite por sessão |
-|------|----------|-------------------|
-| **Produto** | Editar slide, corrigir CSS, rodar QA, fix lint | Ilimitado |
-| **Suporte** | Atualizar HANDOFF, registrar erro, pesquisar PMID | Conforme necessário |
-| **Infra** | Refatorar docs, criar rules, reorganizar skills | Max 1 por sessão |
-| **Exploração** | Benchmarks, novas ferramentas, protocolos futuros | Só se não houver Produto pendente |
-
-Se a sessão inteira foi Infra/Exploração → flag explícito no HANDOFF.
-
----
-
-## Regra dos 3 Commits
-
-Após 3 commits consecutivos sem arquivo em `aulas/*/slides/` ou `aulas/*/*.css`:
-- Agente DEVE pausar e perguntar: "3 commits sem tocar em slides. Continuar ou voltar ao produto?"
-
----
-
-## Pendências Registradas (split futuro)
-
-- `docs/ECOSYSTEM.md` mistura 3 naturezas: regras estáveis, inventário operacional, benchmarks voláteis
-  - Proposta: split em ECOSYSTEM.md (regras) + TOOLING.md (inventário) + benchmarks para seção datada ou archive
-  - Condição original (≥1 slide Bloco 1 DONE) atingida (3 DONE). Re-adiado para pós-congresso (31/mar)
+1. Atualizar HANDOFF.md com estado real
+2. Se houve decisoes → registrar em NOTES.md

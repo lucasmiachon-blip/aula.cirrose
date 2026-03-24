@@ -103,9 +103,8 @@ Regras em `.claude/rules/` sao reativas — nasceram de 52 erros reais. NUNCA cr
 Complexidade so entra se paga o custo no mesmo dia.
 
 - NUNCA criar hook/guard/protocol sem erro real motivando.
-- NUNCA refatorar docs por >1 sessao sem tocar em slides.
 - NUNCA criar abstracoes preventivas "para o futuro".
-- Anti-drift completo: @.claude/rules/anti-drift.md
+- Anti-drift: @.claude/rules/anti-drift.md
 
 ## Auditoria Visual — Gemini CLI
 

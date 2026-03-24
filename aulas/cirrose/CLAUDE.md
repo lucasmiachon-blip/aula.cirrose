@@ -66,13 +66,6 @@ Conflito: # menor vence. Notion e mirror, nao source of truth.
 | `ERROR-LOG.md` | Erros → regras | Quando encontrar erro novo |
 | `NOTES.md` | Decisoes entre agentes | Durante a sessao |
 
-## SPRINT MODE (ate 31/mar)
-
-- **Branch:** feat/cirrose-mvp
-- **shared/ internalizado:** `./shared/` (editavel diretamente)
-- **QA Act 1:** Loop 1 baseline aplicado (14 dim) — fix gargalos E/M/L
-- **Pre-commit checks:** slide-count regression, slide integrity, ghost canary, lints
-
 ## Slide Identity — Regra Inviolavel
 
 > **Regra completa:** `.claude/rules/slide-identity.md` (9 superficies, protocolos CRUD, anti-patterns)

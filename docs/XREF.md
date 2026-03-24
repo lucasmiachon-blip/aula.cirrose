@@ -44,7 +44,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
 | README.md | → todos .claude/rules/*.md, .cursor/rules/*.mdc | ← XREF.md (este arquivo) |
-| anti-drift.md | (autônomo — protocolo de foco) | ← CLAUDE.md (workflow step 1) |
+| anti-drift.md | (autônomo — auto-diagnóstico do agente) | ← CLAUDE.md |
 | css-errors.md | → design-system.md, medical-data.md | ← slide-editing.md |
 | design-principles.md | → design-system.md | ← CLAUDE.md |
 | deck-patterns.md | → slide-identity.md, design-system.md | ← slide-editing.md, motion-qa.md, CLAUDE.md |
@@ -207,7 +207,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Assunto | Arquivo canônico | Fallback |
 |---------|-----------------|----------|
-| Anti-drift / foco de sessão | .claude/rules/anti-drift.md | — |
+| Anti-drift (auto-diagnóstico agente) | .claude/rules/anti-drift.md | — |
 | Operacional (stack, regras, workflow) | CLAUDE.md | — |
 | Tokens OKLCH | .claude/rules/design-system.md | aulas/cirrose/shared/css/base.css :root |
 | Erros CSS | .claude/rules/css-errors.md | — |
