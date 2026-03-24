@@ -26,8 +26,6 @@ Este skill automatiza a busca nesses arquivos com 3 passos para eficiência de t
 | `tasks/lessons.md` | Padrões aprendidos + anti-padrões | Alta |
 | `aulas/{aula}/CHANGELOG.md` | Histórico verboso de mudanças | Média |
 | `tasks/todo.md` | Task atual em andamento | Alta |
-| `aulas/grade/HANDOFF.md` | Estado migração GRADE | Contexto |
-| `aulas/osteoporose/HANDOFF.md` | Estado migração Osteoporose | Contexto |
 
 ## Workflow 3-step (token-efficient)
 

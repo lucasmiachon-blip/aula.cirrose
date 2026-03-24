@@ -91,7 +91,7 @@ Hierarquia visual: **NNT > ARR > HR**
 
 ## Fontes Tier 1
 
-### Hepatologia (projetos ativos: cirrose, metanalise)
+### Hepatologia
 
 | Fonte | Tipo | Referência | ID |
 |-------|------|-----------|-----|
@@ -103,15 +103,6 @@ Hierarquia visual: **NNT > ARR > HR**
 | ANSWER | RCT | Lancet 2018 | PMID: 29861076 |
 | D'Amico 2006 | Landmark systematic review | J Hepatol 2006 | PMID: 16298014 |
 
-### Cardiologia / Endocrinologia (backlog — grade, osteoporose)
-
-| Fonte | Tipo | Referência | ID |
-|-------|------|-----------|-----|
-| SBC 2025 | Diretriz brasileira | Arq Bras Cardiol 2025;122(9) | DOI: TBD |
-| ESC 2021 | Diretriz europeia | Eur Heart J 2021 | DOI: 10.1093/eurheartj/ehab484 |
-| AACE 2020 | Diretriz endocrinologia | Endocr Pract 2020 | DOI: TBD |
-| CLEAR trial | RCT individual | N Engl J Med 2023 | PMID: 36876740 |
-| CTT meta-analysis | Meta-análise | Lancet 2010, 2012 | PMID: 21067804 |
 
 **TODO:** Preencher DOIs faltantes antes de usar dados em slides.
 

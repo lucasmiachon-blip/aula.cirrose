@@ -76,6 +76,5 @@ ver `references/decision-protocol.md` (cirrose only)
 - Cores e semântica → `design-system.md`
 - Speaker notes formato → `deck-patterns.md`
 - Click-reveal (deck.js) → `deck-patterns.md`
-- Fragments (Reveal.js legacy) → `reveal-legacy.md`
 - Apêndice: `data-visibility="hidden"` (NÃO uncounted) → `deck-patterns.md`
 - Dados médicos → `medical-data.md`

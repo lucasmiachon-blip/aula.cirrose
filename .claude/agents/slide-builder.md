@@ -41,7 +41,7 @@ Não comece sem receber:
 ```bash
 # 1. Editar/criar slide em aulas/[aula]/slides/NN-nome.html
 # 2. Build (concatena slides via _manifest.js)
-npm run build:{aula}   # ex: build:cirrose, build:metanalise, build:grade
+npm run build:cirrose
 # 3. Lint
 npm run lint:slides
 # 4. Screenshot QA (opcional)

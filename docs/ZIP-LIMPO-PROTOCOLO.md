@@ -15,10 +15,8 @@ O **ZIP limpo** inclui apenas código e screenshots PNG (resultado visual), excl
 ## Uso
 
 ```powershell
-npm run zip:ia                    # Todas as aulas (cirrose, grade, metanalise)
-.\scripts\build-zip-limpo-ia.ps1 cirrose   # Só Cirrose
-.\scripts\build-zip-limpo-ia.ps1 grade     # Só GRADE
-.\scripts\build-zip-limpo-ia.ps1 all       # Todas (default)
+npm run zip:ia                    # Cirrose
+.\scripts\build-zip-limpo-ia.ps1 cirrose
 ```
 
 ## Output
@@ -43,5 +41,5 @@ npm run zip:ia                    # Todas as aulas (cirrose, grade, metanalise)
 
 ## Referência
 
-- **Aulas_core:** `scripts/build-zip-limpo-ia.ps1`, `scripts/build-zip-grade.ps1`
+- **Script:** `scripts/build-zip-limpo-ia.ps1`
 - **CHANGELOG Aulas_core:** 2026-02-26 — ZIP limpo IA + exports centralizados

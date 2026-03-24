@@ -56,30 +56,6 @@ mm.add("(prefers-reduced-motion: no-preference)", () => { gsap.to(el, { y: -20 }
 ```
 NAO aninhar matchMedia dentro de context — sao equivalentes.
 
-## Reveal.js 5.2.1 (FROZEN — grade/osteoporose)
-
-### Opcoes relevantes
-```js
-Reveal.initialize({
-  scrollActivationWidth: null,  // v5: DESABILITAR para congresso
-  width: 1280, height: 720,
-  center: false,                // layout usa align-content:start
-  transition: "fade", transitionSpeed: "fast",
-  pdfSeparateFragments: false, pdfMaxPagesPerSlide: 1,
-})
-```
-
-### Eventos
-```js
-Reveal.on("slidechanged", ({ previousSlide, currentSlide }) => { ctx.revert() })
-Reveal.on("slidetransitionend", ({ currentSlide }) => { /* iniciar animacoes */ })
-Reveal.on("fragmentshown", ({ fragment }) => { })
-```
-
-### data-visibility: sempre `hidden` (nao `uncounted`) para apendice.
-
-### Breaking v4→v5: `?print-pdf` → `?view=print` (antigo ainda funciona). Scroll-view auto <435px.
-
 ## Vite 6.x (projeto atual) / Vite 8.0 (disponivel)
 
 ### Breaking v5→v6

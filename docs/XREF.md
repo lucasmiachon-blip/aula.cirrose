@@ -2,7 +2,7 @@
 
 > Mapa canônico de dependências entre documentos do projeto.
 > Atualizar ao criar, mover ou deletar qualquer .md.
-> Gerado: 2026-03-07. Última revisão: 2026-03-23.
+> Gerado: 2026-03-07. Última revisão: 2026-03-24.
 
 ---
 
@@ -23,7 +23,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 ├── .claude/skills/*/SKILL.md ← skills invocáveis (20 ativas + 2 archived)
 ├── .cursor/rules/*.mdc       ← regras Cursor (quick-ref com globs)
 ├── docs/*.md                 ← referência expandida
-└── aulas/*/HANDOFF.md        ← estado por aula
+└── aulas/cirrose/HANDOFF.md   ← estado da aula
 ```
 
 **Conflito:** conteúdo mais detalhado prevalece, independente do diretório.
@@ -50,9 +50,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | deck-patterns.md | → slide-identity.md, design-system.md | ← slide-editing.md, motion-qa.md, CLAUDE.md |
 | design-system.md | (autônomo) | ← css-errors.md, design-principles.md, slide-editing.md, deck-patterns.md |
 | medical-data.md | (autônomo) | ← css-errors.md, slide-editing.md |
-| motion-qa.md | → slide-editing.md, deck-patterns.md, reveal-legacy.md | ← CLAUDE.md |
-| reveal-legacy.md | → deck-patterns.md | ← slide-editing.md, motion-qa.md (FROZEN — grade/osteoporose) |
-| slide-editing.md | → css-errors.md, design-system.md, deck-patterns.md, reveal-legacy.md, medical-data.md | ← CLAUDE.md |
+| motion-qa.md | → slide-editing.md, deck-patterns.md | ← CLAUDE.md |
+| slide-editing.md | → css-errors.md, design-system.md, deck-patterns.md, medical-data.md | ← CLAUDE.md |
 | slide-identity.md | → slide-editing.md, reveal-patterns (via deck-patterns) | ← CLAUDE.md, deck-patterns.md |
 
 ### docs/
@@ -75,7 +74,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | MCP-ENV-VARS.md | (autônomo) | ← ECOSYSTEM.md |
 | SETUP.md | (autônomo — setup inicial) | ← README.md |
 | ZIP-LIMPO-PROTOCOLO.md | (autônomo) | ← README.md |
-| metanalise-scope.md | (autônomo) | ← README.md |
 | archive/pipeline/README.md | (pipeline humano — arquivado) | ← SUBAGENTS.md |
 
 ### docs/prompts/ e docs/external/
@@ -153,17 +151,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | WT-OPERATING.md | (prompt operacional — máquina de estados + QA loop) | ← HANDOFF.md |
 | ~~QA-WORKFLOW.md~~ | Deletado 2026-03-18 — QA loop em WT-OPERATING.md §4 | — |
 
-### aulas/metanalise/
-
-| Arquivo | Referencia | Referenciado por |
-|---------|-----------|-----------------|
-| CLAUDE.md | → CLAUDE.md (root), metanalise-scope.md (WT State + Worktree removidos 23/mar) | ← CLAUDE.md (projects table) |
-| HANDOFF.md | (não existe — criar quando slides iniciarem) | — |
-| references/narrative.md | (não existe — criar com slides) | ← CLAUDE.md aula |
-| references/evidence-db.md | (não existe — criar com slides) | ← slides/ |
-| references/blueprint.md | (não existe — criar com slides) | ← HANDOFF.md |
-| slides/_manifest.js | (não existe — criar com slides) | ← lint:narrative-sync |
-
 ### Arquivados (docs/archive/)
 
 | Arquivo | Motivo |
@@ -195,7 +182,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | medical-data.md | medical-data.mdc | .claude |
 | motion-qa.md | motion-qa.mdc | .claude |
 | deck-patterns.md | reveal-patterns.mdc | .claude (deck.js specifics) |
-| reveal-legacy.md | — | .claude only (FROZEN) |
 | slide-editing.md | slide-editing.mdc | Ambos |
 | slide-identity.md | slide-identity.mdc | .claude |
 
@@ -214,14 +200,12 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Dados médicos | .claude/rules/medical-data.md | — |
 | Animações GSAP | .claude/rules/motion-qa.md | aulas/cirrose/shared/js/engine.js |
 | Deck.js patterns (ativo) | .claude/rules/deck-patterns.md | — |
-| Reveal.js patterns (frozen) | .claude/rules/reveal-legacy.md | — |
 | Assertion-Evidence | .claude/rules/slide-editing.md | design-principles.md §1 |
 | Notion IDs | .env.example (variáveis `NOTION_*_ID`) | docs/SYNC-NOTION-REPO.md |
 | MCP profiles | .mcp-profiles/*.json | .mcp.json (perfil ativo) |
 | Estado Cirrose | aulas/cirrose/HANDOFF.md | — |
 | Context window | docs/SUBAGENTS.md | .cursor/rules/core-constraints.mdc |
 | Manifesto slides (cirrose) | aulas/cirrose/slides/_manifest.js | CLAUDE.md tabela |
-| Manifesto slides (metanalise) | aulas/metanalise/slides/_manifest.js | CLAUDE.md tabela |
 | Pipeline humano | docs/archive/pipeline/README.md | — |
 | Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-principles.md |
 | KPIs multiagente | docs/KPIs.md | — |

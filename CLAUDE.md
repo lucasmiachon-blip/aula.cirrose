@@ -1,6 +1,6 @@
-# CLAUDE.md — Aulas Magnas
+# CLAUDE.md — Aula Cirrose
 
-> Fonte de verdade operacional (root). Cada projeto tem seu proprio CLAUDE.md.
+> Fonte de verdade operacional. Repo single-aula (split de monorepo 2026-03-24).
 > Regras detalhadas: @.claude/rules/*.md · Docs: @docs/README.md
 
 ## Commands
@@ -9,8 +9,6 @@
 npm run dev               # Vite hot reload (port 3000)
 npm run build             # Producao
 npm run build:cirrose     # Concatena slides → index.html via _manifest.js
-npm run build:grade       # Idem para GRADE
-npm run build:osteoporose # Idem para Osteoporose
 npm run preview           # Servir localmente (palco)
 npm run lint:slides       # Assertion-evidence linter
 npm run lint:case-sync    # CASE.md ↔ _manifest.js sync
@@ -21,18 +19,11 @@ npm run lint:narrative-sync # narrative.md ↔ _manifest.js sync
 
 deck.js (custom navigation) · GSAP 3.14 · Vite 6.x · Vanilla HTML/CSS/JS · OKLCH · Zero CDN · Offline-first.
 
-> **Reveal.js:** legacy — grade/osteoporose (frozen, fallback em Aulas_core). Cirrose e metanalise usam `deck.js`.
+## Project
 
-## Projects
+Aula unica: `aulas/cirrose/` — 44 slides, QA visual em andamento. Ver `aulas/cirrose/CLAUDE.md`.
 
-| Pasta | Status | CLAUDE.md |
-|-------|--------|-----------|
-| `aulas/cirrose/` | 44 slides, QA visual em andamento (batch 1 parcial) · **ATIVO** | `aulas/cirrose/CLAUDE.md` |
-| `aulas/metanalise/` | Escopo definido, 0 slides HTML, build pendente · **PLANEJAMENTO** | `aulas/metanalise/CLAUDE.md` |
-| `aulas/grade/` | 58/58 migrados · FROZEN (Reveal.js legacy) | `aulas/grade/CLAUDE.md` |
-| `aulas/osteoporose/` | 70/70 migrados · FROZEN (Reveal.js legacy) | `aulas/osteoporose/CLAUDE.md` |
-
-Publico: medicos (Brasil). Publico varia por aula — ver CLAUDE.md de cada projeto. PT-BR, termos tecnicos EN.
+Publico: hepatologistas seniores (Brasil). PT-BR, termos tecnicos EN.
 
 ## Shared Infrastructure
 
@@ -142,8 +133,7 @@ Cross-project: `tasks/lessons.md` — apenas licoes NAO codificadas em rules. E-
 - Design tokens: @.claude/rules/design-system.md
 - Design principles: @.claude/rules/design-principles.md
 - Medical data: @.claude/rules/medical-data.md
-- Deck.js patterns (cirrose, metanalise): @.claude/rules/deck-patterns.md
-- Reveal.js legacy (grade, osteoporose): @.claude/rules/reveal-legacy.md
+- Deck.js patterns: @.claude/rules/deck-patterns.md
 - Slide editing: @.claude/rules/slide-editing.md
 - **Slide identity (9 superficies):** @.claude/rules/slide-identity.md
 - Motion QA: @.claude/rules/motion-qa.md

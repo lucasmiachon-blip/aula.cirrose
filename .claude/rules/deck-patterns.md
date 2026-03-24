@@ -1,8 +1,7 @@
 # Deck.js Patterns — Navigation + GSAP
 
-> Canonico para: slides deck.js (cirrose, metanalise). Speaker notes, click-reveal, data-animate.
+> Canonico para: slides deck.js (cirrose). Speaker notes, click-reveal, data-animate.
 > Codigo vive em `shared/js/engine.js` + `shared/js/deck.js` + `shared/js/click-reveal.js`.
-> Reveal.js legacy (grade, osteoporose): ver [reveal-legacy](reveal-legacy.md).
 > Relacionados: [slide-editing](slide-editing.md) · [design-system](design-system.md) · [motion-qa](motion-qa.md)
 
 ---

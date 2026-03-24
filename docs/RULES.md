@@ -58,7 +58,6 @@ Conteudo em markdown...
 | design-system.md | OKLCH tokens, semantica cores, tipografia, WCAG |
 | medical-data.md | Dados clinicos, NNT, HR, RR, Tier 1 |
 | motion-qa.md | Heuristicas GSAP, timing, workflow 5 tiers |
-| reveal-legacy.md | Reveal.js (FROZEN — grade/osteoporose only) |
 | slide-editing.md | Checklist pre-edicao, batch workflow, E-codes |
 | slide-identity.md | 9 superficies de slide ID |
 
@@ -91,7 +90,6 @@ Conteudo em markdown...
 | medical-data.md | medical-data.mdc | .claude |
 | motion-qa.md | motion-qa.mdc | .claude |
 | deck-patterns.md | reveal-patterns.mdc | .claude (deck.js specifics) |
-| reveal-legacy.md | — | .claude only (FROZEN) |
 | slide-editing.md | slide-editing.mdc | Ambos |
 | slide-identity.md | slide-identity.mdc | .claude |
 

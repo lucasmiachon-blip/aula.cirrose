@@ -1,19 +1,14 @@
-# Aulas Magnas
+# Aula Cirrose
 
-Plataforma de apresentações médicas interativas para hepatologistas seniores (Brasil). Slides assertion-evidence com animações GSAP, navegação custom (`deck.js`), offline-first.
+Apresentação médica interativa sobre cirrose hepática para hepatologistas seniores (Brasil). Slides assertion-evidence com animações GSAP, navegação custom (`deck.js`), offline-first.
 
 ## Stack
 
 deck.js (custom navigation) · GSAP 3.14.2 · Vite 6.x · Vanilla HTML/CSS/JS · OKLCH · Zero CDN · Offline-first.
 
-## Projetos
+## Projeto
 
-| Pasta | Status |
-|-------|--------|
-| `aulas/cirrose/` | 44 slides, QA visual em andamento |
-| `aulas/metanalise/` | 12 slides (Fases 1-2) |
-| `aulas/grade/` | 58/58 migrados (frozen, Reveal.js legacy) |
-| `aulas/osteoporose/` | 70/70 migrados (frozen, Reveal.js legacy) |
+`aulas/cirrose/` — 44 slides, QA visual em andamento.
 
 ## Quick Start
 

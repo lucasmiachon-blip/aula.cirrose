@@ -17,7 +17,7 @@ Audite `$ARGUMENTS`.
 Se argumento nao fornecido:
 1. `git branch --show-current` → extrair slug da aula
 2. Se `feat/{aula}-*` → usar `{aula}` (ex: `feat/cirrose-mvp` → `cirrose`)
-3. Se `main` → exigir argumento explicito ("Qual aula? cirrose, metanalise, grade, osteoporose")
+3. Se `main` → exigir argumento explicito ("Qual aula? cirrose")
 4. Se nao detectar → perguntar ao usuario
 
 ## Step 1 — Contexto da aula (parametrização)
@@ -27,7 +27,7 @@ Antes de lançar subagents:
 2. Ler `aulas/{aula}/slides/_manifest.js` → extrair: lista de slides, narrativeRole, archetypes
 3. Passar contexto para Agent B (Medical Data) e Agent D (Notes) como parâmetro
 
-Isso permite que o review funcione para QUALQUER aula (cirrose, grade, osteoporose, metanalise) sem editar a skill.
+Isso permite que o review funcione para qualquer aula sem editar a skill.
 
 ## Arquitetura (inspirada em code-review-agents, Anthropic 2026)
 

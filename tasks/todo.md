@@ -20,7 +20,6 @@
 
 ## BAIXA — Backlog infra
 
-- [ ] P4 codificar: 9 erros de metanalise ERROR-LOG nao codificados em rules
 - [ ] P4 mapear: dois sistemas E-code (css-errors E01-E34 vs slide-editing ERRO-NNN) sem mapeamento
 
 ---

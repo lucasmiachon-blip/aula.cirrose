@@ -21,7 +21,6 @@
 | design-system.md | design-system.mdc + cirrose-design.mdc | **Split OK** (falta tabela WCAG no .cursor) |
 | motion-qa.md | motion-qa.mdc | **.claude** (workflow 5 tiers, Gemini prompt, adequação por tipo) |
 | deck-patterns.md | reveal-patterns.mdc | **.claude** (deck.js events, click-reveal, bg CSS) |
-| reveal-legacy.md | — | .claude only (FROZEN — grade/osteoporose) |
 
 ## Regras sem par
 

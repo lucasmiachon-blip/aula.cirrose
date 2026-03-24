@@ -92,7 +92,6 @@ Instala tanto `pre-commit` (lint) quanto `pre-push` (done-gate strict).
 - Detecta a aula pelo nome do branch (`*cirrose*` → `npm run done:cirrose:strict`)
 - Se strict falhar → push bloqueado (exit 1)
 - Se branch não corresponde a nenhuma aula → skip (exit 0)
-- Extensível: grade, osteoporose, metanálise
 
 ### Arquivos
 

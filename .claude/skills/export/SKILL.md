@@ -12,41 +12,13 @@ allowed-tools: Bash(npm *), Bash(npx *), Bash(kill *), Bash(sleep *)
 
 Exporta `$ARGUMENTS` para PDF + screenshots. Exemplo: `/export cirrose`
 
-## WARN: deck.js vs Reveal.js
+## WARN: deck.js
 
-- **grade, osteoporose** (Reveal.js): DeckTape `reveal` plugin funciona normalmente.
-- **cirrose, metanalise** (deck.js): DeckTape `reveal` plugin NAO funciona. Usar:
-  - DeckTape com `--slides` manual (flag `generic` plugin), ou
-  - Playwright screenshot loop (preferido — ver `qa-batch-screenshot.mjs` como referencia)
+DeckTape `reveal` plugin NAO funciona com deck.js. Usar:
+- DeckTape com `--slides` manual (flag `generic` plugin), ou
+- Playwright screenshot loop (preferido — ver `qa-batch-screenshot.mjs` como referencia)
 
-## Passos (Reveal.js — grade/osteoporose)
-
-1. Build: `npm run build`
-2. Preview server: `npx serve dist -l 4173 &` → `sleep 2`
-3. PDF Plan A (1920×1080):
-   ```bash
-   npx decktape reveal --size 1920x1080 \
-     http://localhost:4173/aulas/$ARGUMENTS/index.html \
-     exports/$ARGUMENTS-plan-a.pdf
-   ```
-4. Screenshots:
-   ```bash
-   npx decktape reveal --size 1920x1080 \
-     --screenshots --screenshots-format=png \
-     --screenshots-directory=exports/screenshots/$ARGUMENTS \
-     http://localhost:4173/aulas/$ARGUMENTS/index.html \
-     /dev/null
-   ```
-5. PDF Plan C (1280×720):
-   ```bash
-   npx decktape reveal --size 1280x720 \
-     http://localhost:4173/aulas/$ARGUMENTS/index.html \
-     exports/$ARGUMENTS-plan-c.pdf
-   ```
-6. Matar servidor: `kill $(lsof -t -i:4173)`
-7. Reportar: tamanhos dos arquivos + contagem de slides
-
-## Passos (deck.js — cirrose/metanalise)
+## Passos (deck.js)
 
 1. Build: `npm run build:$ARGUMENTS`
 2. Preview server: `npx serve . -l 4173 &` → `sleep 2`
