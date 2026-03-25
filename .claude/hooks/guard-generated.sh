@@ -6,10 +6,7 @@
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-FILE_PATH=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
-console.log((d.tool_input||{}).file_path||'');
-" "$INPUT" 2>/dev/null)
+FILE_PATH=$(echo "$INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')||'{}'); console.log((d.tool_input||{}).file_path||'');" 2>/dev/null)
 
 # Only block aulas/*/index.html (generated files)
 if [[ "$FILE_PATH" == *"aulas/"*"/index.html" ]]; then

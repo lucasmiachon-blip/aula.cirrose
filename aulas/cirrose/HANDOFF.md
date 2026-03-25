@@ -10,6 +10,7 @@
 **Repo:** `aula.cirrose` (separado de Aulas 24/mar). Branch: `feat/cirrose-mvp`.
 **Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + guard-product-files (human-in-the-loop) + lint:gsap-race (CSS/GSAP race detector v1).
+**Hooks fix (24/mar):** 2 bugs Windows corrigidos — `set -euo pipefail` crashava guard-product-files (removido -e/-o, mantido -u); node arg passando JSON >8KB crashava no Windows (trocado por stdin pipe em guard-generated, check-evidence-db, guard-evidence-db). test-hook-alive.sh adicionado para diagnostico.
 **CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.
 **QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`.
 **Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).

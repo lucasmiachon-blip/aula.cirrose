@@ -3,7 +3,7 @@
 # PreToolUse: Write|Edit|StrReplace
 # Motivation: ERRO-053 (QA pipeline bypassed), ERRO-049 (approved elements removed)
 
-set -euo pipefail
+set -u
 
 INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
