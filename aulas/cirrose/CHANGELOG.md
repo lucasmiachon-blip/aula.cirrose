@@ -5,6 +5,10 @@
 
 ---
 
+## 2026-03-25 — dev: slide ID label no deck.js (sessao 28)
+
+- **Slide ID label:** `deck.js` agora cria `#slide-id-label` (position:fixed, top-left, mono 11px, 55% opacity). Atualiza ao navegar via `goTo()`. Dev helper — remover antes de produção.
+
 ## 2026-03-25 — QA visual s-a1-01: 3 fixes cirurgicos (sessao 27)
 
 - **Ghost rows background (E59):** `background: transparent` e `var(--safe-light)` → `oklch(96% 0 0)`. Root cause: `color-mix()` hue interpolation bug (endpoint acromatico hue=0 interpola salmon em vez de teal).

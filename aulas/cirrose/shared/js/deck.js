@@ -32,6 +32,10 @@ function goTo(next) {
   currentIndex = next;
   currentSlide.classList.add('slide-active');
 
+  // Update slide ID label
+  const label = document.getElementById('slide-id-label');
+  if (label) label.textContent = currentSlide.id || `slide-${next}`;
+
   // Fire slide:entered after CSS transition. Guard with lastEnteredSlide to
   // deduplicate transitionend (which fires per-property) + fallback timer.
   lastEnteredSlide = null;
@@ -116,6 +120,16 @@ export function initDeck(viewportSelector = '#slide-viewport') {
 
   // Activate first slide
   sections[0].classList.add('slide-active');
+
+  // Slide ID label (top-left) — dev helper, remove before production
+  let label = document.getElementById('slide-id-label');
+  if (!label) {
+    label = document.createElement('div');
+    label.id = 'slide-id-label';
+    label.style.cssText = 'position:fixed;top:8px;left:12px;font:11px/1 var(--font-mono,monospace);color:oklch(50% 0 0);opacity:0.55;z-index:9999;pointer-events:none;';
+    document.body.appendChild(label);
+  }
+  label.textContent = sections[0]?.id || '';
 
   document.addEventListener('keydown', onKeydown);
 
