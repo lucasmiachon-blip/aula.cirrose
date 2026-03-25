@@ -55,11 +55,6 @@
 | [prompts/gemini-transcript-comparison.md](prompts/gemini-transcript-comparison.md) | Comparacao transcripts Gemini |
 | [prompts/openai-backward-design.md](prompts/openai-backward-design.md) | Backward design OpenAI |
 | [prompts/openai-canvas-storyboard.md](prompts/openai-canvas-storyboard.md) | Storyboard OpenAI Canvas |
-### Outros
-| Doc | Uso |
-|-----|-----|
-| [archive/](archive/README.md) | Docs arquivados (superseded, one-shot) |
-
 ---
 
 ## HANDOFFs — Hierarquia
