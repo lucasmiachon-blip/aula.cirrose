@@ -100,16 +100,6 @@
             "timeout": 10
           }
         ]
-      },
-      {
-        "matcher": "Write|Edit|StrReplace|Bash|Agent|Skill|NotebookEdit|TaskCreate|TaskUpdate",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/audit-trail.sh",
-            "timeout": 3
-          }
-        ]
       }
     ],
     "PostToolUseFailure": [
@@ -122,40 +112,9 @@
             "timeout": 10
           }
         ]
-      },
-      {
-        "matcher": "Write|Edit|StrReplace|Bash|Agent|Skill|NotebookEdit|TaskCreate|TaskUpdate",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/audit-trail.sh",
-            "timeout": 3
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/subagent-stop-log.sh",
-            "timeout": 10
-          }
-        ]
       }
     ],
     "SessionStart": [
-      {
-        "matcher": "startup|resume",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/session-tracker.sh session-start",
-            "timeout": 5
-          }
-        ]
-      },
       {
         "matcher": "compact",
         "hooks": [
@@ -164,23 +123,6 @@
             "command": "bash .claude/hooks/post-compact-reinject.sh",
             "timeout": 10,
             "statusMessage": "Re-injetando contexto pós-compact..."
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/session-tracker.sh session-compact",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "TeammateIdle": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/teammate-idle-gate.sh",
-            "timeout": 30,
-            "statusMessage": "Validando quality gates do teammate..."
           }
         ]
       }
@@ -193,17 +135,6 @@
             "command": "bash .claude/hooks/task-completed-gate.sh",
             "timeout": 10,
             "statusMessage": "Verificando task completion..."
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/session-tracker.sh session-end",
-            "timeout": 5
           }
         ]
       }

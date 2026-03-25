@@ -108,7 +108,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Arquivo | Wired em settings.json | Função |
 |---------|----------------------|--------|
-| audit-trail.sh | PostToolUse, PostToolUseFailure (*) | P0 traceability — JSONL log de toda tool call |
+| ~~audit-trail.sh~~ | Removido 2026-03-24 | Ghost hook: zero logs produzidos |
 | build-monitor.sh | PostToolUse, PostToolUseFailure (Bash) | Detecta falhas de build |
 | check-evidence-db.sh | PreToolUse (Write) | Valida dados clínicos antes de escrever |
 | guard-evidence-db.sh | PreToolUse (Write) | Protege evidence-db de edições não autorizadas |
@@ -119,10 +119,10 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | guard-secrets.sh | PreToolUse (Bash) | WARN-only: escaneia staged files por padrões de secrets |
 | ~~warn-class-c.sh~~ | Removido 2026-03-22 | Obsoleto: sem Class A/B/C |
 | post-compact-reinject.sh | SessionStart (compact) | Reinjecta HANDOFF + git log após /compact |
-| session-tracker.sh | SessionStart, SessionEnd | Lifecycle de sessão (3-terminal tracking) |
-| subagent-stop-log.sh | SubagentStop | Loga conclusão de subagents |
+| ~~session-tracker.sh~~ | Removido 2026-03-24 | Ghost hook: zero logs produzidos |
+| ~~subagent-stop-log.sh~~ | Removido 2026-03-24 | Ghost hook: teammates nunca usados |
 | task-completed-gate.sh | TaskCompleted | Verificação de quality gates em task completada |
-| teammate-idle-gate.sh | TeammateIdle | Validação de quality gates do teammate |
+| ~~teammate-idle-gate.sh~~ | Removido 2026-03-24 | Ghost hook: teammates nunca usados |
 | guard-product-files.sh | PreToolUse (Write\|Edit\|StrReplace) | exit 2 bloqueia edição em arquivos de produto sem confirmação humana |
 
 ### scripts/ (git hooks — versionados)
@@ -214,7 +214,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Pesquisa médica profunda | .claude/skills/medical-researcher/SKILL.md | .claude/rules/medical-data.md, docs/MCP-ACADEMICOS.md |
 | Safety gates (hooks) | .claude/settings.json + .claude/hooks/ | — |
 | ~~WT protocol~~ | Removido 2026-03-22 — standalone, sem worktree | — |
-| Audit trail | .claude/hooks/audit-trail.sh | ~/.claude/session-logs/ |
+| ~~Audit trail~~ | Removido 2026-03-24 — ghost hook | — |
 | QA pipeline (cirrose) | aulas/cirrose/WT-OPERATING.md §4 | — |
 
 ---
