@@ -5,7 +5,7 @@
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Extract file_path from tool_input
-FILE_PATH=$(echo "$INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')||'{}'); console.log((d.tool_input||{}).file_path||'');" 2>/dev/null)
+FILE_PATH=$(echo "$INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')||'{}'); console.log(((d.tool_input||{}).file_path||'').replace(/\\\\/g,'/'));" 2>/dev/null)
 
 # Only apply to aulas/*/slides/*.html
 if [[ "$FILE_PATH" != *"aulas/"*"/slides/"* ]] || [[ "$FILE_PATH" != *.html ]]; then
@@ -13,7 +13,7 @@ if [[ "$FILE_PATH" != *"aulas/"*"/slides/"* ]] || [[ "$FILE_PATH" != *.html ]]; 
 fi
 
 # Get transcript path
-TRANSCRIPT=$(echo "$INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')||'{}'); console.log(d.transcript_path||'');" 2>/dev/null)
+TRANSCRIPT=$(echo "$INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')||'{}'); console.log((d.transcript_path||'').replace(/\\\\/g,'/'));" 2>/dev/null)
 
 # If no transcript available, allow (can't verify)
 if [ -z "$TRANSCRIPT" ] || [ ! -f "$TRANSCRIPT" ]; then

@@ -10,7 +10,7 @@
 **Repo:** `aula.cirrose` (separado de Aulas 24/mar). Branch: `feat/cirrose-mvp`.
 **Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + guard-product-files (human-in-the-loop) + lint:gsap-race (CSS/GSAP race detector v1).
-**Hooks fix (24/mar):** 2 bugs Windows corrigidos — `set -euo pipefail` crashava guard-product-files (removido -e/-o, mantido -u); node arg passando JSON >8KB crashava no Windows (trocado por stdin pipe em guard-generated, check-evidence-db, guard-evidence-db). test-hook-alive.sh adicionado para diagnostico.
+**Hooks fix (24-25/mar):** 3 bugs Windows corrigidos — (1) `set -euo pipefail` crashava guard-product-files (removido -e/-o, mantido -u); (2) node arg passando JSON >8KB crashava no Windows (trocado por stdin pipe); (3) `readFileSync('/dev/stdin')` crashava silenciosamente no Git Bash Windows (`/dev/stdin` nao existe → `ENOENT C:\dev\stdin`). Fix: `readFileSync(0)` (fd 0 = stdin, cross-platform). Backslash→forward slash normalization adicionada em todos os hooks com path matching.
 **CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.
 **QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`.
 **Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).
@@ -68,6 +68,7 @@
 - Fontes woff2: Vite base condicional aplicado (23/mar). Testar `npm run dev` para confirmar @font-face resolve
 - qa-batch-screenshot.mjs so captura 1 estado (S0). Antes capturava S0/S1-mid/S2-final em 2 resolucoes — investigar pos-congresso
 - Playwright MCP nao navega deck.js (E56). Usar script Node standalone para screenshots de slides especificos
+- **GARGALO hooks exit 2:** `guard-generated.sh` parseia path corretamente e faz match, mas `exit 2` NAO bloqueia a tool no Windows. Hook roda, detecta `aulas/*/index.html`, imprime JSON error, faz exit 2 — Claude Code ignora e executa a edicao. Reproduzido 25/mar. `guard-product-files.sh` (sed-based) possivelmente mesmo problema. Investigar se e bug Claude Code Windows ou formato de output errado
 
 ---
 
