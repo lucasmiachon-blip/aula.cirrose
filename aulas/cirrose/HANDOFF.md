@@ -4,7 +4,7 @@
 
 ---
 
-## Estado — 2026-03-24
+## Estado — 2026-03-25
 
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅ · **CSS cascade:** ✅ (validate-css.sh)
 **Repo:** `aula.cirrose` (separado de Aulas 24/mar). Branch: `feat/cirrose-mvp`.
@@ -38,6 +38,7 @@
 **Resumo:** 2 DONE · 42 CONTENT
 **QA Act 1:** s-a1-01 Gate 0 PASS, fixes E54/E55 aplicados, screenshot recapturado 25/mar, AUDIT-VISUAL corrigido, Gate 4 Gemini pendente. 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
 **Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag vs case-panel fix (E55). Playwright MCP workaround (E56).
+**Source-tag investigacao (25/mar):** Base `.source-tag` tem defaults errados (center, 10px, nowrap) + 5 overrides competindo. Fix testado (right-aligned, clamp 14-16px, justify-self stretch) — aplicado e revertido para revisao manual. Diagnostico: `archetype-hero-stat` tem `justify-items: center` que constrange largura do source-tag.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 

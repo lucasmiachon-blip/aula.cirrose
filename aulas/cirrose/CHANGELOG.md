@@ -5,6 +5,16 @@
 
 ---
 
+## 2026-03-25 — source-tag CSS investigation (sessao 26)
+
+- **Source-tag diagnostico:** Base `.source-tag` (cirrose.css L36) tem defaults errados: `text-align: center`, `font-size: 10px`, `white-space: nowrap`. 5 overrides competem (stage-c, panel, #s-a1-01, no-js, base.css stage-c).
+- **Fix testado:** Reescrita base (right-aligned, `clamp(14px, 0.9vw, 16px)`, `white-space: normal`), simplificacao `.stage-c .source-tag`, remocao `#s-a1-01 .source-tag` override, `justify-self: stretch`.
+- **Achado:** `archetype-hero-stat` tem `justify-items: center` no `.slide-inner` que constrangia largura do source-tag — `justify-self: stretch` corrige.
+- **Revertido:** Fix aplicado e revertido (`git revert`) para revisao manual antes de re-aplicar.
+- **Repo cleanup (pre-sessao):** 10 skills deletadas (~1400L), 4 dead agents deletados (-1509L), XREF.md synced.
+
+---
+
 ## 2026-03-24 — infra reduction cycle 4 (sessao 25)
 
 - **CLAUDE.md consolidado:** 2 arquivos (root 141L + cirrose 152L) → 1 arquivo root (151L). -48%.
