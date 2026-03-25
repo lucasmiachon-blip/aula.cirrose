@@ -54,9 +54,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/test-hook-alive.sh",
+            "command": "bash .claude/hooks/guard-generated.sh",
+            "timeout": 10,
+            "statusMessage": "Verificando arquivo gerado..."
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/guard-product-files.sh",
             "timeout": 5,
-            "statusMessage": "Test hook..."
+            "statusMessage": "Verificando arquivo de produto..."
           },
           {
             "type": "command",
@@ -69,18 +75,6 @@
             "command": "bash .claude/hooks/guard-evidence-db.sh",
             "timeout": 5,
             "statusMessage": "Verificando permissão evidence-db..."
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/guard-generated.sh",
-            "timeout": 5,
-            "statusMessage": "Verificando arquivo gerado..."
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/guard-product-files.sh",
-            "timeout": 5,
-            "statusMessage": "Verificando arquivo de produto..."
           }
         ]
       },

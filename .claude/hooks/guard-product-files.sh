@@ -19,36 +19,36 @@ if [ -z "$FILE_PATH" ]; then
 fi
 
 # Normalize backslashes to forward slashes (Windows paths)
-FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/')
+FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/' | sed 's|//|/|g')
 
 # Product file patterns
 if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/slides/[^/]+\.html$'; then
-  echo "⚠ Arquivo de produto: $FILE_PATH. Confirme antes de editar." >&2
+  echo "BLOQUEADO: arquivo de produto $FILE_PATH" >&2
   exit 2
 fi
 
 if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/(cirrose|archetypes)\.css$'; then
-  echo "⚠ Arquivo de produto: $FILE_PATH. Confirme antes de editar." >&2
+  echo "BLOQUEADO: arquivo de produto $FILE_PATH" >&2
   exit 2
 fi
 
 if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/shared/css/base\.css$'; then
-  echo "⚠ Arquivo de produto: $FILE_PATH. Confirme antes de editar." >&2
+  echo "BLOQUEADO: arquivo de produto $FILE_PATH" >&2
   exit 2
 fi
 
 if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/shared/js/[^/]+\.js$'; then
-  echo "⚠ Arquivo de produto: $FILE_PATH. Confirme antes de editar." >&2
+  echo "BLOQUEADO: arquivo de produto $FILE_PATH" >&2
   exit 2
 fi
 
 if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/slide-registry\.js$'; then
-  echo "⚠ Arquivo de produto: $FILE_PATH. Confirme antes de editar." >&2
+  echo "BLOQUEADO: arquivo de produto $FILE_PATH" >&2
   exit 2
 fi
 
 if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/index\.html$'; then
-  echo "⚠ Arquivo de produto: $FILE_PATH. Confirme antes de editar." >&2
+  echo "BLOQUEADO: arquivo de produto $FILE_PATH" >&2
   exit 2
 fi
 
