@@ -86,3 +86,8 @@
 
 ### Hooks: node -e, nunca python
 - Python nao e dependencia do projeto. Todo hook DEVE usar `node -e` para JSON parsing
+
+### git rm vs rm: verificar tracking antes
+- `qa-screenshots/`, `.playwright-mcp/`, `.claude/hooks/_archive/` estavam no .gitignore
+- `git rm -r` falha silenciosamente em paths nao-tracked → sempre `git ls-files <path>` antes
+- Se untracked: `rm -r` (sem -f). Se tracked: `git rm -r`
