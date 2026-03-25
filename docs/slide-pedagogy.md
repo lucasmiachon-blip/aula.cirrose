@@ -257,14 +257,14 @@ Para cada slide do Bloco 1:
 
 | # | Referência | Achado-chave | Mapeia para |
 |---|-----------|-------------|-------------|
-| 6 | Garner & Alley 2013, Tech Comm Q | AE < misconceptions que slides tradicionais | Pilar 1, slide-editing.md |
+| 6 | Garner & Alley 2013, Tech Comm Q | AE < misconceptions que slides tradicionais | Pilar 1, slide-rules.md §2 |
 | 7 | Wolfe 2024 [NAO VERIFICADO — PMID pendente] | AE funciona para experts, nao so novatos | Pilar 1, expertise-reversal |
 | 8 | Hales 2017 [NAO VERIFICADO — PMID pendente] | Image fraction prediz avaliacao CME | Pilar 2, fill ratio |
 | 9 | Roediger & Butler 2011, Trends Cogn Sci | Testing effect: retrieval > re-study | Pilar 3, checkpoints |
 | 10 | Cowan 2001, Behav Brain Sci | Capacidade WM = 4+-1 chunks | Pilar 4, Chunking |
-| 11 | Kosslyn 2007, Clear and to the Point | 8 princípios cognitivos para slides | design-principles.md |
+| 11 | Kosslyn 2007, Clear and to the Point | 8 princípios cognitivos para slides | design-reference.md §4 |
 | 12 | Sedgwick 2015, BMJ | Como ler forest plots | Slide forest plot |
-| 13 | Kalyuga et al. 2003, Educ Psychol | Expertise reversal effect | design-principles.md §2 |
+| 13 | Kalyuga et al. 2003, Educ Psychol | Expertise reversal effect | design-reference.md §4 |
 
 ### Tier 3 — Fundacionais e teóricos
 
@@ -276,16 +276,16 @@ Para cada slide do Bloco 1:
 | 17 | Miller 1990, Acad Med | Pirâmide de competência | §5 |
 | 18 | Alley et al. 2006, Tech Comm | Assertion-evidence original | §3, Pilar 1 |
 | 19 | Duarte 2010, Resonate | Sparkline narrativa | §7 |
-| 20 | Tufte 2001, Visual Display | Data-ink ratio, lie factor | design-principles.md §22-27 |
+| 20 | Tufte 2001, Visual Display | Data-ink ratio, lie factor | design-reference.md §4 |
 | 21 | Meyer & Land 2003, Improving Student Learning | Threshold concepts | §6 |
-| 22 | Von Restorff 1933 | Isolation effect | design-principles.md §6 |
-| 23 | Ebbinghaus 1885, Memory | Primacy-recency | design-principles.md §15 |
+| 22 | Von Restorff 1933 | Isolation effect | design-reference.md §4 |
+| 23 | Ebbinghaus 1885, Memory | Primacy-recency | design-reference.md §4 |
 
 ### Mapeamento Design System
 
 | Pilar | Token/Pattern no nosso sistema | Critério QA |
 |-------|-------------------------------|-------------|
-| 1 — Assertion-Evidence | `<h2>` = assertion, slide-editing.md checklist | assertion-evidence >= 9 |
+| 1 — Assertion-Evidence | `<h2>` = assertion, slide-rules.md §2 checklist | assertion-evidence >= 9 |
 | 2 — Visual dominante | fill ratio 65-90%, `data-animate`, metric cards | visual impact >= 9, density >= 9 |
 | 3 — Retrieval Practice | checkpoint slides, interactions entre fases | interactions >= 9 |
 | 4 — Segmentação | fragments, `data-animate="stagger"`, <=4 elementos | cognitive load >= 9 |

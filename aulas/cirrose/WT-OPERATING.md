@@ -363,7 +363,7 @@ Antes de encerrar, SEMPRE:
 | Mudei... | Atualizar tambem... |
 |----------|---------------------|
 | h2 no HTML | `_manifest.js` headline, `narrative.md` |
-| `<section id>` | TODAS 9 superficies (ver slide-identity.md) |
+| `<section id>` | TODAS 9 superficies (ver slide-rules.md) |
 | CSS do slide | `AUDIT-VISUAL.md` se afeta score |
 | Dados numericos | `evidence-db.md`, notes `[DATA]` tag |
 | Posicao no deck | `_manifest.js` ordem, `narrative.md` |

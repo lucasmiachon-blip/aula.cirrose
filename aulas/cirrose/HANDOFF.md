@@ -63,7 +63,7 @@
 - engine.js `?qa=1` nao forca estado final de custom animations (workaround: Playwright evaluate). Custom anims sao state machines — forcar "ultimo estado" requer saber qual estado e o final.
 - ~~h2 assertivo fib4: Lucas decide no browser~~ → refatorado para hero-stat "Aplicando ao Antonio" (23/mar)
 - PDF export quebrado (DeckTape) — nao bloqueia congresso (projecao ao vivo)
-- Nomes de arquivo enganosos (ver slide-identity.md §9) — cosmetic, ID no manifest importa
+- Nomes de arquivo enganosos (ver slide-rules.md §7) — cosmetic, ID no manifest importa
 - ~~3 dead CSS selectors~~ → `.framework-box` e `.predict-bars` removidos (23/mar). `.etiology-table` viva (05-a1-infeccao.html)
 - Fontes woff2: Vite base condicional aplicado (23/mar). Testar `npm run dev` para confirmar @font-face resolve
 - qa-batch-screenshot.mjs so captura 1 estado (S0). Antes capturava S0/S1-mid/S2-final em 2 resolucoes — investigar pos-congresso
@@ -128,6 +128,6 @@
 | Ordem dos slides | `slides/_manifest.js` (#4) |
 | Regras operacionais | `CLAUDE.md` (root) |
 | QA pipeline | `WT-OPERATING.md` |
-| Design tokens | `.claude/rules/design-system.md` |
-| Erros e prevencao | `ERROR-LOG.md` + `.claude/rules/css-errors.md` |
+| Design tokens | `.claude/rules/design-reference.md` §1 |
+| Erros e prevencao | `ERROR-LOG.md` + `.claude/rules/slide-rules.md` §8 |
 | Licoes unicas | `tasks/lessons.md` (so o que NAO esta em rules) |

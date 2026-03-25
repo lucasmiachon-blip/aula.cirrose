@@ -615,7 +615,6 @@ Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 46
 ## Referencias
 
 - `shared/css/base.css` — Design system tokens OKLCH
-- `.claude/rules/design-system.md` — Tokens canonicos
-- `.claude/rules/design-principles.md` — Rubrica Duarte/Tufte/Mayer
-- `.claude/rules/css-errors.md` — Anti-patterns CSS
+- `.claude/rules/design-reference.md` — Tokens OKLCH (§1), tipografia (§2), princípios Duarte/Tufte/Mayer (§4)
+- `.claude/rules/slide-rules.md` — CSS errors (§8), motion QA (§9)
 - AASLD Postgraduate Course 2024 — Referencia visual externa

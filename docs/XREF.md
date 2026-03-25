@@ -39,20 +39,12 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | → tasks/lessons.md | Self-improvement |
 | → docs/README.md | Índice docs (refs indiretas a RULES, SKILLS, SUBAGENTS) |
 
-### .claude/rules/
+### .claude/rules/ (consolidado 2026-03-25: 10 → 2 arquivos)
 
-| Arquivo | Referencia | Referenciado por |
-|---------|-----------|-----------------|
-| README.md | → todos .claude/rules/*.md, .cursor/rules/*.mdc | ← XREF.md (este arquivo) |
-| anti-drift.md | (autônomo — auto-diagnóstico do agente) | ← CLAUDE.md |
-| css-errors.md | → design-system.md, medical-data.md | ← slide-editing.md |
-| design-principles.md | → design-system.md | ← CLAUDE.md |
-| deck-patterns.md | → slide-identity.md, design-system.md | ← slide-editing.md, motion-qa.md, CLAUDE.md |
-| design-system.md | (autônomo) | ← css-errors.md, design-principles.md, slide-editing.md, deck-patterns.md |
-| medical-data.md | (autônomo) | ← css-errors.md, slide-editing.md |
-| motion-qa.md | → slide-editing.md, deck-patterns.md | ← CLAUDE.md |
-| slide-editing.md | → css-errors.md, design-system.md, deck-patterns.md, medical-data.md | ← CLAUDE.md |
-| slide-identity.md | → slide-editing.md, reveal-patterns (via deck-patterns) | ← CLAUDE.md, deck-patterns.md |
+| Arquivo | Conteúdo | Referenciado por |
+|---------|----------|-----------------|
+| slide-rules.md | §1-6 deck.js, §7 slide identity (9 superfícies), §8 CSS errors, §9 motion QA | ← CLAUDE.md, skills, agents |
+| design-reference.md | §1 OKLCH, §2 tipografia, §3 layout, §4 design principles (27), §5 dados médicos | ← CLAUDE.md, skills, agents |
 
 ### docs/
 
@@ -175,16 +167,10 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 ## Pares .claude ↔ .cursor
 
-| .claude/rules/ | .cursor/rules/ | Mais completo |
-|----------------|---------------|--------------|
-| css-errors.md | css-errors.mdc | .claude |
-| design-principles.md | design-principles.mdc | .claude (27 vs 11 princípios) |
-| design-system.md | cirrose-design.mdc + design-system.mdc | Split OK |
-| medical-data.md | medical-data.mdc | .claude |
-| motion-qa.md | motion-qa.mdc | .claude |
-| deck-patterns.md | reveal-patterns.mdc | .claude (deck.js specifics) |
-| slide-editing.md | slide-editing.mdc | Ambos |
-| slide-identity.md | slide-identity.mdc | .claude |
+| .claude/rules/ | .cursor/rules/ | Nota |
+|----------------|---------------|------|
+| slide-rules.md | css-errors.mdc, reveal-patterns.mdc, slide-editing.mdc, slide-identity.mdc, motion-qa.mdc | .claude consolidou 6 arquivos em 1 |
+| design-reference.md | design-system.mdc, cirrose-design.mdc, design-principles.mdc, medical-data.mdc | .claude consolidou 4 arquivos em 1 |
 
 **Sem par em .claude:** core-constraints.mdc, plan-mode.mdc, notion-mcp.mdc (só .cursor).
 
@@ -194,24 +180,24 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Assunto | Arquivo canônico | Fallback |
 |---------|-----------------|----------|
-| Anti-drift (auto-diagnóstico agente) | .claude/rules/anti-drift.md | — |
+| Anti-drift (auto-diagnóstico agente) | .claude/rules/slide-rules.md (inline) | — |
 | Operacional (stack, regras, workflow) | CLAUDE.md | — |
-| Tokens OKLCH | .claude/rules/design-system.md | aulas/cirrose/shared/css/base.css :root |
-| Erros CSS | .claude/rules/css-errors.md | — |
-| Dados médicos | .claude/rules/medical-data.md | — |
-| Animações GSAP | .claude/rules/motion-qa.md | aulas/cirrose/shared/js/engine.js |
-| Deck.js patterns (ativo) | .claude/rules/deck-patterns.md | — |
-| Assertion-Evidence | .claude/rules/slide-editing.md | design-principles.md §1 |
+| Tokens OKLCH | .claude/rules/design-reference.md §1 | aulas/cirrose/shared/css/base.css :root |
+| Erros CSS | .claude/rules/slide-rules.md §8 | — |
+| Dados médicos | .claude/rules/design-reference.md §5 | — |
+| Animações GSAP | .claude/rules/slide-rules.md §9 | aulas/cirrose/shared/js/engine.js |
+| Deck.js patterns (ativo) | .claude/rules/slide-rules.md §1-6 | — |
+| Assertion-Evidence | .claude/rules/slide-rules.md §2 | design-reference.md §4 |
 | Notion IDs | .env.example (variáveis `NOTION_*_ID`) | docs/SYNC-NOTION-REPO.md |
 | MCP profiles | .mcp-profiles/*.json | .mcp.json (perfil ativo) |
 | Estado Cirrose | aulas/cirrose/HANDOFF.md | — |
 | Context window | docs/SUBAGENTS.md | .cursor/rules/core-constraints.mdc |
 | Manifesto slides (cirrose) | aulas/cirrose/slides/_manifest.js | CLAUDE.md tabela |
 | Pipeline humano | docs/archive/pipeline/README.md | — |
-| Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-principles.md |
+| Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-reference.md §4 |
 | KPIs multiagente | docs/KPIs.md | — |
 | Benchmarks modelos | docs/ECOSYSTEM.md | — |
-| Pesquisa médica profunda | .claude/skills/medical-researcher/SKILL.md | .claude/rules/medical-data.md, docs/MCP-ACADEMICOS.md |
+| Pesquisa médica profunda | .claude/skills/medical-researcher/SKILL.md | .claude/rules/design-reference.md §5, docs/MCP-ACADEMICOS.md |
 | Safety gates (hooks) | .claude/settings.json + .claude/hooks/ | — |
 | ~~WT protocol~~ | Removido 2026-03-22 — standalone, sem worktree | — |
 | ~~Audit trail~~ | Removido 2026-03-24 — ghost hook | — |

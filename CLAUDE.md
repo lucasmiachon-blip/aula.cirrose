@@ -81,7 +81,7 @@ Conflito: # menor vence. Notion é mirror, não source of truth.
 
 ## Slide Identity
 
-> Regra completa: @.claude/rules/slide-identity.md
+> Regra completa: @.claude/rules/slide-rules.md §7
 
 9 superfícies sincronizadas: `aulas/cirrose/slides/_manifest.js` · `<section id>` · `aulas/cirrose/slide-registry.js` · `aulas/cirrose/cirrose.css` · `narrative.md` · `evidence-db.md` · `AUDIT-VISUAL.md` · `HANDOFF.md` · `aulas/cirrose/index.html` (gerado).
 
@@ -139,13 +139,6 @@ sed -n '/### ATO 2/,/^### /p' aulas/cirrose/references/narrative.md
 
 ## Rules (loaded on demand)
 
-- Anti-drift: @.claude/rules/anti-drift.md
-- CSS errors: @.claude/rules/css-errors.md
-- Design tokens: @.claude/rules/design-system.md
-- Design principles: @.claude/rules/design-principles.md
-- Medical data: @.claude/rules/medical-data.md
-- Deck patterns: @.claude/rules/deck-patterns.md
-- Slide editing: @.claude/rules/slide-editing.md
-- **Slide identity (9 superfícies):** @.claude/rules/slide-identity.md
-- Motion QA: @.claude/rules/motion-qa.md
+- **Slide rules** (edição, identidade, CSS, motion): @.claude/rules/slide-rules.md
+- **Design reference** (tokens, princípios, dados médicos): @.claude/rules/design-reference.md
 - Doc graph: @docs/XREF.md

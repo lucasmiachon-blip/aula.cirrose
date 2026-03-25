@@ -70,8 +70,8 @@ Layout: CSS Grid 6fr:4fr. Bloomberg hero (Instrument Serif 140-220px). Reactive 
 | Trials/PMIDs | `aulas/cirrose/references/evidence-db.md` |
 | Arco narrativo | `aulas/cirrose/references/narrative.md` |
 | Ordem slides | `aulas/cirrose/slides/_manifest.js` |
-| Design tokens | `.claude/rules/design-system.md` |
-| CSS errors | `.claude/rules/css-errors.md` |
+| Design tokens | `.claude/rules/design-reference.md` §1 |
+| CSS errors | `.claude/rules/slide-rules.md` §8 |
 | Lessons | `tasks/lessons.md` |
 
 ---

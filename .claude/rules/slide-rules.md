@@ -1,0 +1,208 @@
+# Slide Rules — Edição, Identidade, CSS, Motion
+
+> Canônico. Merge de: deck-patterns, slide-editing, slide-identity, css-errors, motion-qa.
+
+---
+
+## 1. Estrutura de Slide
+
+```html
+<section id="s-a1-damico">
+  <div class="slide-inner slide-navy">
+    <h2>Carvedilol reduz HVPG em 20% vs placebo</h2>
+    <div class="evidence" data-animate="stagger">...</div>
+  </div>
+  <aside class="notes">
+    [0:00-0:30] Hook. PAUSA 3s.
+    [DATA] Fonte: EASL 2024 | Verificado: 2026-02-13
+  </aside>
+</section>
+```
+
+**Regras estruturais:**
+- `<h2>` = asserção clínica (NUNCA rótulo genérico). `<ul>`/`<ol>` PROIBIDOS em slides.
+- `<aside class="notes">` obrigatório em TODO `<section>`.
+- Background escuro: CSS `.slide-navy` no `.slide-inner` + seletor `#slide-id .slide-inner` no CSS. deck.js NÃO parseia `data-background-color`.
+- `<body class="stage-c">` obrigatório. Sem stage class, tokens defaultam para valores root.
+- NUNCA inline style com `display`/`visibility`/`opacity` no `<section>` (E07 — fatal).
+- Layout vai dentro de `.slide-inner`, NUNCA no `<section>`.
+
+---
+
+## 2. Checklist Pré-Edição (OBRIGATÓRIO)
+
+- [ ] `<h2>` é asserção clínica
+- [ ] Sem `<ul>`/`<ol>` no slide
+- [ ] `<aside class="notes">` com timing e fontes
+- [ ] `<section>` sem `style` com `display` (E07)
+- [ ] Tags balanceadas
+- [ ] Dados numéricos verificados (ver §Design Reference)
+- [ ] Animações via `data-animate`, NUNCA gsap inline
+- [ ] Se bg escuro: `.slide-inner` tem `.slide-navy`
+
+**Batch:** Max 5 slides por batch. Declarar → aprovação → executar → preview → commit.
+**"Só ajusta X" = escopo é APENAS X (E20, 3x reincidente).**
+
+---
+
+## 3. Animação Declarativa (data-animate)
+
+NUNCA `gsap.to()` inline. Usar atributos declarativos no HTML:
+
+| `data-animate` | Efeito | Extras |
+|----------------|--------|--------|
+| `countUp` | Número animado (1.5s, power2.out) | `data-target="25"` `data-decimals="1"` |
+| `stagger` | Filhos sequenciais (0.5s each) | `data-stagger="0.15"` |
+| `drawPath` | SVG stroke progressivo (1.5s) | — |
+| `fadeUp` | Fade + translateY (0.8s) | — |
+| `highlight` | Von Restorff — destaca linha | `data-highlight-row="3"` |
+
+**CSS failsafe:** `[data-animate] { opacity: 0; } .no-js [data-animate] { opacity: 1; }`
+
+---
+
+## 4. Click-Reveal (substitui Fragments)
+
+```html
+<div data-reveal="1">Primeiro</div>
+<div data-reveal="2">Segundo</div>
+```
+
+- Max 4 reveals por slide (Cowan 4±1). Arrow right avança um. PageDown pula todos.
+- Click handlers DENTRO de slides DEVEM usar `stopPropagation()` (E38).
+- CSS: `[data-reveal] { opacity: 0; transform: translateY(8px); }` / `.revealed { opacity: 1; transform: none; }`
+
+---
+
+## 5. Eventos deck.js
+
+| Evento | Quando | Usar para |
+|--------|--------|-----------|
+| `slide:changed` | Imediato ao navegar | Cleanup: `ctx.revert()`, clear timers |
+| `slide:entered` | Após transition (+600ms fallback) | Iniciar animações |
+
+- Todos os slides existem no DOM o tempo todo.
+- Eventos disparam no `document`.
+- `registerCustom` (via `wireAll`) DEVE ser chamado ANTES de `connect()`.
+
+---
+
+## 6. Modos de Palco
+
+| Classe `<body>` | Uso |
+|-----------------|-----|
+| `.stage-c` | Plan C (padrão) — light 1280x720, GSAP ativo |
+| `.stage-bad` | Plan B — projetor fraco, sem animação |
+| (nenhuma) | Plan A (futuro) — dark 1920x1080 |
+
+Outros: `?qa=1` força estado final. `?print-pdf` desabilita animações. `?mode=residencia` mostra apêndices.
+
+---
+
+## 7. Slide ID — 9 Superfícies
+
+Formato: `s-{act}-{slug}` (ex: `s-a1-damico`, `s-cp1`, `s-app-alb`). ID é IMUTÁVEL após primeiro commit.
+
+| # | Arquivo | Campo |
+|---|---------|-------|
+| 1 | `slides/_manifest.js` | `id` no objeto |
+| 2 | `slides/NN-slug.html` | `<section id="...">` |
+| 3 | `slide-registry.js` | chave em `customAnimations` (se tiver) |
+| 4 | `{aula}.css` | seletores `#s-xxx` |
+| 5 | `references/narrative.md` | tabela do ato |
+| 6 | `references/evidence-db.md` | referências |
+| 7 | `AUDIT-VISUAL.md` | scorecard |
+| 8 | `HANDOFF.md` | menções |
+| 9 | `index.html` | GERADO — `npm run build:{aula}`, NUNCA editar |
+
+**RENAME:** Operação de ALTO RISCO. `grep -rn "ID_ANTIGO" aulas/{aula}/` antes. Tocar TODAS as 9 superfícies. Rename de ID e rename de filename = commits separados.
+**SPLIT:** Manter slide original como A, criar B com novo ID, atualizar manifest + narrative + contagens.
+**DELETE:** Remover de manifest, registry, CSS. Arquivo HTML → `slides/_archive/`. Rebuild.
+
+---
+
+## 8. CSS Errors — Clusters
+
+### A: Flexbox & Layout
+| Erro | Prio | Regra |
+|------|------|-------|
+| E06 | MUST | Max 5 slides por batch |
+| E10 | SHOULD | `space-between` com N≠M items PROIBIDO |
+| E20 | MUST 3x | "Só ajusta X" = escopo APENAS X |
+| E22 | SHOULD | `flex:1` → SEMPRE distribution nos filhos |
+| E26 | MUST 3x | NUNCA flex:1 igualitário em containers desiguais |
+| E27 | SHOULD | Diagnosticar assimetria ANTES de layout |
+| E28 | SHOULD | ≤3 children para space-between |
+| E32 | MUST | Pseudo-elements proibidos em flex containers compartilhados |
+| E33 | MUST | `justify-content:center` + column + overflow = clipping. Usar `margin-top:auto` |
+| E34 | SHOULD | `<p>` em flex+gap = espaçamento duplo. Reset margin |
+| E35 | MUST | CSS inline = max specificity. Override requer ID |
+| E40 | MUST | `width:100%` + padding sem `box-sizing:border-box` = overflow |
+| E41 | SHOULD | Grid `auto` row + 2 filhos = sobreposição |
+| E45 | SHOULD | Source-tags 3+ citações: testar em 1280x720 + 1920x1080 |
+| E52 | MUST | NUNCA `vw`/`vh` em font-size deck.js. `scaleDeck()` + vw = fonts estourando |
+
+**Regra Master Flexbox:** Filhos com conteúdo desigual → NUNCA flex:1 igualitário → usar dividers, space-evenly, flex ratios, ou stacked.
+
+### B: Display & Navegação
+| Erro | Prio | Regra |
+|------|------|-------|
+| E07 | MUST | NUNCA `display` inline no `<section>`. Layout em `.slide-inner` |
+| E23 | MUST 3x | Checklist pré-edição obrigatório |
+| E24 | SHOULD | Cache-busting `?v=date` em dev |
+| E38 | MUST | Click handlers: `stopPropagation()` |
+| E39 | SHOULD | deck.js: bg via CSS, não `data-background-color` |
+
+### C: Dados Médicos
+| E21 | MUST | Fonte Tier 1 obrigatória para dado numérico |
+| E25 | MUST | HR ≠ RR. Trial ≠ meta-análise |
+
+### D: Cores & Contraste
+| Erro | Prio | Regra |
+|------|------|-------|
+| E08 | MAY | h1/h2=título, h3=card header |
+| E13 | SHOULD | Cross-slide consistency obrigatório |
+| E14 | SHOULD | Linha de acento = AI marker → remover |
+| E15 | MUST | Warning/gold em bg claro → `--warning-on-light` |
+| E17 | SHOULD | Converter bg-navy → verificar TODOS componentes |
+| E31 | MUST | Cor = semântica clínica |
+| E36 | SHOULD | CSS aula vs base.css: usar ID anchor `#deck` |
+| E37 | MUST | Tokens `*-light` (L>85%) NUNCA como foreground em stage-c |
+| E43 | SHOULD | Mudar layout ≠ remover surface (bg, border-radius, box-shadow) |
+| E44 | MUST | Blackout overlay: alpha ≥ 0.65. Textos sobre overlay escuro → cores claras via GSAP |
+
+### E: Processo
+| Erro | Prio | Regra |
+|------|------|-------|
+| E09 | MUST | NUNCA remover overflow:hidden do @media print |
+| E30 | MUST | NUNCA `[^;]*` em CSS inline → usar `[^";]*` |
+| E42 | MUST | Prompt Gemini: ler código NO MOMENTO do envio, nunca reaproveitar |
+
+### AI Markers (PROIBIDO)
+Linhas decorativas sob títulos, emojis em slides médicos, gradientes sem função, sombras excessivas.
+
+---
+
+## 9. Motion QA — Checklist
+
+| Propriedade | Range aceitável |
+|-------------|----------------|
+| Fade/translate | 300–600ms (ideal 400ms) |
+| countUp | 800–1200ms |
+| stagger total | ≤ 1.5s para grupo |
+| stagger delay | 100–200ms (ideal 150ms) |
+| drawPath SVG | 600–1000ms |
+| Max duration | ≤ 2s (exceto sequências) |
+
+**Easing:** Entrada `power2.out` ou `power3.out`. PROIBIDO: `bounce`, `elastic`, `back`, `linear` em UI.
+**countUp:** APENAS números de impacto (NNT, HR, %, mortalidade).
+**Estado final:** opacity 1, transform 0, texto legível, print-pdf correto.
+
+| Tipo slide | Animação esperada |
+|------------|-------------------|
+| Mortalidade/NNT | countUp lento (1s+), pausa |
+| Checkpoint | Reveal sequencial por decisão |
+| Dados GRADE | highlight Von Restorff |
+| Hero | countUp single number |
+| Comparação | stagger lado-a-lado |
+| Timeline | drawPath progressivo |

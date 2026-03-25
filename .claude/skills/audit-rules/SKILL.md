@@ -43,7 +43,7 @@ Glob: .cursor/rules/*.mdc (para check de bloat)
 Para cada par de rules files:
 - Extrair afirmações prescritivas ("NUNCA", "SEMPRE", "obrigatório", "proibido")
 - Comparar: mesma afirmação com sentido oposto = FAIL
-- Especial: `design-system.md` vs `css-errors.md` (cores), `slide-editing.md` vs `deck-patterns.md` (click-reveal)
+- Especial: `design-reference.md` §1 vs `slide-rules.md` §8 (cores), `slide-rules.md` §2 vs §4 (click-reveal)
 
 ### 3. Check contra lessons.md
 
@@ -67,7 +67,7 @@ Para cada `[texto](path)` e menção a arquivo nas rules:
 
 ### 6. Check bloat (.claude vs .cursor)
 
-Usar tabela de pares em `.claude/rules/README.md`:
+Usar tabela de pares em `docs/XREF.md` §Pares:
 - Para cada par, comparar nível de detalhe
 - Se conteúdo substancialmente duplicado → WARN com recomendação
 

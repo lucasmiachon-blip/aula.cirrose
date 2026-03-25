@@ -49,7 +49,7 @@ Cria slide para `$ARGUMENTS`. Exemplo: `/new-slide cirrose "Carvedilol reduz pri
 - Animações via `data-animate` (nunca gsap inline)
 - `<aside class="notes">` com timing obrigatório
 
-## Após criar — 9 superfícies (ver `slide-identity.md`)
+## Após criar — 9 superfícies (ver `slide-rules.md` §7)
 
 1. Rodar `npm run lint:slides` e corrigir erros
 2. Verificar **todas as 9 superfícies de identidade**:
