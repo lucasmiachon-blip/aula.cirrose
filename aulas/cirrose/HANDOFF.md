@@ -9,7 +9,7 @@
 **Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅ · **CSS cascade:** ✅ (validate-css.sh)
 **Repo:** `aula.cirrose` (separado de Aulas 24/mar). Branch: `feat/cirrose-mvp`.
 **Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
-**Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + guard-product-files (human-in-the-loop) + audit trail + lint:gsap-race (CSS/GSAP race detector v1).
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + guard-product-files (human-in-the-loop) + lint:gsap-race (CSS/GSAP race detector v1).
 **CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.
 **QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`.
 **Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).
@@ -65,9 +65,6 @@
 - Nomes de arquivo enganosos (ver slide-identity.md §9) — cosmetic, ID no manifest importa
 - ~~3 dead CSS selectors~~ → `.framework-box` e `.predict-bars` removidos (23/mar). `.etiology-table` viva (05-a1-infeccao.html)
 - Fontes woff2: Vite base condicional aplicado (23/mar). Testar `npm run dev` para confirmar @font-face resolve
-- ECOSYSTEM.md split (3 naturezas misturadas) — pos-congresso
-- SKILLS.md: 11 skills Claude Code faltando — pos-congresso
-- ~~SETUP.md: ref a `assertion-evidence.mdc`~~ — verificado 23/mar: ref já não existe em SETUP.md
 - qa-batch-screenshot.mjs so captura 1 estado (S0). Antes capturava S0/S1-mid/S2-final em 2 resolucoes — investigar pos-congresso
 - Playwright MCP nao navega deck.js (E56). Usar script Node standalone para screenshots de slides especificos
 
@@ -127,7 +124,7 @@
 | Trials e PMIDs | `references/evidence-db.md` (#2) |
 | Arco narrativo | `references/narrative.md` (#3) |
 | Ordem dos slides | `slides/_manifest.js` (#4) |
-| Regras operacionais | `CLAUDE.md` (cirrose) |
+| Regras operacionais | `CLAUDE.md` (root) |
 | QA pipeline | `WT-OPERATING.md` |
 | Design tokens | `.claude/rules/design-system.md` |
 | Erros e prevencao | `ERROR-LOG.md` + `.claude/rules/css-errors.md` |

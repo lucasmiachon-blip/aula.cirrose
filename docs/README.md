@@ -9,15 +9,7 @@
 ### Onboarding
 | Doc | Uso |
 |-----|-----|
-| [SETUP.md](SETUP.md) | Configuração inicial do projeto |
-| [CLAUDE.md](../CLAUDE.md) (root) | **Fonte de verdade operacional** — stack, regras, workflow |
-
-### Boas práticas (referência)
-| Doc | Uso |
-|-----|-----|
-| [RULES.md](RULES.md) | Rules .mdc — quando usar, estrutura |
-| [SKILLS.md](SKILLS.md) | Skills — estrutura, anti-patterns |
-| [SUBAGENTS.md](SUBAGENTS.md) | Subagents — tipos, quando usar |
+| [CLAUDE.md](../CLAUDE.md) | **Fonte de verdade operacional** — stack, regras, workflow |
 
 ### Estado e handoff
 | Doc | Uso |
@@ -28,8 +20,6 @@
 ### MCPs e integrações
 | Doc | Uso |
 |-----|-----|
-| [ECOSYSTEM.md](ECOSYSTEM.md) | Ferramentas, MCPs, benchmarks, como atualizar |
-| [KPIs.md](KPIs.md) | KPIs de produção multiagente |
 | [MCP-ENV-VARS.md](MCP-ENV-VARS.md) | Variáveis de ambiente |
 | [MCP-ACADEMICOS.md](MCP-ACADEMICOS.md) | MCPs acadêmicos (semantic-scholar, etc.) |
 | [SYNC-NOTION-REPO.md](SYNC-NOTION-REPO.md) | Notion IDs (canônico), sync, autoridade repo > Notion |
@@ -65,12 +55,9 @@
 | [prompts/gemini-transcript-comparison.md](prompts/gemini-transcript-comparison.md) | Comparacao transcripts Gemini |
 | [prompts/openai-backward-design.md](prompts/openai-backward-design.md) | Backward design OpenAI |
 | [prompts/openai-canvas-storyboard.md](prompts/openai-canvas-storyboard.md) | Storyboard OpenAI Canvas |
-| [external/11-long-context-auditor.md](external/11-long-context-auditor.md) | Tool spec: Gemini long-context auditor |
-
 ### Outros
 | Doc | Uso |
 |-----|-----|
-| [ZIP-LIMPO-PROTOCOLO.md](ZIP-LIMPO-PROTOCOLO.md) | Protocolo export ZIP |
 | [archive/](archive/README.md) | Docs arquivados (superseded, one-shot) |
 
 ---
@@ -90,7 +77,6 @@
 audite os docs / verifique os MDs / audit markdown
 ```
 
-**Skill:** `.cursor/skills/docs-audit/` (SKILL.md + reference.md)
 **Subagent:** `generalPurpose` ou `qa-engineer`
 **Critérios:** dev, designer, prompt eng, engenheiro de sistema, economia de tokens
 **Best practices:** Anthropic/Cursor mar/2026 — terceira pessoa, trigger terms, progressive disclosure
