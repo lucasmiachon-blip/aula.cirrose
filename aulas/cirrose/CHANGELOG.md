@@ -5,6 +5,13 @@
 
 ---
 
+## 2026-03-25 — QA visual s-a1-01: 3 fixes cirurgicos (sessao 27)
+
+- **Ghost rows background (E59):** `background: transparent` e `var(--safe-light)` → `oklch(96% 0 0)`. Root cause: `color-mix()` hue interpolation bug (endpoint acromatico hue=0 interpola salmon em vez de teal).
+- **Source-tag contraste (E60):** GSAP opacity 0.6→1, font-size 0.85rem→clamp(16px,1.1vw,20px), PMIDs removidos do texto visivel.
+- **Ghost rows clipping (E61):** Removido `overflow: hidden` de `.guideline-stack` + adicionado right-padding ao `.guideline-rec`. GSAP `x:4` push excedia o container interno.
+- **Arquivos:** cirrose.css (4 edits), slide-registry.js (1 edit), 02-a1-continuum.html (1 edit).
+
 ## 2026-03-25 — source-tag CSS investigation (sessao 26)
 
 - **Source-tag diagnostico:** Base `.source-tag` (cirrose.css L36) tem defaults errados: `text-align: center`, `font-size: 10px`, `white-space: nowrap`. 5 overrides competem (stage-c, panel, #s-a1-01, no-js, base.css stage-c).

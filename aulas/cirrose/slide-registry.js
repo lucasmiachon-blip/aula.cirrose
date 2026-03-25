@@ -171,7 +171,7 @@ export const customAnimations = {
 
     // Source-tag
     if (sourceTag) {
-      tl.to(sourceTag, { opacity: 0.6, duration: 0.5 }, 'guideline+=0.4');
+      tl.to(sourceTag, { opacity: 1, duration: 0.5 }, 'guideline+=0.4');
     }
 
     // No click-reveals — auto only

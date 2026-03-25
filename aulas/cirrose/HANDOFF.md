@@ -26,7 +26,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | CONTENT | R12 (22/mar). Gate 0 PASS. Fixes E54/E55 + border-left (23/mar). Screenshot recapturado 25/mar (S0-1280x720.png). Diagnostic QA: 9 superficies synced, lint clean, AUDIT-VISUAL corrigido. Gate 4 Gemini pendente. |
+| 3 | s-a1-01 | CONTENT | R12. Fixes E54/E55/E59/E60/E61 (25/mar): ghost rows bg neutro, source-tag opacity 1 + clamp(16-20px), clipping removido. Gate 4 Gemini pendente. |
 | 4 | s-a1-baveno | CONTENT | Refatorado 23/mar: removido pathway, adicionado PREDESCI callout. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 5 | s-a1-classify | CONTENT | Refatorado 23/mar: header PREDESCI verde (#2d5016), source-tag visivel. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
@@ -36,9 +36,8 @@
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 2 DONE · 42 CONTENT
-**QA Act 1:** s-a1-01 Gate 0 PASS, fixes E54/E55 aplicados, screenshot recapturado 25/mar, AUDIT-VISUAL corrigido, Gate 4 Gemini pendente. 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
-**Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag vs case-panel fix (E55). Playwright MCP workaround (E56).
-**Source-tag investigacao (25/mar):** Base `.source-tag` tem defaults errados (center, 10px, nowrap) + 5 overrides competindo. Fix testado (right-aligned, clamp 14-16px, justify-self stretch) — aplicado e revertido para revisao manual. Diagnostico: `archetype-hero-stat` tem `justify-items: center` que constrange largura do source-tag.
+**QA Act 1:** s-a1-01 Gate 0 PASS, fixes E54/E55/E59-61 aplicados (25/mar). Gate 4 Gemini pendente. 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
+**Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag: GSAP opacity corrigido de 0.6→1, font-size clamp(16-20px), `color-mix()` hue interpolation bug documentado (E59).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 

@@ -1033,7 +1033,7 @@ section#s-a1-01 .slide-inner {
   border: none;
   border-left: 1px solid color-mix(in oklch, var(--text-primary) 12%, transparent);
   border-radius: 0;
-  padding: 0 0 0 var(--space-xl);
+  padding: 0 var(--space-md) 0 var(--space-xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1057,7 +1057,6 @@ section#s-a1-01 .slide-inner {
   gap: 8px;
   margin: 0 0 var(--space-lg);
   position: relative;
-  overflow: hidden;
 }
 #s-a1-01 .stack-row {
   display: grid;
@@ -1066,7 +1065,7 @@ section#s-a1-01 .slide-inner {
   align-items: center;
   padding: 14px 20px 14px 16px;
   border-radius: 12px;
-  background: transparent;
+  background: oklch(96% 0 0);
   border: 1px solid transparent;
   transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
 }
@@ -1087,7 +1086,7 @@ section#s-a1-01 .slide-inner {
 
 /* Ghost Row: matched state — solid teal wash on white bg, halo dot */
 #s-a1-01 .stack-row.matched {
-  background: var(--safe-light);
+  background: oklch(96% 0 0);
   border-color: color-mix(in oklch, var(--safe) 30%, transparent);
 }
 #s-a1-01 .stack-row.matched .status-dot {
@@ -1120,7 +1119,7 @@ section#s-a1-01 .slide-inner {
   max-width: none;
   text-align: left;
   margin: 0;
-  font-size: 0.85rem;
+  font-size: clamp(16px, 1.1vw, 20px);
 }
 
 /* No-js failsafe */

@@ -469,7 +469,32 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Ultima atualizacao: 2026-03-24 · 58 erros registrados, 58 fechados (55 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
+## Erros registrados — sessão QA visual s-a1-01 (2026-03-25)
+
+### ERRO-059 · HIGH · s-a1-01 (ghost rows)
+**Ghost rows com fundo rosada/bege em vez de cinza neutro**
+**Root cause:** (1) `.stack-row` usava `background: transparent`, herdando o Stage-C surface warm cream (hue 258). (2) `.stack-row.matched` usava `var(--safe-light)` que computa hue 25 (salmon) por bug `color-mix(in oklch)`: endpoint acromático tem hue=0, browser interpola 15%×170 + 85%×0 = 25.5.
+**Fix:** Ambos trocados para `background: oklch(96% 0 0)` (cinza neutro, zero chroma).
+**Regra:** `color-mix()` com endpoint acromático interpola hue → nunca confiar em `var(--safe-light)` para backgrounds neutros.
+**Status:** ✅ Corrigido (2026-03-25).
+
+### ERRO-060 · HIGH · s-a1-01 (source-tag)
+**Source-tag com contraste insuficiente para projeção (~3.9:1 vs requisito ≥7:1)**
+**Root cause:** GSAP (slide-registry.js:174) setava `opacity: 0.6` inline. CSS color oklch(25% 0.01 258) a 60% opacity sobre bg oklch(97%) → contraste efetivo ~3.9:1.
+**Fix:** GSAP opacity mudado de 0.6 → 1. Font-size de 0.85rem → clamp(16px, 1.1vw, 20px). PMIDs removidos do texto visivel (mantidos em notes).
+**Regra:** GSAP opacity em texto projetado NUNCA < 0.85. Verificar contraste efetivo (cor × opacity × bg).
+**Status:** ✅ Corrigido (2026-03-25).
+
+### ERRO-061 · MEDIUM · s-a1-01 (clipping ghost rows)
+**Matched ghost rows clipadas 4px na borda direita**
+**Root cause:** `.guideline-stack` com `overflow: hidden` + GSAP match punch `x: 4` empurra matched rows 4px pra fora. Stack right=830, matched rows right=834 → 4px clipados. `.guideline-rec` pai já tinha `overflow: hidden` com padding suficiente (24px right).
+**Fix:** (1) Removido `overflow: hidden` de `.guideline-stack`. (2) Adicionado `padding: 0 var(--space-md) 0 var(--space-xl)` ao `.guideline-rec`.
+**Regra:** Containers com overflow:hidden duplo (pai+filho) → verificar se animações GSAP com translate/x violam o container interno.
+**Status:** ✅ Corrigido (2026-03-25).
+
+---
+
+*Ultima atualizacao: 2026-03-25 · 61 erros registrados, 61 fechados (58 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
 
 ---
 
@@ -478,8 +503,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 8     | 8          | 0 |
-| HIGH       | 28    | 28         | 0 |
-| MEDIUM     | 17    | 17         | 0 |
+| HIGH       | 30    | 30         | 0 |
+| MEDIUM     | 18    | 18         | 0 |
 | LOW        | 3     | 3          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **58**| **58**     | **0** |
+| **Total**  | **61**| **61**     | **0** |
