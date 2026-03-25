@@ -35,24 +35,20 @@
 /* --- Source tag (reference footer) --- */
 .source-tag {
   font-family: var(--font-body);
-  font-size: 10px;
-  color: var(--text-on-dark-muted);
+  font-size: clamp(14px, 0.9vw, 16px);
+  color: var(--text-muted);
   margin-top: auto;
   padding-bottom: var(--space-xs);
-  text-align: center;
-  white-space: nowrap;
+  text-align: right;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  grid-column: 1 / -1;
+  width: 100%;
+  justify-self: stretch;
 }
 /* Source-tag — padronizado para projecao */
 .stage-c .source-tag {
-  font-size: 0.85rem;
   color: var(--text-muted);
-  text-align: center;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  max-width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  grid-column: 1 / -1;
 }
 /* Source-tag clearance quando case-panel presente */
 #deck.has-panel .source-tag {
@@ -1111,17 +1107,6 @@ section#s-a1-01 .slide-inner {
   margin: 0;
 }
 
-/* P5: Source-tag — position override for grid layout (style from global .stage-c) */
-#s-a1-01 .source-tag {
-  position: absolute;
-  bottom: 12px;
-  left: 48px;
-  right: 210px; /* respeitar clearance case-panel */
-  max-width: none;
-  text-align: left;
-  margin: 0;
-  font-size: 0.85rem;
-}
 
 /* No-js failsafe */
 .no-js #s-a1-01 .screening-metrics,
