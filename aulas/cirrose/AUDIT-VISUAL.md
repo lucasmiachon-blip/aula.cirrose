@@ -165,7 +165,7 @@ Obs: (1) Fill 0% no beat 0 e intencional para hook — GSAP progressive reveal. 
 
 ### s-a1-01 (02-a1-continuum.html)
 
-**Headline:** Rastreio primário detectou 83% das hepatopatias ocultas
+**Headline:** Por que rastrear?
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
@@ -176,15 +176,15 @@ Obs: (1) Fill 0% no beat 0 e intencional para hook — GSAP progressive reveal. 
 | V   | 8    | Hero stat "83%" + pathway 3-step. Dados = visual |
 | K   | 8    | archetype-hero-stat reutilizado. Patient-context bar pattern |
 | S   | 8    | Source-tag opacity:0 para GSAP. OKLCH. Transitions |
-| M   | 8    | h2 "Rastreio primario detectou 83%" = assercao com dado hero. 1 linha. Body visivel ~60 palavras |
-| I   | 8    | 1 clickReveal (source). Advance OK |
+| M   | 8    | h2 "Por que rastrear?" = setup retorico; hero 83% carrega a assercao. 1 linha. Body ~18 palavras beat 0 |
+| I   | 8    | 0 clickReveals (manifest). Auto-GSAP sequence: SplitText → countUp → metrics → guideline → ghost rows. Advance OK |
 | D   | 9    | 3 PMIDs verificados (38934697, 39674225, 35120736). [DATA] tags em notes. Zero [TBD] projetado |
 | A   | 8    | Icones warning/check com cor. Alto contraste. aria-hidden em setas |
 | L   | 7    | 2 conceitos (screening + pathway). 106 palavras total (com hidden). Denso |
 | P   | 8    | Relevancia do screening explicita. Pathway acionavel. Caso ancora |
 | N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md |
 
-Obs: (1) h2 reescrito — 1 linha com dado hero 83%. (2) ~~Fill 52%~~ Corrigido 15/mar: padding reduzido (24/48), hero number ampliado (clamp 64-96px), pathway steps com padding maior. Fill ~65%. (3) Word count inclui source-tag opacity:0; body visivel e menor mas ainda >30 palavras. (4) 3 PMIDs Tier-1 = forte em D. (5) **22/mar:** Gate 0 PASS (9/9 MUST). Fixes: metric label clipping (white-space normal, font-size reduced), source-tag contraste bumped (oklch 60→42%), hero-label margin tightened. Gate 4 R1 score 6.75/10 — propostas pendentes (monolito bg, ghost rows contraste, matar scanner).
+Obs: (1) h2 "Por que rastrear?" = setup retorico intencional (Lucas 25/mar). Hero 83% carrega a assercao clinica. (2) ~~Fill 52%~~ Corrigido 15/mar: padding reduzido (24/48), hero number ampliado (clamp 64-96px), pathway steps com padding maior. Fill ~65%. (3) Word count: ~18 beat 0, ~35 apos reveal completo (aceitavel per Lucas 25/mar). (4) 7 PMIDs Tier-1 em notes = forte em D. (5) **22/mar:** Gate 0 PASS (9/9 MUST). Fixes: metric label clipping (white-space normal, font-size reduced), source-tag contraste bumped (oklch 60→42%), hero-label margin tightened. Gate 4 R1 score 6.75/10 — propostas pendentes (monolito bg, ghost rows contraste, matar scanner). (6) **25/mar:** Screenshot recapturado (S0-1280x720.png). Diagnostic QA: 9 superficies synced, lint clean, 6 issues avaliados (5 aceitos, 1 corrigido neste doc). Literal oklch achromatic = ticket futuro sistêmico.
 
 ### s-a1-classify (02c-a1-classify.html)
 

@@ -26,7 +26,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | CONTENT | R12 (22/mar). Gate 0 PASS. GSAP race fix (E54) + source-tag fix (E55) + border-left guideline aplicados (23/mar). Gate 4 pendente — recapturar screenshots pos-fix. |
+| 3 | s-a1-01 | CONTENT | R12 (22/mar). Gate 0 PASS. Fixes E54/E55 + border-left (23/mar). Screenshot recapturado 25/mar (S0-1280x720.png). Diagnostic QA: 9 superficies synced, lint clean, AUDIT-VISUAL corrigido. Gate 4 Gemini pendente. |
 | 4 | s-a1-baveno | CONTENT | Refatorado 23/mar: removido pathway, adicionado PREDESCI callout. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 5 | s-a1-classify | CONTENT | Refatorado 23/mar: header PREDESCI verde (#2d5016), source-tag visivel. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
@@ -36,7 +36,7 @@
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 2 DONE · 42 CONTENT
-**QA Act 1:** s-a1-01 Gate 0 PASS, fixes CSS/GSAP aplicados (E54/E55), Gate 4 pendente (recapturar screenshots). 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
+**QA Act 1:** s-a1-01 Gate 0 PASS, fixes E54/E55 aplicados, screenshot recapturado 25/mar, AUDIT-VISUAL corrigido, Gate 4 Gemini pendente. 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
 **Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag vs case-panel fix (E55). Playwright MCP workaround (E56).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)

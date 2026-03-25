@@ -4,7 +4,8 @@
  * Reveal.js removed â€” uses deck.js custom events (slide:changed, slide:entered).
  */
 
-import { getCurrentSlide } from './deck.js';
+import { getCurrentSlide, goTo } from './deck.js';
+window.__deckGoTo = goTo; // QA helper — Playwright navigation
 
 // ============================================
 // PRINT-PDF DETECTION
