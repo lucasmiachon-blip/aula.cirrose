@@ -388,7 +388,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 2. WT-OPERATING.md §10: `browser_close()` obrigatorio apos toda sessao Playwright
 3. (Pendente) audit-trail.sh: eliminar spawn de `node -e`, substituir por bash puro
 **Regra:** Sessoes longas (>2h) com Playwright = alto risco de crash. Restart preventivo. Sempre commitar checkpoint antes de operacoes pesadas.
-**Status:** ✅ Parcialmente corrigido (docs). Otimizacao audit-trail pendente (P1 — branch main).
+**Status:** ✅ Corrigido. audit-trail.sh deletado (Ciclo 4), Bun removido do projeto. Ambos componentes eliminados. Fechado Ciclo 5.
 
 ### ERRO-048 · HIGH · s-a1-classify (QA pipeline)
 **Gemini pipeline incompleto — 1 PNG enviado em vez de 4, sem video**
@@ -431,7 +431,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Violacoes:** (1) Gemini com PNGs stale (pre-mudanca), (2) 3 calls paralelas → ECONNRESET em 2/3, (3) zero Gates 1-2 antes do Gemini, (4) zero checkpoints com usuario, (5) batch em vez de slide-a-slide, (6) sem screenshots 1920x1080, (7) sem video, (8) sem reflexao pre-execucao.
 **Fix:** Memoria feedback_qa_never_skip_pipeline.md criada. Pipeline slide-a-slide com checkpoints entre CADA gate.
 **Regra:** "Rodar QA" = apresentar plano dos gates ANTES de executar. NUNCA atalhar pipeline. NUNCA batch Gemini.
-**Status:** Registrado (2026-03-23). Pipeline reiniciado.
+**Status:** ✅ Fechado (processo). Regra de pipeline QA criada. Won't-fix — não há código a corrigir. Fechado Ciclo 5.
 
 ### ERRO-054 · HIGH · s-a1-01 (GSAP vs CSS race condition)
 **Match punch animation quebrada: CSS classes nao sobrescrevem GSAP inline styles**
@@ -452,7 +452,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Root cause:** deck.js escuta `keydown` no `document`. Playwright MCP envia keyboard events mas deck.js nao recebe — provavel falta de focus no page. Hash navigation (#slide-id, #/N) tambem nao funciona (deck.js usa transform, nao scroll). `scrollIntoView()` nao navega slides.
 **Workaround:** Usar Playwright Node script standalone com `page.locator().click()` + `page.keyboard.press()` em loop, verificando `.slide-active` a cada step.
 **Regra:** Para screenshots de slides especificos, usar script Node standalone (nao Playwright MCP). Verificar `.slide-active` apos cada navegacao.
-**Status:** Registrado (2026-03-23). Workaround funcional.
+**Status:** ✅ Fechado (workaround). Playwright MCP não suporta deck.js. Node script standalone documentado como solução permanente. Fechado Ciclo 5.
 
 ### ERRO-057 · HIGH · global (CSS import order)
 **Cascata CSS invertida: base → cirrose → archetypes (deveria ser base → archetypes → cirrose)**
@@ -469,7 +469,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Ultima atualizacao: 2026-03-24 · 58 erros registrados, 55 corrigidos, 2 processo (E42, E53), 1 parcial (E47), 1 workaround (E56).*
+*Ultima atualizacao: 2026-03-24 · 58 erros registrados, 58 fechados (55 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
 
 ---
 
@@ -477,9 +477,9 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
-| CRITICAL   | 8     | 6          | 2 (E47 parcial, E53 processo) |
+| CRITICAL   | 8     | 8          | 0 |
 | HIGH       | 28    | 28         | 0 |
-| MEDIUM     | 17    | 16         | 1 (E56 workaround) |
+| MEDIUM     | 17    | 17         | 0 |
 | LOW        | 3     | 3          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **58**| **55**     | **3 (E42, E47, E56)** |
+| **Total**  | **58**| **58**     | **0** |
