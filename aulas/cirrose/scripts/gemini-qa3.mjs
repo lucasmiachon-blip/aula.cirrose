@@ -591,8 +591,8 @@ ${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoe
 4 passos. Direto ao ponto, sem elogio generico.
 
 ### 0. RECIBO (obrigatorio, 1 linha)
-Declarar exatamente o que recebeu. Formato:
-\`Recebi: [VIDEO .webm | sem video] · [PNG S0 | sem S0] · [PNG S2 | sem S2] · [HTML + CSS + JS raw]\`
+Declarar exatamente o que recebeu E conformidade. Formato:
+\`Recebi: [VIDEO .webm | sem video] · [PNG S0 | sem S0] · [PNG S2 | sem S2] · [HTML + CSS + JS raw] | Conformidade: guardrails respeitados, round context lido\`
 
 ### 1. IMPRESSAO (max 3 frases)
 Video (se houver) PRIMEIRO → PNGs → codigo.
