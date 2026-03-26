@@ -67,7 +67,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | prompts/weekly-updates.md | (prompt template) | ← README.md |
 | prompts/research-best-practices.md | (prompt template) | ← README.md |
 | prompts/gemini-deck-audit.md | (prompt template — Gemini, deck completo) | ← README.md |
-| prompts/gemini-gate0-inspector.md | (prompt template — Gate 0 inspect, Gemini) | ← README.md |
+| prompts/gemini-gate0-inspector.md | → (9 checks: 6 MUST + 3 SHOULD) | ← WT-OPERATING.md §4, AUDIT-VISUAL.md, gemini-qa3.mjs, CLAUDE.md |
 | prompts/error-digest.md | (prompt template — error digest para Gemini) | ← README.md |
 | prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
 | prompts/gemini-transcript-comparison.md | (prompt template — Gemini) | ← README.md |
@@ -119,7 +119,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
-| WT-OPERATING.md | (prompt operacional — máquina de estados + QA loop) | ← HANDOFF.md |
+| AUDIT-VISUAL.md | → WT-OPERATING.md §4, gemini-gate0-inspector.md | ← CLAUDE.md, slide identity (9 superfícies) |
+| WT-OPERATING.md | → gemini-gate0-inspector.md, AUDIT-VISUAL.md, HANDOFF.md | ← CLAUDE.md, HANDOFF.md |
 
 ---
 
@@ -152,7 +153,9 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-reference.md §4 |
 | Pesquisa médica profunda | .claude/skills/medical-researcher/SKILL.md | .claude/rules/design-reference.md §5, docs/MCP-ACADEMICOS.md |
 | Safety gates (hooks) | .claude/settings.json + .claude/hooks/ | — |
-| QA pipeline (cirrose) | aulas/cirrose/WT-OPERATING.md §4 | — |
+| QA pipeline (cirrose) | aulas/cirrose/WT-OPERATING.md §4 | CLAUDE.md §Auditoria Visual |
+| Gate 0 (critérios 9 checks) | docs/prompts/gemini-gate0-inspector.md | WT-OPERATING.md §4 |
+| Scorecards visuais (14 dims) | aulas/cirrose/AUDIT-VISUAL.md | WT-OPERATING.md §4 |
 
 ---
 

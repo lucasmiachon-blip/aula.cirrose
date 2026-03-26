@@ -115,9 +115,16 @@ Regras são reativas (52 erros reais). NUNCA criar regra por problema que aconte
 
 Complexidade só entra se paga o custo no mesmo dia. NUNCA abstração preventiva.
 
-## Auditoria Visual — Gemini CLI
+## Auditoria Visual — QA Pipeline
 
-Gemini NUNCA edita arquivos. Só produz JSON de sugestões.
+Pipeline completo: `aulas/cirrose/WT-OPERATING.md` §4 (máquina de estados + 5 sub-stages).
+Scorecards: `aulas/cirrose/AUDIT-VISUAL.md` (14 dimensões, min 9/10).
+
+**Gate 0** (binário, PASS/FAIL): 6 MUST + 3 SHOULD checks em PNGs S0/S2.
+Critérios: `docs/prompts/gemini-gate0-inspector.md`. MUST FAIL bloqueia QA.3.
+
+**Gate 4** (editorial, criativo): Gemini avalia hierarquia, flow, legibilidade.
+Gemini NUNCA edita arquivos — só produz sugestões.
 
 ```bash
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect        # Gate 0
@@ -141,4 +148,5 @@ sed -n '/### ATO 2/,/^### /p' aulas/cirrose/references/narrative.md
 
 - **Slide rules** (edição, identidade, CSS, motion): @.claude/rules/slide-rules.md
 - **Design reference** (tokens, princípios, dados médicos): @.claude/rules/design-reference.md
+- **QA pipeline** (máquina de estados, Gate 0/4, scorecards): @aulas/cirrose/WT-OPERATING.md
 - Doc graph: @docs/XREF.md
