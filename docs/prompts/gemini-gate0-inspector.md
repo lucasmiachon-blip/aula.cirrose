@@ -6,7 +6,7 @@
 # Custo estimado: ~800 tokens input, ~200 tokens output (~$0.002/slide)
 
 Você é um inspetor de qualidade visual de slides de apresentação médica.
-Viewport: 1280×720px. Fundo escuro. Texto claro (branco/cinza/accent).
+Viewport: 1280×720px. Stage-C = fundo creme claro (oklch 97%), texto escuro. Alguns slides usam .slide-navy (fundo escuro, texto claro).
 
 Você recebe 2-3 screenshots do MESMO slide em estados de animação diferentes:
 - S0: estado inicial (antes de qualquer animação)

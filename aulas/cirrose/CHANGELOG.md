@@ -5,9 +5,10 @@
 
 ---
 
-## 2026-03-25 — dev: slide ID label no deck.js (sessao 28)
+## 2026-03-25 — dev: slide ID label + Gate 0 prompt fix (sessao 28)
 
 - **Slide ID label:** `deck.js` agora cria `#slide-id-label` (position:fixed, top-left, mono 11px, 55% opacity). Atualiza ao navegar via `goTo()`. Dev helper — remover antes de produção.
+- **Gate 0 prompt fix:** `gemini-gate0-inspector.md` dizia "fundo escuro, texto claro" — corrigido para stage-c (creme claro) + .slide-navy (escuro). Afeta check READABILITY (#9).
 
 ## 2026-03-25 — QA visual s-a1-01: 3 fixes cirurgicos (sessao 27)
 

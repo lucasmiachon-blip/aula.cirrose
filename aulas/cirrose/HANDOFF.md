@@ -13,7 +13,7 @@
 **Dev helper:** `#slide-id-label` no deck.js — mostra ID do slide no canto superior esquerdo. Remover antes de producao.
 **Hooks fix (24-25/mar):** 3 bugs Windows corrigidos — (1) `set -euo pipefail` crashava guard-product-files (removido -e/-o, mantido -u); (2) node arg passando JSON >8KB crashava no Windows (trocado por stdin pipe); (3) `readFileSync('/dev/stdin')` crashava silenciosamente no Git Bash Windows (`/dev/stdin` nao existe → `ENOENT C:\dev\stdin`). Fix: `readFileSync(0)` (fd 0 = stdin, cross-platform). Backslash→forward slash normalization adicionada em todos os hooks com path matching.
 **CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.
-**QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`.
+**QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`. Gate 0 prompt corrigido (25/mar): "fundo escuro" → stage-c creme + slide-navy escuro.
 **Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente. SCITE OAuth pendente.
 
