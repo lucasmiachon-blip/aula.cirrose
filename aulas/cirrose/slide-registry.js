@@ -234,8 +234,7 @@ export const customAnimations = {
      s-a1-classify — Estadiamento associado ao prognóstico
      State 0: D'Amico cards stagger (auto — problem)
      State 1: further decomp (click — consequence)
-     State 2: PREDESCI box + hero (click — solution)
-     State 3: source (click)
+     State 2: source (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-classify': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
@@ -243,34 +242,24 @@ export const customAnimations = {
     gsap.registerPlugin(ScrambleTextPlugin, DrawSVGPlugin, MorphSVGPlugin);
 
     let state = 0;
-    const maxState = 3;
+    const maxState = 2;
 
     const cards = slide.querySelectorAll('.classify-card');
     const furtherDecomp = slide.querySelector('.classify-further-decomp');
     const furtherStrong = slide.querySelector('.classify-further-text strong');
     const furtherPath = slide.querySelector('.classify-further-path');
     const badgeFatal = slide.querySelector('.badge-fatal');
-    const lockup = slide.querySelector('.classify-predesci-lockup');
     const sourceTag = slide.querySelector('.source-tag');
-    const hrValue = slide.querySelector('.classify-predesci-value');
     // MorphSVG elements (Radical: ✕ transforms into arrow)
     const dangerXMorph = slide.querySelector('.danger-x-morph');
     const dangerXFade = slide.querySelector('.danger-x-fade');
     const dangerIconSvg = dangerXMorph?.closest('svg');
-
-    // SplitText on HR value — chars reveal one by one (mic drop)
-    let hrSplit = null;
-    if (hrValue) {
-      hrSplit = new SplitText(hrValue, { type: 'words,chars' });
-      gsap.set(hrSplit.chars, { opacity: 0, y: 20 });
-    }
 
     // Initial hidden states (P4: 3D perspective — cards "land" instead of float)
     gsap.set(cards, { opacity: 0, y: 30, rotationX: -12, transformPerspective: 800 });
     if (furtherDecomp) gsap.set(furtherDecomp, { opacity: 0, y: 8 });
     if (furtherPath) gsap.set(furtherPath, { drawSVG: '0%' });
     if (badgeFatal) gsap.set(badgeFatal, { opacity: 0, scale: 0.8 });
-    if (lockup) gsap.set(lockup, { opacity: 0, y: 60, scale: 0.97 });
 
     // Auto: D'Amico cards — gravity landing with 3D perspective
     const tl = gsap.timeline({ delay: 0.3 });
@@ -326,25 +315,6 @@ export const customAnimations = {
           );
         }
       } else if (state === 2) {
-        // Depth-of-field: cards + further decomp ghost into background (P2 R1 — no blur on projector)
-        if (furtherStrong) gsap.to(furtherStrong, { color: 'var(--text-muted)', duration: 0.5 });
-        gsap.to([...cards, furtherDecomp], {
-          opacity: 0.2, scale: 0.98, filter: 'grayscale(100%)',
-          duration: 0.8, ease: 'power2.inOut'
-        });
-        // PREDESCI enters with gravitational mass — expo.out = heavy deceleration
-        gsap.fromTo(lockup,
-          { opacity: 0, y: 60, scale: 0.97 },
-          { opacity: 1, y: 0, scale: 1, duration: 1.2, delay: 0.3, ease: 'expo.out' }
-        );
-        // SplitText: HR chars snap into place after lockup settles
-        if (hrSplit) {
-          gsap.to(hrSplit.chars, {
-            opacity: 1, y: 0, stagger: 0.08,
-            duration: 0.6, ease: 'back.out(2)', delay: 0.9
-          });
-        }
-      } else if (state === 3) {
         gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
       }
       return true;
@@ -361,15 +331,6 @@ export const customAnimations = {
         if (dangerXFade) gsap.to(dangerXFade, { opacity: 1, duration: 0.3 });
         if (dangerIconSvg) gsap.to(dangerIconSvg, { y: 0, opacity: 1, scale: 1, duration: 0.3 });
       } else if (state === 2) {
-        // Reverse: restore clarity
-        gsap.to([...cards, furtherDecomp], {
-          opacity: 1, scale: 1, filter: 'grayscale(0%)',
-          duration: 0.4, ease: 'power2.out'
-        });
-        if (furtherStrong) gsap.to(furtherStrong, { color: 'var(--text-primary)', duration: 0.3 });
-        if (hrSplit) gsap.to(hrSplit.chars, { opacity: 0, y: 20, duration: 0.2 });
-        gsap.to(lockup, { opacity: 0, y: 60, scale: 0.97, duration: 0.4 });
-      } else if (state === 3) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }
       state--;
@@ -499,7 +460,7 @@ export const customAnimations = {
     const oldTerm = slide.querySelector('.paradigm-old');
     const spectrum = slide.querySelector('.paradigm-spectrum');
     const bavRef = slide.querySelector('.paradigm-ref');
-    const predesci = slide.querySelector('.paradigm-predesci');
+    const predesci = slide.querySelector('.classify-predesci-lockup');
     const sourceTag = slide.querySelector('.source-tag');
 
     let splitInstance = null;

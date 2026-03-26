@@ -24,8 +24,8 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | CONTENT | R12. Fixes E54/E55/E59/E60/E61 (25/mar): ghost rows bg neutro, source-tag opacity 1 + clamp(16-20px), clipping removido. Gate 4 Gemini pendente. |
-| 4 | s-a1-baveno | CONTENT | Refatorado 23/mar: removido pathway, adicionado PREDESCI callout. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
-| 5 | s-a1-classify | CONTENT | Refatorado 23/mar: header PREDESCI verde (#2d5016), source-tag visivel. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
+| 4 | s-a1-baveno | CONTENT | 26/mar: PREDESCI lockup movido de classify (opacity:0, JS wired). Selector .paradigm-predesci→.classify-predesci-lockup. Source-tag: removido duplicado Baveno VII. Panel: visibleFields expandido (AST/ALT/Bili/INR). QA pendente. |
+| 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. CSS header band: --color-primary→--safe. Source-tag: removido Villanueva. QA pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
@@ -64,8 +64,8 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 
 ## Caminho critico
 
-1. **s-a1-baveno** — QA pipeline completo (Gate 1→4), slide-a-slide
-2. **s-a1-classify** — QA pipeline completo. PREDESCI card cortado no bottom (detectado em screenshot 23/mar)
+1. **s-a1-baveno** — PREDESCI lockup integrado (26/mar). QA pipeline completo (Gate 1→4), slide-a-slide
+2. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
 3. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
 4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide
 5. **Act 2 → Act 3** — apos Act 1 DONE

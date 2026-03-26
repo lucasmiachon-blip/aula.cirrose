@@ -2259,7 +2259,7 @@ section#s-a1-01 .slide-inner {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  background-color: var(--color-primary, #2d5016);
+  background-color: var(--safe);
   color: #fff;
   padding: 14px 28px;
 }

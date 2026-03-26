@@ -25,7 +25,7 @@ export const slides = [
   // ── Act 1: CLASSIFICAR ──
   { id: 's-a1-01', file: '02-a1-continuum.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Por que rastrear?', panelState: 'neutral', clickReveals: 0, customAnim: 's-a1-01', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-baveno', file: '03-a1-baveno.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Doença hepática avançada é espectro, não diagnóstico binário', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-baveno', timing: 120, narrativeRole: 'setup', tensionLevel: 1, narrativeCritical: false },
-  { id: 's-a1-classify', file: '02c-a1-classify.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'O estadiamento está fortemente associado ao prognóstico', panelState: 'neutral', clickReveals: 3, customAnim: 's-a1-classify', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
+  { id: 's-a1-classify', file: '02c-a1-classify.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'O estadiamento está fortemente associado ao prognóstico', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-classify', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-vote', file: '02d-a1-vote.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Aplicando ao Antônio', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-vote', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-damico', file: '02b-a1-damico.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'De Child-Pugh a D\'Amico: prognóstico virou preditivo', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-damico', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-fib4', file: '03b-a1-fib4calc.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: '4 dados. 1 número. 1 decisão.', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-fib4', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
@@ -93,8 +93,8 @@ export const panelStates = {
   },
   's-a1-baveno': {
     severity: 'neutral',
-    values: { fib4: '—', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
-    visibleFields: ['plq', 'albumin', 'stage'],
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—', stage: '?' },
+    visibleFields: ['AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
   },
   's-a1-fib4': {
