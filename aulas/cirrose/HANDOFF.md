@@ -23,8 +23,8 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | CONTENT | R12. Fixes E54/E55/E59/E60/E61 (25/mar): ghost rows bg neutro, source-tag opacity 1 + clamp(16-20px), clipping removido. Gate 4 Gemini pendente. |
-| 4 | s-a1-baveno | SYNCED | 26/mar: State machine refatorada — auto dissolve (paradigma) + click 1 (PREDESCI lockup). autoComplete guard bloqueia clicks durante dissolve. Source-tag removido (PMIDs nos notes). clickReveals: 1. Gate 4 R1 5.4 + R2 4.7 (scores baixos por limitacao screenshot, nao bug). PMID notes: 31584562→30910320 pendente. |
+| 3 | s-a1-01 | CONTENT | R12. Fixes E54/E55/E59/E60/E61 (25/mar). 26/mar: source-tag restaurado (const sourceTag re-declarado, reveal ja existia L172-175), text-align center, right calc() para centralizar na col-1. **PROBLEMA PENDENTE:** source-tag ainda nao visivel no browser — diagnosticar. Gate 4 Gemini pendente. |
+| 4 | s-a1-baveno | SYNCED | 26/mar: State machine refatorada — auto dissolve (paradigma) + click 1 (PREDESCI + source-tag). source-tag adicionado ao HTML + reveal no advance state 1 + retreat. predesci reset com y:20. sourceTag no killTweensOf + reset. **PROBLEMA PENDENTE:** source-tag ainda nao visivel no browser — diagnosticar. clickReveals: 1. PMID notes: 31584562→30910320 pendente. |
 | 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. CSS header band: --color-primary→--safe. Source-tag: removido Villanueva. QA pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
@@ -51,7 +51,7 @@ Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css p
 
 **Docs cleanup (26/mar):** Audit + cleanup executados. 3 arquivos arquivados (HANDOFF-CLAUDE-AI, CHANGELOG root, ERROR-LOG root). XREF ghost refs removidos. Monorepo remnants renomeados. WT-OPERATING mandato corrigido (on-demand). CHANGELOG 1295→153L. NOTES 426→142L. Audit completo: `docs/DOCS-RATIONALIZATION-AUDIT.md`.
 
-**Proximo:** s-a1-baveno — corrigir PMID notes (31584562→30910320), re-captura + Gate 4 R3 com contexto sobre tom/cor. Depois: s-a1-classify QA pipeline.
+**Proximo:** s-a1-01 + s-a1-baveno — source-tags nao aparecem no browser apesar dos fixes no registry/CSS/HTML. Diagnosticar: (1) build atualizado? (2) GSAP reveal executa? (3) CSS visibility/display override? Depois: PMID fix (31584562→30910320), re-captura + Gate 4.
 ```bash
 npm run dev  # terminal separado
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video

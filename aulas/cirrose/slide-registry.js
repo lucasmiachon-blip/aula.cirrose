@@ -51,7 +51,7 @@ export const customAnimations = {
     const heroNum = slide.querySelector('.screening-hero-number');
     const metrics = slide.querySelector('.screening-metrics');
     const rec = slide.querySelector('.guideline-rec');
-    // sourceTag removido — PMIDs nos notes
+    const sourceTag = slide.querySelector('.source-tag');
     const stackRows = slide.querySelectorAll('.stack-row');
     const guidelineStack = slide.querySelector('.guideline-stack');
 
@@ -465,7 +465,7 @@ export const customAnimations = {
     let autoComplete = false;
 
     // --- Defensive reset for return visits ---
-    gsap.killTweensOf([oldTerm, spectrum, bavRef, predesci].filter(Boolean));
+    gsap.killTweensOf([oldTerm, spectrum, bavRef, predesci, sourceTag].filter(Boolean));
     if (oldTerm) {
       oldTerm.style.display = '';
       // Nuke leftover SplitText char divs from failed revert
@@ -473,7 +473,8 @@ export const customAnimations = {
         oldTerm.textContent = oldTerm.textContent;
       }
     }
-    if (predesci) gsap.set(predesci, { opacity: 0 });
+    if (predesci) gsap.set(predesci, { opacity: 0, y: 20 });
+    if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
 
     if (oldTerm && oldTerm.textContent.trim()) {
       splitInstance = new SplitText(oldTerm, { type: 'chars' });
@@ -491,10 +492,12 @@ export const customAnimations = {
       tl.set(oldTerm, { display: 'none' });
       tl.to(spectrum, { opacity: 1, duration: 0.6, ease: 'power2.out' });
       tl.to(bavRef, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
+      if (sourceTag) tl.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.1');
       // PREDESCI removido da timeline — agora é click state 1
     } else {
       gsap.set(spectrum, { opacity: 1 });
       gsap.set(bavRef, { opacity: 1 });
+      if (sourceTag) gsap.set(sourceTag, { opacity: 1 });
       if (predesci) gsap.set(predesci, { opacity: 1 });
       autoComplete = true;
     }
@@ -505,6 +508,7 @@ export const customAnimations = {
       state++;
       if (state === 1) {
         gsap.to(predesci, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+        if (sourceTag) gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
       }
       return true;
     }
@@ -515,6 +519,7 @@ export const customAnimations = {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       } else if (state === 1) {
         gsap.to(predesci, { opacity: 0, duration: 0.3 });
+        if (sourceTag) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }
       state--;
       return true;

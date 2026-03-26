@@ -1119,9 +1119,9 @@ section#s-a1-01 .slide-inner {
   position: absolute;
   bottom: 12px;
   left: 48px;
-  right: 210px; /* respeitar clearance case-panel */
+  right: calc(0.4 * (100% - 210px) + 210px); /* col-2 + case-panel clearance */
   max-width: none;
-  text-align: left;
+  text-align: center;
   margin: 0;
   font-size: clamp(16px, 1.1vw, 20px);
 }
