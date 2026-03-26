@@ -24,7 +24,7 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | CONTENT | R12. Fixes E54/E55/E59/E60/E61 (25/mar): ghost rows bg neutro, source-tag opacity 1 + clamp(16-20px), clipping removido. Gate 4 Gemini pendente. |
-| 4 | s-a1-baveno | CONTENT | 26/mar: PREDESCI lockup movido de classify (opacity:0, JS wired). Selector .paradigm-predesci→.classify-predesci-lockup. Source-tag: removido duplicado Baveno VII. Panel: visibleFields expandido (AST/ALT/Bili/INR). **Fix:** defensive reset (killTweensOf, SplitText char nuke, predesci/sourceTag opacity reset) para return visits. QA pendente. |
+| 4 | s-a1-baveno | SYNCED | 26/mar: State machine refatorada — auto dissolve (paradigma) + click 1 (PREDESCI lockup). autoComplete guard bloqueia clicks durante dissolve. Source-tag removido (PMIDs nos notes). clickReveals: 1. Gate 4 R1 5.4 + R2 4.7 (scores baixos por limitacao screenshot, nao bug). PMID notes: 31584562→30910320 pendente. |
 | 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. CSS header band: --color-primary→--safe. Source-tag: removido Villanueva. QA pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
@@ -32,8 +32,8 @@
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 2 DONE · 42 CONTENT
-**QA Act 1:** s-a1-01 Gate 0 PASS, fixes E54/E55/E59-61 aplicados (25/mar). Gate 4 Gemini pendente. 3 slides refatorados (baveno/classify/vote) pipeline nao iniciado.
+**Resumo:** 2 DONE · 1 SYNCED · 41 CONTENT
+**QA Act 1:** s-a1-baveno state machine refatorada + Gate 4 R1/R2 rodados (26/mar). s-a1-01 Gate 0 PASS, Gate 4 pendente. classify/vote pipeline nao iniciado.
 **Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag: GSAP opacity corrigido de 0.6→1, font-size clamp(16-20px), `color-mix()` hue interpolation bug documentado (E59).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
@@ -51,7 +51,7 @@ Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css p
 
 **Docs cleanup (26/mar):** Audit + cleanup executados. 3 arquivos arquivados (HANDOFF-CLAUDE-AI, CHANGELOG root, ERROR-LOG root). XREF ghost refs removidos. Monorepo remnants renomeados. WT-OPERATING mandato corrigido (on-demand). CHANGELOG 1295→153L. NOTES 426→142L. Audit completo: `docs/DOCS-RATIONALIZATION-AUDIT.md`.
 
-**Proximo:** QA pipeline completo em s-a1-01 — avaliar propostas Gemini R2, aplicar fixes aprovados, re-capturar, re-audit.
+**Proximo:** s-a1-baveno — corrigir PMID notes (31584562→30910320), re-captura + Gate 4 R3 com contexto sobre tom/cor. Depois: s-a1-classify QA pipeline.
 ```bash
 npm run dev  # terminal separado
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
@@ -64,7 +64,7 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 
 ## Caminho critico
 
-1. **s-a1-baveno** — PREDESCI lockup integrado (26/mar). Defensive reset fix (26/mar). QA pipeline completo (Gate 1→4), slide-a-slide
+1. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 4 R3 pendente (tom/cor + re-captura)
 2. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
 3. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
 4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide

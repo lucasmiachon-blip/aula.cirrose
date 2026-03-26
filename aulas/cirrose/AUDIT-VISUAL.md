@@ -261,25 +261,26 @@ Obs: (1) ~~Fill 196%~~ Corrigido 15/mar: era-sources redundantes removidos (PMID
 ### s-a1-baveno (03-a1-baveno.html)
 
 **Headline:** Doença hepática avançada é espectro, não diagnóstico binário
+**Refatorado:** 26/mar/2026 — state machine: auto dissolve + click PREDESCI. Source-tag removido.
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 8    | Paradigm shift (old->new) e hero. Espectro cACLD/dACLD. Pathway 3-step |
-| T   | 8    | Paradigm terms proporcionais. AUROC badge. Step numbers claros |
-| E   | 7    | Fill 104%->87%. Ligeiro overflow inicial, managed. Grid OK |
-| C   | 8    | Cores por step (triagem/confirma/estadia). var() tokens |
-| V   | 8    | Espectro bar. SplitText dissolve. Pathway 3-step. Dados = visual |
-| K   | 8    | archetype-hero-stat. Pathway step pattern reutilizado |
-| S   | 8    | Source-tag. SplitText dissolve. OKLCH. GSAP transitions |
-| M   | 8    | h2 E assercao. 1 linha. 65 palavras. Claro |
-| I   | 8    | 2 clickReveals (pathway + source). Advance/retreat |
-| D   | 9    | 2 PMIDs (35120736, 38489521). AUROC 0,90 sourced. [DATA] tags |
-| A   | 8    | Step numbers (1/2/3) auxiliam navegacao. aria-hidden em setas |
-| L   | 8    | 2 conceitos (paradigma + pathway) bem chunked. 65 palavras |
-| P   | 8    | Paradigm shift relevante. Pathway acionavel. "Se nao biopsia — como?" |
+| H   | 8    | Paradigm shift (old→new). Espectro cACLD/dACLD + PREDESCI lockup (HR hero) |
+| T   | 8    | Paradigm terms proporcionais. PREDESCI hero 86px. Ref caption |
+| E   | 7    | Fill ~65% S0 → ~83% S2 (metrics.json). Espaco intencional para lockup |
+| C   | 7    | Espectro --safe/--danger. PREDESCI header --safe. Verificar tom/contraste |
+| V   | 8    | SplitText dissolve + gradient bar + PREDESCI card. Dados = visual |
+| K   | 8    | archetype-hero-stat. PREDESCI lockup reutilizado de classify |
+| S   | 8    | SplitText dissolve. OKLCH. autoComplete guard. GSAP transitions |
+| M   | 8    | h2 assercao. 1 linha. ~21 palavras corpo. Claro |
+| I   | 7    | 1 clickReveal (PREDESCI). autoComplete bloqueia click durante dissolve |
+| D   | 8    | 2 PMIDs nos notes (35120736, 30910320). [DATA] tags. PMID correto pendente |
+| A   | 7    | Espectro bar + lockup. aria-hidden em paradigm-old/bar |
+| L   | 8    | 2 conceitos (paradigma + intervenção) bem separados por click |
+| P   | 8    | Paradigm shift relevante. PREDESCI = "intervir muda desfecho" |
 | N   | 8    | Setup role. tensionLevel=1. Headline confere com narrative.md |
 
-Obs: (1) Overflow leve no estado inicial (104%) resolve para 87% apos click. (2) SplitText dissolve e animacao de referencia. (3) Unico slide com tensionLevel=1 no Act 1 — pausa narrativa intencional. (4) "Rule of 5" mencionado no step 3 — callback forward.
+Obs: (1) SplitText dissolve = animação de referência do deck. (2) Único slide com tensionLevel=1 no Act 1 — pausa narrativa intencional. (3) autoComplete guard = UX fix (click durante dissolve era bug). (4) Gate 4 Gemini R1 5.4, R2 4.7 — scores baixos por limitação do screenshot script (PREDESCI não aparece nos PNGs por timing). (5) PMID PREDESCI nos notes: 31584562 diverge de evidence-db 30910320 — correção pendente.
 
 ### s-a1-fib4 (03b-a1-fib4calc.html)
 
@@ -411,7 +412,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 3 | s-a1-01 | OK | countUp fallbacks corrigidos; iceberg ok | — |
 | 4 | s-a1-vote | OK | Reveal funciona; FIB-4 fallback corrigido para 5,91 | — |
 | 5 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
-| 6 | s-a1-baveno | OK | card 3 toca borda inferior state 1 (aceitavel) | P1 |
+| 6 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
 | 7 | s-a1-fib4 | OK | Layout limpo; h2 mnemônico mantido (decisão Lucas) | — |
 | 8 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
 | 9 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |

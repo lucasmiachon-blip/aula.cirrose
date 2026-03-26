@@ -51,7 +51,7 @@ export const customAnimations = {
     const heroNum = slide.querySelector('.screening-hero-number');
     const metrics = slide.querySelector('.screening-metrics');
     const rec = slide.querySelector('.guideline-rec');
-    const sourceTag = slide.querySelector('.source-tag');
+    // sourceTag removido — PMIDs nos notes
     const stackRows = slide.querySelectorAll('.stack-row');
     const guidelineStack = slide.querySelector('.guideline-stack');
 
@@ -188,7 +188,6 @@ export const customAnimations = {
     const heroNum = slide.querySelector('.vote-hero-number');
     const cutoff = slide.querySelector('.vote-cutoff');
     const explanation = slide.querySelector('.vote-explanation');
-    const sourceTag = slide.querySelector('.source-tag');
 
     gsap.set([cutoff, explanation].filter(Boolean), { opacity: 0, y: 8 });
     if (heroNum) heroNum.textContent = '0';
@@ -211,7 +210,7 @@ export const customAnimations = {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        gsap.to(predesci, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
       }
       return true;
     }
@@ -219,7 +218,7 @@ export const customAnimations = {
     function retreat() {
       if (state <= 0) return false;
       if (state === 1) {
-        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+        gsap.to(predesci, { opacity: 0, duration: 0.3 });
       }
       state--;
       return true;
@@ -249,7 +248,6 @@ export const customAnimations = {
     const furtherStrong = slide.querySelector('.classify-further-text strong');
     const furtherPath = slide.querySelector('.classify-further-path');
     const badgeFatal = slide.querySelector('.badge-fatal');
-    const sourceTag = slide.querySelector('.source-tag');
     // MorphSVG elements (Radical: ✕ transforms into arrow)
     const dangerXMorph = slide.querySelector('.danger-x-morph');
     const dangerXFade = slide.querySelector('.danger-x-fade');
@@ -363,7 +361,7 @@ export const customAnimations = {
     const sourceTag = slide.querySelector('.source-tag');
 
     eras.forEach((era, i) => gsap.set(era, { opacity: i === 0 ? 1 : 0 }));
-    if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
+    
 
     function showEra(idx, onComplete) {
       eras.forEach(e => {
@@ -451,7 +449,7 @@ export const customAnimations = {
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      s-a1-baveno — Paradigma Baveno VII (SplitText dissolve + PREDESCI)
-     States: 0=auto dissolve + PREDESCI callout, 1=source
+     States: 0=auto dissolve (paradigma only), 1=PREDESCI click
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-baveno': (slide, gsap) => {
     let state = 0;
@@ -464,9 +462,10 @@ export const customAnimations = {
     const sourceTag = slide.querySelector('.source-tag');
 
     let splitInstance = null;
+    let autoComplete = false;
 
     // --- Defensive reset for return visits ---
-    gsap.killTweensOf([oldTerm, spectrum, bavRef, predesci, sourceTag].filter(Boolean));
+    gsap.killTweensOf([oldTerm, spectrum, bavRef, predesci].filter(Boolean));
     if (oldTerm) {
       oldTerm.style.display = '';
       // Nuke leftover SplitText char divs from failed revert
@@ -474,7 +473,6 @@ export const customAnimations = {
         oldTerm.textContent = oldTerm.textContent;
       }
     }
-    if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
     if (predesci) gsap.set(predesci, { opacity: 0 });
 
     if (oldTerm && oldTerm.textContent.trim()) {
@@ -484,7 +482,7 @@ export const customAnimations = {
       gsap.set(spectrum, { opacity: 0 });
       gsap.set(bavRef, { opacity: 0 });
 
-      const tl = gsap.timeline({ delay: 1.3 });
+      const tl = gsap.timeline({ delay: 1.3, onComplete: () => { autoComplete = true; } });
       tl.to(splitInstance.chars, {
         opacity: 0, y: -20, rotationX: 90,
         stagger: { each: 0.06, from: 'random' },
@@ -493,26 +491,30 @@ export const customAnimations = {
       tl.set(oldTerm, { display: 'none' });
       tl.to(spectrum, { opacity: 1, duration: 0.6, ease: 'power2.out' });
       tl.to(bavRef, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-      if (predesci) tl.to(predesci, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '+=0.3');
+      // PREDESCI removido da timeline — agora é click state 1
     } else {
       gsap.set(spectrum, { opacity: 1 });
       gsap.set(bavRef, { opacity: 1 });
       if (predesci) gsap.set(predesci, { opacity: 1 });
+      autoComplete = true;
     }
 
     function advance() {
+      if (!autoComplete) return true; // swallow click during auto-animation
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        gsap.to(predesci, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
       }
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 1) {
+      if (state === 2) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      } else if (state === 1) {
+        gsap.to(predesci, { opacity: 0, duration: 0.3 });
       }
       state--;
       return true;

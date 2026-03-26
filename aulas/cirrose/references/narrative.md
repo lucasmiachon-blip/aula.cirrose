@@ -69,7 +69,8 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **Arc:** Rastreio → classificação → engajamento → ferramentas → checkpoint. Audiência segura — "sei classificar".
 - **CP1 beat:** Primeiro momento de desconforto. "Sei o suficiente pra decidir?"
 - **s-a1-01 nota:** Slide de rastreio ancora na entrada do Antônio (UBS, assintomático, FIB-4 5,91). Dado-âncora: Prince 2024 (83% diagnósticos novos).
-- **s-a1-classify nota:** D'Amico é protagonista (3 cards mortalidade por estágio + further decomp callout). PREDESCI (HR 0,51) é reforço menor.
+- **s-a1-baveno nota:** Auto: SplitText dissolve "Cirrose" → espectro cACLD/dACLD. Click 1: PREDESCI lockup (HR 0,51). autoComplete guard bloqueia click durante dissolve. Source-tag removido (PMIDs nos notes). PREDESCI movido de classify (26/mar).
+- **s-a1-classify nota:** D'Amico é protagonista (3 cards mortalidade por estágio + further decomp callout). PREDESCI removido (agora em baveno).
 - **s-a1-damico nota:** D'Amico abrange 2006→2014→2024 (4→5→6 estágios + further decomp). Inclui pathway visual.
 
 ### ATO 2 — INTERVIR (slides 11-27)
