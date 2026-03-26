@@ -14,6 +14,7 @@
 **Hooks fix (24-25/mar):** 3 bugs Windows corrigidos — (1) `set -euo pipefail` crashava guard-product-files (removido -e/-o, mantido -u); (2) node arg passando JSON >8KB crashava no Windows (trocado por stdin pipe); (3) `readFileSync('/dev/stdin')` crashava silenciosamente no Git Bash Windows (`/dev/stdin` nao existe → `ENOENT C:\dev\stdin`). Fix: `readFileSync(0)` (fd 0 = stdin, cross-platform). Backslash→forward slash normalization adicionada em todos os hooks com path matching.
 **CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.
 **QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`. Gate 0 prompt corrigido (25/mar): "fundo escuro" → stage-c creme + slide-navy escuro.
+**QA scripts fix (25/mar):** `qa-batch-screenshot.mjs` corrigido: ArrowRight→`__deckGoTo`, S0+S2 only (sem intermediarios), naming `{slide}_{date}_{time}_{state}.png`, auto-delete PNGs antigos, `--video` flag para .webm. `gemini-qa3.mjs`: S1 removido do Gate 4, `findStatePng` suporta novo naming.
 **Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente. SCITE OAuth pendente.
 
@@ -46,6 +47,18 @@
 - s-a2-09: sarcopenia prevalencia meta-analise
 - s-a3-04: taxa recompensacao alcool "1/3 em 5a"
 - s-app-04: PMID Turco 2024 IPD
+
+---
+
+## Proxima sessao
+
+**TESTE:** Rodar Gate 0 + Gate 4 end-to-end em um slide (ex: s-a1-01) para validar que os scripts corrigidos funcionam. Comando:
+```bash
+npm run dev  # terminal separado
+node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-01 --video
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --full --round 1
+```
+Verificar: PNGs com naming novo, video .webm gravado, Gate 0 JSON, Gate 4 response.
 
 ---
 
