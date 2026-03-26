@@ -121,10 +121,12 @@ Pipeline completo: `aulas/cirrose/WT-OPERATING.md` §4 (máquina de estados + 5 
 Scorecards: `aulas/cirrose/AUDIT-VISUAL.md` (14 dimensões, min 9/10).
 
 **Gate 0** (binário, PASS/FAIL): 6 MUST + 3 SHOULD checks em PNGs S0/S2.
+Input: PNG estado inicial (S0) + PNG estado final (S2). Output: JSON 9 checks.
 Critérios: `docs/prompts/gemini-gate0-inspector.md`. MUST FAIL bloqueia QA.3.
 
 **Gate 4** (editorial, criativo): Gemini avalia hierarquia, flow, legibilidade.
-Gemini NUNCA edita arquivos — só produz sugestões.
+Input: raw HTML + raw CSS + raw JS + PNGs S0/S2 + video .webm curto da navegação.
+Gemini NUNCA edita arquivos — só produz sugestões. Spec completa: `WT-OPERATING.md` §4 QA.3.
 
 ```bash
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect        # Gate 0

@@ -75,8 +75,11 @@ Prompt: `docs/prompts/gemini-gate0-inspector.md`. Output: `qa-screenshots/{id}/g
 
 ### Loop 2 — Gemini API (apos Loop 1 PASS)
 
-Screenshots/video → Gemini avalia hierarquia, flow, legibilidade, daltonismo, densidade.
-Gemini so sugere (JSON spec) — Opus executa fix.
+**Gate 0 (PASS/FAIL):** PNGs S0 + S2 → 9 checks binarios (6 MUST + 3 SHOULD). MUST FAIL bloqueia Gate 4.
+Prompt: `docs/prompts/gemini-gate0-inspector.md`. Output: `qa-screenshots/{id}/gate0.json`.
+
+**Gate 4 (editorial):** Raw HTML + Raw CSS + Raw JS + PNGs S0/S2 + video .webm curto → Gemini avalia hierarquia, flow, legibilidade, daltonismo, densidade.
+Gemini so sugere — Opus executa fix. Spec completa: `WT-OPERATING.md` §4 QA.3.
 
 ### Scorecard template (copiar por slide)
 

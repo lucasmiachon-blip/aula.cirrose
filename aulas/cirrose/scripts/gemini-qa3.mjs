@@ -269,14 +269,20 @@ function buildInteractionFlow(clickReveals) {
 // --- Gate 0: Defect Inspector ---
 
 function findStatePng(qaDir, state) {
-  const candidates = {
+  // Legacy names (backward compat) then new convention ({slide}_{date}_{time}_{state}.png)
+  const legacy = {
     S0: ['S0-1280x720.png', 'S0.png'],
-    S1: ['S1-mid-1280x720.png', 'S1-1280x720.png', 'S1.png'],
     S2: ['S2-final-1280x720.png', 'S2-1280x720.png', 'S2.png'],
   };
-  for (const name of (candidates[state] || [`${state}.png`])) {
+  for (const name of (legacy[state] || [`${state}.png`])) {
     const p = join(qaDir, name);
     if (existsSync(p)) return p;
+  }
+  // New naming: *_{state}.png — pick most recent by alpha sort
+  if (existsSync(qaDir)) {
+    const pattern = new RegExp(`_${state}\\.png$`);
+    const matches = readdirSync(qaDir).filter(f => pattern.test(f)).sort().reverse();
+    if (matches.length > 0) return join(qaDir, matches[0]);
   }
   return null;
 }
@@ -567,8 +573,7 @@ ${notes}
 ### Material visual anexado
 ${mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)'}
 ${mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)'}
-${mediaUris.s1 ? '3. PNG S1 — estado intermediario (countUp em andamento, metricas aparecendo)' : '(sem S1)'}
-${mediaUris.s2 ? '4. PNG S2 — estado final (todos elementos visiveis, Ghost Rows matched/dimmed)' : '(sem S2)'}
+${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoes completadas)' : '(sem S2)'}
 
 </materials>
 
@@ -626,7 +631,6 @@ Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
   const parts = [{ text }];
   if (mediaUris.video) parts.push({ fileData: { mimeType: 'video/webm', fileUri: mediaUris.video } });
   if (mediaUris.s0) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s0 } });
-  if (mediaUris.s1) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s1 } });
   if (mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
 
   return {
@@ -653,9 +657,8 @@ async function runEditorial(slideId, round, qaDir) {
   console.log('1. Uploading media...');
   const videoPath = join(qaDir, 'animation-1280x720.webm');
 
-  // Reuse findStatePng fallback logic (S0-1280x720.png → S0.png etc.)
+  // Only S0 (initial) + S2 (final). No intermediaries.
   const s0Path = findStatePng(qaDir, 'S0');
-  const s1Path = findStatePng(qaDir, 'S1');
   const s2Path = findStatePng(qaDir, 'S2');
 
   // Skip video on R1 unless --with-video (saves ~2K tokens + upload time)
@@ -663,7 +666,6 @@ async function runEditorial(slideId, round, qaDir) {
   if (skipVideo) console.log('  Video skipped (R1 — use --with-video to override)');
   const video = skipVideo ? null : await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
   const s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
-  const s1 = s1Path ? await uploadFile(s1Path, 'image/png', `${slideId}-S1-mid`) : null;
   const s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
 
   // Wait for video processing
@@ -678,7 +680,6 @@ async function runEditorial(slideId, round, qaDir) {
   const mediaUris = {
     video: video?.uri,
     s0: s0?.uri,
-    s1: s1?.uri,
     s2: s2?.uri,
   };
   const payload = buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);

@@ -176,12 +176,13 @@ Capturar screenshots e analisar:
 # Navegar ate o slide, esperar animacoes (2.5s), screenshot
 # Se click-reveals: screenshot antes de cada click
 
-# Output:
+# Output (convencao de nomes — deletar PNGs antigos a cada round):
 # qa-screenshots/{slide-id}/
-#   S0.png          ← estado apos entrada (animacoes completadas)
-#   S1.png          ← apos click-reveal 1 (se existir)
-#   S2.png          ← apos click-reveal 2 (se existir)
-#   metrics.json    ← bounding boxes (opcional)
+#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S0.png   ← estado apos entrada (animacoes completadas)
+#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S1.png   ← apos click-reveal 1 (se existir)
+#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S2.png   ← apos click-reveal 2 (se existir)
+#   gate0.json                                ← output Gate 0 (sobrescreve a cada round)
+#   metrics.json                              ← bounding boxes (opcional)
 ```
 
 Resolucao padrao: 1280x720 @2x (deviceScaleFactor: 2).
@@ -260,8 +261,8 @@ Input para Gemini (TUDO junto):
 1. Raw HTML do slide — **ler do arquivo no momento do envio** (NUNCA copiar de prompt anterior)
 2. Raw CSS (seletores relevantes do cirrose.css) — **extrair live com grep/read**
 3. Raw JS (trecho do slide-registry.js para este slide) — **extrair live com grep/read**
-4. PNGs de cada estado (S0, S1... SN) — **capturar APOS as ultimas edições**
-5. Video .mp4 da navegacao real — **regravar se houve mudanca de CSS/JS**
+4. PNGs S0 (inicial) + S2 (final) — **so 2 estados, sem intermediarios. Capturar APOS as ultimas edicoes**
+5. Video .webm da navegacao real (Playwright nativo) — **regravar se houve mudanca de CSS/JS**
 
 **REGRA E42:** Raw code no prompt DEVE ser lido dos arquivos NO MOMENTO do envio.
 NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.

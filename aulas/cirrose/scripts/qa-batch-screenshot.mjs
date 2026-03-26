@@ -3,22 +3,28 @@
  * QA Batch Screenshots — Cirrose
  *
  * Captures screenshots + bounding box metrics for all slides in an act.
- * Uses ArrowRight navigation (deck.js — hash nav not supported).
+ * Uses __deckGoTo() navigation (deck.js). S0 + S2 only, no intermediaries.
  *
  * Usage:
  *   node aulas/cirrose/scripts/qa-batch-screenshot.mjs --act A1
- *   node aulas/cirrose/scripts/qa-batch-screenshot.mjs --act A1 --port 3016
  *   node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-01
+ *   node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-01 --video
  *
  * Options:
  *   --act    A1|A2|A3|CP|APP|PRE|ALL (default: A1)
- *   --port   Dev server port (default: 3016)
+ *   --port   Dev server port (default: 3000)
  *   --slide  Single slide ID (overrides --act)
  *   --scale  Device scale factor (default: 2)
+ *   --video  Record .webm video per slide (for Gate 4)
+ *
+ * Output: qa-screenshots/{slide-id}/{slide}_{date}_{time}_{state}.png
+ * Naming: deletes previous round PNGs before capturing new ones.
+ * Navigation: uses __deckGoTo(index) — never ArrowRight between slides.
+ * States: S0 (initial) + S2 (final only). No intermediaries.
  */
 
 import { chromium } from 'playwright';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readdirSync, unlinkSync, renameSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -33,9 +39,15 @@ function getArg(name, fallback) {
   return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
 }
 const ACT_FILTER = getArg('act', 'A1').toUpperCase();
-const PORT = getArg('port', '3016');
+const PORT = getArg('port', '3000');
 const SINGLE_SLIDE = getArg('slide', null);
 const SCALE = parseInt(getArg('scale', '2'));
+const RECORD_VIDEO = args.includes('--video');
+
+// Timestamp for screenshot naming: {slide-id}_{YYYY-MM-DD}_{HHmm}_{state}.png
+const NOW = new Date();
+const DATE_STAMP = NOW.toISOString().slice(0, 10);
+const TIME_STAMP = String(NOW.getHours()).padStart(2, '0') + String(NOW.getMinutes()).padStart(2, '0');
 
 const PAGE_URL = `http://localhost:${PORT}/aulas/cirrose/index.html`;
 
@@ -198,7 +210,6 @@ async function main() {
   await page.goto(PAGE_URL, { waitUntil: 'networkidle' });
   await page.waitForTimeout(2000); // wait for deck init + first slide animations
 
-  let currentIndex = 0;
   const results = [];
 
   for (const slide of targetSlides) {
@@ -206,19 +217,13 @@ async function main() {
     const slideDir = join(OUT_BASE, slide.id);
     mkdirSync(slideDir, { recursive: true });
 
-    // Navigate to target slide
-    const stepsNeeded = targetIndex - currentIndex;
-    if (stepsNeeded > 0) {
-      for (let i = 0; i < stepsNeeded; i++) {
-        await page.keyboard.press('ArrowRight');
-        await page.waitForTimeout(150);
-      }
-    } else if (stepsNeeded < 0) {
-      for (let i = 0; i < Math.abs(stepsNeeded); i++) {
-        await page.keyboard.press('ArrowLeft');
-        await page.waitForTimeout(150);
-      }
-    }
+    // Delete previous round's PNGs and old videos (keep gate0.json and metrics.json)
+    const oldFiles = readdirSync(slideDir).filter(f => f.endsWith('.png') || f.endsWith('.webm'));
+    for (const f of oldFiles) unlinkSync(join(slideDir, f));
+    if (oldFiles.length > 0) console.log(`  Cleaned ${oldFiles.length} old file(s)`);
+
+    // Navigate to target slide (direct jump — never ArrowRight between slides)
+    await page.evaluate(idx => window.__deckGoTo(idx), targetIndex);
 
     // Wait for animations to complete
     const animWait = slide.customAnim ? 2500 : 1000;
@@ -226,22 +231,18 @@ async function main() {
 
     // Verify we're on the right slide
     const activeId = await page.evaluate(() => {
-      const active = document.querySelector('section.active, section[data-active="true"], section:not([style*="display: none"]):not([style*="display:none"])');
-      // Fallback: check which section is visible
       const sections = document.querySelectorAll('section[id]');
       for (const s of sections) {
-        const r = s.getBoundingClientRect();
-        if (r.width > 0 && r.height > 0 && r.top >= 0 && r.top < 720) {
-          return s.id;
-        }
+        if (s.classList.contains('slide-active')) return s.id;
       }
-      return active?.id || 'unknown';
+      return 'unknown';
     });
 
     console.log(`[${slide.id}] navigated (index ${targetIndex}, active: ${activeId})`);
 
-    // State S0 — base state (after auto animations, before click-reveals)
-    await page.screenshot({ path: join(slideDir, 'S0.png'), type: 'png' });
+    // State S0 — initial state (after auto animations, before click-reveals)
+    const s0File = `${slide.id}_${DATE_STAMP}_${TIME_STAMP}_S0.png`;
+    await page.screenshot({ path: join(slideDir, s0File), type: 'png' });
 
     // Measure layout
     const metrics = await measureElements(page, slide.id);
@@ -250,33 +251,64 @@ async function main() {
       metrics.viewport = { width: 1280, height: 720 };
     }
 
-    // Click-reveals: capture each state
-    const states = [{ state: 'S0', metrics }];
+    // Only S0 (initial) + S2 (final). No intermediaries.
+    const states = [{ state: 'S0', file: s0File, metrics }];
     if (slide.clickReveals > 0) {
+      // Advance all click-reveals to reach final state
       for (let beat = 1; beat <= slide.clickReveals; beat++) {
         await page.keyboard.press('ArrowRight');
-        await page.waitForTimeout(800); // wait for reveal animation
-        const stateFile = `S${beat}.png`;
-        await page.screenshot({ path: join(slideDir, stateFile), type: 'png' });
-        const beatMetrics = await measureElements(page, slide.id);
-        if (beatMetrics) beatMetrics.state = `S${beat}`;
-        states.push({ state: `S${beat}`, metrics: beatMetrics });
-        console.log(`  → S${beat} captured`);
+        await page.waitForTimeout(800);
       }
+      // Capture final state only
+      const s2File = `${slide.id}_${DATE_STAMP}_${TIME_STAMP}_S2.png`;
+      await page.screenshot({ path: join(slideDir, s2File), type: 'png' });
+      const finalMetrics = await measureElements(page, slide.id);
+      if (finalMetrics) finalMetrics.state = 'S2';
+      states.push({ state: 'S2', file: s2File, metrics: finalMetrics });
+      console.log(`  → S2 (final) captured`);
     }
 
     // Save metrics
     writeFileSync(
       join(slideDir, 'metrics.json'),
-      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, states }, null, 2)
+      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states }, null, 2)
     );
 
-    // Click-reveals consume ArrowRight presses without advancing the slide.
-    // After all reveals, we're still on the same slide at the same deck index.
-    currentIndex = targetIndex;
+    // Record video (--video flag, fresh context per slide)
+    let hasVideo = false;
+    if (RECORD_VIDEO) {
+      console.log(`  Recording video...`);
+      const videoCtx = await browser.newContext({
+        viewport: { width: 1280, height: 720 },
+        deviceScaleFactor: 1,
+        recordVideo: { dir: slideDir, size: { width: 1280, height: 720 } },
+      });
+      const videoPage = await videoCtx.newPage();
+      await videoPage.goto(PAGE_URL, { waitUntil: 'networkidle' });
+      await videoPage.waitForTimeout(1000);
+      // Navigate and play through
+      await videoPage.evaluate(idx => window.__deckGoTo(idx), targetIndex);
+      await videoPage.waitForTimeout(slide.customAnim ? 3000 : 1500);
+      if (slide.clickReveals > 0) {
+        for (let beat = 1; beat <= slide.clickReveals; beat++) {
+          await videoPage.keyboard.press('ArrowRight');
+          await videoPage.waitForTimeout(1000);
+        }
+      }
+      await videoPage.waitForTimeout(500);
+      const rawVideoPath = await videoPage.video().path();
+      await videoCtx.close();
+      // Rename to canonical name
+      const destVideo = join(slideDir, 'animation-1280x720.webm');
+      if (existsSync(rawVideoPath)) {
+        renameSync(rawVideoPath, destVideo);
+        hasVideo = true;
+        console.log(`  Video: animation-1280x720.webm`);
+      }
+    }
 
-    results.push({ id: slide.id, states: states.length, path: slideDir });
-    console.log(`  ✓ ${states.length} state(s) captured\n`);
+    results.push({ id: slide.id, states: states.length, video: hasVideo, path: slideDir });
+    console.log(`  ✓ ${states.length} state(s)${hasVideo ? ' + video' : ''} captured\n`);
   }
 
   await browser.close();
