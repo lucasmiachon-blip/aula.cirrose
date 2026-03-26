@@ -5,6 +5,14 @@
 
 ---
 
+## 2026-03-26 — docs: rationalization audit (sessao 29)
+
+- **Audit documental:** `docs/DOCS-RATIONALIZATION-AUDIT.md` — 30 achados (13 refs stale, 5 ghost files, 5 monorepo remnants, 4 overlaps, 3 conflitos).
+- **Conflitos reais:** HANDOFF-CLAUDE-AI.md estados divergem de HANDOFF.md; WT-OPERATING.md mandato "ler INTEIRO" vs CLAUDE.md "on demand"; XREF.md ghost refs (.cursor/rules, CLAUDE.md cirrose).
+- **Plano:** Batch 1 (9 arquivos cosmeticos) + Batch 2 (5 arquivos estruturais, requer aprovacao).
+
+---
+
 ## 2026-03-25 — dev: slide ID label + Gate 0 prompt fix (sessao 28)
 
 - **Slide ID label:** `deck.js` agora cria `#slide-id-label` (position:fixed, top-left, mono 11px, 55% opacity). Atualiza ao navegar via `goTo()`. Dev helper — remover antes de produção.

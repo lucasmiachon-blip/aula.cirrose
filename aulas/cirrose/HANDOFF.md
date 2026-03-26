@@ -4,7 +4,7 @@
 
 ---
 
-## Estado — 2026-03-25
+## Estado — 2026-03-26
 
 **Slides:** 44 buildados · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
@@ -49,7 +49,9 @@
 
 Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css path, s1 cleanup, --full removido, video obrigatorio.
 
-**Proximo:** QA pipeline completo em s-a1-01 — avaliar propostas Gemini R2, aplicar fixes aprovados, re-capturar, re-audit.
+**Docs audit (26/mar):** `docs/DOCS-RATIONALIZATION-AUDIT.md` — 30 achados, 3 conflitos, 7 etapas. Batch 1 (ghost refs, monorepo remnants) pronto para executar. Batch 2 (HANDOFF-CLAUDE-AI deprecacao, WT-OPERATING cisao) requer aprovacao Lucas.
+
+**Proximo:** Batch 1 doc cleanup → QA pipeline completo em s-a1-01 — avaliar propostas Gemini R2, aplicar fixes aprovados, re-capturar, re-audit.
 ```bash
 npm run dev  # terminal separado
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
