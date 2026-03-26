@@ -492,9 +492,16 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Containers com overflow:hidden duplo (pai+filho) → verificar se animações GSAP com translate/x violam o container interno.
 **Status:** ✅ Corrigido (2026-03-25).
 
+### ERRO-062 · HIGH · s-a1-baveno (return visits)
+**SplitText não anima, tudo aparece de uma vez, estado inconsistente no retorno**
+**Root cause:** ctx.revert() é cleanup insuficiente: (1) advance/retreat criam orphan tweens fora do gsap.context → não revertidos; (2) inline styles HTML (style="opacity:0" em predesci/sourceTag) não restaurados; (3) SplitText char divs potencialmente persistentes após revert incompleto.
+**Fix:** Defensive reset no início da factory: killTweensOf nos 5 elementos, nuke de char divs residuais via textContent=textContent, gsap.set explícito para predesci/sourceTag opacity:0, display:'' no oldTerm.
+**Regra:** Custom animations com advance/retreat (orphan tweens) DEVEM ter reset defensivo no início da factory. Nunca depender apenas de ctx.revert() para inline styles pré-existentes.
+**Status:** ✅ Corrigido (2026-03-26).
+
 ---
 
-*Ultima atualizacao: 2026-03-25 · 61 erros registrados, 61 fechados (58 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
+*Ultima atualizacao: 2026-03-26 · 62 erros registrados, 62 fechados (59 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
 
 ---
 

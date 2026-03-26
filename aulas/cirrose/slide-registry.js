@@ -465,6 +465,18 @@ export const customAnimations = {
 
     let splitInstance = null;
 
+    // --- Defensive reset for return visits ---
+    gsap.killTweensOf([oldTerm, spectrum, bavRef, predesci, sourceTag].filter(Boolean));
+    if (oldTerm) {
+      oldTerm.style.display = '';
+      // Nuke leftover SplitText char divs from failed revert
+      if (oldTerm.querySelector('.char')) {
+        oldTerm.textContent = oldTerm.textContent;
+      }
+    }
+    if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
+    if (predesci) gsap.set(predesci, { opacity: 0 });
+
     if (oldTerm && oldTerm.textContent.trim()) {
       splitInstance = new SplitText(oldTerm, { type: 'chars' });
 
