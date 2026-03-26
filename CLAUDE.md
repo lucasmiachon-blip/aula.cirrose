@@ -150,5 +150,5 @@ sed -n '/### ATO 2/,/^### /p' aulas/cirrose/references/narrative.md
 
 - **Slide rules** (edição, identidade, CSS, motion): @.claude/rules/slide-rules.md
 - **Design reference** (tokens, princípios, dados médicos): @.claude/rules/design-reference.md
-- **QA pipeline** (máquina de estados, Gate 0/4, scorecards): @aulas/cirrose/WT-OPERATING.md
-- Doc graph: @docs/XREF.md
+- **QA pipeline** (máquina de estados, Gate 0/4, scorecards): `aulas/cirrose/WT-OPERATING.md` (ler manualmente em sessões QA)
+- Doc graph: `docs/XREF.md` (consultar sob demanda)
