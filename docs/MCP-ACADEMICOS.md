@@ -1,4 +1,4 @@
-# MCPs Academicos — Aulas Magnas
+# MCPs Academicos — Aula Cirrose
 
 > Inventario completo de MCPs para pesquisa academica/clinica.
 > Config local: `.mcp.json` (perfil ativo). Profiles: `.mcp-profiles/*.json`.

@@ -1,4 +1,4 @@
-# Variáveis de Ambiente para MCPs (aulas-magnas)
+# Variáveis de Ambiente para MCPs (Aula Cirrose)
 
 **Template:** defina as variáveis de ambiente do usuário (sysdm.cpl → Variáveis de Ambiente).
 

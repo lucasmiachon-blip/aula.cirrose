@@ -10,7 +10,7 @@
 **Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race.
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
-**QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios.
+**QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios. Custo: ~$0.03-0.08/round.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
 ---
@@ -49,9 +49,9 @@
 
 Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css path, s1 cleanup, --full removido, video obrigatorio.
 
-**Docs audit (26/mar):** `docs/DOCS-RATIONALIZATION-AUDIT.md` — 30 achados, 3 conflitos, 7 etapas. Batch 1 (ghost refs, monorepo remnants) pronto para executar. Batch 2 (HANDOFF-CLAUDE-AI deprecacao, WT-OPERATING cisao) requer aprovacao Lucas.
+**Docs cleanup (26/mar):** Audit + cleanup executados. 3 arquivos arquivados (HANDOFF-CLAUDE-AI, CHANGELOG root, ERROR-LOG root). XREF ghost refs removidos. Monorepo remnants renomeados. WT-OPERATING mandato corrigido (on-demand). CHANGELOG 1295→153L. NOTES 426→142L. Audit completo: `docs/DOCS-RATIONALIZATION-AUDIT.md`.
 
-**Proximo:** Batch 1 doc cleanup → QA pipeline completo em s-a1-01 — avaliar propostas Gemini R2, aplicar fixes aprovados, re-capturar, re-audit.
+**Proximo:** QA pipeline completo em s-a1-01 — avaliar propostas Gemini R2, aplicar fixes aprovados, re-capturar, re-audit.
 ```bash
 npm run dev  # terminal separado
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video

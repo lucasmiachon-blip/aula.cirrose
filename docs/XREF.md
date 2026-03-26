@@ -18,10 +18,9 @@
 
 ```
 CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.md)
-├── .claude/rules/*.md        ← regras detalhadas (prevalecem sobre .cursor se mais completas)
+├── .claude/rules/*.md        ← regras detalhadas (2 arquivos consolidados)
 ├── .claude/hooks/*.sh        ← safety gates determinísticos (100% enforcement)
-├── .claude/skills/*/SKILL.md ← skills invocáveis (7 ativas)
-├── .cursor/rules/*.mdc       ← regras Cursor (quick-ref com globs)
+├── .claude/skills/*/SKILL.md ← skills invocáveis
 ├── docs/*.md                 ← referência expandida
 └── aulas/cirrose/HANDOFF.md   ← estado da aula
 ```
@@ -109,13 +108,11 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
 | HANDOFF.md | (autônomo — pendências ativas) | ← CLAUDE.md (operational record) |
-| CLAUDE.md (cirrose) | → CLAUDE.md (root), WT-OPERATING.md | ← CLAUDE.md (projects table) |
-| references/archetypes.md | (layout archetypes) | ← CLAUDE.md (cirrose) |
+| references/archetypes.md | (layout archetypes) | ← CLAUDE.md |
 | references/decision-protocol.md | (protocolo decisões narrativeCritical) | ← slide-rules.md |
 | references/coautoria.md | (regras coautoria) | — |
 | references/must-read-trials.md | (trials leitura obrigatória) | — |
 | DONE-GATE.md | (checklist done-gate) | ← WT-OPERATING.md |
-| HANDOFF-CLAUDE-AI.md | → HANDOFF.md | ← CLAUDE.md |
 | CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
 | ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
@@ -126,15 +123,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | qa-rounds/{slideId}.md | (append-only — round context per slide) | ← gemini-qa3.mjs |
 
 ---
-
-## Pares .claude ↔ .cursor
-
-| .claude/rules/ | .cursor/rules/ | Nota |
-|----------------|---------------|------|
-| slide-rules.md | css-errors.mdc, reveal-patterns.mdc, slide-editing.mdc, slide-identity.mdc, motion-qa.mdc | .claude consolidou 6 arquivos em 1 |
-| design-reference.md | design-system.mdc, cirrose-design.mdc, design-principles.mdc, medical-data.mdc | .claude consolidou 4 arquivos em 1 |
-
-**Sem par em .claude:** core-constraints.mdc, plan-mode.mdc, notion-mcp.mdc (só .cursor).
 
 ---
 

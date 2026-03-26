@@ -1,6 +1,6 @@
 # Lessons — Padroes Aprendidos
 
-> Apenas licoes NAO codificadas em `.claude/rules/`. E-codes → css-errors.md. Dados → medical-data.md.
+> Apenas licoes NAO codificadas em `.claude/rules/`. E-codes → slide-rules.md §8. Dados → design-reference.md §5.
 > Atualizado: 2026-03-22. Podado de 481→~70 linhas (34 redundantes + 5 obsoletas removidas).
 
 ---

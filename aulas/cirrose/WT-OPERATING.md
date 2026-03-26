@@ -1,8 +1,8 @@
 # OPERATING — Cirrose (prompt operacional)
 
 > Maquina de estados + QA loop para sessoes de trabalho.
-> Ler isto INTEIRO no inicio de TODA sessao. Sem excecoes.
-> Criado: 2026-03-17. Atualizado: 2026-03-22 (standalone, sem worktree).
+> **On-demand.** Sessoes gerais: ler apenas §1-§3. Sessoes QA: ler §4 (pipeline completo).
+> Criado: 2026-03-17. Atualizado: 2026-03-26 (mandato on-demand).
 
 ---
 

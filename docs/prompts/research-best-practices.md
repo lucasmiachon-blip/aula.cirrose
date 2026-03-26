@@ -35,7 +35,7 @@ Mantenha o formato existente. Adicione referências às fontes (URLs, datas).
 ## Como rodar
 
 ```powershell
-cd c:\Dev\Projetos\aulas-magnas
+cd c:\Dev\Projetos\Aula_cirrose
 claude --model opus
 ```
 
