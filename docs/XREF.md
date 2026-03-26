@@ -119,7 +119,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | AUDIT-VISUAL.md | → WT-OPERATING.md §4, gemini-gate0-inspector.md | ← CLAUDE.md, slide identity (9 superfícies) |
 | WT-OPERATING.md | → gemini-gate0-inspector.md, AUDIT-VISUAL.md, HANDOFF.md | ← CLAUDE.md, HANDOFF.md |
 | scripts/gemini-qa3.mjs | → gate0-inspector.md, error-digest.md, _manifest.js, cirrose.css, slide-registry.js | ← WT-OPERATING.md, CLAUDE.md |
-| scripts/qa-batch-screenshot.mjs | → _manifest.js | ← WT-OPERATING.md |
+| scripts/qa-batch-screenshot.mjs | → _manifest.js, qa-screenshots/ | ← WT-OPERATING.md §4 QA.3, CLAUDE.md §QA Pipeline |
 | qa-rounds/{slideId}.md | (append-only — round context per slide) | ← gemini-qa3.mjs |
 
 ---

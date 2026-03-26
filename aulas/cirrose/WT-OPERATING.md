@@ -259,26 +259,50 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 
 ### QA.3 — Visual Audit (Gemini multimodal)
 
-Input para Gemini (TUDO junto):
+**Prerequisito: PNGs + webm atualizados** (ver passo 1 abaixo).
+NUNCA rodar Gate 0/4 com screenshots desatualizados ou sem video.
+NUNCA capturar screenshots manualmente via Playwright MCP — usar o script.
+
+#### Passo 1 — Screenshots + video (`qa-batch-screenshot.mjs`)
+
+```bash
+# Slide unico com video (padrao para QA)
+node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
+
+# Batch de um ato inteiro (sem video)
+node aulas/cirrose/scripts/qa-batch-screenshot.mjs --act A1
+```
+
+Output: `qa-screenshots/{id}/` → PNGs S0+S2 + `animation-1280x720.webm` + `metrics.json`.
+Re-rodar SEMPRE que houve mudanca de HTML/CSS/JS desde ultima captura.
+Script usa `__deckGoTo(index)` para navegacao direta (nunca ArrowRight entre slides).
+
+#### Passo 2 — Gate 0 (defect inspector)
+
+```bash
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
+# [checkpoint Lucas — aprovar Gate 0 antes de prosseguir]
+```
+
+#### Passo 3 — Gate 4 (editorial review)
+
+```bash
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
+
+# Com temperatura e output custom
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N --temp 0.8 --output custom.json
+```
+
+Input para Gemini (TUDO junto, extraido automaticamente):
 1. Raw HTML do slide — **ler do arquivo no momento do envio** (NUNCA copiar de prompt anterior)
-2. Raw CSS (seletores relevantes do cirrose.css) — **extrair live com grep/read**
-3. Raw JS (trecho do slide-registry.js para este slide) — **extrair live com grep/read**
-4. PNGs S0 (inicial) + S2 (final) — **so 2 estados, sem intermediarios. Capturar APOS as ultimas edicoes**
-5. Video .webm da navegacao real (Playwright nativo) — **regravar se houve mudanca de CSS/JS**
+2. Raw CSS (seletores relevantes do cirrose.css) — **extrair live**
+3. Raw JS (trecho do slide-registry.js para este slide) — **extrair live**
+4. PNGs S0 + S2 do passo 1
+5. Video .webm do passo 1
 
 **REGRA E42:** Raw code no prompt DEVE ser lido dos arquivos NO MOMENTO do envio.
 NUNCA reaproveitar prompt de rodada anterior sem re-extrair o codigo.
 Prompt com codigo stale = review invalido = dinheiro desperdicado.
-
-**Invocacao CLI** (gemini-qa3.mjs — canonico):
-
-```bash
-# Gate 4 editorial only
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --editorial --round 5
-
-# Com temperatura e output custom
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --editorial --round 5 --temp 0.8 --output custom.json
-```
 
 Auto-extrai HTML/CSS/JS dos arquivos (E42). Video enviado se existe no disco.
 Output: `qa-screenshots/{slide-id}/gemini-qa3-rN.md`. Round context: `qa-rounds/{slideId}.md`.
