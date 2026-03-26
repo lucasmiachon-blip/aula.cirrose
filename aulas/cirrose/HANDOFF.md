@@ -6,17 +6,12 @@
 
 ## Estado — 2026-03-25
 
-**Slides:** 44 buildados · **Build:** ✅ · **Lint:** ✅ · **Scaling:** ✅ · **CSS cascade:** ✅ (validate-css.sh)
-**Repo:** `aula.cirrose` (separado de Aulas 24/mar). Branch: `feat/cirrose-mvp`.
-**Standalone:** shared/ em `./shared/` (internalizado 22/mar). Sprint mode ate 31/mar.
-**Guardrails:** pre-commit (3 guards + lint) + evidence-db hooks + guard-generated (index.html) + guard-product-files (human-in-the-loop) + lint:gsap-race (CSS/GSAP race detector v1).
-**Dev helper:** `#slide-id-label` no deck.js — mostra ID do slide no canto superior esquerdo. Remover antes de producao.
-**Hooks fix (24-25/mar):** 3 bugs Windows corrigidos — (1) `set -euo pipefail` crashava guard-product-files (removido -e/-o, mantido -u); (2) node arg passando JSON >8KB crashava no Windows (trocado por stdin pipe); (3) `readFileSync('/dev/stdin')` crashava silenciosamente no Git Bash Windows (`/dev/stdin` nao existe → `ENOENT C:\dev\stdin`). Fix: `readFileSync(0)` (fd 0 = stdin, cross-platform). Backslash→forward slash normalization adicionada em todos os hooks com path matching.
-**CSS cascade fix (24/mar):** Import order corrigido `base → archetypes → cirrose` (E57). `.stage-bad .source-tag` unificado (E58). `scripts/validate-css.sh` criado.
-**QA:** `WT-OPERATING.md` (maquina de estados + Gemini pipeline). Gate 0 + Gate 4 via `scripts/gemini-qa3.mjs`. Gate 0 prompt corrigido (25/mar): "fundo escuro" → stage-c creme + slide-navy escuro.
-**QA scripts fix (25/mar):** `qa-batch-screenshot.mjs` corrigido: ArrowRight→`__deckGoTo`, S0+S2 only (sem intermediarios), naming `{slide}_{date}_{time}_{state}.png`, auto-delete PNGs antigos, `--video` flag para .webm. `gemini-qa3.mjs`: S1 removido do Gate 4, `findStatePng` suporta novo naming.
-**Gemini:** `gemini-3.1-pro-preview` SEMPRE. REST API. `--inspect` (Gate 0) · `--full` (Gate 0+4) · `--editorial` (Gate 4).
-**Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente. SCITE OAuth pendente.
+**Slides:** 44 buildados · **Build/Lint/Scaling/CSS cascade:** ✅
+**Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race.
+**Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
+**QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios.
+**Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
 ---
 
@@ -52,13 +47,16 @@
 
 ## Proxima sessao
 
-**TESTE:** Rodar Gate 0 + Gate 4 end-to-end em um slide (ex: s-a1-01) para validar que os scripts corrigidos funcionam. Comando:
+Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css path, s1 cleanup, --full removido, video obrigatorio.
+
+**Proximo:** QA pipeline completo em s-a1-01 — avaliar propostas Gemini R2, aplicar fixes aprovados, re-capturar, re-audit.
 ```bash
 npm run dev  # terminal separado
-node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-01 --video
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --full --round 1
+node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
+# [checkpoint Lucas]
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 ```
-Verificar: PNGs com naming novo, video .webm gravado, Gate 0 JSON, Gate 4 response.
 
 ---
 
@@ -74,15 +72,10 @@ Verificar: PNGs com naming novo, video .webm gravado, Gate 0 JSON, Gate 4 respon
 
 ## Backlog
 
-- engine.js `?qa=1` nao forca estado final de custom animations (workaround: Playwright evaluate). Custom anims sao state machines — forcar "ultimo estado" requer saber qual estado e o final.
-- ~~h2 assertivo fib4: Lucas decide no browser~~ → refatorado para hero-stat "Aplicando ao Antonio" (23/mar)
-- PDF export quebrado (DeckTape) — nao bloqueia congresso (projecao ao vivo)
-- Nomes de arquivo enganosos (ver slide-rules.md §7) — cosmetic, ID no manifest importa
-- ~~3 dead CSS selectors~~ → `.framework-box` e `.predict-bars` removidos (23/mar). `.etiology-table` viva (05-a1-infeccao.html)
-- Fontes woff2: Vite base condicional aplicado (23/mar). Testar `npm run dev` para confirmar @font-face resolve
-- qa-batch-screenshot.mjs so captura 1 estado (S0). Antes capturava S0/S1-mid/S2-final em 2 resolucoes — investigar pos-congresso
-- Playwright MCP nao navega deck.js (E56). Usar script Node standalone para screenshots de slides especificos
-- **GARGALO hooks exit 2:** `guard-generated.sh` parseia path corretamente e faz match, mas `exit 2` NAO bloqueia a tool no Windows. Hook roda, detecta `aulas/*/index.html`, imprime JSON error, faz exit 2 — Claude Code ignora e executa a edicao. Reproduzido 25/mar. `guard-product-files.sh` (sed-based) possivelmente mesmo problema. Investigar se e bug Claude Code Windows ou formato de output errado
+- engine.js `?qa=1` nao forca estado final de custom anims — workaround: Playwright evaluate
+- PDF export quebrado (DeckTape) — nao bloqueia congresso
+- Playwright MCP nao navega deck.js (E56) — usar script Node standalone
+- **GARGALO hooks exit 2:** `exit 2` nao bloqueia tool no Windows. Reproduzido 25/mar. Investigar bug Claude Code Windows
 
 ---
 

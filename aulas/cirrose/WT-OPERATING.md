@@ -179,10 +179,10 @@ Capturar screenshots e analisar:
 # Output (convencao de nomes — deletar PNGs antigos a cada round):
 # qa-screenshots/{slide-id}/
 #   {slide-id}_{YYYY-MM-DD}_{HHmm}_S0.png   ← estado apos entrada (animacoes completadas)
-#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S1.png   ← apos click-reveal 1 (se existir)
-#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S2.png   ← apos click-reveal 2 (se existir)
+#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S2.png   ← estado final (so se clickReveals > 0)
+#   animation-1280x720.webm                   ← video (--video flag)
 #   gate0.json                                ← output Gate 0 (sobrescreve a cada round)
-#   metrics.json                              ← bounding boxes (opcional)
+#   metrics.json                              ← bounding boxes
 ```
 
 Resolucao padrao: 1280x720 @2x (deviceScaleFactor: 2).
@@ -224,11 +224,13 @@ Threshold: todas 14 dims >= 9.
 **Comando:**
 
 ```bash
-# Gate 0 only (default)
+# Gate 0 (binário, PASS/FAIL)
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
 
-# Gate 0 → Gate 4 sequencial (bloqueia se MUST FAIL)
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --full --round N
+# [checkpoint Lucas — aprovar Gate 0]
+
+# Gate 4 (editorial, requer Gate 0 PASS)
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 ```
 
 **9 checks (6 MUST + 3 SHOULD):**
@@ -274,18 +276,15 @@ Prompt com codigo stale = review invalido = dinheiro desperdicado.
 # Gate 4 editorial only
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --editorial --round 5
 
-# Gate 0 → Gate 4 sequencial
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --full --round 5
-
 # Com temperatura e output custom
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-classify --editorial --round 5 --temp 0.8 --output custom.json
 ```
 
-Auto-extrai HTML (via `_manifest.js`), CSS (via `cirrose.css`), JS (via `slide-registry.js`).
-Output salvo em `qa-screenshots/{slide-id}/gemini-qa3-rN.md`.
-Papel: editor final (nao linter). Liberdade total. Resposta livre (nao JSON).
+Auto-extrai HTML/CSS/JS dos arquivos (E42). Video enviado se existe no disco.
+Output: `qa-screenshots/{slide-id}/gemini-qa3-rN.md`. Round context: `qa-rounds/{slideId}.md`.
+Gemini declara recibo dos materiais (video, PNGs, raw code) na primeira linha da resposta.
 
-**Output:** JSON do Gemini + interpretacao do agente.
+**Output:** Recibo + Scorecard (7 dims) + Propostas (1-5, code-first) do Gemini + interpretacao do agente.
 **→ CHECKPOINT:** apresentar ao Lucas. Lucas aprova/rejeita sugestoes Gemini individualmente.
 
 ### QA.4 — Fix + Re-Audit

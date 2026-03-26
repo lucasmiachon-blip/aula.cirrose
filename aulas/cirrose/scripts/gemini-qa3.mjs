@@ -3,11 +3,13 @@
  * Gemini QA pipeline — Gate 0 (defect inspector) + Gate 4 (editorial review).
  * Reads HTML/CSS/JS DYNAMICALLY from source files (E42 compliance).
  *
+ * WORKFLOW: Gate 0 e Gate 4 são invocações SEPARADAS.
+ *   O agente roda --inspect, apresenta resultado ao Lucas, e só roda --editorial após aprovação.
+ *
  * Usage:
- *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --inspect        # Gate 0 only (default)
- *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --full --round 5 # Gate 0 → Gate 4
- *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --editorial --round 5  # Gate 4 only
- *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --full --temp 0.8 --output custom.json --context "..."
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --inspect                    # Gate 0 only (default)
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --editorial --round 5         # Gate 4 only (após Gate 0 PASS)
+ *   node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-01 --editorial --round 5 --temp 0.8 --output custom.json --context "..."
  *
  * Requires: GEMINI_API_KEY env var
  */
@@ -40,8 +42,15 @@ const CONTEXT_PARAGRAPH = getArg('context', '');
 
 // --- Mode flags ---
 function hasFlag(name) { return args.includes(`--${name}`); }
-const MODE = hasFlag('full') ? 'full' : hasFlag('editorial') ? 'editorial' : 'inspect';
-const FORCE_VIDEO = hasFlag('with-video');
+const MODE = hasFlag('editorial') ? 'editorial' : 'inspect';
+
+if (hasFlag('full')) {
+  console.error('--full removido. Gate 0 e Gate 4 são invocações separadas.');
+  console.error('  1. node gemini-qa3.mjs --slide X --inspect          (Gate 0)');
+  console.error('  2. [checkpoint Lucas]');
+  console.error('  3. node gemini-qa3.mjs --slide X --editorial --round N  (Gate 4)');
+  process.exit(1);
+}
 
 // --- Gate 0 constants ---
 const REPO_ROOT = join(AULA_DIR, '..', '..');
@@ -116,7 +125,7 @@ function extractSlideCSS(slideId) {
 }
 
 function extractBaseTokens() {
-  const basePath = join(AULA_DIR, '..', '..', 'shared', 'css', 'base.css');
+  const basePath = join(AULA_DIR, 'shared', 'css', 'base.css');
   if (!existsSync(basePath)) return '/* base.css not found */';
   const css = readFileSync(basePath, 'utf8');
 
@@ -389,7 +398,7 @@ async function runGate0(slideId, qaDir) {
   if (gate0Result.must_pass === false) {
     console.log(`\n  GATE 0 FAIL — ${slideId}`);
     console.log(`  ${gate0Result.summary || '(no summary)'}`);
-    console.log(`  Corrigir defeitos antes de rodar QA editorial (--full ou --editorial).`);
+    console.log(`  Corrigir defeitos antes de rodar QA editorial (--editorial).`);
     console.log(`  Detalhes: ${outPath}`);
   } else {
     console.log(`\n  GATE 0 PASS — ${slideId}`);
@@ -579,51 +588,56 @@ ${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoe
 
 <task>
 
-5 passos NA ORDEM. Nao pule.
+4 passos. Direto ao ponto, sem elogio generico.
 
-### Passo 1 — OLHAR + OBSERVAR (max 150 palavras, seja cirurgico)
-Video (se houver) → PNGs → codigo. Escreva \`## Observacao\`:
-- O que funciona (MECANISMO) e o que incomoda (MECANISMO)
-- "Se eu so pudesse mudar UMA coisa?"
+### 0. RECIBO (obrigatorio, 1 linha)
+Declarar exatamente o que recebeu. Formato:
+\`Recebi: [VIDEO .webm | sem video] · [PNG S0 | sem S0] · [PNG S2 | sem S2] · [HTML + CSS + JS raw]\`
 
-### Passo 2 — SCORECARD (7 dimensoes, notas 1-10)
-| Dimensao | Nota |
-|----------|------|
+### 1. IMPRESSAO (max 3 frases)
+Video (se houver) PRIMEIRO → PNGs → codigo.
+O que funciona, o que incomoda, e UMA coisa que mudaria primeiro.
+
+### 2. SCORECARD (7 dimensoes)
+
+| Dim | Nota |
+|-----|------|
 | Tipografia e hierarquia | ?/10 |
 | Cor, contraste e superficie | ?/10 |
 | Composicao e respiro | ?/10 |
-| Motion e interacoes GSAP | ?/10 |
+| Motion e timing | ?/10 |
 | Legibilidade a 5m | ?/10 |
 | Impacto emocional | ?/10 |
 | Craft front-end | ?/10 |
 | **MEDIA** | ?/10 |
 
-Justificar APENAS scores <=5. Scores >=6 nao precisam de justificativa.
+Justificar EM 1 FRASE scores <=7. Scores >=8 sem justificativa.
+Se video foi anexado: nota Motion DEVE refletir o que ASSISTIU (ritmo, easing, timing).
+Se nao assistiu video: declarar "nota baseada em codigo, sem video".
 
-### Passo 3 — PROPOSTAS (3-5 max)
-Para cada proposta:
+### 3. PROPOSTAS (1 a 5)
+Formato por proposta:
+
+**P1 [MUST|SHOULD|COULD]: titulo curto**
+Razao: 1 frase com mecanismo perceptual/cognitivo concreto.
+\`\`\`css
+/* arquivo: cirrose.css */
+.selector { propriedade: valor-novo; }
 \`\`\`
-### Proposta N: [titulo]
-**O que** — issue ou oportunidade
-**Por que** — mecanismo perceptual/cognitivo (NUNCA "fica melhor")
-**Como** — snippet CSS/JS/HTML pronto para copiar
-**Prioridade** — MUST (bloqueia nivel 4) | SHOULD (4→5) | COULD (polish)
-\`\`\`
 
-Inclua pelo menos 1 proposta RADICAL (ousada, pode ser recusada). Marque com **[RADICAL]**.
-
-### Passo 4 — AUTOCRITICA
-Revise suas propostas: contradiz outra? API GSAP incorreta? Sacrifica legibilidade a 5m? Repete ROUND CONTEXT? Se sim, corrija.
-
-### Passo 5 — SCORE PROJETADO
-Se MUST+SHOULD implementados, qual seria o novo scorecard? Preencha tabela projetada.
+Regras das propostas:
+- Snippet DEVE ser copiavel direto. Indicar arquivo (cirrose.css, HTML, slide-registry.js).
+- MUST = defeito funcional ou legibilidade. SHOULD = melhoria perceptual concreta. COULD = polish/craft.
+- Se a mudanca e JS/GSAP, dar o trecho exato com label da timeline e seletor.
+- Pelo menos 1 proposta pode ser RADICAL (ousada, marcar como **[RADICAL]**).
+- NAO repetir sugestoes do ROUND CONTEXT ja implementadas.
 
 </task>
 
 <constraints>
-Nao quero: checklist PASS/FAIL, elogios genericos, patterns de web, sugestoes timidas, accessibility theater, ignorar o video.
-Tom: direto, honesto, PT-BR, codigo em ingles. Max 2000 tokens.
-PREZE pela legibilidade a 5m — slide DEVE ser legivel, nao so bonito.
+Max 1500 tokens total. Sem autocritica, sem score projetado.
+Tom: direto, honesto, PT-BR, codigo em ingles.
+Legibilidade a 5m e prioridade #1 — slide bonito mas ilegivel = FAIL.
 Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
 </constraints>`;
 
@@ -661,10 +675,8 @@ async function runEditorial(slideId, round, qaDir) {
   const s0Path = findStatePng(qaDir, 'S0');
   const s2Path = findStatePng(qaDir, 'S2');
 
-  // Skip video on R1 unless --with-video (saves ~2K tokens + upload time)
-  const skipVideo = round <= 1 && !FORCE_VIDEO;
-  if (skipVideo) console.log('  Video skipped (R1 — use --with-video to override)');
-  const video = skipVideo ? null : await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
+  // Video é obrigatório se existe no disco. Sem skip.
+  const video = await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
   const s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
   const s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
 
@@ -734,7 +746,11 @@ async function runEditorial(slideId, round, qaDir) {
   console.log('\n4. Appending round summary...');
   const scoreMatch = text.match(/\*\*M[EÉ]DIA\*\*\s*\|\s*\*?\*?([\d.]+)/i);
   const score = scoreMatch ? scoreMatch[1] + '/10' : '?/10';
-  const proposalMatches = [...text.matchAll(/###\s*Proposta\s*\d+[:\s]*([^\n]+)/gi)];
+  // Match both old format (### Proposta N: ...) and new format (**P1 [MUST]: ...**)
+  const proposalMatches = [
+    ...text.matchAll(/###\s*Proposta\s*\d+[:\s]*([^\n]+)/gi),
+    ...text.matchAll(/\*\*P\d+\s*\[(?:MUST|SHOULD|COULD)\][:\s]*([^\n*]+)/gi),
+  ];
   const proposals = proposalMatches.length > 0
     ? proposalMatches.map(m => m[1].trim())
     : ['(parse proposals manually from response)'];
@@ -742,7 +758,7 @@ async function runEditorial(slideId, round, qaDir) {
 
   // Cleanup uploaded files
   console.log('\n5. Cleaning up uploads...');
-  for (const f of [video, s0, s1, s2].filter(Boolean)) {
+  for (const f of [video, s0, s2].filter(Boolean)) {
     try {
       await fetch(`${BASE}/v1beta/${f.name}?key=${API_KEY}`, { method: 'DELETE' });
     } catch (_) {}
@@ -754,21 +770,27 @@ async function runEditorial(slideId, round, qaDir) {
 async function main() {
   console.log(`Mode: ${MODE} | Slide: ${SLIDE_ID} | Model: ${MODEL}\n`);
 
-  // Gate 0: Defect inspection
-  if (MODE === 'inspect' || MODE === 'full') {
+  if (MODE === 'inspect') {
     const gate0Result = await runGate0(SLIDE_ID, QA_DIR);
-
-    if (gate0Result.must_pass === false) {
-      process.exit(1);
-    }
-
-    if (MODE === 'inspect') {
-      process.exit(0);
-    }
+    process.exit(gate0Result.must_pass === false ? 1 : 0);
   }
 
-  // Gate 4: Editorial review
-  if (MODE === 'editorial' || MODE === 'full') {
+  if (MODE === 'editorial') {
+    // Check Gate 0 status before running Gate 4
+    const gate0Path = join(QA_DIR, 'gate0.json');
+    if (existsSync(gate0Path)) {
+      const gate0 = JSON.parse(readFileSync(gate0Path, 'utf8'));
+      if (gate0.must_pass === false) {
+        console.error(`BLOQUEADO: Gate 0 FAIL para ${SLIDE_ID}. Corrigir defeitos antes.`);
+        console.error(`  Detalhes: ${gate0Path}`);
+        console.error(`  Use --inspect para re-rodar Gate 0 após correções.`);
+        process.exit(1);
+      }
+      console.log(`Gate 0: PASS (${gate0Path})\n`);
+    } else {
+      console.warn(`AVISO: Gate 0 não encontrado para ${SLIDE_ID}. Rode --inspect primeiro.`);
+      console.warn(`  Continuando por aprovação implícita do operador.\n`);
+    }
     await runEditorial(SLIDE_ID, ROUND, QA_DIR);
   }
 }

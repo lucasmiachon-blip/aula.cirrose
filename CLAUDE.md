@@ -129,9 +129,9 @@ Input: raw HTML + raw CSS + raw JS + PNGs S0/S2 + video .webm curto da navegaç�
 Gemini NUNCA edita arquivos — só produz sugestões. Spec completa: `WT-OPERATING.md` §4 QA.3.
 
 ```bash
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect        # Gate 0
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --full --round N  # Gate 0+4
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N  # Gate 4
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect                    # Gate 0
+# [checkpoint Lucas — aprovar Gate 0]
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N        # Gate 4 (requer Gate 0 PASS)
 ```
 
 Score < 7 → registrar problema, aguardar decisão de Lucas.
