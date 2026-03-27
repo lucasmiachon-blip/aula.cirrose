@@ -262,26 +262,26 @@ Obs: (1) ~~Fill 196%~~ Corrigido 15/mar: era-sources redundantes removidos (PMID
 ### s-a1-baveno (03-a1-baveno.html)
 
 **Headline:** Doença hepática avançada é espectro, não diagnóstico binário
-**Refatorado:** 26/mar/2026 — state machine: auto dissolve + click PREDESCI. Source-tag removido.
+**Refatorado:** 27/mar/2026 — R4 grid 3-col (0,51 centrado), font fix DM Sans, p=0,041 adicionado, PMIDs em source-tag.
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
 | H   | 8    | Paradigm shift (old→new). Espectro cACLD/dACLD + PREDESCI lockup (HR hero) |
-| T   | 8    | Paradigm terms proporcionais. PREDESCI hero 86px. Ref caption |
-| E   | 7    | Fill ~65% S0 → ~83% S2 (metrics.json). Espaco intencional para lockup |
+| T   | 8    | Paradigm terms DM Sans (fix A glyph). PREDESCI hero 86px. Label maior. HR · p=0,041 |
+| E   | 8    | Grid 3-col: 0,51 centrado no eixo da barra. Fill ~65% S0 → ~85% S2 |
 | C   | 7    | Espectro --safe/--danger. PREDESCI header --safe. Verificar tom/contraste |
 | V   | 8    | SplitText dissolve + gradient bar + PREDESCI card. Dados = visual |
 | K   | 8    | archetype-hero-stat. PREDESCI lockup reutilizado de classify |
 | S   | 8    | SplitText dissolve. OKLCH. autoComplete guard. GSAP transitions |
 | M   | 8    | h2 assercao. 1 linha. ~21 palavras corpo. Claro |
 | I   | 7    | 1 clickReveal (PREDESCI). autoComplete bloqueia click durante dissolve |
-| D   | 8    | 2 PMIDs nos notes (35120736, 30910320). [DATA] tags. PMID correto pendente |
+| D   | 9    | PMIDs em source-tag + notes. p=0,041 verificado PubMed. HR 0,51 IC 0,26-0,97 |
 | A   | 7    | Espectro bar + lockup. aria-hidden em paradigm-old/bar |
 | L   | 8    | 2 conceitos (paradigma + intervenção) bem separados por click |
 | P   | 8    | Paradigm shift relevante. PREDESCI = "intervir muda desfecho" |
 | N   | 8    | Setup role. tensionLevel=1. Headline confere com narrative.md |
 
-Obs: (1) SplitText dissolve = animação de referência do deck. (2) Único slide com tensionLevel=1 no Act 1 — pausa narrativa intencional. (3) autoComplete guard = UX fix (click durante dissolve era bug). (4) Gate 4 Gemini R1 5.4, R2 4.7 — scores baixos por limitação do screenshot script (PREDESCI não aparece nos PNGs por timing). (5) PMID PREDESCI nos notes: 31584562 diverge de evidence-db 30910320 — correção pendente.
+Obs: (1) SplitText dissolve = animação de referência do deck. (2) Único slide com tensionLevel=1 no Act 1 — pausa narrativa intencional. (3) autoComplete guard = UX fix (click durante dissolve era bug). (4) R4 grid 3-col fix: display:contents promove value/meta ao grid, ancora 0,51 no eixo vertical da barra. (5) Gate 4 R3-R5: scores Gemini 6.2→5.3 (criticas repetidas sobre barra/timing; gradiente existe no CSS global). (6) p=0,041 verificado via PubMed PMID 30910320.
 
 ### s-a1-fib4 (03b-a1-fib4calc.html)
 

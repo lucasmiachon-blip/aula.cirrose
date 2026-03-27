@@ -51,3 +51,33 @@ Propostas:
 - P2: Escala e Peso do Dado Hero PREDESCI
 - P3: Reconstrução Funcional da Barra de Espectro
 Status: PENDENTE — preencher manualmente
+
+
+## Round 3 Gate 4 (2026-03-27)
+
+Score: 6.2/10
+Propostas:
+- P1: Consistência Tipográfica Estrita do Título (Correção vs REF)
+- P2: Materialização e Escala do Espectro (Missing CSS)
+- P3: Peso Dramático para o "Termo Obsoleto" (S0)
+Status: PENDENTE — preencher manualmente
+
+
+## Round 4 Gate 4 (2026-03-27)
+
+Score: 6.1/10
+Propostas:
+- P1: Reconstrução Estrutural do Lockup (Consertando o Eixo)
+- P2: Materialização Visual da Barra de Espectro
+- P3: Gravidade Dramática para o Termo Obsoleto (S0)
+Status: PENDENTE — preencher manualmente
+
+
+## Round 5 Gate 4 (2026-03-27)
+
+Score: 5.3/10
+Propostas:
+- P1: Eliminação do Buraco Negro Temporal (GSAP Fix)
+- P2: Correção Arquitetônica do Grid Vertical
+- P3: Cura da Lama Cromática e Alinhamento do Espectro
+Status: PENDENTE — preencher manualmente
