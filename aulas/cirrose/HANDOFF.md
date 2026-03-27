@@ -23,18 +23,17 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | QA | R12. Gate 0 PASS. Gate 4 R7 score 8.5/10. **Source-tag centering: DEFERRED.** Root cause: `padding:0 210px 0 0` no `.slide-inner` desloca center ~105px. Tentativas R8 (27/mar): position:absolute, remocao override, inline — nenhuma resolveu visualmente. Gemini cascade analysis confirmou causa (specificity 2,1,0 vs grid padding assimetrico). Aceitar como-esta ou refatorar layout inteiro do slide. |
-| 4 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. sourceTag declarado + reset defensivo gsap.set opacity:0. QA pendente. |
-| 5 | s-a1-baveno | CONTENT | 27/mar: headline atualizada ("O novo paradigma: doença hepática como espectro"), justify-content:flex-start + padding-top:48px. State machine refatorada (26/mar). **NAO VERIFICADO NO BROWSER** — testar animacao completa. PMID notes: 31584562→30910320 pendente. |
+| 3 | s-a1-01 | QA | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED (padding assimetrico). |
+| 4 | s-a1-classify | QA | Gate 0 PASS. Gate 4 R5. h2 42px, flex-start, badge editorial, ScrambleText removido. Recapturar + Gate 4 final pendente. |
+| 5 | s-a1-baveno | CONTENT | State machine OK. Testar animacao no browser + Gate 0/4 pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 2 DONE · 1 QA · 41 CONTENT
-**QA Act 1:** s-a1-01 em QA (Gate 0 PASS, Gate 4 R7 score 8.5/10, source-tag centering pendente). Demais slides: fixes aplicados, Gate 4 pendente.
-**Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag: GSAP opacity corrigido de 0.6→1, font-size clamp(16-20px), `color-mix()` hue interpolation bug documentado (E59).
+**Resumo:** 2 DONE · 2 QA · 40 CONTENT
+**QA Act 1:** s-a1-01 (R7 8.5/10), s-a1-classify (R5, recapturar pendente). Proximo: s-a1-baveno.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -47,29 +46,16 @@
 
 ## Proxima sessao
 
-Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css path, s1 cleanup, --full removido, video obrigatorio.
-
-**Docs cleanup (26/mar):** Audit + cleanup executados. 3 arquivos arquivados (HANDOFF-CLAUDE-AI, CHANGELOG root, ERROR-LOG root). XREF ghost refs removidos. Monorepo remnants renomeados. WT-OPERATING mandato corrigido (on-demand). CHANGELOG 1295→153L. NOTES 426→142L. Audit completo: `docs/DOCS-RATIONALIZATION-AUDIT.md`.
-
-**Proximo:** s-a1-01 source-tag: DEFERRED (aceito como-esta). s-a1-baveno: verificar no browser + Gate 0/4. Demais Act 1: slide a slide.
-```bash
-npm run dev  # terminal separado
-node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
-# [checkpoint Lucas]
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
-```
+**Proximo:** s-a1-classify recapturar + Gate 4 final. s-a1-baveno: browser test + Gate 0/4. Demais Act 1: slide a slide.
 
 ---
 
 ## Caminho critico
 
-1. **s-a1-01** — Gate 4 R7 score 8.5. Source-tag centering DEFERRED. Demais propostas (divider, glow dots) backlog
-2. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
-3. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 0/4 pendente — **PROXIMO**
-4. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
-4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide
-5. **Act 2 → Act 3** — apos Act 1 DONE
+1. **s-a1-classify** — Recapturar screenshots + Gate 4 final — **PROXIMO**
+2. **s-a1-baveno** — Browser test + Gate 0/4
+3. **s-a1-vote → s-cp1** — sequencia manifest, slide a slide
+4. **Act 2 → Act 3** — apos Act 1 DONE
 
 ---
 

@@ -2112,31 +2112,35 @@ section#s-a1-01 .slide-inner {
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 #s-a1-classify .slide-inner.archetype-hero-stat {
+  align-items: flex-start;
   justify-content: flex-start;
-  padding-top: 24px;
+  text-align: left;
+  padding-top: 32px;
   padding-bottom: 8px;
-  gap: 0.35rem;
+  gap: 0;
 }
-#s-a1-classify .section-tag + .slide-headline { margin-top: var(--space-xs); }
-#s-a1-classify .section-tag { margin-bottom: 0; }
+#s-a1-classify .section-tag + .slide-headline { margin-top: var(--space-sm); }
+#s-a1-classify .section-tag { margin-bottom: 0; letter-spacing: 0.15em; }
 #s-a1-classify .slide-headline {
   font-family: var(--font-display);
-  font-size: 28px;
-  margin-bottom: 0;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
+  font-weight: 400;
+  font-size: 42px;
+  margin-top: 0;
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
 /* ── s-a1-classify: shared axis (P1 R8 — Gestalt Continuity) ── */
 /* All blocks share --col-icon width for vertical alignment */
-#s-a1-classify { --col-icon: 28px; --col-bar: 4px; }
+#s-a1-classify { --col-icon: 48px; --col-bar: 4px; }
 
 .classify-assertions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
 }
 
 .classify-card {
@@ -2144,7 +2148,7 @@ section#s-a1-01 .slide-inner {
   grid-template-columns: var(--col-icon) 1fr auto;
   align-items: center;
   gap: 0 12px;
-  padding: 14px 20px;
+  padding: 16px 24px;
   background: oklch(100% 0 0);
   border-radius: var(--radius-md);
   box-shadow: inset 4px 0 0 0 var(--border), 0 4px 12px oklch(0% 0 0 / 0.03);
@@ -2193,12 +2197,13 @@ section#s-a1-01 .slide-inner {
 .classify-further-decomp {
   display: grid;
   grid-template-columns: var(--col-icon) 1fr auto;
-  gap: 0 12px;
-  align-items: start;
-  padding: var(--space-sm) 0 var(--space-sm) 20px;
-  border-top: 1px dashed var(--danger);
+  gap: var(--space-md);
+  align-items: center;
+  padding: var(--space-sm) 0 var(--space-sm) 24px;
+  border-top: none;
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
+  margin-top: var(--space-lg);
 }
 
 .classify-further-arrow {
@@ -2206,7 +2211,6 @@ section#s-a1-01 .slide-inner {
   width: 24px;
   height: 32px;
   justify-self: center;
-  margin-top: 2px;
 }
 
 .classify-further-body {
@@ -2221,6 +2225,7 @@ section#s-a1-01 .slide-inner {
   font-size: var(--text-small);
   color: var(--text-primary);
   margin: 0;
+  max-width: 45ch;
 }
 
 .classify-further-text strong {
@@ -2231,16 +2236,17 @@ section#s-a1-01 .slide-inner {
 .badge-fatal {
   display: inline-flex;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: oklch(95% 0 0);
-  background: var(--danger);
-  padding: 4px 12px;
-  border-radius: 4px;
+  color: var(--danger);
+  background: var(--danger-light);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in oklch, var(--danger) 30%, transparent);
   transform-origin: left center;
-  box-shadow: 0 0 12px color-mix(in oklch, var(--danger) 40%, transparent);
+  box-shadow: none;
 }
 
 .classify-further-source {

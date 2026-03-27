@@ -249,20 +249,17 @@ export const customAnimations = {
   's-a1-classify': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
 
-    gsap.registerPlugin(ScrambleTextPlugin, DrawSVGPlugin, MorphSVGPlugin);
+    gsap.registerPlugin(DrawSVGPlugin);
 
     let state = 0;
     const maxState = 2;
 
     const cards = slide.querySelectorAll('.classify-card');
     const furtherDecomp = slide.querySelector('.classify-further-decomp');
-    const furtherStrong = slide.querySelector('.classify-further-text strong');
     const furtherPath = slide.querySelector('.classify-further-path');
     const badgeFatal = slide.querySelector('.badge-fatal');
-    // MorphSVG elements (Radical: ✕ transforms into arrow)
-    const dangerXMorph = slide.querySelector('.danger-x-morph');
-    const dangerXFade = slide.querySelector('.danger-x-fade');
-    const dangerIconSvg = dangerXMorph?.closest('svg');
+    const dangerIconSvg = slide.querySelector('.classify-card--danger .classify-card-icon--svg');
+    const dangerText = slide.querySelector('.classify-card--danger .classify-card-assertion');
     const sourceTag = slide.querySelector('.source-tag');
 
     // Initial hidden states (P4: 3D perspective — cards "land" instead of float)
@@ -282,42 +279,22 @@ export const customAnimations = {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
-        // Chained timeline: icon morph → arrow draw → scramble → badge
+        // Chained timeline: icon collapse → further decomp enters → badge
         const tl1 = gsap.timeline();
 
-        // Phase 1: Danger ✕ pulses — triggers the fall
+        // Phase 1: Danger ✕ collapses + text slides to fill void
         if (dangerIconSvg) {
-          tl1.to(dangerIconSvg, { scale: 1.4, duration: 0.25, ease: 'power2.out' });
-          // Second X line fades, first morphs into arrow shape
-          if (dangerXFade) tl1.to(dangerXFade, { opacity: 0, duration: 0.3 }, '<0.1');
-          if (dangerXMorph) {
-            tl1.to(dangerXMorph, {
-              morphSVG: 'M4,2 L4,18 Q4,22 8,22 L18,22',
-              duration: 0.7, ease: 'power2.inOut'
-            }, '<0.1');
-          }
-          // Icon dissolves downward
-          tl1.to(dangerIconSvg, {
-            y: 20, opacity: 0, scale: 0.7,
-            duration: 0.4, ease: 'power2.in'
-          }, '-=0.2');
+          tl1.to(dangerIconSvg, { scale: 0, rotation: -45, opacity: 0, duration: 0.35, ease: 'back.in(2)' });
+          if (dangerText) tl1.to(dangerText, { x: -32, duration: 0.5, ease: 'power3.out' }, '<0.1');
         }
 
         // Phase 2: Further decomp block enters + arrow draws
-        tl1.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, dangerIconSvg ? '-=0.3' : 0);
+        tl1.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '+=0.05');
         if (furtherPath) {
           tl1.to(furtherPath, { drawSVG: '100%', duration: 0.6, ease: 'power2.inOut' }, '<0.1');
         }
 
-        // Phase 3: ScrambleText — clinical discomfort
-        if (furtherStrong) {
-          tl1.to(furtherStrong, {
-            scrambleText: { text: 'further decompensation', chars: '░▒▓█▄▀', speed: 0.8 },
-            duration: 0.8, ease: 'none'
-          }, '-=0.3');
-        }
-
-        // Phase 4: Badge punches in AFTER scramble resolves
+        // Phase 3: Badge punches in after arrow draw
         if (badgeFatal) {
           tl1.fromTo(badgeFatal,
             { opacity: 0, scale: 0.5, x: -8 },
@@ -337,10 +314,8 @@ export const customAnimations = {
         gsap.to(furtherDecomp, { opacity: 0, y: 8, duration: 0.3 });
         if (furtherPath) gsap.to(furtherPath, { drawSVG: '0%', duration: 0.3 });
         if (badgeFatal) gsap.to(badgeFatal, { opacity: 0, scale: 0.5, x: -8, duration: 0.2 });
-        // Reverse MorphSVG: restore ✕ icon
-        if (dangerXMorph) gsap.to(dangerXMorph, { morphSVG: 'M6,6 L18,18', duration: 0.3 });
-        if (dangerXFade) gsap.to(dangerXFade, { opacity: 1, duration: 0.3 });
-        if (dangerIconSvg) gsap.to(dangerIconSvg, { y: 0, opacity: 1, scale: 1, duration: 0.3 });
+        if (dangerIconSvg) gsap.to(dangerIconSvg, { scale: 1, rotation: 0, opacity: 1, duration: 0.3, ease: 'power2.out' });
+        if (dangerText) gsap.to(dangerText, { x: 0, duration: 0.3, ease: 'power2.out' });
       } else if (state === 2) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }

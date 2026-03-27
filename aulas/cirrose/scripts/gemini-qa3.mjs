@@ -40,6 +40,7 @@ const CUSTOM_OUTPUT = getArg('output', null);
 const CUSTOM_TEMP = getArg('temp', null);
 const CONTEXT_PARAGRAPH = getArg('context', '');
 const DIAGNOSTIC = getArg('diagnostic', '');
+const REF_SLIDE = getArg('ref-slide', null);
 
 // --- Mode flags ---
 function hasFlag(name) { return args.includes(`--${name}`); }
@@ -620,6 +621,7 @@ ${extractGlobalClassCSS(DIAGNOSTIC.split(/[\s:,]/)[0].replace('.', '') || 'sourc
 ${mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)'}
 ${mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)'}
 ${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoes completadas)' : '(sem S2)'}
+${mediaUris.ref ? `4. PNG REF — slide ANTERIOR (${mediaUris.refSlideId}) estado final. Use como REFERENCIA para alinhamento, consistencia tipografica e spacing cross-slide.` : ''}
 
 </materials>
 
@@ -627,9 +629,16 @@ ${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoe
 
 4 passos. Direto ao ponto, sem elogio generico.
 
-### 0. RECIBO (obrigatorio, 1 linha)
-Declarar exatamente o que recebeu E conformidade. Formato:
-\`Recebi: [VIDEO .webm | sem video] · [PNG S0 | sem S0] · [PNG S2 | sem S2] · [HTML + CSS + JS raw] | Conformidade: guardrails respeitados, round context lido\`
+### 0. RECIBO E AVALIAÇÃO POR MATERIAL (obrigatório)
+Declarar o que recebeu E como avaliou CADA material individualmente. Formato:
+\`Recebi: [VIDEO .webm | sem video] · [PNG S0 | sem S0] · [PNG S2 | sem S2] · [PNG REF | sem REF] · [HTML + CSS + JS raw] | Conformidade: guardrails respeitados, round context lido\`
+
+Avaliacao por material (1 frase cada):
+- **VIDEO:** O que o video revelou sobre ritmo, easing, timing? Algo que os PNGs nao mostram?
+- **PNG S0:** Estado inicial — o que funciona, o que nao funciona?
+- **PNG S2:** Estado final — todos elementos visiveis? Legibilidade? Respiro?
+- **PNG REF:** (se presente) Comparacao direta com o slide anterior — alinhamentos, consistencia tipografica, spacing?
+- **RAW CODE:** O que o HTML/CSS/JS revelou que as imagens nao mostram (specificity, overrides, animacoes ocultas)?
 
 ### 1. IMPRESSAO (max 3 frases)
 Video (se houver) PRIMEIRO → PNGs → codigo.
@@ -693,6 +702,7 @@ Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
   if (mediaUris.video) parts.push({ fileData: { mimeType: 'video/webm', fileUri: mediaUris.video } });
   if (mediaUris.s0) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s0 } });
   if (mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
+  if (mediaUris.ref) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.ref } });
 
   return {
     contents: [{ parts }],
@@ -727,6 +737,19 @@ async function runEditorial(slideId, round, qaDir) {
   const s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
   const s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
 
+  // Reference slide PNG (--ref-slide): upload final state for cross-slide consistency check
+  let refPng = null;
+  if (REF_SLIDE) {
+    const refQaDir = join(AULA_DIR, 'qa-screenshots', REF_SLIDE);
+    const refPath = findStatePng(refQaDir, 'S2') || findStatePng(refQaDir, 'S0');
+    if (refPath) {
+      refPng = await uploadFile(refPath, 'image/png', `${REF_SLIDE}-ref-final`);
+      console.log(`  Reference slide: ${REF_SLIDE} (${refPath})`);
+    } else {
+      console.warn(`  WARN: no PNG found for ref-slide ${REF_SLIDE}`);
+    }
+  }
+
   // Wait for video processing
   if (video?.state === 'PROCESSING') {
     process.stdout.write('  Waiting for video processing');
@@ -740,6 +763,8 @@ async function runEditorial(slideId, round, qaDir) {
     video: video?.uri,
     s0: s0?.uri,
     s2: s2?.uri,
+    ref: refPng?.uri,
+    refSlideId: REF_SLIDE,
   };
   const payload = buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);
 
@@ -805,7 +830,7 @@ async function runEditorial(slideId, round, qaDir) {
 
   // Cleanup uploaded files
   console.log('\n5. Cleaning up uploads...');
-  for (const f of [video, s0, s2].filter(Boolean)) {
+  for (const f of [video, s0, s2, refPng].filter(Boolean)) {
     try {
       await fetch(`${BASE}/v1beta/${f.name}?key=${API_KEY}`, { method: 'DELETE' });
     } catch (_) {}

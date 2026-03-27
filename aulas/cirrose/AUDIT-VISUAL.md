@@ -191,26 +191,27 @@ Obs: (1) h2 "Por que rastrear?" = setup retorico intencional (Lucas 25/mar). Her
 
 ### s-a1-classify (02c-a1-classify.html)
 
-**Headline:** O estadiamento está fortemente associado ao prognóstico
+**Headline:** Estadiamento × Prognóstico
+**QA:** Gate 0 PASS (R5). Gate 4 R5 parcial (Gemini truncou). Recapturar pendente apos CSS R5.
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 9    | Section tag → headline → patient → PREDESCI hero → 3 cards → further decomp. Hierarquia visual clara |
-| T   | 9    | Mono para numeros, body para texto, pesos corretos. Caption para sources |
-| E   | 9    | Fill 82%. Flex column. Cards compactos (gap 6px, padding 8px). Sem clipping. Breathing room adequado |
-| C   | 9    | 13/13 pares contraste PASS (min 6:1 sec, 4.5:1 pri). Warning icon corrigido para --warning-on-light (7.03:1) |
-| V   | 9    | 3 cards color-coded + callout further decomp + PREDESCI HR highlight. Sem decoracao gratuita |
-| K   | 9    | archetype-hero-stat. Padrao de cards consistente. Cores seguem design system semantico |
-| S   | 9    | Source-tag click-reveal. Stagger cards. OKLCH tokens. Section-tag visivel. Sem AI markers |
-| M   | 10   | h2 assercao prognostica. 3 cards provam com mortalidade. safe→warning→danger = historia completa |
-| I   | 9    | 1 clickReveal (source). Stagger auto + further decomp delayed + PREDESCI fade |
-| D   | 10   | 3 PMIDs (30910320, 16298014, 37916970). HR com IC95%. n=2.028. [DATA] tags verificados |
-| A   | 9    | Icones reforçam cor (✓⚠✕). Warning icon 7.03:1. Todos pares ≥6:1 |
-| L   | 9    | 3 cards chunking (Cowan 4±1). Further decomp separado = 2 conceitos claros. PREDESCI nao compete |
-| P   | 9    | Estadiamento muda prognostico = decisao clinica. Cards mostram desfecho. Caso ancora (FIB-4 5,91) |
-| N   | 9    | Setup role. tensionLevel=2. safe→danger + further decomp = tensao crescente. PREDESCI = resolucao |
+| H   | 9    | Section tag → headline → 3 cards → further decomp. flex-start, padding-top 32px, alinhado c/ s-a1-01 |
+| T   | 9    | h2 42px Instrument Serif 400 (paralelo s-a1-01). Mono hero, body DM Sans, caption sources |
+| E   | 9    | Fill ~80%. Cards gap:16px pad:16px 24px, max-width 900px. Sem clipping |
+| C   | 9    | 13/13 pares PASS (≥4.5:1). Badge-fatal editorial (danger-light bg, danger text, 1px border) |
+| V   | 9    | 3 cards color-coded + further decomp grid (icon 48px + bar 4px + text). Sem decoracao |
+| K   | 9    | archetype-hero-stat. Padrao cards+grid consistente. --col-icon:48px compartilhado |
+| S   | 9    | Source-tag, stagger, OKLCH tokens. ScrambleText removido (era ruim). Sem AI markers |
+| M   | 10   | h2 assercao. 3 cards provam com mortalidade. safe→warning→danger = historia completa |
+| I   | 9    | 1 clickReveal (source). Stagger auto + further decomp collapse (back.in). Retreat OK |
+| D   | 10   | D'Amico 2006 (PMID 16298014) + D'Amico 2024 (PMID 37916970) no source-tag. Inline removido |
+| A   | 9    | Icones ✓⚠✕ reforçam cor. Warning 7.03:1. Todos pares ≥6:1 |
+| L   | 9    | 3 cards (Cowan). Further decomp separado. PREDESCI removido (movido p/ baveno) |
+| P   | 9    | Estadiamento → prognostico = decisao clinica. Caso ancora (FIB-4 5,91) |
+| N   | 9    | Setup. tensionLevel=2. Precede baveno (paradigma). Narrativa: classificar antes de intervir |
 
-Obs: (1) Redesign 17/mar: D'Amico protagonista, PREDESCI suporte (era hero). (2) Further decomp callout separado (D'Amico 2024 n=2.028). (3) MELD calc removido do panel (pertence a s-a1-meld). (4) HDA varicosa removido dos cards (57% e mortalidade aguda, nao anual comparavel). (5) QA polish 17/mar: warning icon --warning→--warning-on-light (E15, 3.77→7.03:1). Gate 1+2+3 PASS.
+Obs: (1) 27/mar R1-R5: h2 56→42px, center→flex-start, badge-fatal editorial, ScrambleText removido, MorphSVG→collapse simples. (2) PREDESCI movido p/ baveno. (3) D'Amico inline removido do corpo, PMIDs no source-tag. (4) --ref-slide adicionado ao gemini-qa3.mjs para cross-slide consistency.
 
 ### s-a1-vote (02d-a1-vote.html)
 
