@@ -72,28 +72,28 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **s-a1-classify nota:** D'Amico é protagonista (3 cards mortalidade por estágio + further decomp callout). PREDESCI removido (agora em baveno).
 - **s-a1-damico nota:** D'Amico abrange 2006→2014→2024 (4→5→6 estágios + further decomp). Inclui pathway visual.
 
-### ATO 2 — INTERVIR (slides 11-27)
+### ATO 2 — INTERVIR (slides 10-25)
 
 > **Reescrito 08/mar/2026.** Cascata clínica do mesmo paciente: compensado → gatilho → descompensações sequenciais → ACLF → MELD 28. Cada slide = um evento clínico do Antônio + conduta baseada em evidência. Não é lista de tópicos.
 
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
-| 11 | s-a2-01 | Descompensação tem gatilho identificável na maioria dos casos — infecção, álcool e não-adesão lideram | **Transição**: compensada ≠ estável. Antônio manteve etilismo + abandonou NSBB. | ●○○○○ |
-| 12 | s-a2-02 | Ascite nova = paracentese ≤12h. GASA >1,1 confirma portal | **1º golpe**: Antônio cruza a linha. Primeiro evento descompensante. | ●●○○○ |
-| 13 | s-a2-03 | Espironolactona 100→400 + furosemida 40→160: escalonamento e limites | Conduta prática pós-diagnóstico. Ascite tem manejo, mas é o início da espiral. | ●●○○○ |
-| 14 | s-a2-04 | Infecção precipita 1 em 3 descompensações — e é a mais prevenível | **Setup** para PBE. Cirrótico é imunodeprimido. Translocação bacteriana. | ●●○○○ |
-| 15 | s-a2-05 | PBE: PMN ≥250 = tratar. Cada hora de atraso custa vidas | **INTERAÇÃO 1** (PBE tempo-sensível). Albumina reduz mortalidade (Sort). | ●●●○○ |
-| 16 | s-a2-06 | HDA varicosa: vasoativo + EDA <12h + ATB. Early TIPS em 72h se Child B ativo ou C 10-13 | **INTERAÇÃO 2** (Early TIPS). 2º golpe dramático. | ●●●○○ |
-| 17 | s-a2-07 | NSBBs previnem a primeira descompensação em cACLD com CSPH | **Ironia narrativa**: se nunca tivesse parado, não sangrava. PREDESCI NNT 9 = callback ao Act 1, não hero number. | ●●○○○ |
-| 18 | s-a2-08 | Encefalopatia: lactulose + rifaximina + nutrição — NÃO restringir proteína | **3º golpe + reversão de mito.** Chekhov: caminhoneiro não pode dirigir. | ●●●○○ |
-| 19 | s-a2-09 | Sarcopenia em cirrose: prevalência alta, mortalidade independente de MELD | **Par** com EH. Destrói mito da restrição proteica na prática. | ●●○○○ |
-| 20 | s-a2-10 | MELD >15 persistente = iniciar avaliação para transplante | **INTERAÇÃO 3** (TX). Pivô narrativo: "manejar" → "planejar saída." | ●●●●○ |
-| 21 | s-a2-11 | HRS-AKI: 3 perguntas antes da terlipressina — a 3ª decisão | **Nadir.** ACLF grau 2 como contexto. MELD 18→28. CONFIRM é a evidência. | ●●●●○ |
-| 22 | s-a2-12 | Ascite refratária: critérios ICA definem falha — espiro 400 + furo 160 ≥1 semana sem resposta | **INTERAÇÃO 4** (checklist ICA). Melhora parcial MELD 24, LVP semanal. | ●●●○○ |
-| 23 | s-a2-13 | Cardiomiopatia cirrótica: 48% prevalência — CCC 2019 detecta mais | **Barreira**: entre "precisa de TIPS" e "TIPS é possível." | ●●●○○ |
-| 24 | s-a2-14 | SHP vs HPP: fisiopatologia oposta — manejo diferente | **Comparativo**: destinos opostos. SHP acelera TX, PPH bloqueia. | ●●●○○ |
-| 25 | s-a2-15 | Early TIPS salva vidas no sangramento varicoso | **Confronto** com realidade brasileira. TIPS é padrão-ouro, acesso é desigual. | ●●●○○ |
-| 26 | s-cp2 | MELD 24, listado, 4 complicações tratadas. E se tudo der certo? | **CHECKPOINT 2**: fecha caso real. Ponte para Ato 3 hipotético. | ●●●●● |
+| 10 | s-a2-01 | Descompensação tem gatilho identificável na maioria dos casos — infecção, álcool e não-adesão lideram | **Transição**: compensada ≠ estável. Antônio manteve etilismo + abandonou NSBB. | ●○○○○ |
+| 11 | s-a2-02 | Ascite nova = paracentese ≤12h. GASA >1,1 confirma portal | **1º golpe**: Antônio cruza a linha. Primeiro evento descompensante. | ●●○○○ |
+| 12 | s-a2-03 | Espironolactona 100→400 + furosemida 40→160: escalonamento e limites | Conduta prática pós-diagnóstico. Ascite tem manejo, mas é o início da espiral. | ●●○○○ |
+| 13 | s-a2-04 | Infecção precipita 1 em 3 descompensações — e é a mais prevenível | **Setup** para PBE. Cirrótico é imunodeprimido. Translocação bacteriana. | ●●○○○ |
+| 14 | s-a2-05 | PBE: PMN ≥250 = tratar. Cada hora de atraso custa vidas | **INTERAÇÃO 1** (PBE tempo-sensível). Albumina reduz mortalidade (Sort). | ●●●○○ |
+| 15 | s-a2-06 | HDA varicosa: vasoativo + EDA <12h + ATB. Early TIPS em 72h se Child B ativo ou C 10-13 | **INTERAÇÃO 2** (Early TIPS). 2º golpe dramático. | ●●●○○ |
+| 16 | s-a2-07 | NSBBs previnem a primeira descompensação em cACLD com CSPH | **Ironia narrativa**: se nunca tivesse parado, não sangrava. PREDESCI NNT 9 = callback ao Act 1, não hero number. | ●●○○○ |
+| 17 | s-a2-08 | Encefalopatia: lactulose + rifaximina + nutrição — NÃO restringir proteína | **3º golpe + reversão de mito.** Chekhov: caminhoneiro não pode dirigir. | ●●●○○ |
+| 18 | s-a2-09 | Sarcopenia em cirrose: prevalência alta, mortalidade independente de MELD | **Par** com EH. Destrói mito da restrição proteica na prática. | ●●○○○ |
+| 19 | s-a2-10 | MELD >15 persistente = iniciar avaliação para transplante | **INTERAÇÃO 3** (TX). Pivô narrativo: "manejar" → "planejar saída." | ●●●●○ |
+| 20 | s-a2-11 | HRS-AKI: 3 perguntas antes da terlipressina — a 3ª decisão | **Nadir.** ACLF grau 2 como contexto. MELD 18→28. CONFIRM é a evidência. | ●●●●○ |
+| 21 | s-a2-12 | Ascite refratária: critérios ICA definem falha — espiro 400 + furo 160 ≥1 semana sem resposta | **INTERAÇÃO 4** (checklist ICA). Melhora parcial MELD 24, LVP semanal. | ●●●○○ |
+| 22 | s-a2-13 | Cardiomiopatia cirrótica: 48% prevalência — CCC 2019 detecta mais | **Barreira**: entre "precisa de TIPS" e "TIPS é possível." | ●●●○○ |
+| 23 | s-a2-14 | SHP vs HPP: fisiopatologia oposta — manejo diferente | **Comparativo**: destinos opostos. SHP acelera TX, PPH bloqueia. | ●●●○○ |
+| 24 | s-a2-15 | Early TIPS salva vidas no sangramento varicoso | **Confronto** com realidade brasileira. TIPS é padrão-ouro, acesso é desigual. | ●●●○○ |
+| 25 | s-cp2 | MELD 24, listado, 4 complicações tratadas. E se tudo der certo? | **CHECKPOINT 2**: fecha caso real. Ponte para Ato 3 hipotético. | ●●●●● |
 
 - **Panel:** caution → danger (no CP2)
 - **Arc:** Tensão crescente em 4 fases:
@@ -136,22 +136,22 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **MELD intermediários são construções narrativas:**
   Valores canônicos: ~10 (CP1), 28 (CP2), 12 (CP3). Os valores 12→14→17→18→28→24 são clinicamente plausíveis mas não derivados de dados. Cada salto tem justificativa clínica documentada em RAW_ACT2_V2.md.
 
-### ATO 3 — REVERTER (cenário hipotético, slides 27-36)
+### ATO 3 — REVERTER (cenário hipotético, slides 26-34)
 
 > **Ato 3 é "o que poderia ser", não continuação direta do caso.** O CP2 fechou o caso real (Antônio listado, vivo, 4 complicações tratadas). O Ato 3 mostra a melhor trajetória possível: abstinência + SVR + recompensação. Alinhado com Sparkline de Duarte (contraste realidade × possibilidade).
 > Reescrito 09/mar/2026 — expandido de 3 para 7 slides baseado em RAW_ACT3_V1.md. PMIDs verificados via WebSearch.
 
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
-| 27 | s-a3-01 | Após ascite como 1ª descompensação, cura etiológica reduziu nova descompensação (HR 0,46) e mortalidade (HR 0,35) | **Bridge**: transição do nadir. Cenário contrafactual. Tonon 2023 PMID 37190823. | ●●○○○ |
-| 28 | s-a3-02 | Recompensação é real — e Baveno VII a definiu | **Barra alta**: esperança com freio. Tonon 2025 PMID 40228583. Baveno VII PMID 36646527. | ●●○○○ |
-| 29 | s-a3-03 | Critério expandido ampliou o grupo para 37,6% — sem pior prognóstico na coorte de validação | **Nuance**: pesquisa vs consenso. Tonon 2025 PMID 40228583. | ●●○○○ |
-| 30 | s-a3-04 | A chance de recompensar muda com a etiologia: HBV >50%, HCV ~37%, álcool menor | **Etiologia importa**: HCV PMID 40378989, HBV PMID 36038017, álcool [TBD SOURCE]. | ●●○○○ |
-| 31 | s-a3-05 | SVR cura o vírus mas não a hipertensão portal — CSPH persiste em 53% | **Cura ≠ normalização**: Lens 2020 PMID 32535060. 3 colunas: melhora/persiste/vigília. | ●●●○○ |
-| 32 | s-a3-06 | Vigilância a cada 6 meses — nunca dar alta, mesmo após "cura" | **Vigilância vitalícia**: AASLD 2023 PMID 37199193. HCC não reduziu nos recompensados. | ●●○○○ |
-| 33 | s-a3-07 | Recompensação é estado de menor risco — não certificado de cura estrutural | **Fechamento Ato 3**: síntese. TIPS ≠ recompensação. Esperança + vigilância. | ●○○○○ |
-| 34 | s-cp3 | SVR + abstinência, LSM 32→18. Pode sair da vigilância? Da fila? | **CHECKPOINT 3**: resolução hipotética. MELD 12. | ●○○○○ |
-| 35 | s-close | 5 números classificaram. 3 decisões salvaram. Cirrose não é sentença. | **Desfecho**: callback ao hook, promessa cumprida | ○○○○○ |
+| 26 | s-a3-01 | Após ascite como 1ª descompensação, cura etiológica reduziu nova descompensação (HR 0,46) e mortalidade (HR 0,35) | **Bridge**: transição do nadir. Cenário contrafactual. Tonon 2023 PMID 37190823. | ●●○○○ |
+| 27 | s-a3-02 | Recompensação é real — e Baveno VII a definiu | **Barra alta**: esperança com freio. Tonon 2025 PMID 40228583. Baveno VII PMID 36646527. | ●●○○○ |
+| 28 | s-a3-03 | Critério expandido ampliou o grupo para 37,6% — sem pior prognóstico na coorte de validação | **Nuance**: pesquisa vs consenso. Tonon 2025 PMID 40228583. | ●●○○○ |
+| 29 | s-a3-04 | A chance de recompensar muda com a etiologia: HBV >50%, HCV ~37%, álcool menor | **Etiologia importa**: HCV PMID 40378989, HBV PMID 36038017, álcool [TBD SOURCE]. | ●●○○○ |
+| 30 | s-a3-05 | SVR cura o vírus mas não a hipertensão portal — CSPH persiste em 53% | **Cura ≠ normalização**: Lens 2020 PMID 32535060. 3 colunas: melhora/persiste/vigília. | ●●●○○ |
+| 31 | s-a3-06 | Vigilância a cada 6 meses — nunca dar alta, mesmo após "cura" | **Vigilância vitalícia**: AASLD 2023 PMID 37199193. HCC não reduziu nos recompensados. | ●●○○○ |
+| 32 | s-a3-07 | Recompensação é estado de menor risco — não certificado de cura estrutural | **Fechamento Ato 3**: síntese. TIPS ≠ recompensação. Esperança + vigilância. | ●○○○○ |
+| 33 | s-cp3 | SVR + abstinência, LSM 32→18. Pode sair da vigilância? Da fila? | **CHECKPOINT 3**: resolução hipotética. MELD 12. | ●○○○○ |
+| 34 | s-close | 5 números classificaram. 3 decisões salvaram. Cirrose não é sentença. | **Desfecho**: callback ao hook, promessa cumprida | ○○○○○ |
 
 - **Panel:** danger → hope (CP3) → resolved (close, com timeline)
 - **Arc:** Descompressão em 3 fases:

@@ -152,8 +152,7 @@ Para cada slide do Bloco 1:
 |-------|-------------|--------|-----------|
 | s-hook | "Paciente assintomático, labs normais" | ALT=31 mas FIB-4=5,91 | Aparência enganosa |
 | s-a1-01 | "Cirrose é rara" | 1,43M mortes/ano | Epidemia silenciosa |
-| s-a1-vote | "Residente: ALT normal, sem cirrose" | FIB-4=5,91 revela | A maioria errou |
-| s-a1-fib4 | "Preciso de biópsia" | 4 números bastam | FIB-4 como gatekeeper |
+| s-a1-fib4 | "Preciso de biópsia" / "ALT normal, sem cirrose" | FIB-4=5,91 revela (4 números bastam) | FIB-4 como gatekeeper (merged vote+calc) |
 | s-a1-rule5 | "Como quantificar sem biópsia?" | Zona cinzenta 10-25kPa | LSM 21 = cACLD |
 | s-a1-meld | "Como priorizar fila TX?" | MELD≥18 = inflexão | Referenciar agora |
 | s-a1-classify | "Cirrose é cirrose" | Prognóstico varia 10x | Classificar = tratar diferente |
