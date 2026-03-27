@@ -141,14 +141,25 @@ export const customAnimations = {
 
     if (stackRows.length) {
       const dots = Array.from(stackRows).map(row => row.querySelector('.status-dot'));
+      const texts = Array.from(stackRows).map(row => row.querySelector('.row-text'));
       // Flash de processamento — simula checklist diagnostica
       tl.to(dots, {
-        scale: 1.4,
+        scale: 1.3,
         backgroundColor: 'var(--ui-accent)',
         duration: 0.15,
         stagger: 0.1,
         yoyo: true,
         repeat: 1,
+      }, 'eval');
+      // Micro-nudge texto — Kurzgesagt-style tension before match punch
+      tl.to(texts, {
+        x: 3,
+        color: 'var(--ui-accent)',
+        duration: 0.15,
+        stagger: 0.1,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power1.inOut',
       }, 'eval');
     }
 

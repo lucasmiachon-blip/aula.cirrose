@@ -4,13 +4,13 @@
 
 ---
 
-## Estado — 2026-03-26
+## Estado — 2026-03-27
 
 **Slides:** 44 buildados · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race.
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
-**QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios. Custo: ~$0.03-0.08/round.
+**QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS) · `--diagnostic "classe: descricao"` (injeta CSS global cascade + step forense). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios. Custo: ~$0.03-0.08/round.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
 ---
@@ -23,8 +23,8 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | CONTENT | R12. 26/mar: source-tag specificity fix (#deck #s-a1-01), sourceTag declarado em classify factory, width:calc(100%-210px) substituiu right:210px (right computa contra content box em grid+padding). **NAO VERIFICADO NO BROWSER** — precisa build + Ctrl+Shift+R. Gate 4 pendente. |
-| 4 | s-a1-baveno | CONTENT | 26/mar: State machine refatorada. Fixes aplicados nao verificados: (1) h2/section-tag left-align via CSS override, (2) paradigm-ref movido de dentro do paradigm-container para footer area no HTML, (3) SplitText degrau: display:none substituido por height:0 smooth + overlap '<'. **NAO VERIFICADO NO BROWSER** — testar animacao completa (auto + click PREDESCI + retreat + return visit). PMID notes: 31584562→30910320 pendente. |
+| 3 | s-a1-01 | QA | R12. 27/mar: Gate 0 PASS. Gate 4 R5→R7 (5/10→8.5/10). Aplicados: P1 grid reintegration (position:absolute removido), P2 baseline % (transform:none), P3 ghost rows contraste (border+shadow), P4 micro-nudge eval. Specificity fix `#deck #s-a1-01` (2,1,0) vence `#deck.has-panel` (1,2,0). **Source-tag centerX:443 correto na content area, mas Gemini R7 ainda reporta deslocamento visual** — pendente decisao Lucas (text-align:left editorial vs center). |
+| 4 | s-a1-baveno | CONTENT | 27/mar: headline atualizada ("O novo paradigma: doença hepática como espectro"), justify-content:flex-start + padding-top:48px. State machine refatorada (26/mar). **NAO VERIFICADO NO BROWSER** — testar animacao completa. PMID notes: 31584562→30910320 pendente. |
 | 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. sourceTag declarado + reset defensivo gsap.set opacity:0. QA pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
@@ -32,8 +32,8 @@
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 2 DONE · 1 SYNCED · 41 CONTENT
-**QA Act 1:** Fixes CSS+JS aplicados 26/mar (specificity, layout, animacao). Nenhum verificado no browser ainda. Gate 4 pendente para todos.
+**Resumo:** 2 DONE · 1 QA · 41 CONTENT
+**QA Act 1:** s-a1-01 em QA (Gate 0 PASS, Gate 4 R7 score 8.5/10, source-tag centering pendente). Demais slides: fixes aplicados, Gate 4 pendente.
 **Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag: GSAP opacity corrigido de 0.6→1, font-size clamp(16-20px), `color-mix()` hue interpolation bug documentado (E59).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
@@ -51,7 +51,7 @@ Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css p
 
 **Docs cleanup (26/mar):** Audit + cleanup executados. 3 arquivos arquivados (HANDOFF-CLAUDE-AI, CHANGELOG root, ERROR-LOG root). XREF ghost refs removidos. Monorepo remnants renomeados. WT-OPERATING mandato corrigido (on-demand). CHANGELOG 1295→153L. NOTES 426→142L. Audit completo: `docs/DOCS-RATIONALIZATION-AUDIT.md`.
 
-**Proximo:** `npm run build:cirrose` + Ctrl+Shift+R. Verificar visualmente s-a1-01 (source-tag centrado?) e s-a1-baveno (h2 esquerda, transicao suave sem degrau, paradigm-ref no footer, animacao completa auto+click+retreat). Se OK: re-captura screenshots + Gate 0/4. PMID fix (31584562→30910320) pendente.
+**Proximo:** s-a1-01 source-tag centering — Lucas decidir: (a) text-align:left + padding-left:48px (editorial, ancora no eixo de leitura) ou (b) manter center (simetrico na content area). s-a1-baveno: verificar no browser + Gate 0/4. Demais Act 1: slide a slide.
 ```bash
 npm run dev  # terminal separado
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
@@ -64,8 +64,9 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 
 ## Caminho critico
 
-1. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 4 R3 pendente (tom/cor + re-captura)
-2. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
+1. **s-a1-01** — Gate 4 R7 score 8.5. Source-tag centering pendente decisao. Propostas pendentes: divider editorial, glow dots, source-tag align
+2. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 4 pendente
+3. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
 3. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
 4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide
 5. **Act 2 → Act 3** — apos Act 1 DONE

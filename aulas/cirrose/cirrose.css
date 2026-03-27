@@ -933,7 +933,7 @@ section#s-a1-01 .slide-inner {
   position: relative;
   display: grid;
   grid-template-columns: 6fr 4fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr auto;
   gap: 0;
   padding: 0 210px 0 0; /* case-panel clearance (180px + 16px margin + 14px breathing) */
   height: 100%;
@@ -984,11 +984,12 @@ section#s-a1-01 .slide-inner {
 /* P2: Typographic embrace — % tighter into hero number (Gestalt closure) */
 #s-a1-01 .screening-hero-unit {
   font-family: var(--font-display);
-  font-size: 77px;
+  font-size: 84px;
   line-height: 0.85;
-  margin-left: -0.08em;
-  color: oklch(40% 0 0);
-  transform: translateY(-15px);
+  margin-left: -0.05em;
+  color: oklch(35% 0 0);
+  transform: none;
+  vertical-align: baseline;
 }
 #s-a1-01 .screening-hero-label {
   max-width: 32ch;
@@ -1069,8 +1070,9 @@ section#s-a1-01 .slide-inner {
   align-items: center;
   padding: 14px 20px 14px 16px;
   border-radius: 12px;
-  background: oklch(96% 0 0);
-  border: 1px solid transparent;
+  background: transparent;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px var(--shadow-subtle);
   transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 #s-a1-01 .status-dot {
@@ -1090,8 +1092,8 @@ section#s-a1-01 .slide-inner {
 
 /* Ghost Row: matched state — solid teal wash on white bg, halo dot */
 #s-a1-01 .stack-row.matched {
-  background: oklch(96% 0 0);
-  border-color: color-mix(in oklch, var(--safe) 30%, transparent);
+  background: oklch(98% 0.01 170);
+  border-color: color-mix(in oklch, var(--safe) 40%, transparent);
 }
 #s-a1-01 .stack-row.matched .status-dot {
   background: var(--safe);
@@ -1114,16 +1116,12 @@ section#s-a1-01 .slide-inner {
   margin: 0;
 }
 
-/* P5: Source-tag — position override for grid layout (style from global .stage-c) */
+/* P5: Source-tag — reintegrated into grid (R5: removed position:absolute + vw violation) */
 #deck #s-a1-01 .source-tag {
-  position: absolute;
-  bottom: 12px;
-  left: 0;
-  width: 100%; /* content box in grid already excludes 210px padding */
-  max-width: none;
-  text-align: center;
-  margin: 0;
-  font-size: clamp(16px, 1.1vw, 20px);
+  grid-column: 1 / -1;
+  padding-bottom: 24px;
+  margin-top: 0;
+  max-width: 100%; /* specificity 2,1,0 vence #deck.has-panel (1,2,0) — grid padding ja faz clearance */
 }
 
 /* No-js failsafe */
