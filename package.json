@@ -37,7 +37,8 @@
     "mcp:dev": "node scripts/mcp-switch.js dev",
     "mcp:research": "node scripts/mcp-switch.js research",
     "mcp:qa": "node scripts/mcp-switch.js qa",
-    "mcp:full": "node scripts/mcp-switch.js full"
+    "mcp:full": "node scripts/mcp-switch.js full",
+    "research:cirrose": "node aulas/cirrose/scripts/content-research.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
