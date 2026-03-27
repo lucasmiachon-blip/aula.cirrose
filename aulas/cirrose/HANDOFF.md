@@ -23,7 +23,7 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | QA | R12. 27/mar: Gate 0 PASS. Gate 4 R5→R7 (5/10→8.5/10). Aplicados: P1 grid reintegration (position:absolute removido), P2 baseline % (transform:none), P3 ghost rows contraste (border+shadow), P4 micro-nudge eval. Specificity fix `#deck #s-a1-01` (2,1,0) vence `#deck.has-panel` (1,2,0). **Source-tag centerX:443 correto na content area, mas Gemini R7 ainda reporta deslocamento visual** — pendente decisao Lucas (text-align:left editorial vs center). |
+| 3 | s-a1-01 | QA | R12. Gate 0 PASS. Gate 4 R7 score 8.5/10. **Source-tag centering: DEFERRED.** Root cause: `padding:0 210px 0 0` no `.slide-inner` desloca center ~105px. Tentativas R8 (27/mar): position:absolute, remocao override, inline — nenhuma resolveu visualmente. Gemini cascade analysis confirmou causa (specificity 2,1,0 vs grid padding assimetrico). Aceitar como-esta ou refatorar layout inteiro do slide. |
 | 4 | s-a1-baveno | CONTENT | 27/mar: headline atualizada ("O novo paradigma: doença hepática como espectro"), justify-content:flex-start + padding-top:48px. State machine refatorada (26/mar). **NAO VERIFICADO NO BROWSER** — testar animacao completa. PMID notes: 31584562→30910320 pendente. |
 | 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. sourceTag declarado + reset defensivo gsap.set opacity:0. QA pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
@@ -51,7 +51,7 @@ Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css p
 
 **Docs cleanup (26/mar):** Audit + cleanup executados. 3 arquivos arquivados (HANDOFF-CLAUDE-AI, CHANGELOG root, ERROR-LOG root). XREF ghost refs removidos. Monorepo remnants renomeados. WT-OPERATING mandato corrigido (on-demand). CHANGELOG 1295→153L. NOTES 426→142L. Audit completo: `docs/DOCS-RATIONALIZATION-AUDIT.md`.
 
-**Proximo:** s-a1-01 source-tag centering — Lucas decidir: (a) text-align:left + padding-left:48px (editorial, ancora no eixo de leitura) ou (b) manter center (simetrico na content area). s-a1-baveno: verificar no browser + Gate 0/4. Demais Act 1: slide a slide.
+**Proximo:** s-a1-01 source-tag: DEFERRED (aceito como-esta). s-a1-baveno: verificar no browser + Gate 0/4. Demais Act 1: slide a slide.
 ```bash
 npm run dev  # terminal separado
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
@@ -64,8 +64,8 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 
 ## Caminho critico
 
-1. **s-a1-01** — Gate 4 R7 score 8.5. Source-tag centering pendente decisao. Propostas pendentes: divider editorial, glow dots, source-tag align
-2. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 4 pendente
+1. **s-a1-01** — Gate 4 R7 score 8.5. Source-tag centering DEFERRED. Demais propostas (divider, glow dots) backlog
+2. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 0/4 pendente — **PROXIMO**
 3. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
 3. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
 4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide
