@@ -282,24 +282,24 @@ export const customAnimations = {
         // Chained timeline: icon collapse → further decomp enters → badge
         const tl1 = gsap.timeline();
 
-        // Phase 1: Danger ✕ collapses + text slides to fill void
+        // Phase 1: Danger ✕ collapses — sucked inward
         if (dangerIconSvg) {
-          tl1.to(dangerIconSvg, { scale: 0, rotation: -45, opacity: 0, duration: 0.35, ease: 'back.in(2)' });
+          tl1.to(dangerIconSvg, { scale: 0, rotation: -90, opacity: 0, duration: 0.4, ease: 'expo.in' });
           // dangerText stays in place — void is intentional dramatic silence
         }
 
-        // Phase 2: Further decomp block enters + arrow draws
-        tl1.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '+=0.05');
+        // Phase 2: Further decomp enters with overlap + arrow draws alongside
+        tl1.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.1');
         if (furtherPath) {
-          tl1.to(furtherPath, { drawSVG: '100%', duration: 0.6, ease: 'power2.inOut' }, '+=0.3');
+          tl1.to(furtherPath, { drawSVG: '100%', duration: 0.5, ease: 'power3.out' }, '<0.1');
         }
 
-        // Phase 3: Badge punches in after arrow draw
+        // Phase 3: Badge stamps in — no bounce, gravity
         if (badgeFatal) {
           tl1.fromTo(badgeFatal,
-            { opacity: 0, scale: 0.5, x: -8 },
-            { opacity: 1, scale: 1, x: 0, duration: 0.45, ease: 'back.out(2.5)' },
-            '>'
+            { opacity: 0, scale: 0.95, x: -10 },
+            { opacity: 1, scale: 1, x: 0, duration: 0.6, ease: 'expo.out' },
+            '-=0.2'
           );
         }
       } else if (state === 2) {

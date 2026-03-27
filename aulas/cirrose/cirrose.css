@@ -2196,9 +2196,9 @@ section#s-a1-01 .slide-inner {
 /* ── s-a1-classify: further decomp — same axis as cards ── */
 .classify-further-decomp {
   display: grid;
-  grid-template-columns: var(--col-icon) 1fr auto;
+  grid-template-columns: var(--col-icon) 1fr;
   gap: var(--space-md);
-  align-items: center;
+  align-items: start;
   padding: var(--space-sm) 0 var(--space-sm) 24px;
   border-top: none;
   width: 100%;
