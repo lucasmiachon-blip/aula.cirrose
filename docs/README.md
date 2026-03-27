@@ -29,7 +29,6 @@
 | [blueprint-cirrose.md](blueprint-cirrose.md) | Blueprint Cirrose |
 | [biblia-narrativa.md](biblia-narrativa.md) | Narrativa |
 | [slide-pedagogy.md](slide-pedagogy.md) | Teorias pedagógicas codificadas (Sweller, Mayer, Alley) |
-| [insights-html-cirrose-2026.md](insights-html-cirrose-2026.md) | Análise do HTML Gemini (referência, não entra em slides) |
 
 ### Dados clínicos
 | Doc | Uso |
@@ -51,8 +50,6 @@
 | [prompts/error-digest.md](prompts/error-digest.md) | Error digest para Gemini QA pipeline |
 | [prompts/gemini-paper-extraction.md](prompts/gemini-paper-extraction.md) | Extracao de papers Gemini |
 | [prompts/gemini-transcript-comparison.md](prompts/gemini-transcript-comparison.md) | Comparacao transcripts Gemini |
-| [prompts/openai-backward-design.md](prompts/openai-backward-design.md) | Backward design OpenAI |
-| [prompts/openai-canvas-storyboard.md](prompts/openai-canvas-storyboard.md) | Storyboard OpenAI Canvas |
 ---
 
 ## HANDOFFs

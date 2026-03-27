@@ -1,6 +1,6 @@
 # Prompt — Busca Semanal de Atualizações
 
-> Rodar via subagent `generalPurpose` ou `explore`. Atualizar `docs/ECOSYSTEM.md` se houver mudanças.
+> Rodar via subagent `generalPurpose` ou `explore`.
 
 ---
 
@@ -11,7 +11,7 @@ Buscar atualizações dos últimos 7 dias para:
 
 - MCP servers: pubmed, notion, playwright, a11y, crossref, memory, zotero, scite
 - Cursor (changelog, releases)
-- Reveal.js, Vite, GSAP (npm)
+- Vite, GSAP (npm)
 - PubMed/CrossRef APIs (docs NCBI)
 
 Para cada item:
@@ -19,7 +19,7 @@ Para cada item:
 2. Breaking changes se houver
 3. Recomendação: atualizar agora ou manter
 
-Listar resultados em formato de tabela. Atualizar docs/ECOSYSTEM.md se houver mudanças relevantes.
+Listar resultados em formato de tabela.
 ```
 
 ---
@@ -31,5 +31,5 @@ Listar resultados em formato de tabela. Atualizar docs/ECOSYSTEM.md se houver mu
 | MCPs                  | Semanal    |
 | Cursor                | Semanal    |
 | Skills Cursor         | Mensal     |
-| Reveal.js, GSAP, Vite | Mensal     |
+| GSAP, Vite            | Mensal     |
 | PubMed/CrossRef APIs  | Trimestral |

@@ -55,7 +55,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | blueprint-cirrose.md | (autônomo) | ← README.md |
 | biblia-narrativa.md | (autônomo) | ← aulas/cirrose/HANDOFF.md |
 | slide-pedagogy.md | (autônomo — teorias pedagógicas) | ← README.md |
-| insights-html-cirrose-2026.md | (autônomo — análise Gemini HTML) | ← README.md |
 | MCP-ACADEMICOS.md | (autônomo) | ← README.md |
 | MCP-ENV-VARS.md | (autônomo) | ← README.md |
 
@@ -70,8 +69,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | prompts/error-digest.md | (prompt template — error digest para Gemini) | ← README.md |
 | prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
 | prompts/gemini-transcript-comparison.md | (prompt template — Gemini) | ← README.md |
-| prompts/openai-backward-design.md | (prompt template — OpenAI) | ← README.md |
-| prompts/openai-canvas-storyboard.md | (prompt template — OpenAI) | ← README.md |
 
 ### .claude/agents/ (custom subagents)
 
@@ -124,8 +121,6 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 ---
 
----
-
 ## Canônicos por Assunto
 
 | Assunto | Arquivo canônico | Fallback |
@@ -154,5 +149,4 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 1. **Novo doc:** adicionar aqui + em docs/README.md
 2. **Mover/deletar:** atualizar referências aqui + grep por nome antigo
-3. **Novo par .claude↔.cursor:** registrar na tabela de pares
-4. **Auditoria periódica:** rodar skill `docs-audit` ou `audit-docs`
+3. **Auditoria periódica:** rodar skill `docs-audit` ou `audit-docs`

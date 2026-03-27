@@ -22,12 +22,7 @@ Pesquise as melhores práticas mais recentes (2024-2025) para:
    - Cursor mcp_task, tipos de subagent
    - Quando usar, paralelismo, one-tack
 
-Depois atualize os arquivos deste repositório:
-- docs/SKILLS.md
-- docs/RULES.md
-- docs/SUBAGENTS.md
-
-Mantenha o formato existente. Adicione referências às fontes (URLs, datas).
+Depois apresente os resultados em formato de tabela comparativa. Adicione referências às fontes (URLs, datas).
 ```
 
 ---

@@ -35,7 +35,7 @@
 
 ---
 
-## Dados Medicos (fora de medical-data.md)
+## Dados Medicos (fora de design-reference.md §5)
 
 ### MELD intermediarios: narrativos ≠ clinicos
 - Canonicos (CASE.md): ~10, 28, 12 — derivados de checkpoints clinicos reais
@@ -43,7 +43,7 @@
 - Moram em: narrative.md + _manifest.js. NUNCA em CASE.md
 
 ### PMIDs corretos em um doc, errados em outro
-- ANSWER: evidence-db tinha 29861076 (correto), medical-data.md tinha 29793859 (errado)
+- ANSWER: evidence-db tinha 29861076 (correto), design-reference.md tinha 29793859 (errado)
 - **Regra:** Ao fixar PMID, grep ALL occurrences: `grep -rn "PMID_ANTIGO" aulas/{aula}/`
 
 ### Ioannou HCC: sobrevida ≠ incidencia
