@@ -188,57 +188,6 @@ export const customAnimations = {
     // No click-reveals — auto only
   },
 
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-vote — Aplicando ao Antônio (FIB-4 hero + cutoff)
-     State 0: auto countUp + cutoff + explanation. State 1: source
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  's-a1-vote': (slide, gsap) => {
-    let state = 0;
-    const maxState = 1;
-
-    const heroNum = slide.querySelector('.vote-hero-number');
-    const cutoff = slide.querySelector('.vote-cutoff');
-    const explanation = slide.querySelector('.vote-explanation');
-
-    gsap.set([cutoff, explanation].filter(Boolean), { opacity: 0, y: 8 });
-    if (heroNum) heroNum.textContent = '0';
-
-    // Auto: countUp + stagger cutoff/explanation
-    if (heroNum) {
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: 5.91,
-        duration: 1.4,
-        delay: 0.8,
-        ease: 'power1.out',
-        onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
-      });
-    }
-    if (cutoff) gsap.to(cutoff, { opacity: 1, y: 0, duration: 0.5, delay: 2.0, ease: 'power2.out' });
-    if (explanation) gsap.to(explanation, { opacity: 1, y: 0, duration: 0.5, delay: 2.4, ease: 'power2.out' });
-
-    function advance() {
-      if (state >= maxState) return false;
-      state++;
-      if (state === 1) {
-        gsap.to(predesci, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-      }
-      return true;
-    }
-
-    function retreat() {
-      if (state <= 0) return false;
-      if (state === 1) {
-        gsap.to(predesci, { opacity: 0, duration: 0.3 });
-      }
-      state--;
-      return true;
-    }
-
-    slide.__hookAdvance = advance;
-    slide.__hookRetreat = retreat;
-    slide.__hookCurrentBeat = () => state;
-  },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      s-a1-classify — Estadiamento associado ao prognóstico
@@ -516,42 +465,52 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-fib4 — Hero FIB-4 + cutoff cards (clean hero-stat)
-     States: 0=hero countUp + cards stagger (auto), 1=source (click)
+     s-a1-fib4 — FIB-4 formula + cutoffs + Antonio application
+     States: 0=formula+cutoffs (auto), 1=Antonio+countUp+mandate (click), 2=source (click)
+     Merged from s-a1-vote + s-a1-fib4 (2026-03-27)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-fib4': (slide, gsap) => {
     let state = 0;
-    const maxState = 1;
+    const maxState = 2;
 
     const heroNum = slide.querySelector('[data-countup-target="5.91"]');
-    const cards = slide.querySelectorAll('.classify-card');
+    const cutoffs = slide.querySelectorAll('.fib4-cutoff');
+    const antonioBlock = slide.querySelector('.fib4-antonio');
+    const mandate = slide.querySelector('.fib4-mandate');
     const sourceTag = slide.querySelector('.source-tag');
 
-    /* Auto: hero countUp + cards stagger */
-    if (heroNum) {
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: 5.91,
-        duration: 1.4,
-        delay: 0.3,
-        ease: 'power1.out',
-        onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
-      });
-    }
-
-    gsap.set(cards, { opacity: 0, y: 8 });
-    gsap.to(cards, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.8, ease: 'power2.out' });
+    /* Auto: cutoff zones stagger */
+    gsap.set(cutoffs, { opacity: 0, y: 8 });
+    gsap.to(cutoffs, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.4, ease: 'power2.out' });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
-      if (state === 1) gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
+      if (state === 1) {
+        // Antonio inputs + countUp + mandate
+        gsap.to(antonioBlock, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        if (heroNum) {
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: 5.91, duration: 1.4, delay: 0.3, ease: 'power1.out',
+            onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
+          });
+        }
+        if (mandate) gsap.to(mandate, { opacity: 1, duration: 0.5, delay: 1.6, ease: 'power2.out' });
+      }
+      if (state === 2) {
+        gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
+      }
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 1) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      if (state === 2) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      if (state === 1) {
+        gsap.to(antonioBlock, { opacity: 0, duration: 0.3 });
+        if (mandate) gsap.to(mandate, { opacity: 0, duration: 0.3 });
+      }
       state--;
       return true;
     }

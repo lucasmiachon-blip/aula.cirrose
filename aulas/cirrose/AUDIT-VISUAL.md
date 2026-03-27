@@ -1,7 +1,7 @@
 # AUDIT-VISUAL — Cirrose (por Atos)
 
 > Auditoria visual organizada por Atos narrativos.
-> Deck: 44 slides (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app)
+> Deck: 43 slides (2 pre + 7 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app)
 > Rubrica: **14 dimensoes**, scoring 1-10 (min 9 para PASS).
 > Metodo: Playwright screenshot 1280x720 por estado (S0..SN) + constraint check + checklist.
 > Referencia: AASLD/EASL Postgraduate Course slides + Duarte Sparkline + Sweller CLT + Knowles.
@@ -213,29 +213,6 @@ Obs: (1) h2 "Por que rastrear?" = setup retorico intencional (Lucas 25/mar). Her
 
 Obs: (1) 27/mar R1-R5: h2 56→42px, center→flex-start, badge-fatal editorial, ScrambleText removido, MorphSVG→collapse simples. (2) PREDESCI movido p/ baveno. (3) D'Amico inline removido do corpo, PMIDs no source-tag. (4) --ref-slide adicionado ao gemini-qa3.mjs para cross-slide consistency.
 
-### s-a1-vote (02d-a1-vote.html)
-
-**Headline:** Esse paciente tem cirrose?
-
-| Dim | Nota | Evidencia |
-|-----|------|-----------|
-| H   | 7    | h2 claro. Vote options abaixo. FIB-4 hero no reveal. Fill 48% |
-| T   | 7    | Vote option text proporcional. Hero 5,91 no reveal |
-| E   | 6    | Fill 48% abaixo de 65%. Botoes + labs summary |
-| C   | 8    | vote-lab--success verde. var() tokens. Sem HEX no body |
-| V   | 6    | Mainly text-based (labs + botoes). FIB-4 hero no reveal adiciona punch |
-| K   | 7    | Archetype poll customizado. Usa hero-stat inner. Unico |
-| S   | 7    | CountUp no reveal. Sem source-tag (raciocinio clinico). OKLCH |
-| M   | 7    | h2 e pergunta diretora, nao assercao. Escolha pedagogica. 73 palavras |
-| I   | 9    | Vote buttons funcionam. ERRO-033 corrigido. stopPropagation. Retreat reseta |
-| D   | 8    | FIB-4 calc verificado em notes. Dados do paciente de CASE.md |
-| A   | 7    | Botoes nativos (teclado OK). Lab row labels OK. Cor para ALT normal |
-| L   | 8    | 1 conceito (ele tem cirrose?). Decisao binaria limpa. FIB-4 = punchline |
-| P   | 9    | Engaja audiencia diretamente. Decisao clinica. "Levante a mao" = adult learning |
-| N   | 8    | Poll eleva tensao. Constroi sobre hook. tensionLevel=2 |
-
-Obs: (1) Fill 48% e aceitavel para slide interativo (espaco para botoes). (2) I=9 e o mais alto do Act 1 — interacao bem testada (ERRO-033 fechado). (3) Vote reveal e moment de punchline eficaz. (4) Sem source-tag e correto — e raciocinio, nao evidencia.
-
 ### s-a1-damico (02b-a1-damico.html)
 
 **Headline:** De Child-Pugh a D'Amico: prognóstico virou preditivo
@@ -380,7 +357,7 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) ~~Inline
 **Dimensoes fortes (>=8 na maioria):**
 - **D (Dados clinicos):** 9 em 9/11 slides. PMIDs Tier-1 verificados. [DATA] tags em notes. Zero [TBD] projetado.
 - **C (Cor & Contraste):** 8 em 11/11. var() tokens. Cores semanticas. Icones daltonismo.
-- **K (Consistencia):** 8 em 9/11. Archetypes reutilizados. Excecoes: s-hook (custom) e s-a1-vote (poll).
+- **K (Consistencia):** 8 em 9/10. Archetypes reutilizados. Excecao: s-hook (custom). s-a1-vote merged into fib4.
 - **I (Interacoes):** 8-9 em 11/11. Todas interacoes testadas. ERRO-033 corrigido.
 - **N (Arco narrativo):** 8 em 10/11, 9 em s-cp1. Headlines conferem com narrative.md.
 
@@ -413,9 +390,8 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 3 | s-a1-01 | OK | countUp fallbacks corrigidos; iceberg ok | — |
 | 4 | s-a1-classify | OK | 3 cards + PREDESCI; ~~h2 pendente~~ reescrito d20deec | — |
 | 5 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
-| 6 | s-a1-vote | OK | Reveal funciona; FIB-4 fallback corrigido para 5,91 | — |
-| 7 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
-| 8 | s-a1-fib4 | OK | Layout limpo; h2 mnemônico mantido (decisão Lucas) | — |
+| 6 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
+| 7 | s-a1-fib4 | PENDING | Merged s-a1-vote (27/mar). Pesquisa + assembly pendente. Requer re-QA. | — |
 | 9 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
 | 10 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |

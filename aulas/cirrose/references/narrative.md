@@ -51,22 +51,21 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **Estrutura:** flat layout (bio + 6 labs 3×2 auto stagger → click: "Sem queixas." + "Qual sua conduta?")
 - **Entrada NÃO é hematêmese.** Antônio chega assintomático — a tensão vem do screening revelar doença oculta.
 
-### ATO 1 — CLASSIFICAR (slides 2-10)
+### ATO 1 — CLASSIFICAR (slides 2-9)
 
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
 | 2 | s-a1-01 | Por que rastrear? | **Ponte**: Antônio veio do rastreio — 83% eram diagnósticos novos (Prince 2024) | ●●○○○ |
 | 3 | s-a1-classify | Estadiamento × Prognóstico | **Premissa do ato**: D'Amico protagonista — mortalidade escala por estágio + further decomp | ●●○○○ |
 | 4 | s-a1-baveno | Doença hepática avançada é espectro, não diagnóstico binário | Ferramental: cACLD/dACLD, CSPH | ●○○○○ |
-| 5 | s-a1-vote | Esse paciente tem cirrose? | **Engajamento**: audiência aplica o que acabou de aprender | ●●○○○ |
+| 5 | s-a1-fib4 | 4 dados. 1 número. 1 decisão. | FIB-4 hero + 3 cutoff cards + Antonio inputs + burnt-out. Merged de s-a1-vote. | ●●○○○ |
 | 6 | s-a1-damico | De Child-Pugh a D'Amico: prognóstico virou preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
-| 7 | s-a1-fib4 | Estadiar precoce diagnostica cALD — e muda a conduta | FIB-4 hero + 3 cutoff cards, aplica ao Antônio | ●●○○○ |
-| 8 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
-| 9 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
-| 10 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
+| 7 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
+| 8 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
+| 9 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
 
 - **Panel:** neutral → caution (no CP1)
-- **Arc:** Rastreio → classificação → engajamento → ferramentas → checkpoint. Audiência segura — "sei classificar".
+- **Arc:** Rastreio → classificação → FIB-4 aplicado → ferramentas → checkpoint. Audiência segura — "sei classificar".
 - **CP1 beat:** Primeiro momento de desconforto. "Sei o suficiente pra decidir?"
 - **s-a1-01 nota:** Slide de rastreio ancora na entrada do Antônio (UBS, assintomático, FIB-4 5,91). Dado-âncora: Prince 2024 (83% diagnósticos novos).
 - **s-a1-baveno nota:** Auto: SplitText dissolve "Cirrose" → espectro cACLD/dACLD. Click 1: PREDESCI lockup (HR 0,51). autoComplete guard bloqueia click durante dissolve. Source-tag removido (PMIDs nos notes). PREDESCI movido de classify (26/mar).

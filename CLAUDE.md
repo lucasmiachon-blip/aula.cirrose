@@ -22,7 +22,7 @@ deck.js (`aulas/cirrose/shared/js/deck.js`, custom nav) · GSAP 3.14 · Vite 6.x
 ## Project
 
 **Cirrose Hepática — Classificar · Intervir · Reverter**
-44 slides · 1280×720 (Plan C) / 1920×1080 (Plan A) · Público: hepatologistas seniores (Brasil) · PT-BR, termos técnicos EN.
+43 slides · 1280×720 (Plan C) / 1920×1080 (Plan A) · Público: hepatologistas seniores (Brasil) · PT-BR, termos técnicos EN.
 
 ### Arquivos de trabalho
 

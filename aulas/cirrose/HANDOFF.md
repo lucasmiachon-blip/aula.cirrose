@@ -6,7 +6,7 @@
 
 ## Estado — 2026-03-27
 
-**Slides:** 44 buildados · **Build/Lint/Scaling/CSS cascade:** ✅
+**Slides:** 43 buildados · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race.
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
@@ -28,15 +28,14 @@
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
-| 5 | s-a1-baveno | QA | Gate 0 PASS. Gate 4 R5. R4 grid 3-col fix (0,51 centrado). Font A fix (DM Sans). p=0,041 + PMIDs. Pendente: aprovar ou R6. |
-| 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
-| 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
+| 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
+| 6-10 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. s-a1-vote merged into s-a1-fib4 (27/mar). |
 | 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 4 DONE · 1 QA · 39 CONTENT
-**QA Act 1:** s-a1-01 (DONE), s-a1-classify (DONE), s-a1-baveno (R5, grid 3-col + font + p-value). Proximo: aprovar baveno → s-a1-vote.
+**Resumo:** 5 DONE · 0 QA · 38 CONTENT (43 total, s-a1-vote merged into fib4)
+**QA Act 1:** s-a1-01 (DONE), s-a1-classify (DONE), s-a1-baveno (DONE). Proximo: s-a1-fib4 (refatorado, pesquisa pendente).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -50,18 +49,15 @@
 ## Proxima sessao
 
 **Docs:** Hardening 27/mar concluido (-551L, 4 arquivados, 0 ghost refs). Pendente: WT-OPERATING split.
-**Proximo QA:** aprovar s-a1-baveno → iniciar s-a1-vote pipeline. Se mais um round baveno:
-1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-baveno --video`
-2. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --inspect`
-3. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --editorial --round 6 --ref-slide s-a1-classify`
+**Proximo QA:** s-a1-fib4 (merged) — pesquisa Gemini (Batch 2) → assembly (Batch 3) → pipeline QA.
 
 ---
 
 ## Caminho critico
 
 1. ~~s-a1-classify~~ — DONE 27/mar (R7 7.3/10)
-2. **s-a1-baveno** — R5, grid 3-col + font fix + p=0,041 + PMIDs. Aprovar ou R6.
-3. **s-a1-vote → s-cp1** — sequencia manifest, slide a slide
+2. ~~s-a1-baveno~~ — DONE 27/mar (R5)
+3. **s-a1-fib4 (merged) → s-cp1** — sequencia manifest, slide a slide
 4. **Act 2 → Act 3** — apos Act 1 DONE
 
 ---

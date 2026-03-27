@@ -185,7 +185,7 @@ export class CasePanel {
 
   loadFib4Case() {
     if (!this.calcEl) return;
-    const vals = { age: 54, ast: 68, plq: 112, alt: 45 };
+    const vals = { age: 55, ast: 67, plq: 112, alt: 31 };
     Object.entries(vals).forEach(([f, v]) => {
       const input = this.calcEl.querySelector(`[data-pf="${f}"]`);
       if (input) input.value = v;
