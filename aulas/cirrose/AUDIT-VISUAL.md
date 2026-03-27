@@ -410,13 +410,13 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 1 | s-title | OK | ~~var() fixado rodada 4~~ → HEX literal | — |
 | 2 | s-hook | PASS COM RISCO | Fill 0% beat 0 (GSAP-dependente); beat 1 pode clipar INR+punchline a 720p | P1 |
 | 3 | s-a1-01 | OK | countUp fallbacks corrigidos; iceberg ok | — |
-| 4 | s-a1-vote | OK | Reveal funciona; FIB-4 fallback corrigido para 5,91 | — |
-| 5 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
-| 6 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
-| 7 | s-a1-fib4 | OK | Layout limpo; h2 mnemônico mantido (decisão Lucas) | — |
-| 8 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
-| 9 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
-| 10 | s-a1-classify | OK | 3 cards + PREDESCI; ~~h2 pendente~~ reescrito d20deec | — |
+| 4 | s-a1-classify | OK | 3 cards + PREDESCI; ~~h2 pendente~~ reescrito d20deec | — |
+| 5 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
+| 6 | s-a1-vote | OK | Reveal funciona; FIB-4 fallback corrigido para 5,91 | — |
+| 7 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
+| 8 | s-a1-fib4 | OK | Layout limpo; h2 mnemônico mantido (decisão Lucas) | — |
+| 9 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
+| 10 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |
 
 ### Fixes acumulados (rodadas 2 + 3)

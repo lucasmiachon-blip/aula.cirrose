@@ -195,8 +195,8 @@
 | s-a1-meld | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
 | s-a2-04 | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
 | s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
-| s-a1-baveno | Paradigma cACLD/dACLD + PREDESCI HR 0,51 (IC 0,26-0,97) descomp 3a | Baveno VII (PMID 35120736) + PREDESCI (PMID 30910320) |
 | s-a1-classify | Mortalidade por estagio D'Amico + further decomp. PREDESCI callout removido (movido p/ baveno 26/mar) | D'Amico 2006 (PMID 16298014) |
+| s-a1-baveno | Paradigma cACLD/dACLD + PREDESCI HR 0,51 (IC 0,26-0,97) descomp 3a | Baveno VII (PMID 35120736) + PREDESCI (PMID 30910320) |
 | s-a2-01 | **NSBBs** HR 0,51 (nao carvedilol isolado), NNT 9, dose carvedilol 6,25->12,5 mg | PREDESCI (PMID 30910320) |
 | s-a2-02 | Early TIPS 72h: sobrevida 86% vs 61% | Garcia-Pagan (PMID 20573925) |
 | s-a2-03 | Albumina: Sort NNT 5, ANSWER NNT 9, ATTIRE NNT infinito | PMIDs 10432325, 29861076, 33657293 |

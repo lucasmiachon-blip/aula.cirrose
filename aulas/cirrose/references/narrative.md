@@ -57,9 +57,9 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 |---|-------|----------|---------------------|--------|
 | 2 | s-a1-01 | Por que rastrear? | **Ponte**: Antônio veio do rastreio — 83% eram diagnósticos novos (Prince 2024) | ●●○○○ |
 | 3 | s-a1-classify | O estadiamento está fortemente associado ao prognóstico | **Premissa do ato**: D'Amico protagonista — mortalidade escala por estágio + further decomp | ●●○○○ |
-| 4 | s-a1-vote | Esse paciente tem cirrose? | **Engajamento**: audiência aplica o que acabou de aprender | ●●○○○ |
-| 5 | s-a1-damico | De Child-Pugh a D'Amico: prognóstico virou preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
-| 6 | s-a1-baveno | Doença hepática avançada é espectro, não diagnóstico binário | Ferramental: cACLD/dACLD, CSPH | ●○○○○ |
+| 4 | s-a1-baveno | Doença hepática avançada é espectro, não diagnóstico binário | Ferramental: cACLD/dACLD, CSPH | ●○○○○ |
+| 5 | s-a1-vote | Esse paciente tem cirrose? | **Engajamento**: audiência aplica o que acabou de aprender | ●●○○○ |
+| 6 | s-a1-damico | De Child-Pugh a D'Amico: prognóstico virou preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
 | 7 | s-a1-fib4 | Estadiar precoce diagnostica cALD — e muda a conduta | FIB-4 hero + 3 cutoff cards, aplica ao Antônio | ●●○○○ |
 | 8 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
 | 9 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |

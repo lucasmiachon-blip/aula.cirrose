@@ -24,8 +24,8 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | QA | R12. Gate 0 PASS. Gate 4 R7 score 8.5/10. **Source-tag centering: DEFERRED.** Root cause: `padding:0 210px 0 0` no `.slide-inner` desloca center ~105px. Tentativas R8 (27/mar): position:absolute, remocao override, inline — nenhuma resolveu visualmente. Gemini cascade analysis confirmou causa (specificity 2,1,0 vs grid padding assimetrico). Aceitar como-esta ou refatorar layout inteiro do slide. |
-| 4 | s-a1-baveno | CONTENT | 27/mar: headline atualizada ("O novo paradigma: doença hepática como espectro"), justify-content:flex-start + padding-top:48px. State machine refatorada (26/mar). **NAO VERIFICADO NO BROWSER** — testar animacao completa. PMID notes: 31584562→30910320 pendente. |
-| 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. sourceTag declarado + reset defensivo gsap.set opacity:0. QA pendente. |
+| 4 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. sourceTag declarado + reset defensivo gsap.set opacity:0. QA pendente. |
+| 5 | s-a1-baveno | CONTENT | 27/mar: headline atualizada ("O novo paradigma: doença hepática como espectro"), justify-content:flex-start + padding-top:48px. State machine refatorada (26/mar). **NAO VERIFICADO NO BROWSER** — testar animacao completa. PMID notes: 31584562→30910320 pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
@@ -65,9 +65,9 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N
 ## Caminho critico
 
 1. **s-a1-01** — Gate 4 R7 score 8.5. Source-tag centering DEFERRED. Demais propostas (divider, glow dots) backlog
-2. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 0/4 pendente — **PROXIMO**
-3. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
-3. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
+2. **s-a1-classify** — PREDESCI removido, states 3→2 (26/mar). QA pipeline completo
+3. **s-a1-baveno** — State machine OK (auto+click). PMID fix pendente. Gate 0/4 pendente — **PROXIMO**
+4. **s-a1-vote** — QA pipeline completo. Hero number sizing a validar
 4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide
 5. **Act 2 → Act 3** — apos Act 1 DONE
 
