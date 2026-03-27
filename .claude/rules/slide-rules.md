@@ -84,6 +84,8 @@ NUNCA `gsap.to()` inline. Usar atributos declarativos no HTML:
 - Todos os slides existem no DOM o tempo todo.
 - Eventos disparam no `document`.
 - `registerCustom` (via `wireAll`) DEVE ser chamado ANTES de `connect()`.
+- **Retreat:** restaurar estado DOM explicitamente (`classList.remove`, reset textContent). NUNCA confiar apenas em `killTweensOf` — mata tweens mas não desfaz DOM.
+- **Leave/return:** `slide:changed` DEVE resetar classes de estado (`.revealed`, `.dimmed`, `.correct`). Usuário pode sair e voltar a qualquer momento.
 
 ---
 
