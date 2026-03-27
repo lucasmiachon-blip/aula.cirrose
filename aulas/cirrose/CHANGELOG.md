@@ -5,6 +5,15 @@
 
 ---
 
+## 2026-03-27 — docs: hardening documental (sessao 30)
+
+- **Arquivados (4):** DOCS-RATIONALIZATION-AUDIT.md, insights-html-cirrose-2026.md, openai-backward-design.md, openai-canvas-storyboard.md → `_archive/`.
+- **Stale refs corrigidos (5):** XREF.md (duplicate `---`, `.cursor` ref, 3 linhas arquivados), lessons.md (`medical-data.md`→`design-reference.md §5`), weekly-updates.md (ECOSYSTEM, Reveal.js), research-best-practices.md (SKILLS/SUBAGENTS refs), README.md (-3 entradas).
+- **Resultado:** -551 linhas, 0 ghost refs em docs operacionais. Validacao grep exaustiva.
+- **Pendente:** WT-OPERATING.md split (486L → ~50L mandatory + ~400L on-demand).
+
+---
+
 ## 2026-03-26 — docs: rationalization audit (sessao 29)
 
 - **Audit documental:** `docs/DOCS-RATIONALIZATION-AUDIT.md` — 30 achados (13 refs stale, 5 ghost files, 5 monorepo remnants, 4 overlaps, 3 conflitos).

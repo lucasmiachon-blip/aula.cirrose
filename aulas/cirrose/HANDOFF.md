@@ -49,7 +49,8 @@
 
 ## Proxima sessao
 
-**Proximo:** s-a1-baveno R3 ou aprovar → s-a1-vote. Pipeline:
+**Docs:** Hardening 27/mar concluido (-551L, 4 arquivados, 0 ghost refs). Pendente: WT-OPERATING split.
+**Proximo QA:** s-a1-baveno R3 ou aprovar → s-a1-vote. Pipeline:
 1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-baveno --video` (delay 4500ms custom anims)
 2. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --inspect` (Gate 0)
 3. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --editorial --round 3 --ref-slide s-a1-classify` (Gate 4)
