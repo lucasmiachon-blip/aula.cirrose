@@ -11,8 +11,8 @@ npm run build             # Producao
 npm run build:cirrose     # Concatena slides → aulas/cirrose/index.html via aulas/cirrose/slides/_manifest.js
 npm run preview           # Servir localmente (palco)
 npm run lint:slides       # Assertion-evidence linter
-npm run lint:case-sync    # CASE.md ↔ aulas/cirrose/slides/_manifest.js sync
-npm run lint:narrative-sync # narrative.md ↔ aulas/cirrose/slides/_manifest.js sync
+npm run lint:case-sync    # aulas/cirrose/references/CASE.md ↔ aulas/cirrose/slides/_manifest.js sync
+npm run lint:narrative-sync # aulas/cirrose/references/narrative.md ↔ aulas/cirrose/slides/_manifest.js sync
 ```
 
 ## Stack
@@ -83,7 +83,7 @@ Conflito: # menor vence. Notion é mirror, não source of truth.
 
 > Regra completa: @.claude/rules/slide-rules.md §7
 
-9 superfícies sincronizadas: `aulas/cirrose/slides/_manifest.js` · `<section id>` · `aulas/cirrose/slide-registry.js` · `aulas/cirrose/cirrose.css` · `narrative.md` · `evidence-db.md` · `AUDIT-VISUAL.md` · `HANDOFF.md` · `aulas/cirrose/index.html` (gerado).
+9 superfícies sincronizadas: `aulas/cirrose/slides/_manifest.js` · `<section id>` · `aulas/cirrose/slide-registry.js` · `aulas/cirrose/cirrose.css` · `aulas/cirrose/references/narrative.md` · `aulas/cirrose/references/evidence-db.md` · `aulas/cirrose/AUDIT-VISUAL.md` · `aulas/cirrose/HANDOFF.md` · `aulas/cirrose/index.html` (gerado).
 
 - Drift da rodada → **FAIL**. Corrigir ANTES de prosseguir.
 - RENAME/SPLIT/DELETE → checklist atômico das 9 superfícies. NUNCA sem aprovação.
@@ -92,16 +92,16 @@ Conflito: # menor vence. Notion é mirror, não source of truth.
 
 ### Sessão
 
-1. **Start:** `git log --oneline -5 && git status` → ler HANDOFF.md → perguntar ao usuário.
+1. **Start:** `git log --oneline -5 && git status` → ler `aulas/cirrose/HANDOFF.md` → perguntar ao usuário.
 2. **Slide a slide.** Um slide por vez no QA pipeline.
 3. Plan mode para tarefas >=3 steps. Subagents para pesquisa.
 4. Verificar antes de declarar done: `npm run lint:slides`.
 5. Handoff: código → visual = Gemini. Visual → clínico = Opus.
-6. **End:** atualizar HANDOFF.md. Commit + push.
+6. **End:** atualizar `aulas/cirrose/HANDOFF.md`. Commit + push.
 
 ### Aprendizado com erros
 
-Erro → ERROR-LOG.md → se 3x recorrente → regra em `.claude/rules/`.
+Erro → `aulas/cirrose/ERROR-LOG.md` → se 3x recorrente → regra em `.claude/rules/`.
 Regras são reativas (52 erros reais). NUNCA criar regra por problema que aconteceu 1x.
 
 ### Guardrails
@@ -140,7 +140,7 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect                
 
 **Passo 3 — Gate 4** (editorial, criativo): Gemini avalia hierarquia, flow, legibilidade.
 Input: raw HTML + raw CSS + raw JS + PNGs S0/S2 + video .webm (tudo do passo 1).
-Gemini NUNCA edita arquivos — só produz sugestões. Spec completa: `WT-OPERATING.md` §4 QA.3.
+Gemini NUNCA edita arquivos — só produz sugestões. Spec completa: `aulas/cirrose/WT-OPERATING.md` §4 QA.3.
 ```bash
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N        # Gate 4 (requer Gate 0 PASS)
 ```
