@@ -285,13 +285,13 @@ export const customAnimations = {
         // Phase 1: Danger ✕ collapses + text slides to fill void
         if (dangerIconSvg) {
           tl1.to(dangerIconSvg, { scale: 0, rotation: -45, opacity: 0, duration: 0.35, ease: 'back.in(2)' });
-          if (dangerText) tl1.to(dangerText, { x: -32, duration: 0.5, ease: 'power3.out' }, '<0.1');
+          // dangerText stays in place — void is intentional dramatic silence
         }
 
         // Phase 2: Further decomp block enters + arrow draws
         tl1.to(furtherDecomp, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '+=0.05');
         if (furtherPath) {
-          tl1.to(furtherPath, { drawSVG: '100%', duration: 0.6, ease: 'power2.inOut' }, '<0.1');
+          tl1.to(furtherPath, { drawSVG: '100%', duration: 0.6, ease: 'power2.inOut' }, '+=0.3');
         }
 
         // Phase 3: Badge punches in after arrow draw
@@ -315,7 +315,7 @@ export const customAnimations = {
         if (furtherPath) gsap.to(furtherPath, { drawSVG: '0%', duration: 0.3 });
         if (badgeFatal) gsap.to(badgeFatal, { opacity: 0, scale: 0.5, x: -8, duration: 0.2 });
         if (dangerIconSvg) gsap.to(dangerIconSvg, { scale: 1, rotation: 0, opacity: 1, duration: 0.3, ease: 'power2.out' });
-        if (dangerText) gsap.to(dangerText, { x: 0, duration: 0.3, ease: 'power2.out' });
+        // dangerText no longer animated — no retreat needed
       } else if (state === 2) {
         gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }

@@ -27,7 +27,7 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | QA | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED (padding assimetrico). |
-| 4 | s-a1-classify | QA | Gate 0 PASS. Gate 4 R5. h2 42px, flex-start, badge editorial, ScrambleText removido. Recapturar + Gate 4 final pendente. |
+| 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P2 x:-32 removido, P3 seta sequenciada +=0.3. Aprovado 27/mar. |
 | 5 | s-a1-baveno | CONTENT | State machine OK. Testar animacao no browser + Gate 0/4 pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
@@ -35,8 +35,8 @@
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 2 DONE · 2 QA · 40 CONTENT
-**QA Act 1:** s-a1-01 (R7 8.5/10), s-a1-classify (R5, recapturar pendente). Proximo: s-a1-baveno.
+**Resumo:** 3 DONE · 1 QA · 40 CONTENT
+**QA Act 1:** s-a1-01 (R7 8.5/10), s-a1-classify (R7 7.3/10 DONE). Proximo: s-a1-baveno.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -60,8 +60,8 @@
 
 ## Caminho critico
 
-1. **s-a1-classify** — Recapturar screenshots + Gate 4 final — **PROXIMO**
-2. **s-a1-baveno** — Browser test + Gate 0/4
+1. ~~s-a1-classify~~ — DONE 27/mar (R7 7.3/10)
+2. **s-a1-baveno** — Browser test + Gate 0/4 — **PROXIMO**
 3. **s-a1-vote → s-cp1** — sequencia manifest, slide a slide
 4. **Act 2 → Act 3** — apos Act 1 DONE
 
