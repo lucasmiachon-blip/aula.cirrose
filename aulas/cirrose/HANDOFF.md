@@ -27,7 +27,7 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | QA | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED (padding assimetrico). |
-| 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P2 x:-32 removido, P3 seta sequenciada +=0.3. Aprovado 27/mar. |
+| 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | CONTENT | State machine OK. Testar animacao no browser + Gate 0/4 pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
@@ -49,12 +49,11 @@
 
 ## Proxima sessao
 
-**Proximo:** Escolher slide-alvo e rodar pipeline completo com as novas configs:
-1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide SLIDE_ID --video` (delay 2500ms)
-2. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide SLIDE_ID --editorial --round N` (bloco animacao + 4000 tokens)
-3. Validar Parte A (inventario) contra conhecimento do slide
-
-**Candidatos:** s-a1-classify (recapturar + Gate 4 final) ou s-a1-baveno (browser test + Gate 0/4).
+**Proximo:** s-a1-baveno — browser test + Gate 0/4. Pipeline atualizado:
+1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-baveno --video` (delay 2500ms)
+2. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --inspect` (Gate 0)
+3. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --editorial --round 1 --ref-slide s-a1-classify` (Gate 4 + paralelismo)
+4. Validar Parte A (inventario animacao) contra conhecimento do slide
 
 ---
 
