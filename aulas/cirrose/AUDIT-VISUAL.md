@@ -357,7 +357,7 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) ~~Inline
 **Dimensoes fortes (>=8 na maioria):**
 - **D (Dados clinicos):** 9 em 9/11 slides. PMIDs Tier-1 verificados. [DATA] tags em notes. Zero [TBD] projetado.
 - **C (Cor & Contraste):** 8 em 11/11. var() tokens. Cores semanticas. Icones daltonismo.
-- **K (Consistencia):** 8 em 9/10. Archetypes reutilizados. Excecao: s-hook (custom). s-a1-vote merged into fib4.
+- **K (Consistencia):** 8 em 9/10. Archetypes reutilizados. Excecao: s-hook (custom).
 - **I (Interacoes):** 8-9 em 11/11. Todas interacoes testadas. ERRO-033 corrigido.
 - **N (Arco narrativo):** 8 em 10/11, 9 em s-cp1. Headlines conferem com narrative.md.
 
@@ -367,7 +367,7 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) ~~Inline
 - **L (Carga cognitiva):** 7 em s-a1-damico (pos-trim, era 5→7). 7 em 4 slides.
 
 **Gargalo principal:** E (fill ratio) — s-title (12%) e s-hook (0% beat 0) sao archetypes especiais (intencional). Slides regulares corrigidos.
-**Segundo gargalo:** M (comunicacao) — 3 slides com headline nao-assertivo (title, hook, vote sao archetypes especiais; fib4/meld sao mnemonicos).
+**Segundo gargalo:** M (comunicacao) — 3 slides com headline nao-assertivo (title, hook sao archetypes especiais; fib4/meld sao mnemonicos).
 **Terceiro gargalo:** L (carga cognitiva) — s-a1-damico gerenciavel pos-trim (7) mas split futuro ainda no backlog.
 
 **Nenhum slide atinge PASS (todas 14 dim >= 9).** Melhor slide: s-a1-rule5 (V=9, único 9 do arco). Slides mais fracos: s-title (E=4, M=5) e s-hook (E=4, M=6) — ambos archetypes especiais (intencional). s-a1-damico corrigido para E=7, L=7, H=7.
@@ -391,7 +391,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 4 | s-a1-classify | OK | 3 cards + PREDESCI; ~~h2 pendente~~ reescrito d20deec | — |
 | 5 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
 | 6 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
-| 7 | s-a1-fib4 | PENDING | Merged s-a1-vote (27/mar). Pesquisa + assembly pendente. Requer re-QA. | — |
+| 7 | s-a1-fib4 | PENDING | Pesquisa + assembly pendente. Requer re-QA. | — |
 | 9 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
 | 10 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |
@@ -435,7 +435,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 
 **2 fixes adicionais pos-hardening:**
 1. **ERRO-032 fix (cfb7d26):** D'Amico pathway stages sem cor semantica → regras explicitas em cirrose.css. Source-tag failsafe .no-js/.stage-bad. White-space wrapping. QA: 7 PASS, 1 pre-existing (8px overflow).
-2. **ERRO-033 fix (fe5a1d8):** s-a1-vote 3 interaction bugs (stopPropagation, retreat DOM, leave+return reset) + visual upgrade (serif headline, elevated cards, spacing 720px). QA: 7/7 PASS via vote-final-qa.mjs.
+2. **ERRO-033 fix (fe5a1d8):** 3 interaction bugs (stopPropagation, retreat DOM, leave+return reset). Slide merged into s-a1-fib4 (27/mar); regras permanecem validas.
 
 **R3 fechado.** ERRO-022 (vote nunca testado) agora resolvido.
 
@@ -466,22 +466,22 @@ Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 46
 
 | # | ID | Arquivo | Origem | Status QA |
 |---|-----|---------|--------|-----------|
-| 12 | s-a2-01 | 30-a2-gatilhos.html | NOVO | PASS (h2 3 linhas — P1) |
-| 13 | s-a2-02 | 31-a2-ascite-dx.html | NOVO | PASS |
-| 14 | s-a2-03 | 32-a2-ascite-manejo.html | NOVO | PASS |
-| 15 | s-a2-04 | 05-a1-infeccao.html | RELOCADO | PASS (bar chart — bom) |
-| 16 | s-a2-05 | 11-a2-pbe.html | EXISTENTE | PASS |
-| 17 | s-a2-06 | 33-a2-hda.html | NOVO | PASS (h2 denso mas 2 linhas) |
-| 18 | s-a2-07 | 08-a2-carvedilol.html | EXISTENTE | PASS (4 states, excelente) |
-| 19 | s-a2-08 | 13-a2-he.html | EXISTENTE | PASS |
-| 20 | s-a2-09 | 34-a2-nutricao.html | NOVO | PASS (source-tag limpo) |
-| 21 | s-a2-10 | 35-a2-tx.html | NOVO | PASS |
-| 22 | s-a2-11 | 12-a2-hrs.html | EXISTENTE | PASS (3 perguntas, forte) |
-| 23 | s-a2-12 | 36-a2-refrataria.html | NOVO | PASS (h2 denso mas 2 linhas) |
-| 24 | s-a2-13 | 24-app-ccc.html | RELOCADO | PASS |
-| 25 | s-a2-14 | 25-app-pulm.html | RELOCADO | PASS (comparacao SHP/HPP) |
-| 26 | s-a2-15 | 09-a2-tips.html | EXISTENTE | PASS |
-| 27 | s-cp2 | 14-cp2.html | EXISTENTE | PASS (checkpoint forte) |
+| 10 | s-a2-01 | 30-a2-gatilhos.html | NOVO | PASS (h2 3 linhas — P1) |
+| 11 | s-a2-02 | 31-a2-ascite-dx.html | NOVO | PASS |
+| 12 | s-a2-03 | 32-a2-ascite-manejo.html | NOVO | PASS |
+| 13 | s-a2-04 | 05-a1-infeccao.html | RELOCADO | PASS (bar chart — bom) |
+| 14 | s-a2-05 | 11-a2-pbe.html | EXISTENTE | PASS |
+| 15 | s-a2-06 | 33-a2-hda.html | NOVO | PASS (h2 denso mas 2 linhas) |
+| 16 | s-a2-07 | 08-a2-carvedilol.html | EXISTENTE | PASS (4 states, excelente) |
+| 17 | s-a2-08 | 13-a2-he.html | EXISTENTE | PASS |
+| 18 | s-a2-09 | 34-a2-nutricao.html | NOVO | PASS (source-tag limpo) |
+| 19 | s-a2-10 | 35-a2-tx.html | NOVO | PASS |
+| 20 | s-a2-11 | 12-a2-hrs.html | EXISTENTE | PASS (3 perguntas, forte) |
+| 21 | s-a2-12 | 36-a2-refrataria.html | NOVO | PASS (h2 denso mas 2 linhas) |
+| 22 | s-a2-13 | 24-app-ccc.html | RELOCADO | PASS |
+| 23 | s-a2-14 | 25-app-pulm.html | RELOCADO | PASS (comparacao SHP/HPP) |
+| 24 | s-a2-15 | 09-a2-tips.html | EXISTENTE | PASS |
+| 25 | s-cp2 | 14-cp2.html | EXISTENTE | PASS (checkpoint forte) |
 
 ### Fixes aplicados nesta sessao
 
@@ -526,15 +526,15 @@ Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 46
 
 | # | ID | Arquivo | Origem | Status conteudo |
 |---|-----|---------|--------|----------------|
-| 28 | s-a3-01 | 37-a3-bridge.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
-| 29 | s-a3-02 | 15-a3-recompensacao.html | EXISTENTE | Score anterior: 3.1 |
-| 30 | s-a3-03 | 38-a3-expandido.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
-| 31 | s-a3-04 | 39-a3-etiologia.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
-| 32 | s-a3-05 | 16-a3-svr.html | EXISTENTE | Score anterior: 2.9 |
-| 33 | s-a3-06 | 17-a3-vigilancia.html | EXISTENTE | Score anterior: 3.4 |
-| 34 | s-a3-07 | 40-a3-fechamento.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
-| 35 | s-cp3 | 18-cp3.html | EXISTENTE | Score anterior: 3.4 |
-| 36 | s-close | 19-close.html | EXISTENTE | Score anterior: 3.3 |
+| 26 | s-a3-01 | 37-a3-bridge.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
+| 27 | s-a3-02 | 15-a3-recompensacao.html | EXISTENTE | Score anterior: 3.1 |
+| 28 | s-a3-03 | 38-a3-expandido.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
+| 29 | s-a3-04 | 39-a3-etiologia.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
+| 30 | s-a3-05 | 16-a3-svr.html | EXISTENTE | Score anterior: 2.9 |
+| 31 | s-a3-06 | 17-a3-vigilancia.html | EXISTENTE | Score anterior: 3.4 |
+| 32 | s-a3-07 | 40-a3-fechamento.html | NOVO | Skeleton (headline + notes ok, evidence TBD) |
+| 33 | s-cp3 | 18-cp3.html | EXISTENTE | Score anterior: 3.4 |
+| 34 | s-close | 19-close.html | EXISTENTE | Score anterior: 3.3 |
 
 ---
 

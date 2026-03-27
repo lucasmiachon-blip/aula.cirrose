@@ -151,7 +151,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Interação nunca testada com click real no browser**
 **Root cause:** Slide criado inteiramente em código sem QA visual/interação. `doReveal()` disparado por click em `.vote-option`, mas comportamento real (CSS transitions, opacity, countUp) não verificado.
 **Regra:** Todo slide com interação JS deve ter ao menos 1 screenshot de cada estado (antes/depois do reveal) antes de commitar como concluído.
-**Status:** ✅ Corrigido (fe5a1d8 — 7/7 cenários QA PASS via vote-final-qa.mjs). 3 bugs encontrados e fixados: ver ERRO-033.
+**Status:** ✅ Corrigido (fe5a1d8). Slide merged into s-a1-fib4 (27/mar); regra permanece valida.
 
 ### ERRO-023 · MEDIUM · múltiplos slides do Bloco 1
 **CSS failsafe não testado em novos elementos**
@@ -287,7 +287,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Root cause:** (a) Click em `.vote-option` propagava para Reveal → avançava slide. (b) `killTweensOf` no retreat matava tweens mas não restaurava estado DOM. (c) Sair e voltar ao slide não limpava classes de estado.
 **Fix:** `slide-registry.js` — (a) `e.stopPropagation()` no handler, (b) retreat restaura DOM manualmente em vez de confiar em kill, (c) `slidetransitionend` reseta classes. Visual: headline serif, card buttons elevados, labs/bio demotidos, spacing ajustado para 720px.
 **Regra:** Interações com click handler DENTRO de slide Reveal: SEMPRE `stopPropagation()`. Retreat: restaurar estado DOM explicitamente, não confiar em `killTweensOf`. Leave/return: resetar no `slidetransitionend`.
-**Status:** ✅ Corrigido (fe5a1d8 — 7/7 QA PASS via `scripts/vote-final-qa.mjs`).
+**Status:** ✅ Corrigido (fe5a1d8). Slide merged into s-a1-fib4 (27/mar); regras permanecem validas.
 
 ---
 

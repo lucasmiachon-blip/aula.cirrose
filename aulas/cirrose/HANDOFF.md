@@ -10,10 +10,7 @@
 **Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race.
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
-**QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS) · `--diagnostic "classe: descricao"` (injeta CSS global cascade + step forense). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios. Custo: ~$0.03-0.08/round.
-**QA scripts (refs):**
-- `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — Captura PNGs S0/S2 + video .webm. Delay entre reveals: 2500ms. Custom anim wait: 4500ms (atualizado 27/mar, era 2500ms — baveno auto-anim ~3.4s).
-- `aulas/cirrose/scripts/gemini-qa3.mjs` — Prompt Gate 4: maxOutputTokens 16384, token limit condicional (4000 com video, 1500 sem). Bloco AVALIACAO DE ANIMACAO (Partes A/B/C) ativo quando video presente. Paralelismo cross-slide (5 criterios) ativo quando `--ref-slide` presente.
+**QA pipeline:** ver `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` (PNGs+video) · `gemini-qa3.mjs` (Gate 0/4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
 ---
@@ -29,13 +26,13 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6-10 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. s-a1-vote merged into s-a1-fib4 (27/mar). |
-| 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
-| 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
-| 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
+| 6-9 | s-a1-fib4 → s-cp1 | CONTENT | Act 1 restante. |
+| 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
+| 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
+| 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 5 DONE · 0 QA · 38 CONTENT (43 total, s-a1-vote merged into fib4)
-**QA Act 1:** s-a1-01 (DONE), s-a1-classify (DONE), s-a1-baveno (DONE). Proximo: s-a1-fib4 (refatorado, pesquisa pendente).
+**Resumo:** 5 DONE · 38 CONTENT (43 total)
+**Proximo QA:** s-a1-fib4 → pipeline QA.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -48,8 +45,8 @@
 
 ## Proxima sessao
 
-**Docs:** Hardening 27/mar concluido (-551L, 4 arquivados, 0 ghost refs). Pendente: WT-OPERATING split.
-**Proximo QA:** s-a1-fib4 (merged) — pesquisa Gemini (Batch 2) → assembly (Batch 3) → pipeline QA.
+**Docs:** Hardening 27/mar concluido. Pendente: WT-OPERATING split.
+**Proximo QA:** s-a1-fib4 — pesquisa → assembly → pipeline QA.
 
 ---
 
@@ -57,7 +54,7 @@
 
 1. ~~s-a1-classify~~ — DONE 27/mar (R7 7.3/10)
 2. ~~s-a1-baveno~~ — DONE 27/mar (R5)
-3. **s-a1-fib4 (merged) → s-cp1** — sequencia manifest, slide a slide
+3. **s-a1-fib4 → s-cp1** — sequencia manifest, slide a slide
 4. **Act 2 → Act 3** — apos Act 1 DONE
 
 ---
@@ -95,25 +92,6 @@
 6. MELD / MELD-Na / MELD 3.0 redesign
 7. Checkpoint "qual o proximo passo?"
 8. Slide final Ato 1: "Trajetorias"
-
----
-
-## Migracao de IDs (referencia)
-
-| Arquivo | ID antigo | ID novo |
-|---------|-----------|---------|
-| 08-a2-carvedilol.html | s-a2-01 | s-a2-07 |
-| 09-a2-tips.html | s-a2-02 | s-a2-15 |
-| 10-a2-albumina.html | s-a2-03 | s-app-alb |
-| 05-a1-infeccao.html | s-a2-infec | s-a2-04 |
-| 11-a2-pbe.html | s-a2-04 | s-a2-05 |
-| 12-a2-hrs.html | s-a2-05 | s-a2-11 |
-| 13-a2-he.html | s-a2-06 | s-a2-08 |
-| 24-app-ccc.html | s-app-05 | s-a2-13 |
-| 25-app-pulm.html | s-app-06 | s-a2-14 |
-| 15-a3-recompensacao.html | s-a3-01 | s-a3-02 |
-| 16-a3-svr.html | s-a3-02 | s-a3-05 |
-| 17-a3-vigilancia.html | s-a3-03 | s-a3-06 |
 
 ---
 
