@@ -252,12 +252,14 @@ export const customAnimations = {
     const dangerXMorph = slide.querySelector('.danger-x-morph');
     const dangerXFade = slide.querySelector('.danger-x-fade');
     const dangerIconSvg = dangerXMorph?.closest('svg');
+    const sourceTag = slide.querySelector('.source-tag');
 
     // Initial hidden states (P4: 3D perspective — cards "land" instead of float)
     gsap.set(cards, { opacity: 0, y: 30, rotationX: -12, transformPerspective: 800 });
     if (furtherDecomp) gsap.set(furtherDecomp, { opacity: 0, y: 8 });
     if (furtherPath) gsap.set(furtherPath, { drawSVG: '0%' });
     if (badgeFatal) gsap.set(badgeFatal, { opacity: 0, scale: 0.8 });
+    if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
 
     // Auto: D'Amico cards — gravity landing with 3D perspective
     const tl = gsap.timeline({ delay: 0.3 });
@@ -468,6 +470,8 @@ export const customAnimations = {
     gsap.killTweensOf([oldTerm, spectrum, bavRef, predesci, sourceTag].filter(Boolean));
     if (oldTerm) {
       oldTerm.style.display = '';
+      oldTerm.style.height = '';
+      oldTerm.style.overflow = '';
       // Nuke leftover SplitText char divs from failed revert
       if (oldTerm.querySelector('.char')) {
         oldTerm.textContent = oldTerm.textContent;
@@ -489,8 +493,8 @@ export const customAnimations = {
         stagger: { each: 0.06, from: 'random' },
         duration: 0.5, ease: 'power2.in',
       });
-      tl.set(oldTerm, { display: 'none' });
-      tl.to(spectrum, { opacity: 1, duration: 0.6, ease: 'power2.out' });
+      tl.to(oldTerm, { height: 0, overflow: 'hidden', marginTop: 0, marginBottom: 0, duration: 0.4, ease: 'power2.inOut' });
+      tl.to(spectrum, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '<');
       tl.to(bavRef, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
       if (sourceTag) tl.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.1');
       // PREDESCI removido da timeline — agora é click state 1
@@ -515,9 +519,7 @@ export const customAnimations = {
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 2) {
-        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      } else if (state === 1) {
+      if (state === 1) {
         gsap.to(predesci, { opacity: 0, duration: 0.3 });
         if (sourceTag) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
       }

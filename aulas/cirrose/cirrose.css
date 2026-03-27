@@ -1115,11 +1115,11 @@ section#s-a1-01 .slide-inner {
 }
 
 /* P5: Source-tag — position override for grid layout (style from global .stage-c) */
-#s-a1-01 .source-tag {
+#deck #s-a1-01 .source-tag {
   position: absolute;
   bottom: 12px;
-  left: 48px;
-  right: calc(0.4 * (100% - 210px) + 210px); /* col-2 + case-panel clearance */
+  left: 0;
+  width: calc(100% - 210px); /* case-panel clearance — right computes against content box in grid */
   max-width: none;
   text-align: center;
   margin: 0;
@@ -1129,7 +1129,7 @@ section#s-a1-01 .slide-inner {
 /* No-js failsafe */
 .no-js #s-a1-01 .screening-metrics,
 .no-js #s-a1-01 .guideline-rec,
-.no-js #s-a1-01 .source-tag { opacity: 1; }
+.no-js #deck #s-a1-01 .source-tag { opacity: 1; }
 .no-js #s-a1-01 .stack-row { opacity: 1; transform: none; }
 .no-js #s-a1-01 .status-dot { background: oklch(75% 0 0); }
 
@@ -1567,6 +1567,13 @@ section#s-a1-01 .slide-inner {
    s-a1-baveno + s-a1-rule5 — PARADIGMA cACLD/dACLD (SplitText + Rule-of-5)
    States: 0=dissolve, 1=rule-of-5, 2=Antônio, 3=source
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Override archetype-hero-stat centering — match s-a1-01 left-align */
+#s-a1-baveno .section-tag,
+#s-a1-baveno .slide-headline {
+  text-align: left;
+  align-self: flex-start;
+}
 
 /* Paradigm container */
 .paradigm-container {

@@ -23,9 +23,9 @@
 |---|-------|--------|-------|
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
-| 3 | s-a1-01 | CONTENT | R12. Fixes E54/E55/E59/E60/E61 (25/mar). 26/mar: source-tag restaurado (const sourceTag re-declarado, reveal ja existia L172-175), text-align center, right calc() para centralizar na col-1. **PROBLEMA PENDENTE:** source-tag ainda nao visivel no browser — diagnosticar. Gate 4 Gemini pendente. |
-| 4 | s-a1-baveno | SYNCED | 26/mar: State machine refatorada — auto dissolve (paradigma) + click 1 (PREDESCI + source-tag). source-tag adicionado ao HTML + reveal no advance state 1 + retreat. predesci reset com y:20. sourceTag no killTweensOf + reset. **PROBLEMA PENDENTE:** source-tag ainda nao visivel no browser — diagnosticar. clickReveals: 1. PMID notes: 31584562→30910320 pendente. |
-| 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. CSS header band: --color-primary→--safe. Source-tag: removido Villanueva. QA pendente. |
+| 3 | s-a1-01 | CONTENT | R12. 26/mar: source-tag specificity fix (#deck #s-a1-01), sourceTag declarado em classify factory, width:calc(100%-210px) substituiu right:210px (right computa contra content box em grid+padding). **NAO VERIFICADO NO BROWSER** — precisa build + Ctrl+Shift+R. Gate 4 pendente. |
+| 4 | s-a1-baveno | CONTENT | 26/mar: State machine refatorada. Fixes aplicados nao verificados: (1) h2/section-tag left-align via CSS override, (2) paradigm-ref movido de dentro do paradigm-container para footer area no HTML, (3) SplitText degrau: display:none substituido por height:0 smooth + overlap '<'. **NAO VERIFICADO NO BROWSER** — testar animacao completa (auto + click PREDESCI + retreat + return visit). PMID notes: 31584562→30910320 pendente. |
+| 5 | s-a1-classify | CONTENT | 26/mar: PREDESCI lockup removido (movido p/ baveno). States renumerados 3→2. sourceTag declarado + reset defensivo gsap.set opacity:0. QA pendente. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
@@ -33,7 +33,7 @@
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 2 DONE · 1 SYNCED · 41 CONTENT
-**QA Act 1:** s-a1-baveno state machine refatorada + Gate 4 R1/R2 rodados (26/mar). s-a1-01 Gate 0 PASS, Gate 4 pendente. classify/vote pipeline nao iniciado.
+**QA Act 1:** Fixes CSS+JS aplicados 26/mar (specificity, layout, animacao). Nenhum verificado no browser ainda. Gate 4 pendente para todos.
 **Global:** CSS cascade fix (E57/E58, 24/mar). Source-tag: GSAP opacity corrigido de 0.6→1, font-size clamp(16-20px), `color-mix()` hue interpolation bug documentado (E59).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
@@ -51,7 +51,7 @@ Gate 0+4 end-to-end testado e funcional (25/mar). Scripts corrigidos: base.css p
 
 **Docs cleanup (26/mar):** Audit + cleanup executados. 3 arquivos arquivados (HANDOFF-CLAUDE-AI, CHANGELOG root, ERROR-LOG root). XREF ghost refs removidos. Monorepo remnants renomeados. WT-OPERATING mandato corrigido (on-demand). CHANGELOG 1295→153L. NOTES 426→142L. Audit completo: `docs/DOCS-RATIONALIZATION-AUDIT.md`.
 
-**Proximo:** s-a1-01 + s-a1-baveno — source-tags nao aparecem no browser apesar dos fixes no registry/CSS/HTML. Diagnosticar: (1) build atualizado? (2) GSAP reveal executa? (3) CSS visibility/display override? Depois: PMID fix (31584562→30910320), re-captura + Gate 4.
+**Proximo:** `npm run build:cirrose` + Ctrl+Shift+R. Verificar visualmente s-a1-01 (source-tag centrado?) e s-a1-baveno (h2 esquerda, transicao suave sem degrau, paradigm-ref no footer, animacao completa auto+click+retreat). Se OK: re-captura screenshots + Gate 0/4. PMID fix (31584562→30910320) pendente.
 ```bash
 npm run dev  # terminal separado
 node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
