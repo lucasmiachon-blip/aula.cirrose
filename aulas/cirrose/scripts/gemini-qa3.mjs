@@ -621,7 +621,7 @@ ${extractGlobalClassCSS(DIAGNOSTIC.split(/[\s:,]/)[0].replace('.', '') || 'sourc
 ${mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)'}
 ${mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)'}
 ${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoes completadas)' : '(sem S2)'}
-${mediaUris.ref ? `4. PNG REF — slide ANTERIOR (${mediaUris.refSlideId}) estado final. Use como REFERENCIA para alinhamento, consistencia tipografica e spacing cross-slide.` : ''}
+${mediaUris.ref ? `4. PNG REF — slide ANTERIOR (${mediaUris.refSlideId}) estado final. REFERENCIA OBRIGATORIA: comparar grid vertical (margens, baseline), hierarquia tipografica (h2 size, body size, caption size), spacing (padding, gap), paleta de cor, e peso visual. Diferenca injustificada = proposta SHOULD.` : ''}
 
 </materials>
 
@@ -637,7 +637,7 @@ Avaliacao por material (1 frase cada):
 - **VIDEO:** O que o video revelou sobre ritmo, easing, timing? Algo que os PNGs nao mostram?
 - **PNG S0:** Estado inicial — o que funciona, o que nao funciona?
 - **PNG S2:** Estado final — todos elementos visiveis? Legibilidade? Respiro?
-- **PNG REF:** (se presente) Comparacao direta com o slide anterior — alinhamentos, consistencia tipografica, spacing?
+- **PNG REF:** (se presente) Comparacao RIGOROSA com slide anterior: (1) grid vertical — margens e baseline alinham? (2) tipografia — mesma escala h2/body/caption? (3) spacing — padding e gap consistentes? (4) cor — mesma paleta semantica? (5) peso visual — fill ratio compativel com tipo de slide? Desvio sem justificativa narrativa = proposta SHOULD.
 - **RAW CODE:** O que o HTML/CSS/JS revelou que as imagens nao mostram (specificity, overrides, animacoes ocultas)?
 
 ### 1. IMPRESSAO (max 3 frases)
@@ -661,7 +661,37 @@ Justificar EM 1 FRASE scores <=7. Scores >=8 sem justificativa.
 Se video foi anexado: nota Motion DEVE refletir o que ASSISTIU (ritmo, easing, timing).
 Se nao assistiu video: declarar "nota baseada em codigo, sem video".
 
-${DIAGNOSTIC ? `### DIAGNOSTICO (OBRIGATORIO — responder ANTES das propostas)
+${mediaUris.video ? `### AVALIACAO DE ANIMACAO (video presente)
+
+O video mostra buildup progressivo GSAP via click-reveals.
+
+**PARTE A — INVENTARIO (obrigatoria, ANTES da Parte B):**
+
+Liste CADA momento onde algo muda:
+  ~Xs: [o que apareceu/moveu] | tipo: [fade/slide/scale/cor] | ~Xms
+
+Se nao identificar transicoes, diga "transicoes indistinguiveis" e pontue animation_score: 0.
+
+**PARTE B — Para cada transicao da Parte A:**
+
+1. DURATION: <200ms=rapido demais | 300-800ms=adequado | >1500ms=lento
+2. STAGING: 1 foco (bom) | 2+ simultaneos nao-relacionados (ruim)
+3. PURPOSE: didatica (guia raciocinio) | decorativa (so estetica)
+4. LEGIBILIDADE: texto parado=ok | texto em movimento=ruim
+
+**PARTE C — Adicionar ao JSON de resposta:**
+
+"animation_score": <1-10>,
+"transitions_found": <numero>,
+"inventory": ["~Xs: descricao | tipo | ~Xms"],
+"animation_issues": ["~Xs: problema -> fix concreto"],
+"animation_value": "didatica" | "decorativa" | "prejudicial"
+
+Se animation_score < 7, cada item em animation_issues DEVE ser implementavel:
+  "~3s: fade dura 100ms, aumentar pra 400ms"
+  "~5s: 3 elementos juntos, sequenciar com 300ms gap"
+NAO aceito "melhorar animacao" como sugestao.
+` : ''}${DIAGNOSTIC ? `### DIAGNOSTICO (OBRIGATORIO — responder ANTES das propostas)
 **Problema reportado:** ${DIAGNOSTIC}
 
 Voce recebeu o CSS slide-specific (materials) E o CSS global reference (cascade sem #slideId).
@@ -691,7 +721,7 @@ Regras das propostas:
 </task>
 
 <constraints>
-Max 1500 tokens total. Sem autocritica, sem score projetado.
+Max ${mediaUris.video ? '4000' : '1500'} tokens total. Sem autocritica, sem score projetado.
 Tom: direto, honesto, PT-BR, codigo em ingles.
 Legibilidade a 5m e prioridade #1 — slide bonito mas ilegivel = FAIL.
 Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
@@ -706,7 +736,7 @@ Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
 
   return {
     contents: [{ parts }],
-    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 6144 },
+    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 16384 },
   };
 }
 

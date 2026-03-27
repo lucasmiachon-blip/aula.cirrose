@@ -257,7 +257,7 @@ async function main() {
       // Advance all click-reveals to reach final state
       for (let beat = 1; beat <= slide.clickReveals; beat++) {
         await page.keyboard.press('ArrowRight');
-        await page.waitForTimeout(800);
+        await page.waitForTimeout(2500);
       }
       // Capture final state only
       const s2File = `${slide.id}_${DATE_STAMP}_${TIME_STAMP}_S2.png`;

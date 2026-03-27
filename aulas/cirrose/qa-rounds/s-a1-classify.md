@@ -60,3 +60,14 @@ Score: ?/10
 Propostas:
 - P1: (parse proposals manually from response)
 Status: PENDENTE — preencher manualmente
+
+
+## Round 6 Gate 4 (2026-03-27)
+
+Score: 6.0/10
+Propostas:
+- P1: RADICAL: Arquitetura Tabular de Ferro (Bloomberg Grid)
+- P2: Exorcizar o Layout Shift no GSAP (O Vazio Dramático)
+- P3: Ancoragem Estrutural da Seta de Progressão
+- P4: Peso Semântico no Badge Fatal
+Status: PENDENTE — preencher manualmente

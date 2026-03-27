@@ -11,6 +11,9 @@
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race.
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
 **QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS) · `--diagnostic "classe: descricao"` (injeta CSS global cascade + step forense). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios. Custo: ~$0.03-0.08/round.
+**QA scripts (refs):**
+- `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — Captura PNGs S0/S2 + video .webm. Delay entre reveals: 2500ms (atualizado 27/mar, era 800ms).
+- `aulas/cirrose/scripts/gemini-qa3.mjs` — Prompt Gate 4: maxOutputTokens 16384, token limit condicional (4000 com video, 1500 sem). Bloco AVALIACAO DE ANIMACAO (Partes A/B/C) ativo quando video presente. Paralelismo cross-slide (5 criterios) ativo quando `--ref-slide` presente.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
 ---
@@ -46,7 +49,12 @@
 
 ## Proxima sessao
 
-**Proximo:** s-a1-classify recapturar + Gate 4 final. s-a1-baveno: browser test + Gate 0/4. Demais Act 1: slide a slide.
+**Proximo:** Escolher slide-alvo e rodar pipeline completo com as novas configs:
+1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide SLIDE_ID --video` (delay 2500ms)
+2. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide SLIDE_ID --editorial --round N` (bloco animacao + 4000 tokens)
+3. Validar Parte A (inventario) contra conhecimento do slide
+
+**Candidatos:** s-a1-classify (recapturar + Gate 4 final) ou s-a1-baveno (browser test + Gate 0/4).
 
 ---
 
