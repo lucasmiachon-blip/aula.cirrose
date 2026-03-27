@@ -1119,7 +1119,7 @@ section#s-a1-01 .slide-inner {
   position: absolute;
   bottom: 12px;
   left: 0;
-  width: calc(100% - 210px); /* case-panel clearance — right computes against content box in grid */
+  width: 100%; /* content box in grid already excludes 210px padding */
   max-width: none;
   text-align: center;
   margin: 0;
@@ -1573,6 +1573,11 @@ section#s-a1-01 .slide-inner {
 #s-a1-baveno .slide-headline {
   text-align: left;
   align-self: flex-start;
+}
+
+#s-a1-baveno .slide-inner {
+  justify-content: flex-start;
+  padding-top: 48px;
 }
 
 /* Paradigm container */

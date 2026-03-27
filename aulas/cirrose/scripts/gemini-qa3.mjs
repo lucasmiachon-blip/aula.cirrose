@@ -39,6 +39,7 @@ const QA_DIR = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);
 const CUSTOM_OUTPUT = getArg('output', null);
 const CUSTOM_TEMP = getArg('temp', null);
 const CONTEXT_PARAGRAPH = getArg('context', '');
+const DIAGNOSTIC = getArg('diagnostic', '');
 
 // --- Mode flags ---
 function hasFlag(name) { return args.includes(`--${name}`); }
@@ -196,6 +197,36 @@ function extractCSS(slideId, html) {
   const lineCount = combined.split('\n').length;
   console.log(`  CSS: ${lineCount} lines (tokens + archetype + slide-specific)`);
   return combined;
+}
+
+// --- Extract global CSS rules for a class (cascade without #s- slide IDs) ---
+function extractGlobalClassCSS(className) {
+  const files = [
+    { label: 'base.css', file: join(AULA_DIR, 'shared/css/base.css') },
+    { label: 'cirrose.css', file: join(AULA_DIR, 'cirrose.css') },
+  ];
+  const out = [];
+  for (const { label, file: fpath } of files) {
+    const lines = readFileSync(fpath, 'utf8').split('\n');
+    const rules = [];
+    let cap = false, depth = 0;
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i];
+      if (!cap && l.includes(`.${className}`) && !/#s-/.test(l)) {
+        cap = true; depth = 0;
+      }
+      if (cap) {
+        rules.push(l);
+        depth += (l.match(/\{/g) || []).length;
+        depth -= (l.match(/\}/g) || []).length;
+        if (depth <= 0 && rules.length > 0) {
+          cap = false; depth = 0; rules.push('');
+        }
+      }
+    }
+    if (rules.length) out.push(`/* --- ${label} --- */\n${rules.join('\n')}`);
+  }
+  return out.join('\n\n') || '(no global rules found)';
 }
 
 function extractJS(slideId) {
@@ -579,7 +610,13 @@ ${rawJS}
 ${notes}
 \`\`\`
 
-### Material visual anexado
+${DIAGNOSTIC ? `### CSS global reference — cascade da classe alvo (regras SEM #slideId)
+\`\`\`css
+${extractGlobalClassCSS(DIAGNOSTIC.split(/[\s:,]/)[0].replace('.', '') || 'source-tag')}
+\`\`\`
+
+> Compare estas regras globais com as regras slide-specific acima. A diferenca explica o bug.
+` : ''}### Material visual anexado
 ${mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)'}
 ${mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)'}
 ${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoes completadas)' : '(sem S2)'}
@@ -615,7 +652,17 @@ Justificar EM 1 FRASE scores <=7. Scores >=8 sem justificativa.
 Se video foi anexado: nota Motion DEVE refletir o que ASSISTIU (ritmo, easing, timing).
 Se nao assistiu video: declarar "nota baseada em codigo, sem video".
 
-### 3. PROPOSTAS (1 a 5)
+${DIAGNOSTIC ? `### DIAGNOSTICO (OBRIGATORIO — responder ANTES das propostas)
+**Problema reportado:** ${DIAGNOSTIC}
+
+Voce recebeu o CSS slide-specific (materials) E o CSS global reference (cascade sem #slideId).
+Voce tambem tem o HTML raw e o JS raw. Investigue:
+1. **CAUSA RAIZ** — qual propriedade/regra no CSS e/ou HTML provoca o comportamento incorreto
+2. **POR QUE DIFERENTE** — o que torna ESTE slide divergente dos demais (specificity, position, layout context, inheritance)
+3. **FIX** — snippet CSS/HTML copyavel com arquivo indicado
+
+Seja forense: leia a cascade inteira, identifique conflitos de specificity, position contexts e layout modes.
+` : ''}### ${DIAGNOSTIC ? '4' : '3'}. PROPOSTAS (1 a 5)
 Formato por proposta:
 
 **P1 [MUST|SHOULD|COULD]: titulo curto**
