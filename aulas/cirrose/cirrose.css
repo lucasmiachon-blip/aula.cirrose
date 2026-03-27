@@ -1578,6 +1578,56 @@ section#s-a1-01 .slide-inner {
   padding-top: 48px;
 }
 
+/* P1: Grid stack — crossfade Cirrose → cACLD/dACLD sem layout shift */
+#s-a1-baveno .paradigm-container {
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  align-content: center;
+  gap: var(--space-lg);
+}
+#s-a1-baveno .paradigm-old,
+#s-a1-baveno .paradigm-spectrum {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+/* P2+R2P1: PREDESCI horizontal — divider único, gaps limpos */
+#s-a1-baveno .classify-predesci-lockup {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  background: var(--bg-card);
+  border-color: var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px oklch(0% 0 0 / 0.04);
+  padding: var(--space-lg) var(--space-xl);
+}
+#s-a1-baveno .classify-predesci-header {
+  background: transparent;
+  padding: 0;
+  flex-shrink: 0;
+  text-align: right;
+}
+#s-a1-baveno .classify-predesci-header * { color: var(--text-secondary); }
+#s-a1-baveno .classify-predesci-label { color: var(--safe); }
+#s-a1-baveno .classify-predesci-content {
+  padding: 0 0 0 var(--space-xl);
+  border-left: 2px solid var(--divider);
+}
+/* R2P2: valor hero 86px para impacto a 5m */
+#s-a1-baveno .classify-predesci-value { font-size: 86px; line-height: 0.9; }
+#s-a1-baveno .classify-predesci-stat { font-size: var(--text-small); color: var(--text-primary); }
+
+/* P3: Espectro mais espesso — legibilidade a 5m */
+#s-a1-baveno .paradigm-bar { height: 12px; border-radius: 6px; }
+#s-a1-baveno .paradigm-term {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  letter-spacing: -0.02em;
+}
+
 /* Paradigm container */
 .paradigm-container {
   display: flex;

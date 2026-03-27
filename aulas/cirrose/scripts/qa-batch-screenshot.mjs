@@ -226,7 +226,7 @@ async function main() {
     await page.evaluate(idx => window.__deckGoTo(idx), targetIndex);
 
     // Wait for animations to complete
-    const animWait = slide.customAnim ? 2500 : 1000;
+    const animWait = slide.customAnim ? 4500 : 1000;
     await page.waitForTimeout(animWait);
 
     // Verify we're on the right slide
@@ -288,7 +288,7 @@ async function main() {
       await videoPage.waitForTimeout(1000);
       // Navigate and play through
       await videoPage.evaluate(idx => window.__deckGoTo(idx), targetIndex);
-      await videoPage.waitForTimeout(slide.customAnim ? 3000 : 1500);
+      await videoPage.waitForTimeout(slide.customAnim ? 4500 : 1500);
       if (slide.clickReveals > 0) {
         for (let beat = 1; beat <= slide.clickReveals; beat++) {
           await videoPage.keyboard.press('ArrowRight');

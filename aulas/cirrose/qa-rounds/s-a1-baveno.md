@@ -31,3 +31,23 @@ Propostas:
 - P1: Sincronização da Máquina de Estados (Omissão Crítica)
 - P2: Arquitetura do Container Paradigmático (CSS)
 Status: PENDENTE — preencher manualmente
+
+
+## Round 1 Gate 4 (2026-03-27)
+
+Score: 5.3/10
+Propostas:
+- P1: Resolver Layout Shift com Grid Stack (CSS/JS)
+- P2: Reconstruir Arquitetura do PREDESCI para Padrão Horizontal
+- P3: Escalonamento e Peso do Espectro cACLD/dACLD
+Status: PENDENTE — preencher manualmente
+
+
+## Round 2 Gate 4 (2026-03-27)
+
+Score: 6.8/10
+Propostas:
+- P1: Arquitetura Rigorosa do Lockup PREDESCI (CSS)
+- P2: Escala e Peso do Dado Hero PREDESCI
+- P3: Reconstrução Funcional da Barra de Espectro
+Status: PENDENTE — preencher manualmente

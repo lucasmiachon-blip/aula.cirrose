@@ -445,7 +445,6 @@ export const customAnimations = {
 
     const oldTerm = slide.querySelector('.paradigm-old');
     const spectrum = slide.querySelector('.paradigm-spectrum');
-    const bavRef = slide.querySelector('.paradigm-ref');
     const predesci = slide.querySelector('.classify-predesci-lockup');
     const sourceTag = slide.querySelector('.source-tag');
 
@@ -453,17 +452,16 @@ export const customAnimations = {
     let autoComplete = false;
 
     // --- Defensive reset for return visits ---
-    gsap.killTweensOf([oldTerm, spectrum, bavRef, predesci, sourceTag].filter(Boolean));
+    gsap.killTweensOf([oldTerm, spectrum, predesci, sourceTag].filter(Boolean));
     if (oldTerm) {
       oldTerm.style.display = '';
-      oldTerm.style.height = '';
-      oldTerm.style.overflow = '';
-      // Nuke leftover SplitText char divs from failed revert
+      oldTerm.style.opacity = '';
+      oldTerm.style.visibility = '';
       if (oldTerm.querySelector('.char')) {
         oldTerm.textContent = oldTerm.textContent;
       }
     }
-    if (predesci) gsap.set(predesci, { opacity: 0, y: 20 });
+    if (predesci) gsap.set(predesci, { opacity: 0, y: 20, scale: 0.98 });
     if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
 
     if (oldTerm && oldTerm.textContent.trim()) {
@@ -471,7 +469,6 @@ export const customAnimations = {
 
       gsap.set(oldTerm, { opacity: 1 });
       gsap.set(spectrum, { opacity: 0 });
-      gsap.set(bavRef, { opacity: 0 });
 
       const tl = gsap.timeline({ delay: 1.3, onComplete: () => { autoComplete = true; } });
       tl.to(splitInstance.chars, {
@@ -479,26 +476,27 @@ export const customAnimations = {
         stagger: { each: 0.06, from: 'random' },
         duration: 0.5, ease: 'power2.in',
       });
-      tl.to(oldTerm, { height: 0, overflow: 'hidden', marginTop: 0, marginBottom: 0, duration: 0.4, ease: 'power2.inOut' });
+      // P1: autoAlpha instead of height:0 — no reflow
+      tl.to(oldTerm, { autoAlpha: 0, duration: 0.4, ease: 'power2.inOut' });
       tl.to(spectrum, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '<');
-      tl.to(bavRef, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
       if (sourceTag) tl.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.1');
-      // PREDESCI removido da timeline — agora é click state 1
     } else {
       gsap.set(spectrum, { opacity: 1 });
-      gsap.set(bavRef, { opacity: 1 });
       if (sourceTag) gsap.set(sourceTag, { opacity: 1 });
-      if (predesci) gsap.set(predesci, { opacity: 1 });
+      if (predesci) gsap.set(predesci, { opacity: 1, scale: 1 });
       autoComplete = true;
     }
 
     function advance() {
-      if (!autoComplete) return true; // swallow click during auto-animation
+      if (!autoComplete) return true;
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
-        gsap.to(predesci, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-        if (sourceTag) gsap.to(sourceTag, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        // P4: reveal with subtle scale
+        gsap.fromTo(predesci,
+          { opacity: 0, y: 20, scale: 0.98 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out' }
+        );
       }
       return true;
     }
@@ -506,8 +504,7 @@ export const customAnimations = {
     function retreat() {
       if (state <= 0) return false;
       if (state === 1) {
-        gsap.to(predesci, { opacity: 0, duration: 0.3 });
-        if (sourceTag) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+        gsap.to(predesci, { opacity: 0, y: 10, scale: 0.98, duration: 0.3 });
       }
       state--;
       return true;

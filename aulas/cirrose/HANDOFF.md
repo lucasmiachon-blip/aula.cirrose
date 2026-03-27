@@ -12,7 +12,7 @@
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
 **QA pipeline:** `gemini-qa3.mjs` — `--inspect` (Gate 0, PASS/FAIL) · `--editorial` (Gate 4, requer Gate 0 PASS) · `--diagnostic "classe: descricao"` (injeta CSS global cascade + step forense). Modelo: `gemini-3.1-pro-preview`. Video+PNGs+raw code obrigatorios. Custo: ~$0.03-0.08/round.
 **QA scripts (refs):**
-- `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — Captura PNGs S0/S2 + video .webm. Delay entre reveals: 2500ms (atualizado 27/mar, era 800ms).
+- `aulas/cirrose/scripts/qa-batch-screenshot.mjs` — Captura PNGs S0/S2 + video .webm. Delay entre reveals: 2500ms. Custom anim wait: 4500ms (atualizado 27/mar, era 2500ms — baveno auto-anim ~3.4s).
 - `aulas/cirrose/scripts/gemini-qa3.mjs` — Prompt Gate 4: maxOutputTokens 16384, token limit condicional (4000 com video, 1500 sem). Bloco AVALIACAO DE ANIMACAO (Partes A/B/C) ativo quando video presente. Paralelismo cross-slide (5 criterios) ativo quando `--ref-slide` presente.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
@@ -28,15 +28,15 @@
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | QA | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED (padding assimetrico). |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
-| 5 | s-a1-baveno | CONTENT | State machine OK. Testar animacao no browser + Gate 0/4 pendente. |
+| 5 | s-a1-baveno | QA | Gate 0 PASS. Gate 4 R2 score 6.8/10. P1 grid stack (no reflow), P2 PREDESCI horizontal sutil, P3 bar espessa, P4 scale reveal. Ref consolidada em source-tag. |
 | 6 | s-a1-vote | CONTENT | Refatorado 23/mar: quiz removido, agora hero FIB-4 5,91 + cutoff. Screenshots atualizados. QA pendente (pipeline nao iniciado). |
 | 7-11 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 12-27 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 28-36 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 37-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 3 DONE · 1 QA · 40 CONTENT
-**QA Act 1:** s-a1-01 (R7 8.5/10), s-a1-classify (R7 7.3/10 DONE). Proximo: s-a1-baveno.
+**Resumo:** 3 DONE · 2 QA · 39 CONTENT
+**QA Act 1:** s-a1-01 (R7 8.5/10), s-a1-classify (R7 7.3/10 DONE), s-a1-baveno (R2 6.8/10). Proximo: s-a1-vote.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -49,18 +49,17 @@
 
 ## Proxima sessao
 
-**Proximo:** s-a1-baveno — browser test + Gate 0/4. Pipeline atualizado:
-1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-baveno --video` (delay 2500ms)
+**Proximo:** s-a1-baveno R3 ou aprovar → s-a1-vote. Pipeline:
+1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-baveno --video` (delay 4500ms custom anims)
 2. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --inspect` (Gate 0)
-3. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --editorial --round 1 --ref-slide s-a1-classify` (Gate 4 + paralelismo)
-4. Validar Parte A (inventario animacao) contra conhecimento do slide
+3. `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-baveno --editorial --round 3 --ref-slide s-a1-classify` (Gate 4)
 
 ---
 
 ## Caminho critico
 
 1. ~~s-a1-classify~~ — DONE 27/mar (R7 7.3/10)
-2. **s-a1-baveno** — Browser test + Gate 0/4 — **PROXIMO**
+2. **s-a1-baveno** — R2 6.8/10, P1+P2 aplicados. R3 ou aprovar pendente.
 3. **s-a1-vote → s-cp1** — sequencia manifest, slide a slide
 4. **Act 2 → Act 3** — apos Act 1 DONE
 
