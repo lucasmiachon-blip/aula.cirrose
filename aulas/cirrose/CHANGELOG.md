@@ -5,6 +5,15 @@
 
 ---
 
+## 2026-03-28 — feat: self-improvement T0-T2 (sessao 32)
+
+- **T0 (.claudeignore + docs):** `.claudeignore` (11 patterns — exclui binarios e artefatos de search). Hook README. CLAUDE.md: routing table + worktree docs. `cron-patterns.md` reference card.
+- **T1 (hooks + routing):** `session-init.sh` hook (branch/dirty/hooks/routing em cada sessao). `post-compact-reinject.sh` ampliado. `evidence` skill v0.3 com router. 4 commands delegam a skills.
+- **T2 (model + MCP):** Medical-researcher subagents → Sonnet (economia contexto). `settings.local.json` consolidado (116→62 linhas). MCP health check pattern.
+- **Commits:** 77c80df (T0), 65646f3 (T1), 9d1b355 (T2), 7c894b9 (HANDOFF).
+
+---
+
 ## 2026-03-28 — chore: repo cleanup (sessao 31)
 
 - **git rm:** `aulas/calibracao.html` (monorepo leftover).
