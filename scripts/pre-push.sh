@@ -10,10 +10,7 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
 # Detect aula from branch name
 AULA=""
 case "$BRANCH" in
-  *cirrose*)    AULA="cirrose" ;;
-  *grade*)      AULA="grade" ;;
-  *osteo*)      AULA="osteoporose" ;;
-  *metanalise*) AULA="metanalise" ;;
+  *cirrose*) AULA="cirrose" ;;
 esac
 
 if [ -z "$AULA" ]; then
