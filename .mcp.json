@@ -1,15 +1,5 @@
 {
   "mcpServers": {
-    "filesystem": {
-      "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "C:/Dev/Projetos/wt-cirrose"
-      ]
-    },
     "playwright": {
       "command": "cmd",
       "args": [
@@ -27,14 +17,6 @@
         "@eslint/mcp"
       ]
     },
-    "lighthouse": {
-      "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "@danielsogl/lighthouse-mcp"
-      ]
-    },
     "a11y": {
       "command": "cmd",
       "args": [
@@ -42,27 +24,6 @@
         "npx",
         "-y",
         "a11y-mcp-server"
-      ]
-    },
-    "notion": {
-      "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "@notionhq/notion-mcp-server"
-      ],
-      "env": {
-        "NOTION_TOKEN": "${NOTION_TOKEN}"
-      }
-    },
-    "fetch": {
-      "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "@anthropic-ai/mcp-server-fetch"
       ]
     },
     "sharp": {

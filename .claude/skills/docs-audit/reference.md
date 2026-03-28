@@ -1,3 +1,3 @@
-# Docs Audit — Reference (stub)
+# Docs Audit — Reference
 
-Fonte canônica: [.cursor/skills/docs-audit/reference.md](../../../.cursor/skills/docs-audit/reference.md)
+Guia de referência para auditoria de documentação.

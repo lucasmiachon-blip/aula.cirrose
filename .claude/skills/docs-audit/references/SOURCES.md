@@ -1,1 +1,3 @@
-Fonte canônica: [.cursor/skills/docs-audit/references/SOURCES.md](../../../../.cursor/skills/docs-audit/references/SOURCES.md)
+# Docs Audit — Sources
+
+Referências e fontes utilizadas pelo skill docs-audit.
