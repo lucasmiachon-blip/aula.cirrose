@@ -183,6 +183,18 @@ sed -n '/### ATO 2/,/^### /p' aulas/cirrose/references/narrative.md
 - **QA pipeline** (máquina de estados, Gate 0/4, scorecards): `aulas/cirrose/WT-OPERATING.md` (ler manualmente em sessões QA)
 - Doc graph: `docs/XREF.md` (consultar sob demanda)
 
+## Worktree
+
+Usar quando precisar trabalhar em dois slides simultaneamente ou fixar slide DONE enquanto drafta outro.
+
+```
+EnterWorktree(name: "fix-fib4")   → trabalho isolado
+ExitWorktree(action: "keep")      → preserva branch worktree-fix-fib4
+ExitWorktree(action: "remove")    → descarta (se ja merged)
+```
+
+Caveat: `npm install` necessario no primeiro uso de worktree nova (node_modules nao e copiado).
+
 ## Memory Hygiene
 
 - **Session end:** Se Lucas deu feedback de coaching, salvar como memory com `Why:` + `How to apply:`.

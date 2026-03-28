@@ -29,7 +29,8 @@ Inspirado no research-agent da Anthropic (fan-out paralelo + consolidacao + repo
 
 ## Step 1 — Discovery (4 agentes paralelos)
 
-Lancar 4 Agent em paralelo (subagent_type: general-purpose). Cada um busca de forma independente.
+Lancar 4 Agent em paralelo (subagent_type: general-purpose, model: sonnet). Cada um busca de forma independente.
+Sonnet e suficiente para search+extract estruturado; Opus fica reservado para o orquestrador (Step 2-4).
 Instrucao compartilhada: "Retorne JSON estruturado. NUNCA invente PMID. Marque incerto como [CANDIDATE]."
 
 ### Agent G — Guideline Hunter
