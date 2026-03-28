@@ -1,0 +1,11 @@
+_archive/
+node_modules/
+.cursor/
+exports/
+test-results/
+dist/
+.vite/
+.playwright-mcp/
+qa-screenshots/
+*.woff2
+*.pdf

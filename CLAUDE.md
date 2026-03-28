@@ -163,6 +163,19 @@ sed -n '/## 2\. `archetype-metrics`/,/^## /p' aulas/cirrose/references/archetype
 sed -n '/### ATO 2/,/^### /p' aulas/cirrose/references/narrative.md
 ```
 
+## Routing: Skills vs Agents
+
+| Necessidade | Usar | Por que |
+|-------------|------|---------|
+| PMID rapido, 1 trial | `/evidence` | Light, forked, fast |
+| Pesquisa profunda, multi-MCP | `/medical-researcher` | Fan-out, depth rubric, memory |
+| Audit slides (read-only) | `/review` | 4-agent parallel |
+| Fix slides ate perfeicao | `qa-engineer` agent | 14-dim loop, write access |
+| Debris no repo | `/repo-janitor` | Read-only audit |
+| Audit docs/token economy | `/docs-audit` | Links, redundancia, verbosidade |
+| Criar slide novo | `/new-slide` | Template + 9 superficies |
+| NotebookLM | `/nlm-skill` | CLI/MCP guide |
+
 ## Rules (loaded on demand)
 
 - **Slide rules** (edição, identidade, CSS, motion): @.claude/rules/slide-rules.md
