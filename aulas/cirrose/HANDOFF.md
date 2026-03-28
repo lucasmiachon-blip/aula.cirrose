@@ -13,7 +13,7 @@
 **QA pipeline:** ver `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` (PNGs+video) · `gemini-qa3.mjs` (Gate 0/4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Memory system:** Hardened 2026-03-27. User-level `~/.claude/CLAUDE.md` (persona/tooling). MEMORY.md com 5 secoes semanticas, 10 entries. CLAUDE.md §Memory Hygiene adicionado.
-**Repo cleanup (2026-03-28):** `git rm calibracao.html`, qa-rounds gitignored, lessons.md → docs/, 26 PNGs raiz + _archive + dirs vazios + monorepo leftovers deletados local.
+**Repo cleanup (2026-03-28):** `git rm calibracao.html`, qa-rounds gitignored, lessons.md → docs/, 26 PNGs raiz + _archive + dirs vazios + monorepo leftovers deletados local. Segundo pass: removidos 10 npm scripts mortos (grade/metanalise/osteoporose), `@anthropic-ai/sdk` de devDeps, case matching morto em hooks, `meld-calc.js` orfao (zero imports), `fonts/README.md`. Reorg de `scripts/` em subdirs ADIADA para apos 31/mar (risco alto).
 
 ---
 
@@ -133,4 +133,4 @@
 | QA pipeline | `WT-OPERATING.md` |
 | Design tokens | `.claude/rules/design-reference.md` §1 |
 | Erros e prevencao | `ERROR-LOG.md` + `.claude/rules/slide-rules.md` §8 |
-| Licoes unicas | `tasks/lessons.md` (so o que NAO esta em rules) |
+| Licoes unicas | `docs/lessons.md` (so o que NAO esta em rules) |

@@ -1,7 +1,7 @@
 {
   "name": "aulas-magnas",
   "version": "7.0.0",
-  "description": "Aulas magnas para congressos — deck.js + GSAP + OKLCH (grade/osteo: Reveal.js legacy)",
+  "description": "Aula Cirrose Hepatica — deck.js + GSAP + OKLCH",
   "type": "module",
   "engines": {
     "node": ">=20.0.0"
