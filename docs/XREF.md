@@ -35,7 +35,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Referencia | Tipo |
 |-----------|------|
 | → aulas/cirrose/HANDOFF.md | Estado (via Projects table) |
-| → tasks/lessons.md | Self-improvement |
+| → docs/lessons.md | Self-improvement |
 | → docs/README.md | Índice docs |
 
 ### .claude/rules/ (consolidado 2026-03-25: 10 → 2 arquivos)
@@ -117,7 +117,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | WT-OPERATING.md | → gemini-gate0-inspector.md, AUDIT-VISUAL.md, HANDOFF.md | ← CLAUDE.md, HANDOFF.md |
 | scripts/gemini-qa3.mjs | → gate0-inspector.md, error-digest.md, _manifest.js, cirrose.css, slide-registry.js | ← WT-OPERATING.md, CLAUDE.md |
 | scripts/qa-batch-screenshot.mjs | → _manifest.js, qa-screenshots/ | ← WT-OPERATING.md §4 QA.3, CLAUDE.md §QA Pipeline |
-| qa-rounds/{slideId}.md | (append-only — round context per slide) | ← gemini-qa3.mjs |
+| qa-rounds/{slideId}.md | (append-only — gitignored, round context per slide) | ← gemini-qa3.mjs |
 
 ---
 

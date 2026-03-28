@@ -4,7 +4,7 @@
 
 ---
 
-## Estado — 2026-03-27
+## Estado — 2026-03-28
 
 **Slides:** 43 buildados · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
@@ -13,6 +13,7 @@
 **QA pipeline:** ver `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` (PNGs+video) · `gemini-qa3.mjs` (Gate 0/4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Memory system:** Hardened 2026-03-27. User-level `~/.claude/CLAUDE.md` (persona/tooling). MEMORY.md com 5 secoes semanticas, 10 entries. CLAUDE.md §Memory Hygiene adicionado.
+**Repo cleanup (2026-03-28):** `git rm calibracao.html`, qa-rounds gitignored, lessons.md → docs/, 26 PNGs raiz + _archive + dirs vazios + monorepo leftovers deletados local.
 
 ---
 

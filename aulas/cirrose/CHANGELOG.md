@@ -5,6 +5,17 @@
 
 ---
 
+## 2026-03-28 — chore: repo cleanup (sessao 31)
+
+- **git rm:** `aulas/calibracao.html` (monorepo leftover).
+- **Gitignored:** `qa-rounds/` (3 MDs untracked, historico QA efemero).
+- **Movido:** `tasks/lessons.md` → `docs/lessons.md`. Dir `tasks/` removido.
+- **Local cleanup:** 26 PNGs raiz, `_archive/` (7 MDs monorepo), `aulas/{grade,metanalise,osteoporose}/` (build output), 10 dirs vazios em qa-screenshots, `.playwright-mcp/`, `test-results/`, `scripts/_archive/`, `scripts/qa-screenshots/`, `qa-screenshots/` raiz.
+- **XREF.md:** 2 paths atualizados (lessons.md, qa-rounds gitignored).
+- **.gitignore:** +`**/qa-rounds/`, notion sync pattern generalizado.
+
+---
+
 ## 2026-03-27 — docs: hardening documental (sessao 30)
 
 - **Arquivados (4):** DOCS-RATIONALIZATION-AUDIT.md, insights-html-cirrose-2026.md, openai-backward-design.md, openai-canvas-storyboard.md → `_archive/`.
