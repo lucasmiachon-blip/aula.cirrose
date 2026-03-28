@@ -211,6 +211,26 @@ function extractNarrativeBlock(slideId) {
   return '(slide not found in narrative.md)';
 }
 
+function extractPatientAnchor() {
+  const casePath = join(AULA_DIR, 'references', 'CASE.md');
+  if (!existsSync(casePath)) return '(CASE.md not found)';
+  const text = readFileSync(casePath, 'utf8');
+
+  const get = (pattern) => {
+    const m = text.match(pattern);
+    return m ? m[1].trim() : null;
+  };
+
+  const nome = get(/Nome:\s*(.+)/);
+  const idade = get(/Idade:\s*(\d+)/);
+  const profissao = get(/Profissão:\s*(.+)/);
+  const etiologia = get(/Etiologia:\s*(.+)/);
+  const via = get(/Via:\s*(.+)/);
+
+  const parts = [nome, idade ? `${idade} anos` : null, profissao, etiologia, via].filter(Boolean);
+  return parts.join(', ');
+}
+
 function extractSlideContext(slideId) {
   const filePath = findSlideFile(slideId);
   if (!filePath || !existsSync(filePath)) {
@@ -328,12 +348,36 @@ When adapting GRADE to non-intervention questions (prognosis, diagnosis), note: 
 
 When a guideline gives a strong recommendation on low-quality evidence, flag the discrepancy explicitly.
 
+=== GUIDELINE DIVERGENCE (mandatory when 2+ societies cited) ===
+
+When multiple guidelines address the same topic (e.g., EASL vs AASLD vs Baveno), explicitly compare:
+- Where they agree (consensus = high confidence)
+- Where they diverge (state each society's position + year)
+- Which is more recent or based on stronger evidence
+Flag divergences clearly — the audience makes real clinical decisions based on which guideline they follow.
+
+=== REFORÇO vs NUANCE (distinguish clearly) ===
+
+REFORÇO = evidence that STRENGTHENS the slide's claim. The claim is correct — here's more proof.
+NUANCE = evidence that QUALIFIES, LIMITS, or CONTRADICTS the claim. The claim needs a caveat.
+If a finding does both (supports in one population, contradicts in another), put it in NUANCE.
+
 === EVIDENCE-BASED MEDICINE CRITIQUE ===
 
 When relevant (and briefly), note:
 - Known criticisms of the evidence base (e.g., surrogate endpoints, industry funding, generalizability)
 - Where expert practice diverges from published evidence
 - Ongoing debates or recent shifts in the field
+
+=== NARRATIVE METADATA (use to calibrate your response) ===
+
+The slide metadata includes archetype, narrative role, and tension level. Interpret them:
+- Archetype "hero-stat": slide centers on ONE powerful number (NNT, HR, AUROC). Ensure that number has CI95% and source.
+- Archetype "comparison": side-by-side data. Ensure both sides have equal evidence quality.
+- Narrative role "setup": establishing foundation — prioritize clarity and sourcing over drama.
+- Narrative role "payoff": revealing key insight — evidence must be rock-solid.
+- Narrative role "pivot": changing direction — flag if evidence supports the pivot.
+- Tension 1-2/5: low stakes, educational. Tension 4-5/5: high stakes, clinical decision moment.
 
 === CONSTRAINTS ===
 
@@ -344,39 +388,51 @@ When relevant (and briefly), note:
 - This audience is expert-level (hepatologists at congress). Provide only actionable, advanced content — assume all fundamentals are known.
 - Focus exclusively on what is MISSING from the slide. Use the provided existing data as your baseline, then build on top of it.
 
-=== OUTPUT FORMAT (follow exactly) ===
+=== OUTPUT FORMAT (follow exactly — use markdown headings) ===
 
-CLAIM: [the h2 assertion]
-STATUS: FORTE | NUANÇÁVEL | DESATUALIZADO | INCOMPLETO
+## CLAIM
+[the h2 assertion]
 
-AVALIAÇÃO PMIDs EXISTENTES (obrigatório se há PMIDs no slide):
+## STATUS
+FORTE | NUANÇÁVEL | DESATUALIZADO | INCOMPLETO
+
+## AVALIAÇÃO PMIDs EXISTENTES
+(obrigatório se há PMIDs no slide)
 Para cada PMID já presente:
 - PMID | Primeiro autor, Ano | [TYPE TAG] | Status: ATUAL / SUPERSEDED / RETRACTED
   Se SUPERSEDED: citar o paper que o substituiu com PMID
 
-REFORÇO (max 2):
+## REFORÇO (max 2)
 - [finding] — [TYPE TAG] — PMID:XXXXX or [Book, Ed, Ch, p.XX] — N=X — [stat with CI95%/p] — [year]
   GRADE: ⊕⊕⊕◯ [one-line justification]
 
-NUANCE (max 2):
-- [finding that qualifies, limits, or contradicts] — [TYPE TAG] — source — [stat] — [year]
+## NUANCE (max 2)
+- [finding that QUALIFIES, LIMITS, or CONTRADICTS] — [TYPE TAG] — source — [stat] — [year]
   GRADE: ⊕⊕◯◯ [one-line justification]
   (if EBM critique applies, add one line: "Crítica: ...")
 
-GENEALOGIA (only if relevant — max 1):
-- [LANDMARK] — [who first described/established this concept] — [year] — [why it matters for the claim]
+## GENEALOGIA
+(MANDATORY if slide is about a score, test, or classification; skip otherwise — max 1)
+- [LANDMARK] — [who first described/established this concept] — [year] — [original population/context] — [why it matters for the claim]
+  Note: if the test was created for a different population than the slide's context, state this explicitly.
 
-CONTEÚDO SUGERIDO (max 1):
+## DIVERGÊNCIA ENTRE GUIDELINES
+(MANDATORY if 2+ guidelines cited; skip otherwise)
+| Tópico | EASL | AASLD | Baveno | Outro |
+|--------|------|-------|--------|-------|
+| [topic] | [position + year] | [position + year] | [position + year] | |
+
+## CONTEÚDO SUGERIDO (max 1)
 - Body text (≤30 words, assertion-evidence format, no bullets)
 - Visual: [data visualization that would prove the claim]
 
-DECISÃO CLÍNICA (max 1):
+## DECISÃO CLÍNICA (max 1)
 - [the "e daí?" — what clinical action this enables for a hepatologist seeing 20 cirrhosis patients/month]
 
-GAPS (max 2):
+## GAPS (max 2)
 - [what an expert would ask that this slide can't answer]
 
-DADOS PARA SPEAKER NOTES (max 3):
+## DADOS PARA SPEAKER NOTES (max 3)
 - [estatística: NNT, HR, OR, CI95%, p-valor] — fonte — como usar na fala
 (Destino: <aside class="notes"> do slide HTML)
 
@@ -418,7 +474,12 @@ ${ctx.evidenceBlock}
 NARRATIVE CONTEXT:
 - Previous slide claimed: ${ctx.prevClaim}
 - Next slide will claim: ${ctx.nextClaim}
-- Patient anchor: Antônio, 58 anos, etilista, descoberta incidental de cirrose em exame de rotina
+- Patient anchor: ${extractPatientAnchor()}
+
+ARCHETYPE & ROLE GLOSSARY (for this slide):
+- Archetype "${slide?.archetype || '?'}": see NARRATIVE METADATA in system prompt
+- Role "${narrativeRole}": see NARRATIVE METADATA in system prompt
+- Tension ${tensionLevel}/5: calibrate evidence depth accordingly
 
 NARRATIVE BLOCK:
 ${ctx.narrativeBlock}

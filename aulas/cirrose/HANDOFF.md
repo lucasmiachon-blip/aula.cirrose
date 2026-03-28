@@ -1,6 +1,7 @@
 # HANDOFF — Cirrose
 
 > Pendencias ativas. Historico → CHANGELOG.md. Erros → ERROR-LOG.md.
+> **Paths:** relativos a `aulas/cirrose/`, exceto `@repo/` = raiz do repo.
 
 ---
 
@@ -32,8 +33,8 @@
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 5 DONE · 38 CONTENT (43 total)
-**Proximo:** s-a1-fib4 → RECRIAR (pesquisa dual completa, assembly pendente).
-**Research tooling:** `content-research.mjs --fields <file.md>` (aberto). Templates: `docs/prompts/mcp-research-queries.md`.
+**Proximo:** s-a1-fib4 → ASSEMBLY (pesquisa dual COMPLETA, conteudo decidido).
+**Research tooling:** `content-research.mjs` prompt v2 (patient anchor dinamico, genealogia obrigatoria, divergencia guidelines). Templates: `docs/prompts/mcp-research-queries.md`.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -46,30 +47,47 @@
 
 ## Proxima sessao — s-a1-fib4 ASSEMBLY
 
-**Estado:** Pesquisa dual COMPLETA (Gemini + Claude MCPs). Evidence-db atualizado com 11 entradas.
+**Estado:** Pesquisa dual COMPLETA (Gemini v2 + Claude MCPs). Comparison table preenchida. 5 divergencias mapeadas.
 **Tarefa:** RECRIAR slide (conteudo + interacao + CSS). NAO e QA do slide atual — e rewrite total.
 
 ### O que ler ANTES de comecar
-1. `qa-screenshots/s-a1-fib4/content-research.md` — resposta Gemini com 6 campos estruturados
-2. `references/evidence-db.md` (grep s-a1-fib4) — 11 entradas de evidencia verificadas
+1. `qa-screenshots/s-a1-fib4/content-research.md` — pesquisa dual completa (Gemini v2 + Claude + comparison + divergencias)
+2. `references/evidence-db.md` (grep s-a1-fib4) — 11 entradas verificadas
 3. `slides/03b-a1-fib4calc.html` — slide ATUAL (sera reescrito)
 4. `slide-registry.js:472-521` — animacoes GSAP atuais
 5. `cirrose.css:2566-2675` — CSS atual do fib4
 
-### Passos
-1. **Planejar conteudo** — Lucas decide H2 (assertiva), blocos visuais, reveals
-2. **Planejar animacoes** — quantos estados, countUp, stagger
-3. **Assembly** — reescrever HTML + CSS + registry entry
-4. **Checkpoint Lucas** — aprovar visual antes de QA
-5. **Pipeline QA** — screenshots → Gate 0 → Gate 4
+### Decisoes de conteudo (Lucas 28/mar)
+- **H2:** Sera assertiva MEDICA (nao editorial). Texto final pendente.
+- **State 0 (auto):** Formula + semaforo cutoffs (<1.30 / 1.30-2.67 / >2.67)
+- **State 1 (click):** VPN >90% vs VPP ~35% — assimetria visual (funil ou barras)
+- **State 2 (click):** Calculadora interativa (script existente calcula na hora)
+- **State 3 (click):** Antonio inputs → countUp 5.91 → "Elastografia obrigatoria"
+- **Cutoffs e limitacoes:** NO CORPO do slide (nao so notes)
+- **FIB-9 e FIB-3:** Devem aparecer em algum lugar (notes ou visual) pra estudo. PMIDs nao verificados [VERIFICAR].
+- **Principais referencias:** Visiveis no slide.
 
-### Decisoes de pesquisa ja tomadas
-- FIB-4 = rule-out (VPN >90%), NAO rule-in (VPP ~35%)
-- Cutoff age-adjusted ≥65a: 2,0 (McPherson, AASLD/AGA)
-- Acuracia global 68-75% (abaixo de 80% EASL)
-- Alcool distorce: ↑AST/↓ALT independente de fibrose
-- Emergentes: FIB-9 (AUROC 0,863), FIB-3 (sem idade)
+### Decisoes de pesquisa consolidadas
+- FIB-4 = rule-out (VPN >90%), NAO rule-in (VPP 10-35% dependendo do cenario)
+- Cutoff age-adjusted >=65a: 2,0 (McPherson) — DEBATIDO (Hep Comm 2024 contesta)
+- AUROC global: 0,76 (IC 0,74-0,79) — IPD meta Gut 2021, N=5735
+- Alcool distorce: ↑AST mitocondrial + ↓ALT (depletion B6) → FIB-4 inflado
 - Sterling 2006: criado p/ HIV/HCV, universalizado por conveniencia
+- Emergentes: FIB-9 (AUROC 0,863) e FIB-3 (age-independent) — PMIDs nao verificados
+- VPP diverge por cenario: ~35% terciario vs 10-13% pop. geral (spectrum effect)
+
+### Passos assembly
+1. **Definir H2** — Lucas decide assertiva medica final
+2. **Montar HTML** — 4 estados, calculadora interativa state 2
+3. **CSS** — layout expandido (cutoffs + limitacoes no corpo)
+4. **Registry** — reescrever state machine (4 estados vs 3 atuais)
+5. **Checkpoint Lucas** — aprovar visual
+6. **Pipeline QA** — screenshots → Gate 0 → Gate 4
+
+### Melhorias no pipeline de pesquisa (aplicaveis a proximos slides)
+- `content-research.mjs` prompt v2: patient anchor dinamico (CASE.md), genealogia obrigatoria, divergencia guidelines, narrative metadata explicada
+- Protocolo Claude-side: MCPs (PubMed, Consensus, SCite, Scholar Gateway) → output estruturado → comparison table → merge evidence-db
+- Comparison table: 9 criterios padrao
 
 ---
 
@@ -127,8 +145,8 @@
 | Trials e PMIDs | `references/evidence-db.md` (#2) |
 | Arco narrativo | `references/narrative.md` (#3) |
 | Ordem dos slides | `slides/_manifest.js` (#4) |
-| Regras operacionais | `CLAUDE.md` (root) |
+| Regras operacionais | `@repo/CLAUDE.md` |
 | QA pipeline | `WT-OPERATING.md` |
-| Design tokens | `.claude/rules/design-reference.md` §1 |
-| Erros e prevencao | `ERROR-LOG.md` + `.claude/rules/slide-rules.md` §8 |
-| Licoes unicas | `docs/lessons.md` (so o que NAO esta em rules) |
+| Design tokens | `@repo/.claude/rules/design-reference.md` §1 |
+| Erros e prevencao | `ERROR-LOG.md` + `@repo/.claude/rules/slide-rules.md` §8 |
+| Licoes unicas | `@repo/docs/lessons.md` (so o que NAO esta em rules) |
