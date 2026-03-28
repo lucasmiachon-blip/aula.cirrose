@@ -39,6 +39,23 @@ echo "--- Recent Lessons (last 15 lines) ---"
 tail -15 tasks/lessons.md 2>/dev/null || echo "(no lessons.md)"
 
 echo ""
+echo "--- Dirty State ---"
+DIRTY=$(git status --short 2>/dev/null | head -10)
+if [ -n "$DIRTY" ]; then
+  echo "$DIRTY"
+else
+  echo "(clean)"
+fi
+
+echo ""
+echo "--- Active Hooks ---"
+ls .claude/hooks/*.sh 2>/dev/null | while read f; do basename "$f"; done
+
+echo ""
+echo "--- Routing ---"
+echo "/evidence (quick) | /medical-researcher (deep) | /review (audit) | /new-slide (create)"
+
+echo ""
 echo "=== END POST-COMPACT ==="
 
 exit 0

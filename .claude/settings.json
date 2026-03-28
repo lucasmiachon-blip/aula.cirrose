@@ -116,6 +116,17 @@
     ],
     "SessionStart": [
       {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-init.sh",
+            "timeout": 5,
+            "statusMessage": "Inicializando sessao..."
+          }
+        ]
+      },
+      {
         "matcher": "compact",
         "hooks": [
           {
