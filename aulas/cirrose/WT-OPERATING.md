@@ -105,6 +105,13 @@ Entrar no QA loop (secao 4). Nao ha checklist — e o loop inteiro.
 
 ---
 
+# ══════════════════════════════════════════════════════════════
+# PARE AQUI em sessões NÃO-QA.
+# Abaixo = pipeline QA detalhado. Ler sob demanda.
+# ══════════════════════════════════════════════════════════════
+
+---
+
 ## 4. QA Sub-Loop (dentro do estado QA)
 
 5 sub-stages, **6 checkpoints humanos** (QA.4 tem checkpoint antes de DONE). Agente NAO avanca sem OK do Lucas.
@@ -191,25 +198,8 @@ Resolucao congresso: TBD (TV via HDMI espelhado, provavelmente 16:9). Ver NOTES.
 
 **Analise (Opus — leitura direta dos PNGs):**
 
-Avaliar 14 dimensoes (escala 1-10):
-
-| Cod | Dimensao | Fonte |
-|-----|----------|-------|
-| H | Hierarquia visual (Von Restorff) | Screenshot |
-| T | Tipografia (escala, pesos, legibilidade) | Screenshot |
-| E | Layout (fill ratio, gaps, alinhamento) | Screenshot + metrics |
-| C | Cor e contraste (WCAG projecao >=7:1) | Screenshot + a11y check |
-| V | Visuais (icones, graficos, decoracao) | Screenshot |
-| K | Consistencia (tokens, patterns cross-slide) | Screenshot + design-system |
-| S | Sofisticacao (sem AI markers, profissional) | Screenshot |
-| M | Comunicacao (assercao + evidencia, clarity) | Screenshot + content |
-| I | Interacoes (click-reveals, animacoes) | Screenshots por estado |
-| D | Dados clinicos (PMIDs, accuracy) | HTML + notes |
-| A | Acessibilidade (icones + cor, contraste) | Screenshot + a11y |
-| L | Carga cognitiva (Cowan 4+-1, <=30 palavras) | Screenshot + count |
-| P | Aprendiz adulto (expertise-reversal, Knowles) | Content + context |
-| N | Arco narrativo (papel no ato, tensao) | Content + narrative.md |
-
+Avaliar 14 dimensoes (H/T/E/C/V/K/S/M/I/D/A/L/P/N), escala 1-10.
+Rubrica completa e descritores: → `AUDIT-VISUAL.md` §Rubrica de Scoring.
 Threshold: todas 14 dims >= 9.
 
 **Output:** scorecard 14 dims com evidencias.

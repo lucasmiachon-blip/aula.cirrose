@@ -88,6 +88,7 @@
 - PDF export quebrado (DeckTape) — nao bloqueia congresso
 - Playwright MCP nao navega deck.js (E56) — usar script Node standalone
 - **GARGALO hooks exit 2:** `exit 2` nao bloqueia tool no Windows. Reproduzido 25/mar. Investigar bug Claude Code Windows
+- P4: mapear dois sistemas E-code (slide-rules.md §8 E01-E52 vs ERROR-LOG ERRO-NNN) — sem mapeamento
 
 ---
 
