@@ -32,7 +32,8 @@
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 5 DONE · 38 CONTENT (43 total)
-**Proximo QA:** s-a1-fib4 → pipeline QA.
+**Proximo:** s-a1-fib4 → RECRIAR (pesquisa dual completa, assembly pendente).
+**Research tooling:** `content-research.mjs --fields <file.md>` (aberto). Templates: `docs/prompts/mcp-research-queries.md`.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
