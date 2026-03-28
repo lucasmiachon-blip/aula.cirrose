@@ -192,6 +192,16 @@
 | s-a1-01 | FIB-4 >=2,67: especificidade 98,7% (PPV 35,6%) | LiverPRO: Lindvig 2025 (PMID 39674225) |
 | s-a1-01 | FIB-4 -> elastografia -> CSPH pathway | Baveno VII (PMID 35120736) |
 | s-a1-fib4 / s-a1-rule5 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
+| s-a1-fib4 | FIB-4 criado p/ HIV/HCV, universalizado por conveniencia | Sterling 2006 (PMID 16729309) [LANDMARK] |
+| s-a1-fib4 | FIB-4 <1,30 descarta cACLD: VPN >90% (Step 1 universal) | EASL NITs CPG 2021 (PMID 34052326) [GUIDELINE] |
+| s-a1-fib4 | FIB-4 >=65a: cutoff 2,0 — spec melhora 35%→70%, sens 77% | McPherson 2017 (PMID 27530706) N=634 |
+| s-a1-fib4 | AUROC NAFLD: 0,76 (IPD meta n=5735) | Gut 2021 (DOI:10.1136/gutjnl-2019-318505) |
+| s-a1-fib4 | Acuracia global 68,8% em MASLD — abaixo do minimo EASL (80%) | J Hepatol 2024 (FIB-9 paper) |
+| s-a1-fib4 | Alcool distorce FIB-4: piridoxal-5P depletion ↓ALT, dano mitocondrial ↑AST | Schiff's 12th Ed, Ch28, p.870-872 [BOOK] |
+| s-a1-fib4 | FIB-9: free calculator, 9 biomarcadores, AUROC 0,863 (acc 78,7%) — supera FIB-4 | J Hepatol 2024 |
+| s-a1-fib4 | FIB-3: age-independent, superior ao FIB-4 em >=60a | Hep Res 2024, n=1398 |
+| s-a1-fib4 | 79% dos FIB-4 "alto risco" NAO sao alto risco por LSM (pop. geral) | NHANES CGH 2024 |
+| s-a1-fib4 | EASL pathway: sens apenas 27,7% p/ LSM>=8 em pop. geral | Aliment Pharmacol Ther 2024 |
 | s-a1-meld | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
 | s-a2-04 | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
 | s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |

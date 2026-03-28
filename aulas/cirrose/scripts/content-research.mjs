@@ -8,6 +8,8 @@
  *   node aulas/cirrose/scripts/content-research.mjs --slide s-a2-04                          # full run (Gemini)
  *   node aulas/cirrose/scripts/content-research.mjs --slide s-a2-04 --reason "falta tier-1"  # manual weakness
  *   node aulas/cirrose/scripts/content-research.mjs --slide s-a2-04 --prompt-only            # print prompts, no API
+ *   node aulas/cirrose/scripts/content-research.mjs --slide s-a1-fib4 --fields qa-screenshots/s-a1-fib4/research-fields.md  # context-adapted fields from file
+ *   node aulas/cirrose/scripts/content-research.mjs --slide s-a1-fib4 --fields "AUROC por etiologia;;Cutoffs age-adjusted"  # inline fields (;; separator)
  *
  * Requires: GEMINI_API_KEY env var (unless --prompt-only)
  */
@@ -31,10 +33,32 @@ function hasFlag(name) { return args.includes(`--${name}`); }
 const SLIDE_ID = getArg('slide', null);
 const REASON = getArg('reason', null);
 const PROMPT_ONLY = hasFlag('prompt-only');
+const FIELDS_RAW = getArg('fields', null);
 
 if (!SLIDE_ID) {
-  console.error('Usage: node content-research.mjs --slide <id> [--reason "..."] [--prompt-only]');
+  console.error('Usage: node content-research.mjs --slide <id> [--reason "..."] [--fields <file.md|"inline;;fields">] [--prompt-only]');
   process.exit(1);
+}
+
+// --- Open research fields (file or inline) ---
+// Claude writes a context-adapted .md file before running, or passes inline text.
+// File: each paragraph/section becomes a research field injected into the prompt.
+// Inline: ";;" separates fields (e.g., "AUROC por etiologia;;Cutoffs age-adjusted").
+let RESEARCH_FIELDS_TEXT = null;
+if (FIELDS_RAW) {
+  const candidate = join(process.cwd(), FIELDS_RAW);
+  if (existsSync(FIELDS_RAW) || existsSync(candidate)) {
+    const p = existsSync(FIELDS_RAW) ? FIELDS_RAW : candidate;
+    RESEARCH_FIELDS_TEXT = readFileSync(p, 'utf-8').trim();
+    console.log(`[fields] Loaded from file: ${p} (${RESEARCH_FIELDS_TEXT.length} chars)`);
+  } else {
+    // Inline: ";;" separated free-form fields
+    RESEARCH_FIELDS_TEXT = FIELDS_RAW.split(';;')
+      .map((f, i) => `${i + 1}. ${f.trim()}`)
+      .filter(f => f.length > 3)
+      .join('\n');
+    console.log(`[fields] Inline mode: ${RESEARCH_FIELDS_TEXT.split('\n').length} fields`);
+  }
 }
 
 const MODEL = 'gemini-3.1-pro-preview';
@@ -400,7 +424,12 @@ NARRATIVE BLOCK:
 ${ctx.narrativeBlock}
 
 WHAT I NEED:
-Strengthen this slide's evidence base. Prioritize: guidelines from authorities (EASL, AASLD, Baveno), recent meta-analyses/systematic reviews (last 5 years), landmark RCTs. Include textbook references if they add weight. Classify every source. Rate evidence quality via GRADE. Flag discrepancies between recommendation strength and evidence quality. Note genealogy of key concepts if foundational studies exist. If evidence is genuinely weak or contested, say so — do not manufacture strength.`;
+Strengthen this slide's evidence base. Prioritize: guidelines from authorities (EASL, AASLD, Baveno), recent meta-analyses/systematic reviews (last 5 years), landmark RCTs. Include textbook references if they add weight. Classify every source. Rate evidence quality via GRADE. Flag discrepancies between recommendation strength and evidence quality. Note genealogy of key concepts if foundational studies exist. If evidence is genuinely weak or contested, say so — do not manufacture strength.${RESEARCH_FIELDS_TEXT ? `
+
+=== CAMPOS ESPECÍFICOS SOLICITADOS (responder CADA um) ===
+${RESEARCH_FIELDS_TEXT}
+
+INSTRUÇÃO: Responda cada campo acima com dados verificáveis (PMID, N=, IC95%). Seja conciso — max 5 linhas por campo. Se não encontrar dados para um campo, escreva "SEM DADOS ENCONTRADOS" — nunca preencher com suposições.` : ''}`;
 }
 
 // ============================================================
