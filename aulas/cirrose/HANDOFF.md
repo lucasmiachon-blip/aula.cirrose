@@ -8,12 +8,13 @@
 
 **Slides:** 43 buildados · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · shared/ internalizado · Sprint ate 31/mar.
-**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race.
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files + lint:gsap-race. Hooks documentados em `.claude/hooks/README.md`.
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
 **QA pipeline:** ver `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` (PNGs+video) · `gemini-qa3.mjs` (Gate 0/4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Memory system:** Hardened 2026-03-27. User-level `~/.claude/CLAUDE.md` (persona/tooling). MEMORY.md com 5 secoes semanticas, 10 entries. CLAUDE.md §Memory Hygiene adicionado.
 **Repo cleanup (2026-03-28):** `git rm calibracao.html`, qa-rounds gitignored, lessons.md → docs/, 26 PNGs raiz + _archive + dirs vazios + monorepo leftovers deletados local. Segundo pass: removidos 10 npm scripts mortos (grade/metanalise/osteoporose), `@anthropic-ai/sdk` de devDeps, case matching morto em hooks, `meld-calc.js` orfao (zero imports), `fonts/README.md`. Reorg de `scripts/` em subdirs ADIADA para apos 31/mar (risco alto).
+**Self-improvement (2026-03-28):** T0-T2 completo. `.claudeignore` criado (11 patterns). `settings.local.json` consolidado (116→62 linhas). `session-init.sh` hook para todas sessoes. `post-compact-reinject.sh` ampliado (dirty state + hooks + routing). `evidence` skill v0.3 router. 4 commands delegam a skills. Medical-researcher subagents → Sonnet. CLAUDE.md: routing table + worktree docs. `cron-patterns.md` adicionado.
 
 ---
 
