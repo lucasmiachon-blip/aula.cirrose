@@ -44,10 +44,32 @@
 
 ---
 
-## Proxima sessao
+## Proxima sessao — s-a1-fib4 ASSEMBLY
 
-**Docs:** Hardening 27/mar concluido. Pendente: WT-OPERATING split.
-**Proximo QA:** s-a1-fib4 — pesquisa → assembly → pipeline QA.
+**Estado:** Pesquisa dual COMPLETA (Gemini + Claude MCPs). Evidence-db atualizado com 11 entradas.
+**Tarefa:** RECRIAR slide (conteudo + interacao + CSS). NAO e QA do slide atual — e rewrite total.
+
+### O que ler ANTES de comecar
+1. `qa-screenshots/s-a1-fib4/content-research.md` — resposta Gemini com 6 campos estruturados
+2. `references/evidence-db.md` (grep s-a1-fib4) — 11 entradas de evidencia verificadas
+3. `slides/03b-a1-fib4calc.html` — slide ATUAL (sera reescrito)
+4. `slide-registry.js:472-521` — animacoes GSAP atuais
+5. `cirrose.css:2566-2675` — CSS atual do fib4
+
+### Passos
+1. **Planejar conteudo** — Lucas decide H2 (assertiva), blocos visuais, reveals
+2. **Planejar animacoes** — quantos estados, countUp, stagger
+3. **Assembly** — reescrever HTML + CSS + registry entry
+4. **Checkpoint Lucas** — aprovar visual antes de QA
+5. **Pipeline QA** — screenshots → Gate 0 → Gate 4
+
+### Decisoes de pesquisa ja tomadas
+- FIB-4 = rule-out (VPN >90%), NAO rule-in (VPP ~35%)
+- Cutoff age-adjusted ≥65a: 2,0 (McPherson, AASLD/AGA)
+- Acuracia global 68-75% (abaixo de 80% EASL)
+- Alcool distorce: ↑AST/↓ALT independente de fibrose
+- Emergentes: FIB-9 (AUROC 0,863), FIB-3 (sem idade)
+- Sterling 2006: criado p/ HIV/HCV, universalizado por conveniencia
 
 ---
 
