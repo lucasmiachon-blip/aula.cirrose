@@ -169,3 +169,11 @@ sed -n '/### ATO 2/,/^### /p' aulas/cirrose/references/narrative.md
 - **Design reference** (tokens, princípios, dados médicos): @.claude/rules/design-reference.md
 - **QA pipeline** (máquina de estados, Gate 0/4, scorecards): `aulas/cirrose/WT-OPERATING.md` (ler manualmente em sessões QA)
 - Doc graph: `docs/XREF.md` (consultar sob demanda)
+
+## Memory Hygiene
+
+- **Session end:** Se Lucas deu feedback de coaching, salvar como memory com `Why:` + `How to apply:`.
+- **Memory vs CLAUDE.md:** Coaching/persona = memory. Routing rules = CLAUDE.md ou .claude/rules/.
+- **Prune:** `project_*` memories -> deletar quando task completa e HANDOFF.md reflete.
+- **No duplication:** Antes de salvar, grep CLAUDE.md + .claude/rules/ por overlap.
+- **Absolute dates.** Nunca "ontem" ou "28/mar" -- sempre "2026-03-28".
