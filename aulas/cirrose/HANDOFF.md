@@ -12,6 +12,7 @@
 **Dev helper:** `#slide-id-label` no deck.js — remover antes de producao.
 **QA pipeline:** ver `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` (PNGs+video) · `gemini-qa3.mjs` (Gate 0/4).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
+**Memory system:** Hardened 2026-03-27. User-level `~/.claude/CLAUDE.md` (persona/tooling). MEMORY.md com 5 secoes semanticas, 10 entries. CLAUDE.md §Memory Hygiene adicionado.
 
 ---
 
