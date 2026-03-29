@@ -262,26 +262,30 @@ Obs: (1) SplitText dissolve = animação de referência do deck. (2) Único slid
 
 ### s-a1-fib4 (03b-a1-fib4calc.html)
 
-**Headline:** 4 dados. 1 número. 1 decisão.
+**Headline:** Modelos Preditivos: FIB-4
+
+**⚠️ STALE — conteúdo REESCRITO 29/mar (commit `b3b1f26`). Scorecard abaixo é do conteúdo ANTIGO. Re-audit necessário após QA pipeline.**
+
+**Conteúdo atual:** 3 estados — S0: VPN >90% / VPP ~35% (assimetria). S1: 3 armadilhas (idade ≥65a, álcool, MASLD). S2: zona cinza 30-60% (hero typography). Sem formula, sem hero 5.91, sem checkpoint.
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | 8    | Formula block + 3 cutoff zones + hero 5,91. Hierarquia clara |
-| T   | 8    | Formula text claro. Cutoff values tabulares. Hero 5,91 grande |
-| E   | 8    | Fill 81%. Cutoff zones organizadas. Antonio inputs abaixo (click) |
-| C   | 8    | cutoff--safe/warning/danger. data-color="danger" no hero. Icones. var() |
-| V   | 8    | Formula + 3-zone visual + hero number. Dados = visual |
-| K   | 8    | archetype-hero-stat. Cutoff pattern coerente |
-| S   | 8    | Source-tag. CountUp. Input cards stagger. OKLCH |
-| M   | 7    | h2 e mnemonico ("4 dados. 1 numero. 1 decisao."), nao assercao clinica per rubrica |
-| I   | 8    | 2 clickReveals (Antonio + source). CountUp. Advance/retreat |
-| D   | 9    | PMID 16729309 + Baveno VII. FIB-4 calc verificado: (55x67)/(112x sqrt31)=5,91 |
-| A   | 8    | Icones com cores. fib4-input-card--trap destaca ALT. aria claro |
-| L   | 8    | 1 conceito (FIB-4). Formula + cutoffs sao suporte. 59 palavras |
-| P   | 9    | "1 decisao" = acionavel. Dados do caso alimentam formula. Clinicamente util |
-| N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md |
+| H   | ?    | PENDENTE re-audit. P2 hero grayzone-stat implementado (clamp 72-110px). |
+| T   | ?    | PENDENTE. Serif display para stat numbers. Pitfall cards DM Sans 700. |
+| E   | ?    | PENDENTE. Surface card (.fib4-stages). Tinted cards (P3). |
+| C   | ?    | PENDENTE. safe-light/danger-light tinted backgrounds. warning-on-light para grayzone. |
+| V   | ?    | PENDENTE. VPN/VPP split cards + pitfall grid + hero grayzone. |
+| K   | ?    | archetype-hero-stat. Grid stacking state machine. |
+| S   | ?    | PENDENTE. Cross-fade overlap (P4). Source-tag. OKLCH. |
+| M   | ?    | h2 "Modelos Preditivos: FIB-4" = rótulo genérico, NÃO assertion-evidence. Decisão do autor. |
+| I   | ?    | PENDENTE. 2 clickReveals. State machine advance/retreat. caveat null fix. |
+| D   | 9    | 13 refs tier-1 em evidence-db (EASL NITs, Lindvig, McPherson, Sterling, Baveno VII). |
+| A   | ?    | PENDENTE. Cores semânticas com labels VPN/VPP. |
+| L   | ?    | PENDENTE. 1 conceito (FIB-4 limitações). 3 estados progressivos. |
+| P   | ?    | PENDENTE. Pitfalls = dia-a-dia do especialista. Sidebar calc ao vivo. |
+| N   | ?    | Setup role. tensionLevel=2. Headline confere com narrative.md. |
 
-Obs: (1) h2 mnemonico e eficaz mas tecnicamente nao e assercao clinica per rubrica. (2) ALT normal trap highlight e excelente pedagogicamente (input-card--trap). (3) CountUp 0->5.91 e moment forte. (4) Fill 81% excelente.
+Obs: (1) Scorecard será preenchido após QA pipeline (screenshots + Gate 0 + Gate 4). (2) H2 é rótulo por decisão explícita de Lucas (não converter). (3) Formula e hero ficam APENAS no sidebar (case-panel.js calc).
 
 ### s-a1-rule5 (03d-a1-rule5.html)
 
@@ -391,7 +395,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 4 | s-a1-classify | OK | 3 cards + PREDESCI; ~~h2 pendente~~ reescrito d20deec | — |
 | 5 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
 | 6 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
-| 7 | s-a1-fib4 | PENDING | Pesquisa + assembly pendente. Requer re-QA. | — |
+| 7 | s-a1-fib4 | REESCRITO | Conteúdo novo 29/mar (VPN/VPP, pitfalls, grayzone). Screenshots stale. Re-QA obrigatório. | — |
 | 9 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
 | 10 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |

@@ -15,6 +15,11 @@
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier (`377e56b`) + lifecycle patch 28/mar: try/finally browser, video saveAs (3 scripts Playwright). MINIMAL/HIGH tiers pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
 
+### Issues sistêmicos (não fixáveis antes do deadline 31/mar)
+- **Source-tag line breaking**: texto longo quebra em viewport 1280x720. Afeta todos os slides. Sem fix viável.
+- **Gate 0 ANIMATION_STATE false positive**: Gate 0 assume click-reveals aditivos, mas state machines SUBSTITUEM conteúdo → ANIMATION_STATE falha sempre em state machines. Override `must_pass: true` em gate0.json é workaround aceito.
+- **Gemini avaliação qualidade**: Gemini não lê CSS enviado com atenção (propõe coisas já implementadas, não detecta dead CSS, não pega JS null bugs). Prompt precisa instrução "confirme que seletor EXISTE no material antes de propor".
+
 ---
 
 ## Slides
@@ -28,14 +33,14 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | QA | Gate 0 PASS. Gate 4 R2 score 6.0/10. P1-P5 implementados (surface card, serif, cutoffs, autoAlpha, split-cards). Proximo: Gate 4 R3 com --ref-slide. |
+| 6 | s-a1-fib4 | QA | **REESCRITO 29/mar.** Conteúdo novo: VPN/VPP → pitfalls → gray zone. P2/P3/P4 visuais implementados. Screenshots STALE. Próximo: recaptura + Gate 0 + Gate 4. Ver §Próxima sessão. |
 | 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 5 DONE · 1 QA · 37 CONTENT (43 total)
-**Proximo:** s-a1-fib4 Gate 4 R3 (com --ref-slide s-a1-baveno + 3 CSS cascade). Depois: s-a1-damico.
+**Proximo:** s-a1-fib4 recaptura screenshots + Gate 0 + Gate 4 R1 (conteúdo novo). Depois: s-a1-damico.
 **Research tooling:** `content-research.mjs` prompt v2 (patient anchor dinamico, genealogia obrigatoria, divergencia guidelines). Templates: `docs/prompts/mcp-research-queries.md`.
 **Script robustez (28/mar):** Todos scripts Gemini/Playwright tem: retry 429/5xx, --help, throw em vez de process.exit, console error capture em metrics.json. Gate 0 usa responseMimeType JSON (sem fence-strip). Playwright scripts: browser try/finally + video().saveAs() (sem renameSync race).
 
@@ -48,23 +53,81 @@
 
 ---
 
-## Proxima sessao — s-a1-fib4 Gate 4 R3
+## Proxima sessao — s-a1-fib4 QA pipeline (conteúdo novo)
 
-**Estado:** QA (Gate 0 PASS, Gate 4 R2 score 6.0/10, P1-P5 implementados 29/mar).
-**Tarefa:** Gate 4 R3 com `--ref-slide s-a1-baveno`. Pendente: ajustar `gemini-qa3.mjs` para enviar 3 CSS cascade (base.css, archetypes.css, cirrose.css) com linhas relevantes.
+### Contexto: o slide foi REESCRITO em 29/mar
 
-### O que mudou (29/mar — P1-P5 Gate 4 R2)
-- **P1 [MUST]:** Stages container: absolute stacking → CSS Grid (`grid-area: 1/1`) + surface card (`--bg-elevated`, border, shadow)
-- **P2 [SHOULD]:** Formula serif (`--font-display`), mandate `--text-h1` + `--danger`, question uppercase
-- **P3 [SHOULD]:** Cutoff bars: fundo colorido → fundo neutro (`--bg-surface`) + accent border left 6px
-- **P4 [MUST]:** GSAP: `opacity` → `autoAlpha` (pointer-events), Y-axis transforms, countUp `expo.out` 1.8s
-- **P5 [RADICAL]:** VPN/VPP: flex → grid 2-col, fundo colorido → surface card + border-top 4px semântica
-- **panelState:** visibleFields expandido para 7 labs (AST, ALT, PLQ, Albumina, Bili, INR, FIB-4) — paralelismo com slides anteriores
-- **Failsafe:** no-js/stage-bad: `position: static` → `display: flex; flex-direction: column` (compatível com grid)
-- **FIB-9 e FIB-3:** Ficaram em evidence-db + content-research.md. PMIDs nao verificados.
+O conteúdo antigo (formula, cutoffs, hero 5.91, checkpoint/mandate) foi removido.
+O conteúdo novo foca em nuances de especialista sobre limitações do FIB-4.
 
-### Melhorias no pipeline de pesquisa (aplicaveis a proximos slides)
-- `content-research.mjs` prompt v2: patient anchor dinamico (CASE.md), genealogia obrigatoria, divergencia guidelines, narrative metadata explicada
+**H2:** `Modelos Preditivos: FIB-4` (título original do Lucas — NÃO é assertion-evidence, mas é decisão do autor. Não alterar.)
+
+### Estado atual dos arquivos (commit `b3b1f26`)
+
+| Arquivo | Estado | Detalhes |
+|---------|--------|----------|
+| `slides/03b-a1-fib4calc.html` | ✅ Atualizado | 3 states: S0=VPN/VPP assimetria, S1=3 pitfalls (idade/álcool/MASLD), S2=gray zone 30-60%. Sem formula, sem hero, sem checkpoint. |
+| `slides/_manifest.js` | ✅ Atualizado | headline='Modelos Preditivos: FIB-4', clickReveals=2 |
+| `slide-registry.js` | ✅ Atualizado | State machine 3 estados, caveat null fix, cross-fade overlap (P4) |
+| `cirrose.css` | ✅ Atualizado | P2 hero gray zone (clamp 72-110px), P3 tinted cards (safe-light/danger-light), dead CSS removido |
+| `references/narrative.md` | ✅ Atualizado | headline + descrição sincronizados |
+| `references/evidence-db.md` | ✅ OK | 13 refs tier-1 para s-a1-fib4 (EASL NITs, Lindvig, McPherson, Sterling, Baveno VII, etc.) |
+| `AUDIT-VISUAL.md` | ⚠️ STALE | Scorecard refere conteúdo antigo. Precisa re-audit completo pós-QA pipeline. |
+| `qa-screenshots/` | ⚠️ STALE | PNGs S0/S2 e video são de ANTES das mudanças P2/P3/P4. Recapturar OBRIGATÓRIO. |
+| `gate0.json` | ⚠️ STALE | Baseado em screenshots antigos. Re-run obrigatório. |
+| `cirrose.css` seletores | Nenhum `#s-a1-fib4` | Todos seletores são por classe (.fib4-*), sem ID-anchor |
+
+### CSS classes ativas no slide
+
+| Classe | Uso | Arquivo |
+|--------|-----|---------|
+| `.fib4-stages` | Grid stacking container (place-items:center, surface card) | cirrose.css ~L2569 |
+| `.fib4-stage` | grid-area: 1/1, opacity: 0 (GSAP controla) | cirrose.css ~L2583 |
+| `.fib4-asymmetry` | S0 wrapper | cirrose.css ~L2594 |
+| `.fib4-stat-row` | Grid 2-col para VPN/VPP | cirrose.css ~L2597 |
+| `.fib4-stat` | Card individual (padding, radius) | cirrose.css ~L2603 |
+| `.fib4-stat--safe` | Fundo tinted safe-light | cirrose.css ~L2613 |
+| `.fib4-stat--danger` | Fundo tinted danger-light | cirrose.css ~L2616 |
+| `.fib4-stat-number` | Número grande (font-display, text-h1) | cirrose.css ~L2619 |
+| `.fib4-stat-label` | Label VPN/VPP (text-small, secondary) | cirrose.css ~L2627 |
+| `.fib4-pitfalls` | S1 wrapper | cirrose.css ~L2634 |
+| `.fib4-pitfall-row` | Grid 3-col para 3 armadilhas | cirrose.css ~L2637 |
+| `.fib4-pitfall` | Card armadilha (bg-card, border) | cirrose.css ~L2643 |
+| `.fib4-pitfall-title` | Título armadilha (font-body 700) | cirrose.css ~L2653 |
+| `.fib4-pitfall-detail` | Detalhe armadilha (text-small, secondary) | cirrose.css ~L2659 |
+| `.fib4-grayzone` | S2 wrapper | cirrose.css ~L2666 |
+| `.fib4-grayzone-content` | Flex column center | cirrose.css ~L2669 |
+| `.fib4-grayzone-stat` | **HERO** 30-60% (clamp 72-110px, warning-on-light, serif) | cirrose.css ~L2675 |
+| `.fib4-grayzone-label` | "zona indeterminada" (text-h3, uppercase) | cirrose.css ~L2683 |
+
+### GSAP state machine (slide-registry.js ~L473)
+
+```
+S0 (auto):  asymmetry visible, cards stagger in (0.35s, stagger 0.2s, delay 0.3s)
+S1 (click): asymmetry cross-fade out (0.5s, y:-15), pitfalls cross-fade in (0.5s, delay 0.1s), pitfall cards stagger (0.35s, stagger 0.15s)
+S2 (click): pitfalls cross-fade out (0.4s, y:-15), grayzone cross-fade in (0.6s, delay 0.1s), source-tag fade (0.4s, delay 0.5s)
+Retreat:    reverso instantâneo (gsap.set autoAlpha:1, y:0)
+```
+
+### Histórico de reviews Gemini (naming confuso — ver nota)
+
+| Arquivo | Conteúdo avaliado | Score | Contexto |
+|---------|-------------------|-------|----------|
+| `gemini-qa3-r2.md` | ANTIGO (formula, cutoffs, hero) | 6.0/10 | Gate 4 R2 do conteúdo original. Histórico. |
+| `gemini-qa3-r1.md` | NOVO (VPN, pitfalls, grayzone) | 4.0/10 | Gate 4 R1 do conteúdo reescrito. P2/P3/P4 implementados DESTE review. |
+
+**Nota naming:** R1 e R2 são de VERSÕES DIFERENTES do conteúdo. Na próxima sessão, resetar contagem: chamar de R1 do conteúdo novo (v2). Os reviews anteriores são históricos.
+
+### Tarefa próxima sessão (3 passos obrigatórios)
+
+1. **Recapturar screenshots:** `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-fib4 --video`
+2. **Gate 0:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --inspect` → override ANIMATION_STATE se false positive (systemic)
+3. **Gate 4 R1 (v2):** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --editorial --round 1 --ref-slide s-a1-baveno`
+
+Após Gate 4: implementar propostas aprovadas por Lucas → recapturar → re-run até score ≥7.
+
+### Melhorias pipeline de pesquisa (aplicáveis a próximos slides)
+- `content-research.mjs` prompt v2: patient anchor dinâmico (CASE.md), genealogia obrigatória, divergência guidelines, narrative metadata explicada
 - Protocolo Claude-side: MCPs (PubMed, Consensus, SCite, Scholar Gateway) → output estruturado → comparison table → merge evidence-db
 
 ---
