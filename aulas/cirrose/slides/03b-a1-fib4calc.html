@@ -1,8 +1,9 @@
 <!-- ============================================================
      s-a1-fib4 — FIB-4: triagem vs diagnóstico
-     Archetype: none (was hero-stat — removed, layout via #s-a1-fib4 in cirrose.css)
-     States: 0=VPN/VPP assimetria (auto), 1=3 armadilhas (click),
-             2=zona cinza + gateway (click)
+     Archetype: none — layout via #s-a1-fib4 in cirrose.css
+     Design: persistent horizontal spectrum + progressive annotations
+     States: 0=safe+danger zones grow (auto), 1=gray zone fills (click),
+             2=pitfall flags + source (click)
      Sidebar: card padrão + calculadora FIB-4 (case-panel.js)
      ============================================================ -->
 <section id="s-a1-fib4"
@@ -13,68 +14,70 @@
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
     <h2 class="slide-headline">Modelos Preditivos: FIB-4</h2>
 
-    <!-- Stages zone — grid stacking, GSAP transitions -->
-    <div class="fib4-stages">
+    <!-- Persistent FIB-4 spectrum — never disappears once shown -->
+    <div class="fib4-spectrum">
 
-      <!-- S0: Cutoffs + decisao clinica -->
-      <div class="fib4-stage fib4-asymmetry">
-        <div class="fib4-stat-row">
-          <div class="fib4-stat fib4-stat--safe">
-            <span class="fib4-stat-number"><span class="fib4-operator">&lt;</span> 1,30</span>
-            <span class="fib4-stat-label">✓ Exclui &mdash; VPN &gt; 90%</span>
-          </div>
-          <div class="fib4-stat fib4-stat--danger">
-            <span class="fib4-stat-number"><span class="fib4-operator">&ge;</span> 2,67</span>
-            <span class="fib4-stat-label">✕ N&atilde;o confirma &mdash; VPP ~35%</span>
-          </div>
+      <!-- Colored bar segments -->
+      <div class="fib4-bar">
+        <div class="fib4-seg fib4-seg--safe"><span>&lt; 1,30</span></div>
+        <div class="fib4-seg fib4-seg--gray"><span>1,30 &ndash; 2,67</span></div>
+        <div class="fib4-seg fib4-seg--danger"><span>&ge; 2,67</span></div>
+      </div>
+
+      <!-- Annotations aligned below each segment -->
+      <div class="fib4-annots">
+        <div class="fib4-annot fib4-annot--safe">
+          <span class="fib4-annot-stat">✓ VPN &gt; 90%</span>
+          <span class="fib4-annot-label">Exclui</span>
+        </div>
+        <div class="fib4-annot fib4-annot--gray">
+          <span class="fib4-annot-stat">30&ndash;60%</span>
+          <span class="fib4-annot-label">⚠ &rarr; Elastografia</span>
+        </div>
+        <div class="fib4-annot fib4-annot--danger">
+          <span class="fib4-annot-stat">✕ VPP ~35%</span>
+          <span class="fib4-annot-label">N&atilde;o confirma</span>
         </div>
       </div>
 
-      <!-- S1: 3 armadilhas práticas -->
-      <div class="fib4-stage fib4-pitfalls">
-        <div class="fib4-pitfall-row">
-          <div class="fib4-pitfall">
-            <span class="fib4-pitfall-title">Idade &ge; 65 a</span>
-            <span class="fib4-pitfall-detail">Cutoff sobe para 2,0</span>
-          </div>
-          <div class="fib4-pitfall">
-            <span class="fib4-pitfall-title">&Aacute;lcool</span>
-            <span class="fib4-pitfall-detail">AST/ALT &gt; 2 infla o score</span>
-          </div>
-          <div class="fib4-pitfall">
-            <span class="fib4-pitfall-title">MASLD ativa</span>
-            <span class="fib4-pitfall-detail">ALT &uarr; mascara fibrose</span>
-          </div>
-        </div>
-      </div>
+    </div>
 
-      <!-- S2: Zona cinza -->
-      <div class="fib4-stage fib4-grayzone">
-        <div class="fib4-grayzone-content">
-          <span class="fib4-grayzone-stat">30–60%</span>
-          <span class="fib4-grayzone-label">⚠ FIB-4 1,30 &ndash; 2,67 &rarr; elastografia</span>
-        </div>
+    <!-- Pitfall flags — appear below spectrum on beat 2 -->
+    <div class="fib4-flags">
+      <div class="fib4-flag">
+        <span class="fib4-flag-icon">⚠</span>
+        <span class="fib4-flag-title">Idade &ge; 65 a</span>
+        <span class="fib4-flag-detail">Cutoff &rarr; 2,0</span>
       </div>
-
+      <div class="fib4-flag">
+        <span class="fib4-flag-icon">⚠</span>
+        <span class="fib4-flag-title">&Aacute;lcool</span>
+        <span class="fib4-flag-detail">AST/ALT &gt; 2 infla</span>
+      </div>
+      <div class="fib4-flag">
+        <span class="fib4-flag-icon">⚠</span>
+        <span class="fib4-flag-title">MASLD ativa</span>
+        <span class="fib4-flag-detail">ALT &uarr; mascara</span>
+      </div>
     </div>
 
     <p class="source-tag">EASL NITs 2021 (PMID 34052326) &middot; Lindvig 2025 (PMID 39674225) &middot; Baveno VII (PMID 35120736)</p>
   </div>
 
   <aside class="notes">
-[0:00-0:30] Auto: cutoff cards stagger.
+[0:00-0:30] Auto: barra safe cresce da esquerda, danger da direita. Assimetria visual.
 "FIB-4 abaixo de 1,30: pode parar ali. VPN acima de 90% — a forca esta na exclusao."
 "Acima de 2,67? Nao confirma. De cada 3 FIB-4 'alto risco', so 1 tem fibrose na biopsia."
 
-[0:30-1:00] Click 1 → 3 armadilhas
+[0:30-1:00] Click 1 → Zona cinza preenche o meio
+"FIB-4 entre 1,30 e 2,67 — 30 a 60% dos pacientes caem aqui. E a regra, nao a excecao. Proximo passo: elastografia."
+"Baveno VII posiciona o FIB-4 como gateway. Nao como destino."
+
+[1:00-1:30] Click 2 → 3 armadilhas praticas
 "Tres armadilhas do dia a dia."
 "Idade: entra no numerador. Paciente de 70 anos com FIB-4 de 2,5 — com cutoff ajustado de 2,0, isso ja e alto risco. McPherson 2017."
 "Alcool: AST/ALT acima de 2. Deplecao de piridoxal baixa a ALT, dano mitocondrial sobe a AST. Score inflado."
 "MASLD ativa: ALT alta infla o denominador. FIB-4 fica falsamente baixo. Retestar quando ALT normalizar."
-
-[1:00-1:30] Click 2 → Zona cinza
-"FIB-4 entre 1,30 e 2,67 — 30 a 60% dos pacientes caem aqui. E a regra, nao a excecao. Proximo passo: elastografia."
-"Baveno VII posiciona o FIB-4 como gateway. Nao como destino."
 PAUSA — olhar para sidebar (calc mostra 5,91).
 "Antonio: AST/ALT >2. O alcool esta inflando. Mas 5,91 ultrapassa qualquer cutoff."
 "E agora? O que voces fariam?" → estimular audiencia pela fala.

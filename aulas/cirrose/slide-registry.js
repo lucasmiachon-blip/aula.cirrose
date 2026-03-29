@@ -465,57 +465,73 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-fib4 — FIB-4: triagem vs diagnóstico
-     States: 0=VPN/VPP assimetria (auto), 1=3 armadilhas (click),
-             2=zona cinza + gateway (click)
+     s-a1-fib4 — FIB-4: Progressive Spectrum
+     Design: persistent bar + additive annotations
+     States: 0=safe+danger grow (auto), 1=gray fills (click),
+             2=pitfall flags (click)
      Rewritten 2026-03-29
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-fib4': (slide, gsap) => {
     let state = 0;
     const maxState = 2;
 
-    const asymmetry = slide.querySelector('.fib4-asymmetry');
-    const asymmetryCards = asymmetry.querySelectorAll('.fib4-stat');
-    const pitfalls = slide.querySelector('.fib4-pitfalls');
-    const pitfallCards = pitfalls.querySelectorAll('.fib4-pitfall');
-    const grayzone = slide.querySelector('.fib4-grayzone');
+    /* Bar segments */
+    const safeSeg = slide.querySelector('.fib4-seg--safe');
+    const graySeg = slide.querySelector('.fib4-seg--gray');
+    const dangerSeg = slide.querySelector('.fib4-seg--danger');
+
+    /* Annotations */
+    const safeAnnot = slide.querySelector('.fib4-annot--safe');
+    const grayAnnot = slide.querySelector('.fib4-annot--gray');
+    const dangerAnnot = slide.querySelector('.fib4-annot--danger');
+
+    /* Pitfalls + source */
+    const flags = slide.querySelector('.fib4-flags');
+    const flagItems = slide.querySelectorAll('.fib4-flag');
     const sourceTag = slide.querySelector('.source-tag');
 
-    /* Initial states — autoAlpha handles pointer-events via visibility */
-    gsap.set([pitfalls, grayzone], { autoAlpha: 0, y: 15 });
-    gsap.set(sourceTag, { autoAlpha: 0 });
-    gsap.set(asymmetryCards, { autoAlpha: 0, y: 8 });
+    /* ── Initial states ── */
+    /* Bar segments: safe+danger start collapsed, gray hidden */
+    gsap.set(safeSeg, { scaleX: 0, transformOrigin: 'left center' });
+    gsap.set(dangerSeg, { scaleX: 0, transformOrigin: 'right center' });
+    gsap.set(graySeg, { scaleX: 0, transformOrigin: 'center center' });
 
-    /* Auto: asymmetry container visible, cards stagger in */
-    gsap.set(asymmetry, { autoAlpha: 1 });
-    gsap.to(asymmetryCards, {
-      autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.2,
-      delay: 0.3, ease: 'power2.out'
-    });
+    /* Annotations + flags hidden */
+    gsap.set([safeAnnot, dangerAnnot], { autoAlpha: 0, y: 8 });
+    gsap.set(grayAnnot, { autoAlpha: 0, y: 8 });
+    gsap.set(flags, { autoAlpha: 0 });
+    gsap.set(flagItems, { autoAlpha: 0, y: 10 });
+    gsap.set(sourceTag, { autoAlpha: 0 });
+
+    /* ── Beat 0 (auto): safe grows left→right, danger right→left ── */
+    const tl0 = gsap.timeline({ delay: 0.3 });
+    tl0.to(safeSeg, { scaleX: 1, duration: 0.5, ease: 'power2.out' })
+       .to(safeAnnot, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '-=0.15')
+       .to(dangerSeg, { scaleX: 1, duration: 0.5, ease: 'power2.out' }, '-=0.25')
+       .to(dangerAnnot, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '-=0.15');
 
     function advance() {
       if (state >= maxState) return false;
       state++;
 
       if (state === 1) {
-        /* P1 R6: strict emptying — S0 exits fully (0.2s), then S1 enters (delay 0.25s) */
-        gsap.to(asymmetry, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
-        gsap.set(pitfallCards, { autoAlpha: 0, y: 8 });
-        gsap.to(pitfalls, { autoAlpha: 1, duration: 0.1, delay: 0.25 });
-        gsap.to(pitfallCards, {
-          autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.08,
-          delay: 0.25, ease: 'power2.out'
+        /* Gray zone fills from center — the gap becomes a zone */
+        gsap.to(graySeg, {
+          scaleX: 1, duration: 0.5, ease: 'power3.out'
+        });
+        gsap.to(grayAnnot, {
+          autoAlpha: 1, y: 0, duration: 0.4, delay: 0.3, ease: 'power2.out'
         });
       }
 
       if (state === 2) {
-        /* P1 R6: strict emptying — S1 exits fully, then S2 enters */
-        gsap.to(pitfalls, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
-        gsap.fromTo(grayzone,
-          { autoAlpha: 0, y: 8 },
-          { autoAlpha: 1, y: 0, duration: 0.4, delay: 0.25, ease: 'power3.out' }
-        );
-        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.3, delay: 0.5 });
+        /* Pitfall flags stagger in below the spectrum */
+        gsap.to(flags, { autoAlpha: 1, duration: 0.1 });
+        gsap.to(flagItems, {
+          autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.1,
+          ease: 'power2.out'
+        });
+        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.3, delay: 0.4 });
       }
 
       return true;
@@ -525,24 +541,17 @@ export const customAnimations = {
       if (state <= 0) return false;
 
       if (state === 2) {
-        /* P1 R6: strict emptying on retreat — exit current, delay, re-enter previous */
-        gsap.to(grayzone, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
         gsap.to(sourceTag, { autoAlpha: 0, duration: 0.2 });
-        gsap.set(pitfallCards, { autoAlpha: 0, y: -8 });
-        gsap.to(pitfalls, { autoAlpha: 1, duration: 0.1, delay: 0.25 });
-        gsap.to(pitfallCards, {
-          autoAlpha: 1, y: 0, duration: 0.3, stagger: -0.05,
-          delay: 0.25, ease: 'power2.out'
+        gsap.to(flagItems, {
+          autoAlpha: 0, y: 10, duration: 0.2, stagger: -0.05
         });
+        gsap.to(flags, { autoAlpha: 0, duration: 0.1, delay: 0.25 });
       }
 
       if (state === 1) {
-        gsap.to(pitfalls, { autoAlpha: 0, y: 4, duration: 0.2, ease: 'power2.in' });
-        gsap.set(asymmetryCards, { autoAlpha: 0, y: -8 });
-        gsap.to(asymmetry, { autoAlpha: 1, duration: 0.1, delay: 0.25 });
-        gsap.to(asymmetryCards, {
-          autoAlpha: 1, y: 0, duration: 0.3, stagger: -0.1,
-          delay: 0.25, ease: 'power2.out'
+        gsap.to(grayAnnot, { autoAlpha: 0, y: 8, duration: 0.2 });
+        gsap.to(graySeg, {
+          scaleX: 0, duration: 0.4, delay: 0.15, ease: 'power2.in'
         });
       }
 

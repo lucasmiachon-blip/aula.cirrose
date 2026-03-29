@@ -2563,175 +2563,153 @@ section#s-a1-01 .slide-inner {
 
 /* (FIB-4 old styles removed — now uses shared .calc-* in archetypes.css) */
 
-/* ═══ s-a1-fib4 ═══ */
+/* ═══ s-a1-fib4 — Progressive Spectrum ═══ */
 
-/* Layout — sem archetype, flex column da base + overrides */
+/* Layout */
 #s-a1-fib4 .slide-inner {
   justify-content: flex-start;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
-/* Stages container — grid stacking + surface card */
-.fib4-stages {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  flex: 1;
-  width: 100%;
-  max-width: 800px;
-  min-height: 340px;
-  margin: 0 auto;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg) var(--space-xl);
-  box-sizing: border-box;
-  box-shadow: 0 8px 24px var(--shadow-soft);
-}
-.fib4-stage {
-  grid-area: 1 / 1;
+/* Spectrum wrapper — holds bar + annotations */
+.fib4-spectrum {
   display: flex;
   flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  flex: 0 0 auto;
+}
+
+/* Colored horizontal bar */
+.fib4-bar {
+  display: flex;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.fib4-seg {
+  display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-body);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.02em;
+}
+.fib4-seg--safe {
+  flex: 3;
+  background: var(--safe);
+  color: var(--text-on-dark);
+}
+.fib4-seg--gray {
+  flex: 4;
+  background: var(--warning);
+  color: var(--text-primary);
+}
+.fib4-seg--danger {
+  flex: 3;
+  background: var(--danger);
+  color: var(--text-on-dark);
 }
 
-/* S0: VPN/VPP assimetria */
-.fib4-asymmetry {
-  gap: var(--space-md);
+/* Annotations row — same proportions as bar */
+.fib4-annots {
+  display: flex;
 }
-.fib4-stat-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-  width: 100%;
-}
-.fib4-stat {
+.fib4-annot {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-lg) var(--space-md);
-  border-radius: var(--radius-md);
+  gap: 2px;
+  padding: var(--space-xs) 0;
 }
-.fib4-stat--safe {
-  background: color-mix(in oklch, var(--safe) 12%, var(--bg-elevated));
-  border: 1px solid color-mix(in oklch, var(--safe) 35%, transparent);
-  box-shadow: 0 4px 12px color-mix(in oklch, var(--safe) 8%, transparent);
+.fib4-annot--safe   { flex: 3; }
+.fib4-annot--gray   { flex: 4; }
+.fib4-annot--danger { flex: 3; }
+
+.fib4-annot-stat {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-h3);
+  line-height: 1.1;
 }
-.fib4-stat--danger {
-  background: color-mix(in oklch, var(--danger) 12%, var(--bg-elevated));
-  border: 1px solid color-mix(in oklch, var(--danger) 35%, transparent);
-  box-shadow: 0 4px 12px color-mix(in oklch, var(--danger) 8%, transparent);
-}
-.fib4-stat-number {
-  font-family: var(--font-display);
-  font-size: var(--text-h1);
-  font-variant-numeric: tabular-nums lining-nums;
-  line-height: 1;
-}
-.fib4-stat--safe .fib4-stat-number  { color: var(--safe); }
-.fib4-stat--danger .fib4-stat-number { color: var(--danger); }
-.fib4-stat-label {
+.fib4-annot--safe .fib4-annot-stat  { color: var(--safe); }
+.fib4-annot--gray .fib4-annot-stat  { color: var(--warning-on-light); }
+.fib4-annot--danger .fib4-annot-stat { color: var(--danger); }
+
+.fib4-annot-label {
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--text-secondary);
 }
-.fib4-operator {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.85em;
-  margin-right: 0.05em;
-  opacity: 0.7;
-}
 
-/* S1: 3 armadilhas práticas */
-.fib4-pitfalls {
-  gap: var(--space-md);
-}
-.fib4-pitfall-row {
+/* Pitfall flags row */
+.fib4-flags {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-sm);
   width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
 }
-.fib4-pitfall {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  padding: var(--space-md);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-}
-.fib4-pitfall-title {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: var(--text-body);
-  color: var(--text-primary);
-}
-.fib4-pitfall-detail {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-/* S2: Zona cinza */
-.fib4-grayzone {
-  gap: var(--space-md);
-}
-.fib4-grayzone-content {
+.fib4-flag {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 4px;
+  padding: var(--space-sm) var(--space-xs);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px var(--shadow-soft);
 }
-.fib4-grayzone-stat {
-  font-family: var(--font-display);
-  font-size: 96px;
-  color: var(--warning);
+.fib4-flag-icon {
+  font-size: var(--text-body);
   line-height: 1;
-  letter-spacing: -0.04em;
-  font-variant-numeric: tabular-nums;
 }
-.fib4-grayzone-label {
+.fib4-flag-title {
   font-family: var(--font-body);
-  font-size: var(--text-h3);
+  font-weight: 700;
+  font-size: var(--text-small);
+  color: var(--text-primary);
+}
+.fib4-flag-detail {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   color: var(--text-secondary);
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
-/* Source-tag: wrap controlado + respiro contra shadow do card */
+/* Source-tag */
 #s-a1-fib4 .source-tag {
   white-space: normal;
   overflow-wrap: anywhere;
-  max-width: 55%;
-  margin-top: var(--space-md);
+  max-width: 60%;
+  margin: auto auto 0;
   text-align: center;
 }
 
-/* Failsafe: no-js / stage-bad */
-.no-js .fib4-stages,
-.stage-bad .fib4-stages {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-  height: auto;
+/* Failsafe: no-js / stage-bad — show everything */
+.no-js .fib4-spectrum,
+.stage-bad .fib4-spectrum {
+  opacity: 1 !important;
 }
-.no-js .fib4-stage,
-.stage-bad .fib4-stage {
+.no-js .fib4-spectrum *,
+.stage-bad .fib4-spectrum * {
   opacity: 1 !important;
   visibility: visible !important;
-  position: relative;
+  transform: none !important;
 }
-.no-js .fib4-stages *,
-.stage-bad .fib4-stages * {
+.no-js .fib4-flags,
+.stage-bad .fib4-flags {
+  opacity: 1 !important;
+}
+.no-js .fib4-flags *,
+.stage-bad .fib4-flags * {
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;
