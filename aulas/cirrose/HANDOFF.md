@@ -5,15 +5,25 @@
 
 ---
 
-## Estado — 2026-03-30T00:30-03:00
+## Estado — 2026-03-30T01:30-03:00
 
 **Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
-**QA pipeline:** `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` + `gemini-qa3.mjs`.
+**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 → **Gate 2 (Opus, $0)** → Gate 4 (Gemini).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier DONE. MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
+
+### Sessao 30/mar (cont.) — Gate 2 protocol design
+
+**O que foi feito:**
+
+1. **Gate 2 — Opus Visual Audit criado** — gate intermediaria entre Gate 0 e Gate 4. Claude Opus analisa PNG S2 + raw code usando MCP tools (sharp pick_color, a11y check_color_contrast). 3 camadas: A) instrumental (cores reais, contraste WCAG), B) code analysis (E52, dead CSS, failsafes, token compliance), C) visual multimodal. MUST failures bloqueiam Gate 4. Custo: $0.
+2. **Protocolo documentado** — `docs/prompts/gate2-opus-visual.md` com grid padrao de amostragem (5 pontos de metrics.json x2), pontos adaptativos, severidades, output format.
+3. **Pipeline docs atualizados** — WT-OPERATING.md QA.2 reescrito, CLAUDE.md sequencia 3→4 passos, AUDIT-VISUAL.md protocolo reorganizado (3 gates).
+
+**Pendente:** Rodar Gate 2 no s-a1-fib4 (primeira execucao do protocolo). Depois Gate 4 R4 com prompt v3.0.
 
 ### Sessao 30/mar (madrugada) — fib4 archetype removal + Gate 4 prompt v3.0
 

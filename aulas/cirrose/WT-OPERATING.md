@@ -177,37 +177,33 @@ Verificacoes automatizaveis (lint + HTML source):
 **Output:** tabela check/resultado.
 **→ CHECKPOINT:** apresentar ao Lucas, esperar OK.
 
-### QA.2 — Visual Audit (Opus)
+### QA.2 — Opus Visual Audit (3 camadas, MCP tools)
 
-Capturar screenshots e analisar:
+Protocolo completo: `@repo/docs/prompts/gate2-opus-visual.md`.
 
-**Captura (Playwright):**
+**Captura (pre-requisito — ja feito antes de Gate 0):**
 
 ```bash
-# Dev server deve estar ativo (npm run dev)
-# Navegar ate o slide, esperar animacoes (2.5s), screenshot
-# Se click-reveals: screenshot antes de cada click
-
-# Output (convencao de nomes — deletar PNGs antigos a cada round):
-# qa-screenshots/{slide-id}/
-#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S0.png   ← estado apos entrada (animacoes completadas)
-#   {slide-id}_{YYYY-MM-DD}_{HHmm}_S2.png   ← estado final (so se clickReveals > 0)
-#   animation-1280x720.webm                   ← video (--video flag)
-#   gate0.json                                ← output Gate 0 (sobrescreve a cada round)
-#   metrics.json                              ← bounding boxes
+node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide {id} --video
 ```
 
-Resolucao padrao: 1280x720 @2x (deviceScaleFactor: 2).
-Resolucao usuario: 1707x1067 @1.5x (monitor 2560x1600 16:10) — usar para QA.3 Gemini.
-Resolucao congresso: TBD (TV via HDMI espelhado, provavelmente 16:9). Ver NOTES.md [18/03].
+Output: `qa-screenshots/{id}/` → PNGs S0/S2 + video + `metrics.json`.
+Resolucao: 1280x720 @2x (PNG = 2560x1440).
 
-**Analise (Opus — leitura direta dos PNGs):**
+**3 camadas de analise:**
 
-Avaliar 14 dimensoes (H/T/E/C/V/K/S/M/I/D/A/L/P/N), escala 1-10.
-Rubrica completa e descritores: → `AUDIT-VISUAL.md` §Rubrica de Scoring.
-Threshold: todas 14 dims >= 9.
+| Layer | Ferramenta | O que mede |
+|-------|-----------|------------|
+| A — Instrumental | sharp pick_color + a11y check_color_contrast | Cores reais, contraste WCAG, dimensoes PNG |
+| B — Code | Read + Grep (CSS/HTML/JS) | E52, dead CSS, failsafes, token compliance, GSAP/CSS race |
+| C — Visual | Read multimodal (PNG) | Hierarquia, whitespace, tipografia, cor semantica, completude |
 
-**Output:** scorecard 14 dims com evidencias.
+**Severidades:**
+- MUST (bloqueia Gate 4): contraste < 4.5:1, E52, failsafes ausentes, cores hardcoded, dimensoes erradas
+- SHOULD (warning): dead CSS, GSAP/CSS race, contraste < 7:1, fill ratio fora ideal
+
+**Output:** `qa-screenshots/{id}/gate2-report.md` com tabelas de amostras, contrastes e code checks.
+**MUST FAIL bloqueia Gate 0 e Gate 4.** Fix → re-screenshot → re-run Gate 2.
 **→ CHECKPOINT:** apresentar ao Lucas, esperar OK.
 
 ### Gate 0 — Inspeção de Defeitos Visuais

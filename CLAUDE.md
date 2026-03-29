@@ -117,10 +117,10 @@ Complexidade só entra se paga o custo no mesmo dia. NUNCA abstração preventiv
 
 ## Auditoria Visual — QA Pipeline
 
-Pipeline completo: `aulas/cirrose/WT-OPERATING.md` §4 (máquina de estados + 5 sub-stages).
+Pipeline completo: `aulas/cirrose/WT-OPERATING.md` §4 (máquina de estados + 6 sub-stages).
 Scorecards: `aulas/cirrose/AUDIT-VISUAL.md` (14 dimensões, min 9/10).
 
-### Sequência obrigatória (3 passos, NUNCA pular)
+### Sequência obrigatória (4 passos, NUNCA pular)
 
 **Passo 1 — Screenshots + vídeo** (`qa-batch-screenshot.mjs`):
 Captura PNGs S0/S2 + webm via Playwright headless. NUNCA capturar manualmente.
@@ -131,18 +131,27 @@ Output: `qa-screenshots/{id}/` → PNGs + `animation-1280x720.webm` + `metrics.j
 Re-rodar se houve mudança de HTML/CSS/JS desde última captura.
 
 **Passo 2 — Gate 0** (binário, PASS/FAIL): 6 MUST + 3 SHOULD checks em PNGs S0/S2.
-Input: PNGs do passo 1. Output: `gate0.json`. MUST FAIL bloqueia Gate 4.
+Input: PNGs do passo 1. Output: `gate0.json`. MUST FAIL bloqueia Gate 2/4.
 Critérios: `docs/prompts/gemini-gate0-inspector.md`.
 ```bash
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect                    # Gate 0
 # [checkpoint Lucas — aprovar Gate 0]
 ```
 
-**Passo 3 — Gate 4** (editorial, criativo): Gemini avalia hierarquia, flow, legibilidade.
+**Passo 3 — Gate 2** (Opus Visual Audit, $0): Claude analisa PNG S2 + raw code com MCP tools.
+3 camadas: A) sharp pick_color + a11y contrast, B) code analysis (E52, dead CSS, failsafes), C) visual multimodal.
+MUST FAIL bloqueia Gate 4. Protocolo: `docs/prompts/gate2-opus-visual.md`.
+```
+# Executado conversacionalmente (MCP sharp + a11y + Read), sem script
+# Output: qa-screenshots/{id}/gate2-report.md
+# [checkpoint Lucas — aprovar Gate 2]
+```
+
+**Passo 4 — Gate 4** (editorial, criativo): Gemini avalia hierarquia, flow, legibilidade.
 Input: raw HTML + raw CSS + raw JS + PNGs S0/S2 + video .webm (tudo do passo 1).
 Gemini NUNCA edita arquivos — só produz sugestões. Spec completa: `aulas/cirrose/WT-OPERATING.md` §4 QA.3.
 ```bash
-node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N        # Gate 4 (requer Gate 0 PASS)
+node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N        # Gate 4 (requer Gate 0 + Gate 2 PASS)
 ```
 
 Score < 7 → registrar problema, aguardar decisão de Lucas.

@@ -82,11 +82,13 @@ Retreat:    reverso instantaneo (gsap.set autoAlpha:1, y:0)
 
 ---
 
-## Tarefa (3 passos obrigatorios)
+## Tarefa (4 passos obrigatorios)
 
 1. **Recapturar screenshots:** `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-fib4 --video`
 2. **Gate 0:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --inspect` → override ANIMATION_STATE se false positive (systemic)
-3. **Gate 4 R4:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --editorial --round 4 --ref-slide s-a1-baveno`
+3. **Gate 2 (NOVO):** Opus Visual Audit — protocolo em `@repo/docs/prompts/gate2-opus-visual.md`. Sharp pick_color + a11y contrast + code analysis + visual multimodal. MUST FAIL bloqueia Gate 4.
+4. **Gate 4 R4:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --editorial --round 4 --ref-slide s-a1-baveno`
 
+Gate 2 e primeira execucao do protocolo. Vai pegar E52, dead CSS, contrastes reais.
 Prompt v3.0: criterios mensuraveis, prova de video com timestamps, propostas com fonte+criterio.
 Apos Gate 4: implementar propostas aprovadas por Lucas → recapturar → re-run ate score >=7.

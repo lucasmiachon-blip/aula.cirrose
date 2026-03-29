@@ -46,11 +46,11 @@
 - **SYS-2: Fill ratio <60%** — Espaco vazio >40%. Fix: padding/max-width archetypes. (dim: E)
 - **SYS-3: Hero typography undersized** — Numero/dado hero em `--text-h1` em vez de `--text-hero`. (dim: H, T)
 
-## Protocolo de auditoria (14 dimensoes)
+## Protocolo de auditoria (3 gates)
 
-### Gate 0 — Inspeção de Defeitos (pré-requisito)
+### Gate 0 — Inspeção de Defeitos (Gemini, binario, $0.002)
 
-Antes de qualquer auditoria dimensional, rodar Gate 0 para detectar defeitos visuais mecânicos (clipping, overflow, overlap, invisible, missing_media, animation_state, alignment, spacing, readability). Gate 0 é binário (PASS/FAIL), custa ~$0.002/slide, e bloqueia QA.3 se MUST checks falharem.
+Defeitos visuais mecanicos (clipping, overflow, overlap, invisible, missing_media, animation_state, alignment, spacing, readability). PASS/FAIL. MUST FAIL bloqueia Gate 2 e Gate 4.
 
 ```bash
 node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
@@ -58,28 +58,34 @@ node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --inspect
 
 Prompt: `docs/prompts/gemini-gate0-inspector.md`. Output: `qa-screenshots/{id}/gate0.json`.
 
-### Loop 1 — Opus (sem Gemini)
+### Gate 2 — Opus Visual Audit (Claude, $0)
+
+Claude Opus analisa PNG S2 + raw code usando MCP tools (sharp, a11y). 3 camadas:
+
+| Layer | Ferramenta | Mede |
+|-------|-----------|------|
+| A — Instrumental | sharp pick_color + a11y check_color_contrast | Cores reais, contraste WCAG |
+| B — Code | Read + Grep | E52, dead CSS, failsafes, token compliance |
+| C — Visual | Read multimodal (PNG) | Hierarquia, whitespace, tipografia, cor semantica |
+
+MUST FAIL bloqueia Gate 4. Protocolo completo: `@repo/docs/prompts/gate2-opus-visual.md`.
+Output: `qa-screenshots/{id}/gate2-report.md`.
+
+### Gate 4 — Editorial (Gemini, $0.03-0.08)
+
+Raw HTML + Raw CSS + Raw JS + PNGs S0/S2 + video .webm → Gemini avalia hierarquia, flow, legibilidade, daltonismo, densidade. Gemini so sugere — Opus executa fix.
+Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `WT-OPERATING.md` §4 QA.3.
+
+### Constraint check (integrado no pipeline, pre-Gate 0)
 
 1. `npm run lint:slides` — confirmar PASS
-2. Para cada slide: constraint check automatizado
+2. Constraint check automatizado por slide:
    - `<h2>` = assercao clinica? (dim M, N)
    - Zero `<ul>/<ol>` no corpo? (dim M, L)
    - `<aside class="notes">` com timing? (dim N)
    - `<section>` sem `style` com `display`? (dim S, E07)
    - Cores via `var()` — zero HEX hardcoded? (dim C)
    - Dados com PMID verificado ou `[TBD]`? (dim D)
-3. Playwright screenshot 1280x720 de cada estado (S0...SN)
-4. Scorecard: 14 dimensoes x nota 1-10
-5. Issues com nota < 9 → fix cirurgico
-6. Re-audit ate PASS (todas >= 9)
-
-### Loop 2 — Gemini API (apos Loop 1 PASS)
-
-**Gate 0 (PASS/FAIL):** PNGs S0 + S2 → 9 checks binarios (6 MUST + 3 SHOULD). MUST FAIL bloqueia Gate 4.
-Prompt: `docs/prompts/gemini-gate0-inspector.md`. Output: `qa-screenshots/{id}/gate0.json`.
-
-**Gate 4 (editorial):** Raw HTML + Raw CSS + Raw JS + PNGs S0/S2 + video .webm curto → Gemini avalia hierarquia, flow, legibilidade, daltonismo, densidade.
-Gemini so sugere — Opus executa fix. Spec completa: `WT-OPERATING.md` §4 QA.3.
 
 ### Scorecard template (copiar por slide)
 
