@@ -1,7 +1,7 @@
 # NEXT-SESSION — s-a1-fib4 QA pipeline
 
 > Contexto profundo do slide EM ANDAMENTO. Ler so se for trabalhar neste slide.
-> Atualizado: 2026-03-29T01:27-03:00
+> Atualizado: 2026-03-29T22:00-03:00
 
 ---
 
@@ -23,8 +23,8 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 | `slide-registry.js` | OK | State machine 3 estados, caveat null fix, cross-fade overlap (P4) |
 | `cirrose.css` | OK | P2 hero gray zone (clamp 72-110px), P3 tinted cards (safe-light/danger-light), dead CSS removido |
 | `references/narrative.md` | OK | headline + descricao sincronizados |
-| `references/evidence-db.md` | OK | Refs tier-1 para s-a1-fib4 (EASL NITs, Lindvig, McPherson, Sterling, Baveno VII, etc.) |
-| `AUDIT-VISUAL.md` | STALE | Scorecard refere conteudo antigo. Precisa re-audit completo pos-QA pipeline. |
+| `references/evidence-db.md` | OK | Refs tier-1 para s-a1-fib4 (EASL NITs, Lindvig, McPherson, Sterling, Baveno VII, etc.). Tabela "Dados Clinicos" reconstruida 29/mar (IDs Act 2 corrigidos). |
+| `AUDIT-VISUAL.md` | STALE | Scorecard refere conteudo antigo. Status header atualizado (5 DONE, 1 QA). Precisa re-audit completo pos-QA pipeline. |
 | `qa-screenshots/` | STALE | PNGs S0/S2 e video sao de ANTES das mudancas P2/P3/P4. Recapturar OBRIGATORIO. |
 | `gate0.json` | STALE | Baseado em screenshots antigos. Re-run obrigatorio. |
 

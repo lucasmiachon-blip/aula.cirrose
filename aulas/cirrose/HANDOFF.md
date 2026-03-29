@@ -5,7 +5,7 @@
 
 ---
 
-## Estado — 2026-03-29T01:27-03:00
+## Estado — 2026-03-29T22:00-03:00
 
 **Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
@@ -14,6 +14,25 @@
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier DONE. MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
+
+### Sessao 29/mar (noite) — doc hardening + scripts QA
+
+**O que foi feito (commits `22256f9` + `7c5ea81`):**
+
+1. **evidence-db "Dados Clinicos" table rebuild** — 6 IDs stale do pre-rewrite Ato 2 (08/mar) corrigidos (s-a2-01→07, s-a2-02→15, s-a2-03→app-alb, s-a2-04→05, s-a2-05→11, s-a2-06→08). 8 rows novos adicionados (s-a1-damico, s-a2-01/02/03/06/09/10/12). Nota de exclusao para slides sem clinical assertions (s-title, s-hook, s-cp1/2/3, s-close). Verificado contra _manifest.js: 37 slides com row, 6 excluidos.
+2. **AUDIT-VISUAL.md** — timestamp corrigido (2026-03-17→29), status atualizado (5 DONE, 1 QA, 4 CONTENT), contagens "11 slides"→"10 slides" em 4 locais (pos vote-merge).
+3. **WT-OPERATING.md** — head -40→55 no ritual start-of-session, 5→6 stages, Gate 4 v2.0 note, NEXT-SESSION.md adicionado ao ritual de rehydration.
+4. **XREF.md** — evidence-db.md, narrative.md, CASE.md adicionados a tabela de referencias e canonicos por assunto.
+5. **qa-batch-screenshot.mjs** — 7 checks automatizados (C1 wordCount>30, C2 fillRatio, C3 h2Present, C4 h2Lines, C5 consoleErrors, C6 panelOverlap, C7 sourceTag) + `batch-manifest.json` com resultado agregado. Checks inline no console + PASS/FAIL/WARN.
+6. **gemini-qa3.mjs Gate 0** — `gate0-summary.json` (slideId, must_pass, blocksGate4) para pipeline.
+7. **gemini-qa3.mjs Gate 4** — extrai bloco ```json da resposta Gemini, parseia, salva `gate4-scorecard-rN.json`. Score usa JSON parseado (media 11 dims) com fallback regex. Parse failure → warning + raw salvo.
+
+**O que NAO foi testado (testar amanha antes de produzir slides):**
+- `qa-batch-screenshot.mjs` com checks ativos (precisa dev server rodando)
+- `gemini-qa3.mjs` Gate 4 scorecard parsing contra resposta real do Gemini
+- O regex do JSON fence (`` ```json\s*\n([\s\S]*?)``` ``) — pode falhar se Gemini formatar diferente
+
+**Meta 30/mar: ZERO infra, so producao de slides.** s-a1-fib4 QA pipeline (recaptura → Gate 0 → Gate 4). Depois s-a1-damico. Testar scripts como subproduto do QA, nao como tarefa separada.
 
 ### Issues sistêmicos (não fixáveis antes do deadline 31/mar)
 - **Source-tag line breaking**: texto longo quebra em viewport 1280x720. Afeta todos os slides. Sem fix viável.
