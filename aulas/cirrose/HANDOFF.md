@@ -7,7 +7,7 @@
 
 ## Estado — 2026-03-28
 
-**Slides:** 43 buildados · 5 DONE · 38 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
+**Slides:** 43 buildados · 5 DONE · 1 SYNCED · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files. Docs: `.claude/hooks/README.md`.
 **QA pipeline:** `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` + `gemini-qa3.mjs`.
@@ -28,13 +28,14 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6-9 | s-a1-fib4 → s-cp1 | CONTENT | Act 1 restante. |
+| 6 | s-a1-fib4 | SYNCED | Rewrite 28/mar: 4 states, VPN/VPP, hero 5.91, checkpoint conduta. |
+| 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 5 DONE · 38 CONTENT (43 total)
-**Proximo:** s-a1-fib4 → ASSEMBLY (pesquisa dual COMPLETA, conteudo decidido).
+**Resumo:** 5 DONE · 1 SYNCED · 37 CONTENT (43 total)
+**Proximo:** s-a1-fib4 → QA pipeline (screenshot → Gate 0 → Gate 4). Depois: s-a1-damico.
 **Research tooling:** `content-research.mjs` prompt v2 (patient anchor dinamico, genealogia obrigatoria, divergencia guidelines). Templates: `docs/prompts/mcp-research-queries.md`.
 **Script robustez (28/mar):** Todos scripts Gemini/Playwright tem: retry 429/5xx, --help, throw em vez de process.exit, console error capture em metrics.json. Gate 0 usa responseMimeType JSON (sem fence-strip). Playwright scripts: browser try/finally + video().saveAs() (sem renameSync race).
 
@@ -47,49 +48,21 @@
 
 ---
 
-## Proxima sessao — s-a1-fib4 ASSEMBLY
+## Proxima sessao — s-a1-fib4 QA
 
-**Estado:** Pesquisa dual COMPLETA (Gemini v2 + Claude MCPs). Comparison table preenchida. 5 divergencias mapeadas.
-**Tarefa:** RECRIAR slide (conteudo + interacao + CSS). NAO e QA do slide atual — e rewrite total.
+**Estado:** SYNCED (rewrite 28/mar). 4 states, HTML+CSS+Registry+Manifest OK. Build+lint PASS.
+**Tarefa:** QA pipeline (screenshot → Gate 0 → Gate 4).
 
-### O que ler ANTES de comecar
-1. `qa-screenshots/s-a1-fib4/content-research.md` — pesquisa dual completa (Gemini v2 + Claude + comparison + divergencias)
-2. `references/evidence-db.md` (grep s-a1-fib4) — 11 entradas verificadas
-3. `slides/03b-a1-fib4calc.html` — slide ATUAL (sera reescrito)
-4. `slide-registry.js:472-521` — animacoes GSAP atuais
-5. `cirrose.css:2566-2675` — CSS atual do fib4
-
-### Decisoes de conteudo (Lucas 28/mar)
-- **H2:** Sera assertiva MEDICA (nao editorial). Texto final pendente.
-- **State 0 (auto):** Formula + semaforo cutoffs (<1.30 / 1.30-2.67 / >2.67)
-- **State 1 (click):** VPN >90% vs VPP ~35% — assimetria visual (funil ou barras)
-- **State 2 (click):** Calculadora interativa (script existente calcula na hora)
-- **State 3 (click):** Antonio inputs → countUp 5.91 → "Elastografia obrigatoria"
-- **Cutoffs e limitacoes:** NO CORPO do slide (nao so notes)
-- **FIB-9 e FIB-3:** Devem aparecer em algum lugar (notes ou visual) pra estudo. PMIDs nao verificados [VERIFICAR].
-- **Principais referencias:** Visiveis no slide.
-
-### Decisoes de pesquisa consolidadas
-- FIB-4 = rule-out (VPN >90%), NAO rule-in (VPP 10-35% dependendo do cenario)
-- Cutoff age-adjusted >=65a: 2,0 (McPherson) — DEBATIDO (Hep Comm 2024 contesta)
-- AUROC global: 0,76 (IC 0,74-0,79) — IPD meta Gut 2021, N=5735
-- Alcool distorce: ↑AST mitocondrial + ↓ALT (depletion B6) → FIB-4 inflado
-- Sterling 2006: criado p/ HIV/HCV, universalizado por conveniencia
-- Emergentes: FIB-9 (AUROC 0,863) e FIB-3 (age-independent) — PMIDs nao verificados
-- VPP diverge por cenario: ~35% terciario vs 10-13% pop. geral (spectrum effect)
-
-### Passos assembly
-1. **Definir H2** — Lucas decide assertiva medica final
-2. **Montar HTML** — 4 estados, calculadora interativa state 2
-3. **CSS** — layout expandido (cutoffs + limitacoes no corpo)
-4. **Registry** — reescrever state machine (4 estados vs 3 atuais)
-5. **Checkpoint Lucas** — aprovar visual
-6. **Pipeline QA** — screenshots → Gate 0 → Gate 4
+### O que mudou (28/mar)
+- **H2:** "Modelos Preditivos: FIB-4" (Lucas override de assertion-evidence)
+- **4 states:** S0 formula+cutoffs (auto) → S1 VPN/VPP assimetria (click) → S2 hero 5.91 countUp (click) → S3 checkpoint "Qual proxima conduta?" + "Elastografia obrigatoria" (click)
+- **Labs no sidebar apenas:** Valores do paciente no card lateral + calculadora. Slide body = conceitos + resultado + decisao.
+- **Stages layout:** Absolute stacking (`.fib4-stages > .fib4-stage`) — conteudo transiciona sem acumular.
+- **FIB-9 e FIB-3:** Ficaram em evidence-db + content-research.md. PMIDs nao verificados.
 
 ### Melhorias no pipeline de pesquisa (aplicaveis a proximos slides)
 - `content-research.mjs` prompt v2: patient anchor dinamico (CASE.md), genealogia obrigatoria, divergencia guidelines, narrative metadata explicada
 - Protocolo Claude-side: MCPs (PubMed, Consensus, SCite, Scholar Gateway) → output estruturado → comparison table → merge evidence-db
-- Comparison table: 9 criterios padrao
 
 ---
 

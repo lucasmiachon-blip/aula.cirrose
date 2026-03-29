@@ -2563,24 +2563,40 @@ section#s-a1-01 .slide-inner {
 
 /* (FIB-4 old styles removed — now uses shared .calc-* in archetypes.css) */
 
-/* FIB-4 formula + cutoff zones */
-.fib4s-formula {
+/* ═══ s-a1-fib4 ═══ */
+
+/* Formula — persistent, dims after S0 */
+.fib4-formula {
   text-align: center;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
-.fib4s-formula-text {
+.fib4-formula-text {
   font-family: var(--font-mono);
   font-size: var(--text-h2);
   color: var(--text-primary);
   letter-spacing: 0.02em;
 }
 
-.fib4-cutoffs {
+/* Stages container — absolute stacking */
+.fib4-stages {
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+.fib4-stage {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+/* S0: Cutoff semáforo */
+.fib4-cutoffs {
   gap: var(--space-sm);
   max-width: min(600px, 100%);
-  margin: 0 auto;
 }
 .fib4-cutoff {
   display: flex;
@@ -2589,6 +2605,7 @@ section#s-a1-01 .slide-inner {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
+  width: 100%;
 }
 .fib4-cutoff-val {
   font-family: var(--font-mono);
@@ -2603,70 +2620,84 @@ section#s-a1-01 .slide-inner {
 .fib4-cutoff--warning { background: oklch(from var(--warning) l c h / 0.15); border-left: 4px solid var(--warning); }
 .fib4-cutoff--danger  { background: oklch(from var(--danger) l c h / 0.15); border-left: 4px solid var(--danger); }
 
-/* Antonio inputs + hero result */
-.fib4-inputs {
+/* S1: VPN/VPP asymmetry */
+.fib4-asymmetry {
+  gap: var(--space-md);
+}
+.fib4-stat-row {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-lg);
   justify-content: center;
-  margin-bottom: var(--space-md);
 }
-.fib4-input-card {
+.fib4-stat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  gap: var(--space-xs);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg);
 }
-.fib4-input-label {
+.fib4-stat--safe {
+  background: oklch(from var(--safe) l c h / 0.12);
+  border: 2px solid var(--safe);
+}
+.fib4-stat--danger {
+  background: oklch(from var(--danger) l c h / 0.12);
+  border: 2px solid var(--danger);
+}
+.fib4-stat-number {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1;
+}
+.fib4-stat--safe .fib4-stat-number  { color: var(--safe); }
+.fib4-stat--danger .fib4-stat-number { color: var(--danger); }
+.fib4-stat-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+}
+.fib4-caveat {
   font-family: var(--font-body);
   font-size: var(--text-caption);
-  font-weight: 500;
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  text-align: center;
+  margin: 0;
 }
-.fib4-input-value {
-  font-family: var(--font-mono);
-  font-size: var(--text-h3);
-  font-weight: 700;
-  color: var(--text-primary);
-}
-.fib4-input-card--trap {
-  border-color: var(--safe);
-}
-.fib4-input-tag {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  font-weight: 600;
-  color: var(--safe);
-}
-.fib4-hero-result {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+/* S2: Hero 5,91 */
+.fib4-hero-block {
   gap: 0.2rem;
 }
-.fib4-hero-result .hero-number {
+.fib4-hero-block .hero-number {
   font-size: var(--text-hero);
 }
-.fib4-hero-result .hero-unit {
+.fib4-hero-block .hero-unit {
   font-size: var(--text-body);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+}
+
+/* S3: Decision checkpoint */
+.fib4-question {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-sm);
 }
 .fib4-mandate {
   font-family: var(--font-display);
-  font-size: var(--text-h3);
+  font-size: var(--text-h2);
   color: var(--danger);
   text-align: center;
-  margin: var(--space-xs) 0 0;
-  opacity: 0;
+  margin: 0;
 }
 
-/* Failsafe */
-.no-js .fib4-antonio,
-.stage-bad .fib4-antonio {
+/* Failsafe: no-js / stage-bad */
+.no-js .fib4-stage,
+.stage-bad .fib4-stage {
+  position: static;
   opacity: 1 !important;
 }
 .no-js .fib4-mandate,

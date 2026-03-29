@@ -465,30 +465,53 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-fib4 — FIB-4 formula + cutoffs + Antonio application
-     States: 0=formula+cutoffs (auto), 1=Antonio+countUp+mandate (click), 2=source (click)
-     Merged from s-a1-vote + s-a1-fib4 (2026-03-27)
+     s-a1-fib4 — Modelos Preditivos: FIB-4
+     States: 0=formula+cutoffs (auto), 1=VPN/VPP (click),
+             2=hero 5.91 countUp (click), 3=checkpoint+mandate (click)
+     Rewritten 2026-03-28
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-fib4': (slide, gsap) => {
     let state = 0;
-    const maxState = 2;
+    const maxState = 3;
 
-    const heroNum = slide.querySelector('[data-countup-target="5.91"]');
-    const cutoffs = slide.querySelectorAll('.fib4-cutoff');
-    const antonioBlock = slide.querySelector('.fib4-antonio');
+    const formula = slide.querySelector('.fib4-formula');
+    const cutoffsStage = slide.querySelector('.fib4-cutoffs');
+    const cutoffBars = slide.querySelectorAll('.fib4-cutoff');
+    const asymmetry = slide.querySelector('.fib4-asymmetry');
+    const heroBlock = slide.querySelector('.fib4-hero-block');
+    const heroNum = slide.querySelector('.hero-number');
+    const decisionBlock = slide.querySelector('.fib4-decision-block');
     const mandate = slide.querySelector('.fib4-mandate');
     const sourceTag = slide.querySelector('.source-tag');
 
-    /* Auto: cutoff zones stagger */
-    gsap.set(cutoffs, { opacity: 0, y: 8 });
-    gsap.to(cutoffs, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.4, ease: 'power2.out' });
+    /* Initial states */
+    gsap.set(formula, { opacity: 0, y: 8 });
+    gsap.set([asymmetry, heroBlock, decisionBlock], { opacity: 0 });
+    gsap.set(mandate, { opacity: 0 });
+    gsap.set(sourceTag, { opacity: 0 });
+    gsap.set(cutoffBars, { opacity: 0, y: 8 });
+    if (heroNum) heroNum.textContent = '0';
+
+    /* Auto: formula fadeUp + cutoffs stagger */
+    gsap.to(formula, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+    gsap.set(cutoffsStage, { opacity: 1 });
+    gsap.to(cutoffBars, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.4, ease: 'power2.out' });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
+
       if (state === 1) {
-        // Antonio inputs + countUp + mandate
-        gsap.to(antonioBlock, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        /* Dim formula + cutoffs, show VPN/VPP */
+        gsap.to(formula, { opacity: 0.35, duration: 0.4 });
+        gsap.to(cutoffsStage, { opacity: 0, duration: 0.4 });
+        gsap.to(asymmetry, { opacity: 1, duration: 0.5, delay: 0.2, ease: 'power2.out' });
+      }
+
+      if (state === 2) {
+        /* Dim asymmetry, hero countUp */
+        gsap.to(asymmetry, { opacity: 0, duration: 0.4 });
+        gsap.to(heroBlock, { opacity: 1, duration: 0.5, delay: 0.2, ease: 'power2.out' });
         if (heroNum) {
           const obj = { val: 0 };
           gsap.to(obj, {
@@ -496,21 +519,41 @@ export const customAnimations = {
             onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
           });
         }
-        if (mandate) gsap.to(mandate, { opacity: 1, duration: 0.5, delay: 1.6, ease: 'power2.out' });
       }
-      if (state === 2) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
+
+      if (state === 3) {
+        /* Checkpoint: question → mandate → source */
+        gsap.to(heroBlock, { opacity: 0, duration: 0.4 });
+        gsap.to(decisionBlock, { opacity: 1, duration: 0.5, delay: 0.2, ease: 'power2.out' });
+        gsap.to(mandate, { opacity: 1, duration: 0.5, delay: 0.8, ease: 'power2.out' });
+        gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 1.0 });
       }
+
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 2) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      if (state === 1) {
-        gsap.to(antonioBlock, { opacity: 0, duration: 0.3 });
-        if (mandate) gsap.to(mandate, { opacity: 0, duration: 0.3 });
+
+      if (state === 3) {
+        gsap.to(decisionBlock, { opacity: 0, duration: 0.3 });
+        gsap.to(mandate, { opacity: 0, duration: 0.3 });
+        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+        gsap.to(heroBlock, { opacity: 1, duration: 0.3 });
       }
+
+      if (state === 2) {
+        gsap.to(heroBlock, { opacity: 0, duration: 0.3 });
+        if (heroNum) heroNum.textContent = '0';
+        gsap.to(asymmetry, { opacity: 1, duration: 0.3 });
+      }
+
+      if (state === 1) {
+        gsap.to(asymmetry, { opacity: 0, duration: 0.3 });
+        gsap.to(formula, { opacity: 1, duration: 0.3 });
+        gsap.to(cutoffsStage, { opacity: 1, duration: 0.3 });
+      }
+
       state--;
       return true;
     }

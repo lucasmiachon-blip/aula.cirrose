@@ -1,8 +1,9 @@
 <!-- ============================================================
-     s-a1-fib4 — "4 dados. 1 número. 1 decisão."
+     s-a1-fib4 — "Modelos Preditivos: FIB-4"
      Archetype: hero-stat (state machine)
-     States: 0=formula+cutoffs, 1=Antonio's inputs+hero countUp, 2=source
-     Calc: sidebar panel (case-panel.js renderFib4)
+     States: 0=formula+cutoffs (auto), 1=VPN/VPP asymmetry (click),
+             2=hero 5.91 (click), 3=checkpoint+mandate (click)
+     Sidebar: card padrão + calculadora FIB-4 (case-panel.js)
      ============================================================ -->
 <section id="s-a1-fib4"
          data-timing="120"
@@ -10,83 +11,95 @@
 
   <div class="slide-inner archetype-hero-stat">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">4 dados. 1 número. 1 decisão.</h2>
+    <h2 class="slide-headline">Modelos Preditivos: FIB-4</h2>
 
-    <!-- State 0: formula + cutoff zones -->
-    <div class="fib4-formula-block">
-      <div class="fib4s-formula">
-        <span class="fib4s-formula-text">(Idade &times; AST) / (PLQ &times; &radic;ALT)</span>
-      </div>
+    <!-- Formula — persistent, dims after S0 -->
+    <div class="fib4-formula">
+      <span class="fib4-formula-text">(Idade &times; AST) / (PLQ &times; &radic;ALT)</span>
+    </div>
 
-      <div class="fib4-cutoffs">
+    <!-- Stages zone — absolute stacking, GSAP transitions -->
+    <div class="fib4-stages">
+
+      <!-- S0: Cutoff semáforo -->
+      <div class="fib4-stage fib4-cutoffs">
         <div class="fib4-cutoff fib4-cutoff--safe">
           <span class="fib4-cutoff-val">&lt; 1,30</span>
-          <span class="fib4-cutoff-lbl">✓ Baixo risco</span>
+          <span class="fib4-cutoff-lbl">&#10003; Baixo risco</span>
         </div>
         <div class="fib4-cutoff fib4-cutoff--warning">
-          <span class="fib4-cutoff-val">1,30 – 2,67</span>
-          <span class="fib4-cutoff-lbl">⚠ Indeterminado</span>
+          <span class="fib4-cutoff-val">1,30 &ndash; 2,67</span>
+          <span class="fib4-cutoff-lbl">&#9888; Indeterminado</span>
         </div>
         <div class="fib4-cutoff fib4-cutoff--danger">
           <span class="fib4-cutoff-val">&gt; 2,67</span>
-          <span class="fib4-cutoff-lbl">✕ Alto risco</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- State 1: Antonio's inputs + hero result (click 1) -->
-    <div class="fib4-antonio" style="opacity:0">
-      <div class="fib4-inputs">
-        <div class="fib4-input-card">
-          <span class="fib4-input-label">Idade</span>
-          <span class="fib4-input-value">55</span>
-        </div>
-        <div class="fib4-input-card">
-          <span class="fib4-input-label">AST</span>
-          <span class="fib4-input-value">67</span>
-        </div>
-        <div class="fib4-input-card">
-          <span class="fib4-input-label">PLQ</span>
-          <span class="fib4-input-value">112k</span>
-        </div>
-        <div class="fib4-input-card fib4-input-card--trap">
-          <span class="fib4-input-label">ALT</span>
-          <span class="fib4-input-value">31</span>
-          <span class="fib4-input-tag">normal ✓</span>
+          <span class="fib4-cutoff-lbl">&#10007; Alto risco</span>
         </div>
       </div>
 
-      <div class="fib4-hero-result">
-        <span class="hero-number" data-color="danger" data-countup-target="5.91">5,91</span>
+      <!-- S1: VPN/VPP assimetria -->
+      <div class="fib4-stage fib4-asymmetry">
+        <div class="fib4-stat-row">
+          <div class="fib4-stat fib4-stat--safe">
+            <span class="fib4-stat-number">&gt; 90%</span>
+            <span class="fib4-stat-label">VPN &mdash; exclui fibrose</span>
+          </div>
+          <div class="fib4-stat fib4-stat--danger">
+            <span class="fib4-stat-number">~35%</span>
+            <span class="fib4-stat-label">VPP &mdash; n&atilde;o confirma</span>
+          </div>
+        </div>
+        <p class="fib4-caveat">Idade &ge; 65a, &aacute;lcool e etiologia alteram cutoffs</p>
+      </div>
+
+      <!-- S2: Hero 5,91 -->
+      <div class="fib4-stage fib4-hero-block">
+        <span class="hero-number" data-color="danger" data-countup-target="5.91">0</span>
         <span class="hero-unit">FIB-4</span>
       </div>
-      <p class="fib4-mandate">Elastografia obrigatória</p>
+
+      <!-- S3: Checkpoint + mandate -->
+      <div class="fib4-stage fib4-decision-block">
+        <p class="fib4-question">Qual a pr&oacute;xima conduta?</p>
+        <p class="fib4-mandate">Elastografia obrigat&oacute;ria</p>
+      </div>
+
     </div>
 
-    <p class="source-tag" style="opacity:0">Sterling RK et al. Hepatology 2006 (PMID 16729309) · Baveno VII (PMID 35120736)</p>
+    <p class="source-tag">Sterling 2006 (PMID 16729309) &middot; Baveno VII (PMID 35120736) &middot; IPD Meta Gut 2021</p>
   </div>
 
   <aside class="notes">
-[0:00-0:30] Auto: fórmula fadeUp. Cutoff zones stagger top→bottom.
-"Quatro variáveis do prontuário: idade, AST, plaquetas, ALT."
-"A fórmula é simples. Os cortes também."
-"Abaixo de 1,30: baixo risco, fica na APS. Indeterminado: elastografia. Acima de 2,67: alto risco."
+[0:00-0:30] Auto: fórmula fadeUp + cutoff zones stagger top→bottom.
+"FIB-4: quatro variáveis do hemograma e bioquímica."
+"Abaixo de 1,30: baixo risco, descartou. Zona cinza: elastografia. Acima de 2,67: alto risco."
 
-[0:30-1:00] Click 1 → Antonio's numbers
-"Agora Antônio." 4 input cards aparecem.
-"Idade 55. AST 67. Plaquetas 112 mil. E ALT..."
-PAUSA 2s — "31. Normal."
-Hero countUp 0 → 5,91.
-"FIB-4 = 5,91. Vermelho escuro. Muito acima do corte."
-"Notem: a ALT está no denominador. Quanto mais baixa — pior o FIB-4."
-"Hepatócito burnt-out: normaliza ALT porque parou de inflamar."
-PAUSA 3s — zona vermelha pulsa.
+[0:30-1:00] Click 1 → VPN/VPP assimetria
+"Mas atenção à assimetria brutal desse score."
+"O FIB-4 exclui fibrose avançada com mais de 90% de certeza — VPN excelente."
+"Mas o VPP? Apenas 35%. De cada 3 FIB-4 'vermelhos', só 1 tem fibrose confirmada."
+"Idade, álcool e etiologia modificam os cortes. No idoso acima de 65, o cutoff sobe pra 2,0."
 
-[1:00-1:30] Click 2 → source
-"Elastografia obrigatória. Não tem discussão com esse FIB-4."
+[1:00-1:30] Click 2 → Hero 5,91
+"Agora: Antônio." (sidebar mostra valores + calculadora roda ao vivo)
+CountUp 0 → 5,91.
+"FIB-4 de 5,91. Muito acima do corte."
+PAUSA 3s.
+"Lembrem: a ALT dele é 31 — normal. Hepatócito burnt-out."
+"O álcool infla o numerador e achata o denominador. A fórmula mente no etilista."
+
+[1:30-2:00] Click 3 → Checkpoint + mandate
+"Qual a próxima conduta?"
+PAUSA 3s — audiência pensa.
+"Elastografia obrigatória. Com esse FIB-4, não existe outra opção."
 → avançar para Rule-of-5
 
 [DATA] FIB-4 calculado: (55 × 67) / (112 × √31) = 5,91 | Verificado: 2026-03-05
 [DATA] Sterling RK et al. Hepatology 2006 (PMID 16729309) | Verificado: evidence-db.md
+[DATA] VPN >90%: EASL NITs CPG 2021 (PMID 34052326) | Verificado: evidence-db.md
+[DATA] VPP ~35%: LiverPRO Lindvig 2025 (PMID 39674225) — cenário terciário | Verificado: evidence-db.md
+[DATA] IPD Meta AUROC 0,76 (IC 0,74-0,79) N=5735: Gut 2021 | Verificado: evidence-db.md
+[DATA] Cutoff ≥65a: 2,0 — McPherson 2017 (PMID 27530706) | DEBATIDO: Hep Comm 2024 contesta
+[DATA] Álcool distorce: piridoxal-5P depletion ↓ALT + dano mitocondrial ↑AST | Schiff's 12th Ed Ch28
   </aside>
 </section>
