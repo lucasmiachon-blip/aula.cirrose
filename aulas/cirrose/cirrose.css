@@ -2565,19 +2565,7 @@ section#s-a1-01 .slide-inner {
 
 /* ═══ s-a1-fib4 ═══ */
 
-/* Formula — persistent, dims after S0 (P2: serif editorial) */
-.fib4-formula {
-  text-align: center;
-  margin-bottom: var(--space-md);
-}
-.fib4-formula-text {
-  font-family: var(--font-display);
-  font-size: var(--text-h2);
-  color: var(--text-primary);
-  letter-spacing: 0.02em;
-}
-
-/* Stages container — grid stacking + surface card (P1) */
+/* Stages container — grid stacking + surface card */
 .fib4-stages {
   display: grid;
   place-items: center;
@@ -2602,39 +2590,7 @@ section#s-a1-01 .slide-inner {
   width: 100%;
 }
 
-/* S0: Cutoff semáforo (P3: neutral bg + accent border) */
-.fib4-cutoffs {
-  gap: var(--space-sm);
-  max-width: min(600px, 100%);
-}
-.fib4-cutoff {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-md) var(--space-lg);
-  border-radius: var(--radius-md);
-  font-family: var(--font-body);
-  width: 100%;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-left-width: 6px;
-}
-.fib4-cutoff-val {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: var(--text-h3);
-  min-width: 8ch;
-  color: var(--text-primary);
-}
-.fib4-cutoff-lbl {
-  font-size: var(--text-body);
-  color: var(--text-secondary);
-}
-.fib4-cutoff--safe    { border-left-color: var(--safe); }
-.fib4-cutoff--warning { border-left-color: var(--warning); }
-.fib4-cutoff--danger  { border-left-color: var(--danger); }
-
-/* S1: VPN/VPP asymmetry (P5: split-cards) */
+/* S0: VPN/VPP assimetria */
 .fib4-asymmetry {
   gap: var(--space-md);
 }
@@ -2649,16 +2605,16 @@ section#s-a1-01 .slide-inner {
   flex-direction: column;
   align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-lg);
-  border-radius: var(--radius-lg);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  padding: var(--space-lg) var(--space-md);
+  border-radius: var(--radius-md);
 }
 .fib4-stat--safe {
-  border-top: 4px solid var(--safe);
+  background: var(--safe-light);
+  border: 1px solid oklch(40% 0.12 170 / 0.2);
 }
 .fib4-stat--danger {
-  border-top: 4px solid var(--danger);
+  background: var(--danger-light);
+  border: 1px solid oklch(50% 0.18 25 / 0.2);
 }
 .fib4-stat-number {
   font-family: var(--font-display);
@@ -2673,43 +2629,64 @@ section#s-a1-01 .slide-inner {
   font-size: var(--text-small);
   color: var(--text-secondary);
 }
-.fib4-caveat {
+
+/* S1: 3 armadilhas práticas */
+.fib4-pitfalls {
+  gap: var(--space-md);
+}
+.fib4-pitfall-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  width: 100%;
+}
+.fib4-pitfall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.fib4-pitfall-title {
   font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  text-align: center;
-  margin: 0;
+  font-weight: 700;
+  font-size: var(--text-body);
+  color: var(--text-primary);
+}
+.fib4-pitfall-detail {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  line-height: 1.4;
 }
 
-/* S2: Hero 5,91 */
-.fib4-hero-block {
-  gap: 0.2rem;
+/* S2: Zona cinza */
+.fib4-grayzone {
+  gap: var(--space-md);
 }
-.fib4-hero-block .hero-number {
-  font-size: var(--text-hero);
+.fib4-grayzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
 }
-.fib4-hero-block .hero-unit {
-  font-size: var(--text-body);
-  color: var(--text-secondary);
-  font-family: var(--font-body);
-}
-
-/* S3: Decision checkpoint (P2: dramatic mandate) */
-.fib4-question {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin: 0 0 var(--space-md);
-}
-.fib4-mandate {
+.fib4-grayzone-stat {
   font-family: var(--font-display);
-  font-size: var(--text-h1);
-  color: var(--danger);
+  font-size: clamp(72px, 8vw, 110px);
+  color: var(--warning-on-light);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.fib4-grayzone-label {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  color: var(--text-secondary);
   text-align: center;
-  letter-spacing: -0.02em;
-  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Failsafe: no-js / stage-bad */
@@ -2721,10 +2698,6 @@ section#s-a1-01 .slide-inner {
 }
 .no-js .fib4-stage,
 .stage-bad .fib4-stage {
-  opacity: 1 !important;
-}
-.no-js .fib4-mandate,
-.stage-bad .fib4-mandate {
   opacity: 1 !important;
 }
 .no-js .classify-card,

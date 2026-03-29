@@ -1,8 +1,8 @@
 <!-- ============================================================
-     s-a1-fib4 — "Modelos Preditivos: FIB-4"
+     s-a1-fib4 — FIB-4: triagem vs diagnóstico
      Archetype: hero-stat (state machine)
-     States: 0=formula+cutoffs (auto), 1=VPN/VPP asymmetry (click),
-             2=hero 5.91 (click), 3=checkpoint+mandate (click)
+     States: 0=VPN/VPP assimetria (auto), 1=3 armadilhas (click),
+             2=zona cinza + gateway (click)
      Sidebar: card padrão + calculadora FIB-4 (case-panel.js)
      ============================================================ -->
 <section id="s-a1-fib4"
@@ -13,93 +13,79 @@
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
     <h2 class="slide-headline">Modelos Preditivos: FIB-4</h2>
 
-    <!-- Formula — persistent, dims after S0 -->
-    <div class="fib4-formula">
-      <span class="fib4-formula-text">(Idade &times; AST) / (PLQ &times; &radic;ALT)</span>
-    </div>
-
-    <!-- Stages zone — absolute stacking, GSAP transitions -->
+    <!-- Stages zone — grid stacking, GSAP transitions -->
     <div class="fib4-stages">
 
-      <!-- S0: Cutoff semáforo -->
-      <div class="fib4-stage fib4-cutoffs">
-        <div class="fib4-cutoff fib4-cutoff--safe">
-          <span class="fib4-cutoff-val">&lt; 1,30</span>
-          <span class="fib4-cutoff-lbl">&#10003; Baixo risco</span>
-        </div>
-        <div class="fib4-cutoff fib4-cutoff--warning">
-          <span class="fib4-cutoff-val">1,30 &ndash; 2,67</span>
-          <span class="fib4-cutoff-lbl">&#9888; Indeterminado</span>
-        </div>
-        <div class="fib4-cutoff fib4-cutoff--danger">
-          <span class="fib4-cutoff-val">&gt; 2,67</span>
-          <span class="fib4-cutoff-lbl">&#10007; Alto risco</span>
-        </div>
-      </div>
-
-      <!-- S1: VPN/VPP assimetria -->
+      <!-- S0: VPN/VPP assimetria -->
       <div class="fib4-stage fib4-asymmetry">
         <div class="fib4-stat-row">
           <div class="fib4-stat fib4-stat--safe">
             <span class="fib4-stat-number">&gt; 90%</span>
-            <span class="fib4-stat-label">VPN &mdash; exclui fibrose</span>
+            <span class="fib4-stat-label">VPN</span>
           </div>
           <div class="fib4-stat fib4-stat--danger">
             <span class="fib4-stat-number">~35%</span>
-            <span class="fib4-stat-label">VPP &mdash; n&atilde;o confirma</span>
+            <span class="fib4-stat-label">VPP</span>
           </div>
         </div>
-        <p class="fib4-caveat">Idade &ge; 65a, &aacute;lcool e etiologia alteram cutoffs</p>
       </div>
 
-      <!-- S2: Hero 5,91 -->
-      <div class="fib4-stage fib4-hero-block">
-        <span class="hero-number" data-color="danger" data-countup-target="5.91">0</span>
-        <span class="hero-unit">FIB-4</span>
+      <!-- S1: 3 armadilhas práticas -->
+      <div class="fib4-stage fib4-pitfalls">
+        <div class="fib4-pitfall-row">
+          <div class="fib4-pitfall">
+            <span class="fib4-pitfall-title">Idade &ge; 65 a</span>
+            <span class="fib4-pitfall-detail">cutoff → 2,0</span>
+          </div>
+          <div class="fib4-pitfall">
+            <span class="fib4-pitfall-title">&Aacute;lcool</span>
+            <span class="fib4-pitfall-detail">AST/ALT &gt;2</span>
+          </div>
+          <div class="fib4-pitfall">
+            <span class="fib4-pitfall-title">MASLD ativa</span>
+            <span class="fib4-pitfall-detail">ALT alta → falso-baixo</span>
+          </div>
+        </div>
       </div>
 
-      <!-- S3: Checkpoint + mandate -->
-      <div class="fib4-stage fib4-decision-block">
-        <p class="fib4-question">Qual a pr&oacute;xima conduta?</p>
-        <p class="fib4-mandate">Elastografia obrigat&oacute;ria</p>
+      <!-- S2: Zona cinza -->
+      <div class="fib4-stage fib4-grayzone">
+        <div class="fib4-grayzone-content">
+          <span class="fib4-grayzone-stat">30–60%</span>
+          <span class="fib4-grayzone-label">zona indeterminada</span>
+        </div>
       </div>
 
     </div>
 
-    <p class="source-tag">Sterling 2006 (PMID 16729309) &middot; Baveno VII (PMID 35120736) &middot; IPD Meta Gut 2021</p>
+    <p class="source-tag">EASL NITs 2021 (PMID 34052326) &middot; Lindvig 2025 (PMID 39674225) &middot; Baveno VII (PMID 35120736)</p>
   </div>
 
   <aside class="notes">
-[0:00-0:30] Auto: fórmula fadeUp + cutoff zones stagger top→bottom.
-"FIB-4: quatro variáveis do hemograma e bioquímica."
-"Abaixo de 1,30: baixo risco, descartou. Zona cinza: elastografia. Acima de 2,67: alto risco."
+[0:00-0:30] Auto: VPN/VPP cards stagger.
+"FIB-4: a forca esta na exclusao. VPN acima de 90% — se o score e baixo, pode parar ali."
+"Mas o VPP? 35%. De cada 3 FIB-4 'alto risco', so 1 tem fibrose na biopsia."
 
-[0:30-1:00] Click 1 → VPN/VPP assimetria
-"Mas atenção à assimetria brutal desse score."
-"O FIB-4 exclui fibrose avançada com mais de 90% de certeza — VPN excelente."
-"Mas o VPP? Apenas 35%. De cada 3 FIB-4 'vermelhos', só 1 tem fibrose confirmada."
-"Idade, álcool e etiologia modificam os cortes. No idoso acima de 65, o cutoff sobe pra 2,0."
+[0:30-1:00] Click 1 → 3 armadilhas
+"Tres armadilhas do dia a dia."
+"Idade: entra no numerador. Paciente de 70 anos com FIB-4 de 2,5 — com cutoff ajustado de 2,0, isso ja e alto risco. McPherson 2017."
+"Alcool: AST/ALT acima de 2. Deplecao de piridoxal baixa a ALT, dano mitocondrial sobe a AST. Score inflado."
+"MASLD ativa: ALT alta infla o denominador. FIB-4 fica falsamente baixo. Retestar quando ALT normalizar."
 
-[1:00-1:30] Click 2 → Hero 5,91
-"Agora: Antônio." (sidebar mostra valores + calculadora roda ao vivo)
-CountUp 0 → 5,91.
-"FIB-4 de 5,91. Muito acima do corte."
-PAUSA 3s.
-"Lembrem: a ALT dele é 31 — normal. Hepatócito burnt-out."
-"O álcool infla o numerador e achata o denominador. A fórmula mente no etilista."
+[1:00-1:30] Click 2 → Zona cinza
+"A zona cinza — 1,30 a 2,67 — pega 30 a 60% dos pacientes. E a regra, nao a excecao."
+"Baveno VII posiciona o FIB-4 como gateway. Nao como destino."
+PAUSA — olhar para sidebar (calc mostra 5,91).
+"Antonio: AST/ALT >2. O alcool esta inflando. Mas 5,91 ultrapassa qualquer cutoff."
+"E agora? O que voces fariam?" → estimular audiencia pela fala.
+→ avancar para elastografia / Rule-of-5
 
-[1:30-2:00] Click 3 → Checkpoint + mandate
-"Qual a próxima conduta?"
-PAUSA 3s — audiência pensa.
-"Elastografia obrigatória. Com esse FIB-4, não existe outra opção."
-→ avançar para Rule-of-5
-
-[DATA] FIB-4 calculado: (55 × 67) / (112 × √31) = 5,91 | Verificado: 2026-03-05
-[DATA] Sterling RK et al. Hepatology 2006 (PMID 16729309) | Verificado: evidence-db.md
 [DATA] VPN >90%: EASL NITs CPG 2021 (PMID 34052326) | Verificado: evidence-db.md
-[DATA] VPP ~35%: LiverPRO Lindvig 2025 (PMID 39674225) — cenário terciário | Verificado: evidence-db.md
-[DATA] IPD Meta AUROC 0,76 (IC 0,74-0,79) N=5735: Gut 2021 | Verificado: evidence-db.md
-[DATA] Cutoff ≥65a: 2,0 — McPherson 2017 (PMID 27530706) | DEBATIDO: Hep Comm 2024 contesta
-[DATA] Álcool distorce: piridoxal-5P depletion ↓ALT + dano mitocondrial ↑AST | Schiff's 12th Ed Ch28
+[DATA] VPP ~35%: LiverPRO Lindvig 2025 (PMID 39674225) — cenario terciario | Verificado: evidence-db.md
+[DATA] FIB-4 calculado: (55 x 67) / (112 x sqrt31) = 5,91 | Verificado: 2026-03-05
+[DATA] Cutoff >=65a: 2,0 — McPherson 2017 (PMID 27530706) | DEBATIDO: Hep Comm 2024 contesta
+[DATA] Alcool distorce: piridoxal-5P depletion ↓ALT + dano mitocondrial ↑AST | Schiff's 12th Ed Ch28
+[DATA] Zona cinza 30-60%: range comumente citado em coortes rastreamento | [TBD — verificar fonte primaria]
+[DATA] Baveno VII gateway: PMID 35120736 — FIB-4 como 1o passo do pathway
   </aside>
 </section>

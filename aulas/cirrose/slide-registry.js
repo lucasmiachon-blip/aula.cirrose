@@ -465,77 +465,57 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-fib4 — Modelos Preditivos: FIB-4
-     States: 0=formula+cutoffs (auto), 1=VPN/VPP (click),
-             2=hero 5.91 countUp (click), 3=checkpoint+mandate (click)
-     Rewritten 2026-03-28
+     s-a1-fib4 — FIB-4: triagem vs diagnóstico
+     States: 0=VPN/VPP assimetria (auto), 1=3 armadilhas (click),
+             2=zona cinza + gateway (click)
+     Rewritten 2026-03-29
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-fib4': (slide, gsap) => {
     let state = 0;
-    const maxState = 3;
+    const maxState = 2;
 
-    const formula = slide.querySelector('.fib4-formula');
-    const cutoffsStage = slide.querySelector('.fib4-cutoffs');
-    const cutoffBars = slide.querySelectorAll('.fib4-cutoff');
     const asymmetry = slide.querySelector('.fib4-asymmetry');
-    const heroBlock = slide.querySelector('.fib4-hero-block');
-    const heroNum = slide.querySelector('.hero-number');
-    const decisionBlock = slide.querySelector('.fib4-decision-block');
-    const mandate = slide.querySelector('.fib4-mandate');
+    const asymmetryCards = asymmetry.querySelectorAll('.fib4-stat');
+    const pitfalls = slide.querySelector('.fib4-pitfalls');
+    const pitfallCards = pitfalls.querySelectorAll('.fib4-pitfall');
+    const grayzone = slide.querySelector('.fib4-grayzone');
     const sourceTag = slide.querySelector('.source-tag');
 
-    /* Initial states — autoAlpha handles pointer-events via visibility (P4) */
-    gsap.set(formula, { autoAlpha: 0, y: 8 });
-    gsap.set([asymmetry, heroBlock, decisionBlock], { autoAlpha: 0, y: 15 });
-    gsap.set(mandate, { autoAlpha: 0 });
+    /* Initial states — autoAlpha handles pointer-events via visibility */
+    gsap.set([pitfalls, grayzone], { autoAlpha: 0, y: 15 });
     gsap.set(sourceTag, { autoAlpha: 0 });
-    gsap.set(cutoffBars, { autoAlpha: 0, y: 8 });
-    if (heroNum) heroNum.textContent = '0';
+    gsap.set(asymmetryCards, { autoAlpha: 0, y: 8 });
 
-    /* Auto: formula fadeUp + cutoffs stagger */
-    gsap.to(formula, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' });
-    gsap.set(cutoffsStage, { autoAlpha: 1 });
-    gsap.to(cutoffBars, { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.4, ease: 'power2.out' });
+    /* Auto: asymmetry container visible, cards stagger in */
+    gsap.set(asymmetry, { autoAlpha: 1 });
+    gsap.to(asymmetryCards, {
+      autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.2,
+      delay: 0.3, ease: 'power2.out'
+    });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
 
       if (state === 1) {
-        /* Dim formula, cutoffs sink out, VPN/VPP descends in (P4: Y-axis) */
-        gsap.to(formula, { autoAlpha: 0.35, duration: 0.4 });
-        gsap.to(cutoffsStage, { autoAlpha: 0, y: 15, duration: 0.4, ease: 'power2.inOut' });
-        gsap.fromTo(asymmetry,
-          { autoAlpha: 0, y: -15 },
-          { autoAlpha: 1, y: 0, duration: 0.5, delay: 0.3, ease: 'power3.out' }
-        );
+        /* Cross-fade: asymmetry out overlaps pitfalls in */
+        gsap.to(asymmetry, { autoAlpha: 0, y: -15, duration: 0.5, ease: 'power2.inOut' });
+        gsap.set(pitfallCards, { autoAlpha: 0, y: 8 });
+        gsap.to(pitfalls, { autoAlpha: 1, y: 0, duration: 0.5, delay: 0.1, ease: 'power3.out' });
+        gsap.to(pitfallCards, {
+          autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.15,
+          delay: 0.2, ease: 'power2.out'
+        });
       }
 
       if (state === 2) {
-        /* Asymmetry floats up, hero rises with weight + countUp expo (P4) */
-        gsap.to(asymmetry, { autoAlpha: 0, y: -10, duration: 0.3, ease: 'power2.in' });
-        gsap.fromTo(heroBlock,
-          { autoAlpha: 0, y: 20 },
-          { autoAlpha: 1, y: 0, duration: 0.6, delay: 0.2, ease: 'power3.out' }
-        );
-        if (heroNum) {
-          const obj = { val: 0 };
-          gsap.to(obj, {
-            val: 5.91, duration: 1.8, delay: 0.4, ease: 'expo.out',
-            onUpdate() { heroNum.textContent = obj.val.toFixed(2).replace('.', ','); }
-          });
-        }
-      }
-
-      if (state === 3) {
-        /* Hero floats up, checkpoint rises + mandate staggers in (P4) */
-        gsap.to(heroBlock, { autoAlpha: 0, y: -10, duration: 0.4, ease: 'power2.in' });
-        gsap.fromTo(decisionBlock,
+        /* Cross-fade: pitfalls out overlaps grayzone in */
+        gsap.to(pitfalls, { autoAlpha: 0, y: -15, duration: 0.4, ease: 'power2.inOut' });
+        gsap.fromTo(grayzone,
           { autoAlpha: 0, y: 15 },
-          { autoAlpha: 1, y: 0, duration: 0.5, delay: 0.2, ease: 'power3.out' }
+          { autoAlpha: 1, y: 0, duration: 0.6, delay: 0.1, ease: 'power3.out' }
         );
-        gsap.to(mandate, { autoAlpha: 1, duration: 0.5, delay: 0.8, ease: 'power2.out' });
-        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.4, delay: 1.0 });
+        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.4, delay: 0.5 });
       }
 
       return true;
@@ -544,23 +524,17 @@ export const customAnimations = {
     function retreat() {
       if (state <= 0) return false;
 
-      if (state === 3) {
-        gsap.to(decisionBlock, { autoAlpha: 0, duration: 0.3 });
-        gsap.to(mandate, { autoAlpha: 0, duration: 0.3 });
-        gsap.to(sourceTag, { autoAlpha: 0, duration: 0.3 });
-        gsap.to(heroBlock, { autoAlpha: 1, y: 0, duration: 0.3 });
-      }
-
       if (state === 2) {
-        gsap.to(heroBlock, { autoAlpha: 0, duration: 0.3 });
-        if (heroNum) heroNum.textContent = '0';
-        gsap.to(asymmetry, { autoAlpha: 1, y: 0, duration: 0.3 });
+        gsap.to(grayzone, { autoAlpha: 0, duration: 0.3 });
+        gsap.to(sourceTag, { autoAlpha: 0, duration: 0.3 });
+        gsap.to(pitfalls, { autoAlpha: 1, y: 0, duration: 0.3 });
+        pitfallCards.forEach(c => gsap.set(c, { autoAlpha: 1, y: 0 }));
       }
 
       if (state === 1) {
-        gsap.to(asymmetry, { autoAlpha: 0, duration: 0.3 });
-        gsap.to(formula, { autoAlpha: 1, duration: 0.3 });
-        gsap.to(cutoffsStage, { autoAlpha: 1, y: 0, duration: 0.3 });
+        gsap.to(pitfalls, { autoAlpha: 0, duration: 0.3 });
+        gsap.to(asymmetry, { autoAlpha: 1, y: 0, duration: 0.3 });
+        asymmetryCards.forEach(c => gsap.set(c, { autoAlpha: 1, y: 0 }));
       }
 
       state--;
