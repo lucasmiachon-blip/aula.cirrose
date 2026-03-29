@@ -2565,6 +2565,12 @@ section#s-a1-01 .slide-inner {
 
 /* ═══ s-a1-fib4 ═══ */
 
+/* Layout — sem archetype, flex column da base + overrides */
+#s-a1-fib4 .slide-inner {
+  justify-content: flex-start;
+  gap: var(--space-sm);
+}
+
 /* Stages container — grid stacking + surface card */
 .fib4-stages {
   display: grid;

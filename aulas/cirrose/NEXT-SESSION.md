@@ -1,7 +1,7 @@
 # NEXT-SESSION — s-a1-fib4 QA pipeline
 
 > Contexto profundo do slide EM ANDAMENTO. Ler so se for trabalhar neste slide.
-> Atualizado: 2026-03-29T22:00-03:00
+> Atualizado: 2026-03-30T00:30-03:00
 
 ---
 
@@ -18,10 +18,10 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 
 | Arquivo | Estado | Detalhes |
 |---------|--------|----------|
-| `slides/03b-a1-fib4calc.html` | OK | 3 states: S0=VPN/VPP assimetria, S1=3 pitfalls (idade/alcool/MASLD), S2=gray zone 30-60%. Sem formula, sem hero, sem checkpoint. |
+| `slides/03b-a1-fib4calc.html` | OK | Archetype removido (was hero-stat). 3 states: S0=VPN/VPP, S1=3 pitfalls, S2=gray zone 30-60%. |
 | `slides/_manifest.js` | OK | headline='Modelos Preditivos: FIB-4', clickReveals=2 |
 | `slide-registry.js` | OK | State machine 3 estados, caveat null fix, cross-fade overlap (P4) |
-| `cirrose.css` | OK | P2 hero gray zone (clamp 72-110px), P3 tinted cards (safe-light/danger-light), dead CSS removido |
+| `cirrose.css` | OK | Archetype removido. Layout via `#s-a1-fib4 .slide-inner { justify-content: flex-start; gap: var(--space-sm); }`. P2 hero gray zone, P3 tinted cards. |
 | `references/narrative.md` | OK | headline + descricao sincronizados |
 | `references/evidence-db.md` | OK | Refs tier-1 para s-a1-fib4 (EASL NITs, Lindvig, McPherson, Sterling, Baveno VII, etc.). Tabela "Dados Clinicos" reconstruida 29/mar (IDs Act 2 corrigidos). |
 | `AUDIT-VISUAL.md` | STALE | Scorecard refere conteudo antigo. Status header atualizado (5 DONE, 1 QA). Precisa re-audit completo pos-QA pipeline. |
@@ -53,8 +53,8 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 | `.fib4-grayzone-stat` | **HERO** 30-60% (clamp 72-110px, warning-on-light, serif) |
 | `.fib4-grayzone-label` | "zona indeterminada" (text-h3, uppercase) |
 
-> Sem seletores `#s-a1-fib4` em cirrose.css. Todos por classe `.fib4-*`.
-> Para localizar: `grep -n "\.fib4-" aulas/cirrose/cirrose.css`
+> Layout override: `#s-a1-fib4 .slide-inner` (adicionado 30/mar). Demais seletores por classe `.fib4-*`.
+> Para localizar: `grep -n "\.fib4-\|#s-a1-fib4" aulas/cirrose/cirrose.css`
 
 ---
 
@@ -73,12 +73,12 @@ Retreat:    reverso instantaneo (gsap.set autoAlpha:1, y:0)
 
 ## Historico de reviews Gemini
 
-| Arquivo | Conteudo avaliado | Score | Contexto |
-|---------|-------------------|-------|----------|
-| `gemini-qa3-r2.md` | ANTIGO (formula, cutoffs, hero) | 6.0/10 | Gate 4 do conteudo original. Historico. |
-| `gemini-qa3-r1.md` | NOVO (VPN, pitfalls, grayzone) | 4.0/10 | Gate 4 do conteudo reescrito. P2/P3/P4 implementados DESTE review. |
-
-**Nota naming:** R1 e R2 sao de VERSOES DIFERENTES do conteudo. Na proxima sessao QA, resetar contagem: chamar de R1 do conteudo novo (v2). Os reviews anteriores sao historicos.
+| Round | Prompt | CSS linhas | Score | Notas |
+|-------|--------|-----------|-------|-------|
+| R1 | v2.0 | ~3 (bug) | 6.0/10 | Com archetype, CSS parcial |
+| R2 | v2.0 | 105 (fallback) | 5.5/10 | Sem archetype, CSS parcial |
+| R3 | v2.0 | 271 (section fix) | 4.9/10 | CSS completo, criterios subjetivos |
+| R4 | v3.0 | 271 | pendente | Criterios mensuraveis + prova de video |
 
 ---
 
@@ -86,6 +86,7 @@ Retreat:    reverso instantaneo (gsap.set autoAlpha:1, y:0)
 
 1. **Recapturar screenshots:** `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-fib4 --video`
 2. **Gate 0:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --inspect` → override ANIMATION_STATE se false positive (systemic)
-3. **Gate 4 R1 (v2):** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --editorial --round 1 --ref-slide s-a1-baveno`
+3. **Gate 4 R4:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --editorial --round 4 --ref-slide s-a1-baveno`
 
+Prompt v3.0: criterios mensuraveis, prova de video com timestamps, propostas com fonte+criterio.
 Apos Gate 4: implementar propostas aprovadas por Lucas → recapturar → re-run ate score >=7.

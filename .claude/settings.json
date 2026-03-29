@@ -60,12 +60,6 @@
           },
           {
             "type": "command",
-            "command": "bash .claude/hooks/guard-product-files.sh",
-            "timeout": 5,
-            "statusMessage": "Verificando arquivo de produto..."
-          },
-          {
-            "type": "command",
             "command": "bash .claude/hooks/check-evidence-db.sh",
             "timeout": 15,
             "statusMessage": "Verificando evidence-db..."

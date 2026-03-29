@@ -145,6 +145,30 @@ function extractSlideCSS(slideId) {
   const cssPath = join(AULA_DIR, 'cirrose.css');
   const css = readFileSync(cssPath, 'utf8');
   const lines = css.split('\n');
+  const sectionBoundary = /[━═]{3,}/;
+
+  // Pass 1: section-based — find comment section marker containing slideId
+  // e.g. /* ═══ s-a1-fib4 ═══ */ or /* ━━━... s-a1-fib4 ...━━━ */
+  let sectionStart = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].includes(slideId) && sectionBoundary.test(lines[i])) {
+      sectionStart = i;
+      break;
+    }
+  }
+
+  if (sectionStart >= 0) {
+    const sectionResult = [];
+    for (let i = sectionStart; i < lines.length; i++) {
+      if (i > sectionStart && sectionBoundary.test(lines[i]) && !lines[i].includes(slideId)) {
+        break;
+      }
+      sectionResult.push(lines[i]);
+    }
+    return sectionResult;
+  }
+
+  // Pass 2 (fallback): existing logic — find rules with #slideId selectors
   const result = [];
   let capturing = false;
   let braceDepth = 0;
@@ -614,16 +638,21 @@ ${extractGlobalClassCSS(DIAGNOSTIC.split(/[\s:,]/)[0].replace('.', '') || 'sourc
 > Compare estas regras globais com as regras slide-specific acima. A diferenca explica o bug.
 ` : '';
 
-  const animationSection = mediaUris.video ? `### AVALIACAO DE ANIMACAO (video presente)
+  const animationSection = mediaUris.video ? `### AVALIACAO DE ANIMACAO (video presente — PROVA DE VISUALIZACAO)
 
 O video mostra buildup progressivo GSAP via click-reveals.
+VOCE DEVE ASSISTIR O VIDEO E DESCREVER O QUE VIU — nao inferir do codigo JS.
 
-**PARTE A — INVENTARIO (obrigatoria, ANTES da Parte B):**
+**PARTE A — INVENTARIO COM TIMESTAMPS (obrigatoria):**
 
-Liste CADA momento onde algo muda:
-  ~Xs: [o que apareceu/moveu] | tipo: [fade/slide/scale/cor] | ~Xms
+Para CADA transicao, descrever O QUE VIU no video:
+  ~X.Xs: [descricao visual concreta do que aconteceu na tela] | tipo: [fade/slide/scale/cor] | duracao estimada: ~Xms
+  Artefato: [sim/nao — se sim, descrever: ghosting, overlap, flash, pulo de layout]
 
-Se nao identificar transicoes, diga "transicoes indistinguiveis" e pontue animation_score: 0.
+Exemplo BOM: "~1.5s: cards VPN/VPP sobem e somem, mas as 3 armadilhas ja comecam a aparecer ANTES dos cards desaparecerem — entre ~1.6s e ~1.9s vejo textos sobrepostos (ghosting)."
+Exemplo RUIM: "~1.5s: cross-fade com delay 0.1s causa overlap" (isso e leitura de codigo, nao do video)
+
+Se nao identificar transicoes no video, diga "transicoes indistinguiveis" e pontue animation_score: 0.
 
 **PARTE B — Para cada transicao da Parte A:**
 
@@ -631,19 +660,20 @@ Se nao identificar transicoes, diga "transicoes indistinguiveis" e pontue animat
 2. STAGING: 1 foco (bom) | 2+ simultaneos nao-relacionados (ruim)
 3. PURPOSE: didatica (guia raciocinio) | decorativa (so estetica)
 4. LEGIBILIDADE: texto parado=ok | texto em movimento=ruim
+5. ARTEFATO: se viu artefato visual, descrever QUANDO e O QUE viu
 
 **PARTE C — Adicionar ao JSON de resposta:**
 
 "animation_score": <1-10>,
 "transitions_found": <numero>,
-"inventory": ["~Xs: descricao | tipo | ~Xms"],
-"animation_issues": ["~Xs: problema -> fix concreto"],
+"inventory": ["~X.Xs: [descricao visual] | tipo | ~Xms | artefato: sim/nao"],
+"animation_issues": ["~X.Xs: [o que vi] -> [fix concreto com valores]"],
 "animation_value": "didatica" | "decorativa" | "prejudicial"
 
-Se animation_score < 7, cada item em animation_issues DEVE ser implementavel:
-  "~3s: fade dura 100ms, aumentar pra 400ms"
-  "~5s: 3 elementos juntos, sequenciar com 300ms gap"
-NAO aceito "melhorar animacao" como sugestao.
+Se animation_score < 7, cada item em animation_issues DEVE ser implementavel com valores concretos:
+  "~1.5s: vi ghosting de 400ms entre cards e armadilhas, aumentar delay de 0.1s pra 0.4s"
+  "~3.0s: vi flash branco ao trocar estado, adicionar ease power2.inOut"
+NAO aceito descricoes genericas como "melhorar animacao" ou "cross-fade encavalado".
 ` : '';
 
   const diagnosticTask = DIAGNOSTIC ? `### DIAGNOSTICO (OBRIGATORIO — responder ANTES das propostas)

@@ -93,15 +93,31 @@ Voce foi contratado como **editor final criativo + auditor tecnico**. Autoridade
 6 passos. Direto ao ponto, sem elogio generico.
 
 ### 0. RECIBO E AVALIACAO POR MATERIAL (obrigatorio)
-Declarar o que recebeu E como avaliou CADA material individualmente. Formato:
+Declarar o que recebeu:
 `Recebi: [VIDEO .webm | sem video] · [PNG S0 | sem S0] · [PNG S2 | sem S2] · [PNG REF | sem REF] · [HTML + CSS + JS raw] | Conformidade: guardrails respeitados, round context lido`
 
-Avaliacao por material (1 frase cada):
-- **VIDEO:** O que o video revelou sobre ritmo, easing, timing? Algo que os PNGs nao mostram?
-- **PNG S0:** Estado inicial — o que funciona, o que nao funciona?
-- **PNG S2:** Estado final — todos elementos visiveis? Legibilidade? Respiro?
-- **PNG REF:** (se presente) Comparacao RIGOROSA com slide anterior: (1) grid vertical — margens e baseline alinham? (2) tipografia — mesma escala h2/body/caption? (3) spacing — padding e gap consistentes? (4) cor — mesma paleta semantica? (5) peso visual — fill ratio compativel com tipo de slide? Desvio sem justificativa narrativa = proposta SHOULD.
-- **RAW CODE:** O que o HTML/CSS/JS revelou que as imagens nao mostram (specificity, overrides, animacoes ocultas)?
+Avaliacao DETALHADA por material — cada analise DEVE citar observacoes concretas, nao inferencias:
+
+- **VIDEO (prova de visualizacao obrigatoria):**
+  Descrever o que VIU com timestamps concretos. Exemplo: "Em ~0.3s os cards VPN/VPP surgem com stagger. Em ~1.5s ao clicar, o conteudo antigo sai para cima mas o novo entra antes de desaparecer — entre ~1.6s e ~1.9s ambos sao visiveis simultaneamente."
+  PROIBIDO: inferir comportamento apenas do codigo JS. Se nao assistiu o video, declarar "nota baseada em codigo, sem video".
+  Para CADA transicao observada: timestamp, o que aconteceu visualmente, duracao estimada, se houve artefato (ghosting, overlap, flash).
+
+- **PNG S0 (estado inicial — analise por elemento):**
+  Para cada elemento visivel: posicao (topo/centro/base, esquerda/centro/direita), tamanho relativo, cor, contraste percebido contra fundo, tipografia (serif/sans, peso estimado, tamanho relativo).
+  O que funciona visualmente e por que. O que NAO funciona e por que.
+
+- **PNG S2 (estado final — analise por elemento):**
+  Mesma estrutura que S0. Alem disso: todos elementos esperados estao visiveis? Source-tag legivel? Respiro adequado?
+
+- **PNG REF (comparacao rigorosa, se presente):**
+  (1) grid vertical — margens e baseline alinham? (2) tipografia — mesma escala h2/body/caption? (3) spacing — padding e gap consistentes? (4) cor — mesma paleta semantica? (5) peso visual — fill ratio compativel com tipo de slide?
+  Desvio sem justificativa narrativa = proposta SHOULD.
+
+- **RAW CODE (HTML + CSS + JS — analise por arquivo):**
+  **HTML:** Estrutura semantica, classes usadas, data-attributes.
+  **CSS:** Para CADA seletor critico: especificidade, o que controla, se ha conflito. Citar o seletor exato.
+  **JS:** Timeline GSAP — quais elementos, duracoes, delays. Identificar potenciais race conditions CSS/JS.
 
 ### 1. ANALISE CSS OBRIGATORIA (antes das propostas)
 Voce recebeu HTML + CSS + JS raw. ANTES de propor, execute esta analise:
@@ -125,57 +141,37 @@ RACE: opacity — GSAP autoAlpha:0 + CSS [data-animate] opacity:0 — redundante
 Video (se houver) PRIMEIRO → PNGs → codigo.
 O que funciona, o que incomoda, e UMA coisa que mudaria primeiro.
 
-### 3. SCORECARD (11 dimensoes)
+### 3. SCORECARD (11 dimensoes — com criterios mensuráveis)
 
-| Dim | Nota |
-|-----|------|
-| Tipografia e hierarquia | ?/10 |
-| Cor, contraste e superficie | ?/10 |
-| Composicao e respiro | ?/10 |
-| Motion e timing | ?/10 |
-| Legibilidade a 5m | ?/10 |
-| Impacto emocional | ?/10 |
-| Craft front-end | ?/10 |
-| CSS Cascade e especificidade | ?/10 |
-| Gestalt e carga cognitiva | ?/10 |
-| Estrutura semantica e a11y | ?/10 |
-| Completude de estados | ?/10 |
-| **MEDIA** | ?/10 |
+Para CADA dimensao: dar nota + listar os criterios CONCRETOS avaliados e o resultado de cada um.
 
-#### Descritores das 4 novas dimensoes:
+| Dim | Nota | Criterios avaliados (obrigatorio) |
+|-----|------|-----------------------------------|
+| Tipografia e hierarquia | ?/10 | h2 font-size=?px, body=?px, caption=?px; font-family match tokens?; escala hierarquica coerente?; vw ilegal (E52)?  |
+| Cor, contraste e superficie | ?/10 | cor texto vs fundo (estimar ratio); tokens usados corretamente?; cor semantica (safe/warning/danger) coerente?; superficies (bg-card, bg-elevated) presentes? |
+| Composicao e respiro | ?/10 | fill ratio estimado (%); padding principal (px); gap entre elementos; alinhamento (left/center/mixed); espaco desperdicado vs intencional |
+| Motion e timing | ?/10 | transicoes contadas (#); duracoes (ms); delays (ms); overlap entre saida/entrada (ms); easing usado; artefatos visiveis no video (sim/nao, descrever) |
+| Legibilidade a 5m | ?/10 | menor texto visivel (estimado px); contraste minimo; elementos que desaparecem em projecao; text-small aceitavel? |
+| Impacto emocional | ?/10 | hero element presente?; Von Restorff aplicado?; pausa narrativa existe?; dado de impacto destacado? |
+| Craft front-end | ?/10 | dead CSS (# seletores); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |
+| CSS Cascade e especificidade | ?/10 | conflitos encontrados (#); !important count; cascade intencional vs acidental; failsafes .no-js presentes?; .stage-bad presente? |
+| Gestalt e carga cognitiva | ?/10 | # grupos visuais; Cowan respeitado (<=4)?; proximidade e similaridade OK?; conceitos por estado (1=bom, 3+=ruim) |
+| Estrutura semantica e a11y | ?/10 | heading hierarchy OK?; contraste body >=4.5:1?; contraste large >=3:1?; ARIA para transicoes?; visibility para .no-js? |
+| Completude de estados | ?/10 | advance funciona?; retreat reseta DOM?; leave/return OK?; .no-js mostra conteudo?; .stage-bad OK?; autoAlpha + visibility cobertos? |
+| **MEDIA** | ?/10 | |
 
-**CSS Cascade e especificidade (8):**
-- 1-3: !important ou inline styles dominam; dead CSS >30%; specificity wars nao resolvidos
-- 4-6: Cascade funcional mas com overrides acidentais; algum dead CSS; failsafes parciais
-- 7-8: Cascade limpa; zero dead CSS; specificity intencional; failsafes .no-js presentes
-- 9-10: Cascade exemplar; zero redundancia; cada regra justificada; .no-js + .stage-bad + print-pdf
+**Regras de pontuacao:**
+- Nota SEM criterios = invalida. CADA nota deve listar O QUE foi medido/observado.
+- Se video foi anexado: nota Motion DEVE refletir o que ASSISTIU (citar timestamps). Se nao assistiu video: declarar "nota baseada em codigo, sem video".
+- Scores <=7: justificar com o criterio que falhou.
+- Scores >=8: listar os criterios que sustentam a nota alta.
 
-**Gestalt e carga cognitiva (9):**
-- 1-3: >4 grupos sem hierarquia; Gestalt violado (items iguais com estilos diferentes); extraneous load alto
-- 4-6: 3-4 grupos com alguma hierarquia; similaridade parcial; 2 conceitos por slide
-- 7-8: <=3 grupos; Von Restorff claro; Gestalt proximidade e similaridade respeitados; 1-2 conceitos
-- 9-10: Chunking perfeito (Cowan 4+/-1); dual coding; germane load dominante; 1 conceito central
-
-**Estrutura semantica e a11y (10):**
-- 1-3: Heading hierarchy quebrada (h2 sem h1, h4 apos h2); contraste <4.5:1; sem ARIA
-- 4-6: Headings OK; contraste >=4.5:1 body; tab order funcional
-- 7-8: Headings + landmarks; contraste >=4.5:1 body, >=3:1 large; icones com texto alt
-- 9-10: Contraste >=7:1 body; icones semanticos (checkmark/warning/X com cor); aria-labels; tab order correto
-
-**Completude de estados (11):**
-- 1-3: Retreat quebrado (DOM nao reseta); leave/return falha; sem .no-js; JS error bloqueia slide
-- 4-6: Advance funciona; retreat parcial; .no-js parcial; .stage-bad ausente
-- 7-8: Advance + retreat OK; leave/return reseta classes; .no-js funciona; .stage-bad presente
-- 9-10: Todos estados testados; stopPropagation; leave/return/retreat/advance perfeitos; Plan B + print-pdf
-
-Justificar EM 1 FRASE scores <=7. Scores >=8 sem justificativa.
-Se video foi anexado: nota Motion DEVE refletir o que ASSISTIU (ritmo, easing, timing).
-Se nao assistiu video: declarar "nota baseada em codigo, sem video".
-
-{{ANIMATION_SECTION}}{{DIAGNOSTIC_TASK}}### 4. PROPOSTAS (1 a 5)
+{{ANIMATION_SECTION}}{{DIAGNOSTIC_TASK}}### 4. PROPOSTAS (sem limite — tantas quanto necessario)
 Formato por proposta:
 
-**P1 [MUST|SHOULD|COULD]: titulo curto**
+**PN [MUST|SHOULD|COULD]: titulo curto**
+Fonte: VIDEO ~Xs | PNG S0/S2 | CSS L?? | JS L?? (citar de onde veio a observacao)
+Criterio: qual dimensao do scorecard esta proposta melhora (ex: "Motion 3→6", "Legibilidade 4→7")
 Razao: 1 frase com mecanismo perceptual/cognitivo concreto.
 ```css
 /* arquivo: cirrose.css */
@@ -189,6 +185,7 @@ Regras das propostas:
 - Pelo menos 1 proposta pode ser RADICAL (ousada, marcar como **[RADICAL]**).
 - NAO repetir sugestoes do ROUND CONTEXT ja implementadas.
 - **CONFIRME que cada seletor mencionado EXISTE no HTML/CSS enviado.** Proposta com seletor fantasma = auto-rejeicao.
+- Cada proposta DEVE citar a FONTE (video timestamp, PNG, ou linha do raw code) e o CRITERIO do scorecard que endereça.
 
 ### 5. STRUCTURED OUTPUT (JSON obrigatorio no final)
 No FINAL da resposta, adicionar bloco JSON (sem texto antes/depois do bloco):

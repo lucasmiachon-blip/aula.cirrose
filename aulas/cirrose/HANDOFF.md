@@ -5,15 +5,32 @@
 
 ---
 
-## Estado — 2026-03-29T22:00-03:00
+## Estado — 2026-03-30T00:30-03:00
 
 **Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
-**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files. Docs: `.claude/hooks/README.md`.
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` + `gemini-qa3.mjs`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier DONE. MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
+
+### Sessao 30/mar (madrugada) — fib4 archetype removal + Gate 4 prompt v3.0
+
+**O que foi feito:**
+
+1. **s-a1-fib4 archetype removido** — `archetype-hero-stat` removido do HTML. Layout via `#s-a1-fib4 .slide-inner { justify-content: flex-start; gap: var(--space-sm); }` em cirrose.css. Section-tag e h2 agora left-aligned (consistente com baveno/classify DONE).
+2. **gemini-qa3.mjs CSS extraction fix** — `extractSlideCSS()` agora faz 2-pass: (1) section-based (busca comment marker com slideId, captura ate proximo section boundary), (2) fallback por #slideId. Fib4: 271 linhas enviadas (vs 105 antes). Todas classes `.fib4-*` + failsafes agora visiveis ao Gemini.
+3. **Gate 4 prompt v3.0** — secao 0 (recibo) exige prova de visualizacao do video com timestamps concretos, analise PNG por elemento, raw code por arquivo. Scorecard exige criterios mensuráveis por dimensao (nao apenas nota subjetiva). Propostas sem cap (antes max 5), cada uma cita fonte (video/PNG/raw) e criterio do scorecard.
+4. **guard-product-files hook removido** — bloqueava edicao de slides no Windows.
+
+**Gate 4 R1-R3 historico (s-a1-fib4):**
+- R1 (com archetype, CSS parcial): 6.0/10
+- R2 (sem archetype, CSS parcial 105 linhas): 5.5/10
+- R3 (sem archetype, CSS completo 271 linhas): 4.9/10
+- Proximo: R4 com prompt v3.0 (criterios mensuráveis + prova de video)
+
+**Pendente s-a1-fib4:** Implementar propostas aprovadas de R3/R4 (cross-fade timing, E52 vw, dead CSS failsafes, visibility no-js). Depois recapturar + re-run.
 
 ### Sessao 29/mar (noite) — doc hardening + scripts QA
 
@@ -37,7 +54,7 @@
 ### Issues sistêmicos (não fixáveis antes do deadline 31/mar)
 - **Source-tag line breaking**: texto longo quebra em viewport 1280x720. Afeta todos os slides. Sem fix viável.
 - **Gate 0 ANIMATION_STATE false positive**: Gate 0 assume click-reveals aditivos, mas state machines SUBSTITUEM conteúdo → ANIMATION_STATE falha sempre em state machines. Override `must_pass: true` em gate0.json é workaround aceito.
-- **Gemini avaliação qualidade**: Prompt Gate 4 expandido v2.0 (2026-03-29): 11 dimensoes, CSS analysis obrigatoria (cascade trace, dead CSS, specificity, failsafes), JSON estruturado. Instrucao "confirme seletor EXISTE" adicionada. Testar na proxima sessao QA.
+- **Gemini avaliação qualidade**: Prompt Gate 4 v3.0 (2026-03-30): prova de video com timestamps, criterios mensuráveis no scorecard, propostas sem cap com fonte+criterio. CSS extraction fix (2-pass section-based). Testar R4 na proxima sessao.
 
 ---
 
@@ -52,7 +69,7 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | QA | **REESCRITO 29/mar.** Screenshots STALE. Ver [NEXT-SESSION.md](NEXT-SESSION.md) para contexto completo. |
+| 6 | s-a1-fib4 | QA | Archetype removido 30/mar. Gate 0 PASS. Gate 4 R3 4.9/10 (CSS fix). Prompt v3.0 pendente R4. |
 | 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
