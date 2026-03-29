@@ -139,9 +139,21 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Custom animations com advance/retreat DEVEM ter reset defensivo no início da factory. Nunca depender só de ctx.revert() para inline styles.
 **Status:** ✅ Corrigido (2026-03-26).
 
+### ERRO-063 · MEDIUM · global (hardcoded shadow colors)
+**Shadow/border usa `oklch(0% 0 0 / N)` literal quando tokens `--shadow-subtle`/`--shadow-soft`/`--overlay-border` existem em base.css**
+**Root cause:** Tokens criados depois dos slides. Slides nunca migrados.
+**Regra:** Shadows e borders transparentes DEVEM usar `var(--shadow-subtle)` (0.04), `var(--shadow-soft)` (0.06) ou `var(--overlay-border)` (0.08). Grep: `oklch(0% 0 0` em cirrose.css.
+**Status:** ✅ Corrigido em s-a1-fib4 (2026-03-29). Sistemico: ~20 instancias restantes (batch futuro).
+
+### ERRO-064 · MEDIUM · s-a1-fib4 (missing daltonism icons)
+**Cores semanticas (safe/danger/warning) sem icone de reforco para daltonismo**
+**Root cause:** Design-reference exige icones (✓/✕/⚠) mas slide foi criado sem eles.
+**Regra:** Todo elemento com cor semantica clinica DEVE ter icone de reforco adjacente. Ref: design-reference.md "Reforco icone obrigatorio".
+**Status:** ✅ Corrigido (2026-03-29). Adicionados ✓ VPN, ✕ VPP, ⚠ zona indeterminada.
+
 ---
 
-*Última atualização: 2026-03-27 · 62 erros registrados, 62 fechados (59 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
+*Ultima atualizacao: 2026-03-29 · 64 erros registrados, 64 fechados (61 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
 
 ---
 
@@ -151,7 +163,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 8     | 8          | 0 |
 | HIGH       | 30    | 30         | 0 |
-| MEDIUM     | 18    | 18         | 0 |
+| MEDIUM     | 20    | 20         | 0 |
 | LOW        | 3     | 3          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **62**| **62**     | **0** |
+| **Total**  | **64**| **64**     | **0** |

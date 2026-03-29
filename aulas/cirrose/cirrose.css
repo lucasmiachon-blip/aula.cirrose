@@ -2586,7 +2586,7 @@ section#s-a1-01 .slide-inner {
   border-radius: var(--radius-lg);
   padding: var(--space-lg) var(--space-xl);
   box-sizing: border-box;
-  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.06);
+  box-shadow: 0 8px 24px var(--shadow-soft);
 }
 .fib4-stage {
   grid-area: 1 / 1;

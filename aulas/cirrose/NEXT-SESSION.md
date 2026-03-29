@@ -99,8 +99,14 @@ Retreat:    reverso instantaneo (gsap.set autoAlpha:1, y:0)
 
 ## Proximos passos
 
-1. **Avaliar animacao refinada** — video recapturado, Lucas precisa ver no browser
+1. **Recapturar screenshots** — HTML mudou (daltonism icons), PNGs stale
 2. **Decidir R5 P2/P3** — estetica dos pitfall cards e cor do warning
-3. **Gate 2 (Opus Visual Audit)** — primeira execucao, protocolo em `@repo/docs/prompts/gate2-opus-visual.md`
-4. **Recapturar + Gate 4 R6** se houver mudancas visuais
+3. **Gate 4 R6** — pos recaptura, avaliar impacto dos icons no score
+4. **Pensar conteudo** — slide esta correto clinicamente? Nuances suficientes para hepatologistas seniors?
 5. Score target: >=7 para aprovacao (R5=7.3, ja ultrapassa threshold)
+
+## Concluido nesta sessao
+
+- **Gate 2 PASS** — report em `qa-screenshots/s-a1-fib4/gate2-report.md`
+- **Daltonism icons** — ✓ VPN, ✕ VPP, ⚠ zona indeterminada
+- **Shadow token** — `var(--shadow-soft)` substituiu literal oklch

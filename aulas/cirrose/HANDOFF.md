@@ -5,7 +5,7 @@
 
 ---
 
-## Estado — 2026-03-29T16:15-03:00
+## Estado — 2026-03-29T16:45-03:00
 
 **Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
@@ -37,6 +37,23 @@
 
 **Gate 4 historico s-a1-fib4:**
 - R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → **R5: 7.3** (pos P1-P4 + box-sizing)
+
+### Sessao 29/mar (noite) — Gate 2 executado + fixes
+
+**O que foi feito:**
+
+1. **Gate 2 — primeira execucao** — Protocolo Opus Visual Audit rodado em s-a1-fib4. 3 layers completas: A) sharp pick_color (6 pontos grid + adaptativos) + a11y contrast (5 pares) + axe-core HTML (0 violations), B) code analysis (E52 PASS, dead CSS 0/26, failsafes PASS, metrics PASS), C) visual multimodal (hierarquia, whitespace, tipografia, cor semantica, completude S0/S2). Resultado: CONDITIONAL PASS → PASS apos fixes.
+2. **Daltonism icons** — Adicionados ✓ VPN (safe), ✕ VPP (danger), ⚠ zona indeterminada (warning) nos labels do slide. Design-reference "Reforco icone obrigatorio".
+3. **Shadow token fix** — `oklch(0% 0 0 / 0.06)` → `var(--shadow-soft)` em cirrose.css:2589. Token existia em base.css desde criacao mas nunca usado neste slide. Sistemico: ~20 instancias restantes.
+4. **ERROR-LOG** — +ERRO-063 (shadow hardcoded global), +ERRO-064 (daltonism icons).
+5. **Gate 2 report** — `qa-screenshots/s-a1-fib4/gate2-report.md`.
+
+**SHOULD warnings Gate 2 (nao bloqueiam):**
+- Section-tag contraste 4.50:1 (borderline AA)
+- Source-tag contraste 4.50:1 (antialiased)
+- Hero warning 3.35:1 (passa AA large, marginal)
+
+**Pendente s-a1-fib4:** R5-P2 (pitfall dividers) e R5-P3 (warning color) pendentes decisao. Recapturar screenshots + Gate 4 R6 apos decisao. Considerar conteudo (ver abaixo).
 
 ### Sessao 30/mar (cont.) — Gate 2 protocol design
 
@@ -101,7 +118,7 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | QA | R5 7.3/10. P1-P4 R4 + box-sizing + animacao refinada implementados. R5-P2/P3 pendentes decisao. Ver NEXT-SESSION.md. |
+| 6 | s-a1-fib4 | QA | R5 7.3/10. Gate 2 PASS. Daltonism icons + shadow token fixados. R5-P2/P3 pendentes. Recapturar + Gate 4 R6 pendente. |
 | 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |

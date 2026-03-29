@@ -5,6 +5,16 @@
 
 ---
 
+## 2026-03-29 — feat: Gate 2 Opus Visual Audit + daltonism icons (sessao 35)
+
+- **Gate 2 executado pela primeira vez** — Protocolo Opus Visual Audit (sharp pick_color + a11y check_color_contrast + code analysis + visual multimodal). 3 layers, 5 pontos grid + adaptativos. Resultado: CONDITIONAL PASS → PASS apos fixes.
+- **Daltonism icons adicionados (s-a1-fib4)** — ✓ VPN (safe), ✕ VPP (danger), ⚠ zona indeterminada (warning). Design-reference exige icone de reforco junto a cor semantica.
+- **Shadow token fix (s-a1-fib4)** — `oklch(0% 0 0 / 0.06)` → `var(--shadow-soft)`. Token ja existia em base.css mas nao era usado. ERRO-063 registrado (sistemico: ~20 instancias restantes).
+- **ERROR-LOG:** +ERRO-063 (shadow hardcoded), +ERRO-064 (daltonism icons).
+- **Gate 2 report:** `qa-screenshots/s-a1-fib4/gate2-report.md`.
+
+---
+
 ## 2026-03-28 — feat: self-improvement T0-T2 (sessao 32)
 
 - **T0 (.claudeignore + docs):** `.claudeignore` (11 patterns — exclui binarios e artefatos de search). Hook README. CLAUDE.md: routing table + worktree docs. `cron-patterns.md` reference card.
