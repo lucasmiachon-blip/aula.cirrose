@@ -26,6 +26,14 @@ if (!API_KEY) { console.error('GEMINI_API_KEY not set'); process.exit(1); }
 const MODEL = 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
 
+// G8: Pricing per 1M tokens — update when switching models
+const PRICING = {
+  'gemini-3.1-pro-preview': { input: 2.0, output: 12.0 },
+  'gemini-2.5-pro':         { input: 1.25, output: 10.0 },
+  'gemini-2.5-flash':       { input: 0.15, output: 0.60 },
+};
+function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
+
 // --- CLI args ---
 const args = process.argv.slice(2);
 function getArg(name, fallback) {
@@ -46,12 +54,59 @@ const REF_SLIDE = getArg('ref-slide', null);
 function hasFlag(name) { return args.includes(`--${name}`); }
 const MODE = hasFlag('editorial') ? 'editorial' : 'inspect';
 
+// J4: --help
+if (hasFlag('help') || hasFlag('h')) {
+  console.log(`Usage: node gemini-qa3.mjs --slide <id> [options]
+
+Modes (pick one):
+  --inspect          Gate 0 — binary defect check (default)
+  --editorial        Gate 4 — editorial creative review
+
+Options:
+  --slide <id>       Slide ID (default: s-a1-01)
+  --round <N>        Round number for Gate 4 (default: 11)
+  --temp <float>     Override temperature (Gate 4 default: 1.0)
+  --output <path>    Custom output path
+  --context <text>   Additional context paragraph
+  --diagnostic <cls> CSS class to diagnose (cascade analysis)
+  --ref-slide <id>   Reference slide for cross-slide consistency
+
+Env: GEMINI_API_KEY (required)`);
+  process.exit(0);
+}
+
 if (hasFlag('full')) {
   console.error('--full removido. Gate 0 e Gate 4 são invocações separadas.');
   console.error('  1. node gemini-qa3.mjs --slide X --inspect          (Gate 0)');
   console.error('  2. [checkpoint Lucas]');
   console.error('  3. node gemini-qa3.mjs --slide X --editorial --round N  (Gate 4)');
   process.exit(1);
+}
+
+// --- G2: Retry with exponential backoff (429, 500, 503, 504) ---
+async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 } = {}) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    const res = await fetch(url, options);
+    if (res.ok) return res;
+
+    const status = res.status;
+    const body = await res.text();
+
+    // Non-retryable: 4xx except 429
+    if (status >= 400 && status < 500 && status !== 429) {
+      throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+    }
+
+    // Retryable: 429, 5xx
+    if (attempt < maxRetries) {
+      const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+      console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
+      await new Promise(r => setTimeout(r, delay));
+      continue;
+    }
+
+    throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
+  }
 }
 
 // --- Gate 0 constants ---
@@ -79,8 +134,7 @@ function findSlideFile(slideId) {
 function extractHTML(slideId) {
   const filePath = findSlideFile(slideId);
   if (!filePath || !existsSync(filePath)) {
-    console.error(`Slide file not found for ${slideId}`);
-    process.exit(1);
+    throw new Error(`Slide file not found for ${slideId}`);
   }
   console.log(`  HTML: ${filePath}`);
   return readFileSync(filePath, 'utf8');
@@ -330,8 +384,7 @@ function findStatePng(qaDir, state) {
 
 function buildGate0Payload(slideId, qaDir) {
   if (!existsSync(GATE0_PROMPT_PATH)) {
-    console.error(`Gate 0 prompt not found: ${GATE0_PROMPT_PATH}`);
-    process.exit(1);
+    throw new Error(`Gate 0 prompt not found: ${GATE0_PROMPT_PATH}`);
   }
   const promptTemplate = readFileSync(GATE0_PROMPT_PATH, 'utf8');
   const prompt = promptTemplate.replace(/\{\{SLIDE_ID\}\}/g, slideId);
@@ -352,14 +405,16 @@ function buildGate0Payload(slideId, qaDir) {
   }
 
   if (statesReceived.length === 0) {
-    console.error(`No PNGs found in ${qaDir}. Run qa-batch-screenshot.mjs first.`);
-    process.exit(1);
+    throw new Error(`No PNGs found in ${qaDir}. Run qa-batch-screenshot.mjs first.`);
   }
 
   return {
     payload: {
       contents: [{ parts }],
-      generationConfig: { temperature: 0.1, topP: 0.9, maxOutputTokens: 8192 },
+      generationConfig: {
+        temperature: 0.1, topP: 0.9, maxOutputTokens: 8192,
+        responseMimeType: 'application/json', // G1: guaranteed valid JSON
+      },
     },
     statesReceived,
   };
@@ -371,10 +426,9 @@ async function runGate0(slideId, qaDir) {
 
   const { payload, statesReceived } = buildGate0Payload(slideId, qaDir);
 
-  const inputTokens = JSON.stringify(payload).length / 4;
-  console.log(`\n1. Sending to Gemini (est. ~${Math.round(inputTokens)} tokens, ~$${(inputTokens / 1_000_000 * 2.0).toFixed(4)})...`);
+  console.log(`\n1. Sending to Gemini (${MODEL})...`);
 
-  const res = await fetch(
+  const res = await fetchWithRetry(
     `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
     {
       method: 'POST',
@@ -383,16 +437,11 @@ async function runGate0(slideId, qaDir) {
     }
   );
 
-  if (!res.ok) {
-    const err = await res.text();
-    console.error(`API Error ${res.status}:`, err.slice(0, 500));
-    process.exit(1);
-  }
-
   const result = await res.json();
   const usage = result.usageMetadata || {};
   const finishReason = result.candidates?.[0]?.finishReason || 'UNKNOWN';
-  const totalCost = ((usage.promptTokenCount || 0) / 1_000_000 * 2.0) + ((usage.candidatesTokenCount || 0) / 1_000_000 * 12.0);
+  const p = modelCost(MODEL);
+  const totalCost = ((usage.promptTokenCount || 0) / 1e6 * p.input) + ((usage.candidatesTokenCount || 0) / 1e6 * p.output);
   console.log(`  Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(4)}`);
   console.log(`  Finish reason: ${finishReason}`);
 
@@ -400,12 +449,9 @@ async function runGate0(slideId, qaDir) {
     console.error(`  WARNING: Response did not finish normally (${finishReason}). Output may be truncated.`);
   }
 
-  // Parse JSON response
-  let rawText = result.candidates?.[0]?.content?.parts
+  // Parse JSON response (G1: responseMimeType guarantees valid JSON, no fence-strip needed)
+  const rawText = result.candidates?.[0]?.content?.parts
     ?.map(p => p.text).filter(Boolean).join('') || '{}';
-
-  // Strip markdown fences if model wrapped response
-  rawText = rawText.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
 
   let gate0Result;
   try {
@@ -417,7 +463,7 @@ async function runGate0(slideId, qaDir) {
     console.error('Failed to parse Gate 0 JSON response:', rawText.slice(0, 500));
     mkdirSync(qaDir, { recursive: true });
     writeFileSync(join(qaDir, 'gate0-raw.txt'), rawText);
-    process.exit(1);
+    throw new Error('Gate 0 JSON parse failed — raw saved to gate0-raw.txt');
   }
 
   // Save result
@@ -784,7 +830,7 @@ async function runEditorial(slideId, round, qaDir) {
   if (video?.state === 'PROCESSING') {
     process.stdout.write('  Waiting for video processing');
     const ok = await waitForProcessing(video.name);
-    if (!ok) { console.error('Video processing failed'); process.exit(1); }
+    if (!ok) throw new Error('Video processing failed');
   }
 
   // Step 2: Build and send prompt
@@ -798,11 +844,7 @@ async function runEditorial(slideId, round, qaDir) {
   };
   const payload = buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);
 
-  const inputTokens = JSON.stringify(payload).length / 4; // rough estimate
-  const costEstimate = (inputTokens / 1_000_000) * 2.0;
-  console.log(`  Est. input tokens: ~${Math.round(inputTokens)} (~$${costEstimate.toFixed(3)})`);
-
-  const res = await fetch(
+  const res = await fetchWithRetry(
     `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
     {
       method: 'POST',
@@ -810,12 +852,6 @@ async function runEditorial(slideId, round, qaDir) {
       body: JSON.stringify(payload),
     }
   );
-
-  if (!res.ok) {
-    const err = await res.text();
-    console.error(`API Error ${res.status}:`, err.slice(0, 500));
-    process.exit(1);
-  }
 
   const result = await res.json();
 
@@ -828,7 +864,8 @@ async function runEditorial(slideId, round, qaDir) {
   // Usage
   const usage = result.usageMetadata || {};
   console.log(`  Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out`);
-  const totalCost = ((usage.promptTokenCount || 0) / 1_000_000 * 2.0) + ((usage.candidatesTokenCount || 0) / 1_000_000 * 12.0);
+  const p = modelCost(MODEL);
+  const totalCost = ((usage.promptTokenCount || 0) / 1e6 * p.input) + ((usage.candidatesTokenCount || 0) / 1e6 * p.output);
   console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
 
   // Save response
@@ -883,10 +920,7 @@ async function main() {
     if (existsSync(gate0Path)) {
       const gate0 = JSON.parse(readFileSync(gate0Path, 'utf8'));
       if (gate0.must_pass === false) {
-        console.error(`BLOQUEADO: Gate 0 FAIL para ${SLIDE_ID}. Corrigir defeitos antes.`);
-        console.error(`  Detalhes: ${gate0Path}`);
-        console.error(`  Use --inspect para re-rodar Gate 0 após correções.`);
-        process.exit(1);
+        throw new Error(`BLOQUEADO: Gate 0 FAIL para ${SLIDE_ID}. Corrigir defeitos antes.\n  Detalhes: ${gate0Path}\n  Use --inspect para re-rodar Gate 0 após correções.`);
       }
       console.log(`Gate 0: PASS (${gate0Path})\n`);
     } else {

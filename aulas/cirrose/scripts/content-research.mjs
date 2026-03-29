@@ -35,6 +35,20 @@ const REASON = getArg('reason', null);
 const PROMPT_ONLY = hasFlag('prompt-only');
 const FIELDS_RAW = getArg('fields', null);
 
+// J4: --help
+if (hasFlag('help') || hasFlag('h')) {
+  console.log(`Usage: node content-research.mjs --slide <id> [options]
+
+Options:
+  --slide <id>       Slide ID (required)
+  --reason <text>    Manual weakness reason
+  --fields <path|">  Research fields file or inline (;; separator)
+  --prompt-only      Print prompts without API call
+
+Env: GEMINI_API_KEY (required unless --prompt-only)`);
+  process.exit(0);
+}
+
 if (!SLIDE_ID) {
   console.error('Usage: node content-research.mjs --slide <id> [--reason "..."] [--fields <file.md|"inline;;fields">] [--prompt-only]');
   process.exit(1);
@@ -63,6 +77,14 @@ if (FIELDS_RAW) {
 
 const MODEL = 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
+
+// G8: Pricing per 1M tokens
+const PRICING = {
+  'gemini-3.1-pro-preview': { input: 2.0, output: 12.0 },
+  'gemini-2.5-pro':         { input: 1.25, output: 10.0 },
+  'gemini-2.5-flash':       { input: 0.15, output: 0.60 },
+};
+function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 
 if (!PROMPT_ONLY) {
   const API_KEY = process.env.GEMINI_API_KEY;
@@ -234,8 +256,7 @@ function extractPatientAnchor() {
 function extractSlideContext(slideId) {
   const filePath = findSlideFile(slideId);
   if (!filePath || !existsSync(filePath)) {
-    console.error(`Slide file not found for ${slideId}`);
-    process.exit(1);
+    throw new Error(`Slide file not found for ${slideId}`);
   }
 
   const html = readFileSync(filePath, 'utf8');
@@ -493,6 +514,32 @@ ${RESEARCH_FIELDS_TEXT}
 INSTRUÇÃO: Responda cada campo acima com dados verificáveis (PMID, N=, IC95%). Seja conciso — max 5 linhas por campo. Se não encontrar dados para um campo, escreva "SEM DADOS ENCONTRADOS" — nunca preencher com suposições.` : ''}`;
 }
 
+// --- G2: Retry with exponential backoff (429, 500, 503, 504) ---
+async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 } = {}) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    const res = await fetch(url, options);
+    if (res.ok) return res;
+
+    const status = res.status;
+    const body = await res.text();
+
+    // Non-retryable: 4xx except 429
+    if (status >= 400 && status < 500 && status !== 429) {
+      throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+    }
+
+    // Retryable: 429, 5xx
+    if (attempt < maxRetries) {
+      const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+      console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
+      await new Promise(r => setTimeout(r, delay));
+      continue;
+    }
+
+    throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
+  }
+}
+
 // ============================================================
 // PHASE 4: GEMINI API
 // ============================================================
@@ -514,35 +561,24 @@ async function callGemini(systemPrompt, userPrompt) {
 
   console.log(`\n2. Sending to Gemini (${MODEL})...`);
   const startTime = Date.now();
+  const url = `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+  const makeOpts = () => ({
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
 
-  let res = await fetch(
-    `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }
-  );
-
-  // Fallback: if thinkingLevel is rejected, retry with thinkingBudget
-  if (!res.ok) {
-    const errText = await res.text();
-    if (errText.includes('thinkingLevel') || errText.includes('thinkingConfig')) {
+  let res;
+  try {
+    res = await fetchWithRetry(url, makeOpts());
+  } catch (err) {
+    // Fallback: if thinkingLevel is rejected, retry with thinkingBudget
+    if (err.message.includes('thinkingLevel') || err.message.includes('thinkingConfig')) {
       console.log('  thinkingLevel rejected — retrying with thinkingBudget: 16384...');
       payload.generationConfig.thinkingConfig = { thinkingBudget: 16384 };
-      res = await fetch(
-        `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        }
-      );
-    }
-    if (!res.ok) {
-      const err2 = await res.text();
-      console.error(`API Error ${res.status}:`, err2.slice(0, 500));
-      process.exit(1);
+      res = await fetchWithRetry(url, makeOpts());
+    } else {
+      throw err;
     }
   }
 
@@ -566,7 +602,8 @@ async function callGemini(systemPrompt, userPrompt) {
   const inputTokens = usage.promptTokenCount || 0;
   const outputTokens = usage.candidatesTokenCount || 0;
   const thinkingTokens = usage.thoughtsTokenCount || 0;
-  const totalCost = (inputTokens / 1_000_000 * 2.0) + ((outputTokens + thinkingTokens) / 1_000_000 * 12.0);
+  const pc = modelCost(MODEL);
+  const totalCost = (inputTokens / 1e6 * pc.input) + ((outputTokens + thinkingTokens) / 1e6 * pc.output);
 
   console.log(`  Tokens: ${inputTokens} in / ${thinkingTokens} thinking / ${outputTokens} out | Cost: ~$${totalCost.toFixed(3)} | ${elapsed}s`);
   console.log(`  Finish reason: ${finishReason}`);

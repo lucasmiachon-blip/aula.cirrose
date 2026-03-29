@@ -34,6 +34,21 @@ const OUT_BASE = join(CIRROSE, 'qa-screenshots');
 
 // Parse args
 const args = process.argv.slice(2);
+
+// J4: --help
+if (args.includes('--help') || args.includes('-h')) {
+  console.log(`Usage: node qa-batch-screenshot.mjs [options]
+
+Options:
+  --act <ACT>    A1|A2|A3|CP|APP|ALL (default: A1)
+  --slide <id>   Single slide ID (overrides --act)
+  --port <N>     Dev server port (default: 3000)
+  --scale <N>    Device scale factor (default: 2)
+  --video        Record .webm video per slide (for Gate 4)
+
+Output: qa-screenshots/{slide-id}/{slide}_{date}_{time}_{state}.png`);
+  process.exit(0);
+}
 function getArg(name, fallback) {
   const idx = args.indexOf(`--${name}`);
   return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
@@ -72,8 +87,7 @@ let targetSlides;
 if (SINGLE_SLIDE) {
   targetSlides = slides.filter(s => s.id === SINGLE_SLIDE);
   if (targetSlides.length === 0) {
-    console.error(`Slide ${SINGLE_SLIDE} not found in manifest`);
-    process.exit(1);
+    throw new Error(`Slide ${SINGLE_SLIDE} not found in manifest`);
   }
 } else {
   const filter = getActFilter(ACT_FILTER);
@@ -200,11 +214,20 @@ async function measureElements(page, slideId) {
 
 async function main() {
   const browser = await chromium.launch({ headless: true });
+  // P3: Screenshots use 2x scale (retina) for text legibility analysis.
+  // Video uses 1x to keep .webm under 20MB for Gemini inlineData.
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
     deviceScaleFactor: SCALE,
   });
   const page = await context.newPage();
+
+  // P7: Capture console errors to include in metrics
+  const consoleErrors = [];
+  page.on('console', msg => {
+    if (msg.type() === 'error') consoleErrors.push(msg.text());
+  });
+  page.on('pageerror', err => consoleErrors.push(err.message));
 
   console.log(`Loading ${PAGE_URL}...`);
   await page.goto(PAGE_URL, { waitUntil: 'networkidle' });
@@ -268,10 +291,12 @@ async function main() {
       console.log(`  → S2 (final) captured`);
     }
 
-    // Save metrics
+    // Save metrics (P7: include console errors if any)
+    const slideConsoleErrors = consoleErrors.length > 0 ? [...consoleErrors] : undefined;
+    consoleErrors.length = 0; // reset for next slide
     writeFileSync(
       join(slideDir, 'metrics.json'),
-      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states }, null, 2)
+      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states, ...(slideConsoleErrors && { consoleErrors: slideConsoleErrors }) }, null, 2)
     );
 
     // Record video (--video flag, fresh context per slide)
