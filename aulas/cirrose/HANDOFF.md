@@ -25,10 +25,10 @@
 2. **Pesquisa profunda** — 3 medical-researcher agents × 3 MCPs (PubMed/BioMCP, Scite, Consensus) + Gemini Deep Research cross-validation. 12 PMIDs verificados. 6/6 claims convergentes. 1 correção: XL probe = 2,5 MHz.
 3. **Conteúdo:** Beat 0 (auto): 4 confounders com magnitude (ALT +3×, pós-prandial +21%, ICC, colestase). Beat 1 (click): MASLD gap PPV 90→63% + ANTICIPATE-NASH. Beat 2 (click): MRE escape (AUROC F4 = TE, funciona ascite/obeso).
 4. **9 superfícies tocadas:** HTML, CSS, manifest, registry, panelState, narrative, evidence-db, AUDIT-VISUAL, HANDOFF.
-5. **H2 pendente** — Lucas define.
+5. **H2 definido:** "Fibroscan, MRE e outros métodos não invasivos". Sincronizado em 4 superfícies.
 6. **Sem archetypes** — CSS custom scoped por #s-a1-elasto.
 
-**Pendente:** H2, build:cirrose, lint, QA pipeline.
+**Pendente:** QA pipeline (screenshots → Gate 0 → Gate 2 → Gate 4). Beat futuro (estado da arte) em backlog.
 
 ### Sessao 29/mar (noite 4) — s-a1-fib4 micropolish DONE*
 
