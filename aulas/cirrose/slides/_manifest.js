@@ -27,6 +27,7 @@ export const slides = [
   { id: 's-a1-classify', file: '02c-a1-classify.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Estadiamento × Prognóstico', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-classify', timing: 90, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-baveno', file: '03-a1-baveno.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'O novo paradigma: doença hepática como espectro', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-baveno', timing: 120, narrativeRole: 'setup', tensionLevel: 1, narrativeCritical: false },
   { id: 's-a1-fib4', file: '03b-a1-fib4calc.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Modelos Preditivos: FIB-4', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-fib4', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
+  { id: 's-a1-elasto', file: '03c-a1-elasto.html', act: 'A1', archetype: null, sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Fibroscan, MRE e outros métodos não invasivos', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-elasto', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-damico', file: '02b-a1-damico.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'De Child-Pugh a D\'Amico: prognóstico virou preditivo', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-damico', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-rule5', file: '03d-a1-rule5.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'A cada 5 kPa, muda o estágio e a conduta', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-rule5', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-meld', file: '04-a1-meld.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'MELD-Na estratifica urgência: cada faixa muda a conduta', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-meld', timing: 150, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
@@ -96,6 +97,12 @@ export const panelStates = {
     visibleFields: ['fib4', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
     calc: 'fib4',
+  },
+  's-a1-elasto': {
+    severity: 'neutral',
+    values: { fib4: '5,91', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
+    visibleFields: ['fib4', 'lsm', 'plq', 'albumin'],
+    events: [],
   },
   's-a1-rule5': {
     severity: 'neutral',

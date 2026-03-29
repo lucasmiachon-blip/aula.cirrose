@@ -51,7 +51,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **Estrutura:** flat layout (bio + 6 labs 3×2 auto stagger → click: "Sem queixas." + "Qual sua conduta?")
 - **Entrada NÃO é hematêmese.** Antônio chega assintomático — a tensão vem do screening revelar doença oculta.
 
-### ATO 1 — CLASSIFICAR (slides 2-9)
+### ATO 1 — CLASSIFICAR (slides 2-10)
 
 | # | Slide | Headline | Propósito narrativo | Tensão |
 |---|-------|----------|---------------------|--------|
@@ -59,10 +59,11 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 3 | s-a1-classify | Estadiamento × Prognóstico | **Premissa do ato**: D'Amico protagonista — mortalidade escala por estágio + further decomp | ●●○○○ |
 | 4 | s-a1-baveno | Doença hepática avançada é espectro, não diagnóstico binário | Ferramental: cACLD/dACLD, CSPH | ●○○○○ |
 | 5 | s-a1-fib4 | Modelos Preditivos: FIB-4 | VPN/VPP assimetria → 3 armadilhas (idade, álcool, MASLD) → zona cinza 30-60%. Sidebar calc ao vivo. | ●●○○○ |
-| 6 | s-a1-damico | De Child-Pugh a D'Amico: prognóstico virou preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
-| 7 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
-| 8 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
-| 9 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
+| 6 | s-a1-elasto | Fibroscan, MRE e outros métodos não invasivos | Apreciação crítica do laudo: 4 confounders (ALT, pós-prandial, ICC, colestase) → MASLD gap (PPV 90→63%) → MRE escape. | ●●○○○ |
+| 7 | s-a1-damico | De Child-Pugh a D'Amico: prognóstico virou preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
+| 8 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
+| 9 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
+| 10 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
 
 - **Panel:** neutral → caution (no CP1)
 - **Arc:** Rastreio → classificação → FIB-4 aplicado → ferramentas → checkpoint. Audiência segura — "sei classificar".

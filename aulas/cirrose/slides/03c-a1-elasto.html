@@ -1,0 +1,126 @@
+<!-- ============================================================
+     s-a1-elasto — Elastografia: apreciação crítica do laudo
+     Layout: custom (#s-a1-elasto in cirrose.css)
+     Design: confounders com magnitude → MASLD gap → MRE escape
+     States: 0=confounders (auto), 1=MASLD gap (click), 2=MRE (click)
+     Sidebar: card padrão (LSM ainda —)
+     ============================================================ -->
+<section id="s-a1-elasto"
+         data-timing="120"
+         data-panel-state="neutral">
+
+  <div class="slide-inner">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Fibroscan, MRE e outros m&eacute;todos n&atilde;o invasivos</h2>
+
+    <!-- Beat 0 (auto): 4 confounders que inflam o número -->
+    <div class="elasto-confounders">
+      <div class="elasto-conf" data-severity="danger">
+        <span class="elasto-conf-icon" aria-hidden="true">⚠</span>
+        <div class="elasto-conf-body">
+          <span class="elasto-conf-title">ALT &gt; 5&times; ULN</span>
+          <span class="elasto-conf-magnitude">+1,3&ndash;3&times; LSM</span>
+          <span class="elasto-conf-action">Deferir 3&ndash;6 meses</span>
+        </div>
+      </div>
+      <div class="elasto-conf" data-severity="warning">
+        <span class="elasto-conf-icon" aria-hidden="true">⚠</span>
+        <div class="elasto-conf-body">
+          <span class="elasto-conf-title">P&oacute;s-prandial</span>
+          <span class="elasto-conf-magnitude">+17&ndash;21%</span>
+          <span class="elasto-conf-action">Jejum &ge; 3 h</span>
+        </div>
+      </div>
+      <div class="elasto-conf" data-severity="warning">
+        <span class="elasto-conf-icon" aria-hidden="true">⚠</span>
+        <div class="elasto-conf-body">
+          <span class="elasto-conf-title">ICC / congest&atilde;o</span>
+          <span class="elasto-conf-magnitude">PVC, n&atilde;o fibrose</span>
+          <span class="elasto-conf-action">Tratar ICC primeiro</span>
+        </div>
+      </div>
+      <div class="elasto-conf" data-severity="warning">
+        <span class="elasto-conf-icon" aria-hidden="true">⚠</span>
+        <div class="elasto-conf-body">
+          <span class="elasto-conf-title">Colestase extra-hep&aacute;tica</span>
+          <span class="elasto-conf-magnitude">at&eacute; 15 kPa falso</span>
+          <span class="elasto-conf-action">Deferir p&oacute;s-drenagem</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Beat 1 (click): MASLD gap -->
+    <div class="elasto-masld" data-reveal="1">
+      <div class="elasto-masld-card">
+        <span class="elasto-masld-label">PPV de LSM &ge; 25 kPa para CSPH</span>
+        <div class="elasto-masld-compare">
+          <div class="elasto-masld-col elasto-masld-col--viral">
+            <span class="elasto-masld-value">90%</span>
+            <span class="elasto-masld-pop">Viral / &aacute;lcool</span>
+          </div>
+          <span class="elasto-masld-arrow">&rarr;</span>
+          <div class="elasto-masld-col elasto-masld-col--masld">
+            <span class="elasto-masld-value">63%</span>
+            <span class="elasto-masld-pop">MASLD obeso</span>
+          </div>
+        </div>
+        <span class="elasto-masld-fix">ANTICIPATE-NASH corrige &rarr; 83&ndash;95%</span>
+      </div>
+    </div>
+
+    <!-- Beat 2 (click): MRE escape -->
+    <div class="elasto-mre" data-reveal="2">
+      <div class="elasto-mre-card">
+        <span class="elasto-mre-title">Quando FibroScan n&atilde;o basta</span>
+        <div class="elasto-mre-points">
+          <span class="elasto-mre-point"><strong>MRE:</strong> AUROC 0,94 em F4 = TE</span>
+          <span class="elasto-mre-point">Funciona com ascite e obesidade extrema</span>
+          <span class="elasto-mre-point">kPa MRE &ne; kPa TE &mdash; escalas diferentes (~3&times; menor)</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="source-tag">EASL NITs 2021 (PMID 34166721) &middot; WFUMB 2024 (PMID 38762390) &middot; Chon 2024 (PMID 39165159) &middot; Pons 2021 (PMID 33982942)</p>
+  </div>
+
+  <aside class="notes">
+[0:00-0:40] Auto: 4 confounders aparecem com stagger.
+"Antes de agir sobre um número de elastografia, perguntem: o que pode estar inflando esse valor?"
+"ALT acima de 5 vezes: o edema inflamatório aumenta a rigidez em até 3 vezes. Não é fibrose — é hepatite. Deferir 3 a 6 meses."
+"Pós-prandial: hiperemia esplâncnica. Aumento de 17 a 21%. Jejum mínimo 3 horas — WFUMB 2024 recomenda, EASL diz 4 horas. Na prática: mínimo 3."
+"ICC, congestão direita: o que vocês estão medindo é pressão venosa central, não colágeno. Fontan: mediana 15 kPa com fibrose mínima."
+"Colestase extra-hepática: back-pressure biliar. Valores caem dramaticamente pós-ERCP — até 15 kPa de falso positivo."
+
+[0:40-1:10] Click 1 → MASLD gap
+"Agora a armadilha que mais impacta a prática de 2026."
+"Rule-of-5 foi derivada de coortes virais e álcool. Nessas, LSM acima de 25: PPV 90% para CSPH. Excelente."
+"Mas em MASLD obeso? PPV cai para 63%. De cada 3 que vocês classificariam como CSPH, 1 não tem."
+"Esteatose altera a viscoelasticidade independente de fibrose. E MASLD pode descompensar com HVPG entre 6 e 9 — abaixo do threshold clássico de 10."
+"ANTICIPATE-NASH: integra BMI + plaquetas + LSM. Corrige para 83-95%. Calcular ANTES de iniciar carvedilol em obeso."
+PAUSA 3s.
+
+[1:10-1:30] Click 2 → MRE escape
+"Quando o FibroScan não resolve: ascite — falha quase total. Obesidade extrema com SCD acima de 3,4 cm — até XL probe falha."
+"MRE: amostra 3D, 100 vezes o volume do FibroScan. AUROC idêntico para cirrose — 0,94. Mas superior em F1 a F3."
+"Atenção: kPa de MRE não são comparáveis com kPa de TE. MRE reporta valores cerca de 3 vezes menores — física diferente, frequência diferente."
+"No Brasil: MRE em centros terciários selecionados. Para a pergunta desta aula — tem cirrose? — TE resolve. MRE para discordância clínico-elastográfica."
+
+[NOTA ORAL: XL probe cutoff ≠ M (12→10,7 kPa) — falar se audiência perguntar, não projetar]
+[NOTA ORAL: SSM emergente — Cochrane 2026 (PMID 41498616) sensibilidade 72,9% a especificidade 90%. "Spleen stiffness promissor, mas Cochrane classificou evidência como muito baixa"]
+[NOTA ORAL: Critérios Boursier: IQR/mediana >30% + LSM≥7,1 = descartar resultado]
+[NOTA ORAL: Esteatose severa (S3) — discordância ≥2 estágios em 38,6% (Losurdo 2025, PMID 40807038)]
+[NOTA ORAL: Álcool agudo — −2,6 kPa após 4 semanas abstinência. Deferir 2-4 semanas]
+
+[DATA] ALT flare +1,3-3×: EASL NITs 2021 (PMID 34166721) | Verificado: 2026-03-29
+[DATA] Pós-prandial +17-21%: WFUMB 2024 (PMID 38762390) + EASL NITs 2021 | Verificado: 2026-03-29
+[DATA] Colestase até 15 kPa: WFUMB 2024 (PMID 38762390) | Verificado: 2026-03-29
+[DATA] ICC/Fontan mediana 15 kPa: PMID 37908293 | Verificado: 2026-03-29
+[DATA] MASLD PPV 63%: Pons 2021 (PMID 33982942) | Verificado: 2026-03-29
+[DATA] ANTICIPATE-NASH 83-95%: Banares IPD meta 2025 (PMID 41138818) | Verificado: 2026-03-29
+[DATA] MRE AUROC 0,94 F4: Chon meta 2024 (PMID 39165159) | Verificado: 2026-03-29
+[DATA] MRE vs TE F1-F3: Hsu 2019 (PMID 29908362) | Verificado: 2026-03-29
+[DATA] Falha TE 3,37% / obeso 5,86%: NHANES (PMID 39649032) | Verificado: 2026-03-29
+[DATA] XL probe cutoff M=12,0 vs XL=10,7 kPa: EASL NITs 2021 | Verificado: 2026-03-29
+[DATA] SSM Cochrane: PMID 41498616 | sens 72,9% @ spec 90% | Verificado: 2026-03-29
+  </aside>
+</section>

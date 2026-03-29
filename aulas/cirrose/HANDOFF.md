@@ -7,7 +7,7 @@
 
 ## Estado — 2026-03-29T21:00-03:00
 
-**Slides:** 43 buildados · 6 DONE* · 0 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
+**Slides:** 44 buildados · 6 DONE* · 0 QA · 1 DRAFT · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 → **Gate 2 (Opus, $0)** → Gate 4 (Gemini).
@@ -16,6 +16,19 @@
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier DONE. MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
+
+### Sessao 29/mar (noite 5) — s-a1-elasto DRAFT
+
+**O que foi feito:**
+
+1. **Novo slide s-a1-elasto** (03c-a1-elasto.html) — Elastografia: apreciação crítica do laudo. Posição: entre fib4 e damico no manifest.
+2. **Pesquisa profunda** — 3 medical-researcher agents × 3 MCPs (PubMed/BioMCP, Scite, Consensus) + Gemini Deep Research cross-validation. 12 PMIDs verificados. 6/6 claims convergentes. 1 correção: XL probe = 2,5 MHz.
+3. **Conteúdo:** Beat 0 (auto): 4 confounders com magnitude (ALT +3×, pós-prandial +21%, ICC, colestase). Beat 1 (click): MASLD gap PPV 90→63% + ANTICIPATE-NASH. Beat 2 (click): MRE escape (AUROC F4 = TE, funciona ascite/obeso).
+4. **9 superfícies tocadas:** HTML, CSS, manifest, registry, panelState, narrative, evidence-db, AUDIT-VISUAL, HANDOFF.
+5. **H2 pendente** — Lucas define.
+6. **Sem archetypes** — CSS custom scoped por #s-a1-elasto.
+
+**Pendente:** H2, build:cirrose, lint, QA pipeline.
 
 ### Sessao 29/mar (noite 4) — s-a1-fib4 micropolish DONE*
 

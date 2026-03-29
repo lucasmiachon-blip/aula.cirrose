@@ -112,7 +112,7 @@ Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `WT-OPERATING.m
 
 ## Act 1 — QA Loop 1 (baseline 14/mar, atualizado 17/mar)
 
-**Status QA (este doc):** 6 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*), 0 QA, 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
+**Status QA (este doc):** 6 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*), 0 QA, 1 DRAFT (s-a1-elasto), 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
 **Status maquina de estados (HANDOFF/WT-OPERATING):** 6 DONE*, 0 QA, 37 CONTENT. Ver HANDOFF.md para estado completo.
 *s-a1-fib4 DONE* = hierarquia visual ainda fraca (cor_contraste 7/10), aceito por pressao de prazo.
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
@@ -294,6 +294,32 @@ Obs: (1) SplitText dissolve = animação de referência do deck. (2) Único slid
 
 Obs: (1) Redesign completo em 29/mar — layout anterior (grid-stacking fade-replace) removido. (2) H2 rotulo por decisao do autor. (3) R7→R9 micropolish: bar safe/gray desaturados, gray→--divider neutro, flags de-bold 700→500, border-bottom navy, min-width:0, letter-spacing 0.04em, cascade source-tag blindada. (4) Gate 2 STALE (executado no layout antigo). (5) 41 palavras no S2 — Lucas avaliou presencialmente. (6) *DONE com asterisco: cor_contraste 7/10, aceito por prazo.
 
+### s-a1-elasto (03c-a1-elasto.html)
+
+**Headline:** Fibroscan, MRE e outros métodos não invasivos
+
+| Dim | Nota | Evidencia |
+|-----|------|-----------|
+| H   | —    | DRAFT — aguardando QA |
+| T   | —    | |
+| E   | —    | |
+| C   | —    | |
+| V   | —    | |
+| K   | —    | |
+| S   | —    | |
+| M   | —    | |
+| I   | —    | |
+| D   | —    | |
+| A   | —    | |
+| L   | —    | |
+| P   | —    | |
+| N   | —    | |
+
+**Media:** — (0/10)
+**Status:** DRAFT
+
+Obs: Novo slide criado 29/mar. Foco: apreciação crítica do laudo elastográfico — confounders, MASLD gap, MRE escape. 3 beats (auto + 2 clicks). 12 PMIDs verificados via multi-MCP + Gemini cross-validation.
+
 ### s-a1-rule5 (03d-a1-rule5.html)
 
 **Headline:** A cada 5 kPa, muda o estágio e a conduta
@@ -403,6 +429,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 5 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
 | 6 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
 | 7 | s-a1-fib4 | DONE* R9 8.8 | Progressive spectrum. Micropolish R7→R9 (de-bold, desaturate, anchor). cor_contraste 7/10 aceito por prazo. Gate 2 STALE. | — |
+| 8 | s-a1-elasto | DRAFT | Novo slide 29/mar: confounders + MASLD gap + MRE. 12 PMIDs. H2 pendente. | — |
 | 9 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
 | 10 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |

@@ -2888,7 +2888,199 @@ section#s-a1-01 .slide-inner {
   font-style: italic;
 }
 
+/* ============================================
+   s-a1-elasto — Elastografia: apreciação crítica
+   ============================================ */
+
+#s-a1-elasto .slide-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Beat 0: Confounders grid */
+.elasto-confounders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.elasto-conf {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border-left: 4px solid var(--border);
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.elasto-conf[data-severity="danger"] {
+  border-left-color: var(--danger);
+  background: var(--danger-light);
+}
+
+.elasto-conf[data-severity="warning"] {
+  border-left-color: var(--warning-on-light);
+  background: var(--warning-light);
+}
+
+.elasto-conf-icon {
+  font-size: var(--text-body);
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.elasto-conf-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.elasto-conf-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-small);
+  color: var(--text-primary);
+}
+
+.elasto-conf-magnitude {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-body);
+  color: var(--danger);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.elasto-conf[data-severity="warning"] .elasto-conf-magnitude {
+  color: var(--warning-on-light);
+}
+
+.elasto-conf-action {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Beat 1: MASLD gap */
+.elasto-masld {
+  margin-top: var(--space-xs);
+}
+
+.elasto-masld-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--warning-light);
+  border: 1px solid var(--warning-on-light);
+}
+
+.elasto-masld-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.elasto-masld-compare {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.elasto-masld-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.elasto-masld-value {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-h3);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.elasto-masld-col--viral .elasto-masld-value {
+  color: var(--safe);
+}
+
+.elasto-masld-col--masld .elasto-masld-value {
+  color: var(--danger);
+}
+
+.elasto-masld-pop {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.elasto-masld-arrow {
+  font-size: var(--text-h3);
+  color: var(--text-muted);
+}
+
+.elasto-masld-fix {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--safe);
+  font-weight: 600;
+}
+
+/* Beat 2: MRE escape */
+.elasto-mre {
+  margin-top: var(--space-xs);
+}
+
+.elasto-mre-card {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.elasto-mre-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-small);
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.elasto-mre-points {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.elasto-mre-point {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+}
+
+#s-a1-elasto .source-tag {
+  margin-top: auto;
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
 /* Failsafe Plan B + no-js: new slides */
+.no-js .elasto-conf, .stage-bad .elasto-conf {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 .no-js .elasto-step, .stage-bad .elasto-step,
 .no-js .rule-zone, .stage-bad .rule-zone,
 .no-js .antonio-plot, .stage-bad .antonio-plot {

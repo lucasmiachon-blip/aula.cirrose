@@ -206,6 +206,18 @@
 | s-a2-04 | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
 | s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
 | s-a1-classify | Mortalidade por estagio D'Amico + further decomp. PREDESCI callout removido (movido p/ baveno 26/mar) | D'Amico 2006 (PMID 16298014) |
+| s-a1-elasto | ALT flare +1,3-3× LSM; deferir 3-6 meses se >5× ULN | EASL NITs 2021 (PMID 34166721) |
+| s-a1-elasto | Pos-prandial +17-21% LSM; jejum >=3h obrigatorio | WFUMB 2024 (PMID 38762390) |
+| s-a1-elasto | Colestase extra-hepatica: ate 15 kPa falso; reversivel pos-drenagem | WFUMB 2024 (PMID 38762390) |
+| s-a1-elasto | ICC/Fontan: mediana 15 kPa com fibrose minima; correlaciona c/ PVC | PMID 37908293 |
+| s-a1-elasto | MASLD obeso: PPV de LSM>=25 para CSPH cai de 90% para 62,8-67% | Pons 2021 (PMID 33982942) |
+| s-a1-elasto | ANTICIPATE-NASH corrige PPV para 83-95% em MASLD obeso | Banares IPD meta 2025 (PMID 41138818) |
+| s-a1-elasto | MRE AUROC 0,94 em F4 = TE; superior F1-F3 (0,89-0,92 vs 0,83-0,87) | Chon meta 2024 (PMID 39165159) |
+| s-a1-elasto | MRE vs TE head-to-head: MRE superior em NAFLD (0,91 vs 0,82 para >=F2) | Hsu 2019 (PMID 29908362) |
+| s-a1-elasto | Falha TE: 3,37% geral, 5,86% obeso, 8,86% XL probe (NHANES 2017-2020) | PMID 39649032 |
+| s-a1-elasto | XL probe cutoff F avancada: M=12,0 vs XL=10,7 kPa | EASL NITs 2021 (PMID 34166721) |
+| s-a1-elasto | SSM Cochrane 2026: sensibilidade 72,9% a especificidade 90% para CSPH | Vranic 2026 (PMID 41498616) |
+| s-a1-elasto | Esteatose severa (S3): discordancia >=2 estagios em 38,6% | Losurdo 2025 (PMID 40807038) |
 | s-a1-damico | Evolucao D'Amico 2006→2024: 4→5→6 estagios, further decomp, mortalidade 1%→57% | D'Amico 2006 (PMID 16298014) + D'Amico 2024 (PMID 37916970) |
 | s-a1-baveno | Paradigma cACLD/dACLD + PREDESCI HR 0,51 (IC 0,26-0,97) descomp 3a | Baveno VII (PMID 35120736) + PREDESCI (PMID 30910320) |
 | s-a2-01 | Gatilhos descomp: infeccao (33%), alcool, nao-adesao | PREDICT (PMID 32673741) + EASL CPG 2024 |
