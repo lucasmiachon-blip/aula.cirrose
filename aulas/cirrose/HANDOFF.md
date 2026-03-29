@@ -13,6 +13,7 @@
 **QA pipeline:** `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` + `gemini-qa3.mjs`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
+**Scripts hardening:** ZERO-tier aplicado 28/mar (`377e56b`). MINIMAL/HIGH tiers pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
 
 ---
 
@@ -35,6 +36,7 @@
 **Resumo:** 5 DONE · 38 CONTENT (43 total)
 **Proximo:** s-a1-fib4 → ASSEMBLY (pesquisa dual COMPLETA, conteudo decidido).
 **Research tooling:** `content-research.mjs` prompt v2 (patient anchor dinamico, genealogia obrigatoria, divergencia guidelines). Templates: `docs/prompts/mcp-research-queries.md`.
+**Script robustez (28/mar):** Todos scripts Gemini/Playwright tem: retry 429/5xx, --help, throw em vez de process.exit, console error capture em metrics.json. Gate 0 usa responseMimeType JSON (sem fence-strip).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -146,6 +148,7 @@
 | Arco narrativo | `references/narrative.md` (#3) |
 | Ordem dos slides | `slides/_manifest.js` (#4) |
 | Regras operacionais | `@repo/CLAUDE.md` |
+| Hardening scripts | `@repo/docs/HARDENING-SCRIPTS.md` |
 | QA pipeline | `WT-OPERATING.md` |
 | Design tokens | `@repo/.claude/rules/design-reference.md` §1 |
 | Erros e prevencao | `ERROR-LOG.md` + `@repo/.claude/rules/slide-rules.md` §8 |
