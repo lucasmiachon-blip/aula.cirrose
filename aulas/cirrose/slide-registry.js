@@ -498,10 +498,10 @@ export const customAnimations = {
       state++;
 
       if (state === 1) {
-        /* Sequential: S0 exits fully, then S1 enters (delay >= exit) */
+        /* P1 R6: strict emptying — S0 exits fully (0.2s), then S1 enters (delay 0.25s) */
         gsap.to(asymmetry, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
         gsap.set(pitfallCards, { autoAlpha: 0, y: 8 });
-        gsap.to(pitfalls, { autoAlpha: 1, y: 0, duration: 0.35, delay: 0.2, ease: 'power2.out' });
+        gsap.to(pitfalls, { autoAlpha: 1, duration: 0.1, delay: 0.25 });
         gsap.to(pitfallCards, {
           autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.08,
           delay: 0.25, ease: 'power2.out'
@@ -509,13 +509,13 @@ export const customAnimations = {
       }
 
       if (state === 2) {
-        /* Sequential: S1 exits fully, then S2 enters (delay >= exit) */
+        /* P1 R6: strict emptying — S1 exits fully, then S2 enters */
         gsap.to(pitfalls, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
         gsap.fromTo(grayzone,
           { autoAlpha: 0, y: 8 },
-          { autoAlpha: 1, y: 0, duration: 0.4, delay: 0.2, ease: 'power3.out' }
+          { autoAlpha: 1, y: 0, duration: 0.4, delay: 0.25, ease: 'power3.out' }
         );
-        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.3, delay: 0.45 });
+        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.3, delay: 0.5 });
       }
 
       return true;
@@ -525,16 +525,25 @@ export const customAnimations = {
       if (state <= 0) return false;
 
       if (state === 2) {
-        gsap.to(grayzone, { autoAlpha: 0, duration: 0.3 });
-        gsap.to(sourceTag, { autoAlpha: 0, duration: 0.3 });
-        gsap.to(pitfalls, { autoAlpha: 1, y: 0, duration: 0.3 });
-        pitfallCards.forEach(c => gsap.set(c, { autoAlpha: 1, y: 0 }));
+        /* P1 R6: strict emptying on retreat — exit current, delay, re-enter previous */
+        gsap.to(grayzone, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
+        gsap.to(sourceTag, { autoAlpha: 0, duration: 0.2 });
+        gsap.set(pitfallCards, { autoAlpha: 0, y: -8 });
+        gsap.to(pitfalls, { autoAlpha: 1, duration: 0.1, delay: 0.25 });
+        gsap.to(pitfallCards, {
+          autoAlpha: 1, y: 0, duration: 0.3, stagger: -0.05,
+          delay: 0.25, ease: 'power2.out'
+        });
       }
 
       if (state === 1) {
-        gsap.to(pitfalls, { autoAlpha: 0, duration: 0.3 });
-        gsap.to(asymmetry, { autoAlpha: 1, y: 0, duration: 0.3 });
-        asymmetryCards.forEach(c => gsap.set(c, { autoAlpha: 1, y: 0 }));
+        gsap.to(pitfalls, { autoAlpha: 0, y: 4, duration: 0.2, ease: 'power2.in' });
+        gsap.set(asymmetryCards, { autoAlpha: 0, y: -8 });
+        gsap.to(asymmetry, { autoAlpha: 1, duration: 0.1, delay: 0.25 });
+        gsap.to(asymmetryCards, {
+          autoAlpha: 1, y: 0, duration: 0.3, stagger: -0.1,
+          delay: 0.25, ease: 'power2.out'
+        });
       }
 
       state--;

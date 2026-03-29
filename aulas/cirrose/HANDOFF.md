@@ -5,7 +5,7 @@
 
 ---
 
-## Estado — 2026-03-29T16:45-03:00
+## Estado — 2026-03-29T17:15-03:00
 
 **Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
@@ -37,6 +37,22 @@
 
 **Gate 4 historico s-a1-fib4:**
 - R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → **R5: 7.3** (pos P1-P4 + box-sizing)
+
+### Sessao 29/mar (noite 2) — Conteudo andragogia + Gate 4 R6 8.8/10
+
+**O que foi feito:**
+
+1. **Conteudo s-a1-fib4 redesenhado para andragogia (Knowles)** — Hero numbers trocados de estatisticas (VPN >90%, VPP ~35%) para cutoffs clinicos (< 1,30, >= 2,67) que o medico usa no consultorio. Labels agora mostram acao clinica + evidencia. Pitfalls mais acionaveis ("infla o score", "mascara fibrose"). Zona cinza agora mostra range 1,30-2,67 + proximo passo (elastografia).
+2. **Gate 4 R6: 8.8/10** (era 7.3 R5). Gemini Pro avaliou PNGs + video + raw code atualizados. Screenshots antigos deletados antes da recaptura.
+3. **P1 MUST implementado** — Fisica de palco: advance() delay 0.2→0.25s (anti-ghosting). retreat() reescrito com esvaziamento estrito (exit 0.2s → delay 0.25s → re-enter com stagger invertido). Elimina overlap de texto no retrocesso.
+4. **P2 SHOULD implementado** — Contraste projetor-safe: color-mix cards S0 de 8%→12% (bg) e 20%→35% (borda). Garante delimitacao Safe/Danger em projetor fraco.
+5. **P3 RADICAL implementado** — Micro-tipografia: operadores < e >= em span `.fib4-operator` com DM Sans 0.85em + opacity 0.7. Balanceia operadores matematicos contra numeros tabulares em serifa.
+6. **Speaker notes atualizadas** — Referenciam cutoffs na fala, zona cinza com range + proximo passo.
+
+**Gate 4 historico s-a1-fib4:**
+- R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → R5: 7.3 → **R6: 8.8/10**
+
+**Pendente s-a1-fib4:** Recapturar screenshots pos-P1/P2/P3 para verificacao visual. Gate 2 re-run opcional (PASS anterior, mudancas CSS/JS podem impactar contraste).
 
 ### Sessao 29/mar (noite) — Gate 2 executado + fixes
 
@@ -118,7 +134,7 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | QA | R5 7.3/10. Gate 2 PASS. Daltonism icons + shadow token fixados. R5-P2/P3 pendentes. Recapturar + Gate 4 R6 pendente. |
+| 6 | s-a1-fib4 | QA | R6 8.8/10. Gate 2 PASS. Conteudo andragogia + P1/P2/P3 R6 implementados. Recapturar pos-fixes pendente. |
 | 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |

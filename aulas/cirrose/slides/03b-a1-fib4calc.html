@@ -16,16 +16,16 @@
     <!-- Stages zone — grid stacking, GSAP transitions -->
     <div class="fib4-stages">
 
-      <!-- S0: VPN/VPP assimetria -->
+      <!-- S0: Cutoffs + decisao clinica -->
       <div class="fib4-stage fib4-asymmetry">
         <div class="fib4-stat-row">
           <div class="fib4-stat fib4-stat--safe">
-            <span class="fib4-stat-number">&gt; 90%</span>
-            <span class="fib4-stat-label">✓ VPN</span>
+            <span class="fib4-stat-number"><span class="fib4-operator">&lt;</span> 1,30</span>
+            <span class="fib4-stat-label">✓ Exclui &mdash; VPN &gt; 90%</span>
           </div>
           <div class="fib4-stat fib4-stat--danger">
-            <span class="fib4-stat-number">~35%</span>
-            <span class="fib4-stat-label">✕ VPP</span>
+            <span class="fib4-stat-number"><span class="fib4-operator">&ge;</span> 2,67</span>
+            <span class="fib4-stat-label">✕ N&atilde;o confirma &mdash; VPP ~35%</span>
           </div>
         </div>
       </div>
@@ -35,15 +35,15 @@
         <div class="fib4-pitfall-row">
           <div class="fib4-pitfall">
             <span class="fib4-pitfall-title">Idade &ge; 65 a</span>
-            <span class="fib4-pitfall-detail">cutoff → 2,0</span>
+            <span class="fib4-pitfall-detail">Cutoff sobe para 2,0</span>
           </div>
           <div class="fib4-pitfall">
             <span class="fib4-pitfall-title">&Aacute;lcool</span>
-            <span class="fib4-pitfall-detail">AST/ALT &gt;2</span>
+            <span class="fib4-pitfall-detail">AST/ALT &gt; 2 infla o score</span>
           </div>
           <div class="fib4-pitfall">
             <span class="fib4-pitfall-title">MASLD ativa</span>
-            <span class="fib4-pitfall-detail">ALT alta → falso-baixo</span>
+            <span class="fib4-pitfall-detail">ALT &uarr; mascara fibrose</span>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
       <div class="fib4-stage fib4-grayzone">
         <div class="fib4-grayzone-content">
           <span class="fib4-grayzone-stat">30–60%</span>
-          <span class="fib4-grayzone-label">⚠ zona indeterminada</span>
+          <span class="fib4-grayzone-label">⚠ FIB-4 1,30 &ndash; 2,67 &rarr; elastografia</span>
         </div>
       </div>
 
@@ -62,9 +62,9 @@
   </div>
 
   <aside class="notes">
-[0:00-0:30] Auto: VPN/VPP cards stagger.
-"FIB-4: a forca esta na exclusao. VPN acima de 90% — se o score e baixo, pode parar ali."
-"Mas o VPP? 35%. De cada 3 FIB-4 'alto risco', so 1 tem fibrose na biopsia."
+[0:00-0:30] Auto: cutoff cards stagger.
+"FIB-4 abaixo de 1,30: pode parar ali. VPN acima de 90% — a forca esta na exclusao."
+"Acima de 2,67? Nao confirma. De cada 3 FIB-4 'alto risco', so 1 tem fibrose na biopsia."
 
 [0:30-1:00] Click 1 → 3 armadilhas
 "Tres armadilhas do dia a dia."
@@ -73,7 +73,7 @@
 "MASLD ativa: ALT alta infla o denominador. FIB-4 fica falsamente baixo. Retestar quando ALT normalizar."
 
 [1:00-1:30] Click 2 → Zona cinza
-"A zona cinza — 1,30 a 2,67 — pega 30 a 60% dos pacientes. E a regra, nao a excecao."
+"FIB-4 entre 1,30 e 2,67 — 30 a 60% dos pacientes caem aqui. E a regra, nao a excecao. Proximo passo: elastografia."
 "Baveno VII posiciona o FIB-4 como gateway. Nao como destino."
 PAUSA — olhar para sidebar (calc mostra 5,91).
 "Antonio: AST/ALT >2. O alcool esta inflando. Mas 5,91 ultrapassa qualquer cutoff."

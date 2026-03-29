@@ -2618,14 +2618,14 @@ section#s-a1-01 .slide-inner {
   border-radius: var(--radius-md);
 }
 .fib4-stat--safe {
-  background: color-mix(in oklch, var(--safe) 8%, var(--bg-elevated));
-  border: 1px solid color-mix(in oklch, var(--safe) 20%, transparent);
-  box-shadow: 0 4px 12px color-mix(in oklch, var(--safe) 5%, transparent);
+  background: color-mix(in oklch, var(--safe) 12%, var(--bg-elevated));
+  border: 1px solid color-mix(in oklch, var(--safe) 35%, transparent);
+  box-shadow: 0 4px 12px color-mix(in oklch, var(--safe) 8%, transparent);
 }
 .fib4-stat--danger {
-  background: color-mix(in oklch, var(--danger) 8%, var(--bg-elevated));
-  border: 1px solid color-mix(in oklch, var(--danger) 20%, transparent);
-  box-shadow: 0 4px 12px color-mix(in oklch, var(--danger) 5%, transparent);
+  background: color-mix(in oklch, var(--danger) 12%, var(--bg-elevated));
+  border: 1px solid color-mix(in oklch, var(--danger) 35%, transparent);
+  box-shadow: 0 4px 12px color-mix(in oklch, var(--danger) 8%, transparent);
 }
 .fib4-stat-number {
   font-family: var(--font-display);
@@ -2639,6 +2639,13 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--text-secondary);
+}
+.fib4-operator {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.85em;
+  margin-right: 0.05em;
+  opacity: 0.7;
 }
 
 /* S1: 3 armadilhas práticas */
