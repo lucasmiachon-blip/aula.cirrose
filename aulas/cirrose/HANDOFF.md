@@ -5,9 +5,9 @@
 
 ---
 
-## Estado — 2026-03-28
+## Estado — 2026-03-29
 
-**Slides:** 43 buildados · 5 DONE · 1 SYNCED · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
+**Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + guard-product-files. Docs: `.claude/hooks/README.md`.
 **QA pipeline:** `WT-OPERATING.md` §4. Scripts: `qa-batch-screenshot.mjs` + `gemini-qa3.mjs`.
@@ -28,14 +28,14 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | SYNCED | Rewrite 28/mar: 4 states, VPN/VPP, hero 5.91, checkpoint conduta. |
+| 6 | s-a1-fib4 | QA | Gate 0 PASS. Gate 4 R2 score 6.0/10. P1-P5 implementados (surface card, serif, cutoffs, autoAlpha, split-cards). Proximo: Gate 4 R3 com --ref-slide. |
 | 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 5 DONE · 1 SYNCED · 37 CONTENT (43 total)
-**Proximo:** s-a1-fib4 → QA pipeline (screenshot → Gate 0 → Gate 4). Depois: s-a1-damico.
+**Resumo:** 5 DONE · 1 QA · 37 CONTENT (43 total)
+**Proximo:** s-a1-fib4 Gate 4 R3 (com --ref-slide s-a1-baveno + 3 CSS cascade). Depois: s-a1-damico.
 **Research tooling:** `content-research.mjs` prompt v2 (patient anchor dinamico, genealogia obrigatoria, divergencia guidelines). Templates: `docs/prompts/mcp-research-queries.md`.
 **Script robustez (28/mar):** Todos scripts Gemini/Playwright tem: retry 429/5xx, --help, throw em vez de process.exit, console error capture em metrics.json. Gate 0 usa responseMimeType JSON (sem fence-strip). Playwright scripts: browser try/finally + video().saveAs() (sem renameSync race).
 
@@ -48,16 +48,19 @@
 
 ---
 
-## Proxima sessao — s-a1-fib4 QA
+## Proxima sessao — s-a1-fib4 Gate 4 R3
 
-**Estado:** SYNCED (rewrite 28/mar). 4 states, HTML+CSS+Registry+Manifest OK. Build+lint PASS.
-**Tarefa:** QA pipeline (screenshot → Gate 0 → Gate 4).
+**Estado:** QA (Gate 0 PASS, Gate 4 R2 score 6.0/10, P1-P5 implementados 29/mar).
+**Tarefa:** Gate 4 R3 com `--ref-slide s-a1-baveno`. Pendente: ajustar `gemini-qa3.mjs` para enviar 3 CSS cascade (base.css, archetypes.css, cirrose.css) com linhas relevantes.
 
-### O que mudou (28/mar)
-- **H2:** "Modelos Preditivos: FIB-4" (Lucas override de assertion-evidence)
-- **4 states:** S0 formula+cutoffs (auto) → S1 VPN/VPP assimetria (click) → S2 hero 5.91 countUp (click) → S3 checkpoint "Qual proxima conduta?" + "Elastografia obrigatoria" (click)
-- **Labs no sidebar apenas:** Valores do paciente no card lateral + calculadora. Slide body = conceitos + resultado + decisao.
-- **Stages layout:** Absolute stacking (`.fib4-stages > .fib4-stage`) — conteudo transiciona sem acumular.
+### O que mudou (29/mar — P1-P5 Gate 4 R2)
+- **P1 [MUST]:** Stages container: absolute stacking → CSS Grid (`grid-area: 1/1`) + surface card (`--bg-elevated`, border, shadow)
+- **P2 [SHOULD]:** Formula serif (`--font-display`), mandate `--text-h1` + `--danger`, question uppercase
+- **P3 [SHOULD]:** Cutoff bars: fundo colorido → fundo neutro (`--bg-surface`) + accent border left 6px
+- **P4 [MUST]:** GSAP: `opacity` → `autoAlpha` (pointer-events), Y-axis transforms, countUp `expo.out` 1.8s
+- **P5 [RADICAL]:** VPN/VPP: flex → grid 2-col, fundo colorido → surface card + border-top 4px semântica
+- **panelState:** visibleFields expandido para 7 labs (AST, ALT, PLQ, Albumina, Bili, INR, FIB-4) — paralelismo com slides anteriores
+- **Failsafe:** no-js/stage-bad: `position: static` → `display: flex; flex-direction: column` (compatível com grid)
 - **FIB-9 e FIB-3:** Ficaram em evidence-db + content-research.md. PMIDs nao verificados.
 
 ### Melhorias no pipeline de pesquisa (aplicaveis a proximos slides)

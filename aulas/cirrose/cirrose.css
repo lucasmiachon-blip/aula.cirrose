@@ -2565,35 +2565,44 @@ section#s-a1-01 .slide-inner {
 
 /* ═══ s-a1-fib4 ═══ */
 
-/* Formula — persistent, dims after S0 */
+/* Formula — persistent, dims after S0 (P2: serif editorial) */
 .fib4-formula {
   text-align: center;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 .fib4-formula-text {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--text-h2);
   color: var(--text-primary);
   letter-spacing: 0.02em;
 }
 
-/* Stages container — absolute stacking */
+/* Stages container — grid stacking + surface card (P1) */
 .fib4-stages {
-  position: relative;
+  display: grid;
+  place-items: center;
   flex: 1;
   width: 100%;
+  max-width: 800px;
+  min-height: 280px;
+  margin: 0 auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-lg);
+  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.06);
 }
 .fib4-stage {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0;
+  width: 100%;
 }
 
-/* S0: Cutoff semáforo */
+/* S0: Cutoff semáforo (P3: neutral bg + accent border) */
 .fib4-cutoffs {
   gap: var(--space-sm);
   max-width: min(600px, 100%);
@@ -2602,48 +2611,54 @@ section#s-a1-01 .slide-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
   width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-left-width: 6px;
 }
 .fib4-cutoff-val {
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: var(--text-h3);
   min-width: 8ch;
+  color: var(--text-primary);
 }
 .fib4-cutoff-lbl {
   font-size: var(--text-body);
+  color: var(--text-secondary);
 }
-.fib4-cutoff--safe    { background: oklch(from var(--safe) l c h / 0.15); border-left: 4px solid var(--safe); }
-.fib4-cutoff--warning { background: oklch(from var(--warning) l c h / 0.15); border-left: 4px solid var(--warning); }
-.fib4-cutoff--danger  { background: oklch(from var(--danger) l c h / 0.15); border-left: 4px solid var(--danger); }
+.fib4-cutoff--safe    { border-left-color: var(--safe); }
+.fib4-cutoff--warning { border-left-color: var(--warning); }
+.fib4-cutoff--danger  { border-left-color: var(--danger); }
 
-/* S1: VPN/VPP asymmetry */
+/* S1: VPN/VPP asymmetry (P5: split-cards) */
 .fib4-asymmetry {
   gap: var(--space-md);
 }
 .fib4-stat-row {
-  display: flex;
-  gap: var(--space-lg);
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  width: 100%;
 }
 .fib4-stat {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-lg);
   border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
 }
 .fib4-stat--safe {
-  background: oklch(from var(--safe) l c h / 0.12);
-  border: 2px solid var(--safe);
+  border-top: 4px solid var(--safe);
 }
 .fib4-stat--danger {
-  background: oklch(from var(--danger) l c h / 0.12);
-  border: 2px solid var(--danger);
+  border-top: 4px solid var(--danger);
 }
 .fib4-stat-number {
   font-family: var(--font-display);
@@ -2679,25 +2694,33 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-body);
 }
 
-/* S3: Decision checkpoint */
+/* S3: Decision checkpoint (P2: dramatic mandate) */
 .fib4-question {
   font-family: var(--font-body);
-  font-size: var(--text-h3);
+  font-size: var(--text-body);
   color: var(--text-secondary);
-  margin: 0 0 var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 var(--space-md);
 }
 .fib4-mandate {
   font-family: var(--font-display);
-  font-size: var(--text-h2);
+  font-size: var(--text-h1);
   color: var(--danger);
   text-align: center;
+  letter-spacing: -0.02em;
   margin: 0;
 }
 
 /* Failsafe: no-js / stage-bad */
+.no-js .fib4-stages,
+.stage-bad .fib4-stages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
 .no-js .fib4-stage,
 .stage-bad .fib4-stage {
-  position: static;
   opacity: 1 !important;
 }
 .no-js .fib4-mandate,

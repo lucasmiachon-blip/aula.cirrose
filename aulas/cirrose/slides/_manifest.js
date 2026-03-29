@@ -92,8 +92,8 @@ export const panelStates = {
   },
   's-a1-fib4': {
     severity: 'neutral',
-    values: { fib4: '5,91', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
-    visibleFields: ['fib4', 'plq', 'albumin', 'stage'],
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '—', meld: '—', stage: '?' },
+    visibleFields: ['fib4', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
     calc: 'fib4',
   },
