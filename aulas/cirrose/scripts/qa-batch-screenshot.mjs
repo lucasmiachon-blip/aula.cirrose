@@ -212,6 +212,73 @@ async function measureElements(page, slideId) {
   }, slideId);
 }
 
+// --- Automated front-end checks (run against S0 metrics) ---
+// Archetypes exempt from standard checks (no h2, special fill ratios)
+const EXEMPT_ARCHETYPES = new Set(['title', 'hook', 'recap']);
+
+function runChecks(metrics, slide, slideConsoleErrors) {
+  const checks = [];
+  const m = metrics?.computed || {};
+  const els = metrics?.elements || {};
+
+  // C1: Body word count > 30 (Hard Constraint #10)
+  if (m.bodyWordCount != null && m.bodyWordCount > 30) {
+    checks.push({ id: 'C1', rule: 'bodyWordCount<=30', status: 'FAIL', value: m.bodyWordCount, msg: `Body has ${m.bodyWordCount} words (max 30)` });
+  } else if (m.bodyWordCount != null) {
+    checks.push({ id: 'C1', rule: 'bodyWordCount<=30', status: 'PASS', value: m.bodyWordCount });
+  }
+
+  // C2: Fill ratio thresholds (skip exempt archetypes)
+  if (m.fillRatio != null && !EXEMPT_ARCHETYPES.has(slide.archetype)) {
+    if (m.fillRatio > 0.95) {
+      checks.push({ id: 'C2', rule: 'fillRatio<=0.95', status: 'FAIL', value: m.fillRatio, msg: 'Content overflows slide area' });
+    } else if (m.fillRatio < 0.25) {
+      checks.push({ id: 'C2', rule: 'fillRatio>=0.25', status: 'WARN', value: m.fillRatio, msg: 'Very low fill ratio — slide may look empty' });
+    } else {
+      checks.push({ id: 'C2', rule: 'fillRatio', status: 'PASS', value: m.fillRatio });
+    }
+  }
+
+  // C3: h2 present (assertion-evidence, skip exempt archetypes)
+  if (!EXEMPT_ARCHETYPES.has(slide.archetype)) {
+    if (!els.h2) {
+      checks.push({ id: 'C3', rule: 'h2Present', status: 'FAIL', msg: 'Missing h2 — assertion-evidence requires clinical assertion' });
+    } else {
+      checks.push({ id: 'C3', rule: 'h2Present', status: 'PASS' });
+      // C4: h2 line count
+      if (els.h2.lines > 2) {
+        checks.push({ id: 'C4', rule: 'h2Lines<=2', status: 'WARN', value: els.h2.lines, msg: `h2 wraps to ${els.h2.lines} lines (max 2)` });
+      } else {
+        checks.push({ id: 'C4', rule: 'h2Lines<=2', status: 'PASS', value: els.h2.lines });
+      }
+    }
+  }
+
+  // C5: Console JS errors
+  if (slideConsoleErrors && slideConsoleErrors.length > 0) {
+    checks.push({ id: 'C5', rule: 'noConsoleErrors', status: 'FAIL', value: slideConsoleErrors.length, msg: `${slideConsoleErrors.length} JS error(s): ${slideConsoleErrors[0].slice(0, 80)}` });
+  } else {
+    checks.push({ id: 'C5', rule: 'noConsoleErrors', status: 'PASS' });
+  }
+
+  // C6: Panel overlap
+  if (m.hasPanelOverlap === true) {
+    checks.push({ id: 'C6', rule: 'noPanelOverlap', status: 'FAIL', msg: `Content right (${m.contentRight}px) exceeds panel left (${m.panelRight}px)` });
+  } else if (m.hasPanelOverlap === false) {
+    checks.push({ id: 'C6', rule: 'noPanelOverlap', status: 'PASS' });
+  }
+
+  // C7: Source tag present (for data-heavy archetypes)
+  const DATA_ARCHETYPES = new Set(['hero-stat', 'metrics', 'bars', 'compare', 'table', 'timeline', 'flow']);
+  if (DATA_ARCHETYPES.has(slide.archetype) && !m.hasSourceTag) {
+    checks.push({ id: 'C7', rule: 'sourceTagPresent', status: 'WARN', msg: 'Data-heavy slide missing .source-tag citation' });
+  }
+
+  const failCount = checks.filter(c => c.status === 'FAIL').length;
+  const warnCount = checks.filter(c => c.status === 'WARN').length;
+  return { checks, failCount, warnCount, passAll: failCount === 0 };
+}
+
 async function main() {
   const browser = await chromium.launch({ headless: true });
   try {
@@ -292,13 +359,24 @@ async function main() {
       console.log(`  → S2 (final) captured`);
     }
 
-    // Save metrics (P7: include console errors if any)
+    // Save metrics + automated checks (P7: include console errors if any)
     const slideConsoleErrors = consoleErrors.length > 0 ? [...consoleErrors] : undefined;
     consoleErrors.length = 0; // reset for next slide
+    const checkResult = runChecks(metrics, slide, slideConsoleErrors);
     writeFileSync(
       join(slideDir, 'metrics.json'),
-      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states, ...(slideConsoleErrors && { consoleErrors: slideConsoleErrors }) }, null, 2)
+      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states, checks: checkResult.checks, failCount: checkResult.failCount, warnCount: checkResult.warnCount, ...(slideConsoleErrors && { consoleErrors: slideConsoleErrors }) }, null, 2)
     );
+
+    // Print check results inline
+    if (checkResult.failCount > 0 || checkResult.warnCount > 0) {
+      for (const c of checkResult.checks) {
+        if (c.status === 'FAIL') console.log(`  ✗ [FAIL] ${c.id} ${c.rule}: ${c.msg}`);
+        else if (c.status === 'WARN') console.log(`  ⚠ [WARN] ${c.id} ${c.rule}: ${c.msg}`);
+      }
+    } else {
+      console.log(`  All checks PASS`);
+    }
 
     // Record video (--video flag, fresh context per slide)
     let hasVideo = false;
@@ -335,16 +413,41 @@ async function main() {
       }
     }
 
-    results.push({ id: slide.id, states: states.length, video: hasVideo, path: slideDir });
+    results.push({ id: slide.id, states: states.length, video: hasVideo, path: slideDir, checks: checkResult });
     console.log(`  ✓ ${states.length} state(s)${hasVideo ? ' + video' : ''} captured\n`);
   }
+
+  // Batch manifest — structured output for pipeline integration
+  const totalFails = results.reduce((a, r) => a + r.checks.failCount, 0);
+  const totalWarns = results.reduce((a, r) => a + r.checks.warnCount, 0);
+  const manifest = {
+    runDate: DATE_STAMP,
+    runTime: TIME_STAMP,
+    act: SINGLE_SLIDE || ACT_FILTER,
+    slides: results.map(r => ({
+      slideId: r.id,
+      states: r.states,
+      hasVideo: r.video,
+      failCount: r.checks.failCount,
+      warnCount: r.checks.warnCount,
+      passAll: r.checks.passAll,
+    })),
+    totalSlides: results.length,
+    totalFails,
+    totalWarns,
+    allPass: totalFails === 0,
+  };
+  writeFileSync(join(OUT_BASE, 'batch-manifest.json'), JSON.stringify(manifest, null, 2));
 
   // Summary
   console.log('=== Summary ===');
   for (const r of results) {
-    console.log(`${r.id}: ${r.states} states → ${r.path}`);
+    const tag = r.checks.passAll ? '✓' : `✗ ${r.checks.failCount}F/${r.checks.warnCount}W`;
+    console.log(`${r.id}: ${r.states} states [${tag}] → ${r.path}`);
   }
   console.log(`\nTotal: ${results.length} slides, ${results.reduce((a, r) => a + r.states, 0)} screenshots`);
+  console.log(`Checks: ${totalFails} FAIL, ${totalWarns} WARN${totalFails === 0 ? ' — all pass' : ' — see batch-manifest.json'}`);
+  console.log(`Manifest: qa-screenshots/batch-manifest.json`);
   } finally {
     await browser.close();
   }

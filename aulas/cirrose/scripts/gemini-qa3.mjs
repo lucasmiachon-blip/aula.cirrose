@@ -473,6 +473,18 @@ async function runGate0(slideId, qaDir) {
   writeFileSync(outPath, JSON.stringify(gate0Result, null, 2));
   console.log(`\n2. Result saved -> ${outPath}`);
 
+  // Pipeline summary — lightweight status for orchestration
+  const summary = {
+    slideId,
+    runDate: new Date().toISOString(),
+    must_pass: gate0Result.must_pass ?? null,
+    should_pass: gate0Result.should_pass ?? null,
+    blocksGate4: gate0Result.must_pass === false,
+    model: MODEL,
+  };
+  writeFileSync(join(qaDir, 'gate0-summary.json'), JSON.stringify(summary, null, 2));
+  console.log(`   Summary -> gate0-summary.json`);
+
   // Report
   if (gate0Result.must_pass === false) {
     console.log(`\n  GATE 0 FAIL — ${slideId}`);

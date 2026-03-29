@@ -118,6 +118,9 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | WT-OPERATING.md | → gemini-gate0-inspector.md, AUDIT-VISUAL.md, HANDOFF.md | ← CLAUDE.md, HANDOFF.md |
 | scripts/gemini-qa3.mjs | → gate0-inspector.md, error-digest.md, _manifest.js, cirrose.css, slide-registry.js | ← WT-OPERATING.md, CLAUDE.md |
 | scripts/qa-batch-screenshot.mjs | → _manifest.js, qa-screenshots/ | ← WT-OPERATING.md §4 QA.3, CLAUDE.md §QA Pipeline |
+| references/evidence-db.md | Dados clinicos canonicos — PMID verificados, tabela por slide | ← CLAUDE.md (#2 authority), WT-OPERATING.md §4 QA.1, guard-evidence-db.sh |
+| references/narrative.md | Arco narrativo, tensionLevel, narrativeRole, pacing | ← CLAUDE.md (#3 authority), lint:narrative-sync, _manifest.js |
+| references/CASE.md | Dados canonicos do paciente Antonio (labs, inputs) | ← CLAUDE.md (#1 authority), lint:case-sync, slide-registry.js panelStates |
 | qa-rounds/{slideId}.md | (append-only — gitignored, round context per slide) | ← gemini-qa3.mjs |
 
 ---
@@ -129,7 +132,10 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Operacional (stack, regras, workflow) | CLAUDE.md | — |
 | Tokens OKLCH | .claude/rules/design-reference.md §1 | aulas/cirrose/shared/css/base.css :root |
 | Erros CSS | .claude/rules/slide-rules.md §8 | — |
-| Dados médicos | .claude/rules/design-reference.md §5 | — |
+| Dados médicos (regras) | .claude/rules/design-reference.md §5 | — |
+| Dados médicos (por slide) | aulas/cirrose/references/evidence-db.md | .claude/rules/design-reference.md §5 |
+| Arco narrativo | aulas/cirrose/references/narrative.md | HANDOFF.md (slide table) |
+| Dados do paciente (caso) | aulas/cirrose/references/CASE.md | — |
 | Animações GSAP | .claude/rules/slide-rules.md §9 | aulas/cirrose/shared/js/engine.js |
 | Deck.js patterns (ativo) | .claude/rules/slide-rules.md §1-6 | — |
 | Assertion-Evidence | .claude/rules/slide-rules.md §2 | design-reference.md §4 |

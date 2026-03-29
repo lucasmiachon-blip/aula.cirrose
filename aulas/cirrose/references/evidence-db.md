@@ -206,13 +206,21 @@
 | s-a2-04 | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
 | s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
 | s-a1-classify | Mortalidade por estagio D'Amico + further decomp. PREDESCI callout removido (movido p/ baveno 26/mar) | D'Amico 2006 (PMID 16298014) |
+| s-a1-damico | Evolucao D'Amico 2006→2024: 4→5→6 estagios, further decomp, mortalidade 1%→57% | D'Amico 2006 (PMID 16298014) + D'Amico 2024 (PMID 37916970) |
 | s-a1-baveno | Paradigma cACLD/dACLD + PREDESCI HR 0,51 (IC 0,26-0,97) descomp 3a | Baveno VII (PMID 35120736) + PREDESCI (PMID 30910320) |
-| s-a2-01 | **NSBBs** HR 0,51 (nao carvedilol isolado), NNT 9, dose carvedilol 6,25->12,5 mg | PREDESCI (PMID 30910320) |
-| s-a2-02 | Early TIPS 72h: sobrevida 86% vs 61% | Garcia-Pagan (PMID 20573925) |
-| s-a2-03 | Albumina: Sort NNT 5, ANSWER NNT 9, ATTIRE NNT infinito | PMIDs 10432325, 29861076, 33657293 |
-| s-a2-04 | PBE: PMN >=250 = tratar | EASL CPG 2024 |
-| s-a2-05 | HRS-AKI: terlipressina NNT 7 / NNH 12 (corrigido) | CONFIRM (PMID 33657294) |
-| s-a2-06 | Encefalopatia: rifaximina NNT 4 | Bass (PMID 20335583) |
+| s-a2-01 | Gatilhos descomp: infeccao (33%), alcool, nao-adesao | PREDICT (PMID 32673741) + EASL CPG 2024 |
+| s-a2-02 | Ascite DX: GASA >1,1 confirma hipertensao portal | EASL CPG 2024 |
+| s-a2-03 | Ascite manejo: espironolactona 100→400 + furosemida 40→160, restricao Na <2g/d | EASL CPG 2024 |
+| s-a2-06 | HDA varicosa: vasoativo + EDA <12h + ATB profilatico | EASL CPG 2024 + BAVENO VII (PMID 35120736) |
+| s-a2-07 | **NSBBs** HR 0,51 (nao carvedilol isolado), NNT 9, dose carvedilol 6,25->12,5 mg | PREDESCI (PMID 30910320) |
+| s-a2-15 | Early TIPS 72h: sobrevida 86% vs 61% | Garcia-Pagan (PMID 20573925) |
+| s-app-alb | Albumina: Sort NNT 5, ANSWER NNT 9, ATTIRE NNT infinito | PMIDs 10432325, 29861076, 33657293 |
+| s-a2-05 | PBE: PMN >=250 = tratar | EASL CPG 2024 |
+| s-a2-11 | HRS-AKI: terlipressina NNT 7 / NNH 12 (corrigido) | CONFIRM (PMID 33657294) |
+| s-a2-12 | Ascite refrataria: criterios ICA, paracentese + albumina 8g/L | EASL CPG 2024 |
+| s-a2-08 | Encefalopatia: rifaximina NNT 4 | Bass (PMID 20335583) |
+| s-a2-09 | Sarcopenia: prevalencia alta em cirrose, mortalidade independente de MELD | [TBD SOURCE] |
+| s-a2-10 | MELD >15: iniciar avaliacao para transplante | EASL CPG 2024 |
 | s-a3-01 | Bridge: cura etiologica reduz decomp/mortalidade | Tonon 2023 (PMID 37190823), n=622 |
 | s-a3-02 | Recompensacao: Baveno VII definicao estrita (7%) | PMID 35120736 + Tonon 2025 PMID 40228583 |
 | s-a3-03 | Expandido 37,6% vs estrito 7% | Tonon 2025 (PMID 40228583) |
@@ -228,6 +236,9 @@
 | s-a2-14 | SHP: PaO2 **<=80** + A-a gradient **>=15** vs PPH: mPAP >25 (corrigido: <= e >=, nao < e >) | Rodriguez-Roisin 2004 (PMID 15084697) |
 | s-app-07 | Estatina adjuvante: HVPG -2 mmHg | LIVERHOPE (PMID [CANDIDATE — VERIFICAR VIA MCP]) |
 | s-app-08 | CIRROXABAN 2025: p=0,058 NS | CIRROXABAN (PMID [NOT INDEXED — searched 2026-03-07]) |
+
+> **Slides sem row intencional:** s-title (display-only), s-hook (labs de CASE.md, sem clinical assertion propria), s-cp1/s-cp2/s-cp3 (checkpoints interativos, dados cumulativos do caso), s-close (fechamento narrativo). Esses slides nao projetam dados clinicos novos — conferir CASE.md para valores baseline.
+> **IDs corrigidos 29/mar/2026:** 6 rows renomeados (s-a2-01→07, s-a2-02→15, s-a2-03→app-alb, s-a2-04→05, s-a2-05→11, s-a2-06→08) + 8 rows adicionados (s-a1-damico, s-a2-01/02/03/06/09/10/12) apos rewrite Ato 2 em 08/mar.
 
 ## Screening cACLD — Rastreamento Primario
 

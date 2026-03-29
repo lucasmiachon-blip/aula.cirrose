@@ -10,14 +10,19 @@
 
 ```bash
 git log --oneline -5 && git status
-cat aulas/cirrose/HANDOFF.md | head -40
+cat aulas/cirrose/HANDOFF.md | head -55
+```
+
+Se HANDOFF menciona slide em QA → ler tambem o contexto profundo:
+```bash
+cat aulas/cirrose/NEXT-SESSION.md | head -30
 ```
 
 Responder ANTES de qualquer trabalho:
 
 1. **Qual slide esta em andamento?** (ver tabela de estados no HANDOFF)
 2. **Qual estado ele esta?** (BACKLOG/DRAFT/CONTENT/SYNCED/LINT-PASS/QA/DONE)
-3. **O que falta para avancar ao proximo estado?**
+3. **O que falta para avancar ao proximo estado?** (se QA → ver NEXT-SESSION.md para passos)
 4. **Se tem slide em andamento → terminar ANTES de comecar outro.**
 
 Se nenhum slide em andamento → propor o proximo do caminho critico ao usuario.
@@ -37,7 +42,7 @@ BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE
 | CONTENT | Conteudo completo, dados verificados | Sincronizar 9 superficies (secao 7) |
 | SYNCED | HTML + manifest + narrative + CSS alinhados | `npm run lint:slides` + `npm run lint:narrative-sync` PASS |
 | LINT-PASS | Lints PASS | Submeter a QA (secao 4) |
-| QA | Em revisao (5 sub-stages) | Todos sub-stages PASS |
+| QA | Em revisao (6 stages: QA.0→QA.1→QA.2→Gate 0→QA.3→QA.4) | Todos stages PASS |
 | DONE | QA PASS + docs atualizados + commit | Nada — slide fechado |
 
 ### Regras de transicao
@@ -114,7 +119,7 @@ Entrar no QA loop (secao 4). Nao ha checklist — e o loop inteiro.
 
 ## 4. QA Sub-Loop (dentro do estado QA)
 
-5 sub-stages, **6 checkpoints humanos** (QA.4 tem checkpoint antes de DONE). Agente NAO avanca sem OK do Lucas.
+6 stages, **6 checkpoints humanos** (QA.4 tem checkpoint antes de DONE). Agente NAO avanca sem OK do Lucas.
 
 ```
 QA.0 CONTENT AUDIT
@@ -298,7 +303,10 @@ Auto-extrai HTML/CSS/JS dos arquivos (E42). Video enviado se existe no disco.
 Output: `qa-screenshots/{slide-id}/gemini-qa3-rN.md`. Round context: `qa-rounds/{slideId}.md`.
 Gemini declara recibo dos materiais (video, PNGs, raw code) na primeira linha da resposta.
 
-**Output:** Recibo + Scorecard (7 dims) + Propostas (1-5, code-first) do Gemini + interpretacao do agente.
+**Output:** Recibo + Scorecard + Propostas (1-5, code-first) do Gemini + interpretacao do agente.
+
+> **Gate 4 v2.0** (expandido 29/mar/2026): 11 dimensoes (era 7). CSS analysis obrigatoria: cascade trace, dead CSS, specificity conflicts, failsafes, GSAP vs CSS race. JSON estruturado no output. Prompt: `docs/prompts/gemini-gate4-editorial.md`.
+
 **→ CHECKPOINT:** apresentar ao Lucas. Lucas aprova/rejeita sugestoes Gemini individualmente.
 
 ### QA.4 — Fix + Re-Audit

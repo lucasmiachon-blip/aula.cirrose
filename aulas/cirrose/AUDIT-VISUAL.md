@@ -5,7 +5,7 @@
 > Rubrica: **14 dimensoes**, scoring 1-10 (min 9 para PASS).
 > Metodo: Playwright screenshot 1280x720 por estado (S0..SN) + constraint check + checklist.
 > Referencia: AASLD/EASL Postgraduate Course slides + Duarte Sparkline + Sweller CLT + Knowles.
-> Atualizado: 2026-03-17 — rubrica 14 dimensoes (H/T/E/C/V/K/S/M/I/D/A/L/P/N). Expandida em 14/mar.
+> Atualizado: 2026-03-29 — rubrica 14 dimensoes (H/T/E/C/V/K/S/M/I/D/A/L/P/N). Expandida em 14/mar.
 
 ---
 
@@ -106,8 +106,8 @@ Gemini so sugere — Opus executa fix. Spec completa: `WT-OPERATING.md` §4 QA.3
 
 ## Act 1 — QA Loop 1 (baseline 14/mar, atualizado 17/mar)
 
-**Status QA (este doc):** 1 DONE (s-title, QA 5-stage PASS 18/mar), 1 PASS archetype-adjusted (s-hook, dims >= 8), restante em scoring.
-**Status maquina de estados (HANDOFF/WT-OPERATING):** 1 DONE (s-title), 3 LINT-PASS (s-hook, s-a1-01, s-a1-classify), 7 CONTENT.
+**Status QA (este doc):** 5 DONE (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno), 1 QA (s-a1-fib4 — reescrito 29/mar, scorecard STALE), 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
+**Status maquina de estados (HANDOFF/WT-OPERATING):** 5 DONE, 1 QA (s-a1-fib4), 37 CONTENT. Ver HANDOFF.md para estado completo.
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
 Metodo: Playwright Chromium headless 1280x720 · qa-batch-screenshot.mjs (por ato/slide)
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
@@ -359,11 +359,11 @@ Obs: (1) Unico slide com N=9 — checkpoint fecha o arco narrativo. (2) ~~Inline
 ### Resumo de padres recorrentes
 
 **Dimensoes fortes (>=8 na maioria):**
-- **D (Dados clinicos):** 9 em 9/11 slides. PMIDs Tier-1 verificados. [DATA] tags em notes. Zero [TBD] projetado.
-- **C (Cor & Contraste):** 8 em 11/11. var() tokens. Cores semanticas. Icones daltonismo.
+- **D (Dados clinicos):** 9 em 9/10 slides. PMIDs Tier-1 verificados. [DATA] tags em notes. Zero [TBD] projetado.
+- **C (Cor & Contraste):** 8 em 10/10. var() tokens. Cores semanticas. Icones daltonismo.
 - **K (Consistencia):** 8 em 9/10. Archetypes reutilizados. Excecao: s-hook (custom).
-- **I (Interacoes):** 8-9 em 11/11. Todas interacoes testadas. ERRO-033 corrigido.
-- **N (Arco narrativo):** 8 em 10/11, 9 em s-cp1. Headlines conferem com narrative.md.
+- **I (Interacoes):** 8-9 em 10/10. Todas interacoes testadas. ERRO-033 corrigido.
+- **N (Arco narrativo):** 8 em 9/10, 9 em s-cp1. Headlines conferem com narrative.md.
 
 **Dimensoes fracas (<7 em 2+ slides):**
 - **E (Espaco & Layout):** 4 em 2 slides (s-title=4, s-hook=4 intencional). s-a1-damico corrigido 4→7, s-a1-01 corrigido 6→7.
@@ -385,7 +385,7 @@ Agente: Claude Code (Opus 4.6) · Sessao: 10/mar/2026 (rodada 3 — hardening + 
 Metodo: Playwright Chromium headless 1280x720 · navegacao real ArrowRight · 27 screenshots
 Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 
-### Resultado consolidado por slide (11)
+### Resultado consolidado por slide (10)
 
 | # | ID | Status | Problema principal | Sev |
 |---|-----|--------|-------------------|-----|
@@ -443,7 +443,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 
 **R3 fechado.** ERRO-022 (vote nunca testado) agora resolvido.
 
-### Checklist estrutural (todos 11 slides)
+### Checklist estrutural (todos 10 slides)
 
 - [x] `<h2>` e assercao clinica (nao rotulo generico)
 - [x] Sem `<ul>` ou `<ol>` no slide
@@ -453,7 +453,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 - [x] Background via `data-background-color` com HEX literal ~~(s-title usa var())~~ ✅ ERRO-031 corrigido
 - [x] Sem CDN links
 - [x] Build + lint:slides + lint:case-sync + lint:narrative-sync PASS
-- [x] Navegacao ArrowRight funciona em todos 11 slides
+- [x] Navegacao ArrowRight funciona em todos 10 slides
 - [x] Case panel progride corretamente
 - [x] Zero erros de console
 - [x] Zero emojis em slides projetados ~~(s-a1-meld tem 🟢🟡🟠🔴)~~ ✅ ERRO-030 corrigido
