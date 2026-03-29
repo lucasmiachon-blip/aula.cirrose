@@ -266,24 +266,16 @@ async function captureAtViewport(browser, vp) {
     return result;
   }, SLIDE_ID);
 
-  // Close page — Playwright saves video on context close
+  // saveAs waits for ffmpeg flush — no race condition vs renameSync
   await page.close();
   const video = page.video();
   let videoPath = null;
   if (video) {
-    const rawPath = await video.path();
     videoPath = join(OUT_DIR, `animation-${vp.label}.webm`);
-    // Rename video after context closes
-    await context.close();
-    // Move video from temp name to final name
-    const { renameSync, existsSync } = await import('node:fs');
-    if (existsSync(rawPath)) {
-      renameSync(rawPath, videoPath);
-      console.log(`  Video saved → ${videoPath}`);
-    }
-  } else {
-    await context.close();
+    await video.saveAs(videoPath);
+    console.log(`  Video saved → ${videoPath}`);
   }
+  await context.close();
 
   return { viewport: vp.label, s0: s0Path, s1: s1Path, s2: s2Path, video: videoPath, metrics };
 }
@@ -295,14 +287,13 @@ async function main() {
   console.log(`Port: ${PORT} | Output: ${OUT_DIR}`);
 
   const browser = await chromium.launch({ headless: true });
+  try {
   const results = [];
 
   for (const vp of VIEWPORTS) {
     const r = await captureAtViewport(browser, vp);
     if (r) results.push(r);
   }
-
-  await browser.close();
 
   // Save combined metrics
   if (results.length > 0) {
@@ -330,9 +321,12 @@ async function main() {
     }
   }
   console.log(`\nTotal: ${results.length * 3} screenshots + ${results.length} videos`);
+  } finally {
+    await browser.close();
+  }
 }
 
 main().catch(err => {
   console.error(err);
-  process.exit(1);
+  process.exitCode = 1;
 });

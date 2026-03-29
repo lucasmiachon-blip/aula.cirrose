@@ -24,7 +24,7 @@
  */
 
 import { chromium } from 'playwright';
-import { mkdirSync, writeFileSync, readdirSync, unlinkSync, renameSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -214,6 +214,7 @@ async function measureElements(page, slideId) {
 
 async function main() {
   const browser = await chromium.launch({ headless: true });
+  try {
   // P3: Screenshots use 2x scale (retina) for text legibility analysis.
   // Video uses 1x to keep .webm under 20MB for Gemini inlineData.
   const context = await browser.newContext({
@@ -303,32 +304,34 @@ async function main() {
     let hasVideo = false;
     if (RECORD_VIDEO) {
       console.log(`  Recording video...`);
-      const videoCtx = await browser.newContext({
-        viewport: { width: 1280, height: 720 },
-        deviceScaleFactor: 1,
-        recordVideo: { dir: slideDir, size: { width: 1280, height: 720 } },
-      });
-      const videoPage = await videoCtx.newPage();
-      await videoPage.goto(PAGE_URL, { waitUntil: 'networkidle' });
-      await videoPage.waitForTimeout(1000);
-      // Navigate and play through
-      await videoPage.evaluate(idx => window.__deckGoTo(idx), targetIndex);
-      await videoPage.waitForTimeout(slide.customAnim ? 4500 : 1500);
-      if (slide.clickReveals > 0) {
-        for (let beat = 1; beat <= slide.clickReveals; beat++) {
-          await videoPage.keyboard.press('ArrowRight');
-          await videoPage.waitForTimeout(1000);
+      let videoCtx;
+      try {
+        videoCtx = await browser.newContext({
+          viewport: { width: 1280, height: 720 },
+          deviceScaleFactor: 1,
+          recordVideo: { dir: slideDir, size: { width: 1280, height: 720 } },
+        });
+        const videoPage = await videoCtx.newPage();
+        await videoPage.goto(PAGE_URL, { waitUntil: 'networkidle' });
+        await videoPage.waitForTimeout(1000);
+        // Navigate and play through
+        await videoPage.evaluate(idx => window.__deckGoTo(idx), targetIndex);
+        await videoPage.waitForTimeout(slide.customAnim ? 4500 : 1500);
+        if (slide.clickReveals > 0) {
+          for (let beat = 1; beat <= slide.clickReveals; beat++) {
+            await videoPage.keyboard.press('ArrowRight');
+            await videoPage.waitForTimeout(1000);
+          }
         }
-      }
-      await videoPage.waitForTimeout(500);
-      const rawVideoPath = await videoPage.video().path();
-      await videoCtx.close();
-      // Rename to canonical name
-      const destVideo = join(slideDir, 'animation-1280x720.webm');
-      if (existsSync(rawVideoPath)) {
-        renameSync(rawVideoPath, destVideo);
+        await videoPage.waitForTimeout(500);
+        // saveAs waits for ffmpeg flush — no race condition vs renameSync
+        const destVideo = join(slideDir, 'animation-1280x720.webm');
+        await videoPage.close();
+        await videoPage.video().saveAs(destVideo);
         hasVideo = true;
         console.log(`  Video: animation-1280x720.webm`);
+      } finally {
+        if (videoCtx) await videoCtx.close().catch(() => {});
       }
     }
 
@@ -336,17 +339,18 @@ async function main() {
     console.log(`  ✓ ${states.length} state(s)${hasVideo ? ' + video' : ''} captured\n`);
   }
 
-  await browser.close();
-
   // Summary
   console.log('=== Summary ===');
   for (const r of results) {
     console.log(`${r.id}: ${r.states} states → ${r.path}`);
   }
   console.log(`\nTotal: ${results.length} slides, ${results.reduce((a, r) => a + r.states, 0)} screenshots`);
+  } finally {
+    await browser.close();
+  }
 }
 
 main().catch(err => {
   console.error(err);
-  process.exit(1);
+  process.exitCode = 1;
 });

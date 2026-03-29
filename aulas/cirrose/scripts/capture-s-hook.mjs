@@ -164,14 +164,13 @@ async function main() {
   console.log(`Port: ${PORT} | Output: ${OUT_DIR}`);
 
   const browser = await chromium.launch({ headless: true });
+  try {
   const results = [];
 
   for (const vp of VIEWPORTS) {
     const r = await captureAtViewport(browser, vp);
     if (r) results.push(r);
   }
-
-  await browser.close();
 
   // Save combined metrics
   if (results.length > 0) {
@@ -195,9 +194,12 @@ async function main() {
     console.log(`${r.viewport}: S0 + S1 → ${OUT_DIR}`);
   }
   console.log(`\nTotal: ${results.length * 2} screenshots (${results.length} viewports × 2 states)`);
+  } finally {
+    await browser.close();
+  }
 }
 
 main().catch(err => {
   console.error(err);
-  process.exit(1);
+  process.exitCode = 1;
 });
