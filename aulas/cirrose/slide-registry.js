@@ -498,24 +498,24 @@ export const customAnimations = {
       state++;
 
       if (state === 1) {
-        /* Cross-fade: asymmetry out overlaps pitfalls in */
-        gsap.to(asymmetry, { autoAlpha: 0, y: -15, duration: 0.5, ease: 'power2.inOut' });
+        /* Sequential: S0 exits fully, then S1 enters (delay >= exit) */
+        gsap.to(asymmetry, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
         gsap.set(pitfallCards, { autoAlpha: 0, y: 8 });
-        gsap.to(pitfalls, { autoAlpha: 1, y: 0, duration: 0.5, delay: 0.1, ease: 'power3.out' });
+        gsap.to(pitfalls, { autoAlpha: 1, y: 0, duration: 0.35, delay: 0.2, ease: 'power2.out' });
         gsap.to(pitfallCards, {
-          autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.15,
-          delay: 0.2, ease: 'power2.out'
+          autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.08,
+          delay: 0.25, ease: 'power2.out'
         });
       }
 
       if (state === 2) {
-        /* Cross-fade: pitfalls out overlaps grayzone in */
-        gsap.to(pitfalls, { autoAlpha: 0, y: -15, duration: 0.4, ease: 'power2.inOut' });
+        /* Sequential: S1 exits fully, then S2 enters (delay >= exit) */
+        gsap.to(pitfalls, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'power2.in' });
         gsap.fromTo(grayzone,
-          { autoAlpha: 0, y: 15 },
-          { autoAlpha: 1, y: 0, duration: 0.6, delay: 0.1, ease: 'power3.out' }
+          { autoAlpha: 0, y: 8 },
+          { autoAlpha: 1, y: 0, duration: 0.4, delay: 0.2, ease: 'power3.out' }
         );
-        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.4, delay: 0.5 });
+        gsap.to(sourceTag, { autoAlpha: 1, duration: 0.3, delay: 0.45 });
       }
 
       return true;

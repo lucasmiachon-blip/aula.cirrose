@@ -78,11 +78,14 @@ if (FIELDS_RAW) {
 const MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
 
-// G8: Pricing per 1M tokens
+// G8: Pricing per 1M tokens — verified 2026-03-29
 const PRICING = {
-  'gemini-3.1-pro-preview': { input: 2.0, output: 12.0 },
-  'gemini-2.5-pro':         { input: 1.25, output: 10.0 },
-  'gemini-2.5-flash':       { input: 0.15, output: 0.60 },
+  'gemini-3.1-pro-preview':        { input: 2.0,  output: 12.0 },
+  'gemini-3-flash-preview':        { input: 0.50, output: 3.0  },
+  'gemini-3.1-flash-lite-preview': { input: 0.25, output: 1.50 },
+  'gemini-2.5-pro':                { input: 1.25, output: 10.0 },
+  'gemini-2.5-flash':              { input: 0.30, output: 2.50 },
+  'gemini-2.5-flash-lite':         { input: 0.10, output: 0.40 },
 };
 function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 

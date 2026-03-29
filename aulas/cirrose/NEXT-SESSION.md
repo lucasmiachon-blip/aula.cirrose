@@ -1,7 +1,7 @@
 # NEXT-SESSION — s-a1-fib4 QA pipeline
 
 > Contexto profundo do slide EM ANDAMENTO. Ler so se for trabalhar neste slide.
-> Atualizado: 2026-03-30T01:30-03:00
+> Atualizado: 2026-03-29T16:15-03:00
 
 ---
 
@@ -14,19 +14,20 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 
 ---
 
-## Estado atual dos arquivos (apos reescrita 2026-03-29, P2/P3/P4 visuais implementados)
+## Estado atual dos arquivos (pos-R5 fixes + animacao refinada, 2026-03-29 16:15)
 
 | Arquivo | Estado | Detalhes |
 |---------|--------|----------|
-| `slides/03b-a1-fib4calc.html` | OK | Archetype removido (was hero-stat). 3 states: S0=VPN/VPP, S1=3 pitfalls, S2=gray zone 30-60%. |
+| `slides/03b-a1-fib4calc.html` | OK | Archetype removido. 3 states: S0=VPN/VPP, S1=3 pitfalls, S2=gray zone 30-60%. |
 | `slides/_manifest.js` | OK | headline='Modelos Preditivos: FIB-4', clickReveals=2 |
-| `slide-registry.js` | OK | State machine 3 estados, caveat null fix, cross-fade overlap (P4) |
-| `cirrose.css` | OK | Archetype removido. Layout via `#s-a1-fib4 .slide-inner { justify-content: flex-start; gap: var(--space-sm); }`. P2 hero gray zone, P3 tinted cards. |
+| `slide-registry.js` | **ATUALIZADO** | State machine: exit 0.2s, delay 0.2s (anti-ghosting), y-offset ±4px, stagger 0.08s. |
+| `cirrose.css` | **ATUALIZADO** | box-sizing:border-box, surfaces color-mix 8%, E52 vw→96px fixo, dead CSS removido, deep failsafe, source-tag max-width. |
 | `references/narrative.md` | OK | headline + descricao sincronizados |
-| `references/evidence-db.md` | OK | Refs tier-1 para s-a1-fib4 (EASL NITs, Lindvig, McPherson, Sterling, Baveno VII, etc.). Tabela "Dados Clinicos" reconstruida 29/mar (IDs Act 2 corrigidos). |
-| `AUDIT-VISUAL.md` | STALE | Scorecard refere conteudo antigo. Status header atualizado (5 DONE, 1 QA). Precisa re-audit completo pos-QA pipeline. |
-| `qa-screenshots/` | STALE | PNGs S0/S2 e video sao de ANTES das mudancas P2/P3/P4. Recapturar OBRIGATORIO. |
-| `gate0.json` | STALE | Baseado em screenshots antigos. Re-run obrigatorio. |
+| `references/evidence-db.md` | OK | Refs tier-1 para s-a1-fib4. |
+| `AUDIT-VISUAL.md` | STALE | Precisa re-audit pos-R5. |
+| `qa-screenshots/` | **FRESCO** | PNGs S0/S2 + video capturados pos-animacao refinada (16:11). |
+| `gate0.json` | **FRESCO** | Flash model. FAIL: ANIMATION_STATE (falso positivo sistemico). READABILITY agora PASS. |
+| `gate4-scorecard-r5.json` | **FRESCO** | 7.3/10. Pos P1-P4 + box-sizing. |
 
 ---
 
@@ -34,13 +35,13 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 
 | Classe | Uso |
 |--------|-----|
-| `.fib4-stages` | Grid stacking container (place-items:center, surface card) |
-| `.fib4-stage` | grid-area: 1/1, opacity: 0 (GSAP controla) |
+| `.fib4-stages` | Grid stacking container (place-items:center, box-sizing:border-box, surface card) |
+| `.fib4-stage` | grid-area: 1/1, opacity: 0 (GSAP controla), height: 100% |
 | `.fib4-asymmetry` | S0 wrapper |
 | `.fib4-stat-row` | Grid 2-col para VPN/VPP |
 | `.fib4-stat` | Card individual (padding, radius) |
-| `.fib4-stat--safe` | Fundo tinted safe-light |
-| `.fib4-stat--danger` | Fundo tinted danger-light |
+| `.fib4-stat--safe` | color-mix(--safe 8%, --bg-elevated) + border + box-shadow |
+| `.fib4-stat--danger` | color-mix(--danger 8%, --bg-elevated) + border + box-shadow |
 | `.fib4-stat-number` | Numero grande (font-display, text-h1) |
 | `.fib4-stat-label` | Label VPN/VPP (text-small, secondary) |
 | `.fib4-pitfalls` | S1 wrapper |
@@ -50,10 +51,10 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 | `.fib4-pitfall-detail` | Detalhe armadilha (text-small, secondary) |
 | `.fib4-grayzone` | S2 wrapper |
 | `.fib4-grayzone-content` | Flex column center |
-| `.fib4-grayzone-stat` | **HERO** 30-60% (clamp 72-110px, warning-on-light, serif) |
+| `.fib4-grayzone-stat` | **HERO** 30-60% (96px fixo, --warning, serif) |
 | `.fib4-grayzone-label` | "zona indeterminada" (text-h3, uppercase) |
+| `#s-a1-fib4 .source-tag` | max-width 55%, overflow-wrap, margin-top |
 
-> Layout override: `#s-a1-fib4 .slide-inner` (adicionado 30/mar). Demais seletores por classe `.fib4-*`.
 > Para localizar: `grep -n "\.fib4-\|#s-a1-fib4" aulas/cirrose/cirrose.css`
 
 ---
@@ -62,10 +63,12 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 
 ```
 S0 (auto):  asymmetry visible, cards stagger in (0.35s, stagger 0.2s, delay 0.3s)
-S1 (click): asymmetry cross-fade out (0.5s, y:-15), pitfalls cross-fade in (0.5s, delay 0.1s), pitfall cards stagger (0.35s, stagger 0.15s)
-S2 (click): pitfalls cross-fade out (0.4s, y:-15), grayzone cross-fade in (0.6s, delay 0.1s), source-tag fade (0.4s, delay 0.5s)
+S1 (click): asymmetry exit (0.2s, y:-4, power2.in) → pitfalls enter (delay 0.2s, 0.35s) → cards stagger (0.08s×3, delay 0.25s)
+S2 (click): pitfalls exit (0.2s, y:-4, power2.in) → grayzone enter (delay 0.2s, 0.4s, power3.out) → source-tag (0.3s, delay 0.45s)
 Retreat:    reverso instantaneo (gsap.set autoAlpha:1, y:0)
 ```
+
+**Anti-ghosting:** delay >= exit duration em TODAS transicoes. Zero overlap.
 
 > Para localizar: `grep -n "s-a1-fib4" aulas/cirrose/slide-registry.js`
 
@@ -78,17 +81,26 @@ Retreat:    reverso instantaneo (gsap.set autoAlpha:1, y:0)
 | R1 | v2.0 | ~3 (bug) | 6.0/10 | Com archetype, CSS parcial |
 | R2 | v2.0 | 105 (fallback) | 5.5/10 | Sem archetype, CSS parcial |
 | R3 | v2.0 | 271 (section fix) | 4.9/10 | CSS completo, criterios subjetivos |
-| R4 | v3.0 | 271 | pendente | Criterios mensuraveis + prova de video |
+| R4 | v3.0 | 271 | 5.6/10 | Criterios mensuraveis. Ghosting flagrado (motion 2/10). |
+| **R5** | v3.0 | 258 | **7.3/10** | Pos P1-P4. box-sizing flagrado (craft 6/10). |
 
 ---
 
-## Tarefa (4 passos obrigatorios)
+## Propostas R5 pendentes de aprovacao
 
-1. **Recapturar screenshots:** `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-fib4 --video`
-2. **Gate 0:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --inspect` → override ANIMATION_STATE se false positive (systemic)
-3. **Gate 2 (NOVO):** Opus Visual Audit — protocolo em `@repo/docs/prompts/gate2-opus-visual.md`. Sharp pick_color + a11y contrast + code analysis + visual multimodal. MUST FAIL bloqueia Gate 4.
-4. **Gate 4 R4:** `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-fib4 --editorial --round 4 --ref-slide s-a1-baveno`
+| # | Tipo | O que | Status |
+|---|------|-------|--------|
+| P1 | MUST | box-sizing + deep failsafe | **IMPLEMENTADO** |
+| P2 | RADICAL | pitfall cards → dividers verticais "Bloomberg" | Pendente decisao Lucas |
+| P3 | SHOULD | warning color escurecido via color-mix com navy | Pendente decisao Lucas |
+| P4 | COULD | Acelerar stagger (delay 0.3→0.15) | **IMPLEMENTADO parcial** (0.2s, preservando anti-ghosting) |
 
-Gate 2 e primeira execucao do protocolo. Vai pegar E52, dead CSS, contrastes reais.
-Prompt v3.0: criterios mensuraveis, prova de video com timestamps, propostas com fonte+criterio.
-Apos Gate 4: implementar propostas aprovadas por Lucas → recapturar → re-run ate score >=7.
+---
+
+## Proximos passos
+
+1. **Avaliar animacao refinada** — video recapturado, Lucas precisa ver no browser
+2. **Decidir R5 P2/P3** — estetica dos pitfall cards e cor do warning
+3. **Gate 2 (Opus Visual Audit)** — primeira execucao, protocolo em `@repo/docs/prompts/gate2-opus-visual.md`
+4. **Recapturar + Gate 4 R6** se houver mudancas visuais
+5. Score target: >=7 para aprovacao (R5=7.3, ja ultrapassa threshold)

@@ -23,14 +23,16 @@ const AULA_DIR = join(__dirname, '..');
 const API_KEY = process.env.GEMINI_API_KEY;
 if (!API_KEY) { console.error('GEMINI_API_KEY not set'); process.exit(1); }
 
-const MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
 
-// G8: Pricing per 1M tokens — update when switching models
+// G8: Pricing per 1M tokens — update when switching models (verified 2026-03-29)
 const PRICING = {
-  'gemini-3.1-pro-preview': { input: 2.0, output: 12.0 },
-  'gemini-2.5-pro':         { input: 1.25, output: 10.0 },
-  'gemini-2.5-flash':       { input: 0.15, output: 0.60 },
+  'gemini-3.1-pro-preview':        { input: 2.0,  output: 12.0 },
+  'gemini-3-flash-preview':        { input: 0.50, output: 3.0  },
+  'gemini-3.1-flash-lite-preview': { input: 0.25, output: 1.50 },
+  'gemini-2.5-pro':                { input: 1.25, output: 10.0 },
+  'gemini-2.5-flash':              { input: 0.30, output: 2.50 },
+  'gemini-2.5-flash-lite':         { input: 0.10, output: 0.40 },
 };
 function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 
@@ -54,6 +56,10 @@ const REF_SLIDE = getArg('ref-slide', null);
 function hasFlag(name) { return args.includes(`--${name}`); }
 const MODE = hasFlag('editorial') ? 'editorial' : 'inspect';
 
+// F2: Model-per-gate — CLI > env var > smart default per mode
+const MODEL_DEFAULT = MODE === 'inspect' ? 'gemini-3-flash-preview' : 'gemini-3.1-pro-preview';
+const MODEL = getArg('model', null) || process.env.GEMINI_MODEL || MODEL_DEFAULT;
+
 // J4: --help
 if (hasFlag('help') || hasFlag('h')) {
   console.log(`Usage: node gemini-qa3.mjs --slide <id> [options]
@@ -65,13 +71,15 @@ Modes (pick one):
 Options:
   --slide <id>       Slide ID (default: s-a1-01)
   --round <N>        Round number for Gate 4 (default: 11)
+  --model <id>       Gemini model override (default: flash for Gate 0, pro for Gate 4)
   --temp <float>     Override temperature (Gate 4 default: 1.0)
   --output <path>    Custom output path
   --context <text>   Additional context paragraph
   --diagnostic <cls> CSS class to diagnose (cascade analysis)
   --ref-slide <id>   Reference slide for cross-slide consistency
+  --force-gate4      Override Gate 0 FAIL block (for known false positives)
 
-Env: GEMINI_API_KEY (required)`);
+Env: GEMINI_API_KEY (required), GEMINI_MODEL (global override)`);
   process.exit(0);
 }
 
@@ -902,10 +910,14 @@ async function main() {
     const gate0Path = join(QA_DIR, 'gate0.json');
     if (existsSync(gate0Path)) {
       const gate0 = JSON.parse(readFileSync(gate0Path, 'utf8'));
-      if (gate0.must_pass === false) {
-        throw new Error(`BLOQUEADO: Gate 0 FAIL para ${SLIDE_ID}. Corrigir defeitos antes.\n  Detalhes: ${gate0Path}\n  Use --inspect para re-rodar Gate 0 após correções.`);
+      if (gate0.must_pass === false && !hasFlag('force-gate4')) {
+        throw new Error(`BLOQUEADO: Gate 0 FAIL para ${SLIDE_ID}. Corrigir defeitos antes.\n  Detalhes: ${gate0Path}\n  Use --inspect para re-rodar Gate 0 após correções.\n  Falso positivo conhecido? Use --force-gate4 para override.`);
       }
-      console.log(`Gate 0: PASS (${gate0Path})\n`);
+      if (gate0.must_pass === false && hasFlag('force-gate4')) {
+        console.warn(`⚠ Gate 0 FAIL override via --force-gate4. Continuando.\n`);
+      } else {
+        console.log(`Gate 0: PASS (${gate0Path})\n`);
+      }
     } else {
       console.warn(`AVISO: Gate 0 não encontrado para ${SLIDE_ID}. Rode --inspect primeiro.`);
       console.warn(`  Continuando por aprovação implícita do operador.\n`);

@@ -560,23 +560,23 @@ if (hasFlag('help') || hasFlag('h')) {
 
 ### Tier ZERO (fazer a qualquer momento)
 
-| # | O que | Impacto |
-|---|-------|---------|
-| G1 | `responseMimeType: "application/json"` no Gate 0 | Elimina fence-strip + parse failures |
-| G2 | `fetchWithRetry()` nos 2 scripts Gemini | Resiliencia a 429/503 |
-| G8 | Pricing table por modelo | Custo reportado correto |
-| P3 | Documentar decisao de deviceScaleFactor | Clareza |
-| P4 | Igualar scale se necessario | Consistencia |
-| P7 | Console error capture em qa-batch | Detectar JS errors silenciosos |
-| J3 | `throw` em vez de `process.exit(1)` | Cleanup correto |
-| J4 | `--help` basico | UX minima |
+| # | O que | Impacto | Status |
+|---|-------|---------|--------|
+| G1 | `responseMimeType: "application/json"` no Gate 0 | Elimina fence-strip + parse failures | **DONE** (2026-03-29 madrugada) |
+| G2 | `fetchWithRetry()` nos 2 scripts Gemini | Resiliencia a 429/503 | **DONE** (2026-03-29 madrugada) |
+| G8 | Pricing table por modelo | Custo reportado correto | **DONE** (2026-03-29 tarde) — 6 modelos, precos verificados |
+| P3 | Documentar decisao de deviceScaleFactor | Clareza | PENDING |
+| P4 | Igualar scale se necessario | Consistencia | PENDING |
+| P7 | Console error capture em qa-batch | Detectar JS errors silenciosos | **DONE** (2026-03-29 madrugada) — check C5 |
+| J3 | `throw` em vez de `process.exit(1)` | Cleanup correto | PENDING |
+| J4 | `--help` basico | UX minima | **DONE** (2026-03-29 madrugada) |
 
 ### Tier MINIMAL (proximo batch)
 
 | # | O que | Impacto | Status |
 |---|-------|---------|--------|
 | G3 | `countTokens` pre-flight | Custo real antes de enviar | PENDING |
-| G4 | `GEMINI_MODEL` env var + default GA | Resiliencia a deprecacao | **DONE** (2026-03-29) |
+| G4 | `GEMINI_MODEL` env var + default GA | Resiliencia a deprecacao | **DONE** (2026-03-29) — model-per-gate: Flash Gate 0, Pro Gate 4 |
 | G5 | Externalizar Gate 4 prompt | Versionamento independente | **DONE** (2026-03-29) → `docs/prompts/gemini-gate4-editorial.md` |
 | G7 | Extrair manifest-parser.mjs | DRY, single source of truth | PENDING |
 | P1 | `waitForFunction()` em vez de `waitForTimeout()` | Speed + reliability |
@@ -592,6 +592,14 @@ if (hasFlag('help') || hasFlag('h')) {
 | G9 | Gate 4 prompt 7→11 dimensoes (CSS Cascade, Gestalt, Semantic/a11y, State Completeness) | Gemini detecta dead CSS, specificity conflicts, failsafes ausentes, Gestalt violations | **DONE** (2026-03-29) |
 | G10 | Gate 4 CSS analysis obrigatoria (cascade trace, dead CSS, specificity, failsafes, GSAP races) | Gemini analisa codigo estruturalmente antes de propor | **DONE** (2026-03-29) |
 | G11 | Gate 4 structured JSON output (scorecard parseavel + dead_css + conflicts) | Script pode comparar scores entre rounds automaticamente | **DONE** (2026-03-29) |
+
+### Adicionado em 2026-03-29 (tarde)
+
+| # | O que | Impacto | Status |
+|---|-------|---------|--------|
+| G12 | Model-per-gate: Gate 0 Flash ($0), Gate 4 Pro ($2/$12). CLI `--model`, env `GEMINI_MODEL`, default por mode. | Custo Gate 0 = $0. Qualidade Gate 4 = top-tier. | **DONE** (2026-03-29) |
+| G13 | `--force-gate4` flag para override de Gate 0 FAIL (falsos positivos) | Desbloqueia Gate 4 sem re-run Gate 0 | **DONE** (2026-03-29) |
+| G14 | Scripts validados end-to-end com dev server | Pipeline desbloqueado para producao | **DONE** (2026-03-29) |
 
 ### Tier HIGH (sprint dedicado)
 

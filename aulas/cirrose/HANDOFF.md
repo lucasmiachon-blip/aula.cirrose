@@ -5,15 +5,38 @@
 
 ---
 
-## Estado — 2026-03-30T01:30-03:00
+## Estado — 2026-03-29T16:15-03:00
 
 **Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 → **Gate 2 (Opus, $0)** → Gate 4 (Gemini).
+**QA scripts:** TODOS VALIDADOS end-to-end (sessao 29/mar tarde). `qa-batch-screenshot.mjs` (C1-C7) + `gemini-qa3.mjs` (Gate 0 Flash + Gate 4 Pro).
+**Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0 free tier). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M). Flag `--model` para override. Pricing atualizada em ambos scripts.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier DONE. MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
+
+### Sessao 29/mar (tarde) — Scripts validados + s-a1-fib4 R4→R5
+
+**O que foi feito:**
+
+1. **QA scripts validados end-to-end** — `qa-batch-screenshot.mjs` (screenshots S0/S2 + video + checks C1-C7 + metrics.json + batch-manifest.json) e `gemini-qa3.mjs` (Gate 0 com Flash + Gate 4 com Pro) testados com dev server rodando. ZERO bugs. Pipeline desbloqueado para producao.
+2. **Estrategia multi-modelo implementada** — Gate 0 usa `gemini-3-flash-preview` (free tier, $0), Gate 4 usa `gemini-3.1-pro-preview` (top-tier). Logica: CLI `--model` > env `GEMINI_MODEL` > default por mode. PRICING table atualizada nos 2 scripts (gemini-qa3.mjs + content-research.mjs) com modelos 3.x e precos corretos (2.5-flash era $0.15→$0.30).
+3. **`--force-gate4` flag** — Override de Gate 0 FAIL para falsos positivos conhecidos (ANIMATION_STATE em state machines).
+4. **s-a1-fib4 Gate 4 R4 (5.6/10)** — Implementados P1-P4: GSAP anti-ghosting (motion 2→7), E52 vw fix (96px fixo), dead CSS .classify-* removido (12 seletores), surfaces color-mix 8% (menos "encardidas"), card min-height 340px + padding rebalanceado.
+5. **s-a1-fib4 Gate 4 R5 (7.3/10)** — Implementados R5-P1: `box-sizing: border-box` no .fib4-stages (corrige overflow que causava sobreposicao com case panel), deep failsafe `.no-js .fib4-stages *`.
+6. **Animacao refinada** — Exit 0.3→0.2s, delay 0.3→0.2s (anti-ghosting preservado: delay >= exit), y-offset -10→-4px, stagger 0.1→0.08s. Total S0→S1: ~0.7s (era ~1s).
+
+**Pendente s-a1-fib4:**
+- Recapturar video pos-animacao refinada (capturado mas nao avaliado por Gemini ainda)
+- Decisao sobre R5-P2 RADICAL (pitfall cards → dividers verticais "Bloomberg")
+- Decisao sobre R5-P3 SHOULD (warning color escurecido via color-mix com navy)
+- Gate 2 (Opus Visual Audit) nunca executado — protocolo em `@repo/docs/prompts/gate2-opus-visual.md`
+- Score target: >=7 para aprovacao. R5=7.3 com propostas pendentes.
+
+**Gate 4 historico s-a1-fib4:**
+- R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → **R5: 7.3** (pos P1-P4 + box-sizing)
 
 ### Sessao 30/mar (cont.) — Gate 2 protocol design
 
@@ -34,13 +57,12 @@
 3. **Gate 4 prompt v3.0** — secao 0 (recibo) exige prova de visualizacao do video com timestamps concretos, analise PNG por elemento, raw code por arquivo. Scorecard exige criterios mensuráveis por dimensao (nao apenas nota subjetiva). Propostas sem cap (antes max 5), cada uma cita fonte (video/PNG/raw) e criterio do scorecard.
 4. **guard-product-files hook removido** — bloqueava edicao de slides no Windows.
 
-**Gate 4 R1-R3 historico (s-a1-fib4):**
-- R1 (com archetype, CSS parcial): 6.0/10
-- R2 (sem archetype, CSS parcial 105 linhas): 5.5/10
-- R3 (sem archetype, CSS completo 271 linhas): 4.9/10
-- Proximo: R4 com prompt v3.0 (criterios mensuráveis + prova de video)
+**Gate 4 historico completo (s-a1-fib4):**
+- R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → **R5: 7.3/10**
+- R4 fixes: GSAP anti-ghosting, E52 vw→96px, dead CSS, surfaces color-mix, card rebalance
+- R5 fixes: box-sizing:border-box, deep failsafe, animacao refinada (exit 0.2s)
 
-**Pendente s-a1-fib4:** Implementar propostas aprovadas de R3/R4 (cross-fade timing, E52 vw, dead CSS failsafes, visibility no-js). Depois recapturar + re-run.
+**Pendente s-a1-fib4:** R5-P2 (pitfall dividers) e R5-P3 (warning color) pendentes decisao Lucas. Gate 2 nunca executado.
 
 ### Sessao 29/mar (noite) — doc hardening + scripts QA
 
@@ -79,15 +101,15 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | QA | Archetype removido 30/mar. Gate 0 PASS. Gate 4 R3 4.9/10 (CSS fix). Prompt v3.0 pendente R4. |
+| 6 | s-a1-fib4 | QA | R5 7.3/10. P1-P4 R4 + box-sizing + animacao refinada implementados. R5-P2/P3 pendentes decisao. Ver NEXT-SESSION.md. |
 | 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 5 DONE · 1 QA · 37 CONTENT (43 total)
-**Proximo:** s-a1-fib4 (ver [NEXT-SESSION.md](NEXT-SESSION.md)). Depois: s-a1-damico.
-**Script robustez:** ZERO-tier DONE (377e56b). MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
+**Proximo:** s-a1-fib4 em QA (R5 7.3/10, R5-P2/P3 pendentes). Depois: s-a1-damico. Ver [NEXT-SESSION.md](NEXT-SESSION.md).
+**Script robustez:** ZERO-tier DONE + scripts validados end-to-end (2026-03-29). MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
