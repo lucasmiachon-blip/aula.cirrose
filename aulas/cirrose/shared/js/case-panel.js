@@ -174,7 +174,7 @@ export class CasePanel {
         <span class="pcalc-score">---</span>
         <span class="pcalc-action"></span>
       </div>
-      <button class="pcalc-case-btn" data-pcalc-case="fib4">Seu Ant\u00f4nio</button>
+      <button class="pcalc-case-btn" data-pcalc-case="fib4">Ant\u00f4nio</button>
     `;
     this.calcEl.querySelectorAll('.pcalc-input').forEach(i =>
       i.addEventListener('input', () => this.calcFib4())
@@ -242,7 +242,7 @@ export class CasePanel {
         <span class="pcalc-score">---</span>
         <span class="pcalc-action"></span>
       </div>
-      <button class="pcalc-case-btn" data-pcalc-case="meld">Seu Ant\u00f4nio</button>
+      <button class="pcalc-case-btn" data-pcalc-case="meld">Ant\u00f4nio</button>
     `;
     this.calcEl.querySelectorAll('.pcalc-input').forEach(i =>
       i.addEventListener('input', () => this.calcMeld())

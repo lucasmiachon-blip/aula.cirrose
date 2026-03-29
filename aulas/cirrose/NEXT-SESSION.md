@@ -1,33 +1,35 @@
 # NEXT-SESSION — s-a1-fib4 QA pipeline
 
 > Contexto profundo do slide EM ANDAMENTO. Ler so se for trabalhar neste slide.
-> Atualizado: 2026-03-29T16:15-03:00
+> Atualizado: 2026-03-29T17:30-03:00
 
 ---
 
-## Contexto: slide REESCRITO em 2026-03-29
+## Contexto: conteudo andragogia + Gate 4 R6 8.8/10
 
-O conteudo antigo (formula, cutoffs, hero 5.91, checkpoint/mandate) foi removido.
-O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
+Sessao 29/mar noite: conteudo redesenhado para andragogia (Knowles — aplicabilidade imediata).
+Hero numbers trocados de estatisticas de teste para cutoffs clinicos que o medico usa.
+Gate 4 R6 avaliou com PNGs+video frescos. 3 propostas (P1/P2/P3) todas implementadas.
 
-**H2:** `Modelos Preditivos: FIB-4` (titulo original do Lucas — NAO e assertion-evidence, mas e decisao do autor. Nao alterar.)
+**H2:** `Modelos Preditivos: FIB-4` — decisao do Lucas. NAO alterar.
 
 ---
 
-## Estado atual dos arquivos (pos-R5 fixes + animacao refinada, 2026-03-29 16:15)
+## Estado atual dos arquivos (pos-R6 P1+P2+P3, 2026-03-29 17:30)
 
 | Arquivo | Estado | Detalhes |
 |---------|--------|----------|
-| `slides/03b-a1-fib4calc.html` | OK | Archetype removido. 3 states: S0=VPN/VPP, S1=3 pitfalls, S2=gray zone 30-60%. |
+| `slides/03b-a1-fib4calc.html` | **ATUALIZADO** | S0: cutoffs < 1,30 / >= 2,67 como hero (era VPN/VPP). S1: pitfalls acionaveis. S2: zona cinza com range + elastografia. Operadores em `.fib4-operator` span. |
 | `slides/_manifest.js` | OK | headline='Modelos Preditivos: FIB-4', clickReveals=2 |
-| `slide-registry.js` | **ATUALIZADO** | State machine: exit 0.2s, delay 0.2s (anti-ghosting), y-offset ±4px, stagger 0.08s. |
-| `cirrose.css` | **ATUALIZADO** | box-sizing:border-box, surfaces color-mix 8%, E52 vw→96px fixo, dead CSS removido, deep failsafe, source-tag max-width. |
+| `slide-registry.js` | **ATUALIZADO** | P1: advance delay 0.25s (era 0.2s). retreat() reescrito com esvaziamento estrito (exit → delay 0.25s → re-enter com stagger invertido). |
+| `cirrose.css` | **ATUALIZADO** | P2: color-mix 12%/35% (era 8%/20%). P3: `.fib4-operator` (DM Sans 0.85em, opacity 0.7). |
+| `shared/js/case-panel.js` | **ATUALIZADO** | Botoes "Seu Antônio" → "Antônio" (FIB-4 L177 + MELD-Na L245). |
 | `references/narrative.md` | OK | headline + descricao sincronizados |
 | `references/evidence-db.md` | OK | Refs tier-1 para s-a1-fib4. |
-| `AUDIT-VISUAL.md` | STALE | Precisa re-audit pos-R5. |
-| `qa-screenshots/` | **FRESCO** | PNGs S0/S2 + video capturados pos-animacao refinada (16:11). |
-| `gate0.json` | **FRESCO** | Flash model. FAIL: ANIMATION_STATE (falso positivo sistemico). READABILITY agora PASS. |
-| `gate4-scorecard-r5.json` | **FRESCO** | 7.3/10. Pos P1-P4 + box-sizing. |
+| `AUDIT-VISUAL.md` | STALE | Precisa re-audit pos-R6. |
+| `qa-screenshots/` | **STALE** | PNGs S0/S2 + video capturados ANTES de P1/P2/P3. Recapturar. |
+| `gate0.json` | **FRESCO** | PASS (Flash model, 17:05). |
+| `gate4-scorecard-r6.json` | **FRESCO** | 8.8/10. |
 
 ---
 
@@ -38,24 +40,23 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 | `.fib4-stages` | Grid stacking container (place-items:center, box-sizing:border-box, surface card) |
 | `.fib4-stage` | grid-area: 1/1, opacity: 0 (GSAP controla), height: 100% |
 | `.fib4-asymmetry` | S0 wrapper |
-| `.fib4-stat-row` | Grid 2-col para VPN/VPP |
+| `.fib4-stat-row` | Grid 2-col para cutoff cards |
 | `.fib4-stat` | Card individual (padding, radius) |
-| `.fib4-stat--safe` | color-mix(--safe 8%, --bg-elevated) + border + box-shadow |
-| `.fib4-stat--danger` | color-mix(--danger 8%, --bg-elevated) + border + box-shadow |
-| `.fib4-stat-number` | Numero grande (font-display, text-h1) |
-| `.fib4-stat-label` | Label VPN/VPP (text-small, secondary) |
+| `.fib4-stat--safe` | color-mix(--safe **12%**, --bg-elevated) + border **35%** + box-shadow |
+| `.fib4-stat--danger` | color-mix(--danger **12%**, --bg-elevated) + border **35%** + box-shadow |
+| `.fib4-stat-number` | Numero grande (font-display, text-h1). Contem `.fib4-operator` span. |
+| `.fib4-stat-label` | "Exclui — VPN > 90%" / "Nao confirma — VPP ~35%" (text-small, secondary) |
+| `.fib4-operator` | Operador < / >= em DM Sans 0.85em, opacity 0.7 |
 | `.fib4-pitfalls` | S1 wrapper |
 | `.fib4-pitfall-row` | Grid 3-col para 3 armadilhas |
 | `.fib4-pitfall` | Card armadilha (bg-card, border) |
 | `.fib4-pitfall-title` | Titulo armadilha (font-body 700) |
-| `.fib4-pitfall-detail` | Detalhe armadilha (text-small, secondary) |
+| `.fib4-pitfall-detail` | Detalhe: "Cutoff sobe para 2,0" / "AST/ALT > 2 infla o score" / "ALT ↑ mascara fibrose" |
 | `.fib4-grayzone` | S2 wrapper |
 | `.fib4-grayzone-content` | Flex column center |
 | `.fib4-grayzone-stat` | **HERO** 30-60% (96px fixo, --warning, serif) |
-| `.fib4-grayzone-label` | "zona indeterminada" (text-h3, uppercase) |
+| `.fib4-grayzone-label` | "FIB-4 1,30 – 2,67 → elastografia" (text-h3, uppercase) |
 | `#s-a1-fib4 .source-tag` | max-width 55%, overflow-wrap, margin-top |
-
-> Para localizar: `grep -n "\.fib4-\|#s-a1-fib4" aulas/cirrose/cirrose.css`
 
 ---
 
@@ -63,50 +64,43 @@ O conteudo novo foca em nuances de especialista sobre limitacoes do FIB-4.
 
 ```
 S0 (auto):  asymmetry visible, cards stagger in (0.35s, stagger 0.2s, delay 0.3s)
-S1 (click): asymmetry exit (0.2s, y:-4, power2.in) → pitfalls enter (delay 0.2s, 0.35s) → cards stagger (0.08s×3, delay 0.25s)
-S2 (click): pitfalls exit (0.2s, y:-4, power2.in) → grayzone enter (delay 0.2s, 0.4s, power3.out) → source-tag (0.3s, delay 0.45s)
-Retreat:    reverso instantaneo (gsap.set autoAlpha:1, y:0)
+S1 (click): asymmetry exit (0.2s, y:-4) → delay 0.25s → pitfalls enter (0.1s) → cards stagger (0.08s×3)
+S2 (click): pitfalls exit (0.2s, y:-4) → delay 0.25s → grayzone enter (0.4s, power3.out) → source-tag (0.3s, delay 0.5s)
+Retreat S2→S1: grayzone exit (0.2s, y:-4) → delay 0.25s → pitfalls re-enter (stagger -0.05s inverso)
+Retreat S1→S0: pitfalls exit (0.2s, y:+4) → delay 0.25s → asymmetry re-enter (stagger -0.1s inverso)
 ```
 
-**Anti-ghosting:** delay >= exit duration em TODAS transicoes. Zero overlap.
-
-> Para localizar: `grep -n "s-a1-fib4" aulas/cirrose/slide-registry.js`
+**Anti-ghosting:** delay 0.25s > exit 0.2s em TODAS transicoes (advance E retreat). Zero overlap.
 
 ---
 
 ## Historico de reviews Gemini
 
-| Round | Prompt | CSS linhas | Score | Notas |
-|-------|--------|-----------|-------|-------|
-| R1 | v2.0 | ~3 (bug) | 6.0/10 | Com archetype, CSS parcial |
-| R2 | v2.0 | 105 (fallback) | 5.5/10 | Sem archetype, CSS parcial |
-| R3 | v2.0 | 271 (section fix) | 4.9/10 | CSS completo, criterios subjetivos |
-| R4 | v3.0 | 271 | 5.6/10 | Criterios mensuraveis. Ghosting flagrado (motion 2/10). |
-| **R5** | v3.0 | 258 | **7.3/10** | Pos P1-P4. box-sizing flagrado (craft 6/10). |
-
----
-
-## Propostas R5 pendentes de aprovacao
-
-| # | Tipo | O que | Status |
-|---|------|-------|--------|
-| P1 | MUST | box-sizing + deep failsafe | **IMPLEMENTADO** |
-| P2 | RADICAL | pitfall cards → dividers verticais "Bloomberg" | Pendente decisao Lucas |
-| P3 | SHOULD | warning color escurecido via color-mix com navy | Pendente decisao Lucas |
-| P4 | COULD | Acelerar stagger (delay 0.3→0.15) | **IMPLEMENTADO parcial** (0.2s, preservando anti-ghosting) |
+| Round | Score | Mudancas principais |
+|-------|-------|---------------------|
+| R1 | 6.0 | Com archetype, CSS parcial |
+| R2 | 5.5 | Sem archetype, CSS parcial |
+| R3 | 4.9 | CSS completo, criterios subjetivos |
+| R4 | 5.6 | Criterios mensuraveis. Ghosting flagrado. |
+| R5 | 7.3 | box-sizing, deep failsafe, animacao refinada |
+| **R6** | **8.8** | Conteudo andragogia + P1 strict emptying + P2 projetor-safe + P3 operator typography |
 
 ---
 
 ## Proximos passos
 
-1. **Recapturar screenshots** — HTML mudou (daltonism icons), PNGs stale
-2. **Decidir R5 P2/P3** — estetica dos pitfall cards e cor do warning
-3. **Gate 4 R6** — pos recaptura, avaliar impacto dos icons no score
-4. **Pensar conteudo** — slide esta correto clinicamente? Nuances suficientes para hepatologistas seniors?
-5. Score target: >=7 para aprovacao (R5=7.3, ja ultrapassa threshold)
+1. **Recapturar screenshots** — CSS/JS mudaram pos-Gate 4 R6 (P1/P2/P3). PNGs stale.
+2. **Verificar visual no browser** — Ctrl+Shift+R para forcar reload. Confirmar cutoffs, contraste cards, operadores.
+3. **Decidir se R6 8.8 e suficiente** — threshold era >=7, ja ultrapassa. Lucas pode aprovar DONE ou pedir R7.
+4. Se R7: recapturar → Gate 0 → Gate 4 com round context atualizado.
 
-## Concluido nesta sessao
+## Concluido nesta sessao (29/mar noite)
 
-- **Gate 2 PASS** — report em `qa-screenshots/s-a1-fib4/gate2-report.md`
-- **Daltonism icons** — ✓ VPN, ✕ VPP, ⚠ zona indeterminada
-- **Shadow token** — `var(--shadow-soft)` substituiu literal oklch
+- **Conteudo andragogia** — cutoffs como hero, pitfalls acionaveis, zona cinza com proximo passo
+- **Gate 4 R6: 8.8/10** — PNGs+video frescos enviados ao Gemini Pro
+- **P1 MUST** — strict stage emptying (advance + retreat)
+- **P2 SHOULD** — color-mix 12%/35% projetor-safe
+- **P3 RADICAL** — .fib4-operator micro-tipografia
+- **Botao calculadora** — "Seu Antônio" → "Antônio"
+- **Gate 2 PASS** (sessao anterior, pre-conteudo)
+- **Daltonism icons** (sessao anterior)

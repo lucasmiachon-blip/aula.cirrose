@@ -5,7 +5,7 @@
 
 ---
 
-## Estado — 2026-03-29T17:15-03:00
+## Estado — 2026-03-29T17:30-03:00
 
 **Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
@@ -51,6 +51,8 @@
 
 **Gate 4 historico s-a1-fib4:**
 - R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → R5: 7.3 → **R6: 8.8/10**
+
+7. **Botao calculadora** — "Seu Antônio" → "Antônio" nos botoes FIB-4 e MELD-Na (`case-panel.js:177,245`). Lucas quer nome simples, sem "Seu".
 
 **Pendente s-a1-fib4:** Recapturar screenshots pos-P1/P2/P3 para verificacao visual. Gate 2 re-run opcional (PASS anterior, mudancas CSS/JS podem impactar contraste).
 
