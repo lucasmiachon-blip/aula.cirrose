@@ -5,9 +5,9 @@
 
 ---
 
-## Estado — 2026-03-29T17:30-03:00
+## Estado — 2026-03-29T21:00-03:00
 
-**Slides:** 43 buildados · 5 DONE · 1 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
+**Slides:** 43 buildados · 6 DONE* · 0 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 → **Gate 2 (Opus, $0)** → Gate 4 (Gemini).
@@ -16,6 +16,35 @@
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier DONE. MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
+
+### Sessao 29/mar (noite 4) — s-a1-fib4 micropolish DONE*
+
+**O que foi feito:**
+
+1. **Micropolish R7→R9** — Subtracao de cor e peso tipografico. Bar safe/gray desaturados (safe 25% tint, gray→`--divider` neutro). Flags revertidos a `--bg-elevated` + `border-bottom: 3px solid var(--border-navy)` (ancoragem projetor). Segment font-weight 700→500. Flag-title 700→500. Flag-detail `--text-muted`. Letter-spacing 0.02→0.04em. `min-width:0` em seg/annot (flex 3:4:3 defense). Cascade source-tag blindada (`#deck.has-panel #s-a1-fib4 .source-tag`).
+2. **Gate 4 R8: 6.0/10** — Primeira tentativa (warning-light nos flags + pasteis na barra) PIOROU. Gemini confirmou: "contraste anarquico", 7+ zonas focais.
+3. **Gate 4 R9: 8.8/10** — Subtracao funcionou. gestalt_cognition 4→10, tipografia 4→9. cor_contraste=7 (ponto fraco aceito).
+4. **DONE*** — Marcado com asterisco: hierarquia visual OK mas nao excelente (cor_contraste 7/10). Aceito por pressao de prazo (sprint 31/mar).
+
+**Gate 4 historico s-a1-fib4:**
+- R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → R5: 7.3 → R6: 8.8 → R7: 8.5 → R8: 6.0 → **R9: 8.8/10 DONE***
+
+### Sessao 29/mar (noite 3) — s-a1-fib4 progressive spectrum redesign
+
+**O que foi feito:**
+
+1. **Redesign completo s-a1-fib4** — Layout antigo (grid-stacking, 3 estados que se substituiam como slide-dentro-de-slide) removido. Novo: **escala progressiva** — barra horizontal FIB-4 persistente com 3 segmentos (safe <1.30, gray 1.30-2.67, danger >=2.67). Cada beat ADICIONA informacao sem apagar o anterior. Motivacao: animacoes anteriores eram decorativas (fade-replace), nao instrutivas.
+2. **Animacao instrutiva** — Beat 0 (auto): safe cresce da esquerda (scaleX), danger da direita, assimetria visual (safe solido, danger puro). Beat 1 (click): zona cinza preenche o centro (scaleX do centro), anotacao 30-60%. Beat 2 (click): 3 pitfall flags stagger-in abaixo da escala + source tag. Codificacao espacial: esquerda=exclusao forte, meio=zona cinza, direita=confirmacao fraca.
+3. **Gate 4 R7: 8.5/10** — Gemini Pro avaliou com contexto de redesign. Animation score 9/10 ("didatica", "fisicamente instrucional"). 4 propostas implementadas: P1 MUST (danger `color-mix` removido → `var(--danger)` puro), P2 MUST (flags flex→grid `repeat(3,1fr)` — E26), P3 SHOULD (flags `bg-elevated` + `box-shadow`), P4 RADICAL (letter-spacing -0.01→0.02em).
+4. **Arquivos alterados:** `slides/03b-a1-fib4calc.html` (HTML reescrito), `cirrose.css` (CSS substituido — ~170 linhas old → ~130 linhas new), `slide-registry.js` (animacao reescrita — grid-stack fade → progressive scaleX/stagger).
+
+**Gate 4 historico s-a1-fib4:**
+- R1: 6.0 → R2: 5.5 → R3: 4.9 → R4: 5.6 → R5: 7.3 → R6: 8.8 → **R7: 8.5/10** (redesign completo, score nao comparavel a R6)
+
+**Pendente s-a1-fib4:**
+- 41 palavras no estado final (max 30) — Lucas avaliou presencialmente, decidiu manter. Micropolish pendente.
+- Recapturar screenshots pos-P1/P2/P3/P4 para verificacao visual.
+- Gate 2 re-run (PASS anterior foi no layout antigo, invalido).
 
 ### Sessao 29/mar (tarde) — Scripts validados + s-a1-fib4 R4→R5
 
@@ -136,14 +165,14 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | QA | R6 8.8/10. Gate 2 PASS. Conteudo andragogia + P1/P2/P3 R6 implementados. Recapturar pos-fixes pendente. |
+| 6 | s-a1-fib4 | QA | **R7 8.5/10 (redesign completo).** Progressive spectrum (persistent bar + additive beats). P1-P4 R7 implementados. Gate 2 STALE (layout antigo). Micropolish pendente. |
 | 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 5 DONE · 1 QA · 37 CONTENT (43 total)
-**Proximo:** s-a1-fib4 em QA (R5 7.3/10, R5-P2/P3 pendentes). Depois: s-a1-damico. Ver [NEXT-SESSION.md](NEXT-SESSION.md).
+**Proximo:** s-a1-fib4 micropolish (R7 8.5/10, palavras e polish visual). Depois: s-a1-damico. Ver [NEXT-SESSION.md](NEXT-SESSION.md).
 **Script robustez:** ZERO-tier DONE + scripts validados end-to-end (2026-03-29). MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)

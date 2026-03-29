@@ -112,8 +112,9 @@ Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `WT-OPERATING.m
 
 ## Act 1 — QA Loop 1 (baseline 14/mar, atualizado 17/mar)
 
-**Status QA (este doc):** 5 DONE (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno), 1 QA (s-a1-fib4 — reescrito 29/mar, scorecard STALE), 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
-**Status maquina de estados (HANDOFF/WT-OPERATING):** 5 DONE, 1 QA (s-a1-fib4), 37 CONTENT. Ver HANDOFF.md para estado completo.
+**Status QA (este doc):** 6 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*), 0 QA, 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
+**Status maquina de estados (HANDOFF/WT-OPERATING):** 6 DONE*, 0 QA, 37 CONTENT. Ver HANDOFF.md para estado completo.
+*s-a1-fib4 DONE* = hierarquia visual ainda fraca (cor_contraste 7/10), aceito por pressao de prazo.
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
 Metodo: Playwright Chromium headless 1280x720 · qa-batch-screenshot.mjs (por ato/slide)
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
@@ -270,28 +271,28 @@ Obs: (1) SplitText dissolve = animação de referência do deck. (2) Único slid
 
 **Headline:** Modelos Preditivos: FIB-4
 
-**⚠️ STALE — conteúdo REESCRITO 29/mar (commit `b3b1f26`). Scorecard abaixo é do conteúdo ANTIGO. Re-audit necessário após QA pipeline.**
+**Design:** Progressive Spectrum (redesign 29/mar, commit `8d53242`). Barra horizontal FIB-4 persistente com 3 segmentos coloridos (safe/gray/danger). Cada beat adiciona sem apagar: Beat 0 (auto) safe+danger crescem das bordas, Beat 1 (click) zona cinza preenche o centro, Beat 2 (click) pitfall flags stagger abaixo. Codificacao espacial: esquerda=exclusao, meio=indeterminado, direita=confirmacao fraca.
 
-**Conteúdo atual:** 3 estados — S0: VPN >90% / VPP ~35% (assimetria). S1: 3 armadilhas (idade ≥65a, álcool, MASLD). S2: zona cinza 30-60% (hero typography). Sem formula, sem hero 5.91, sem checkpoint.
+**Gate 4 R9: 8.8/10** (Gemini 3.1 Pro, 2026-03-29). Animation score 9/10 ("didatica"). **DONE***
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | ?    | PENDENTE re-audit. P2 hero grayzone-stat implementado (clamp 72-110px). |
-| T   | ?    | PENDENTE. Serif display para stat numbers. Pitfall cards DM Sans 700. |
-| E   | ?    | PENDENTE. Surface card (.fib4-stages). Tinted cards (P3). |
-| C   | ?    | PENDENTE. safe-light/danger-light tinted backgrounds. warning-on-light para grayzone. |
-| V   | ?    | PENDENTE. VPN/VPP split cards + pitfall grid + hero grayzone. |
-| K   | ?    | archetype-hero-stat. Grid stacking state machine. |
-| S   | ?    | PENDENTE. Cross-fade overlap (P4). Source-tag. OKLCH. |
-| M   | ?    | h2 "Modelos Preditivos: FIB-4" = rótulo genérico, NÃO assertion-evidence. Decisão do autor. |
-| I   | ?    | PENDENTE. 2 clickReveals. State machine advance/retreat. caveat null fix. |
-| D   | 9    | 13 refs tier-1 em evidence-db (EASL NITs, Lindvig, McPherson, Sterling, Baveno VII). |
-| A   | ?    | PENDENTE. Cores semânticas com labels VPN/VPP. |
-| L   | ?    | PENDENTE. 1 conceito (FIB-4 limitações). 3 estados progressivos. |
-| P   | ?    | PENDENTE. Pitfalls = dia-a-dia do especialista. Sidebar calc ao vivo. |
-| N   | ?    | Setup role. tensionLevel=2. Headline confere com narrative.md. |
+| H   | 9    | Bar segments dominam canvas. Annotations alinhadas abaixo. Von Restorff na assimetria safe/danger. |
+| T   | 9    | DM Sans 500 tabular-nums nos cutoffs (de-bold R9). Escala coerente. Letter-spacing 0.04em. |
+| E   | 8    | Fill ~60%. min-width:0 trava flex 3:4:3. Source-tag cascade blindada. |
+| C   | 7    | **Ponto fraco.** Safe pastel 25%, gray neutro (--divider), danger puro. Flags white+border-navy bottom. Hierarquia OK mas nao excelente. |
+| V   | 9    | Barra = visual dominante. Danger unico segmento saturado. Pitfall flags ancorados (border-bottom navy). |
+| K   | 8    | Sem archetype padrao. Layout unico mas spacing/radius consistente com design system. |
+| S   | 9    | ScaleX grow instructional. Stagger flags. Source-tag. OKLCH completo. Shadow + border-bottom nos flags. |
+| M   | 8    | h2 = rotulo (decisao do autor). Corpo <=30 palavras em S0/S1. S2 final = 41 palavras (flags incluso). |
+| I   | 9    | 2 clickReveals. advance/retreat robusto. Leave/return reseta via GSAP. Failsafe no-js/stage-bad. |
+| D   | 9    | 13 refs tier-1 em evidence-db. VPN >90% (EASL NITs), VPP ~35% (Lindvig). [DATA] tags em notes. |
+| A   | 10   | Icones ✓/⚠/✕ junto a cor semantica. Contraste texto-on-dark na barra. Grid flags acessivel. |
+| L   | 9    | 1 conceito (FIB-4 como triagem). 3 beats progressivos = chunking natural. Extraneous eliminado. |
+| P   | 9    | Pitfalls = pratica diaria (idade, alcool, MASLD). Sidebar calc ao vivo. "E dai?" claro: zona cinza → elastografia. |
+| N   | 8    | Setup role. tensionLevel=2. Headline confere com narrative.md. Gateway → proximo slide (elastografia). |
 
-Obs: (1) Scorecard será preenchido após QA pipeline (screenshots + Gate 0 + Gate 4). (2) H2 é rótulo por decisão explícita de Lucas (não converter). (3) Formula e hero ficam APENAS no sidebar (case-panel.js calc).
+Obs: (1) Redesign completo em 29/mar — layout anterior (grid-stacking fade-replace) removido. (2) H2 rotulo por decisao do autor. (3) R7→R9 micropolish: bar safe/gray desaturados, gray→--divider neutro, flags de-bold 700→500, border-bottom navy, min-width:0, letter-spacing 0.04em, cascade source-tag blindada. (4) Gate 2 STALE (executado no layout antigo). (5) 41 palavras no S2 — Lucas avaliou presencialmente. (6) *DONE com asterisco: cor_contraste 7/10, aceito por prazo.
 
 ### s-a1-rule5 (03d-a1-rule5.html)
 
@@ -401,7 +402,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 4 | s-a1-classify | OK | 3 cards + PREDESCI; ~~h2 pendente~~ reescrito d20deec | — |
 | 5 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
 | 6 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
-| 7 | s-a1-fib4 | REESCRITO | Conteúdo novo 29/mar (VPN/VPP, pitfalls, grayzone). Screenshots stale. Re-QA obrigatório. | — |
+| 7 | s-a1-fib4 | DONE* R9 8.8 | Progressive spectrum. Micropolish R7→R9 (de-bold, desaturate, anchor). cor_contraste 7/10 aceito por prazo. Gate 2 STALE. | — |
 | 9 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
 | 10 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |

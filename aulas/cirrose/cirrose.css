@@ -2596,20 +2596,21 @@ section#s-a1-01 .slide-inner {
   align-items: center;
   justify-content: center;
   font-family: var(--font-body);
-  font-weight: 700;
+  font-weight: 500;
   font-size: var(--text-body);
   font-variant-numeric: tabular-nums lining-nums;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  min-width: 0;
 }
 .fib4-seg--safe {
   flex: 3;
-  background: var(--safe);
-  color: var(--text-on-dark);
+  background: color-mix(in oklch, var(--safe) 25%, var(--bg-card));
+  color: var(--safe);
 }
 .fib4-seg--gray {
   flex: 4;
-  background: var(--warning);
-  color: var(--text-primary);
+  background: var(--divider);
+  color: var(--text-secondary);
 }
 .fib4-seg--danger {
   flex: 3;
@@ -2627,6 +2628,7 @@ section#s-a1-01 .slide-inner {
   align-items: center;
   gap: 2px;
   padding: var(--space-xs) 0;
+  min-width: 0;
 }
 .fib4-annot--safe   { flex: 3; }
 .fib4-annot--gray   { flex: 4; }
@@ -2666,28 +2668,35 @@ section#s-a1-01 .slide-inner {
   border-radius: var(--radius-sm);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
+  border-bottom: 3px solid var(--border-navy);
   box-shadow: 0 4px 12px var(--shadow-soft);
 }
 .fib4-flag-icon {
   font-size: var(--text-body);
   line-height: 1;
+  color: var(--warning-on-light);
 }
 .fib4-flag-title {
   font-family: var(--font-body);
-  font-weight: 700;
+  font-weight: 500;
   font-size: var(--text-small);
   color: var(--text-primary);
 }
 .fib4-flag-detail {
   font-family: var(--font-body);
   font-size: var(--text-caption);
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 /* Source-tag */
 #s-a1-fib4 .source-tag {
   white-space: normal;
   overflow-wrap: anywhere;
+  max-width: 60%;
+  margin: auto auto 0;
+  text-align: center;
+}
+#deck.has-panel #s-a1-fib4 .source-tag {
   max-width: 60%;
   margin: auto auto 0;
   text-align: center;
