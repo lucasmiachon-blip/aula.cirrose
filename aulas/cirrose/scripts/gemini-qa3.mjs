@@ -799,10 +799,45 @@ async function runEditorial(slideId, round, qaDir) {
   console.log('\n' + '='.repeat(60));
   console.log(text);
 
+  // Extract structured JSON from response (section 5 of Gate 4 prompt)
+  console.log('\n4. Extracting structured scorecard...');
+  const jsonFences = [...text.matchAll(/```json\s*\n([\s\S]*?)```/g)];
+  let scorecard = null;
+  if (jsonFences.length > 0) {
+    // Take the last ```json block (the structured output section)
+    const lastJson = jsonFences[jsonFences.length - 1][1].trim();
+    try {
+      scorecard = JSON.parse(lastJson);
+      const scorecardPath = join(qaDir, `gate4-scorecard-r${round}.json`);
+      writeFileSync(scorecardPath, JSON.stringify(scorecard, null, 2));
+      console.log(`  Scorecard parsed OK -> ${scorecardPath}`);
+      if (scorecard.scorecard) {
+        const dims = Object.entries(scorecard.scorecard);
+        const avg = dims.reduce((a, [, v]) => a + v, 0) / dims.length;
+        console.log(`  Dims: ${dims.map(([k, v]) => `${k}=${v}`).join(', ')}`);
+        console.log(`  Media: ${avg.toFixed(1)}/10 | MUST: ${scorecard.must_count || 0} | SHOULD: ${scorecard.should_count || 0} | COULD: ${scorecard.could_count || 0}`);
+      }
+    } catch (e) {
+      console.warn(`  WARN: JSON block found but parse failed: ${e.message}`);
+      writeFileSync(join(qaDir, `gate4-scorecard-r${round}-raw.txt`), lastJson);
+      console.warn(`  Raw saved -> gate4-scorecard-r${round}-raw.txt`);
+    }
+  } else {
+    console.warn('  WARN: No ```json block found in Gemini response — scorecard not extracted');
+  }
+
   // Auto-append round summary to qa-rounds file
-  console.log('\n4. Appending round summary...');
-  const scoreMatch = text.match(/\*\*M[EÉ]DIA\*\*\s*\|\s*\*?\*?([\d.]+)/i);
-  const score = scoreMatch ? scoreMatch[1] + '/10' : '?/10';
+  console.log('\n5. Appending round summary...');
+  // Use scorecard media if available, fallback to regex
+  let score;
+  if (scorecard?.scorecard) {
+    const dims = Object.values(scorecard.scorecard);
+    const avg = dims.reduce((a, v) => a + v, 0) / dims.length;
+    score = `${avg.toFixed(1)}/10`;
+  } else {
+    const scoreMatch = text.match(/\*\*M[EÉ]DIA\*\*\s*\|\s*\*?\*?([\d.]+)/i);
+    score = scoreMatch ? scoreMatch[1] + '/10' : '?/10';
+  }
   // Match both old format (### Proposta N: ...) and new format (**P1 [MUST]: ...**)
   const proposalMatches = [
     ...text.matchAll(/###\s*Proposta\s*\d+[:\s]*([^\n]+)/gi),
@@ -814,7 +849,7 @@ async function runEditorial(slideId, round, qaDir) {
   appendRoundSummary(slideId, round, score, proposals);
 
   // Cleanup uploaded files
-  console.log('\n5. Cleaning up uploads...');
+  console.log('\n6. Cleaning up uploads...');
   for (const f of [video, s0, s2, refPng].filter(Boolean)) {
     try {
       await fetch(`${BASE}/v1beta/${f.name}?key=${API_KEY}`, { method: 'DELETE' });
