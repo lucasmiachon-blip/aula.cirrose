@@ -112,7 +112,7 @@ Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `WT-OPERATING.m
 
 ## Act 1 — QA Loop 1 (baseline 14/mar, atualizado 17/mar)
 
-**Status QA (este doc):** 6 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*), 0 QA, 1 DRAFT (s-a1-elasto), 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
+**Status QA (este doc):** 6 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*), 0 QA, 0 DRAFT, 5 CONTENT (s-a1-elasto, s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
 **Status maquina de estados (HANDOFF/WT-OPERATING):** 6 DONE*, 0 QA, 37 CONTENT. Ver HANDOFF.md para estado completo.
 *s-a1-fib4 DONE* = hierarquia visual ainda fraca (cor_contraste 7/10), aceito por pressao de prazo.
 Agente: Claude Code (Opus) · Sessao: 14/mar/2026
@@ -316,9 +316,9 @@ Obs: (1) Redesign completo em 29/mar — layout anterior (grid-stacking fade-rep
 | N   | —    | |
 
 **Media:** — (0/10)
-**Status:** DRAFT
+**Status:** CONTENT
 
-Obs: Novo slide criado 29/mar. Foco: apreciação crítica do laudo elastográfico — confounders, MASLD gap, MRE escape. 3 beats (auto + 2 clicks). 12 PMIDs verificados via multi-MCP + Gemini cross-validation.
+Obs: (1) Novo slide criado 29/mar. Foco: apreciação crítica do laudo elastográfico — confounders, MASLD gap, MRE escape. 3 beats (auto + 2 clicks). 12 PMIDs verificados via multi-MCP + Gemini cross-validation. (2) Bugfix 30/mar: registry reescrito (return-object → __hookAdvance pattern), data-reveal removido (conflito ClickReveal), panel 4→7 campos (= fib4 sem calc), dead CSS ~60 linhas removido, box-shadow + failsafes adicionados. (3) Word count: 78 palavras (limite 30), distribuido 3 beats (~26/beat). Pendente decisao.
 
 ### s-a1-rule5 (03d-a1-rule5.html)
 
@@ -429,7 +429,7 @@ Screenshots: `aulas/cirrose/qa-screenshots/` (gitignored)
 | 5 | s-a1-baveno | SYNCED | State machine refatorada 26/mar: auto+click. PREDESCI lockup OK. PMID pendente | — |
 | 6 | s-a1-damico | ~~PASS COM RISCO~~ OK | ~~h2 2 linhas~~ 1 linha; ~~era 2 bars invisiveis~~ chromatic fix; ~~fill 205%~~ ~90% | — |
 | 7 | s-a1-fib4 | DONE* R9 8.8 | Progressive spectrum. Micropolish R7→R9 (de-bold, desaturate, anchor). cor_contraste 7/10 aceito por prazo. Gate 2 STALE. | — |
-| 8 | s-a1-elasto | DRAFT | Novo slide 29/mar: confounders + MASLD gap + MRE. 12 PMIDs. H2 pendente. | — |
+| 8 | s-a1-elasto | CONTENT | Bugfix 30/mar: animacao + panel + dead CSS limpo. 3 beats funcionais. Pendente: QA pipeline. | — |
 | 9 | s-a1-rule5 | OK | Melhor slide do ato; 5 zones + Antonio plot excelente | — |
 | 10 | s-a1-meld | OK | ~~Emoji fixado rodada 4~~ → CSS dots; ~~h2 pendente~~ reescrito d20deec | — |
 | 11 | s-cp1 | OK | Checkpoint completo; interacao poll funciona | — |

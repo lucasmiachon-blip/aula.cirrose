@@ -2827,67 +2827,6 @@ section#s-a1-01 .slide-inner {
   transform: none !important;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   Elastography Pathway (.elasto-*)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.elasto-pathway {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  max-width: 700px;
-  margin: 0 auto;
-}
-.elasto-step {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border-left: 4px solid var(--border);
-}
-.elasto-step--triagem { border-left-color: var(--ui-accent); }
-.elasto-step--confirma { border-left-color: var(--safe); }
-.elasto-step--estadia { border-left-color: var(--warning); }
-.elasto-step-num {
-  font-family: var(--font-display);
-  font-size: var(--text-h2);
-  color: var(--text-muted);
-  min-width: 36px;
-  text-align: center;
-}
-.elasto-step-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-}
-.elasto-step-title {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 500;
-  color: var(--text-primary);
-}
-.elasto-step-detail {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-}
-.elasto-step-arrow {
-  font-size: var(--text-h3);
-  color: var(--text-muted);
-}
-.elasto-caveats {
-  margin-top: var(--space-xs);
-  text-align: center;
-}
-.elasto-caveat {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  font-style: italic;
-}
-
 /* ============================================
    s-a1-elasto — Elastografia: apreciação crítica
    ============================================ */
@@ -2914,6 +2853,7 @@ section#s-a1-01 .slide-inner {
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border-left: 4px solid var(--border);
+  box-shadow: 0 2px 8px var(--shadow-soft);
   opacity: 0;
   transform: translateY(8px);
 }
@@ -3076,12 +3016,14 @@ section#s-a1-01 .slide-inner {
 }
 
 /* Failsafe Plan B + no-js: new slides */
-.no-js .elasto-conf, .stage-bad .elasto-conf {
+.no-js .elasto-conf, .stage-bad .elasto-conf,
+.no-js .elasto-masld, .stage-bad .elasto-masld,
+.no-js .elasto-mre, .stage-bad .elasto-mre {
   opacity: 1 !important;
   transform: none !important;
+  visibility: visible !important;
 }
 
-.no-js .elasto-step, .stage-bad .elasto-step,
 .no-js .rule-zone, .stage-bad .rule-zone,
 .no-js .antonio-plot, .stage-bad .antonio-plot {
   opacity: 1 !important;

@@ -5,9 +5,9 @@
 
 ---
 
-## Estado — 2026-03-29T21:00-03:00
+## Estado — 2026-03-30T01:00-03:00
 
-**Slides:** 44 buildados · 6 DONE* · 0 QA · 1 DRAFT · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
+**Slides:** 44 buildados · 6 DONE* · 0 QA · 0 DRAFT · 38 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 → **Gate 2 (Opus, $0)** → Gate 4 (Gemini).
@@ -17,7 +17,19 @@
 **Pendente infra:** reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar). `#slide-id-label` em deck.js (remover antes de producao).
 **Scripts hardening:** ZERO-tier DONE. MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
 
-### Sessao 29/mar (noite 5) — s-a1-elasto DRAFT
+### Sessao 30/mar (madrugada) — s-a1-elasto bugfix DRAFT→CONTENT
+
+**O que foi feito:**
+
+1. **Registry animation fix** — Funcao retornava `{ enter(), advance(), retreat() }` mas engine.js descartava o return value. Reescrita no padrao correto: closures + `slide.__hookAdvance`/`__hookRetreat`/`__hookCurrentBeat` setados no element. 3 beats agora funcionam (auto confounders + click MASLD + click MRE).
+2. **data-reveal conflict removido** — `data-reveal="1"` e `data-reveal="2"` criavam ClickReveal separado que competia com state machine custom. Removidos do HTML.
+3. **Panel lateral corrigido** — Mostrava 4 campos (fib4, lsm, plq, albumin). Agora mostra 7 campos identicos ao fib4 (AST, ALT, plq, albumin, Bili, INR + fib4=5,91), sem calculadora.
+4. **Dead CSS removido** — ~60 linhas de `.elasto-pathway`/`.elasto-step` (versao anterior do slide). Failsafe orfao `.elasto-step` removido.
+5. **Visual polish** — `box-shadow: 0 2px 8px var(--shadow-soft)` nos confounder cards. Failsafe `.no-js`/`.stage-bad` adicionado para MASLD/MRE (antes ficavam invisiveis sem GSAP).
+
+**Pendente:** QA pipeline (screenshots → Gate 0 → Gate 2 → Gate 4). Visual polish (word count 78 vs 30, layout, tipografia). Beat futuro (estado da arte) em backlog.
+
+### Sessao 29/mar (noite 5) — s-a1-elasto DRAFT (criacao)
 
 **O que foi feito:**
 
@@ -27,8 +39,6 @@
 4. **9 superfícies tocadas:** HTML, CSS, manifest, registry, panelState, narrative, evidence-db, AUDIT-VISUAL, HANDOFF.
 5. **H2 definido:** "Fibroscan, MRE e outros métodos não invasivos". Sincronizado em 4 superfícies.
 6. **Sem archetypes** — CSS custom scoped por #s-a1-elasto.
-
-**Pendente:** QA pipeline (screenshots → Gate 0 → Gate 2 → Gate 4). Beat futuro (estado da arte) em backlog.
 
 ### Sessao 29/mar (noite 4) — s-a1-fib4 micropolish DONE*
 
@@ -178,14 +188,15 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 score 8.5/10. Source-tag centering DEFERRED. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 score 7.3/10. P1 grid 2-col align-start, P2 expo easing fluido. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Grid 3-col fix, font fix (DM Sans), p=0,041 + PMIDs. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | QA | **R7 8.5/10 (redesign completo).** Progressive spectrum (persistent bar + additive beats). P1-P4 R7 implementados. Gate 2 STALE (layout antigo). Micropolish pendente. |
-| 7-9 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
+| 6 | s-a1-fib4 | QA | **R9 8.8/10.** Progressive spectrum. Micropolish DONE*. cor_contraste 7/10 aceito. Gate 2 STALE. |
+| 7 | s-a1-elasto | CONTENT | Bugfix 30/mar: animacao + panel + dead CSS. 3 beats OK. Pendente: QA pipeline + visual polish. |
+| 8-10 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
 | 10-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-42 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 5 DONE · 1 QA · 37 CONTENT (43 total)
-**Proximo:** s-a1-fib4 micropolish (R7 8.5/10, palavras e polish visual). Depois: s-a1-damico. Ver [NEXT-SESSION.md](NEXT-SESSION.md).
+**Resumo:** 6 DONE* · 1 QA · 37 CONTENT (44 total, inclui s-a1-elasto como CONTENT)
+**Proximo:** s-a1-elasto visual polish + QA pipeline (screenshots → Gate 0 → Gate 2 → Gate 4). Depois: s-a1-damico.
 **Script robustez:** ZERO-tier DONE + scripts validados end-to-end (2026-03-29). MINIMAL/HIGH pendentes — ref: `@repo/docs/HARDENING-SCRIPTS.md`.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)

@@ -304,71 +304,58 @@ export const customAnimations = {
     const mreBlock = slide.querySelector('.elasto-mre');
     const sourceTag = slide.querySelector('.source-tag');
 
-    /* Reset all */
-    function resetAll() {
-      gsap.set(confCards, { autoAlpha: 0, y: 8 });
-      gsap.set([masldBlock, mreBlock], { autoAlpha: 0, y: 10 });
-      if (sourceTag) gsap.set(sourceTag, { autoAlpha: 0 });
-      state = 0;
+    /* Initial state: hide everything */
+    gsap.set(confCards, { autoAlpha: 0, y: 8 });
+    gsap.set([masldBlock, mreBlock], { autoAlpha: 0, y: 10 });
+    if (sourceTag) gsap.set(sourceTag, { autoAlpha: 0 });
+
+    /* State 0 (auto): confounders stagger in */
+    gsap.to(confCards, {
+      autoAlpha: 1, y: 0,
+      duration: 0.45, stagger: 0.12, delay: 0.3,
+      ease: 'power2.out',
+    });
+
+    function advance() {
+      if (state >= maxState) return false;
+      state++;
+
+      if (state === 1) {
+        gsap.to(masldBlock, {
+          autoAlpha: 1, y: 0,
+          duration: 0.4, ease: 'power2.out',
+        });
+      } else if (state === 2) {
+        gsap.to(mreBlock, {
+          autoAlpha: 1, y: 0,
+          duration: 0.4, ease: 'power2.out',
+        });
+        if (sourceTag) {
+          gsap.to(sourceTag, {
+            autoAlpha: 1,
+            duration: 0.3, delay: 0.3,
+          });
+        }
+      }
+      return true;
     }
 
-    resetAll();
+    function retreat() {
+      if (state <= 0) return false;
 
-    return {
-      enter() {
-        resetAll();
-        /* State 0: confounders stagger in */
-        gsap.to(confCards, {
-          autoAlpha: 1, y: 0,
-          duration: 0.45, stagger: 0.12, delay: 0.3,
-          ease: 'power2.out',
-        });
-      },
+      if (state === 2) {
+        gsap.to([mreBlock, sourceTag].filter(Boolean), { autoAlpha: 0, y: 10, duration: 0.25 });
+      } else if (state === 1) {
+        gsap.to(masldBlock, { autoAlpha: 0, y: 10, duration: 0.25 });
+      }
 
-      advance() {
-        if (state >= maxState) return false;
-        state++;
+      state--;
+      return true;
+    }
 
-        if (state === 1) {
-          /* MASLD gap card */
-          gsap.to(masldBlock, {
-            autoAlpha: 1, y: 0,
-            duration: 0.4, ease: 'power2.out',
-          });
-        } else if (state === 2) {
-          /* MRE escape + source */
-          gsap.to(mreBlock, {
-            autoAlpha: 1, y: 0,
-            duration: 0.4, ease: 'power2.out',
-          });
-          if (sourceTag) {
-            gsap.to(sourceTag, {
-              autoAlpha: 1,
-              duration: 0.3, delay: 0.3,
-            });
-          }
-        }
-
-        return true;
-      },
-
-      retreat() {
-        if (state <= 0) return false;
-
-        if (state === 2) {
-          gsap.to([mreBlock, sourceTag].filter(Boolean), { autoAlpha: 0, y: 10, duration: 0.25 });
-        } else if (state === 1) {
-          gsap.to(masldBlock, { autoAlpha: 0, y: 10, duration: 0.25 });
-        }
-
-        state--;
-        return true;
-      },
-
-      leave() {
-        resetAll();
-      },
-    };
+    slide.__hookAdvance = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => state;
   },
 
   's-a1-damico': (slide, gsap) => {
