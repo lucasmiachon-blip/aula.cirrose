@@ -23,7 +23,7 @@ const AULA_DIR = join(__dirname, '..');
 const API_KEY = process.env.GEMINI_API_KEY;
 if (!API_KEY) { console.error('GEMINI_API_KEY not set'); process.exit(1); }
 
-const MODEL = 'gemini-3.1-pro-preview';
+const MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
 
 // G8: Pricing per 1M tokens — update when switching models
@@ -112,6 +112,7 @@ async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 }
 // --- Gate 0 constants ---
 const REPO_ROOT = join(AULA_DIR, '..', '..');
 const GATE0_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gemini-gate0-inspector.md');
+const GATE4_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gemini-gate4-editorial.md');
 const ERROR_DIGEST_PATH = join(REPO_ROOT, 'docs', 'prompts', 'error-digest.md');
 
 // --- Dynamic source extraction (E42) ---
@@ -578,136 +579,30 @@ async function waitForProcessing(fileName) {
   return state === 'ACTIVE';
 }
 
-// --- Prompt builder (uses v6.1 template) ---
+// --- Prompt builder (loads from external template: docs/prompts/gemini-gate4-editorial.md) ---
 function buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris) {
+  if (!existsSync(GATE4_PROMPT_PATH)) {
+    throw new Error(`Gate 4 prompt not found: ${GATE4_PROMPT_PATH}`);
+  }
   const roundCtx = readRoundContext(slideId);
 
-  const text = `<system>
+  // Build conditional sections
+  const mediaList = [
+    mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)',
+    mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)',
+    mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoes completadas)' : '(sem S2)',
+    mediaUris.ref ? `4. PNG REF — slide ANTERIOR (${mediaUris.refSlideId}) estado final. REFERENCIA OBRIGATORIA: comparar grid vertical (margens, baseline), hierarquia tipografica (h2 size, body size, caption size), spacing (padding, gap), paleta de cor, e peso visual. Diferenca injustificada = proposta SHOULD.` : '',
+  ].filter(Boolean).join('\n');
 
-Voce e cinco profissionais fundidos em um:
-
-1. **Art director** que projeta keynotes para Apple Health e Stripe Sessions — obsessivo com whitespace, profundidade de superficie e a tensao entre minimalismo e impacto
-2. **Motion designer** que trabalhou em explainers medicos estilo Kurzgesagt — cada frame tem intencao narrativa, cada transicao carrega significado emocional
-3. **Tipografo editorial** da Bloomberg Businessweek — hierarquia tipografica cria arquitetura visual, nao apenas organiza texto
-4. **UI/UX designer** senior da Linear/Vercel — craft obsessivo com micro-interacoes, espacamento, cor como sistema, polish sub-pixel
-5. **Front-end engineer** que implementa as visoes dos 4 acima — domina GSAP, CSS moderno (oklch, container queries, has(), grid subgrid), performance de animacao, acessibilidade sem theater
-
-Voce foi contratado como **editor final criativo**. Autoridade total para propor mudancas radicais.
-
-### Mentalidade
-- NAO e linter. NAO e QA bot. Voce e a pessoa que diz "esse frame nao respira".
-- CAMADAS: projetor a 10m / TV a 3m / designer a 50cm.
-- Todo pixel e decisao. Sem motivo = ruido.
-
-### Calibracao: Nivel 1 (PowerPoint) a 5 (Keynote-grade Apple WWDC). Target: 4-5.
-
-</system>
-
-<context>
-
-### Apresentacao
-- Cirrose Hepatica — Classificar, Intervir, Reverter
-- Publico: gastro/hepato congresso BR. Ja viram 10k slides azuis com bullets.
-- Congresso: 500 pessoas, 1280x720, 5-15m. Sala pequena: TV 55-65", 2-5m.
-
-### Design system
-- Stage-C: fundo creme (oklch 95%), texto quase-preto. NAO dark.
-- Tipografia: Instrument Serif (display), DM Sans (corpo), JetBrains Mono (dados)
-- OKLCH: safe/teal L40, warning/amber L60, danger/red L50. UI accent navy.
-
-### GSAP 3.14 Business: SplitText, Flip importados. Disponiveis: ScrambleText, MorphSVG, DrawSVG, MotionPath, TextPlugin, CustomEase, EasePack, Physics2D, CSSRule.
-
-### Contexto narrativo
-- ${slideId} (posicao ${meta.pos}), narrativeRole: ${meta.slide?.narrativeRole || 'null'}, tensionLevel: ${meta.slide?.tensionLevel || '?'}/5
-- Anterior: ${meta.prev}
-- Seguinte: ${meta.next}
-- Interacao: ${buildInteractionFlow(meta.slide?.clickReveals || 0)}
-${CONTEXT_PARAGRAPH ? `\n### Contexto adicional\n${CONTEXT_PARAGRAPH}` : ''}
-
-</context>
-
-<guardrails>
-${readErrorDigest() || '(no error digest found)'}
-</guardrails>
-
-<materials>
-
-### Round context
-${roundCtx}
-
-> NAO repita sugestoes ja implementadas. Foque no que AINDA nao funciona e no que REGREDIU.
-
-### HTML:
-\`\`\`html
-${rawHTML}
-\`\`\`
-
-### CSS (key rules):
-\`\`\`css
-${rawCSS}
-\`\`\`
-
-### JS (GSAP custom animation):
-\`\`\`js
-${rawJS}
-\`\`\`
-
-### Speaker Notes:
-\`\`\`
-${notes}
-\`\`\`
-
-${DIAGNOSTIC ? `### CSS global reference — cascade da classe alvo (regras SEM #slideId)
+  const diagnosticSection = DIAGNOSTIC ? `### CSS global reference — cascade da classe alvo (regras SEM #slideId)
 \`\`\`css
 ${extractGlobalClassCSS(DIAGNOSTIC.split(/[\s:,]/)[0].replace('.', '') || 'source-tag')}
 \`\`\`
 
 > Compare estas regras globais com as regras slide-specific acima. A diferenca explica o bug.
-` : ''}### Material visual anexado
-${mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)'}
-${mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)'}
-${mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoes completadas)' : '(sem S2)'}
-${mediaUris.ref ? `4. PNG REF — slide ANTERIOR (${mediaUris.refSlideId}) estado final. REFERENCIA OBRIGATORIA: comparar grid vertical (margens, baseline), hierarquia tipografica (h2 size, body size, caption size), spacing (padding, gap), paleta de cor, e peso visual. Diferenca injustificada = proposta SHOULD.` : ''}
+` : '';
 
-</materials>
-
-<task>
-
-4 passos. Direto ao ponto, sem elogio generico.
-
-### 0. RECIBO E AVALIAÇÃO POR MATERIAL (obrigatório)
-Declarar o que recebeu E como avaliou CADA material individualmente. Formato:
-\`Recebi: [VIDEO .webm | sem video] · [PNG S0 | sem S0] · [PNG S2 | sem S2] · [PNG REF | sem REF] · [HTML + CSS + JS raw] | Conformidade: guardrails respeitados, round context lido\`
-
-Avaliacao por material (1 frase cada):
-- **VIDEO:** O que o video revelou sobre ritmo, easing, timing? Algo que os PNGs nao mostram?
-- **PNG S0:** Estado inicial — o que funciona, o que nao funciona?
-- **PNG S2:** Estado final — todos elementos visiveis? Legibilidade? Respiro?
-- **PNG REF:** (se presente) Comparacao RIGOROSA com slide anterior: (1) grid vertical — margens e baseline alinham? (2) tipografia — mesma escala h2/body/caption? (3) spacing — padding e gap consistentes? (4) cor — mesma paleta semantica? (5) peso visual — fill ratio compativel com tipo de slide? Desvio sem justificativa narrativa = proposta SHOULD.
-- **RAW CODE:** O que o HTML/CSS/JS revelou que as imagens nao mostram (specificity, overrides, animacoes ocultas)?
-
-### 1. IMPRESSAO (max 3 frases)
-Video (se houver) PRIMEIRO → PNGs → codigo.
-O que funciona, o que incomoda, e UMA coisa que mudaria primeiro.
-
-### 2. SCORECARD (7 dimensoes)
-
-| Dim | Nota |
-|-----|------|
-| Tipografia e hierarquia | ?/10 |
-| Cor, contraste e superficie | ?/10 |
-| Composicao e respiro | ?/10 |
-| Motion e timing | ?/10 |
-| Legibilidade a 5m | ?/10 |
-| Impacto emocional | ?/10 |
-| Craft front-end | ?/10 |
-| **MEDIA** | ?/10 |
-
-Justificar EM 1 FRASE scores <=7. Scores >=8 sem justificativa.
-Se video foi anexado: nota Motion DEVE refletir o que ASSISTIU (ritmo, easing, timing).
-Se nao assistiu video: declarar "nota baseada em codigo, sem video".
-
-${mediaUris.video ? `### AVALIACAO DE ANIMACAO (video presente)
+  const animationSection = mediaUris.video ? `### AVALIACAO DE ANIMACAO (video presente)
 
 O video mostra buildup progressivo GSAP via click-reveals.
 
@@ -737,7 +632,9 @@ Se animation_score < 7, cada item em animation_issues DEVE ser implementavel:
   "~3s: fade dura 100ms, aumentar pra 400ms"
   "~5s: 3 elementos juntos, sequenciar com 300ms gap"
 NAO aceito "melhorar animacao" como sugestao.
-` : ''}${DIAGNOSTIC ? `### DIAGNOSTICO (OBRIGATORIO — responder ANTES das propostas)
+` : '';
+
+  const diagnosticTask = DIAGNOSTIC ? `### DIAGNOSTICO (OBRIGATORIO — responder ANTES das propostas)
 **Problema reportado:** ${DIAGNOSTIC}
 
 Voce recebeu o CSS slide-specific (materials) E o CSS global reference (cascade sem #slideId).
@@ -747,31 +644,40 @@ Voce tambem tem o HTML raw e o JS raw. Investigue:
 3. **FIX** — snippet CSS/HTML copyavel com arquivo indicado
 
 Seja forense: leia a cascade inteira, identifique conflitos de specificity, position contexts e layout modes.
-` : ''}### ${DIAGNOSTIC ? '4' : '3'}. PROPOSTAS (1 a 5)
-Formato por proposta:
+` : '';
 
-**P1 [MUST|SHOULD|COULD]: titulo curto**
-Razao: 1 frase com mecanismo perceptual/cognitivo concreto.
-\`\`\`css
-/* arquivo: cirrose.css */
-.selector { propriedade: valor-novo; }
-\`\`\`
+  // Load template and substitute placeholders
+  let text = readFileSync(GATE4_PROMPT_PATH, 'utf8');
 
-Regras das propostas:
-- Snippet DEVE ser copiavel direto. Indicar arquivo (cirrose.css, HTML, slide-registry.js).
-- MUST = defeito funcional ou legibilidade. SHOULD = melhoria perceptual concreta. COULD = polish/craft.
-- Se a mudanca e JS/GSAP, dar o trecho exato com label da timeline e seletor.
-- Pelo menos 1 proposta pode ser RADICAL (ousada, marcar como **[RADICAL]**).
-- NAO repetir sugestoes do ROUND CONTEXT ja implementadas.
+  // Strip markdown frontmatter (lines starting with # before first <system>)
+  const systemIdx = text.indexOf('<system>');
+  if (systemIdx > 0) text = text.slice(systemIdx);
 
-</task>
+  const replacements = {
+    '{{SLIDE_ID}}': slideId,
+    '{{SLIDE_POS}}': String(meta.pos),
+    '{{NARRATIVE_ROLE}}': meta.slide?.narrativeRole || 'null',
+    '{{TENSION_LEVEL}}': String(meta.slide?.tensionLevel || '?'),
+    '{{PREV_SLIDE}}': meta.prev,
+    '{{NEXT_SLIDE}}': meta.next,
+    '{{INTERACTION_FLOW}}': buildInteractionFlow(meta.slide?.clickReveals || 0),
+    '{{CONTEXT_EXTRA}}': CONTEXT_PARAGRAPH ? `\n### Contexto adicional\n${CONTEXT_PARAGRAPH}` : '',
+    '{{ERROR_DIGEST}}': readErrorDigest() || '(no error digest found)',
+    '{{ROUND_CTX}}': roundCtx,
+    '{{RAW_HTML}}': rawHTML,
+    '{{RAW_CSS}}': rawCSS,
+    '{{RAW_JS}}': rawJS,
+    '{{NOTES}}': notes,
+    '{{DIAGNOSTIC_SECTION}}': diagnosticSection,
+    '{{MEDIA_LIST}}': mediaList,
+    '{{ANIMATION_SECTION}}': animationSection,
+    '{{DIAGNOSTIC_TASK}}': diagnosticTask,
+    '{{MAX_TOKENS}}': mediaUris.video ? '5000' : '2500',
+  };
 
-<constraints>
-Max ${mediaUris.video ? '4000' : '1500'} tokens total. Sem autocritica, sem score projetado.
-Tom: direto, honesto, PT-BR, codigo em ingles.
-Legibilidade a 5m e prioridade #1 — slide bonito mas ilegivel = FAIL.
-Respeite <guardrails> — propostas que violem erros listados serao rejeitadas.
-</constraints>`;
+  for (const [placeholder, value] of Object.entries(replacements)) {
+    text = text.replaceAll(placeholder, value);
+  }
 
   // Build parts array with text + media
   const parts = [{ text }];

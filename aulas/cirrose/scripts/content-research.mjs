@@ -75,7 +75,7 @@ if (FIELDS_RAW) {
   }
 }
 
-const MODEL = 'gemini-3.1-pro-preview';
+const MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
 
 // G8: Pricing per 1M tokens

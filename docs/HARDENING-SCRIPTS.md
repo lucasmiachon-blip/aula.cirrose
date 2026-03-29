@@ -573,17 +573,25 @@ if (hasFlag('help') || hasFlag('h')) {
 
 ### Tier MINIMAL (proximo batch)
 
-| # | O que | Impacto |
-|---|-------|---------|
-| G3 | `countTokens` pre-flight | Custo real antes de enviar |
-| G4 | `GEMINI_MODEL` env var + default GA | Resiliencia a deprecacao |
-| G5 | Externalizar system prompt | Versionamento independente |
-| G7 | Extrair manifest-parser.mjs | DRY, single source of truth |
+| # | O que | Impacto | Status |
+|---|-------|---------|--------|
+| G3 | `countTokens` pre-flight | Custo real antes de enviar | PENDING |
+| G4 | `GEMINI_MODEL` env var + default GA | Resiliencia a deprecacao | **DONE** (2026-03-29) |
+| G5 | Externalizar Gate 4 prompt | Versionamento independente | **DONE** (2026-03-29) → `docs/prompts/gemini-gate4-editorial.md` |
+| G7 | Extrair manifest-parser.mjs | DRY, single source of truth | PENDING |
 | P1 | `waitForFunction()` em vez de `waitForTimeout()` | Speed + reliability |
 | P2 | try/catch per slide + finally cleanup | Nao crashar batch inteiro |
 | P5 | `animations: 'disabled'` em screenshots | Pixels estaveis |
 | P6 | Import manifest em browser-qa-act1 | Nao out-of-sync |
 | J1 | Extrair cli.mjs compartilhado | DRY |
+
+### Adicionado em 2026-03-29
+
+| # | O que | Impacto | Status |
+|---|-------|---------|--------|
+| G9 | Gate 4 prompt 7→11 dimensoes (CSS Cascade, Gestalt, Semantic/a11y, State Completeness) | Gemini detecta dead CSS, specificity conflicts, failsafes ausentes, Gestalt violations | **DONE** (2026-03-29) |
+| G10 | Gate 4 CSS analysis obrigatoria (cascade trace, dead CSS, specificity, failsafes, GSAP races) | Gemini analisa codigo estruturalmente antes de propor | **DONE** (2026-03-29) |
+| G11 | Gate 4 structured JSON output (scorecard parseavel + dead_css + conflicts) | Script pode comparar scores entre rounds automaticamente | **DONE** (2026-03-29) |
 
 ### Tier HIGH (sprint dedicado)
 

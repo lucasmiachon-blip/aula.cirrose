@@ -104,7 +104,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 
 | Arquivo | Referencia | Referenciado por |
 |---------|-----------|-----------------|
-| HANDOFF.md | (autônomo — pendências ativas) | ← CLAUDE.md (operational record) |
+| HANDOFF.md | → NEXT-SESSION.md (contexto slide ativo) | ← CLAUDE.md (operational record) |
+| NEXT-SESSION.md | (contexto profundo do slide em QA) | ← HANDOFF.md |
 | references/archetypes.md | (layout archetypes) | ← CLAUDE.md |
 | references/decision-protocol.md | (protocolo decisões narrativeCritical) | ← slide-rules.md |
 | references/coautoria.md | (regras coautoria) | — |
@@ -135,6 +136,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Notion IDs | .env.example (variáveis `NOTION_*_ID`) | docs/SYNC-NOTION-REPO.md |
 | MCP profiles | .mcp-profiles/*.json | .mcp.json (perfil ativo) |
 | Estado Cirrose | aulas/cirrose/HANDOFF.md | — |
+| Contexto slide ativo | aulas/cirrose/NEXT-SESSION.md | ← HANDOFF.md |
 | Manifesto slides (cirrose) | aulas/cirrose/slides/_manifest.js | CLAUDE.md tabela |
 | Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-reference.md §4 |
 | Pesquisa médica profunda | .claude/skills/medical-researcher/SKILL.md | .claude/rules/design-reference.md §5, docs/MCP-ACADEMICOS.md |

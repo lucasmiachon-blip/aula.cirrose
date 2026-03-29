@@ -15,7 +15,7 @@ git log --oneline -5 2>/dev/null || echo "(no commits)"
 echo ""
 
 # Find and show active HANDOFF (most recently modified)
-echo "--- Active HANDOFF (first 40 lines) ---"
+echo "--- Active HANDOFF (first 55 lines) ---"
 HANDOFF=""
 LATEST_TS=0
 for f in aulas/*/HANDOFF.md; do
@@ -29,14 +29,27 @@ for f in aulas/*/HANDOFF.md; do
 done
 
 if [ -n "$HANDOFF" ]; then
-  head -40 "$HANDOFF"
+  head -55 "$HANDOFF"
 else
   echo "(no HANDOFF.md found)"
 fi
 
 echo ""
+echo "--- Active Slide Context ---"
+NEXTSESS=""
+for f in aulas/*/NEXT-SESSION.md; do
+  [ -f "$f" ] && NEXTSESS="$f" && break
+done
+if [ -n "$NEXTSESS" ]; then
+  head -5 "$NEXTSESS"
+  echo "  (full context: $NEXTSESS)"
+else
+  echo "(no NEXT-SESSION.md — no slide in active QA)"
+fi
+
+echo ""
 echo "--- Recent Lessons (last 15 lines) ---"
-tail -15 tasks/lessons.md 2>/dev/null || echo "(no lessons.md)"
+tail -15 docs/lessons.md 2>/dev/null || echo "(no lessons.md)"
 
 echo ""
 echo "--- Dirty State ---"
