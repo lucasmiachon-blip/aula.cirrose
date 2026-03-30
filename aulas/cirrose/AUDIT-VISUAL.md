@@ -80,8 +80,9 @@ Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `WT-OPERATING.m
 
 ## Act 1 — QA Status
 
-**Status:** 7 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*, s-a1-elasto*), 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
+**Status:** 8 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*, s-a1-elasto*, s-a1-rule5*), 0 QA, 1 DRAFT (s-a1-cpt), 2 CONTENT (s-a1-meld, s-cp1).
 *s-a1-fib4 DONE* = cor_contraste 7/10, aceito por prazo.
+*s-a1-rule5 DONE* = Gate 4 R4 8.7/10. craft_frontend 7, css_cascade 7, semantic_a11y 7 aceitos.
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
 
 ### s-a1-fib4 (03b-a1-fib4calc.html) — DONE* R9 8.8/10
@@ -107,6 +108,32 @@ Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
 | N   | 8    | Setup role. tensionLevel=2. Gateway → elastografia. |
 
 Obs: (1) Redesign completo 29/mar. (2) H2 rotulo por decisao do autor. (3) Gate 2 STALE (layout antigo). (4) 41 palavras S2 aceito por Lucas. (5) *cor_contraste 7/10 aceito por prazo.
+
+### s-a1-rule5 (03d-a1-rule5.html) — DONE* R4 8.7/10
+
+**Headline:** Rule of Five
+**Design:** 5-zone grid (progressive severity <10→≥25). Beat 0 auto (scaleY stagger + gray-zone bracket). Click 1 holofote (dimZones 0.35+grayscale80%, criticalZone glow+scale, sidebar 26 kPa danger, caveats fade-up, source-tag).
+
+| Dim | Nota | Evidencia |
+|-----|------|-----------|
+| H   | 9    | Zone ≥25 Von Restorff (glow + scale 1.05). Gray bracket ancora zonas centrais. |
+| T   | 9    | Instrument Serif H2, DM Sans body. Scale clamp completa. Tokens caption em zones/caveats. |
+| E   | 9    | Fill ~60%. Caveats preencheram dead space inferior. max-width 700px. |
+| C   | 10   | Paleta semantica safe→danger em 5 niveis. DimZones 0.35+grayscale80% preserva contexto. |
+| V   | 9    | 5-zone grid = visual dominante. Glow danger + scale hero. |
+| K   | 8    | Layout custom unico. Tokens/radius consistentes. |
+| S   | 9    | Failsafes .no-js/.stage-bad completos. GSAP advance/retreat simetrico. |
+| M   | 9    | H2 definido por Lucas. Caveats = evidencia (AUROC, >50 kPa). 70 palavras aceito (5 zones + caveats). |
+| I   | 9    | advance/retreat robusto. Sidebar danger persistent state. clearProps completo. |
+| D   | 10   | 6 refs tier-1 verificadas (Baveno VII, Barrett 2026, Vutien 2025, Chon 2024, Duarte-Rojo). [DATA] tags. |
+| A   | 7    | aria-hidden OK. Falta aria-live na sidebar (autoAlpha vs opacity — accepted). |
+| L   | 10   | 1 conceito (Rule-of-5). S2: 3 focos cognitivos (regua, paciente, excecao). Cowan respeitado. |
+| P   | 9    | Directives acionaveis por zona. Caveats = "e dai?" (fibrose ≠ HP, ceiling >50). |
+| N   | 9    | Payoff role. Callback elasto. Setup para cpt (classificacao clinica). |
+
+**Media:** 8.7/10 (Gemini R4). Opus Gate 2: 7.5/10.
+**Pipeline:** R1 5.4 (CSS truncado) → R2 6.4 (fixes + CSS section) → R3 7.2 (scale fix) → R4 8.7 (conteudo caveats aprovado). Lucas aprovou.
+**Obs:** (1) Word count 70 aceito (5 zones + 2 caveats). (2) craft_frontend/css_cascade/a11y 7 aceitos. (3) PMID fix 34052326→34166721. (4) C6 noPanelOverlap = false positive (bounding box vs conteudo visivel). (5) Legibilidade 5m: caption text ilegivel em TV ≤65" — aceito pois texto e narrado (speaker notes scripted).
 
 ### s-a1-elasto (03c-a1-elasto.html) — DONE* R4 8.5
 
@@ -146,17 +173,17 @@ Obs: (1) Word count 83 aceito (3 beats). (2) composicao 8 (fill ratio alto, acei
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 8.5/10 |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 7.3/10 |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5 |
-| 6 | s-a1-damico | CONTENT | 3 eras, ~105 palavras. L=7, split futuro no backlog |
-| 7 | s-a1-fib4 | DONE* R9 8.8 | cor_contraste 7/10 aceito. Gate 2 STALE |
-| 8 | s-a1-elasto | DONE* R4 8.5 | Gate 4: R1 6.6→R2 6.8→R3 9.1→R4 8.5. Aprovado. |
-| 9 | s-a1-rule5 | CONTENT | Melhor visual do Act 1 (V=9). 5 zones + Antonio |
+| 6 | s-a1-fib4 | DONE* R9 8.8 | cor_contraste 7/10 aceito. CSS anti-flash. |
+| 7 | s-a1-elasto | DONE* R4 8.5 | Gate 4: R1→R4. CSS anti-flash. |
+| 8 | s-a1-rule5 | DONE* R4 8.7 | Holofote ≥25 + caveats. craft/cascade/a11y 7 aceitos. |
+| 9 | s-a1-cpt | DRAFT | Rename de damico. Gemini co-design: 3 states (falhas/cirurgia/Baveno VII). QA pendente. |
 | 10 | s-a1-meld | CONTENT | Semaforo 4-bandas. CSS dots |
 | 11 | s-cp1 | CONTENT | Checkpoint poll. N=9 |
 | 12-26 | Act 2 (s-a2-01 → s-cp2) | CONTENT | Browser QA PASS (09/mar). Pendente: gate pipeline |
 | 27-34 | Act 3 + Close | CONTENT | QA NAO INICIADO. 4/7 skeletons |
 | 35-44 | Appendix | CONTENT | QA NAO INICIADO. Baixa prioridade |
 
-Scorecards detalhados dos slides DONE (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno) e CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1): `AUDIT-VISUAL-ARCHIVE.md`.
+Scorecards detalhados dos slides DONE (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno) e CONTENT (s-a1-cpt, s-a1-rule5, s-a1-meld, s-cp1): `AUDIT-VISUAL-ARCHIVE.md`.
 
 ---
 
@@ -194,6 +221,7 @@ Scorecards detalhados dos slides DONE (s-title, s-hook, s-a1-01, s-a1-classify, 
 | 22-27/mar | s-a1-01, classify, baveno — Gate 0+4 pipeline | 3 slides DONE |
 | 29/mar | s-a1-fib4 R1→R9 — progressive spectrum | **DONE*** R9 8.8/10 |
 | 30/mar | s-a1-elasto — Gate 0+2+4 R1→R4 + hierarquia/contraste/spacing fix + ICC card update | DONE* R4 8.5 |
+| 30/mar | s-a1-rule5 — redesign: H2 "Rule of Five", holofote ≥25, sidebar 26 kPa. Infra: deck.js/engine.js timing fix | Gate 0 PASS. Corpo TBD |
 
 ---
 

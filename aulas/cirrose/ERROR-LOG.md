@@ -40,10 +40,10 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | 015 | HIGH | s-hook | Transição inconsistente no retreat | overwrite: 'auto', lógica simples |
 | 016 | CRIT | init | Interação sumiu | wireAll() ANTES de connect() |
 | 017 | HIGH | preview | Beat 0/1 mesmo estado | Estado via DOM local após init |
-| 018 | HIGH | s-a1-damico | pathway-track display:block | Re-declarar layout em contexto de archetype novo |
+| 018 | HIGH | s-a1-cpt | pathway-track display:block | Re-declarar layout em contexto de archetype novo |
 | 019 | CRIT | panel global | Headline cortada pelo panel | has-panel reduz cap, não calc |
-| 020 | HIGH | s-a1-damico | Scrollbar em scores-era-track | overflow-y: hidden em slides |
-| 021 | HIGH | s-a1-damico | grid-template-rows seletor sem espaço | CSS descendente = ESPAÇO (A B ≠ A.B) |
+| 020 | HIGH | s-a1-cpt | Scrollbar em scores-era-track | overflow-y: hidden em slides |
+| 021 | HIGH | s-a1-cpt | grid-template-rows seletor sem espaço | CSS descendente = ESPAÇO (A B ≠ A.B) |
 | 022 | HIGH | s-a1-vote | Interação nunca testada em browser | Screenshot cada estado antes de commit |
 | 023 | MED | múltiplos | CSS failsafe não testado | .no-js/.stage-bad failsafe obrigatório |
 | 024 | MED | múltiplos | Notas stale após correção | Limpar warnings associados ao corrigir bug |
@@ -54,7 +54,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | 029 | HIGH | s-a2-09 | [TBD SOURCE] visível em source-tag | [TBD] permitido só em notes |
 | 030 | MED | s-a1-meld | Emoji unicode em slide | Zero emojis (reincidência ERRO-002) |
 | 031 | LOW | s-title | data-background-color com var() | HEX literal no atributo |
-| 032 | HIGH | s-a1-damico | Pathway stages sem cor semântica | Re-declarar cor em archetype novo |
+| 032 | HIGH | s-a1-cpt | Pathway stages sem cor semântica | Re-declarar cor em archetype novo |
 | 033 | HIGH | s-a1-vote | 3 bugs interação (click/retreat/leave) | stopPropagation + retreat DOM + reset leave |
 | 034 | CRIT | s-title | bg light + AI marker + brasão invertido | CSS bg-color, não data-background-color |
 | 035 | HIGH | s-a1-01 | screening-pathway wrap 2 linhas | flex-wrap: nowrap + min-width: 0 |
@@ -153,7 +153,20 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ---
 
-*Ultima atualizacao: 2026-03-29 · 64 erros registrados, 64 fechados (61 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
+### ERRO-065 · HIGH · global (FOUC — Flash of Unstyled Content)
+**Animacao de estado final aparece por poucos ms antes do slide estabilizar**
+**Root cause:** `animate()` rodava em `slide:entered` (400ms apos `slide:changed`). Durante o fade-in, elementos ficavam no estado CSS default (visivel). GSAP `set()` so escondia apos 400ms — flash perceptivel.
+**Root cause 2:** `transitionend` de filhos (CSS transitions em .rule-zone, .elasto-card etc) fazia bubble ate `<section>`, disparando `slide:entered` prematuramente.
+**Root cause 3:** `cleanup()` (ctx.revert) rodava imediatamente em `slide:changed`, resetando GSAP do slide anterior durante o fade-out — snap visivel.
+**Fixes (3):**
+1. deck.js: `if (evt.target !== currentSlide) return` no transitionend listener
+2. engine.js: `animate()` roda em `slide:changed` (imediato, nao `slide:entered`). Delays GSAP (0.3-0.4s) alinham com transicao CSS 400ms.
+3. engine.js: cleanup atrasado 450ms com protecao contra re-entrada (captura contexto no momento da navegacao).
+4. CSS: `.fib4-spectrum` e `.elasto-confounders` recebem `opacity: 0` base. GSAP revela. Failsafes .no-js/.stage-bad preservados.
+**Regra:** Containers animados DEVEM ter `opacity: 0` no CSS base. GSAP revela com `set(container, { opacity: 1 })`. `animate()` DEVE rodar no primeiro evento de navegacao, nao apos transicao.
+**Status:** ✅ Corrigido (2026-03-30). Afeta TODOS os slides com custom animations.
+
+*Ultima atualizacao: 2026-03-30 · 65 erros registrados, 65 fechados (62 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
 
 ---
 

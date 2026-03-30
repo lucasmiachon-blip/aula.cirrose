@@ -192,8 +192,11 @@
 | s-a1-01 | FIB-4 >=2,67: especificidade 98,7% (PPV 35,6%) | LiverPRO: Lindvig 2025 (PMID 39674225) |
 | s-a1-01 | FIB-4 -> elastografia -> CSPH pathway | Baveno VII (PMID 35120736) |
 | s-a1-fib4 / s-a1-rule5 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
+| s-a1-rule5 | NITs discriminam F3 vs F4 poorly; F3 ja tem varizes 16%, HR 8.15 MALO | Barrett 2026, Liver Int (PMID 41546486) |
+| s-a1-rule5 | VCTE AUROC >=F3 = 0.87 vs F4 = 0.94 (63 estudos, 19199 pts) | Chon 2024, Clin Mol Hepatol (PMID 39165159) |
+| s-a1-rule5 | Critical CSPH (>50 kPa): decompensacao 11.24 vs 4.20/100 pac-anos vs 25-50 kPa | Vutien 2025, Hepatology (PMID 39689352) N=17076 |
 | s-a1-fib4 | FIB-4 criado p/ HIV/HCV, universalizado por conveniencia | Sterling 2006 (PMID 16729309) [LANDMARK] |
-| s-a1-fib4 | FIB-4 <1,30 descarta cACLD: VPN >90% (Step 1 universal) | EASL NITs CPG 2021 (PMID 34052326) [GUIDELINE] |
+| s-a1-fib4 | FIB-4 <1,30 descarta cACLD: VPN >90% (Step 1 universal) | EASL NITs CPG 2021 (PMID 34166721) [GUIDELINE] |
 | s-a1-fib4 | FIB-4 >=65a: cutoff 2,0 — spec melhora 35%→70%, sens 77% | McPherson 2017 (PMID 27530706) N=634 |
 | s-a1-fib4 | AUROC NAFLD: 0,76 (IPD meta n=5735) | Gut 2021 (DOI:10.1136/gutjnl-2019-318505) |
 | s-a1-fib4 | Acuracia global 68,8% em MASLD — abaixo do minimo EASL (80%) | J Hepatol 2024 (FIB-9 paper) |
@@ -218,7 +221,7 @@
 | s-a1-elasto | XL probe cutoff F avancada: M=12,0 vs XL=10,7 kPa | EASL NITs 2021 (PMID 34166721) |
 | s-a1-elasto | SSM Cochrane 2026: sensibilidade 72,9% a especificidade 90% para CSPH | Vranic 2026 (PMID 41498616) |
 | s-a1-elasto | Esteatose severa (S3): discordancia >=2 estagios em 38,6% | Losurdo 2025 (PMID 40807038) |
-| s-a1-damico | Evolucao D'Amico 2006→2024: 4→5→6 estagios, further decomp, mortalidade 1%→57% | D'Amico 2006 (PMID 16298014) + D'Amico 2024 (PMID 37916970) |
+| s-a1-cpt | CTP historia 1964→1973, limitacoes (kappa 0,41, ceiling, sem Cr), uso atual (cirurgia A10%/B30%/C75%, TIPS preemptivo, recompensacao) | Pugh 1973 (PMID 4541913) + Durand & Valla 2005 (DOI 10.1016/j.jhep.2004.11.015) + Baveno VII (PMID 35120736) |
 | s-a1-baveno | Paradigma cACLD/dACLD + PREDESCI HR 0,51 (IC 0,26-0,97) descomp 3a | Baveno VII (PMID 35120736) + PREDESCI (PMID 30910320) |
 | s-a2-01 | Gatilhos descomp: infeccao (33%), alcool, nao-adesao | PREDICT (PMID 32673741) + EASL CPG 2024 |
 | s-a2-02 | Ascite DX: GASA >1,1 confirma hipertensao portal | EASL CPG 2024 |
@@ -250,7 +253,7 @@
 | s-app-08 | CIRROXABAN 2025: p=0,058 NS | CIRROXABAN (PMID [NOT INDEXED — searched 2026-03-07]) |
 
 > **Slides sem row intencional:** s-title (display-only), s-hook (labs de CASE.md, sem clinical assertion propria), s-cp1/s-cp2/s-cp3 (checkpoints interativos, dados cumulativos do caso), s-close (fechamento narrativo). Esses slides nao projetam dados clinicos novos — conferir CASE.md para valores baseline.
-> **IDs corrigidos 29/mar/2026:** 6 rows renomeados (s-a2-01→07, s-a2-02→15, s-a2-03→app-alb, s-a2-04→05, s-a2-05→11, s-a2-06→08) + 8 rows adicionados (s-a1-damico, s-a2-01/02/03/06/09/10/12) apos rewrite Ato 2 em 08/mar.
+> **IDs corrigidos 29/mar/2026:** 6 rows renomeados (s-a2-01→07, s-a2-02→15, s-a2-03→app-alb, s-a2-04→05, s-a2-05→11, s-a2-06→08) + 8 rows adicionados (s-a1-cpt, s-a2-01/02/03/06/09/10/12) apos rewrite Ato 2 em 08/mar.
 
 ## Screening cACLD — Rastreamento Primario
 

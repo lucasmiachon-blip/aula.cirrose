@@ -5,11 +5,11 @@
 
 ---
 
-## Estado — 2026-03-30T22:30-03:00
+## Estado — 2026-03-31T01:30-03:00
 
-**Ultima sessao:** s-a1-elasto QA completo → DONE* R4 8.5/10. Pipeline: R1 6.6→fix hierarquia/anim→R2 6.8 (bug CSS extraction corrigido)→R3 9.1 (macro-whitespace P1-P5)→R4 8.5 (contraste cards bg-card+shadow). ICC card atualizado: "↑ com PVC → falso F3–F4". Bug fix: gemini-qa3.mjs CSS section boundary regex (= ASCII adicionado + lookahead ±1 linha).
-**Infra:** Porta Vite 3000→4100 (strictPort). `npm run kill:dev` adicionado. 6 scripts atualizados.
-**Slides:** 44 buildados · 7 DONE* · 0 QA · 37 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
+**Ultima sessao:** Rename s-a1-damico → s-a1-cpt + redesign completo. Pesquisa multi-MCP (Scite + Consensus + Gemini Deep Research). Gemini co-design via brainstorm: arco "falhas→sobrevivência→redenção" em vez de cronologia. 15 superfícies atualizadas. Build OK, lint PASS. Pronto para QA pipeline (screenshots → Gate 0 → Gate 2 → Gate 4).
+**Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
+**Slides:** 44 buildados · 8 DONE* · 0 QA · 1 DRAFT (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03).
@@ -30,15 +30,18 @@
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 8.5/10. Aprovado 27/mar. |
 | 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 7.3/10. Aprovado 27/mar. |
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Aprovado 27/mar. |
-| 6 | s-a1-fib4 | DONE* | R9 8.8/10. Progressive spectrum. cor_contraste 7/10 aceito. Gate 2 STALE (layout antigo). |
-| 7 | s-a1-elasto | DONE* | R4 8.5/10. Pipeline R1→R4 completo. ICC card atualizado. |
-| 8-10 | s-a1-damico → s-cp1 | CONTENT | Act 1 restante. |
-| 11-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
+| 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
+| 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
+| 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. |
+| 9 | s-a1-cpt | DRAFT | Rename de s-a1-damico. Gemini co-design: S0=falhas (κ 0,41 + ceiling), S1=cirurgia (countUp A10/B30/C75 + Von Restorff), S2=Baveno VII (recomp + TIPS). Pronto para QA. |
+| 10 | s-a1-meld | CONTENT | Act 1 restante. |
+| 11 | s-cp1 | CONTENT | **ATENCAO:** H2 e lsm desatualizados (21→26 kPa). narrativeCritical=true. |
+| 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 7 DONE* · 0 QA · 37 CONTENT (44 total)
-**Proximo:** s-a1-damico (Act 1 restante).
+**Resumo:** 8 DONE* · 0 QA · 1 DRAFT · 35 CONTENT (44 total)
+**Proximo:** QA pipeline em s-a1-cpt (screenshots → Gate 0 → Gate 2 → Gate 4). Depois: s-a1-meld, s-cp1 (cascata LSM 26 kPa).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -54,17 +57,46 @@
 1. ~~s-a1-classify~~ — DONE 27/mar
 2. ~~s-a1-baveno~~ — DONE 27/mar
 3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
-4. **s-a1-damico → s-cp1** — sequencia manifest, slide a slide
-5. **Act 2 → Act 3** — apos Act 1 DONE
+4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
+5. **s-a1-cpt** — DRAFT pronto, QA pipeline pendente
+6. **s-cp1** — cascata LSM 26 kPa (narrativeCritical). Aprovar com Lucas.
+7. **s-a1-meld** — sequencia manifest, slide a slide
+7. **Act 2 → Act 3** — apos Act 1 DONE
 
 ---
 
-## Issues sistemicos (nao fixaveis antes do deadline 31/mar)
+## Cascata LSM 26 kPa (pendente)
+
+CASE.md atualizado (source of truth). Manifest panelStates sincronizado. Faltam:
+- `slides/07-cp1.html` H2: "LSM 21 kPa" → "LSM 26 kPa" + logica clinica (CSPH confirmado, nao provavel)
+- `references/narrative.md` linha 66: "LSM 21 kPa" para cp1
+- **narrativeCritical=true** — requer aprovacao Lucas antes de editar.
+
+---
+
+## Infra fixes desta sessao (30/mar)
+
+### deck.js — transitionend filter
+**Problema:** `transitionend` de filhos (CSS transitions em .rule-zone, .elasto-card etc) fazia bubble ate a `<section>`, disparando `slide:entered` antes do slide estar visivel.
+**Fix:** `if (evt.target !== currentSlide) return;` no listener.
+
+### engine.js — animate on slide:changed
+**Problema:** `animate()` rodava em `slide:entered` (400ms apos slide comecar fade-in). Elementos apareciam no estado CSS default (visivel) antes de GSAP esconde-los — flash de poucos ms.
+**Fix:** `animate()` agora roda em `slide:changed` (imediato). `gsap.set()` esconde elementos ANTES do primeiro frame do fade-in. Delays das animacoes (0.3-0.4s) alinham com a transicao CSS de 400ms. Cleanup do slide anterior atrasado 450ms com protecao contra re-entrada.
+
+### CSS anti-flash
+`.fib4-spectrum` e `.elasto-confounders` receberam `opacity: 0` no CSS base. GSAP revela ao iniciar. Failsafes `.no-js`/`.stage-bad` preservados.
+
+---
+
+## Issues sistemicos
 
 - **Source-tag line breaking**: texto longo quebra em 1280x720. Sem fix viavel.
 - **Gate 0 ANIMATION_STATE false positive**: state machines substituem conteudo → override aceito.
 - **engine.js `?qa=1`**: nao forca estado final de custom anims. Workaround: Playwright evaluate.
 - **exit 2 hooks Windows**: nao bloqueia tool. Bug Claude Code. Investigar.
+- **C1 bodyWordCount**: slides com zones (rule5 50w, fib4 41w) excedem 30w. Inerente a escala — aceito.
+- **C6 noPanelOverlap**: mede bounding box do container, nao conteudo visivel. False positive aceito.
 
 ---
 
@@ -76,6 +108,7 @@
 - Reorg `scripts/` em subdirs (alto risco, adiado pos-31/mar)
 - `#slide-id-label` em deck.js (remover antes de producao)
 - Scripts hardening MINIMAL/HIGH — ref: `@repo/docs/HARDENING-SCRIPTS.md`
+- Dead CSS cleanup: ~20 instancias `oklch(0% 0 0` restantes (ERRO-063)
 
 ---
 
@@ -95,13 +128,13 @@
 
 ## Fora de escopo (batch posterior)
 
-1. Renomear D'Amico para "Child, MELD e D'Amico"
-2. Sequencia "Testes nao invasivos"
+1. ~~Renomear D'Amico para "Child, MELD e D'Amico"~~ (feito: s-a1-cpt, 30/mar)
+2. Criar 1-2 slides MELD separados (conteudo antigo em _archive/02b-a1-damico-backup.html)
+3. Sequencia "Testes nao invasivos"
 3. Sequencia "Scores e nuances"
-4. Rule of 5 redesign
-5. MELD / MELD-Na / MELD 3.0 redesign
-6. Checkpoint "qual o proximo passo?"
-7. Slide final Ato 1: "Trajetorias"
+4. MELD / MELD-Na / MELD 3.0 redesign
+5. Checkpoint "qual o proximo passo?"
+6. Slide final Ato 1: "Trajetorias"
 
 ---
 

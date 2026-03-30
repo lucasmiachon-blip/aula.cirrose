@@ -127,7 +127,7 @@ Gate 0 PASS (R5). Gate 4 R7 7.3/10 DONE.
 
 Gate 0 PASS. Gate 4 R5 DONE.
 
-### s-a1-damico (02b-a1-damico.html) — CONTENT
+### s-a1-cpt (02b-a1-damico.html) — CONTENT
 
 **Headline:** De Child-Pugh a D'Amico: prognóstico virou preditivo
 
@@ -228,7 +228,7 @@ Agente: Claude Code (Opus 4.6) · Metodo: Playwright Chromium headless 1280x720 
 
 | # | Problema | Slide(s) | Status |
 |---|---------|----------|--------|
-| R2 | h2 2 linhas | s-a1-damico | Lucas decide |
+| R2 | h2 2 linhas | s-a1-cpt | Lucas decide |
 | R4 | Fill 0% beat 0 | s-hook | Design decision |
 | R6 | beat 1 clipar 720p | s-hook | CSS audit pendente |
 

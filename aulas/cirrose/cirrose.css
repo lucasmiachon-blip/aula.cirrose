@@ -782,8 +782,7 @@
   .paradigm-old { display: none !important; }
   .paradigm-spectrum,
   .paradigm-ref,
-  .rule-of-5,
-  .antonio-plot { opacity: 1 !important; }
+  .rule-of-5 { opacity: 1 !important; }
 }
 
 /* ===========================================
@@ -1340,30 +1339,13 @@ section#s-a1-01 .slide-inner {
 
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-a1-damico — D'Amico staging (state machine)
-   States: 0=4 stages, 1=+stage 5, 2=overlay, 3=source
+   s-a1-cpt — Child-Turcotte-Pugh (era-track state machine)
+   States: 0=history 1964→1973, 1=limitations, 2=current role
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-#s-a1-damico .archetype-pathway {
-  grid-template-rows: auto auto auto 1fr auto;
-}
-
-/* Decompensation stages (3+4) = danger, not warning */
-#s-a1-damico .pathway-stage:nth-child(3) {
-  background: var(--danger-light);
-  border-bottom: 3px solid var(--danger);
-}
-
-/* Pathway track needs position:relative for the overlay */
-#s-a1-damico .pathway-track {
-  position: relative;
-}
-
-/* Danger glow pulse on stages 3-5 (state 2) */
-@keyframes damico-danger-glow {
-  0%, 100% { box-shadow: 0 0 0 0 oklch(50% 0.10 25 / 0.2); }
-  50% { box-shadow: 0 0 8px 1px oklch(50% 0.10 25 / 0.25); }
-}
+/* Legacy selectors removed — damico content moved to _archive.
+   Keeping only what s-a1-cpt needs.
+   (removed: #s-a1-damico .archetype-pathway, .pathway-stage, .pathway-track, @keyframes damico-danger-glow) */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-baveno + s-a1-rule5 — PARADIGMA cACLD/dACLD (SplitText + Rule-of-5)
@@ -1541,19 +1523,29 @@ section#s-a1-01 .slide-inner {
   white-space: nowrap;
 }
 
+/* ============================================
+   s-a1-rule5 — Rule of Five
+   ============================================ */
+
+/* Archetype max-width override: use 3rem gap for panel (archetype default is 1rem) */
+#s-a1-rule5 .archetype-flow {
+  max-width: calc(100% - var(--panel-width, 0px) - 3rem);
+}
+
 /* Rule-of-5 scale — 5 zones grid */
 .rule-of-5 {
   width: 100%;
-  max-width: 750px;
+  max-width: 700px;
   opacity: 0;
   position: relative;
+  padding-top: 28px; /* room for gray-zone bracket above cards */
 }
 
 .rule-scale {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 2px;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
 }
 
 .rule-zone {
@@ -1606,37 +1598,29 @@ section#s-a1-01 .slide-inner {
 
 .rule-zone-directive {
   font-family: var(--font-body);
-  font-size: 9px;
+  font-size: var(--text-caption);
   color: var(--text-muted);
   line-height: 1.3;
   max-width: 14ch;
-}
-
-.rule-axis-label {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  text-align: center;
 }
 
 .rule-zone {
   transform-origin: bottom;
 }
 
-/* Gray zone overlay (10-25 kPa dashed region) */
+/* Gray zone bracket (10-25 kPa — sits ABOVE zone cards) */
 .rule-gray-zone {
   position: absolute;
   top: 0;
   left: 20%;
   width: 60%;
-  height: 100%;
+  height: 24px;
   border: 2px dashed var(--warning);
-  border-radius: var(--radius-sm);
+  border-bottom: none; /* open bracket pointing down to zones */
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 4px;
+  align-items: flex-start;
+  justify-content: center;
   pointer-events: none;
   opacity: 0;
 }
@@ -1644,14 +1628,13 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-body);
   font-size: var(--text-caption);
   font-weight: 600;
-  color: var(--warning);
+  color: var(--warning-on-light);
   background: var(--bg-surface);
   padding: 0 var(--space-xs);
+  transform: translateY(-50%);
 }
 .rule-gray-zone-range {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--warning);
+  display: none; /* redundant — overlay already demarcates gray zone visually */
 }
 
 .no-js .rule-of-5,
@@ -1659,116 +1642,75 @@ section#s-a1-01 .slide-inner {
   opacity: 1;
 }
 
-/* Antônio marker + conclusion */
-.antonio-plot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-  width: 100%;
-  max-width: 750px;
-  opacity: 0;
+/* Failsafes: zones visible without JS */
+.no-js .rule-zone,
+.stage-bad .rule-zone {
+  transform: scaleY(1);
+  opacity: 1;
 }
-
-/* Pin marker drops onto zone 20-25 */
-.antonio-pin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-.antonio-pin-arrow {
-  font-size: var(--text-h2);
-  color: var(--warning);
-  line-height: 1;
-}
-.antonio-pin-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-body);
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-/* Zone highlight pulse */
-@keyframes zone-highlight {
-  0%, 100% { box-shadow: 0 0 0 0 oklch(from var(--warning) l c h / 0.4); }
-  50% { box-shadow: 0 0 8px 2px oklch(from var(--warning) l c h / 0.3); }
-}
-.rule-zone--highlighted {
-  animation: zone-highlight 2s ease infinite;
-}
-
-.antonio-data {
-  font-family: var(--font-mono);
-  font-size: var(--text-body);
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: center;
-}
-
-.antonio-conclusion {
-  display: flex;
-  gap: var(--space-sm);
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 600;
-  text-align: center;
-}
-.antonio-conclusion .cacld-tag { color: var(--safe); }
-.antonio-conclusion .csph-tag { color: var(--warning); }
-
-.rule-nuance-note {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-muted);
-  font-style: italic;
-  text-align: center;
-}
-
-.rule-caveats {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  max-width: 700px;
-  opacity: 0;
-}
-.rule-caveat-line {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.rule-conclusion-banner {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-md);
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  opacity: 0;
-}
-.rule-conclusion-icon {
-  font-size: var(--text-body);
-}
-.rule-conclusion-text {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.no-js .antonio-plot,
-.stage-bad .antonio-plot,
-.no-js .rule-caveats,
-.stage-bad .rule-caveats,
-.no-js .rule-conclusion-banner,
-.stage-bad .rule-conclusion-banner,
 .no-js .rule-gray-zone,
 .stage-bad .rule-gray-zone {
   opacity: 1;
 }
+
+/* Caveats — compact annotations below zones */
+.rule-caveats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 700px;
+  margin-top: var(--space-sm);
+  opacity: 0;
+}
+.rule-caveat {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  padding: 4px var(--space-sm);
+  border-left: 2px solid var(--border);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--bg-card);
+}
+.rule-caveat-marker {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.rule-caveat-text {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.rule-caveat-text strong {
+  color: var(--text-primary);
+}
+.no-js .rule-caveats,
+.stage-bad .rule-caveats {
+  opacity: 1;
+}
+
+/* Sidebar row danger state — persistent after holofote advance */
+.panel-field--danger {
+  background: var(--danger-light);
+  border-left: 3px solid var(--danger);
+  border-radius: 3px;
+  padding-left: 6px;
+  transition: background 0.6s ease, border-color 0.6s ease;
+}
+.panel-field--danger .panel-field-value {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* (Dead CSS removed: action-summary — no matching HTML) */
+
+/* (Dead CSS removed: antonio-pin, antonio-data, antonio-conclusion,
+   cacld-tag, csph-tag, rule-nuance-note, rule-caveats,
+   rule-conclusion-banner, zone-highlight keyframes) */
 
 /* (MELD badges removed — info now in calc input labels) */
 
@@ -2206,19 +2148,16 @@ section#s-a1-01 .slide-inner {
 .classify-predesci { display: none; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-a1-damico (escores) — Era track + era state machine
+   s-a1-cpt — Era track + era state machine
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#s-a1-damico .archetype-flow {
+#s-a1-cpt .archetype-flow {
   grid-template-rows: auto auto 1fr auto;
   padding: 24px 48px 16px;
   gap: 0.5rem;
 }
-#s-a1-damico .scores-era { gap: 4px; }
-#s-a1-damico .scores-ctp-classes,
-#s-a1-damico .scores-cstat-block,
-#s-a1-damico .scores-era-tag { margin-top: 0; }
-#s-a1-damico .damico-further-decomp { padding: 2px var(--space-xs); }
-#s-a1-damico .damico-further-text { font-size: var(--text-small); }
+#s-a1-cpt .scores-era { gap: 4px; }
+#s-a1-cpt .scores-ctp-classes,
+#s-a1-cpt .scores-era-tag { margin-top: 0; }
 .scores-era-track {
   position: relative;
   flex: 1;
@@ -2428,84 +2367,189 @@ section#s-a1-01 .slide-inner {
   width: fit-content;
 }
 
-/* D'Amico datasets (Era 5) */
-.damico-dataset {
+/* D'Amico legacy classes removed — content in _archive/02b-a1-damico-backup.html */
+
+/* ── s-a1-cpt — Gemini co-design (30/mar/2026) ── */
+
+/* S0: 5 variable nodes */
+.cpt-nodes {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+.cpt-node {
+  padding: 6px var(--space-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.cpt-node--flaw {
+  background: var(--warning-light);
+  border-color: var(--warning);
+  color: var(--warning-on-light);
+}
+
+/* S0: Kappa callout */
+.cpt-flaw-callout {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+.cpt-kappa-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+}
+.cpt-kappa-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* S0: Ceiling effect */
+.cpt-ceiling {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--danger);
+  width: fit-content;
 }
-.damico-dataset-label {
-  font-family: var(--font-mono);
+.cpt-ceiling-label {
+  font-family: var(--font-body);
   font-size: var(--text-caption);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+.cpt-ceiling-compare {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+.cpt-ceiling-low {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--ui-accent);
+  color: var(--text-primary);
+}
+.cpt-ceiling-arrow {
+  font-size: var(--text-body);
+  color: var(--text-muted);
+}
+.cpt-ceiling-high {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--danger);
+}
+.cpt-ceiling-unit {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+.cpt-ceiling-result {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* S1: Surgical mortality stats */
+.cpt-surgery {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+  align-items: flex-end;
+}
+.cpt-surgery-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  min-width: 120px;
+}
+.cpt-surgery-class {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 400;
+}
+.cpt-surgery-pct {
+  font-family: var(--font-mono);
+  font-size: var(--text-h1);
+  font-weight: 700;
+  line-height: 1;
+}
+.cpt-surgery-unit {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+.cpt-surgery-stat--safe {
+  background: var(--safe-light);
+  color: var(--safe);
+}
+.cpt-surgery-stat--warning {
+  background: var(--warning-light);
+  color: var(--warning-on-light);
+}
+.cpt-surgery-stat--danger {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+/* S2: Guideline cards */
+.cpt-guidelines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+.cpt-guideline-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.cpt-guideline-card--recomp {
+  border-left: 4px solid var(--safe);
+}
+.cpt-guideline-card--tips {
+  border-left: 4px solid var(--warning);
+}
+.cpt-guideline-icon {
+  font-size: var(--text-h3);
+  flex-shrink: 0;
+}
+.cpt-guideline-card--recomp .cpt-guideline-icon { color: var(--safe); }
+.cpt-guideline-card--tips .cpt-guideline-icon { color: var(--warning-on-light); }
+.cpt-guideline-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-/* Era 5 pathway track: flex row scoped for damico-dataset context (archetypes.css scopes only .archetype-pathway) */
-.damico-dataset .pathway-track {
-  display: flex;
-  gap: 4px;
-  align-items: stretch;
-  margin-top: 4px;
-}
-.damico-dataset .pathway-stage {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 4px var(--space-xs);
-  border-radius: var(--radius-sm);
-  min-width: 0;
-}
-.damico-dataset .pathway-value { font-size: var(--text-small); font-weight: 700; }
-
-/* D'Amico Era 2: chromatic encoding for pathway stages
-   archetypes.css scopes colors to .archetype-pathway — this slide uses .archetype-flow.
-   Fix: explicit semantic classes scoped to #s-a1-damico. */
-#s-a1-damico .pathway-stage--safe {
-  background: var(--safe-light);
-  border-bottom: 3px solid var(--safe);
-}
-#s-a1-damico .pathway-stage--warning {
-  background: var(--warning-light);
-  border-bottom: 3px solid var(--warning);
-}
-#s-a1-damico .pathway-stage--danger {
-  background: var(--danger-light);
-  border-bottom: 3px solid var(--danger);
-}
-#s-a1-damico .pathway-stage--critical {
-  background: oklch(50% 0.18 25 / 0.12);
-  border-bottom: 3px solid var(--danger);
-}
-
-.damico-further-decomp {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
-  background: oklch(50% 0.18 25 / 0.08);
-  border-left: 3px solid var(--danger);
-  opacity: 0;
-}
-.damico-further-icon {
-  font-size: var(--text-h3);
-  color: var(--danger);
-}
-.damico-further-text {
-  font-family: var(--font-body);
+.cpt-guideline-criteria {
+  font-family: var(--font-mono);
   font-size: var(--text-body);
+  font-weight: 700;
   color: var(--text-primary);
 }
-.damico-further-source {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  margin-left: auto;
-}
-.no-js .damico-further-decomp,
-.stage-bad .damico-further-decomp { opacity: 1; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    CTP Limitações — Estado 1 do novo 02b
@@ -2578,6 +2622,7 @@ section#s-a1-01 .slide-inner {
   gap: var(--space-sm);
   width: 100%;
   max-width: 760px;
+  opacity: 0; /* GSAP reveals — prevents FOUC during slide transition */
   margin: 0 auto;
   flex: 0 0 auto;
 }
@@ -2843,6 +2888,7 @@ section#s-a1-01 .slide-inner {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-top: 0;
+  opacity: 0; /* GSAP reveals — prevents FOUC during slide transition */
 }
 
 .elasto-conf {
@@ -3027,6 +3073,7 @@ section#s-a1-01 .slide-inner {
 }
 
 /* Failsafe Plan B + no-js */
+.no-js .elasto-confounders, .stage-bad .elasto-confounders,
 .no-js .elasto-conf, .stage-bad .elasto-conf,
 .no-js .elasto-masld, .stage-bad .elasto-masld,
 .no-js .elasto-mre, .stage-bad .elasto-mre,

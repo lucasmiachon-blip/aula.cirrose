@@ -7,7 +7,7 @@
 ## 1. Estrutura de Slide
 
 ```html
-<section id="s-a1-damico">
+<section id="s-a1-cpt">
   <div class="slide-inner slide-navy">
     <h2>Carvedilol reduz HVPG em 20% vs placebo</h2>
     <div class="evidence" data-animate="stagger">...</div>
@@ -103,7 +103,7 @@ Outros: `?qa=1` força estado final. `?print-pdf` desabilita animações. `?mode
 
 ## 7. Slide ID — 9 Superfícies
 
-Formato: `s-{act}-{slug}` (ex: `s-a1-damico`, `s-cp1`, `s-app-alb`). ID é IMUTÁVEL após primeiro commit.
+Formato: `s-{act}-{slug}` (ex: `s-a1-cpt`, `s-cp1`, `s-app-alb`). ID é IMUTÁVEL após primeiro commit.
 
 | # | Arquivo | Campo |
 |---|---------|-------|
