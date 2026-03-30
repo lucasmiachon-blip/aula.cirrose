@@ -51,6 +51,7 @@ const CUSTOM_TEMP = getArg('temp', null);
 const CONTEXT_PARAGRAPH = getArg('context', '');
 const DIAGNOSTIC = getArg('diagnostic', '');
 const REF_SLIDE = getArg('ref-slide', null);
+const NO_REF = hasFlag('no-ref'); // A3: opt-out of auto ref-slide
 
 // --- Mode flags ---
 function hasFlag(name) { return args.includes(`--${name}`); }
@@ -76,7 +77,8 @@ Options:
   --output <path>    Custom output path
   --context <text>   Additional context paragraph
   --diagnostic <cls> CSS class to diagnose (cascade analysis)
-  --ref-slide <id>   Reference slide for cross-slide consistency
+  --ref-slide <id>   Reference slide for cross-slide consistency (auto-detected from manifest if omitted)
+  --no-ref           Disable auto ref-slide detection
   --force-gate4      Override Gate 0 FAIL block (for known false positives)
 
 Env: GEMINI_API_KEY (required), GEMINI_MODEL (global override)`);
@@ -155,12 +157,13 @@ function extractSlideCSS(slideId) {
   const lines = css.split('\n');
   const sectionBoundary = /[━═=]{3,}/;
 
-  // Pass 1: section-based — find comment block containing slideId near a boundary
+  // Pass 1: section-based — find ALL comment blocks containing slideId near a boundary
   // Supports both single-line (/* === s-a1-fib4 === */) and multi-line:
   //   /* ============================================
   //      s-a1-elasto — description
   //      ============================================ */
-  let sectionStart = -1;
+  // A1 fix: collect ALL matching sections (no break on first match)
+  const allSections = [];
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].includes(slideId)) {
       // Check same line OR adjacent lines (±1) for boundary
@@ -168,28 +171,37 @@ function extractSlideCSS(slideId) {
           || (i > 0 && sectionBoundary.test(lines[i - 1]))
           || (i + 1 < lines.length && sectionBoundary.test(lines[i + 1]))) {
         // Walk back to the opening boundary line
-        sectionStart = i;
+        let sectionStart = i;
         while (sectionStart > 0 && !sectionBoundary.test(lines[sectionStart])) sectionStart--;
-        break;
+
+        // Find the closing boundary of this header comment block
+        let contentStart = sectionStart + 1;
+        while (contentStart < lines.length && (lines[contentStart].includes(slideId) || sectionBoundary.test(lines[contentStart]) || lines[contentStart].trim() === '')) {
+          contentStart++;
+        }
+        // Collect until next section boundary that doesn't belong to this slide
+        const sectionResult = [];
+        for (let j = sectionStart; j < lines.length; j++) {
+          if (j >= contentStart && sectionBoundary.test(lines[j]) && !lines[j].includes(slideId)) {
+            break;
+          }
+          sectionResult.push(lines[j]);
+        }
+        allSections.push(sectionResult);
+        // Skip past this section to avoid re-matching lines within it
+        i = sectionStart + sectionResult.length;
       }
     }
   }
 
-  if (sectionStart >= 0) {
-    // Find the closing boundary of this header comment block
-    let contentStart = sectionStart + 1;
-    while (contentStart < lines.length && (lines[contentStart].includes(slideId) || sectionBoundary.test(lines[contentStart]) || lines[contentStart].trim() === '')) {
-      contentStart++;
+  if (allSections.length > 0) {
+    // Concatenate all matching sections
+    const merged = [];
+    for (const section of allSections) {
+      if (merged.length > 0) merged.push('');
+      merged.push(...section);
     }
-    // Collect until next section boundary that doesn't belong to this slide
-    const sectionResult = [];
-    for (let i = sectionStart; i < lines.length; i++) {
-      if (i >= contentStart && sectionBoundary.test(lines[i]) && !lines[i].includes(slideId)) {
-        break;
-      }
-      sectionResult.push(lines[i]);
-    }
-    return sectionResult;
+    return merged;
   }
 
   // Pass 2 (fallback): existing logic — find rules with #slideId selectors
@@ -250,29 +262,68 @@ function extractArchetypeCSS(html) {
   if (!archMatch) return '/* No archetype class found in HTML */';
   const archClass = `.archetype-${archMatch[1]}`;
 
+  // A2: Extract classes, IDs, and tag names from slide HTML for relevance filtering
+  const htmlClasses = new Set([...(html.matchAll(/class="([^"]+)"/g))].flatMap(m => m[1].split(/\s+/)));
+  const htmlTags = new Set([...(html.matchAll(/<([a-z][a-z0-9]*)/gi))].map(m => m[1].toLowerCase()));
+  const htmlIds = new Set([...(html.matchAll(/id="([^"]+)"/g))].map(m => m[1]));
+
   // Extract all rule blocks that reference this archetype class
   const lines = css.split('\n');
-  const result = [];
+  const allBlocks = [];
+  let currentBlock = [];
   let capturing = false;
   let braceDepth = 0;
+  let selectorLine = '';
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (!capturing && line.includes(archClass)) {
       capturing = true;
       braceDepth = 0;
+      selectorLine = line;
+      currentBlock = [];
     }
     if (capturing) {
-      result.push(line);
+      currentBlock.push(line);
       braceDepth += (line.match(/\{/g) || []).length;
       braceDepth -= (line.match(/\}/g) || []).length;
-      if (braceDepth === 0 && result.length > 1) {
+      if (braceDepth === 0 && currentBlock.length > 1) {
+        allBlocks.push({ selector: selectorLine, lines: [...currentBlock] });
+        currentBlock = [];
         capturing = false;
-        result.push('');
       }
     }
   }
-  return result.join('\n');
+
+  // A2: Filter — keep blocks whose selector references elements present in HTML
+  // A block is relevant if: it's the base archetype class alone, OR its child selectors
+  // reference classes/tags/IDs found in the slide HTML
+  const filtered = allBlocks.filter(block => {
+    const sel = block.selector.trim();
+    // Base archetype rule (e.g., ".archetype-hero-stat {") — always keep
+    if (sel.match(new RegExp(`^\\${archClass}\\s*\\{`)) || sel === archClass + ' {') return true;
+    // Check if any child selector references something in the HTML
+    // Extract child parts after the archetype class
+    const afterArch = sel.replace(new RegExp(`\\${archClass.replace('.', '\\.')}`), '').trim();
+    if (!afterArch || afterArch === '{') return true; // bare archetype class
+    // Check for class references (.foo)
+    const childClasses = [...afterArch.matchAll(/\.([a-z][a-z0-9_-]*)/gi)].map(m => m[1]);
+    if (childClasses.some(c => htmlClasses.has(c))) return true;
+    // Check for tag references
+    const childTags = [...afterArch.matchAll(/(?:^|\s)([a-z][a-z0-9]*)/gi)].map(m => m[1].toLowerCase());
+    if (childTags.some(t => htmlTags.has(t) && !['and', 'not', 'or'].includes(t))) return true;
+    // Check for ID references
+    const childIds = [...afterArch.matchAll(/#([a-z][a-z0-9_-]*)/gi)].map(m => m[1]);
+    if (childIds.some(id => htmlIds.has(id))) return true;
+    return false;
+  });
+
+  // Safety: if filter removes everything, fall back to unfiltered
+  const blocks = filtered.length > 0 ? filtered : allBlocks;
+  const skipped = allBlocks.length - filtered.length;
+  if (skipped > 0) console.log(`  Archetype CSS: ${filtered.length}/${allBlocks.length} blocks relevant (${skipped} filtered)`);
+
+  return blocks.flatMap(b => [...b.lines, '']).join('\n');
 }
 
 function extractCSS(slideId, html) {
@@ -393,12 +444,14 @@ function getSlideMetadata(slideId) {
   }
 
   const idx = slides.findIndex(s => s.id === slideId);
-  if (idx === -1) return { pos: '?/?', prev: '(unknown)', next: '(unknown)', slide: null };
+  if (idx === -1) return { pos: '?/?', prev: '(unknown)', next: '(unknown)', prevId: null, nextId: null, slide: null };
 
   return {
     pos: `${idx + 1}/${slides.length}`,
     prev: idx > 0 ? `${slides[idx - 1].id} (${slides[idx - 1].narrativeRole})` : '(first)',
     next: idx < slides.length - 1 ? `${slides[idx + 1].id} (${slides[idx + 1].narrativeRole})` : '(last)',
+    prevId: idx > 0 ? slides[idx - 1].id : null,       // A3: raw ID for auto --ref-slide
+    nextId: idx < slides.length - 1 ? slides[idx + 1].id : null,
     slide: slides[idx],
   };
 }
@@ -785,16 +838,23 @@ async function runEditorial(slideId, round, qaDir) {
   const s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
   const s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
 
-  // Reference slide PNG (--ref-slide): upload final state for cross-slide consistency check
+  // A3: Reference slide PNG — auto-detect from manifest if not provided, --no-ref to disable
+  let refSlideId = REF_SLIDE;
+  if (!refSlideId && !NO_REF && meta.prevId) {
+    refSlideId = meta.prevId;
+    console.log(`  Auto ref-slide: ${refSlideId} (from manifest prev)`);
+  }
   let refPng = null;
-  if (REF_SLIDE) {
-    const refQaDir = join(AULA_DIR, 'qa-screenshots', REF_SLIDE);
+  if (refSlideId) {
+    const refQaDir = join(AULA_DIR, 'qa-screenshots', refSlideId);
     const refPath = findStatePng(refQaDir, 'S2') || findStatePng(refQaDir, 'S0');
     if (refPath) {
-      refPng = await uploadFile(refPath, 'image/png', `${REF_SLIDE}-ref-final`);
-      console.log(`  Reference slide: ${REF_SLIDE} (${refPath})`);
+      refPng = await uploadFile(refPath, 'image/png', `${refSlideId}-ref-final`);
+      console.log(`  Reference slide: ${refSlideId} (${refPath})`);
     } else {
-      console.warn(`  WARN: no PNG found for ref-slide ${REF_SLIDE}`);
+      if (REF_SLIDE) console.warn(`  WARN: no PNG found for ref-slide ${refSlideId}`);
+      // Auto-detect silently skips if no PNG exists
+      refSlideId = null;
     }
   }
 
@@ -812,7 +872,7 @@ async function runEditorial(slideId, round, qaDir) {
     s0: s0?.uri,
     s2: s2?.uri,
     ref: refPng?.uri,
-    refSlideId: REF_SLIDE,
+    refSlideId: refSlideId,
   };
   const payload = buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);
 

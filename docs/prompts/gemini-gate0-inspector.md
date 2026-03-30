@@ -48,8 +48,11 @@ APENAS reportar defeitos mecânicos.
    deveria haver imagem.
 
 6. **ANIMATION_STATE**: Todos os elementos que deveriam estar visíveis estão visíveis?
-   Se recebeu S0 e S2: comparar ambos. S2 deve ter MAIS conteúdo que S0 (click-reveals adicionam).
-   Se S2 tem MENOS conteúdo que S0, a animação pode estar escondendo elementos.
+   Se recebeu S0 e S2: comparar ambos.
+   - **Additive reveals (padrão):** S2 deve ter MAIS conteúdo que S0 (click-reveals adicionam elementos).
+     Se S2 tem MENOS conteúdo que S0, a animação pode estar escondendo elementos.
+   - **State machines (exceção):** Alguns slides substituem conteúdo por click (S0 mostra estado A, S2 mostra estado B diferente, não mais). Isso NAO é defeito se S2 mostra um estado final coerente e legível. Marcar PASS.
+     Indicadores de state machine: conteúdo muda de natureza (ex: flaws → sobrevivência → recompensação), não apenas adiciona.
    Se recebeu apenas S0: verificar se há elementos parcialmente visíveis (meio do fade,
    posição intermediária) que sugiram animação incompleta.
 

@@ -114,6 +114,15 @@ Avaliacao DETALHADA por material — cada analise DEVE citar observacoes concret
   (1) grid vertical — margens e baseline alinham? (2) tipografia — mesma escala h2/body/caption? (3) spacing — padding e gap consistentes? (4) cor — mesma paleta semantica? (5) peso visual — fill ratio compativel com tipo de slide?
   Desvio sem justificativa narrativa = proposta SHOULD.
 
+  **CONSISTENCIA CROSS-SLIDE (obrigatoria se PNG REF presente):**
+  Comparar este slide com o REF nos 5 eixos abaixo. Para cada eixo, declarar MATCH ou DIVERGE + justificativa:
+  1. **h2 size + weight:** mesmo font-size, font-family, font-weight?
+  2. **Body/caption scale:** proporcao body/caption consistente?
+  3. **Padding rhythm:** padding-top, padding-inline, gap entre elementos comparaveis?
+  4. **Color palette:** mesmos tokens semanticos para mesmos tipos de informacao?
+  5. **Visual weight:** fill ratio proporcional ao tipo de slide (data-heavy vs conceitual)?
+  Se PNG REF nao foi anexado: "Cross-slide: skip — no reference slide provided."
+
 - **RAW CODE (HTML + CSS + JS — analise por arquivo):**
   **HTML:** Estrutura semantica, classes usadas, data-attributes.
   **CSS:** Para CADA seletor critico: especificidade, o que controla, se ha conflito. Citar o seletor exato.
@@ -123,7 +132,7 @@ Avaliacao DETALHADA por material — cada analise DEVE citar observacoes concret
 Voce recebeu HTML + CSS + JS raw. ANTES de propor, execute esta analise:
 
 1. **Cascade trace:** Para cada propriedade visual critica do slide (background, color, font-size, display, grid/flex), identifique QUAL regra vence (base.css → archetypes.css → cirrose.css → inline). Confirme que o seletor EXISTE no CSS enviado.
-2. **Dead CSS:** Liste seletores presentes no CSS enviado que NAO matcham NENHUM elemento no HTML enviado. Seletor sem alvo = dead code.
+2. **Dead CSS:** Liste seletores do bloco **Slide-specific CSS (cirrose.css)** que NAO matcham NENHUM elemento no HTML enviado. APENAS este bloco conta como dead CSS. Seletores de Design Tokens e Archetype CSS sao CONTEXTO — incluidos para referencia de cascade, NAO penalizam craft_frontend.
 3. **Specificity conflicts:** Se mais de uma regra compete pela mesma propriedade no mesmo elemento, declare o vencedor (usando specificity ID, Class, Type) e se o override e intencional ou acidental.
 4. **Failsafes:** Verifique se o CSS tem regras `.no-js` e `.stage-bad` para os elementos animados deste slide. Se NAO tiver, marque como [MUST] na secao de propostas.
 5. **GSAP vs CSS race:** Identifique propriedades controladas TANTO por GSAP (JS) quanto por CSS transitions/classes. Race condition = GSAP seta inline (max specificity), CSS perde. Reportar.
@@ -148,12 +157,12 @@ Para CADA dimensao: dar nota + listar os criterios CONCRETOS avaliados e o resul
 | Dim | Nota | Criterios avaliados (obrigatorio) |
 |-----|------|-----------------------------------|
 | Tipografia e hierarquia | ?/10 | h2 font-size=?px, body=?px, caption=?px; font-family match tokens?; escala hierarquica coerente?; vw ilegal (E52)?  |
-| Cor, contraste e superficie | ?/10 | cor texto vs fundo (estimar ratio); tokens usados corretamente?; cor semantica (safe/warning/danger) coerente?; superficies (bg-card, bg-elevated) presentes? |
+| Cor, contraste e superficie | ?/10 | cor texto vs fundo (estimar ratio); tokens usados corretamente?; **cor semantica clinica verificada: danger = risco real (morte, sangramento, falencia orgao). warning = investigar/monitorar. safe = manter conduta. ui-accent = chrome/UI, NUNCA clinico. Se danger/warning usado para enfase teorica sem risco clinico real, flaggear como SHOULD**; superficies (bg-card, bg-elevated) presentes? |
 | Composicao e respiro | ?/10 | fill ratio estimado (%); padding principal (px); gap entre elementos; alinhamento (left/center/mixed); espaco desperdicado vs intencional |
 | Motion e timing | ?/10 | transicoes contadas (#); duracoes (ms); delays (ms); overlap entre saida/entrada (ms); easing usado; artefatos visiveis no video (sim/nao, descrever) |
 | Legibilidade a 5m | ?/10 | menor texto visivel (estimado px); contraste minimo; elementos que desaparecem em projecao; text-small aceitavel? |
 | Impacto emocional | ?/10 | hero element presente?; Von Restorff aplicado?; pausa narrativa existe?; dado de impacto destacado? |
-| Craft front-end | ?/10 | dead CSS (# seletores); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |
+| Craft front-end | ?/10 | dead CSS no bloco slide-specific (# seletores — ignorar tokens/archetype); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |
 | CSS Cascade e especificidade | ?/10 | conflitos encontrados (#); !important count; cascade intencional vs acidental; failsafes .no-js presentes?; .stage-bad presente? |
 | Gestalt e carga cognitiva | ?/10 | # grupos visuais; Cowan respeitado (<=4)?; proximidade e similaridade OK?; conceitos por estado (1=bom, 3+=ruim) |
 | Estrutura semantica e a11y | ?/10 | heading hierarchy OK?; contraste body >=4.5:1?; contraste large >=3:1?; ARIA para transicoes?; visibility para .no-js? |

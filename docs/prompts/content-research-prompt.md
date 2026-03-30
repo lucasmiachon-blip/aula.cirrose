@@ -1,6 +1,6 @@
 # Content Research Prompt — aula.cirrose
 
-> Prompt v2 (2026-03-28). Source of truth: `aulas/cirrose/scripts/content-research.mjs`.
+> Prompt v3 (2026-03-30). Source of truth: `aulas/cirrose/scripts/content-research.mjs`.
 > Este documento DOCUMENTA o que o script faz. Se divergir, o script vence.
 
 ## Modelos
@@ -259,25 +259,28 @@ Strengthen this slide's evidence base. Prioritize: guidelines from authorities (
 
 ---
 
-## COMPARACAO ENTRE MODELOS
+## CROSS-VALIDATION CHECKLIST
 
-Apos rodar nos dois, comparar:
+Apos rodar nos dois modelos, preencher esta tabela. Divergencias = verificar no PubMed antes de usar.
 
-| Criterio | Claude | Gemini | Match? |
-|---|---|---|---|
-| STATUS do claim | | | |
-| PMIDs identicos? | | | |
-| Estatisticas batem? | | | |
-| GRADE concorda? | | | |
-| Tipo de fonte (tag) | | | |
-| Nuances divergem? | | | |
-| Genealogia citada? | | | |
-| Divergencia guidelines? | | | |
-| Critica EBM | | | |
-| Sugestao de conteudo | | | |
+| # | Criterio | Claude | Gemini | Match? | Acao se diverge |
+|---|----------|--------|--------|--------|-----------------|
+| 1 | STATUS do claim | | | | Se diverge: usar o mais conservador |
+| 2 | PMIDs identicos? | | | | PMID exclusivo → verificar no PubMed MCP |
+| 3 | Estatisticas batem? | | | | Numero do paper original vence |
+| 4 | GRADE concorda? | | | | Se diverge: justificar com criterios GRADE |
+| 5 | Tipo de fonte (tag) | | | | Classificacao mais especifica vence |
+| 6 | Nuances divergem? | | | | Ambas nuances validas → incluir ambas |
+| 7 | Genealogia citada? | | | | Incluir se qualquer um citou |
+| 8 | Divergencia guidelines? | | | | Verificar guidelines originais |
+| 9 | Critica EBM | | | | Critica valida → incluir |
+| 10 | Sugestao de conteudo | | | | Lucas decide |
 
-**Regra:** Se um PMID aparece em so um modelo, verificar no PubMed antes de usar.
-**Regra:** Se estatisticas divergem pro mesmo PMID, o numero do paper original vence.
+### Regras de resolucao
+- **PMID exclusivo de 1 modelo:** Verificar no PubMed MCP. Se existe e e relevante → incluir. Se nao existe → descartar + marcar alucinacao.
+- **Estatisticas divergem pro mesmo PMID:** O numero do paper original (full-text) vence.
+- **3-source crossref:** Dado so entra no slide se confirmado por >=2 fontes independentes (PubMed + guideline, ou RCT + meta-analise).
+- **Alucinacao detectada:** Registrar qual modelo alucionou e o que. Informar Lucas.
 
 ---
 
@@ -289,8 +292,36 @@ node aulas/cirrose/scripts/content-research.mjs --slide {id}
 ```
 Script extrai contexto do slide (HTML, notes, PMIDs, evidence-db, narrative, CASE.md), monta prompt, chama Gemini 3.1 Pro com Google Search grounding. Output salvo em `qa-screenshots/{id}/content-research.md`.
 
-### Passo 2 — Claude (conversa)
-Claude Code le o mesmo contexto que o script extrai. Pesquisa via MCPs (PubMed, Consensus, SCite, Scholar Gateway). Produz output no mesmo formato. Salva na secao "Claude Opus Response" do mesmo `content-research.md`.
+### Passo 2 — Claude Opus (conversa, $0 via Max)
+
+Claude Code executa pesquisa via MCPs integrados na seguinte sequencia:
+
+**CLAUDE OPUS PROTOCOL — sequencia MCP:**
+
+1. **SCite** (`search_literature`): Smart Citations com contrasting evidence. Buscar claim principal + termos-chave. Retorna citacoes que suportam E contradizem.
+   ```
+   term: "{claim keywords} {condition}"
+   topic: "Hepatology"
+   limit: 5
+   ```
+
+2. **PubMed** (`search_articles`, `get_article_metadata`): Verificar PMIDs encontrados pelo SCite + buscar meta-analises recentes. Validar que cada PMID existe e os numeros batem.
+   ```
+   query: "{topic}[Title] AND (meta-analysis OR systematic review)"
+   max_results: 5
+   sort: "relevance"
+   ```
+
+3. **Consensus** (`search`): Broad discovery — encontrar papers que SCite e PubMed nao cobriram. Bom para guidelines recentes.
+   ```
+   query: "{topic} {guideline societies} recommendation"
+   ```
+
+4. **Gemini deep-research** (se gap encontrado): Quando os 3 MCPs acima nao cobrem um aspecto critico, usar `gemini-deep-research` para busca profunda com grounding.
+
+**Output:** MESMO formato que o Gemini (## CLAIM, ## STATUS, ## REFORCO, etc.) para comparacao 1:1. Salva na secao "Claude Opus Response" do mesmo `content-research.md`.
+
+**Regra de prompt nao-deterministico:** NAO embutir valores esperados nas queries. Perguntar ao MCP "qual e o AUROC do FIB-4?", nao "confirme que o AUROC do FIB-4 e 0.87". Isso evita leading the witness.
 
 ### Passo 3 — Comparison table
 Claude Code preenche a tabela de 10 criterios. Flagra divergencias. PMIDs exclusivos de um modelo → verificar no PubMed MCP. Estatisticas divergentes → paper original vence.
@@ -319,6 +350,12 @@ Conteudo consolidado apresentado. Lucas decide o que entra no slide. So entao pa
 ### Temperatura
 - **Gemini 3.1 Pro: MANTER 1.0** (default). Google recomenda explicitamente nao reduzir.
 - **Claude: 0 a 0.3** — Claude nao tem o mesmo problema. Temperatura baixa funciona bem.
+
+### Mudancas v2 → v3 (2026-03-30)
+- System prompt: +SOURCE PRIORITY (sequencia 1-5), +TIER-1 SOURCES list, +PMID verification obrigatoria
+- Claude protocol: sequencia MCP documentada (SCite → PubMed → Consensus → Gemini deep-research)
+- Cross-validation: tabela expandida 10→10 com coluna "Acao se diverge" + regras de resolucao
+- Prompt nao-deterministico: regra explicita contra leading the witness
 
 ### Mudancas v1 → v2 (2026-03-28)
 - Patient anchor: era hardcoded "58 anos" → agora le CASE.md em runtime via `extractPatientAnchor()`
