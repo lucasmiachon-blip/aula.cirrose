@@ -5,6 +5,30 @@
 
 ---
 
+## 2026-03-30 — fix: s-a1-elasto bugfix DRAFT→CONTENT (sessao 37)
+
+- **Registry animation** — Return-object → `__hookAdvance`/`__hookRetreat` pattern. 3 beats (auto+2 clicks).
+- **data-reveal conflict** — Removidos `data-reveal="1"/"2"` (conflito com state machine custom).
+- **Panel lateral** — 4→7 campos (= fib4 sem calc). AST, ALT, plq, albumin, Bili, INR + fib4=5,91.
+- **Dead CSS** — ~60 linhas `.elasto-pathway`/`.elasto-step` removidas (versao anterior abandonada).
+- **Failsafes** — box-shadow confounder cards, `.no-js`/`.stage-bad` para MASLD/MRE blocks.
+- **Commit:** 8a95a33.
+
+---
+
+## 2026-03-29 — feat: s-a1-elasto + s-a1-fib4 DONE* (sessoes 36)
+
+- **s-a1-elasto criado** (03c-a1-elasto.html) — Elastografia apreciacao critica. 3 beats: confounders (ALT, pos-prandial, ICC, colestase), MASLD gap (PPV 90→63%), MRE escape (AUROC 0,94). 12 PMIDs via multi-MCP + Gemini cross-validation. 9 superficies sincronizadas. Commits: 7052bd7, 93da23e.
+- **s-a1-fib4 progressive spectrum** — Redesign completo: grid-stack fade-replace → barra horizontal progressiva (safe/gray/danger). Cada beat adiciona sem apagar. Gate 4 R7 8.5 → R8 6.0 → R9 8.8/10. DONE* (cor_contraste 7/10 aceito por prazo). Commits: 8d53242, ee27c08.
+- **QA scripts validados end-to-end** — `qa-batch-screenshot.mjs` (C1-C7) + `gemini-qa3.mjs` (Gate 0 Flash + Gate 4 Pro). Multi-modelo implementado. `--force-gate4` flag.
+- **Gate 4 prompt v3.0** — Prova de video com timestamps, criterios mensuraveis no scorecard, propostas sem cap com fonte+criterio. CSS extraction fix (2-pass section-based).
+- **fib4 archetype removido** — Layout via `#s-a1-fib4 .slide-inner` scoped CSS.
+- **Gate 2 protocol** — Opus Visual Audit documentado (`docs/prompts/gate2-opus-visual.md`). 3 camadas: instrumental (sharp+a11y), code analysis, visual multimodal.
+- **Conteudo andragogia fib4** — Hero cutoffs clinicos (< 1,30 / >= 2,67) em vez de estatisticas de teste. Pitfalls acionaveis. Gate 4 R6 8.8/10.
+- **Micropolish fib4 R7→R9** — Bar safe/gray desaturados, flags de-bold 700→500, border-bottom navy, letter-spacing 0.04em, min-width:0, cascade source-tag blindada.
+
+---
+
 ## 2026-03-29 — feat: Gate 2 Opus Visual Audit + daltonism icons (sessao 35)
 
 - **Gate 2 executado pela primeira vez** — Protocolo Opus Visual Audit (sharp pick_color + a11y check_color_contrast + code analysis + visual multimodal). 3 layers, 5 pontos grid + adaptativos. Resultado: CONDITIONAL PASS → PASS apos fixes.
