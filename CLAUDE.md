@@ -62,22 +62,14 @@ Conflito: # menor vence. Notion é mirror, não source of truth.
 
 ## Hard Constraints
 
-1. **Assertion-Evidence.** `<h2>` = afirmação clínica verificável. NUNCA rótulo genérico.
-2. **ZERO `<ul>`/`<ol>` em slides.** Listas só em notes e apêndice.
-3. **Todo `<section>` TEM `<aside class="notes">`** com timing e fontes. NUNCA deletar notes.
-4. **var() obrigatório.** NUNCA cor literal em CSS. Exceção: `data-background-color` (HEX).
-5. **Cor clínica ≠ UI.** `--safe/--warning/--danger` = clínico. `--ui-accent` = chrome.
-6. **Daltonismo:** ícone obrigatório junto a cor semântica.
-7. **`data-animate` declarativo.** NUNCA gsap inline. CSS fallback: `.no-js` → `opacity:1`.
-8. **Zero CDN. Offline-first.**
-9. **`aulas/cirrose/index.html` é gerado.** Editar `aulas/cirrose/slides/*.html` + build. Hook bloqueia Write direto.
-10. **Corpo do slide <= 30 palavras.** Speaker notes em português.
-11. **OKLCH padrão.** HSL proibido. Fallback HEX para WCAG.
-12. **Tabelas Tufte:** sem bordas verticais, números à direita, classe `.tufte`.
-13. **NUNCA inventar dados clínicos.** Sem fonte Tier 1 → `[TBD]`.
-14. **CSS cascata:** `aulas/cirrose/shared/css/base.css` → `aulas/cirrose/archetypes.css` → `aulas/cirrose/cirrose.css`. NUNCA `!important` salvo 4 pré-existentes.
-15. **`aulas/cirrose/shared/js/deck.js`, NÃO Reveal.js (removido do projeto).** Reordenação: `aulas/cirrose/slides/_manifest.js` + build.
-16. **Branch:** `feat/cirrose-mvp`. Commits: prefixo semântico (`fix:`, `feat:`, `refactor:`, `docs:`).
+> Detalhes: @.claude/rules/slide-rules.md (estrutura, animação, CSS, motion) + @.claude/rules/design-reference.md (semântica, dados).
+
+1. `<h2>` = asserção clínica. ZERO `<ul>`/`<ol>`. `<aside class="notes">` obrigatório.
+2. `var()` obrigatório (NUNCA cor literal). Cor clínica ≠ UI. Ícone junto a cor semântica.
+3. `data-animate` declarativo. NUNCA gsap inline. Failsafe `.no-js` obrigatório.
+4. `index.html` é gerado (hook bloqueia). Corpo ≤30 palavras. OKLCH (HSL proibido).
+5. NUNCA inventar dados clínicos. Sem Tier 1 → `[TBD]`. CSS cascata: base→archetypes→cirrose.
+6. deck.js (NÃO Reveal.js). Branch `feat/cirrose-mvp`. Commits semânticos. Zero CDN.
 
 ## Slide Identity
 
@@ -185,12 +177,18 @@ sed -n '/### ATO 2/,/^### /p' aulas/cirrose/references/narrative.md
 | Criar slide novo | `/new-slide` | Template + 9 superficies |
 | NotebookLM | `/nlm-skill` | CLI/MCP guide |
 
-## Rules (loaded on demand)
+## Rules & Reference
 
-- **Slide rules** (edição, identidade, CSS, motion): @.claude/rules/slide-rules.md
-- **Design reference** (tokens, princípios, dados médicos): @.claude/rules/design-reference.md
-- **QA pipeline** (máquina de estados, Gate 0/4, scorecards): `aulas/cirrose/WT-OPERATING.md` (ler manualmente em sessões QA)
-- Doc graph: `docs/XREF.md` (consultar sob demanda)
+**Auto-loaded (sempre no context):**
+- @.claude/rules/slide-rules.md — estrutura, identidade, click-reveal, deck.js, motion QA
+- @.claude/rules/design-reference.md — semântica de cor, dados médicos, Tier 1, checklist E21
+
+**On-demand (ler quando necessário):**
+- `docs/design-principles.md` — 27 princípios (Cowan, Von Restorff, Gestalt, Tufte, Duarte). Ler ao criar/revisar slide.
+- `docs/css-error-codes.md` — 52 E-codes completos. Ler ao debugar CSS ou auditar cascade.
+- `aulas/cirrose/shared/css/base.css` — tokens OKLCH, tipografia, spacing. Ler ao precisar valores exatos.
+- `aulas/cirrose/WT-OPERATING.md` — QA pipeline, máquina de estados. Ler em sessões QA.
+- `docs/XREF.md` — grafo de dependências entre docs.
 
 ## Worktree
 
