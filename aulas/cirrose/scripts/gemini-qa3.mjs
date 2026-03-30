@@ -153,22 +153,38 @@ function extractSlideCSS(slideId) {
   const cssPath = join(AULA_DIR, 'cirrose.css');
   const css = readFileSync(cssPath, 'utf8');
   const lines = css.split('\n');
-  const sectionBoundary = /[━═]{3,}/;
+  const sectionBoundary = /[━═=]{3,}/;
 
-  // Pass 1: section-based — find comment section marker containing slideId
-  // e.g. /* ═══ s-a1-fib4 ═══ */ or /* ━━━... s-a1-fib4 ...━━━ */
+  // Pass 1: section-based — find comment block containing slideId near a boundary
+  // Supports both single-line (/* === s-a1-fib4 === */) and multi-line:
+  //   /* ============================================
+  //      s-a1-elasto — description
+  //      ============================================ */
   let sectionStart = -1;
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i].includes(slideId) && sectionBoundary.test(lines[i])) {
-      sectionStart = i;
-      break;
+    if (lines[i].includes(slideId)) {
+      // Check same line OR adjacent lines (±1) for boundary
+      if (sectionBoundary.test(lines[i])
+          || (i > 0 && sectionBoundary.test(lines[i - 1]))
+          || (i + 1 < lines.length && sectionBoundary.test(lines[i + 1]))) {
+        // Walk back to the opening boundary line
+        sectionStart = i;
+        while (sectionStart > 0 && !sectionBoundary.test(lines[sectionStart])) sectionStart--;
+        break;
+      }
     }
   }
 
   if (sectionStart >= 0) {
+    // Find the closing boundary of this header comment block
+    let contentStart = sectionStart + 1;
+    while (contentStart < lines.length && (lines[contentStart].includes(slideId) || sectionBoundary.test(lines[contentStart]) || lines[contentStart].trim() === '')) {
+      contentStart++;
+    }
+    // Collect until next section boundary that doesn't belong to this slide
     const sectionResult = [];
     for (let i = sectionStart; i < lines.length; i++) {
-      if (i > sectionStart && sectionBoundary.test(lines[i]) && !lines[i].includes(slideId)) {
+      if (i >= contentStart && sectionBoundary.test(lines[i]) && !lines[i].includes(slideId)) {
         break;
       }
       sectionResult.push(lines[i]);

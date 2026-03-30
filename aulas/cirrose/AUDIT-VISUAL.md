@@ -80,7 +80,7 @@ Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `WT-OPERATING.m
 
 ## Act 1 — QA Status
 
-**Status:** 6 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*), 0 QA, 5 CONTENT (s-a1-elasto, s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
+**Status:** 7 DONE* (s-title, s-hook, s-a1-01, s-a1-classify, s-a1-baveno, s-a1-fib4*, s-a1-elasto*), 4 CONTENT (s-a1-damico, s-a1-rule5, s-a1-meld, s-cp1).
 *s-a1-fib4 DONE* = cor_contraste 7/10, aceito por prazo.
 Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
 
@@ -108,30 +108,32 @@ Lints: lint:slides PASS · lint:case-sync PASS · lint:narrative-sync PASS
 
 Obs: (1) Redesign completo 29/mar. (2) H2 rotulo por decisao do autor. (3) Gate 2 STALE (layout antigo). (4) 41 palavras S2 aceito por Lucas. (5) *cor_contraste 7/10 aceito por prazo.
 
-### s-a1-elasto (03c-a1-elasto.html) — CONTENT → QA
+### s-a1-elasto (03c-a1-elasto.html) — DONE* R4 8.5
 
 **Headline:** Fibroscan, MRE e outros métodos não invasivos
+**Design:** 3 beats progressivos (confounders → MASLD hero → MRE escape). Custom CSS + registry state machine.
 
 | Dim | Nota | Evidencia |
 |-----|------|-----------|
-| H   | —    | Aguardando QA pipeline |
-| T   | —    | |
-| E   | —    | |
-| C   | —    | |
-| V   | —    | |
-| K   | —    | |
-| S   | —    | |
-| M   | —    | |
-| I   | —    | |
-| D   | —    | |
-| A   | —    | |
-| L   | —    | |
-| P   | —    | |
-| N   | —    | |
+| H   | 9    | R3: confounders subordinados (bg-card, shadow sutil), MASLD hero Von Restorff (bg-elevated, shadow forte, border 2px, valores text-h2), MRE rodape (border-top, sem radius). |
+| T   | 10   | R3-R4: Instrument Serif titulo, DM Sans body. Scale clamp completa. tabular-nums nos dados. |
+| E   | 8    | R3-R4: macro-whitespace (MASLD space-md, MRE space-md). Source-tag max-width 85% centered + padding-bottom. Fill ratio ~85% S2. |
+| C   | 10   | R4: bg-surface→bg-card→bg-elevated escada de profundidade. Confounders com shadow sutil, MASLD com shadow forte. Cores semanticas danger/warning/safe corretas. |
+| V   | 7    | Dados = cards tipograficos. MASLD 90→63% hero numerico. Sem grafico/visual dominante. |
+| K   | 8    | Layout custom unico. Spacing/radius/tokens consistentes com design system. |
+| S   | 8    | Failsafes .no-js + .stage-bad completos (incl. source-tag, masldValues, arrow). GSAP timeline+scale+fromTo. |
+| M   | 7    | h2 = rotulo (decisao autor). S2 = 83 palavras (aceito, 3 beats progressivos via click-reveal). |
+| I   | 10   | advance/retreat simétricos. Leave/return reseta. stopPropagation. Plan B funcional. |
+| D   | 9    | 12 PMIDs verificados. 4 citacoes em source-tag. [DATA] tags em notes. ICC card: PMID 37908293. |
+| A   | 9    | Gate 2: 13/13 AA PASS. Icones em todos confounders. aria-hidden OK. |
+| L   | 9    | R3-R4: 3 grupos Gestalt claros (Proximidade via macro-whitespace). Cowan respeitado (4 confounders stagger + 2 clicks). |
+| P   | 8    | Confounders = pratica diaria. MASLD gap = "e dai?" clinico. ANTICIPATE-NASH = conduta. |
+| N   | 8    | payoff role. MASLD gap = tensao central. Callback FIB-4 anterior. |
 
-**Media:** — (0/10)
-**Status:** CONTENT → QA pipeline pendente.
-Obs: (1) Criado 29/mar. 3 beats: confounders, MASLD gap, MRE escape. 12 PMIDs. (2) Bugfix 30/mar: registry, panel, dead CSS. (3) Word count ~78 (limite 30). Decisao pendente.
+**Media:** 8.6/10
+**Status:** DONE* — Gate 0 PASS, Gate 2 PASS R2, Gate 4 R4 8.5/10.
+Pipeline: R1 6.6→fix hierarquia+anim→R2 6.8 (CSS truncado corrigido)→R3 9.1 (macro-whitespace)→R4 8.5 (contraste cards). Lucas aprovou. ICC card atualizado: "↑ com PVC → falso F3–F4".
+Obs: (1) Word count 83 aceito (3 beats). (2) composicao 8 (fill ratio alto, aceito). (3) Bug fix gemini-qa3: CSS section extraction regex.
 
 ---
 
@@ -146,7 +148,7 @@ Obs: (1) Criado 29/mar. 3 beats: confounders, MASLD gap, MRE escape. 12 PMIDs. (
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5 |
 | 6 | s-a1-damico | CONTENT | 3 eras, ~105 palavras. L=7, split futuro no backlog |
 | 7 | s-a1-fib4 | DONE* R9 8.8 | cor_contraste 7/10 aceito. Gate 2 STALE |
-| 8 | s-a1-elasto | CONTENT | 3 beats. 12 PMIDs. QA pipeline pendente |
+| 8 | s-a1-elasto | DONE* R4 8.5 | Gate 4: R1 6.6→R2 6.8→R3 9.1→R4 8.5. Aprovado. |
 | 9 | s-a1-rule5 | CONTENT | Melhor visual do Act 1 (V=9). 5 zones + Antonio |
 | 10 | s-a1-meld | CONTENT | Semaforo 4-bandas. CSS dots |
 | 11 | s-cp1 | CONTENT | Checkpoint poll. N=9 |
@@ -191,6 +193,7 @@ Scorecards detalhados dos slides DONE (s-title, s-hook, s-a1-01, s-a1-classify, 
 | 10/mar/2026 | Act 1 Rodada 5 — D'Amico chromatic + vote elevation | R3+ERRO-022 fechados |
 | 22-27/mar | s-a1-01, classify, baveno — Gate 0+4 pipeline | 3 slides DONE |
 | 29/mar | s-a1-fib4 R1→R9 — progressive spectrum | **DONE*** R9 8.8/10 |
+| 30/mar | s-a1-elasto — Gate 0+2+4 R1→R4 + hierarquia/contraste/spacing fix + ICC card update | DONE* R4 8.5 |
 
 ---
 

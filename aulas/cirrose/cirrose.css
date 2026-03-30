@@ -2841,31 +2841,30 @@ section#s-a1-01 .slide-inner {
 .elasto-confounders {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-sm);
-  margin-top: var(--space-sm);
+  gap: 10px;
+  margin-top: 0;
 }
 
 .elasto-conf {
   display: flex;
   align-items: flex-start;
   gap: var(--space-xs);
-  padding: var(--space-sm);
-  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
   background: var(--bg-card);
-  border-left: 4px solid var(--border);
-  box-shadow: 0 2px 8px var(--shadow-soft);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  box-shadow: 0 1px 4px var(--shadow-soft);
   opacity: 0;
   transform: translateY(8px);
 }
 
 .elasto-conf[data-severity="danger"] {
   border-left-color: var(--danger);
-  background: var(--danger-light);
 }
 
 .elasto-conf[data-severity="warning"] {
   border-left-color: var(--warning-on-light);
-  background: var(--warning-light);
 }
 
 .elasto-conf-icon {
@@ -2907,20 +2906,21 @@ section#s-a1-01 .slide-inner {
   font-style: italic;
 }
 
-/* Beat 1: MASLD gap */
+/* Beat 1: MASLD gap (hero — Von Restorff) */
 .elasto-masld {
-  margin-top: var(--space-xs);
+  margin-top: var(--space-md);
 }
 
 .elasto-masld-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 4px;
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
-  background: var(--warning-light);
-  border: 1px solid var(--warning-on-light);
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  box-shadow: 0 6px 28px var(--shadow-soft);
 }
 
 .elasto-masld-label {
@@ -2928,6 +2928,8 @@ section#s-a1-01 .slide-inner {
   font-size: var(--text-small);
   color: var(--text-secondary);
   font-weight: 500;
+  margin-bottom: var(--space-xs);
+  letter-spacing: 0.02em;
 }
 
 .elasto-masld-compare {
@@ -2946,8 +2948,10 @@ section#s-a1-01 .slide-inner {
 .elasto-masld-value {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: var(--text-h3);
+  font-size: var(--text-h2);
   font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1;
+  opacity: 0;
 }
 
 .elasto-masld-col--viral .elasto-masld-value {
@@ -2960,32 +2964,35 @@ section#s-a1-01 .slide-inner {
 
 .elasto-masld-pop {
   font-family: var(--font-body);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
   color: var(--text-muted);
+  letter-spacing: 0.03em;
 }
 
 .elasto-masld-arrow {
-  font-size: var(--text-h3);
+  font-size: var(--text-h2);
   color: var(--text-muted);
+  opacity: 0;
 }
 
 .elasto-masld-fix {
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--safe);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Beat 2: MRE escape */
 .elasto-mre {
-  margin-top: var(--space-xs);
+  margin-top: var(--space-md);
 }
 
 .elasto-mre-card {
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 0;
+  background: var(--bg-surface);
+  border: none;
+  border-top: 1px solid var(--divider);
 }
 
 .elasto-mre-title {
@@ -2994,7 +3001,7 @@ section#s-a1-01 .slide-inner {
   font-size: var(--text-small);
   color: var(--text-primary);
   display: block;
-  margin-bottom: var(--space-xs);
+  margin-bottom: 4px;
 }
 
 .elasto-mre-points {
@@ -3013,21 +3020,24 @@ section#s-a1-01 .slide-inner {
   margin-top: auto;
   font-size: var(--text-caption);
   color: var(--text-muted);
+  max-width: 85%;
+  margin-inline: auto;
+  text-align: center;
+  padding-bottom: var(--space-xs);
 }
 
-/* Failsafe Plan B + no-js: new slides */
+/* Failsafe Plan B + no-js */
 .no-js .elasto-conf, .stage-bad .elasto-conf,
 .no-js .elasto-masld, .stage-bad .elasto-masld,
-.no-js .elasto-mre, .stage-bad .elasto-mre {
+.no-js .elasto-mre, .stage-bad .elasto-mre,
+.no-js #s-a1-elasto .source-tag, .stage-bad #s-a1-elasto .source-tag {
   opacity: 1 !important;
   transform: none !important;
   visibility: visible !important;
 }
-
-.no-js .rule-zone, .stage-bad .rule-zone,
-.no-js .antonio-plot, .stage-bad .antonio-plot {
+.no-js .elasto-masld-value, .stage-bad .elasto-masld-value,
+.no-js .elasto-masld-arrow, .stage-bad .elasto-masld-arrow {
   opacity: 1 !important;
-  transform: none !important;
 }
 
 /* Bounce feedback — substitui gsap inline em checkpoints */

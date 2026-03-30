@@ -303,17 +303,21 @@ export const customAnimations = {
     const masldBlock = slide.querySelector('.elasto-masld');
     const mreBlock = slide.querySelector('.elasto-mre');
     const sourceTag = slide.querySelector('.source-tag');
+    const masldValues = masldBlock.querySelectorAll('.elasto-masld-value, .elasto-masld-arrow');
 
     /* Initial state: hide everything */
-    gsap.set(confCards, { autoAlpha: 0, y: 8 });
-    gsap.set([masldBlock, mreBlock], { autoAlpha: 0, y: 10 });
+    gsap.set(confCards, { autoAlpha: 0, y: 8, scale: 0.97 });
+    gsap.set([masldBlock, mreBlock], { autoAlpha: 0, y: 12, scale: 0.97 });
+    gsap.set(masldValues, { autoAlpha: 0, y: 6 });
     if (sourceTag) gsap.set(sourceTag, { autoAlpha: 0 });
 
-    /* State 0 (auto): confounders stagger in */
-    gsap.to(confCards, {
-      autoAlpha: 1, y: 0,
-      duration: 0.45, stagger: 0.12, delay: 0.3,
-      ease: 'power2.out',
+    /* State 0 (auto): confounders timeline with overlap */
+    const tl0 = gsap.timeline({ delay: 0.3 });
+    confCards.forEach((card, i) => {
+      tl0.to(card, {
+        autoAlpha: 1, y: 0, scale: 1,
+        duration: 0.4, ease: 'power2.out',
+      }, i * 0.12);
     });
 
     function advance() {
@@ -321,20 +325,24 @@ export const customAnimations = {
       state++;
 
       if (state === 1) {
-        gsap.to(masldBlock, {
-          autoAlpha: 1, y: 0,
-          duration: 0.4, ease: 'power2.out',
-        });
+        /* MASLD hero: scale emphasis + power3.out (baveno pattern) */
+        gsap.fromTo(masldBlock,
+          { autoAlpha: 0, y: 12, scale: 0.97 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: 'power3.out' }
+        );
+        /* Stagger interno: 90% → arrow → 63% (bom → mau) */
+        gsap.fromTo(masldValues,
+          { autoAlpha: 0, y: 6 },
+          { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.35, ease: 'power2.out' }
+        );
       } else if (state === 2) {
-        gsap.to(mreBlock, {
-          autoAlpha: 1, y: 0,
-          duration: 0.4, ease: 'power2.out',
-        });
+        /* MRE: snappy, supporting */
+        gsap.fromTo(mreBlock,
+          { autoAlpha: 0, y: 8 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.35, ease: 'power3.out' }
+        );
         if (sourceTag) {
-          gsap.to(sourceTag, {
-            autoAlpha: 1,
-            duration: 0.3, delay: 0.3,
-          });
+          gsap.to(sourceTag, { autoAlpha: 1, duration: 0.3, delay: 0.2 });
         }
       }
       return true;
@@ -344,9 +352,16 @@ export const customAnimations = {
       if (state <= 0) return false;
 
       if (state === 2) {
-        gsap.to([mreBlock, sourceTag].filter(Boolean), { autoAlpha: 0, y: 10, duration: 0.25 });
+        gsap.to([mreBlock, sourceTag].filter(Boolean), {
+          autoAlpha: 0, y: 8, duration: 0.2, ease: 'power2.in',
+        });
       } else if (state === 1) {
-        gsap.to(masldBlock, { autoAlpha: 0, y: 10, duration: 0.25 });
+        /* Valores primeiro, depois card com scale reverso */
+        gsap.to(masldValues, { autoAlpha: 0, y: 6, duration: 0.15, ease: 'power2.in' });
+        gsap.to(masldBlock, {
+          autoAlpha: 0, y: 8, scale: 0.97,
+          duration: 0.25, delay: 0.1, ease: 'power2.in',
+        });
       }
 
       state--;
