@@ -5,7 +5,7 @@
  */
 
 import { getCurrentSlide, goTo } from './deck.js';
-window.__deckGoTo = goTo; // QA helper � Playwright navigation
+window.__deckGoTo = goTo; // QA helper � Playwright navigation
 
 // ============================================
 // PRINT-PDF DETECTION
@@ -208,26 +208,29 @@ export function createAnimationDispatcher(gsap) {
     connect() {
       let animatedSlide = null;
 
-      // slide:changed — cleanup previous slide (equivalent to Reveal slidechanged)
+      // slide:changed — animate immediately + delayed cleanup of previous
+      // Animate on changed (not entered): gsap.set() hides elements BEFORE fade-in renders,
+      // then gsap.to() delays (0.3-0.4s) align with the 400ms CSS transition.
       document.addEventListener('slide:changed', (e) => {
-        cleanup(e.detail.previousSlide);
-        animatedSlide = null;
+        const prev = e.detail.previousSlide;
+        const prevCtx = contexts.get(prev);
+        setTimeout(() => {
+          // Only revert if context hasn't been replaced (rapid nav edge case)
+          if (prevCtx && contexts.get(prev) === prevCtx) {
+            prevCtx.revert();
+            contexts.delete(prev);
+          }
+          activeTimers.forEach(id => clearInterval(id));
+          activeTimers = [];
+        }, 450);
 
         if (qa) {
-          // QA mode: transition='none' equivalent — use rAF
           requestAnimationFrame(() => animate(e.detail.currentSlide, e.detail.indexh));
+        } else {
+          animate(e.detail.currentSlide, e.detail.indexh);
+          animatedSlide = e.detail.currentSlide;
         }
       });
-
-      if (!qa) {
-        // slide:entered — primary trigger after CSS transition (equivalent to Reveal slidetransitionend)
-        document.addEventListener('slide:entered', (e) => {
-          if (animatedSlide !== e.detail.currentSlide) {
-            animate(e.detail.currentSlide, e.detail.indexh);
-            animatedSlide = e.detail.currentSlide;
-          }
-        });
-      }
 
       // Initial slide animation (equivalent to Reveal ready event)
       const initialSlide = getCurrentSlide();

@@ -34,7 +34,7 @@ const ROOT = resolve(__dirname, '..');
 const OUT_ROOT = join(ROOT, 'qa-screenshots', 'videos');
 const TMP_DIR = join(ROOT, 'qa-screenshots', '.video-tmp');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4100;
 const VIEWPORT = { width: 1280, height: 720 };
 
 // Quanto tempo esperar entre cada ação (ms)

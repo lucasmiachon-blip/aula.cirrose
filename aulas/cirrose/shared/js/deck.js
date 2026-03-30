@@ -47,7 +47,8 @@ function goTo(next) {
     dispatch('slide:entered', { currentSlide, indexh: next });
   }
 
-  currentSlide.addEventListener('transitionend', function onEnd() {
+  currentSlide.addEventListener('transitionend', function onEnd(evt) {
+    if (evt.target !== currentSlide) return; // ignore child transitions bubbling up
     currentSlide.removeEventListener('transitionend', onEnd);
     fireEntered();
   });

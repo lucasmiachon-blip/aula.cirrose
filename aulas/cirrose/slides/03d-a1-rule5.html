@@ -1,7 +1,6 @@
 <!-- ============================================================
-     s-a1-rule5 — Rule-of-5 + Antonio plotado
-     Archetype: flow (state machine)
-     States: 0=zones scaleY, 1=Antonio highlight+gray zone, 2=source
+     s-a1-rule5 — Rule-of-5 (reference scale + holofote ≥25)
+     States: 0=zones stagger+gray (auto), 1=holofote ≥25+sidebar LSM (click)
      SLIDE MAIS IMPORTANTE DO BLOCO 1
      ============================================================ -->
 <section id="s-a1-rule5"
@@ -10,7 +9,7 @@
 
   <div class="slide-inner archetype-flow">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">A cada 5 kPa, muda o estágio e a conduta</h2>
+    <h2 class="slide-headline">Rule of Five</h2>
 
     <!-- Rule-of-5 scale -->
     <div class="rule-of-5">
@@ -53,27 +52,26 @@
         <span class="rule-gray-zone-range">10–25 kPa</span>
       </div>
 
-      <p class="rule-axis-label">Rule-of-5 · Elastografia hepática (kPa)</p>
+      <!-- axis label removed — redundant with H2 -->
     </div>
 
-    <!-- Antonio plotted (click 1) -->
-    <div class="antonio-plot">
-      <div class="antonio-pin">
-        <span class="antonio-pin-arrow">▼</span>
-        <span class="antonio-pin-label">Antônio: 21 kPa</span>
+    <!-- Caveats: appear on click 1 (holofote) -->
+    <div class="rule-caveats">
+      <div class="rule-caveat">
+        <span class="rule-caveat-marker">&ne;</span>
+        <span class="rule-caveat-text"><strong>fibrose</strong> &mdash; F2/F3: 7&ndash;10 kPa &middot; VCTE AUROC 0,87 (F3) vs 0,94 (F4)</span>
       </div>
-      <p class="antonio-data">LSM 21 kPa · PLQ 112k · FIB-4 5,91</p>
-      <p class="antonio-conclusion">
-        <span class="cacld-tag">✓ cACLD confirmado</span>
-        <span class="csph-tag">⚠ CSPH provável</span>
-      </p>
+      <div class="rule-caveat">
+        <span class="rule-caveat-marker">&uarr;</span>
+        <span class="rule-caveat-text"><strong>&gt;50 kPa</strong> = CSPH cr&iacute;tica &middot; 2&times; descompensa&ccedil;&atilde;o vs 25&ndash;50</span>
+      </div>
     </div>
 
-    <p class="source-tag" style="opacity:0">Baveno VII (PMID 35120736) · Duarte-Rojo &amp; Sterling Hepatology 2025 (PMID 38489521)</p>
+    <p class="source-tag">Baveno VII &middot; Barrett 2026 &middot; Vutien 2025</p>
   </div>
 
   <aside class="notes">
-[0:00-0:40] Zonas crescem com scaleY de baixo para cima (stagger 0.15s)
+[0:00-0:40] Beat 0 (auto): Zonas crescem com scaleY stagger (0.15s).
 [STAGING CUE: Deixar o stagger orquestrar — NÃO falar antes da zona aparecer.]
 "A ferramenta-chave para posicionar o paciente nesse espectro: elastografia.
 Rule-of-5: a cada 5 kPa, muda o estágio e a conduta."
@@ -82,24 +80,31 @@ Rule-of-5: a cada 5 kPa, muda o estágio e a conduta."
 15 a 20: cACLD provável, rastreio de varizes.
 20 a 25: CSPH provável, considerar NSBB e HCC.
 Acima de 25: CSPH confirmado."
-Após zonas: gray zone overlay (10-25 kPa) aparece com borda tracejada.
+Gray zone overlay (10-25 kPa) aparece com borda tracejada.
 
-[0:40-1:20] Click 1 → Antônio plotado
-Pin marker cai na zona 20-25 com bounce.
-"Seu Antônio: 21 kPa. Zona 20-25. Plaquetas 112 mil."
-Zona 20-25 recebe glow warning.
-"cACLD confirmado. CSPH não descartado."
-"Importante: Rule of 5 não descarta CSPH abaixo de 20 se o FIB-4 é alto."
+[0:40-1:40] Click 1 → Holofote zona ≥25 + sidebar LSM + caveats
+Zonas &lt;25 dimmed + grayscale. Zona ≥25 glow danger + scale.
+Sidebar: LSM '—' → '26 kPa' com row flash + scale punch.
+Caveats aparecem abaixo das zonas.
+
+"Antônio: 26 kPa. Zona mais grave. CSPH confirmado."
 PAUSA 3s.
-"Lembrem: resultado influenciado por inflamação aguda, ICC, obesidade — falso positivo.
-Jejum mínimo 2h. IQR/mediana acima de 30% — repetir."
-[NOTA: caveats removidos da projeção, falar oralmente]
 
-[1:20-1:30] Click 2 → source
-→ avançar para MELD
+[Apontar para as notas abaixo]
+"Duas ressalvas importantes."
+"Primeiro: esta escala classifica hipertensão portal — não fibrose.
+F2 e F3 acontecem em 7 a 10 kPa — abaixo do 10 que a Rule of 5 usa para excluir.
+E nenhum teste não invasivo discrimina bem F3 de F4: AUROC 0,87 versus 0,94. É um contínuo, não um degrau."
+"Segundo: acima de 25, a Rule of 5 para. Mas o risco não.
+Vutien mostrou em 17 mil pacientes: LSM acima de 50 — o que ele chamou de CSPH crítica — dobra a taxa de descompensação. 11 contra 4 por 100 pacientes-ano."
+PAUSA 2s.
+→ avançar
 
 [DATA] Baveno VII: PMID 35120736 | Rule-of-5 | Verificado: 2026-03-04
-[DATA] Duarte-Rojo & Sterling: PMID 38489521 | LSM + PLQ thresholds | Verificado: 2026-03-05
-[DATA] Antônio: LSM 21 kPa, PLQ 112k, FIB-4 5,91 | Caso fictício
+[DATA] Duarte-Rojo &amp; Sterling: PMID 38489521 | LSM + PLQ thresholds | Verificado: 2026-03-05
+[DATA] Barrett 2026: PMID 41546486 | F3/F4 NIT discrimination, Liver Int | Verificado: 2026-03-30
+[DATA] Vutien 2025: PMID 39689352 | Critical CSPH >50 kPa, Hepatology, N=17076 | Verificado: 2026-03-30
+[DATA] Chon 2024: PMID 39165159 | VCTE AUROC F3 0.87 vs F4 0.94, 63 estudos | Verificado: 2026-03-30
+[DATA] Antônio: LSM 26 kPa, PLQ 112k, FIB-4 5,91 | Caso fictício
   </aside>
 </section>

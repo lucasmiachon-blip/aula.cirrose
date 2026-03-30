@@ -34,7 +34,8 @@ export default defineConfig(({ command }) => ({
   root: '.',
   base: command === 'serve' ? '/' : './',
   server: {
-    port: 3000,
+    port: 4100,
+    strictPort: true,
     open: '/aulas/cirrose/index.html',
     browser: 'google chrome'
   },

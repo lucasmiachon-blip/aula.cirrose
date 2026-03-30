@@ -28,7 +28,8 @@
     "mcp:research": "node scripts/mcp-switch.js research",
     "mcp:qa": "node scripts/mcp-switch.js qa",
     "mcp:full": "node scripts/mcp-switch.js full",
-    "research:cirrose": "node aulas/cirrose/scripts/content-research.mjs"
+    "research:cirrose": "node aulas/cirrose/scripts/content-research.mjs",
+    "kill:dev": "powershell -Command \"(Get-NetTCPConnection -LocalPort 4100 -ErrorAction SilentlyContinue).OwningProcess | Sort-Object -Unique | ForEach-Object { Stop-Process -Id $_ -Force }\""
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",

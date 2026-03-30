@@ -5,15 +5,15 @@
 
 ---
 
-## Estado — 2026-03-31T01:30-03:00
+## Estado — 2026-03-30T22:00-03:00
 
-**Ultima sessao:** Rename s-a1-damico → s-a1-cpt + redesign completo. Pesquisa multi-MCP (Scite + Consensus + Gemini Deep Research). Gemini co-design via brainstorm: arco "falhas→sobrevivência→redenção" em vez de cronologia. 15 superfícies atualizadas. Build OK, lint PASS. Pronto para QA pipeline (screenshots → Gate 0 → Gate 2 → Gate 4).
+**Ultima sessao:** QA pipeline s-a1-cpt R1→R3. Gate 4 subiu 5.1→7.7→8.3/10. Fixes: typo `>%`, CSS stub extraction (186→587 lines), autoAlpha, color semantics (danger→ui-accent em S0), kappa hierarchy, source-tag CSS-controlled, guideline font-body. Cross-slide parallelism verificado vs rule5. **Resultado aquem do esperado — proxima sessao: revisar scripts QA e prompts Gate 4 para melhorar qualidade do pipeline.**
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
-**Slides:** 44 buildados · 8 DONE* · 0 QA · 1 DRAFT (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
-**Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
+**Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
+**Branch:** `feat/cirrose-mvp` · Commit `d1dedeb`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03).
-**QA scripts:** Validados end-to-end (29/mar). Porta default 4100.
+**QA scripts:** CSS extraction bug encontrado e corrigido (stub legacy enganava extrator). Prompts precisam revisao (ver NEXT-SESSION.md).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
@@ -33,15 +33,15 @@
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
 | 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. |
-| 9 | s-a1-cpt | DRAFT | Rename de s-a1-damico. Gemini co-design: S0=falhas (κ 0,41 + ceiling), S1=cirurgia (countUp A10/B30/C75 + Von Restorff), S2=Baveno VII (recomp + TIPS). Pronto para QA. |
+| 9 | s-a1-cpt | QA | Gate 4 R3 8.3/10. Fixes: autoAlpha, color semantics, kappa h3, source-tag CSS, guideline font-body. Pendente: dead CSS cleanup (~80 linhas orfas), R4 pos revisao de scripts. |
 | 10 | s-a1-meld | CONTENT | Act 1 restante. |
 | 11 | s-cp1 | CONTENT | **ATENCAO:** H2 e lsm desatualizados (21→26 kPa). narrativeCritical=true. |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 8 DONE* · 0 QA · 1 DRAFT · 35 CONTENT (44 total)
-**Proximo:** QA pipeline em s-a1-cpt (screenshots → Gate 0 → Gate 2 → Gate 4). Depois: s-a1-meld, s-cp1 (cascata LSM 26 kPa).
+**Resumo:** 8 DONE* · 1 QA · 0 DRAFT · 35 CONTENT (44 total)
+**Proximo:** Revisar scripts QA e prompts Gate 4 (resultado aquem). Depois: R4 cpt, s-a1-meld, s-cp1 (cascata LSM 26 kPa).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 

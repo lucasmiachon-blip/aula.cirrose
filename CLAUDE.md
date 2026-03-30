@@ -6,7 +6,7 @@
 ## Commands
 
 ```bash
-npm run dev               # Vite hot reload (port 3000)
+npm run dev               # Vite hot reload (port 4100, strictPort)
 npm run build             # Producao
 npm run build:cirrose     # Concatena slides → aulas/cirrose/index.html via aulas/cirrose/slides/_manifest.js
 npm run preview           # Servir localmente (palco)

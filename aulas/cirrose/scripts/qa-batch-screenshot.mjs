@@ -12,7 +12,7 @@
  *
  * Options:
  *   --act    A1|A2|A3|CP|APP|PRE|ALL (default: A1)
- *   --port   Dev server port (default: 3000)
+ *   --port   Dev server port (default: 4100)
  *   --slide  Single slide ID (overrides --act)
  *   --scale  Device scale factor (default: 2)
  *   --video  Record .webm video per slide (for Gate 4)
@@ -42,7 +42,7 @@ if (args.includes('--help') || args.includes('-h')) {
 Options:
   --act <ACT>    A1|A2|A3|CP|APP|ALL (default: A1)
   --slide <id>   Single slide ID (overrides --act)
-  --port <N>     Dev server port (default: 3000)
+  --port <N>     Dev server port (default: 4100)
   --scale <N>    Device scale factor (default: 2)
   --video        Record .webm video per slide (for Gate 4)
 
@@ -54,7 +54,7 @@ function getArg(name, fallback) {
   return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
 }
 const ACT_FILTER = getArg('act', 'A1').toUpperCase();
-const PORT = getArg('port', '3000');
+const PORT = getArg('port', '4100');
 const SINGLE_SLIDE = getArg('slide', null);
 const SCALE = parseInt(getArg('scale', '2'));
 const RECORD_VIDEO = args.includes('--video');

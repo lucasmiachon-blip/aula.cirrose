@@ -29,15 +29,15 @@
 | INR | 1,2 | Discretamente alargado |
 | FIB-4 | 5,91 | Cálculo: (55 × 67) / (112 × √31) = 5,91 — alto risco |
 | MELD-Na | ~10 (inicial) | "Lembrem desse número. Vai mudar." |
-| LSM (Checkpoint 1) | 21 kPa | cACLD confirmada, estadiar CSPH |
+| LSM (Checkpoint 1) | 26 kPa | CSPH confirmado (≥25 kPa) |
 
 ## Evolução do Caso (Panel States)
 
 ### Checkpoint 1 (s-cp1) — Caution
-- LSM: 21 kPa
+- LSM: 26 kPa
 - PLQ: 112k
 - MELD-Na: ~10
-- Estado: cACLD → CSPH confirmada
+- Estado: CSPH confirmado (LSM ≥25 kPa)
 
 ### Checkpoint 2 (s-cp2) — Danger (nadir narrativo)
 - Creatinina: 2,8 mg/dL

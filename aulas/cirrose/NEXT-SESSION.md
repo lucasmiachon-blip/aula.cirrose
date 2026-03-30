@@ -1,83 +1,61 @@
 # NEXT-SESSION — Proximo trabalho
 
-> Contexto para rehidratacao. Atualizado: 2026-03-31.
+> Contexto para rehidratacao. Atualizado: 2026-03-30.
 
 ---
 
-## Resumo da sessao anterior (s-a1-cpt)
+## Prioridade 1: Revisar scripts QA e prompts Gate 4
 
-**Rename s-a1-damico → s-a1-cpt** — operacao completa em 15 superficies.
+**Por que:** Gate 4 R3 chegou a 8.3/10 mas o resultado esta aquem. Problemas identificados:
 
-**Pesquisa multi-MCP:**
-- Scite: Durand & Valla 2005 (DOI 10.1016/j.jhep.2004.11.015, 628 cit) — "almost intuitive score at bedside". Ruf et al. 2022 (DOI 10.1016/j.aohep.2021.100535) — review historico.
-- Consensus: Peng 2016 meta-analise (418 cit) — CTP e MELD similar na maioria dos cenarios. Huo 2006 — ceiling effect documentado.
-- Gemini Deep Research (11 min): relatorio estruturado 3 secoes. Kappa ate 0,41. Mortalidade cirurgica A10/B30/C75. TIPS preemptivo Baveno VII. Recompensacao CTP A + MELD <10.
+### Problemas no script `gemini-qa3.mjs`
 
-**Gemini co-design (brainstorm):**
-Consenso Opus+Gemini: abandonar cronologia, focar no paradoxo. 3 states:
-- S0 (auto): 5 nos variaveis, 2 destacam (Ascite+EH) com κ ≤ 0,41. Ceiling effect countUp (3,1→30 mg/dL = 3 pts).
-- S1 (click): Mortalidade cirurgica countUp (A 10%, B 30%, C >75%) + Von Restorff no C (scale 1.12).
-- S2 (click): Baveno VII cards — Recompensacao (CTP A + MELD <10) + TIPS pre-emptivo (C 10-13, B ≥8).
+1. **CSS extraction fragil:** `extractSlideCSS()` faz forward scan e para no PRIMEIRO bloco com boundary `━━━` contendo o slideId. Se houver um stub/comentario legacy antes do bloco real, extrai o bloco errado. Fix parcial feito (removeu stub de s-a1-cpt), mas o algoritmo continua fragil para outros slides.
+   - Arquivo: `aulas/cirrose/scripts/gemini-qa3.mjs` L152-230
+   - Sugestao: extrair TODOS os blocos contendo slideId, nao so o primeiro.
 
-**Backup:** `slides/_archive/02b-a1-damico-backup.html` preserva conteudo MELD-Na + D'Amico para slides futuros.
+2. **Archetype CSS traz dead CSS:** `extractArchetypeCSS()` envia o bloco inteiro do archetype (ex: `.archetype-flow` inclui `.flow-step`, `.flow-cascade` etc). Gemini marca como dead CSS, poluindo o scorecard craft_frontend. Filtrar sub-seletores nao usados no HTML.
+   - Arquivo: `aulas/cirrose/scripts/gemini-qa3.mjs` L243-277
 
-**Status:** DRAFT. Build OK (44 slides). lint:slides PASS. Pronto para QA pipeline.
+3. **Sem --ref-slide automatico:** O script nao envia automaticamente o PNG do slide anterior para comparacao cross-slide. Precisa de `--ref-slide` manual. Considerar tornar default (ler prev de metadata).
 
----
+### Problemas no prompt `gemini-gate4-editorial.md`
 
-## Proximo trabalho
+1. **Gemini confunde "dead CSS enviado" com "dead CSS do projeto":** O prompt pede Dead CSS analysis, mas Gemini nao distingue entre CSS que esta no arquivo (para outros slides) vs CSS que nao deveria existir. Clarificar no prompt.
 
-### Prioridade 1: QA pipeline em s-a1-cpt
+2. **Scorecard craft_frontend penaliza CSS compartilhado:** Classes como `.scores-era-boxes` sao usadas por outros slides mas nao por este. O prompt precisa instruir: "Dead CSS = seletor no material que nao matcha nenhum elemento no HTML DESTE slide. Isso e informativo, NAO penaliza craft."
 
-4 passos obrigatorios:
-1. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
-2. Gate 0 (Flash): `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --inspect`
-3. Gate 2 (Opus): analise visual MCP (sharp + a11y + Read)
-4. Gate 4 (Pro): `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 1`
+3. **Falta instrucao de paralelismo tipografico:** O prompt nao pede comparacao de font-family, font-weight, text-align com slides adjacentes. Adicionar secao de "consistencia cross-slide" que requer --ref-slide.
 
-### Prioridade 2: s-a1-meld
+4. **Color semantics nao verificada:** O prompt pede uso de tokens mas nao questiona SE a cor semantica esta correta para o contexto clinico. Adicionar: "danger = risco clinico real. warning = investigar. safe = manter. Se danger esta usado para enfase teorica, flaggear como SHOULD."
 
-Proximo slide Act 1. Estado CONTENT. Conteudo MELD parcialmente disponivel no backup (_archive).
+### Arquivos a revisar
 
-### Prioridade 3: Cascata LSM 26 kPa em s-cp1
-
-**narrativeCritical=true** — requer aprovacao Lucas.
-- `slides/07-cp1.html` H2: "LSM 21 kPa" → "LSM 26 kPa"
-- `references/narrative.md` linha 66: "LSM 21 kPa" para cp1
-- CASE.md ja atualizado (source of truth).
+| Arquivo | O que verificar |
+|---------|----------------|
+| `aulas/cirrose/scripts/gemini-qa3.mjs` | extractSlideCSS, extractArchetypeCSS, --ref-slide auto |
+| `docs/prompts/gemini-gate4-editorial.md` | Dead CSS instrucao, paralelismo, color semantics |
+| `docs/prompts/gemini-gate0-inspector.md` | ANIMATION_STATE false positive recorrente em state machines |
 
 ---
 
-## Dados CTP confirmados (para QA e revisao)
+## Prioridade 2: Finalizar s-a1-cpt (R4)
 
-| Dado | Valor | Fonte | Status |
-|------|-------|-------|--------|
-| Pugh 1973 | PMID 4541913 | Br J Surg | Verificado |
-| Durand & Valla 2005 | DOI 10.1016/j.jhep.2004.11.015 | J Hepatol, 628 cit | Verificado |
-| Kappa inter-observer | ate 0,41 | Gemini cite 10,12 | [CANDIDATE] |
-| Ceiling effect | Bili 3,1 e 30 = 3 pts | Durand & Valla + Huo 2006 | Verificado |
-| Mortalidade cirurgica | A ~10%, B ~30%, C >75% | Multiplas series | Verificado |
-| TIPS preemptivo | CTP C 10-13, B ≥8 + sangramento | Baveno VII (PMID 35120736) | Verificado |
-| Recompensacao | CTP A + MELD <10 | Baveno VII | Verificado |
+Apos revisao de scripts, re-rodar Gate 4 com prompt melhorado. Dead CSS cleanup (~80 linhas orfas) pendente (Lucas cancelou P3 na R2, reavaliar).
 
-**[CANDIDATE]:** Kappa 0,41 — PMID exato nao confirmado. Gemini cite 10,12 referencia multiplas fontes. Buscar PMID especifico no proximo QA.
+## Prioridade 3: s-a1-meld → s-cp1
+
+Sequencia Act 1. s-cp1 tem narrativeCritical=true (cascata LSM 26 kPa).
 
 ---
 
-## Decisoes travadas (cpt)
+## Dados da sessao QA (para referencia)
 
-1. H2 "Child-Pugh-Turcotte: aspectos historicos, limitacoes e uso atual" — definido por Lucas.
-2. Arco falhas→sobrevivencia→redencao — co-design Gemini, aprovado por Lucas.
-3. Conteudo MELD-Na e D'Amico → slides separados (1-2 futuros).
-4. Zero tabela CTP classica (expert sabe de cor).
-5. countUp no ceiling (3,1→30) e mortalidade cirurgica (10/30/75).
-6. Von Restorff no C >75% (scale 1.12).
+| Round | Score | Fixes aplicados |
+|-------|-------|-----------------|
+| R1 | 5.1 | (CSS incompleto — 186 linhas) |
+| R2 | 7.7 | Stub removido (587 linhas), kappa h3, autoAlpha |
+| R3 | 8.3 | Source-tag CSS, color semantics danger→ui-accent, guideline font-body, kappa alignment |
 
----
-
-## Legibilidade 5m — pendente
-
-Lucas vai informar tamanho da TV. Formula:
-- render_px = CSS_font × (1080/720) na TV 1080p
-- mm_fisico = render_px × (TV_height_mm / 1080)
-- Referencia: legibilidade minima 5m ≈ 20mm, confortavel ≈ 35mm
+Gate 0: PASS (ANIMATION_STATE false positive aceito — state machine).
+Gate 2: PASS (0 MUST FAIL, kappa AAA miss aceitavel).
