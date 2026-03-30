@@ -5,15 +5,17 @@
 
 ---
 
-## Estado — 2026-03-30T22:00-03:00
+## Estado — 2026-03-31T00:30-03:00
 
-**Ultima sessao:** QA pipeline s-a1-cpt R1→R3. Gate 4 subiu 5.1→7.7→8.3/10. Fixes: typo `>%`, CSS stub extraction (186→587 lines), autoAlpha, color semantics (danger→ui-accent em S0), kappa hierarchy, source-tag CSS-controlled, guideline font-body. Cross-slide parallelism verificado vs rule5. **Resultado aquem do esperado — proxima sessao: revisar scripts QA e prompts Gate 4 para melhorar qualidade do pipeline.**
+**Ultima sessao:** Revisao completa de scripts QA + prompts + research pipeline. 10 mudancas em 5 arquivos (commit `3e03eb6`). Scripts e prompts prontos para re-rodar QA no s-a1-cpt R4.
+**Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m. `--text-caption` clamp(11px) no limite a 6m. Source-tags ponto critico de legibilidade.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
-**Branch:** `feat/cirrose-mvp` · Commit `d1dedeb`.
+**Branch:** `feat/cirrose-mvp` · Commit `3e03eb6`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
 **QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03).
-**QA scripts:** CSS extraction bug encontrado e corrigido (stub legacy enganava extrator). Prompts precisam revisao (ver NEXT-SESSION.md).
+**QA scripts (v2 — 2026-03-30):** extractSlideCSS multi-section, extractArchetypeCSS filtrado, auto --ref-slide. Prompts Gate 0/4 melhorados (dead CSS scoping, cross-slide, color semantics, state machine).
+**Research scripts (v3):** content-research.mjs com SOURCE PRIORITY, Tier-1 list, PMID verification. Claude MCP protocol documentado (SCite→PubMed→Consensus→Gemini).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
@@ -41,7 +43,7 @@
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 8 DONE* · 1 QA · 0 DRAFT · 35 CONTENT (44 total)
-**Proximo:** Revisar scripts QA e prompts Gate 4 (resultado aquem). Depois: R4 cpt, s-a1-meld, s-cp1 (cascata LSM 26 kPa).
+**Proximo:** Re-rodar QA s-a1-cpt R4 com scripts melhorados. Depois: s-a1-meld, s-cp1 (cascata LSM 26 kPa).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -58,7 +60,7 @@
 2. ~~s-a1-baveno~~ — DONE 27/mar
 3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
 4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
-5. **s-a1-cpt** — DRAFT pronto, QA pipeline pendente
+5. **s-a1-cpt** — QA R3 8.3/10. Scripts melhorados. Proximo: R4 com novos prompts
 6. **s-cp1** — cascata LSM 26 kPa (narrativeCritical). Aprovar com Lucas.
 7. **s-a1-meld** — sequencia manifest, slide a slide
 7. **Act 2 → Act 3** — apos Act 1 DONE
@@ -92,7 +94,7 @@ CASE.md atualizado (source of truth). Manifest panelStates sincronizado. Faltam:
 ## Issues sistemicos
 
 - **Source-tag line breaking**: texto longo quebra em 1280x720. Sem fix viavel.
-- **Gate 0 ANIMATION_STATE false positive**: state machines substituem conteudo → override aceito.
+- ~~**Gate 0 ANIMATION_STATE false positive**~~: corrigido no prompt (C1, commit `3e03eb6`). State machines agora exempted.
 - **engine.js `?qa=1`**: nao forca estado final de custom anims. Workaround: Playwright evaluate.
 - **exit 2 hooks Windows**: nao bloqueia tool. Bug Claude Code. Investigar.
 - **C1 bodyWordCount**: slides com zones (rule5 50w, fib4 41w) excedem 30w. Inerente a escala — aceito.
