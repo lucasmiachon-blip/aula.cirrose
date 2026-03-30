@@ -218,6 +218,9 @@
 | Checkpoint | 50-65% |
 | Hero/quote | 30-55% |
 
+### Anti-padrões
+- **Taglines editoriais:** Frases que resumem sem asserir ("4 dados. 1 numero. 1 decisao.") adicionam zero valor clínico. H2 = assertiva médica ou label descritivo (quando Lucas define). NUNCA hooks editoriais.
+
 ---
 
 ## 5. Dados Médicos
@@ -248,6 +251,11 @@ Hierarquia: **NNT > ARR > HR**. NNT=decisão (hero, --safe). HR=acadêmico (meno
 ### Conteúdo — Permitido vs Proibido
 **OK:** Reduzir texto mantendo significado, reorganizar hierarquia, adicionar de fontes verificadas, remover drogas não disponíveis no Brasil.
 **PROIBIDO:** Inventar dados/referências, modificar números sem fonte, extrapolar entre estudos.
+
+### Diagnostic Tool Framing
+Slides sobre ferramentas diagnósticas (elastografia, scores, FiB-4) focam em CRITICAL APPRAISAL — como interpretar o resultado para o paciente em frente a você — não em técnica/física/algoritmo.
+Frame: "Recebi este resultado. Quais condições no MEU paciente tornam este número não confiável?"
+Anti-padrão: "Este é um escore que mede a rigidez hepática dividindo..."
 
 ### Fontes Tier 1 — Hepatologia
 

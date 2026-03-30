@@ -2,7 +2,7 @@
 
 > Maquina de estados + QA loop para sessoes de trabalho.
 > **On-demand.** Sessoes gerais: ler apenas §1-§3. Sessoes QA: ler §4 (pipeline completo).
-> Criado: 2026-03-17. Atualizado: 2026-03-26 (mandato on-demand).
+> Criado: 2026-03-17. Atualizado: 2026-03-29 (mandato on-demand, Gate 2 protocol).
 
 ---
 

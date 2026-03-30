@@ -26,6 +26,7 @@
 - `<body class="stage-c">` obrigatório. Sem stage class, tokens defaultam para valores root.
 - NUNCA inline style com `display`/`visibility`/`opacity` no `<section>` (E07 — fatal).
 - Layout vai dentro de `.slide-inner`, NUNCA no `<section>`.
+- Dados de paciente (labs, exames, inputs) SOMENTE no sidebar card + calculator. Slide body mostra RESULTADO + DECISÃO CLÍNICA, nunca inputs brutos.
 
 ---
 
