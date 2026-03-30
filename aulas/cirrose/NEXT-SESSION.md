@@ -4,6 +4,30 @@
 
 ---
 
+## Venue — Dados da TV (2026-03-30)
+
+| Metrica | Valor | Impacto |
+|---------|-------|---------|
+| TV | Samsung UN55F6400 (2013), 55", Full HD 1920x1080 nativo, 16:9 |
+| screen (browser) | 1280x800 — provavelmente scaling/nao-fullscreen. Nativo e 1080p |
+| devicePixelRatio | 2.5 (do laptop conectado, nao da TV) |
+| Distancia | ~6m |
+
+**Calculos de legibilidade a 6m em TV 55":**
+- Pixel fisico ≈ 0.63mm (1920px / 121.7cm)
+- `--text-caption` clamp(11px) → ~7mm fisico → **no limite** a 6m
+- `--text-small` clamp(14px) → ~9mm → aceitavel
+- `--text-body` clamp(18px) → ~11mm → OK
+- Source-tags sao o ponto critico
+
+**Acoes derivadas:**
+- Testar fullscreen 1920x1080 (resolucao real da TV) — slides podem subir de Plan C 1280x720 para 1080p
+- Revisar `--text-caption` minimo: 11px pode ser pequeno demais a 6m. Considerar 13-14px min
+- Atualizar prompt Gate 4 context: "Sala: TV Samsung 55" 1080p, 6m"
+- Source-tags com 3+ citacoes: testar legibilidade nessa configuracao
+
+---
+
 ## Prioridade 1: Revisar scripts QA e prompts Gate 4
 
 **Por que:** Gate 4 R3 chegou a 8.3/10 mas o resultado esta aquem. Problemas identificados:
