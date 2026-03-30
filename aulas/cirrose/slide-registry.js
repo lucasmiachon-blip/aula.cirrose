@@ -382,18 +382,18 @@ export const customAnimations = {
     const eras = slide.querySelectorAll('.scores-era');
     const sourceTag = slide.querySelector('.source-tag');
 
-    eras.forEach((era, i) => gsap.set(era, { opacity: i === 0 ? 1 : 0 }));
+    eras.forEach((era, i) => gsap.set(era, { autoAlpha: i === 0 ? 1 : 0 }));
 
     function showEra(idx, onComplete) {
       eras.forEach(e => {
         if (parseFloat(getComputedStyle(e).opacity) > 0.01) {
-          gsap.to(e, { opacity: 0, duration: 0.3 });
+          gsap.to(e, { autoAlpha: 0, duration: 0.3 });
         }
       });
       const target = slide.querySelector(`.scores-era[data-era="${idx}"]`);
       if (!target) { busy = false; return; }
       gsap.to(target, {
-        opacity: 1, duration: 0.45, delay: 0.35, ease: 'power2.out',
+        autoAlpha: 1, duration: 0.45, delay: 0.35, ease: 'power2.out',
         onComplete: onComplete || (() => { busy = false; }),
       });
     }
@@ -444,7 +444,7 @@ export const customAnimations = {
       const cards = slide.querySelectorAll('.cpt-guideline-card');
       gsap.set(cards, { opacity: 0, y: 12 });
       gsap.to(cards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, delay: 0.1, ease: 'power3.out' });
-      if (sourceTag) gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 0.8 });
+      if (sourceTag) gsap.to(sourceTag, { autoAlpha: 1, duration: 0.4, delay: 0.8 });
     }
 
     function advance() {
@@ -462,7 +462,7 @@ export const customAnimations = {
     function retreat() {
       if (busy || state <= 0) return false;
       if (state === 2 && sourceTag) {
-        gsap.to(sourceTag, { opacity: 0, duration: 0.2 });
+        gsap.to(sourceTag, { autoAlpha: 0, duration: 0.2 });
       }
       if (state === 1) {
         // Reset countUp values and Von Restorff scale

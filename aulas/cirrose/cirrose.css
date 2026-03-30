@@ -1338,14 +1338,8 @@ section#s-a1-01 .slide-inner {
 }
 
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   s-a1-cpt — Child-Turcotte-Pugh (era-track state machine)
-   States: 0=history 1964→1973, 1=limitations, 2=current role
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-/* Legacy selectors removed — damico content moved to _archive.
-   Keeping only what s-a1-cpt needs.
-   (removed: #s-a1-damico .archetype-pathway, .pathway-stage, .pathway-track, @keyframes damico-danger-glow) */
+/* Legacy s-a1-damico selectors removed — content in _archive.
+   Actual s-a1-cpt CSS: see section below (~L2150). */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    s-a1-baveno + s-a1-rule5 — PARADIGMA cACLD/dACLD (SplitText + Rule-of-5)
@@ -2173,7 +2167,7 @@ section#s-a1-01 .slide-inner {
 }
 /* Era 0 visible by default (before JS runs) */
 .scores-era[data-era="0"] { opacity: 1; }
-.scores-era:not([data-era="0"]) { opacity: 0; }
+.scores-era:not([data-era="0"]) { opacity: 0; visibility: hidden; }
 /* Plan B + no-js: all eras visible, stacked */
 .stage-bad .scores-era-track,
 .no-js .scores-era-track {
@@ -2187,6 +2181,7 @@ section#s-a1-01 .slide-inner {
 .no-js .scores-era {
   position: static;
   opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Era badge */
@@ -2399,6 +2394,7 @@ section#s-a1-01 .slide-inner {
   align-items: baseline;
   gap: var(--space-xs);
   margin-top: var(--space-sm);
+  margin-left: 140px; /* Gestalt proximity: alinha sob nós Ascite/EH */
 }
 .cpt-kappa-label {
   font-family: var(--font-body);
@@ -2407,9 +2403,9 @@ section#s-a1-01 .slide-inner {
 }
 .cpt-kappa-value {
   font-family: var(--font-mono);
-  font-size: var(--text-h2);
+  font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--danger);
+  color: var(--ui-accent);
 }
 
 /* S0: Ceiling effect */
@@ -2422,7 +2418,7 @@ section#s-a1-01 .slide-inner {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  border-left: 3px solid var(--danger);
+  border-left: 3px solid var(--ui-accent);
   width: fit-content;
 }
 .cpt-ceiling-label {
@@ -2450,7 +2446,7 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--danger);
+  color: var(--ui-accent);
 }
 .cpt-ceiling-unit {
   font-family: var(--font-body);
@@ -2461,7 +2457,7 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-mono);
   font-size: var(--text-body);
   font-weight: 700;
-  color: var(--danger);
+  color: var(--ui-accent);
 }
 
 /* S1: Surgical mortality stats */
@@ -2545,10 +2541,22 @@ section#s-a1-01 .slide-inner {
   letter-spacing: 0.04em;
 }
 .cpt-guideline-criteria {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: 700;
   color: var(--text-primary);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Source-tag: hidden via CSS (not inline), GSAP reveals with autoAlpha */
+#s-a1-cpt .source-tag {
+  visibility: hidden;
+  opacity: 0;
+}
+.stage-bad #s-a1-cpt .source-tag,
+.no-js #s-a1-cpt .source-tag {
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
