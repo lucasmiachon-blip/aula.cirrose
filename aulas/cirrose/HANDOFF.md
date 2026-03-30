@@ -5,8 +5,9 @@
 
 ---
 
-## Estado — 2026-03-29
+## Estado — 2026-03-29T23:30-03:00
 
+**Ultima sessao:** Doc cleanup — HANDOFF 271→118L, AUDIT-VISUAL 639→202L (+archive), NEXT-SESSION reescrito p/ elasto. Commit `d1df788`. Fase B (QA pipeline s-a1-elasto) NAO iniciada.
 **Slides:** 44 buildados · 6 DONE* · 0 QA · 38 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Sprint ate 31/mar.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
