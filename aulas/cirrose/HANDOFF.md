@@ -5,9 +5,9 @@
 
 ---
 
-## Estado — 2026-04-01T02:00-03:00
+## Estado — 2026-03-31T23:00-03:00
 
-**Ultima sessao (31/mar-01/abr):** Gate 4 v3.0 (3 chamadas paralelas). CSS fixes s-a1-cpt. R10: V4.6|U8.4|M9.0|7.3. ERRO-068/069 registrados. Memoria consolidada 31→8 arquivos (anti-entulho). Dead code removido.
+**Ultima sessao (31/mar):** Hardening gemini-qa3.mjs — 6 fixes de resiliencia (fetchWithRetry network catch + AbortController, uploadFile retry, waitForProcessing guard, runEditorial try/finally cleanup, safeNum defensivo). Gate 0 s-a1-cpt PASS apos fix.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
@@ -151,11 +151,12 @@ Sessao de hardening completa. 2 commits:
 1. **docs: harden docs + config** — CLAUDE.md (43→44, 52→67), README ports, XREF.md (+8 docs, 3 atribuicoes), guard-product-files wired, WT-OPERATING Gate 2 logic fix.
 2. **fix: anti-sycophancy prompts + sprint mode hooks** — Gate 4 (adversarial, score asymmetry, no target), Gate 0 (FAIL-first examples), content-research (ERRADO status, NUANCE-first), hooks sprint mode.
 
+**Concluido (31/mar):** gemini-qa3.mjs — fetchWithRetry (network catch + AbortController 120s), uploadFile (fetchWithRetry), waitForProcessing (deadline 300s + catch + AbortController 60s), runEditorial (try/finally cleanup), safeNum (JSON defensivo).
+
 **Pendente (requer codigo, prox sessao):**
 - build-html.ps1 → .mjs (Linux compat)
 - validate-css.sh grep bug sob set -e
 - lint-narrative-sync.js undefined vs null
-- gemini-qa3.mjs --help antes de API_KEY check
 - vite.config.js template filter
 - git hooks install via postinstall
 

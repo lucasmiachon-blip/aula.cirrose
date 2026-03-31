@@ -95,26 +95,46 @@ if (hasFlag('full')) {
 // --- G2: Retry with exponential backoff (429, 500, 503, 504) ---
 async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 } = {}) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    const res = await fetch(url, options);
-    if (res.ok) return res;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 120_000);
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timeout);
+      if (res.ok) return res;
 
-    const status = res.status;
-    const body = await res.text();
+      const status = res.status;
+      const body = await res.text();
 
-    // Non-retryable: 4xx except 429
-    if (status >= 400 && status < 500 && status !== 429) {
-      throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+      // Non-retryable: 4xx except 429
+      if (status >= 400 && status < 500 && status !== 429) {
+        throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+      }
+
+      // Retryable: 429, 5xx
+      if (attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+        console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
+
+      throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
+    } catch (err) {
+      clearTimeout(timeout);
+      // Non-retryable errors (formatted HTTP errors): re-throw immediately
+      if (err.message?.startsWith('API ')) throw err;
+
+      // Network/timeout errors: retry if attempts remain
+      if (attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+        const reason = err.name === 'AbortError' ? 'timeout' : 'network';
+        console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (${reason}: ${err.message})`);
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
+
+      throw err;
     }
-
-    // Retryable: 429, 5xx
-    if (attempt < maxRetries) {
-      const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
-      console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
-      await new Promise(r => setTimeout(r, delay));
-      continue;
-    }
-
-    throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
   }
 }
 
@@ -620,7 +640,7 @@ async function uploadFile(filePath, mimeType, displayName) {
   const data = readFileSync(filePath);
   const size = data.length;
 
-  const startRes = await fetch(`${BASE}/upload/v1beta/files?key=${API_KEY}`, {
+  const startRes = await fetchWithRetry(`${BASE}/upload/v1beta/files?key=${API_KEY}`, {
     method: 'POST',
     headers: {
       'X-Goog-Upload-Protocol': 'resumable',
@@ -635,7 +655,7 @@ async function uploadFile(filePath, mimeType, displayName) {
   const uploadUrl = startRes.headers.get('x-goog-upload-url');
   if (!uploadUrl) throw new Error('No upload URL returned');
 
-  const uploadRes = await fetch(uploadUrl, {
+  const uploadRes = await fetchWithRetry(uploadUrl, {
     method: 'POST',
     headers: {
       'X-Goog-Upload-Offset': '0',
@@ -652,11 +672,23 @@ async function uploadFile(filePath, mimeType, displayName) {
 
 async function waitForProcessing(fileName) {
   let state = 'PROCESSING';
+  const deadline = Date.now() + 300_000; // 5 min max
   while (state === 'PROCESSING') {
+    if (Date.now() > deadline) {
+      throw new Error(`File ${fileName} still processing after 300s`);
+    }
     await new Promise(r => setTimeout(r, 2000));
-    const res = await fetch(`${BASE}/v1beta/${fileName}?key=${API_KEY}`);
-    const file = await res.json();
-    state = file.state;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 60_000);
+    try {
+      const res = await fetch(`${BASE}/v1beta/${fileName}?key=${API_KEY}`, { signal: controller.signal });
+      const file = await res.json();
+      state = file.state;
+    } catch (err) {
+      console.warn(`  Poll error (will retry): ${err.message}`);
+    } finally {
+      clearTimeout(timeout);
+    }
     if (state === 'PROCESSING') process.stdout.write('.');
   }
   console.log(` ${state}`);
@@ -724,6 +756,12 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
   };
 }
 
+function safeNum(obj, ...path) {
+  let val = obj;
+  for (const key of path) { val = val?.[key]; }
+  return typeof val === 'number' ? val : null;
+}
+
 // --- Gate 4: Editorial Review — 3 parallel focused calls ---
 async function runEditorial(slideId, round, qaDir) {
   console.log(`\n=== GATE 4 — Editorial Review — ${slideId} R${round} ===`);
@@ -738,6 +776,10 @@ async function runEditorial(slideId, round, qaDir) {
   const meta = getSlideMetadata(slideId);
   console.log(`  Metadata: pos=${meta.pos}, prev=${meta.prev}, next=${meta.next}\n`);
 
+  // Hoist upload refs for cleanup in finally
+  let video = null, s0 = null, s2 = null, refPng = null;
+  try {
+
   // Step 1: Upload media
   console.log('1. Uploading media...');
   const videoPath = join(qaDir, 'animation-1280x720.webm');
@@ -747,9 +789,9 @@ async function runEditorial(slideId, round, qaDir) {
   const s2Path = findStatePng(qaDir, 'S2');
 
   // Video é obrigatório se existe no disco. Sem skip.
-  const video = await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
-  const s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
-  const s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
+  video = await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
+  s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
+  s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
 
   // A3: Reference slide PNG — auto-detect from manifest if not provided, --no-ref to disable
   let refSlideId = REF_SLIDE;
@@ -757,7 +799,6 @@ async function runEditorial(slideId, round, qaDir) {
     refSlideId = meta.prevId;
     console.log(`  Auto ref-slide: ${refSlideId} (from manifest prev)`);
   }
-  let refPng = null;
   if (refSlideId) {
     const refQaDir = join(AULA_DIR, 'qa-screenshots', refSlideId);
     const refPath = findStatePng(refQaDir, 'S2') || findStatePng(refQaDir, 'S0');
@@ -860,26 +901,33 @@ async function runEditorial(slideId, round, qaDir) {
   console.log('\n4. Consolidating scorecard...');
   const [callA_result, callB_result, callC_result] = parsedCalls.map(c => c.parsed);
 
-  // Merge all dimensions into one scorecard
+  // Merge all dimensions into one scorecard (defensive: skip non-numeric values)
   const allDims = {};
   // Call A — visual dimensions
   for (const key of ['distribuicao', 'proporcao', 'cor', 'tipografia', 'composicao']) {
-    if (callA_result[key]?.nota != null) allDims[key] = callA_result[key].nota;
+    const val = safeNum(callA_result, key, 'nota');
+    if (val !== null) allDims[key] = val;
   }
   // Call B — UX+code dimensions
   for (const key of ['gestalt', 'carga_cognitiva', 'information_design', 'css_cascade', 'failsafes']) {
-    if (callB_result[key]?.nota != null) allDims[key] = callB_result[key].nota;
+    const val = safeNum(callB_result, key, 'nota');
+    if (val !== null) allDims[key] = val;
   }
   // Call C — motion dimensions
   for (const key of ['timing', 'easing', 'narrativa_motion', 'crossfade', 'artefatos']) {
-    if (callC_result[key]?.nota != null) allDims[key] = callC_result[key].nota;
+    const val = safeNum(callC_result, key, 'nota');
+    if (val !== null) allDims[key] = val;
+  }
+
+  if (Object.keys(allDims).length === 0) {
+    console.warn('  WARN: No valid dimension scores found in any call — scorecard will be empty');
   }
 
   const dimValues = Object.values(allDims);
   const overallAvg = dimValues.length > 0 ? dimValues.reduce((a, v) => a + v, 0) / dimValues.length : 0;
-  const visualAvg = callA_result.media_visual ?? 0;
-  const uxcodeAvg = callB_result.media_uxcode ?? 0;
-  const motionAvg = callC_result.media_motion ?? 0;
+  const visualAvg = safeNum(callA_result, 'media_visual') ?? 0;
+  const uxcodeAvg = safeNum(callB_result, 'media_uxcode') ?? 0;
+  const motionAvg = safeNum(callC_result, 'media_motion') ?? 0;
 
   // Count MUSTs (any dim < 7)
   const mustFixes = Object.entries(allDims).filter(([, v]) => v < 7);
@@ -971,7 +1019,8 @@ ${JSON.stringify(callC_result, null, 2)}
   const proposalSummary = proposals.length > 0 ? proposals : ['(no proposals)'];
   appendRoundSummary(slideId, round, score, proposalSummary);
 
-  // Cleanup uploaded files
+  } finally {
+  // Cleanup uploaded files (runs even if steps above throw)
   console.log('\n7. Cleaning up uploads...');
   for (const f of [video, s0, s2, refPng].filter(Boolean)) {
     try {
@@ -979,6 +1028,7 @@ ${JSON.stringify(callC_result, null, 2)}
     } catch (_) {}
   }
   console.log('  Done.');
+  }
 }
 
 // --- Main ---
