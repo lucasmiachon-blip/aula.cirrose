@@ -203,7 +203,7 @@ Resolucao: 1280x720 @2x (PNG = 2560x1440).
 - SHOULD (warning): dead CSS, GSAP/CSS race, contraste < 7:1, fill ratio fora ideal
 
 **Output:** `qa-screenshots/{id}/gate2-report.md` com tabelas de amostras, contrastes e code checks.
-**MUST FAIL bloqueia Gate 0 e Gate 4.** Fix → re-screenshot → re-run Gate 2.
+**MUST FAIL bloqueia Gate 4.** Fix → re-screenshot → re-run Gate 2.
 **→ CHECKPOINT:** apresentar ao Lucas, esperar OK.
 
 ### Gate 0 — Inspeção de Defeitos Visuais

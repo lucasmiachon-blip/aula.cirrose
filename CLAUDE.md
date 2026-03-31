@@ -22,7 +22,7 @@ deck.js (`aulas/cirrose/shared/js/deck.js`, custom nav) · GSAP 3.14 · Vite 6.x
 ## Project
 
 **Cirrose Hepática — Classificar · Intervir · Reverter**
-43 slides · 1280×720 (Plan C) / 1920×1080 (Plan A) · Público: hepatologistas seniores (Brasil) · PT-BR, termos técnicos EN.
+44 slides · 1280×720 (Plan C) / 1920×1080 (Plan A) · Público: hepatologistas seniores (Brasil) · PT-BR, termos técnicos EN.
 
 ### Arquivos de trabalho
 
@@ -94,7 +94,7 @@ Conflito: # menor vence. Notion é mirror, não source of truth.
 ### Aprendizado com erros
 
 Erro → `aulas/cirrose/ERROR-LOG.md` → se 3x recorrente → regra em `.claude/rules/`.
-Regras são reativas (52 erros reais). NUNCA criar regra por problema que aconteceu 1x.
+Regras são reativas (67 erros reais). NUNCA criar regra por problema que aconteceu 1x.
 
 ### Guardrails
 

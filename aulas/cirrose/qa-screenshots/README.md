@@ -15,7 +15,7 @@ Flat PNGs na raiz (`s-hook-s0.png`, `s-title.png`, etc.) sao capturas avulsas.
 ## Captura
 
 Script: `scripts/qa-batch-screenshot.mjs`
-Requer `npm run dev` (port 3000).
+Requer `npm run dev` (port 4100).
 
 > **Nota historica:** Batches anteriores usavam `stage-a/`, `stage-b/`, `stage-c/` como subdirs.
 > Estrutura atual migrou para per-slide folders.

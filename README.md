@@ -14,7 +14,7 @@ deck.js (custom navigation) · GSAP 3.14.2 · Vite 6.x · Vanilla HTML/CSS/JS ·
 
 ```bash
 npm install
-npm run dev              # Vite hot reload (port 3000)
+npm run dev              # Vite hot reload (port 4100)
 npm run build:cirrose    # Concatena slides → index.html
 npm run preview          # Servir localmente
 ```

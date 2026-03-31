@@ -2,7 +2,7 @@
 
 > Mapa canônico de dependências entre documentos do projeto.
 > Atualizar ao criar, mover ou deletar qualquer .md.
-> Gerado: 2026-03-07. Última revisão: 2026-03-25.
+> Gerado: 2026-03-07. Última revisão: 2026-03-31.
 
 ---
 
@@ -35,7 +35,8 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | Referencia | Tipo |
 |-----------|------|
 | → aulas/cirrose/HANDOFF.md | Estado (via Projects table) |
-| → docs/lessons.md | Self-improvement |
+| → docs/css-error-codes.md | On-demand (slide-rules.md §8) |
+| → docs/design-principles.md | On-demand (27 princípios) |
 | → docs/README.md | Índice docs |
 
 ### .claude/rules/ (consolidado 2026-03-25: 10 → 2 arquivos)
@@ -51,12 +52,16 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 |---------|-----------|-----------------|
 | README.md | → todos docs/*.md | (índice) |
 | XREF.md | (este arquivo) | ← README.md |
-| SYNC-NOTION-REPO.md | → .env.example (IDs Notion) | ← CLAUDE.md |
+| SYNC-NOTION-REPO.md | → .env.example (IDs Notion) | ← README.md |
 | blueprint-cirrose.md | (autônomo) | ← README.md |
-| biblia-narrativa.md | (autônomo) | ← aulas/cirrose/HANDOFF.md |
+| biblia-narrativa.md | (autônomo) | ← README.md |
 | slide-pedagogy.md | (autônomo — teorias pedagógicas) | ← README.md |
 | MCP-ACADEMICOS.md | (autônomo) | ← README.md |
 | MCP-ENV-VARS.md | (autônomo) | ← README.md |
+| lessons.md | (self-improvement) | ← post-compact-reinject.sh |
+| css-error-codes.md | 52 E-codes completos | ← slide-rules.md §8, CLAUDE.md on-demand |
+| design-principles.md | 27 princípios (Cowan, Gestalt, Tufte, Duarte) | ← CLAUDE.md on-demand, design-reference.md |
+| HARDENING-SCRIPTS.md | Roadmap hardening scripts | ← HANDOFF.md |
 
 ### docs/prompts/
 
@@ -69,6 +74,11 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | prompts/error-digest.md | (prompt template — error digest para Gemini) | ← README.md |
 | prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
 | prompts/gemini-transcript-comparison.md | (prompt template — Gemini) | ← README.md |
+| prompts/gate2-opus-visual.md | Gate 2 Opus visual audit protocol | ← CLAUDE.md §QA Pipeline, WT-OPERATING.md, AUDIT-VISUAL.md |
+| prompts/gemini-gate4-editorial.md | Gate 4 editorial Gemini prompt | ← WT-OPERATING.md §4, gemini-qa3.mjs |
+| prompts/content-research-prompt.md | Content research prompt template | ← content-research.mjs (planned) |
+| prompts/cron-patterns.md | Cron pattern reference | — |
+| prompts/mcp-research-queries.md | MCP research query templates | — |
 
 ### .claude/agents/ (custom subagents)
 
@@ -89,6 +99,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | guard-secrets.sh | PreToolUse (Bash) | WARN-only: escaneia staged files por padrões de secrets |
 | post-compact-reinject.sh | SessionStart (compact) | Reinjecta HANDOFF + git log após /compact |
 | task-completed-gate.sh | TaskCompleted | Verificação de quality gates em task completada |
+| session-init.sh | SessionStart | Inicializa sessão (branch, dirty files, hooks check) |
 | guard-product-files.sh | PreToolUse (Write\|Edit\|StrReplace) | exit 2 bloqueia edição em arquivos de produto sem confirmação humana |
 
 ### scripts/ (git hooks — versionados)
@@ -116,7 +127,7 @@ CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.
 | NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
 | AUDIT-VISUAL.md | → WT-OPERATING.md §4, gemini-gate0-inspector.md | ← CLAUDE.md, slide identity (9 superfícies) |
 | WT-OPERATING.md | → gemini-gate0-inspector.md, AUDIT-VISUAL.md, HANDOFF.md | ← CLAUDE.md, HANDOFF.md |
-| scripts/gemini-qa3.mjs | → gate0-inspector.md, error-digest.md, _manifest.js, cirrose.css, slide-registry.js | ← WT-OPERATING.md, CLAUDE.md |
+| scripts/gemini-qa3.mjs | → gate0-inspector.md, error-digest.md, gemini-gate4-editorial.md, _manifest.js, cirrose.css, slide-registry.js | ← WT-OPERATING.md, CLAUDE.md |
 | scripts/qa-batch-screenshot.mjs | → _manifest.js, qa-screenshots/ | ← WT-OPERATING.md §4 QA.3, CLAUDE.md §QA Pipeline |
 | references/evidence-db.md | Dados clinicos canonicos — PMID verificados, tabela por slide | ← CLAUDE.md (#2 authority), WT-OPERATING.md §4 QA.1, guard-evidence-db.sh |
 | references/narrative.md | Arco narrativo, tensionLevel, narrativeRole, pacing | ← CLAUDE.md (#3 authority), lint:narrative-sync, _manifest.js |

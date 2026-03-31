@@ -69,6 +69,12 @@
             "command": "bash .claude/hooks/guard-evidence-db.sh",
             "timeout": 5,
             "statusMessage": "Verificando permissão evidence-db..."
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/guard-product-files.sh",
+            "timeout": 5,
+            "statusMessage": "Verificando permissão product files..."
           }
         ]
       },

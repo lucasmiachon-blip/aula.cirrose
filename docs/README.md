@@ -50,6 +50,11 @@
 | [prompts/error-digest.md](prompts/error-digest.md) | Error digest para Gemini QA pipeline |
 | [prompts/gemini-paper-extraction.md](prompts/gemini-paper-extraction.md) | Extracao de papers Gemini |
 | [prompts/gemini-transcript-comparison.md](prompts/gemini-transcript-comparison.md) | Comparacao transcripts Gemini |
+| [prompts/gate2-opus-visual.md](prompts/gate2-opus-visual.md) | Gate 2 Opus visual audit protocol |
+| [prompts/gemini-gate4-editorial.md](prompts/gemini-gate4-editorial.md) | Gate 4 editorial Gemini prompt |
+| [prompts/content-research-prompt.md](prompts/content-research-prompt.md) | Content research prompt template |
+| [prompts/cron-patterns.md](prompts/cron-patterns.md) | Cron pattern reference |
+| [prompts/mcp-research-queries.md](prompts/mcp-research-queries.md) | MCP research query templates |
 ---
 
 ## HANDOFFs
