@@ -842,30 +842,20 @@ export const customAnimations = {
     gsap.set(limits, { opacity: 0, y: 8 });
     gsap.set(sourceTag, { opacity: 0 });
 
-    /* S0 auto — cards stagger with internal build */
+    /* S0 auto — cards stagger as atoms (no internal build) */
     cards.forEach((card, i) => {
-      const children = card.querySelectorAll('.meld-evo-year, .meld-evo-name, .meld-evo-insight, .meld-evo-stat');
-      gsap.set(children, { opacity: 0, y: 6 });
       const cardDelay = 0.3 + i * 0.2;
       gsap.to(card, { opacity: 1, y: 0, duration: 0.4, delay: cardDelay, ease: 'power2.out' });
-      gsap.to(children, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08, delay: cardDelay + 0.15, ease: 'power2.out' });
     });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
       if (state === 1) {
-        /* Mortality bar: section fades, bands stagger, percentages pulse */
+        /* Mortality bar: section fades, bands stagger */
         gsap.to(mortSection, { opacity: 1, duration: 0.4, ease: 'power2.out' });
         gsap.set(mortBands, { opacity: 0, y: 8 });
         gsap.to(mortBands, { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, delay: 0.15, ease: 'power2.out' });
-        /* Pulse the percentage numbers after they appear */
-        mortBands.forEach((band, i) => {
-          const pct = band.querySelector('.meld-mort-pct');
-          if (pct) {
-            gsap.fromTo(pct, { scale: 0.8 }, { scale: 1, duration: 0.3, delay: 0.3 + i * 0.12, ease: 'power2.out' });
-          }
-        });
       }
       if (state === 2) {
         gsap.to(limits, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
@@ -890,6 +880,25 @@ export const customAnimations = {
     slide.__hookAdvance = advance;
     slide.__hookRetreat = retreat;
     slide.__hookCurrentBeat = () => state;
+  },
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     s-cp1 — Breathing slide: body bg navy to eliminate letterbox bars
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  's-cp1': (slide) => {
+    const navy = 'oklch(22% 0.042 258)';
+    const deck = document.getElementById('deck');
+    document.body.style.background = navy;
+    if (deck) deck.style.background = navy;
+
+    const cleanup = (e) => {
+      if (e.detail.currentSlide !== slide) {
+        document.body.style.background = '';
+        if (deck) deck.style.background = '';
+        document.removeEventListener('slide:changed', cleanup);
+      }
+    };
+    document.addEventListener('slide:changed', cleanup);
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

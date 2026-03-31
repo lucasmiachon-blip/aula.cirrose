@@ -31,7 +31,7 @@ export const slides = [
   { id: 's-a1-rule5', file: '03d-a1-rule5.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Rule of Five', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-rule5', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-cpt', file: '02b-a1-cpt.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Child-Pugh-Turcotte', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-cpt', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-meld', file: '04-a1-meld.html', act: 'A1', archetype: 'custom', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'MELD: história, importância e evoluções', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-meld', timing: 150, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
-  { id: 's-cp1', file: '07-cp1.html', act: 'CP', archetype: 'checkpoint', sectionTag: null, headline: 'LSM 26 kPa, plaquetas 112k. Como você estadia?', panelState: 'caution', clickReveals: 3, customAnim: null, timing: 180, narrativeRole: 'checkpoint', tensionLevel: 3, narrativeCritical: true },
+  { id: 's-cp1', file: '07-cp1.html', act: 'CP', archetype: null, sectionTag: null, headline: 'Antônio tem CSPH confirmada — carvedilol indicado, endoscopia dispensável', panelState: 'hidden', clickReveals: 0, customAnim: null, timing: 60, narrativeRole: 'checkpoint', tensionLevel: 3, narrativeCritical: true },
 
   // ── Act 2: INTERVIR (16 slides + CP2) ──
   // panelState: null = herda último estado registrado (case-panel.js findLatestState)
@@ -130,10 +130,7 @@ export const panelStates = {
     events: [],
   },
   's-cp1': {
-    severity: 'caution',
-    values: { fib4: '5,91', lsm: '26 kPa', plq: '112k', meld: '~10', albumin: '3,6' },
-    events: ['Elastografia realizada'],
-    calc: 'meld',
+    severity: 'hidden',
   },
 
   // ── Act 2: cascata clínica ──

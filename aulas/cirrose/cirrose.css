@@ -200,7 +200,7 @@
   gap: var(--space-xs);
   align-items: flex-start;
   padding: var(--space-lg);
-  background: var(--surface-alt);
+  background: var(--bg-card);
   border-left: 4px solid var(--ui-accent);
   border-radius: var(--radius-md);
   opacity: 0;
@@ -232,6 +232,13 @@
   color: var(--text-muted);
   font-feature-settings: "tnum" 1, "lnum" 1;
 }
+
+/* Progressive hierarchy: historical → transitional → current */
+.meld-evo-card:nth-child(1) { border-left-color: var(--text-muted); }
+.meld-evo-card:nth-child(1) .meld-evo-year { color: var(--text-muted); }
+.meld-evo-card:nth-child(2) { border-left-color: var(--text-secondary); }
+.meld-evo-card:nth-child(2) .meld-evo-year { color: var(--text-secondary); }
+/* 3rd card (MELD 3.0) keeps --ui-accent = visual climax */
 
 /* — Mortality comparison bar — */
 .meld-mort-section {
@@ -277,30 +284,30 @@
   font-size: var(--text-body);
 }
 
-/* Mortality band colors — --danger ONLY on >=25 */
+/* Mortality band colors — progressive saturation safe→danger */
 .meld-mort-band--safe {
-  background: oklch(from var(--safe) l c h / 0.12);
+  background: var(--safe-light);
   border-bottom: 3px solid var(--safe);
   color: var(--text-primary);
 }
 .meld-mort-band--safe .meld-mort-icon { color: var(--safe); }
 
 .meld-mort-band--warning {
-  background: oklch(from var(--warning) l c h / 0.12);
+  background: color-mix(in oklch, var(--warning) 20%, oklch(97% 0 0));
   border-bottom: 3px solid var(--warning);
   color: var(--text-primary);
 }
 .meld-mort-band--warning .meld-mort-icon { color: var(--warning); }
 
 .meld-mort-band--caution {
-  background: oklch(from var(--warning) l c h / 0.20);
-  border-bottom: 3px solid var(--warning);
+  background: color-mix(in oklch, var(--warning) 30%, oklch(97% 0 0));
+  border-bottom: 3px solid color-mix(in oklch, var(--warning) 50%, var(--danger));
   color: var(--text-primary);
 }
-.meld-mort-band--caution .meld-mort-icon { color: var(--warning); }
+.meld-mort-band--caution .meld-mort-icon { color: color-mix(in oklch, var(--warning) 50%, var(--danger)); }
 
 .meld-mort-band--danger {
-  background: oklch(from var(--danger) l c h / 0.12);
+  background: color-mix(in oklch, var(--danger) 35%, oklch(97% 0 0));
   border-bottom: 3px solid var(--danger);
   color: var(--text-primary);
   font-weight: 700;
@@ -310,7 +317,8 @@
 /* — Limitations badges — */
 .meld-limits {
   display: flex;
-  gap: var(--space-md);
+  flex-direction: column;
+  gap: var(--space-sm);
   margin-top: var(--space-md);
   opacity: 0;
 }
@@ -339,12 +347,106 @@
 /* — Failsafes — */
 .no-js .meld-evo-card,
 .stage-bad .meld-evo-card,
+.print-pdf .meld-evo-card,
 .no-js .meld-mort-section,
 .stage-bad .meld-mort-section,
+.print-pdf .meld-mort-section,
 .no-js .meld-limits,
 .stage-bad .meld-limits,
+.print-pdf .meld-limits,
 .no-js #s-a1-meld .source-tag,
-.stage-bad #s-a1-meld .source-tag {
+.stage-bad #s-a1-meld .source-tag,
+.print-pdf #s-a1-meld .source-tag {
+  opacity: 1;
+}
+
+/* ============================================
+   CHECKPOINT 1 — breathing slide (s-cp1)
+   Navy bg, centered composition, visual pause
+   ============================================ */
+/* Section-level navy — eliminates light frame bleed */
+#s-cp1 { background: oklch(22% 0.042 258); }
+
+/* Force dark navy even in stage-c — deliberate cinematic blackout */
+#s-cp1 .slide-inner {
+  --bg-navy: oklch(22% 0.042 258);
+  --bg-navy-mid: oklch(28% 0.035 258);
+  --text-on-dark: oklch(95% 0.005 258);
+  --text-on-dark-muted: oklch(70% 0.01 258);
+  --safe-on-dark: oklch(75% 0.13 170);
+  --warning-on-dark: oklch(80% 0.14 85);
+  --border-navy: oklch(35% 0.02 258);
+  background: var(--bg-navy);
+  color: var(--text-on-dark);
+  align-items: center;
+  text-align: center;
+}
+
+#s-cp1 h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--text-on-dark);
+  max-width: 80%;
+  line-height: 1.25;
+}
+
+/* Status strip */
+.cp1-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--bg-navy-mid);
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-md);
+}
+
+.cp1-tag {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-on-dark-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.cp1-tag--dx {
+  color: var(--warning-on-dark);
+  font-weight: 600;
+}
+
+.cp1-tag--rx {
+  color: var(--safe-on-dark);
+}
+
+.cp1-divider {
+  width: 1px;
+  height: 1.2em;
+  background: var(--border-navy);
+}
+
+.cp1-act-marker {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-on-dark);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  grid-row: 3;
+  align-self: end;
+  opacity: 0.45;
+}
+
+/* Fix: active calc tab text always white on dark ui-accent bg (stage-c inverts --text-on-dark) */
+.panel-calc-area .pcalc-tab--active {
+  color: oklch(95% 0.005 258);
+}
+
+/* Hide panel on breathing slide — fully remove from layout */
+.case-panel[data-severity="hidden"] {
+  display: none;
+}
+
+/* — Failsafes — */
+.no-js .cp1-status,
+.stage-bad .cp1-status {
   opacity: 1;
 }
 

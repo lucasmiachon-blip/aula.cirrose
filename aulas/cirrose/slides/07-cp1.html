@@ -1,68 +1,47 @@
-<section id="s-cp1" data-timing="180">
-    <div class="slide-inner archetype-checkpoint" data-severity="caution">
-      <h2 class="slide-headline">LSM 26 kPa, plaquetas 112k. Como você estadia?</h2>
+<!-- ============================================================
+     s-cp1 — Checkpoint 1: breathing slide (transition Act 1 → Act 2)
+     Navy background, minimal content, visual pause.
+     Panel: caution (cACLD + CSPH confirmed)
+     ============================================================ -->
+<section id="s-cp1" data-timing="60">
+  <div class="slide-inner slide-navy">
 
-      <div class="checkpoint-layout">
-        <div class="case-expanded">
-          <h3>Antônio — retorno</h3>
-          <div class="case-data">
-            <div class="data-item"><span class="data-label">LSM</span><span class="data-value">26 kPa</span></div>
-            <div class="data-item"><span class="data-label">PLQ</span><span class="data-value">112k</span></div>
-            <div class="data-item"><span class="data-label">MELD-Na</span><span class="data-value">~10</span></div>
-            <div class="data-item"><span class="data-label">Estádio</span><span class="data-value">cACLD → CSPH</span></div>
-            <div class="data-item"><span class="data-label">Albumina</span><span class="data-value">3,6 g/dL</span></div>
-            <div class="data-item"><span class="data-label">FIB-4</span><span class="data-value">5,91</span></div>
-          </div>
-        </div>
-        <div class="decision-area poll-area">
-          <p class="poll-question">Qual conduta você indica <strong>agora</strong>?</p>
-          <button class="poll-btn" data-correct="true" aria-label="Carvedilol 6,25 mg BID — profilaxia primária (correto)">✓ Carvedilol 6,25 mg BID — profilaxia primária</button>
-          <button class="poll-btn" data-correct="false" aria-label="EDA obrigatória antes de qualquer conduta">◯ EDA obrigatória antes de qualquer conduta</button>
-          <button class="poll-btn" data-correct="false" aria-label="Encaminhar para lista de transplante">◯ Encaminhar para lista de transplante</button>
-          <div class="poll-feedback" hidden>
-            <strong>Carvedilol indicado:</strong> PREDESCI confirmou redução da 1ª descompensação em CSPH compensado (PMID 30910320). LSM 26 ≥25 = CSPH confirmado → NSBB indicado → Baveno VII <em>dispensa</em> EDA (5.17). MELD ~10 = transplante não indicado.
-          </div>
-        </div>
-      </div>
+    <h2>Antônio tem CSPH confirmada — carvedilol indicado, endoscopia dispensável</h2>
+
+    <div class="cp1-status" data-animate="fadeUp">
+      <span class="cp1-tag cp1-tag--name">Antônio, 55a</span>
+      <span class="cp1-divider" aria-hidden="true"></span>
+      <span class="cp1-tag cp1-tag--dx">cACLD · CSPH</span>
+      <span class="cp1-divider" aria-hidden="true"></span>
+      <span class="cp1-tag cp1-tag--rx">Carvedilol 6,25 mg BID</span>
+      <span class="cp1-divider" aria-hidden="true"></span>
+      <span class="cp1-tag cp1-tag--score">MELD 14</span>
     </div>
-    <script type="module">
-      (function () {
-        const section = document.getElementById('s-cp1');
-        const btns = section.querySelectorAll('.poll-btn');
-        const feedback = section.querySelector('.poll-feedback');
-        btns.forEach(btn => {
-          btn.addEventListener('click', () => {
-            btns.forEach(b => {
-              if (b === btn) {
-                b.classList.add(b.dataset.correct === 'true' ? 'poll-correct' : 'poll-wrong');
-              } else {
-                b.classList.add('poll-dim');
-              }
-              b.disabled = true;
-            });
-            feedback.hidden = false;
-          });
-        });
-      })();
-    </script>
-    <aside class="notes">
-[0:00-0:30] [PAINEL ATUALIZA — amarelo] Antônio fez a elastografia. LSM 26 kPa.
-Plaquetas 112 mil. O que isso significa? cACLD confirmada.
-Hipertensão portal clinicamente significativa. PAUSA 3s.
 
-[0:30-1:00] Pergunto a vocês: qual conduta agora? [POLL — aguardar resposta da plateia]
-Carvedilol? EDA primeiro? Transplante?
+    <p class="cp1-act-marker">Ato 1 completo — Classificar</p>
 
-[1:00-1:30] [CLICK → revela resposta] Carvedilol. PREDESCI. Paciente compensado com CSPH.
-Dose: 6,25 mg duas vezes ao dia. Monitorar PA sistólica >90.
-Baveno VII: LSM ≥25 = CSPH confirmado → NSBB indicado → EDA dispensável (Statement 5.17).
-Antônio: LSM 26, plaquetas 112. CSPH confirmado. Carvedilol dispensa a endoscopia.
-MELD 10 = semáforo verde. Não transplantar agora.
+  </div>
 
-[1:30-2:30] O plano: carvedilol, vigilância com elastografia anual,
-e a conversa mais difícil — falar sobre o álcool.
-Antônio bebe ~60g por dia. Threshold "excessivo" para homens = 60g. No corte.
-E tem MASLD por cima. É MetALD — a epidemia real.
-Se ele não parar, voltamos aqui em 6 meses com o slide vermelho.
-    </aside>
-  </section>
+  <aside class="notes">
+[0:00-0:15] [PAUSA DELIBERADA — slide escuro, contraste com slides anteriores]
+Silêncio. Deixar o slide respirar.
+"Antônio tem doença hepática crônica avançada compensada.
+Hipertensão portal clinicamente significativa."
+
+[0:15-0:30] "O que fizemos: FIB-4 triou. Elastografia confirmou.
+LSM 26 — acima de 25, CSPH. Baveno VII: dispensar a endoscopia.
+PREDESCI: carvedilol. 6,25 mg duas vezes ao dia."
+
+[0:30-0:45] "MELD 10. Esse número vai mudar."
+PAUSA 3s. Foreshadowing deliberado do Ato 2.
+
+[0:45-1:00] "Agora sabemos classificar. Mas classificar não protege.
+O que acontece quando ele não volta?"
+→ transição para s-a2-01 (gatilhos de descompensação)
+
+[DATA] LSM 26 kPa, PLQ 112k: CASE.md baseline
+[DATA] CSPH confirmada ≥25 kPa: Baveno VII (DOI:10.1016/j.jhep.2021.12.012)
+[DATA] Carvedilol indicado: PREDESCI (PMID 30910320)
+[DATA] EDA dispensável: Baveno VII Statement 5.17
+  </aside>
+</section>

@@ -33,10 +33,9 @@
 
 ## Evolução do Caso (Panel States)
 
-### Checkpoint 1 (s-cp1) — Caution
-- LSM: 26 kPa
-- PLQ: 112k
-- MELD-Na: ~10
+### Checkpoint 1 (s-cp1) — Hidden (breathing slide)
+- Panel hidden: cinematic pause, no sidebar data
+- Resumo visual: cACLD · CSPH · Carvedilol 6,25 mg BID · MELD 14
 - Estado: CSPH confirmado (LSM ≥25 kPa)
 
 ### Checkpoint 2 (s-cp2) — Danger (nadir narrativo)
