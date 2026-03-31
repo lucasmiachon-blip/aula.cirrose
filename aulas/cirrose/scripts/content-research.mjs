@@ -534,26 +534,44 @@ INSTRUÇÃO: Responda cada campo acima com dados verificáveis (PMID, N=, IC95%)
 // --- G2: Retry with exponential backoff (429, 500, 503, 504) ---
 async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 } = {}) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    const res = await fetch(url, options);
-    if (res.ok) return res;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 120_000);
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timeout);
+      if (res.ok) return res;
 
-    const status = res.status;
-    const body = await res.text();
+      const status = res.status;
+      const body = await res.text();
 
-    // Non-retryable: 4xx except 429
-    if (status >= 400 && status < 500 && status !== 429) {
-      throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+      // Non-retryable: 4xx except 429
+      if (status >= 400 && status < 500 && status !== 429) {
+        throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+      }
+
+      // Retryable: 429, 5xx
+      if (attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+        console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
+
+      throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
+    } catch (err) {
+      clearTimeout(timeout);
+      if (err.message?.startsWith('API ')) throw err;
+
+      if (attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+        const reason = err.name === 'AbortError' ? 'timeout' : 'network';
+        console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (${reason}: ${err.message})`);
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
+
+      throw err;
     }
-
-    // Retryable: 429, 5xx
-    if (attempt < maxRetries) {
-      const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
-      console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
-      await new Promise(r => setTimeout(r, delay));
-      continue;
-    }
-
-    throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
   }
 }
 

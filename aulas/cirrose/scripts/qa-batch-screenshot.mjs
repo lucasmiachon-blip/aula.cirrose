@@ -298,7 +298,13 @@ async function main() {
   page.on('pageerror', err => consoleErrors.push(err.message));
 
   console.log(`Loading ${PAGE_URL}...`);
-  await page.goto(PAGE_URL, { waitUntil: 'networkidle' });
+  try {
+    await page.goto(PAGE_URL, { waitUntil: 'networkidle' });
+  } catch (err) {
+    console.error(`ERRO: Dev server não respondeu em ${PAGE_URL}`);
+    console.error(`  Rode 'npm run dev' ou 'npx vite' antes de rodar este script.`);
+    process.exit(1);
+  }
   await page.waitForTimeout(2000); // wait for deck init + first slide animations
 
   const results = [];
@@ -398,7 +404,7 @@ async function main() {
         if (slide.clickReveals > 0) {
           for (let beat = 1; beat <= slide.clickReveals; beat++) {
             await videoPage.keyboard.press('ArrowRight');
-            await videoPage.waitForTimeout(1000);
+            await videoPage.waitForTimeout(2500);
           }
         }
         await videoPage.waitForTimeout(500);
