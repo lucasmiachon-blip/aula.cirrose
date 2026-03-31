@@ -85,6 +85,14 @@ s-cp1 tem narrativeCritical=true. Cascata LSM 26 kPa ja resolvida em todas 9 sup
 
 ---
 
+## CSS Infra — feito (31/mar)
+
+Commit `234b890`: +29 -629 linhas. 6 archetypes mortos deletados, 23 shadows/borders tokenizados, WCAG fix, 3 orphaned vars removidos. `repeat(3, 1fr)` mantido (contextos diferentes, abstrair seria premature).
+
+**Proxima fase infra:** JS (slide-registry organizar), scripts QA (clareza), prompts (Gate 4 motion).
+
+---
+
 ## Pendencias — Pipeline & Prompts
 
 ### Gate 4 Call C (Motion) — precisa melhorar

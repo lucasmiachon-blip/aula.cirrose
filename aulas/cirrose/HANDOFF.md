@@ -7,7 +7,7 @@
 
 ## Estado — 2026-03-31
 
-**Ultima sessao (31/mar):** s-cp1 rewrite (poll→breathing slide navy). s-a1-meld Gate 4 R2 fixes (hierarquia cards, mortality colors, stagger, limits vertical). Gate 2 CONDITIONAL (0 MUST). Gate 4 R1 5.9, R2 5.6 (screenshots parcialmente stale). SPLIT question aberta.
+**Ultima sessao (31/mar):** CSS infra cleanup: 600 linhas removidas (6 archetypes mortos, 23 hardcoded shadows/borders→tokens, 3 orphaned vars, WCAG fix). s-cp1 rewrite (poll→breathing slide navy). s-a1-meld Gate 4 R2 fixes. SPLIT question aberta.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · 33 CONTENT · **Build/Lint:** ✅
@@ -62,16 +62,17 @@
 | ✅ | s-a1-meld Gate 2 | CONDITIONAL (0 MUST). Layer A/B/C completas. |
 | ✅ | s-a1-meld Gate 4 R1+R2 | R1 5.9, R2 5.6. Fixes aplicados. R2 parcialmente stale (pre-color-fix). |
 | ✅ | s-cp1 rewrite | Poll→breathing slide. Navy token overrides. Panel hidden. |
+| ✅ | CSS infra cleanup | 600 linhas mortas removidas, shadows/borders tokenizados, WCAG fix, orphaned vars. |
 | ❌ | s-a1-meld SPLIT decision | Gemini recomenda split (composicao 3/10). Lucas nao decidiu. |
 | ❌ | s-cp1 centering viewport | Strip pode parecer off-center em viewports != 16:9. Aguardando viewport Lucas. |
 | ❌ | s-a1-meld Gate 4 R3 | Re-screenshot + R3 refletiria todos fixes atuais. |
+| ❌ | JS/scripts/prompts cleanup | Proxima fase infra: slide-registry, scripts QA, prompts. |
 
 **Fluxo na proxima sessao:**
-1. `npm run dev` (port 4100)
+1. Continuar infra cleanup (JS/scripts/prompts) ou retomar QA s-a1-meld/s-cp1
 2. s-a1-meld: decidir SPLIT (sim→criar 2 slides, nao→Gate 4 R3 com screenshots atualizados)
 3. s-cp1: verificar centering no viewport do Lucas
-4. Gate 0 pendente para ambos slides
-5. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
+4. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -122,7 +123,24 @@ Todas 9 superficies sincronizadas: CASE.md, narrative.md, evidence-db.md, 07-cp1
 
 ---
 
-## Infra fixes desta sessao (30/mar)
+## CSS infra cleanup (31/mar)
+
+**Commit `234b890`** — refactor: 2 files, +29 -629 lines.
+
+| Fix | Detalhe |
+|-----|---------|
+| 6 archetypes deletados | figure, pathway, timeline, urgency, decision-tree, checklist (~450 linhas em archetypes.css) |
+| 23 hardcoded shadows/borders | `oklch(0% 0 0 / X)` → `var(--border)`, `var(--shadow-subtle)`, `var(--shadow-soft)` |
+| WCAG fix | `#fff` → `oklch(100% 0 0)` em `.classify-predesci-header` |
+| 3 orphaned vars | `--hook-lab-label-color`, `--hook-card-bg`, `--col-bar` removidos |
+| Hardcoded color | `.hook-patient-desc` duplicava token com literal — literal removido |
+| HEX fallback | `.stage-bad .slide-title` fallback HEX → OKLCH |
+
+**Nao feito (por design):** 5x `repeat(3, 1fr)` — cada com gap/margin/max-width diferente. Abstrair seria premature.
+
+---
+
+## Infra fixes (30/mar)
 
 ### deck.js — transitionend filter
 **Problema:** `transitionend` de filhos (CSS transitions em .rule-zone, .elasto-card etc) fazia bubble ate a `<section>`, disparando `slide:entered` antes do slide estar visivel.
