@@ -12,8 +12,8 @@
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Commit `636e78f`.
-**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
-**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). **Gate 4 prompt v2.1 (E67 fix):** secoes §1B (inventario cor semantica) + §1C (motion timestamp log) obrigatorias. Gemini DEVE preencher tabela de cores por estado ANTES de pontuar.
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files (wired 2026-03-31, SPRINT_MODE=1 para warn-only)**. task-completed-gate tambem suporta SPRINT_MODE.
+**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). **Gate 4 prompt v2.2 (anti-sycophancy):** mentalidade adversarial obrigatoria, scores >=8 exigem evidencia concreta, target numerico removido. Gate 0 exemplos reordenados (FAIL first). Content-research v3.1: +ERRADO status, NUANCE antes de REFORCO.
 **QA scripts (v2 — 2026-03-30):** extractSlideCSS multi-section, extractArchetypeCSS filtrado, auto --ref-slide.
 **Research scripts (v3):** content-research.mjs com SOURCE PRIORITY, Tier-1 list, PMID verification. Claude MCP protocol documentado (SCite→PubMed→Consensus→Gemini).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M).
@@ -116,6 +116,31 @@ CASE.md atualizado (source of truth). Manifest panelStates sincronizado. Faltam:
 - **exit 2 hooks Windows**: nao bloqueia tool. Bug Claude Code. Investigar.
 - **C1 bodyWordCount**: slides com zones (rule5 50w, fib4 41w) excedem 30w. Inerente a escala — aceito.
 - **C6 noPanelOverlap**: mede bounding box do container, nao conteudo visivel. False positive aceito.
+
+---
+
+## Sprint Mode (deadline)
+
+**Ativar:** `export SPRINT_MODE=1` antes de iniciar Claude Code.
+**Efeito:** `guard-product-files.sh` e `task-completed-gate.sh` viram WARN em vez de BLOCK.
+**Desativar:** `unset SPRINT_MODE` ou nao setar a variavel.
+**Restaurar strict:** Apos deadline, garantir que SPRINT_MODE nao esta setado.
+
+---
+
+## Hardening 2026-03-31
+
+Sessao de hardening completa. 2 commits:
+1. **docs: harden docs + config** — CLAUDE.md (43→44, 52→67), README ports, XREF.md (+8 docs, 3 atribuicoes), guard-product-files wired, WT-OPERATING Gate 2 logic fix.
+2. **fix: anti-sycophancy prompts + sprint mode hooks** — Gate 4 (adversarial, score asymmetry, no target), Gate 0 (FAIL-first examples), content-research (ERRADO status, NUANCE-first), hooks sprint mode.
+
+**Pendente (requer codigo, prox sessao):**
+- build-html.ps1 → .mjs (Linux compat)
+- validate-css.sh grep bug sob set -e
+- lint-narrative-sync.js undefined vs null
+- gemini-qa3.mjs --help antes de API_KEY check
+- vite.config.js template filter
+- git hooks install via postinstall
 
 ---
 

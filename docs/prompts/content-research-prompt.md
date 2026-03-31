@@ -159,7 +159,7 @@ The slide metadata includes archetype, narrative role, and tension level. Interp
 [the h2 assertion]
 
 ## STATUS
-FORTE | NUANCAVEL | DESATUALIZADO | INCOMPLETO
+FORTE | NUANCAVEL | DESATUALIZADO | INCOMPLETO | ERRADO
 
 ## AVALIACAO PMIDs EXISTENTES
 (obrigatorio se ha PMIDs no slide)
@@ -167,14 +167,14 @@ Para cada PMID ja presente:
 - PMID | Primeiro autor, Ano | [TYPE TAG] | Status: ATUAL / SUPERSEDED / RETRACTED
   Se SUPERSEDED: citar o paper que o substituiu com PMID
 
-## REFORCO (max 2)
-- [finding] — [TYPE TAG] — PMID:XXXXX or [Book, Ed, Ch, p.XX] — N=X — [stat with CI95%/p] — [year]
-  GRADE: ⊕⊕⊕◯ [one-line justification]
-
-## NUANCE (max 2)
+## NUANCE (max 2 — FIRST: what qualifies, limits, or contradicts the claim)
 - [finding that QUALIFIES, LIMITS, or CONTRADICTS] — [TYPE TAG] — source — [stat] — [year]
   GRADE: ⊕⊕◯◯ [one-line justification]
   (if EBM critique applies, add one line: "Critica: ...")
+
+## REFORCO (max 2 — evidence that strengthens the claim)
+- [finding] — [TYPE TAG] — PMID:XXXXX or [Book, Ed, Ch, p.XX] — N=X — [stat with CI95%/p] — [year]
+  GRADE: ⊕⊕⊕◯ [one-line justification]
 
 ## GENEALOGIA
 (MANDATORY if slide is about a score, test, or classification; skip otherwise — max 1)

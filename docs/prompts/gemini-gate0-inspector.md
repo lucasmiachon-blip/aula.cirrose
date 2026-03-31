@@ -106,28 +106,6 @@ Regras do JSON:
 
 ## EXEMPLOS
 
-### Slide perfeito (tudo PASS):
-```json
-{
-  "slide_id": "s-hook",
-  "states_received": ["S0"],
-  "checks": {
-    "CLIPPING":        { "pass": true },
-    "OVERFLOW":        { "pass": true },
-    "OVERLAP":         { "pass": true },
-    "INVISIBLE":       { "pass": true },
-    "MISSING_MEDIA":   { "pass": true },
-    "ANIMATION_STATE": { "pass": true },
-    "ALIGNMENT":       { "pass": true },
-    "SPACING":         { "pass": true },
-    "READABILITY":     { "pass": true }
-  },
-  "must_pass": true,
-  "should_pass": true,
-  "summary": ""
-}
-```
-
 ### Slide com defeitos (MUST FAIL + SHOULD FAIL):
 ```json
 {
@@ -147,5 +125,27 @@ Regras do JSON:
   "must_pass": false,
   "should_pass": false,
   "summary": "CLIPPING: texto da source-tag cortado na borda direita em S2, últimas 3 palavras não visíveis. OVERLAP: label 'PREDESCI' sobrepõe a barra do gráfico em S0. SPACING: gap entre cards da coluna esquerda é 24px mas da direita é 8px em S2."
+}
+```
+
+### Slide perfeito (tudo PASS):
+```json
+{
+  "slide_id": "s-hook",
+  "states_received": ["S0"],
+  "checks": {
+    "CLIPPING":        { "pass": true },
+    "OVERFLOW":        { "pass": true },
+    "OVERLAP":         { "pass": true },
+    "INVISIBLE":       { "pass": true },
+    "MISSING_MEDIA":   { "pass": true },
+    "ANIMATION_STATE": { "pass": true },
+    "ALIGNMENT":       { "pass": true },
+    "SPACING":         { "pass": true },
+    "READABILITY":     { "pass": true }
+  },
+  "must_pass": true,
+  "should_pass": true,
+  "summary": ""
 }
 ```

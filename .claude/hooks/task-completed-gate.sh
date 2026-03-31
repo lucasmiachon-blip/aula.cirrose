@@ -3,6 +3,9 @@
 # Blocks task completion (exit 2) if uncommitted slide changes exist.
 # Logs completion to audit trail.
 
+# SPRINT_MODE=1 downgrades BLOCK to WARN (deadline sprints)
+SPRINT_MODE="${SPRINT_MODE:-0}"
+
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 TASK_ID=$(node -e "
@@ -20,9 +23,14 @@ UNCOMMITTED=$(git diff --name-only 2>/dev/null | grep "aulas/.*/slides/" || true
 STAGED=$(git diff --cached --name-only 2>/dev/null | grep "aulas/.*/slides/" || true)
 
 if [ -n "$UNCOMMITTED" ] || [ -n "$STAGED" ]; then
-  echo "TaskCompleted gate: uncommitted slide changes detected. Commit before marking task done." >&2
-  echo "  Uncommitted: $UNCOMMITTED $STAGED" >&2
-  exit 2
+  if [ "$SPRINT_MODE" = "1" ]; then
+    echo "AVISO: uncommitted slide changes detected (sprint mode — nao bloqueando)" >&2
+    echo "  Files: $UNCOMMITTED $STAGED" >&2
+  else
+    echo "TaskCompleted gate: uncommitted slide changes detected. Commit before marking task done." >&2
+    echo "  Uncommitted: $UNCOMMITTED $STAGED" >&2
+    exit 2
+  fi
 fi
 
 # Log completion
