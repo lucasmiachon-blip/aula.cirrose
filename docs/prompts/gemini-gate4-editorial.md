@@ -1,5 +1,5 @@
 # Gate 4 — Editorial + Frontend Review
-# Versao: 2.0 (expandido 7→11 dimensoes, CSS analysis obrigatorio)
+# Versao: 2.1 (E67 fix: color inventory + motion log obrigatorios)
 # Modelo: gemini-3.1-pro-preview (ou GEMINI_MODEL env var)
 # Input: HTML + CSS + JS + PNGs S0/S2 + video .webm + speaker notes + metadata
 # Output: Markdown com scorecard 11 dims + JSON estruturado
@@ -90,7 +90,7 @@ Voce foi contratado como **editor final criativo + auditor tecnico**. Autoridade
 
 <task>
 
-6 passos. Direto ao ponto, sem elogio generico.
+8 passos (0, 1, 1B, 1C, 2, 3, 4, 5). Direto ao ponto, sem elogio generico.
 
 ### 0. RECIBO E AVALIACAO POR MATERIAL (obrigatorio)
 Declarar o que recebeu:
@@ -146,6 +146,58 @@ FAILSAFE: .no-js .fib4-stage — MISSING
 RACE: opacity — GSAP autoAlpha:0 + CSS [data-animate] opacity:0 — redundante mas safe
 ```
 
+### 1B. INVENTARIO DE COR SEMANTICA (obrigatorio — E67)
+
+**ANTES de pontuar ou propor:** preencher esta tabela para CADA estado visivel (S0, S1, S2).
+Extrair do CSS raw — NAO inferir. Se um token nao existe no CSS enviado, marcar [NAO ENCONTRADO].
+
+**Formato obrigatorio (uma tabela por estado):**
+
+```
+ESTADO S0:
+| Elemento (seletor CSS) | Token var(--*) | Significado clinico | Correto? |
+|------------------------|----------------|---------------------|----------|
+| .xxx-item--flaw        | --warning-light (bg), --warning (border) | [descrever] | SIM/NAO — [razao] |
+| .xxx-callout           | --danger (color) | [descrever] | NAO — limitacao nao eh risco real → --warning |
+
+(repetir para S1, S2, etc.)
+```
+
+**Regras de validacao por token:**
+- `--danger` / `--danger-light` = SOMENTE risco REAL (morte, sangramento, falencia orgao). Limitacao, falha, caveat = `--warning`.
+- `--warning` / `--warning-light` = investigar, monitorar, zona cinza, limitacao.
+- `--safe` = meta atingida, conduta mantida, resultado favoravel.
+- `--ui-accent` = chrome/UI. NUNCA significado clinico.
+- `--downgrade` = rebaixar evidencia (sempre com icone ↓).
+
+**Arco de cor entre estados (obrigatorio):**
+Descrever a progressao narrativa das cores: S0 → S1 → S2. A paleta DEVE refletir o arco emocional do slide.
+Exemplo: "S0 warning (limitacoes) → S1 safe/warning/danger (escalacao cirurgica) → S2 safe+warning (guideline pragmatica)"
+Se o arco nao faz sentido narrativo, marcar como [MUST] na secao de propostas.
+
+### 1C. MOTION TIMESTAMP LOG (obrigatorio se video presente — E67)
+
+Se video .webm foi anexado, preencher este log com timestamps concretos.
+Se NAO assistiu o video, declarar "MOTION LOG: nao assisti video" e pular.
+
+**Formato obrigatorio:**
+
+```
+| Timestamp | Evento | Duracao | Artefato? |
+|-----------|--------|---------|-----------|
+| ~0.0s     | S0 visivel — nodes aparecem | 300ms stagger | nenhum |
+| ~1.2s     | Click → S0 sai, S1 entra | 400ms crossfade | flash 100ms entre eras |
+```
+
+**Verificar obrigatoriamente:**
+- (M1) Flash/FOUC entre estados (>100ms de conteudo visivel indevido)?
+- (M2) Gap vazio entre saida de era anterior e entrada da nova?
+- (M3) Stagger progressivo ou tudo de uma vez?
+- (M4) CountUp legivel durante contagem?
+- (M5) Retreat (voltar ao slide): conteudo reseta corretamente?
+
+Este log alimenta a nota de Motion (§3). Sem log = Motion max 5/10.
+
 ### 2. IMPRESSAO (max 3 frases)
 Video (se houver) PRIMEIRO → PNGs → codigo.
 O que funciona, o que incomoda, e UMA coisa que mudaria primeiro.
@@ -158,9 +210,9 @@ Para CADA dimensao: dar nota + listar os criterios CONCRETOS avaliados e o resul
 | Dim | Nota | Criterios avaliados (obrigatorio) |
 |-----|------|-----------------------------------|
 | Tipografia e hierarquia | ?/10 | h2 font-size=?px, body=?px, caption=?px; font-family match tokens?; escala hierarquica coerente?; vw ilegal (E52)?  |
-| Cor, contraste e superficie | ?/10 | **MUST CHECKS (cada um = sim/nao):** (C1) Para CADA elemento com --danger no CSS: representa risco clinico REAL (morte, sangramento, falencia)? Se nao → MUST. (C2) Para CADA elemento com --warning: representa investigar/monitorar (limitacao, zona cinza)? Se nao → SHOULD. (C3) --ui-accent usado em contexto clinico? → MUST. (C4) Contar elementos com background colorido por estado: se >1 elemento com mesma cor de fundo → Von Restorff diluido, flaggear. (C5) Arco de cor entre estados: a progressao de cores segue a narrativa (ex: warning→danger = escalacao, danger→safe = resolucao)? **Medicoes:** cor texto vs fundo (estimar ratio); tokens var() vs hardcoded; superficies (bg-card, bg-elevated) presentes? |
+| Cor, contraste e superficie | ?/10 | **Baseado no INVENTARIO §1B (obrigatorio).** Sem inventario preenchido = max 4/10. (C1) Cada --danger representa risco REAL? (C2) Cada --warning = investigar/zona cinza? (C3) --ui-accent em contexto clinico? → MUST. (C4) Von Restorff: >1 elemento com mesma cor de fundo por estado? (C5) Arco de cor §1B coerente com narrativa? **Medicoes:** ratio texto/fundo; tokens var() vs hardcoded; superficies presentes? |
 | Composicao e respiro | ?/10 | fill ratio estimado (%); padding principal (px); gap entre elementos; alinhamento (left/center/mixed); espaco desperdicado vs intencional |
-| Motion e timing | ?/10 | **MUST CHECKS (cada um via VIDEO, nao codigo):** (M1) Flash/FOUC: algum conteudo aparece visivel por >100ms antes de ser escondido por GSAP? (E66). (M2) Transicao entre estados (click): descreva o que acontece com o slide INTEIRO — nao so elementos individuais. O conteudo anterior some ANTES do novo aparecer? Ha gap vazio? (M3) Stagger: elementos em grupo entram com delay progressivo ou todos de uma vez? (M4) CountUp: numeros animados sao legiveis durante a contagem ou flasham rapido demais? **Medicoes:** transicoes contadas (#); duracoes (ms); delays (ms); overlap saida/entrada (ms); easing; artefatos (ghosting, flash, layout shift). **Se nao assistiu video: declarar explicitamente e pontuar max 5/10.** |
+| Motion e timing | ?/10 | **Baseado no MOTION LOG §1C (obrigatorio se video presente).** Sem log preenchido = max 5/10. Verificar M1-M5 do §1C. **Medicoes:** transicoes contadas (#); duracoes (ms); delays (ms); overlap saida/entrada (ms); easing; artefatos (ghosting, flash, layout shift). |
 | Legibilidade a 5m | ?/10 | menor texto visivel (estimado px); contraste minimo; elementos que desaparecem em projecao; text-small aceitavel? |
 | Impacto emocional | ?/10 | hero element presente?; Von Restorff aplicado?; pausa narrativa existe?; dado de impacto destacado? |
 | Craft front-end | ?/10 | dead CSS no bloco slide-specific (# seletores — ignorar tokens/archetype); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |

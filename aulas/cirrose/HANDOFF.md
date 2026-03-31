@@ -5,15 +5,15 @@
 
 ---
 
-## Estado — 2026-03-31T22:05-03:00
+## Estado — 2026-03-31T23:30-03:00
 
-**Ultima sessao:** QA s-a1-cpt R6 fixes — grid stack, color semantics, anti-flash intra-slide (E66), surgery stat Von Restorff, source-tag PMIDs. Gate 4 prompt pendente: Gemini cego a motion/cor (E67).
+**Ultima sessao:** Pipeline paralela planejada + P3 (Gate 4 prompt E67 v2.1) implementado. Research s-a1-meld lancado em background.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m. `--text-caption` clamp(11px) no limite a 6m. Source-tags ponto critico de legibilidade.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
 **Branch:** `feat/cirrose-mvp` · Commit `636e78f`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
-**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). Gate 4 prompt atualizado (E67): MUST checks cor semantica + motion via video.
+**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). **Gate 4 prompt v2.1 (E67 fix):** secoes §1B (inventario cor semantica) + §1C (motion timestamp log) obrigatorias. Gemini DEVE preencher tabela de cores por estado ANTES de pontuar.
 **QA scripts (v2 — 2026-03-30):** extractSlideCSS multi-section, extractArchetypeCSS filtrado, auto --ref-slide.
 **Research scripts (v3):** content-research.mjs com SOURCE PRIORITY, Tier-1 list, PMID verification. Claude MCP protocol documentado (SCite→PubMed→Consensus→Gemini).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M).
@@ -43,7 +43,24 @@
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 8 DONE* · 1 QA · 0 DRAFT · 35 CONTENT (44 total)
-**Proximo:** Melhorar prompt Gate 4 (motion + cor semantica, E67) → re-rodar QA s-a1-cpt. Depois: s-a1-meld, s-cp1 (cascata LSM 26 kPa).
+
+### Proxima sessao — checklist de prontidao
+
+| Preparado? | Item | Notas |
+|------------|------|-------|
+| ✅ | Gate 4 prompt v2.1 (E67 fix) | §1B inventario cor + §1C motion log |
+| ✅ | Pipeline paralela planejada | Plano: `.claude/plans/valiant-crafting-abelson.md` |
+| ⏳ | Research s-a1-meld | Subagent lancado, resultado pendente |
+| ❌ | Screenshots s-a1-cpt frescos | Recapturar ANTES de Gate 4 R7 |
+| ❌ | Gate 4 R7 s-a1-cpt | Rodar com prompt v2.1 apos screenshots |
+
+**Fluxo na proxima sessao:**
+1. `npm run dev` (port 4100)
+2. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
+3. Gate 0 re-check: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --inspect`
+4. Gate 2 conversacional (sharp + a11y)
+5. Gate 4 R7: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 7`
+6. Em paralelo: `/medical-researcher` para s-cp1 (proximo slide)
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -60,7 +77,7 @@
 2. ~~s-a1-baveno~~ — DONE 27/mar
 3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
 4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
-5. **s-a1-cpt** — QA R3 8.3/10. Scripts melhorados. Proximo: R4 com novos prompts
+5. **s-a1-cpt** — QA R6 7.7/10. Gate 4 prompt v2.1 pronto (E67). Proximo: screenshots → Gate 4 R7
 6. **s-cp1** — cascata LSM 26 kPa (narrativeCritical). Aprovar com Lucas.
 7. **s-a1-meld** — sequencia manifest, slide a slide
 7. **Act 2 → Act 3** — apos Act 1 DONE
