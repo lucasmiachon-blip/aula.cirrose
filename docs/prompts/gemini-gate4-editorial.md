@@ -1,5 +1,5 @@
 # Gate 4 — Editorial + Frontend Review
-# Versao: 2.1 (E67 fix: color inventory + motion log obrigatorios)
+# Versao: 2.2 (per-state audit + clipping + element consistency)
 # Modelo: gemini-3.1-pro-preview (ou GEMINI_MODEL env var)
 # Input: HTML + CSS + JS + PNGs S0/S2 + video .webm + speaker notes + metadata
 # Output: Markdown com scorecard 11 dims + JSON estruturado
@@ -198,8 +198,50 @@ Se NAO assistiu o video, declarar "MOTION LOG: nao assisti video" e pular.
 - (M3) Stagger progressivo ou tudo de uma vez?
 - (M4) CountUp legivel durante contagem?
 - (M5) Retreat (voltar ao slide): conteudo reseta corretamente?
+- (M6) Clipping/overflow: conteudo cortado em QUALQUER estado? Texto truncado, elementos fora da area visivel, overflow escondido?
+- (M7) Layout shift entre estados: centro de gravidade visual muda bruscamente? Conteudo pula de posicao (topo→centro, centro→topo)?
 
 Este log alimenta a nota de Motion (§3). Sem log = Motion max 5/10.
+
+### 1D. AUDITORIA PER-STATE (obrigatoria para slides multi-estado)
+
+Se o slide tem multiplos estados (data-era, data-reveal, click-reveal), avaliar CADA estado como mini-slide independente.
+
+**Formato obrigatorio (uma entrada por estado):**
+
+```
+ESTADO S0:
+- Fill ratio: __% (quanto da area util o conteudo ocupa)
+- Hierarquia visual: [clara | achatada | invertida] — descrever caminho do olho
+- Respiro: [equilibrado | esmagado topo | vazio base | desbalanceado L/R]
+- Elementos clipados: [nenhum | listar quais com evidencia]
+- Nota composicao: __/10
+
+ESTADO S1: (repetir)
+ESTADO S2: (repetir)
+```
+
+**Regras:**
+- Se so tem PNGs de S0 e S2, o video e a UNICA prova de estados intermediarios. Analisar frame-a-frame.
+- Composicao final (§3) = MEDIA das notas per-state, NAO a melhor.
+- Estado com nota <=4 puxa a media mesmo que outros sejam 10.
+
+### 1E. CONSISTENCIA DE ELEMENTOS CROSS-STATE (obrigatoria)
+
+Verificar se elementos persistentes aparecem em TODOS os estados:
+
+| Elemento | Esperado em | Presente em S0? | S1? | S2? | Veredito |
+|----------|-------------|-----------------|-----|-----|----------|
+| source-tag | todos | ? | ? | ? | OK/FAIL |
+| section-tag | todos | ? | ? | ? | OK/FAIL |
+| h2 | todos | ? | ? | ? | OK/FAIL |
+| sidebar panel | todos | ? | ? | ? | OK/FAIL |
+
+FAIL em elemento persistente = proposta SHOULD. FAIL em source-tag ou h2 = proposta MUST.
+
+**Verificar tambem:**
+- Posicao do elemento muda entre estados? (shift vertical/horizontal indesejado)
+- Tamanho/opacidade muda sem razao narrativa?
 
 ### 2. IMPRESSAO (max 3 frases)
 Video (se houver) PRIMEIRO → PNGs → codigo.
@@ -214,8 +256,8 @@ Para CADA dimensao: dar nota + listar os criterios CONCRETOS avaliados e o resul
 |-----|------|-----------------------------------|
 | Tipografia e hierarquia | ?/10 | h2 font-size=?px, body=?px, caption=?px; font-family match tokens?; escala hierarquica coerente?; vw ilegal (E52)?  |
 | Cor, contraste e superficie | ?/10 | **Baseado no INVENTARIO §1B (obrigatorio).** Sem inventario preenchido = max 4/10. (C1) Cada --danger representa risco REAL? (C2) Cada --warning = investigar/zona cinza? (C3) --ui-accent em contexto clinico? → MUST. (C4) Von Restorff: >1 elemento com mesma cor de fundo por estado? (C5) Arco de cor §1B coerente com narrativa? **Medicoes:** ratio texto/fundo; tokens var() vs hardcoded; superficies presentes? |
-| Composicao e respiro | ?/10 | fill ratio estimado (%); padding principal (px); gap entre elementos; alinhamento (left/center/mixed); espaco desperdicado vs intencional |
-| Motion e timing | ?/10 | **Baseado no MOTION LOG §1C (obrigatorio se video presente).** Sem log preenchido = max 5/10. Verificar M1-M5 do §1C. **Medicoes:** transicoes contadas (#); duracoes (ms); delays (ms); overlap saida/entrada (ms); easing; artefatos (ghosting, flash, layout shift). |
+| Composicao e respiro | ?/10 | **Baseado na AUDITORIA PER-STATE §1D (obrigatoria).** Sem auditoria preenchida = max 4/10. Nota = media das notas per-state. Fill ratio por estado; padding; gap; alinhamento; espaco desperdicado vs intencional; clipping detectado? |
+| Motion e timing | ?/10 | **Baseado no MOTION LOG §1C (obrigatorio se video presente).** Sem log preenchido = max 5/10. Verificar M1-M7 do §1C. **Medicoes:** transicoes contadas (#); duracoes (ms); delays (ms); overlap saida/entrada (ms); easing; artefatos (ghosting, flash, layout shift, clipping M6, gravity shift M7). |
 | Legibilidade a 5m | ?/10 | menor texto visivel (estimado px); contraste minimo; elementos que desaparecem em projecao; text-small aceitavel? |
 | Impacto emocional | ?/10 | hero element presente?; Von Restorff aplicado?; pausa narrativa existe?; dado de impacto destacado? |
 | Craft front-end | ?/10 | dead CSS no bloco slide-specific (# seletores — ignorar tokens/archetype); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |
@@ -268,6 +310,17 @@ No FINAL da resposta, adicionar bloco JSON (sem texto antes/depois do bloco):
     "gestalt_cognition": 0,
     "semantic_a11y": 0,
     "state_completeness": 0
+  },
+  "composicao_per_state": {
+    "S0": 0,
+    "S1": 0,
+    "S2": 0
+  },
+  "cross_state_consistency": {
+    "source_tag": "OK|FAIL",
+    "section_tag": "OK|FAIL",
+    "h2": "OK|FAIL",
+    "sidebar": "OK|FAIL"
   },
   "media": 0,
   "dead_css": [],

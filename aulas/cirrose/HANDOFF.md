@@ -5,18 +5,17 @@
 
 ---
 
-## Estado — 2026-03-31T23:30-03:00
+## Estado — 2026-04-01T00:15-03:00
 
-**Ultima sessao:** Pipeline paralela planejada + P3 (Gate 4 prompt E67 v2.1) implementado. Research s-a1-meld lancado em background.
-**Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m. `--text-caption` clamp(11px) no limite a 6m. Source-tags ponto critico de legibilidade.
+**Ultima sessao (31/mar):** Gate 4 R7 (8.6/10). Fixes CSS P1-P4. Prompts Gate 4 v2.2 + Gate 2 v1.1. Cascata LSM 26 kPa resolvida. "Seu Antonio" → "Antonio" (global). Sidebar s-a1-cpt: CTP A(5) + LSM visivel + complications (VE/HDA/Ascite/HE/HCC). Evidence-db: +9 rows s-a1-meld, +4 rows s-cp1. Research completo. guard-product-files suprimido (sprint).
+**Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
-**Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
-**Branch:** `feat/cirrose-mvp` · Commit `636e78f`.
-**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files (wired 2026-03-31, SPRINT_MODE=1 para warn-only)**. task-completed-gate tambem suporta SPRINT_MODE.
-**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). **Gate 4 prompt v2.2 (anti-sycophancy):** mentalidade adversarial obrigatoria, scores >=8 exigem evidencia concreta, target numerico removido. Gate 0 exemplos reordenados (FAIL first). Content-research v3.1: +ERRADO status, NUANCE antes de REFORCO.
-**QA scripts (v2 — 2026-03-30):** extractSlideCSS multi-section, extractArchetypeCSS filtrado, auto --ref-slide.
-**Research scripts (v3):** content-research.mjs com SOURCE PRIORITY, Tier-1 list, PMID verification. Claude MCP protocol documentado (SCite→PubMed→Consensus→Gemini).
-**Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M).
+**Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
+**Branch:** `feat/cirrose-mvp`.
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO** (echo stub em settings.json — RE-HABILITAR apos sprint).
+**QA pipeline:** Gate 4 **v2.2**: +§1D per-state composition, +§1E cross-state consistency, +M6 clipping, +M7 layout shift. Gate 2 **v1.1**: +C6 cross-state, +C7 per-state, S1 blind spot.
+**Research completo:** s-a1-meld (17 PMIDs verificados), s-cp1 (11 PMIDs).
+**Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
 ---
@@ -35,9 +34,9 @@
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
 | 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
-| 9 | s-a1-cpt | QA | Gate 4 R6 7.7/10. Fixes R4-R6: grid stack (no absolute), color semantic (danger→warning/neutral S0, Von Restorff S1 only), anti-flash E66, dead CSS -160L, source-tag PMIDs, H2 encurtado. **PENDENTE:** cores S0 ainda insatisfatorias (Lucas), Gate 4 prompt cego a motion+cor (E67). |
+| 9 | s-a1-cpt | QA | Gate 4 R7 8.6/10. Fixes R4-R7: grid stack, color semantic, anti-flash E66, dead CSS -160L, source-tag (always visible, mono+muted), Von Restorff scale 1.16+shadow, ceiling-result danger, align-items center, overflow-y removed. Sidebar: CTP A(5) + LSM (visible, '—') + complications (VE/HDA/Ascite/HE/HCC). Prompts v2.2+v1.1 prontos. **PENDENTE:** S0 cores insatisfatorias (Lucas <3/10), recapturar screenshots (sidebar atualizado) → Gate 4 R8 com v2.2. |
 | 10 | s-a1-meld | CONTENT | Act 1 restante. |
-| 11 | s-cp1 | CONTENT | **ATENCAO:** H2 e lsm desatualizados (21→26 kPa). narrativeCritical=true. |
+| 11 | s-cp1 | CONTENT | LSM 26 kPa atualizado (HTML+manifest+notes). Logica Baveno corrigida (CSPH confirmado, nao rule-out). |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
@@ -48,19 +47,21 @@
 
 | Preparado? | Item | Notas |
 |------------|------|-------|
-| ✅ | Gate 4 prompt v2.1 (E67 fix) | §1B inventario cor + §1C motion log |
-| ✅ | Pipeline paralela planejada | Plano: `.claude/plans/valiant-crafting-abelson.md` |
-| ⏳ | Research s-a1-meld | Subagent lancado, resultado pendente |
-| ❌ | Screenshots s-a1-cpt frescos | Recapturar ANTES de Gate 4 R7 |
-| ❌ | Gate 4 R7 s-a1-cpt | Rodar com prompt v2.1 apos screenshots |
+| ✅ | Gate 4 prompt v2.2 | §1D per-state, §1E cross-state, M6 clipping, M7 layout shift |
+| ✅ | Gate 2 protocol v1.1 | C6 cross-state, C7 per-state, S1 blind spot |
+| ✅ | Research s-a1-meld | 17 PMIDs verificados (evidence-db) |
+| ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
+| ✅ | Sidebar s-a1-cpt | CTP A(5) + LSM + complications VE/HDA/Ascite/HE/HCC |
+| ❌ | Screenshots s-a1-cpt frescos | Sidebar mudou (LSM + complications) — recapturar |
+| ❌ | Gate 4 R8 s-a1-cpt | Rodar com prompt v2.2 apos screenshots |
 
 **Fluxo na proxima sessao:**
 1. `npm run dev` (port 4100)
 2. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
 3. Gate 0 re-check: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --inspect`
 4. Gate 2 conversacional (sharp + a11y)
-5. Gate 4 R7: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 7`
-6. Em paralelo: `/medical-researcher` para s-cp1 (proximo slide)
+5. Gate 4 R8: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 8`
+6. Se score ≥ 8.5 + Lucas OK → DONE*. Senao: fix → recapturar → R9.
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -77,19 +78,16 @@
 2. ~~s-a1-baveno~~ — DONE 27/mar
 3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
 4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
-5. **s-a1-cpt** — QA R6 7.7/10. Gate 4 prompt v2.1 pronto (E67). Proximo: screenshots → Gate 4 R7
+5. **s-a1-cpt** — QA R7 8.6/10. Prompts v2.2 + v1.1 prontos. Sidebar atualizado (CTP+LSM+complications). Proximo: screenshots → Gate 4 R8
 6. **s-cp1** — cascata LSM 26 kPa (narrativeCritical). Aprovar com Lucas.
 7. **s-a1-meld** — sequencia manifest, slide a slide
 7. **Act 2 → Act 3** — apos Act 1 DONE
 
 ---
 
-## Cascata LSM 26 kPa (pendente)
+## ~~Cascata LSM 26 kPa~~ — RESOLVIDA 2026-03-31
 
-CASE.md atualizado (source of truth). Manifest panelStates sincronizado. Faltam:
-- `slides/07-cp1.html` H2: "LSM 21 kPa" → "LSM 26 kPa" + logica clinica (CSPH confirmado, nao provavel)
-- `references/narrative.md` linha 66: "LSM 21 kPa" para cp1
-- **narrativeCritical=true** — requer aprovacao Lucas antes de editar.
+Todas 9 superficies sincronizadas: CASE.md, narrative.md, evidence-db.md, 07-cp1.html (H2+data+notes+feedback), _manifest.js (headline+panelState s-cp1+s-a2-01). Logica Baveno corrigida: LSM ≥25 = CSPH confirmado → NSBB → dispensa EDA (Statement 5.17).
 
 ---
 

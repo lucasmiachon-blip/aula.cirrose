@@ -26,31 +26,38 @@
 
 ---
 
-## Prioridade 1: s-a1-cpt — cores + re-QA
+## Prioridade 1: s-a1-cpt — Gate 4 R8
 
-### Estado atual (2026-03-31, commit `636e78f`)
+### Estado atual (2026-03-31)
 
-**O que ja foi feito (R4-R6 + fixes manuais):**
+**Fixes aplicados (R4-R7 + manuais):**
 - Grid stack (no absolute positioning)
 - Dead CSS removido (~160 linhas)
 - Anti-flash E66 (CSS + JS pre-hide para S1/S2 children)
-- H2 encurtado, "Insubstituivel" removido, PMIDs adicionados
-- Source-tag: max-width 85%, overflow-wrap, centered
-- Color semantic: danger removido do S0, Von Restorff S1 (only C has bg+border)
-- Ceiling result: neutro (bg-card + border, nao warning/danger)
-- Surgery stats: progressao none → outline → fill+border
+- H2 encurtado, PMIDs adicionados
+- Source-tag: always visible, font-mono, text-muted (consistente com outros slides)
+- Color semantic: danger removido S0, Von Restorff S1 only (scale 1.16, box-shadow)
+- Ceiling result: --danger (bg-danger-light + border)
+- align-items: center no .scores-era-track
+- overflow-y: hidden removido de .scores-era
+- Sidebar: CTP A(5) + LSM visivel ('—') + complications (VE, HDA, Ascite, HE, HCC)
 
-**O que FALTA (Lucas insatisfeito com cores S0):**
-- S0 ainda tem repeticao de cores (amber em nodes + kappa + ceiling area)
-- Hierarquia visual nao esta clara — olho nao sabe onde ir primeiro
-- Lucas quer entrar no loop de cor antes de re-rodar QA
-- Gate 4 prompt agora atualizado com MUST checks para cor semantica + motion (commit `636e78f`)
+**O que FALTA:**
+- S0 cores insatisfatorias (Lucas < 3/10) — hierarquia visual fraca
+- Screenshots desatualizados (sidebar mudou: LSM + complications adicionados)
+- Gate 4 R8 com prompt v2.2 (nao rodado ainda)
 
-**Sequencia proposta:**
-1. Lucas ajusta cores ao vivo (ou co-design com Gemini MCP)
-2. Recapturar screenshots
-3. Gate 0 → Gate 2 → Gate 4 R7 com prompt melhorado
-4. Se score > 8.5 → DONE*
+**Prompts atualizados:**
+- Gate 4 v2.2: §1D per-state composition, §1E cross-state consistency, M6 clipping, M7 layout shift
+- Gate 2 v1.1: C6 cross-state, C7 per-state, S1 blind spot explicito
+
+**Sequencia:**
+1. `npm run dev` (port 4100)
+2. Recapturar: `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
+3. Gate 0: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --inspect`
+4. Gate 2 conversacional (sharp + a11y)
+5. Gate 4 R8: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 8`
+6. Lucas aprova → fixes → recapturar → loop ate PASS
 
 ### Historico de rounds
 
@@ -60,42 +67,36 @@
 | R2 | 7.7 | Stub removido, autoAlpha |
 | R3 | 8.3 | Source-tag, color semantics, guideline font |
 | R4 | 8.3 | Dead CSS, padding, source-tag failsafe |
-| R5 | 7.5 | Parcial — dead CSS, failsafes, padding restaurado |
+| R5 | 7.5 | Parcial — dead CSS, failsafes |
 | R6 | 7.7 | Grid stack, kappa fix, cor semantica |
+| R7 | 8.6 | CSS P1-P4, source-tag always visible, Von Restorff enhanced |
 
-Gate 0: PASS (state machine exempted).
-Gate 2: PASS (0 MUST FAIL).
+Gate 0: PASS.
+Gate 2: PASS (v1.1 pronta, nao re-rodada).
 
 ---
 
 ## Prioridade 2: s-a1-meld → s-cp1
 
-Sequencia Act 1. s-cp1 tem narrativeCritical=true (cascata LSM 26 kPa).
-**s-cp1 requer aprovacao Lucas** — H2 e LSM desatualizados (21→26 kPa).
+Research completo para ambos (evidence-db atualizado):
+- s-a1-meld: 9 rows, 17 PMIDs (MELD derivation, MELD-Na, MELD 3.0, Brazil, sex bias, sarcopenia)
+- s-cp1: 4 rows, 11 PMIDs (Baveno VII, PREDESCI, alcohol LSM overestimation, carvedilol)
 
----
+s-cp1 tem narrativeCritical=true. Cascata LSM 26 kPa ja resolvida em todas 9 superficies.
 
-## Prioridade 3: Research pipeline com MCPs
-
-Workflow dual-channel:
-1. `node content-research.mjs --slide {id}` (Gemini, v3 com Tier-1 list)
-2. Claude MCPs: SCite → PubMed → Consensus → Gemini deep-research
-3. Cross-validation checklist (10 criterios)
+**Sidebar evolui paulatinamente:** dados e complicacoes entram progressivamente no panel card. Cada slide adiciona conceito novo ao sidebar — nao customizado por slide, mas sim narrativamente progressivo.
 
 ---
 
 ## Erros recentes relevantes
 
-- **E066** (HIGH): FOUC intra-slide — era children flash antes de postAnim. Fix: CSS anti-flash + JS pre-hide. Regra em slide-rules.md §5.
-- **E067** (HIGH, PENDENTE): Gate 4 cego a motion + cor semantica. Fix: prompt atualizado com MUST checks. Validar no proximo R7.
+- **E066** (HIGH, RESOLVIDO): FOUC intra-slide — era children flash antes de postAnim. Fix: CSS anti-flash + JS pre-hide.
+- **E067** (HIGH, MITIGADO): Gate 4 cego a motion + cor semantica. Fix: prompt v2.2 com §1D, §1E, M6, M7. Validar no R8.
 
 ---
 
-## Prompt improvements (2026-03-31, commit `636e78f`)
+## Infra
 
-### Gate 4 (`gemini-gate4-editorial.md` + `gemini-qa3.mjs`)
-- **Dimensao 2 (cor):** 5 MUST checks — danger=clinico only, Von Restorff diluicao, arco entre estados
-- **Dimensao 4 (motion):** 4 MUST checks via video — FOUC/flash, full-slide transitions, stagger, countUp
-- **Animation Part B:** pontos 6 (cor semantica) e 7 (hierarquia) por transicao
-- **Impressao:** auditoria de hierarquia (eye path) por estado
-- **Scoring:** cor sem arco cross-state = max 6/10. Motion sem video = max 5/10.
+- **guard-product-files:** SUPRIMIDO (echo stub em settings.json). RE-HABILITAR apos sprint.
+- **Sprint mode:** `SPRINT_MODE=1` disponivel para hooks.
+- **GEMINI_API_KEY:** OK. **PERPLEXITY_API_KEY:** ausente.

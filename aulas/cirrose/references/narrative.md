@@ -10,12 +10,12 @@
 
 Masterclass segue o **Sparkline de Duarte**: alternância contínua entre
 "o que é" (realidade clínica) e "o que poderia ser" (ação que muda desfecho).
-O paciente-caso (Seu Antônio) é o fio condutor — sua trajetória clínica
+O paciente-caso (Antônio) é o fio condutor — sua trajetória clínica
 acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperança.
 
 **Subtítulo programático:** *Classificar · Intervir · Reverter*
 
-## Personagem-caso: Seu Antônio
+## Personagem-caso: Antônio
 
 > **DADOS CANÔNICOS — ver CASE.md** (este arquivo contém apenas contexto narrativo)
 
@@ -62,8 +62,8 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 6 | s-a1-elasto | Fibroscan, MRE e outros métodos não invasivos | Apreciação crítica do laudo: 4 confounders (ALT, pós-prandial, ICC, colestase) → MASLD gap (PPV 90→63%) → MRE escape. | ●●○○○ |
 | 7 | s-a1-rule5 | Rule of Five | Rule of 5: holofote ≥25 kPa, conduta acionável por faixa | ●●○○○ |
 | 8 | s-a1-cpt | Child-Pugh-Turcotte: aspectos históricos, limitações e uso atual | **Setup**: CTP 1964→1973, limitações, uso atual apesar do MELD | ●●○○○ |
-| 9 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
-| 10 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
+| 9 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Antônio (~10) | ●●○○○ |
+| 10 | s-cp1 | LSM 26 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
 
 - **Panel:** neutral → caution (no CP1)
 - **Arc:** Rastreio → classificação → FIB-4 aplicado → ferramentas → checkpoint. Audiência segura — "sei classificar".
@@ -185,7 +185,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 
 ```
 s-hook    → neutral   (apresentação: ver CASE.md — baseline labs)
-s-cp1     → caution   (LSM 21 kPa · MELD ~10 · cACLD→CSPH)
+s-cp1     → caution   (LSM 26 kPa · MELD ~10 · CSPH confirmado)
 s-a2-01   → caution   (MELD 12 — piora basal, etilismo + não-adesão)
 s-a2-02   → warning   (MELD 14 — 1ª descompensação: ascite. Tag +Ascite)
 s-a2-05   → warning   (MELD 17 — PBE. Tag +PBE. Cr 1,4)
@@ -212,7 +212,7 @@ Ex: s-a2-03 e s-a2-04 herdam `warning` (herdado de s-a2-02).
 4. **Chekhov's Guns ativos:**
    - "Caminhoneiro" → encefalopatia (A2-08) impede ele de trabalhar
    - "ATTIRE" → contraste: albumina funciona em PBE (A2-05) e LVP (A2-03), não funciona rotineiramente em ACLF (A2-11)
-   - "LSM 32→18" → recompensação (s-cp3) é o arco completo do Seu Antônio
+   - "LSM 32→18" → recompensação (s-cp3) é o arco completo do Antônio
    - "Carvedilol abandonado" → HDA (A2-06): se nunca tivesse parado, não estaria sangrando
 5. **Cinematic blackouts** (planejados, não implementados): slides navy puro com 1 pergunta, zero UI. Candidatos: antes de cada checkpoint.
 6. **Dados clínicos são sagrados.** Antes de refatorar qualquer slide com NNT, HR, ou p-value, executar `grep "s-{id}" references/evidence-db.md` e verificar PMID. Nunca arredondar, inventar, ou omitir IC 95%.

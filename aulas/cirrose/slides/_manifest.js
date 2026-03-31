@@ -31,7 +31,7 @@ export const slides = [
   { id: 's-a1-rule5', file: '03d-a1-rule5.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Rule of Five', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-rule5', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-cpt', file: '02b-a1-cpt.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Child-Pugh-Turcotte: aspectos históricos, limitações e uso atual', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-cpt', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-meld', file: '04-a1-meld.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'MELD-Na estratifica urgência: cada faixa muda a conduta', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-meld', timing: 150, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
-  { id: 's-cp1', file: '07-cp1.html', act: 'CP', archetype: 'checkpoint', sectionTag: null, headline: 'LSM 21 kPa, plaquetas 112k. Como você estadia?', panelState: 'caution', clickReveals: 3, customAnim: null, timing: 180, narrativeRole: 'checkpoint', tensionLevel: 3, narrativeCritical: true },
+  { id: 's-cp1', file: '07-cp1.html', act: 'CP', archetype: 'checkpoint', sectionTag: null, headline: 'LSM 26 kPa, plaquetas 112k. Como você estadia?', panelState: 'caution', clickReveals: 3, customAnim: null, timing: 180, narrativeRole: 'checkpoint', tensionLevel: 3, narrativeCritical: true },
 
   // ── Act 2: INTERVIR (16 slides + CP2) ──
   // panelState: null = herda último estado registrado (case-panel.js findLatestState)
@@ -106,14 +106,20 @@ export const panelStates = {
   },
   's-a1-rule5': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '—', meld: '—', stage: '?' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '26 kPa', meld: '—', stage: '?' },
     visibleFields: ['fib4', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR', 'lsm'],
+    events: [],
+  },
+  's-a1-cpt': {
+    severity: 'neutral',
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '26 kPa', CTP: 'A (5)', meld: '—', stage: '?', VE: '—', HDA: '—', Ascite: '—', HE: '—', HCC: '—' },
+    visibleFields: ['CTP', 'fib4', 'lsm', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR', 'VE', 'HDA', 'Ascite', 'HE', 'HCC'],
     events: [],
   },
   's-a1-meld': {
     severity: 'neutral',
-    values: { fib4: '5,91', lsm: '—', plq: '112k', meld: '—', albumin: '3,6', stage: '?' },
-    visibleFields: ['fib4', 'lsm', 'plq', 'meld', 'albumin', 'stage'],
+    values: { fib4: '5,91', lsm: '26 kPa', plq: '112k', CTP: 'A (5)', meld: '—', albumin: '3,6', stage: '?', VE: '—', HDA: '—', Ascite: '—', HE: '—', HCC: '—' },
+    visibleFields: ['fib4', 'lsm', 'plq', 'CTP', 'meld', 'albumin', 'stage', 'VE', 'HDA', 'Ascite', 'HE', 'HCC'],
     events: [],
     calc: 'meld',
   },
@@ -135,7 +141,7 @@ export const panelStates = {
   // Apenas transições significativas são registradas aqui.
   's-a2-01': {
     severity: 'caution',
-    values: { fib4: '5,91', lsm: '21 kPa', plq: '108k', meld: '~12', albumin: '3,4', stage: 'cACLD → gatilho' },
+    values: { fib4: '5,91', lsm: '26 kPa', plq: '108k', meld: '~12', albumin: '3,4', stage: 'cACLD → gatilho' },
     events: ['Etilismo mantido', 'Carvedilol abandonado'],
   },
   's-a2-02': {

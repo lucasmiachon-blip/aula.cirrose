@@ -205,7 +205,15 @@
 | s-a1-fib4 | FIB-3: age-independent, superior ao FIB-4 em >=60a | Hep Res 2024, n=1398 |
 | s-a1-fib4 | 79% dos FIB-4 "alto risco" NAO sao alto risco por LSM (pop. geral) | NHANES CGH 2024 |
 | s-a1-fib4 | EASL pathway: sens apenas 27,7% p/ LSM>=8 em pop. geral | Aliment Pharmacol Ther 2024 |
-| s-a1-meld | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
+| s-a1-meld | MELD derivacao: TIPS 2000, validacao ESLD 2001, UNOS 2002. c-stat 0,83 (n=3437) | Malinchoc 2000 (PMID 10733541) + Kamath 2001 (PMID 11172350) + Wiesner 2003 (PMID 12512033) |
+| s-a1-meld | MELD-Na: +Na (125-140). HR 1,05/mEq/L. Adotado UNOS jan 2016 | Kim 2008 NEJM (PMID 18768945) + Biggins 2006 (PMID 16697729) |
+| s-a1-meld | MELD 3.0: +albumina, +sexo (+1,33 fem), Cr cap 3,0. c-stat 0,869 vs 0,862. 8,8% reclassificados. OPTN jul 2023 | Kim 2021 (PMID 34481845) |
+| s-a1-meld | Brasil: MELD original (Portaria 1160/2006). MELD 3.0 NAO adotado (mar 2026). SP MELD otimo=26 (n=22522) | Chaib 2023 (PMID 37729279) |
+| s-a1-meld | MELD >40: 30d mort 58% (40-44), 82% (≥50). Cap em 40 perde discriminacao | Tarlow 2022 (PMID 36052665) |
+| s-a1-meld | Vies sexo: TODAS 4 variaveis MELD-Na desfavorecem mulheres (n=623931) | Sealock 2022 JAMA Surg (PMID 35583884) |
+| s-a1-meld | GEMA-Na: Hc 0,753 vs MELD 3.0 0,726 (P=.001). Supera em TODAS validacoes externas. Nao adotado | Rodriguez-Peralvarez 2024 (PMID 39114271) |
+| s-a1-meld | ACLF: CLIF-C ACLF > MELD em todos timepoints (19-28% menos erro). MELD subestima mortalidade ACLF | Jalan 2014 (PMID 24950482) |
+| s-a1-meld | Sarcopenia: RR 1,84 (1,41-2,39) pos-TX. MELD nao captura frailty/sarcopenia | Markakis 2025 meta-analise (PMID 39876624) |
 | s-a2-04 | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
 | s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
 | s-a1-classify | Mortalidade por estagio D'Amico + further decomp. PREDESCI callout removido (movido p/ baveno 26/mar) | D'Amico 2006 (PMID 16298014) |
@@ -252,7 +260,15 @@
 | s-app-07 | Estatina adjuvante: HVPG -2 mmHg | LIVERHOPE (PMID [CANDIDATE — VERIFICAR VIA MCP]) |
 | s-app-08 | CIRROXABAN 2025: p=0,058 NS | CIRROXABAN (PMID [NOT INDEXED — searched 2026-03-07]) |
 
-> **Slides sem row intencional:** s-title (display-only), s-hook (labs de CASE.md, sem clinical assertion propria), s-cp1/s-cp2/s-cp3 (checkpoints interativos, dados cumulativos do caso), s-close (fechamento narrativo). Esses slides nao projetam dados clinicos novos — conferir CASE.md para valores baseline.
+> **Slides sem row intencional:** s-title (display-only), s-hook (labs de CASE.md, sem clinical assertion propria), s-cp2/s-cp3 (checkpoints interativos, dados cumulativos do caso), s-close (fechamento narrativo). Esses slides nao projetam dados clinicos novos — conferir CASE.md para valores baseline.
+> **s-cp1 tem rows:** checkpoint com decisao clinica baseada em evidencia (Baveno VII, PREDESCI).
+
+| Slide | Assertion / Dado | Fonte |
+|-------|-----------------|-------|
+| s-cp1 | Antonio LSM 26 kPa → CSPH confirmado (s-a1-baveno rule-in). Conduta: NSBB + dispensar EDA (Baveno VII 5.15/5.17) | Baveno VII (PMID 35120736). Criterios base → s-a1-elasto, s-a1-baveno |
+| s-cp1 | PREDESCI: HR 0,51 (IC 0,26-0,97). NNT 9 em 37 meses. Beneficio dirigido por ascite HR 0,44 (IC 0,20-0,97) | PREDESCI (PMID 30910320) |
+| s-cp1 | Alcool ativo superestima LSM ~2,6 kPa. Medir apos ≥2 sem abstinencia | Gianni 2017 (PMID 27542989) + Legros 2022 (PMID 33588101) |
+| s-cp1 | Carvedilol dose-alvo 12,5 mg/dia. Iniciar 6,25 mg/dia. PAS >90, FC >50 | Turco 2023 (PMID 36897563) + AASLD 2024 (PMID 37870298) |
 > **IDs corrigidos 29/mar/2026:** 6 rows renomeados (s-a2-01→07, s-a2-02→15, s-a2-03→app-alb, s-a2-04→05, s-a2-05→11, s-a2-06→08) + 8 rows adicionados (s-a1-cpt, s-a2-01/02/03/06/09/10/12) apos rewrite Ato 2 em 08/mar.
 
 ## Screening cACLD — Rastreamento Primario

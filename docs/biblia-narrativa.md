@@ -7,7 +7,7 @@
 
 ## Índice
 
-- [O Arco do Seu Antônio](#o-arco-do-seu-antônio)
+- [O Arco do Antônio](#o-arco-do-seu-antônio)
 - [Ato 1 — Classificar (slides 1-8)](#ato-1--classificar-slides-1-8)
 - [Ato 2 — Intervir (slides 9-15)](#ato-2--intervir-slides-9-15)
 - [Ato 3 — Reverter (slides 16-20)](#ato-3--reverter-slides-16-20)
@@ -22,7 +22,7 @@
 # O ARCO DO SEU ANTÔNIO
 
 ## Quem é ele
-Seu Antônio, 55 anos, motorista de caminhão, Ribeirão Preto. Etiologia dupla: álcool (~60g/dia há 20 anos) + MASLD (DM2, IMC 32, dislipidemia). Isso é **MetALD** pela nomenclatura nova — overlap álcool + metabólica. FIB-4 calculado na UBS: 3,2. Encaminhado pro hepatologista. Chegou assintomático, enzimas "normais" (ALT 38, AST 52 — AST>ALT = pista alcoólica). Nunca fez endoscopia nem elastografia.
+Antônio, 55 anos, motorista de caminhão, Ribeirão Preto. Etiologia dupla: álcool (~60g/dia há 20 anos) + MASLD (DM2, IMC 32, dislipidemia). Isso é **MetALD** pela nomenclatura nova — overlap álcool + metabólica. FIB-4 calculado na UBS: 3,2. Encaminhado pro hepatologista. Chegou assintomático, enzimas "normais" (ALT 38, AST 52 — AST>ALT = pista alcoólica). Nunca fez endoscopia nem elastografia.
 
 ## Por que ele é perfeito como caso condutor
 **MetALD** = a epidemia real no Brasil (álcool + síndrome metabólica juntos). **Motorista** = implicações práticas (encefalopatia + direção = risco real). **Assintomático** = representa o paciente que você vai descobrir pelo FIB-4 na atenção primária. **Dois fatores reversíveis** = abstinência + perda de peso → pode recompensar (arco de esperança).
@@ -59,7 +59,7 @@ Seu Antônio, 55 anos, motorista de caminhão, Ribeirão Preto. Etiologia dupla:
 
 **Nuance:** "O laboratório disse normal. O FIB-4 disse alerta. Quem você acredita? O FIB-4 usa as mesmas enzimas que o laboratório — só organiza diferente."
 
-## HOOK — Caso Clínico: Seu Antônio
+## HOOK — Caso Clínico: Antônio
 **Pérolas:**
 - PNPLA3 é variante genética COMPARTILHADA entre álcool e MASLD → overlap é biológico (ALD [PNPLA3])
 - Threshold álcool: 50g mulher / 60g homem = excessivo. Antônio ~60g = no corte (MASLD [01:38])

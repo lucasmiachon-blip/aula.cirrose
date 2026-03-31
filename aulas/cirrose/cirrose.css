@@ -2154,11 +2154,10 @@ section#s-a1-01 .slide-inner {
   display: grid;
   grid-template-areas: "stack";
   flex: 1;
-  align-items: start;
+  align-items: center;
 }
 .scores-era {
   grid-area: stack;
-  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
@@ -2292,9 +2291,9 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--text-primary);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  color: var(--danger);
+  background: var(--danger-light);
+  border: 1px solid var(--danger);
   padding: 4px 12px;
   border-radius: 4px;
 }
@@ -2390,13 +2389,13 @@ section#s-a1-01 .slide-inner {
 
 /* Source-tag: hidden via CSS (not inline), GSAP reveals with autoAlpha */
 #s-a1-cpt .source-tag {
-  visibility: hidden;
-  opacity: 0;
   white-space: normal;
   overflow-wrap: anywhere;
   max-width: 85%;
   margin: 0 auto;
   text-align: center;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
 }
 .stage-bad #s-a1-cpt .source-tag,
 .no-js #s-a1-cpt .source-tag {

@@ -3,7 +3,7 @@
 > Protocolo conversacional. Claude Opus executa usando MCP tools (sharp, a11y).
 > Custo: $0 (Max subscription). Roda APOS Gate 0, ANTES de Gate 4.
 > MUST failures bloqueiam Gate 4 (nao gastar Gemini API em slide com defeito mensuravel).
-> Criado: 2026-03-30.
+> Criado: 2026-03-30. v1.1: 2026-03-31 (cross-state consistency, S1 blind spot).
 
 ---
 
@@ -169,6 +169,34 @@ Opus olha o PNG e avalia o que instrumentos nao pegam.
 - S2 tem todos elementos esperados apos click-reveals?
 - Source-tag visivel e legivel em S2?
 - Sem overlap acidental entre estados?
+
+### C6. Consistencia cross-state (NOVO v1.1)
+
+Para slides multi-estado (data-era, click-reveal):
+
+**Elementos persistentes:** Verificar no CSS/JS se estes elementos sao visiveis em TODOS os estados:
+- source-tag: CSS visibility/opacity? GSAP controla autoAlpha? Em qual estado aparece?
+- section-tag (ATO N): posicao fixa ou move entre estados?
+- h2: sempre visivel?
+- sidebar panel: estado muda entre eras?
+
+**Clipping potencial:** Verificar no CSS se `.scores-era` ou container similar tem `overflow: hidden`. Se sim, e conteudo de alguma era pode exceder o container (calcular baseado em font-size + padding + gap), marcar como SHOULD.
+
+**Ponto cego S1:** Gate 2 so tem PNGs de S0 e S2. Estados intermediarios (S1, etc.) so sao visiveis no video (Gate 4). Listar explicitamente o que NAO pode verificar:
+```
+PONTO CEGO: S1 nao verificado (sem PNG). Depende de Gate 4 (video).
+Elementos em S1 que precisam atencao do Gate 4: [listar baseado no HTML]
+```
+
+### C7. Composicao per-state (NOVO v1.1)
+
+Para CADA estado com PNG disponivel (S0, S2):
+- Fill ratio: visualmente, quanto da area util o conteudo ocupa?
+- Hierarquia: caminho do olho claro?
+- Respiro: equilibrado ou vazio excessivo?
+- Nota: __/10
+
+**Flag:** Se S0 ou S2 tem composicao <=5, marcar como SHOULD com descricao do problema.
 
 ---
 

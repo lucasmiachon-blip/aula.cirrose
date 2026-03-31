@@ -439,8 +439,8 @@ export const customAnimations = {
       // Von Restorff: scale C stat after countUp
       const cStat = slide.querySelector('.cpt-surgery-stat--danger');
       if (cStat) {
-        gsap.to(cStat, { scale: 1.12, duration: 0.5, delay: 1.2, ease: 'power2.out' });
-        gsap.to(cStat, { scale: 1, duration: 0.4, delay: 2, ease: 'power2.inOut' });
+        gsap.to(cStat, { scale: 1.16, boxShadow: '0 8px 24px oklch(0.65 0.15 25 / 0.4)', duration: 0.5, delay: 1.2, ease: 'power2.out' });
+        gsap.to(cStat, { scale: 1, boxShadow: 'none', duration: 0.4, delay: 2.5, ease: 'power2.inOut' });
       }
     }
 
@@ -448,7 +448,6 @@ export const customAnimations = {
       const cards = slide.querySelectorAll('.cpt-guideline-card');
       gsap.set(cards, { opacity: 0, y: 12 });
       gsap.to(cards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, delay: 0.1, ease: 'power3.out' });
-      if (sourceTag) gsap.to(sourceTag, { autoAlpha: 1, duration: 0.4, delay: 0.8 });
     }
 
     function advance() {
@@ -472,9 +471,6 @@ export const customAnimations = {
 
     function retreat() {
       if (busy || state <= 0) return false;
-      if (state === 2 && sourceTag) {
-        gsap.to(sourceTag, { autoAlpha: 0, duration: 0.2 });
-      }
       if (state === 1) {
         // Reset countUp values and Von Restorff scale
         slide.querySelectorAll('.cpt-surgery-pct[data-target]').forEach(el => {

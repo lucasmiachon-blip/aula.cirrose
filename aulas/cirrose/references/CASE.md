@@ -1,10 +1,10 @@
-# CASE.md — Caso Clínico: Seu Antônio
+# CASE.md — Caso Clínico: Antônio
 > Source of truth único para dados do paciente. NUNCA duplicar em outros arquivos.
 > Atualizado: 2026-03-09 | Branch: main
 
 ## Identificação
 
-- Nome: Antônio ("Seu Antônio")
+- Nome: Antônio ("Antônio")
 - Idade: 55 anos
 - Profissão: Caminhoneiro
 - IMC: 31

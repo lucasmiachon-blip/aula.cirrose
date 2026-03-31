@@ -130,7 +130,7 @@ align-content: start;
     <h2>Pergunta clínica provocativa?</h2>
     <div class="checkpoint-layout">
       <div class="case-expanded">
-        <h3>📋 Seu Antônio — Estado Atual</h3>
+        <h3>📋 Antônio — Estado Atual</h3>
         <div class="case-data">
           <div class="data-item">
             <span class="data-label">{param}</span>
