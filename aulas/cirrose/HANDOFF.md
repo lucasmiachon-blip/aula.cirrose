@@ -5,16 +5,16 @@
 
 ---
 
-## Estado — 2026-03-31T00:30-03:00
+## Estado — 2026-03-31T22:05-03:00
 
-**Ultima sessao:** Revisao completa de scripts QA + prompts + research pipeline. 10 mudancas em 5 arquivos (commit `3e03eb6`). Scripts e prompts prontos para re-rodar QA no s-a1-cpt R4.
+**Ultima sessao:** QA s-a1-cpt R6 fixes — grid stack, color semantics, anti-flash intra-slide (E66), surgery stat Von Restorff, source-tag PMIDs. Gate 4 prompt pendente: Gemini cego a motion/cor (E67).
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m. `--text-caption` clamp(11px) no limite a 6m. Source-tags ponto critico de legibilidade.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
-**Branch:** `feat/cirrose-mvp` · Commit `3e03eb6`.
+**Branch:** `feat/cirrose-mvp`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
-**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03).
-**QA scripts (v2 — 2026-03-30):** extractSlideCSS multi-section, extractArchetypeCSS filtrado, auto --ref-slide. Prompts Gate 0/4 melhorados (dead CSS scoping, cross-slide, color semantics, state machine).
+**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). **PENDENTE:** Gate 4 prompt precisa avaliar motion (video) + cor semantica (E67).
+**QA scripts (v2 — 2026-03-30):** extractSlideCSS multi-section, extractArchetypeCSS filtrado, auto --ref-slide.
 **Research scripts (v3):** content-research.mjs com SOURCE PRIORITY, Tier-1 list, PMID verification. Claude MCP protocol documentado (SCite→PubMed→Consensus→Gemini).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M).
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
@@ -34,8 +34,8 @@
 | 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Aprovado 27/mar. |
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
-| 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. |
-| 9 | s-a1-cpt | QA | Gate 4 R3 8.3/10. Fixes: autoAlpha, color semantics, kappa h3, source-tag CSS, guideline font-body. Pendente: dead CSS cleanup (~80 linhas orfas), R4 pos revisao de scripts. |
+| 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
+| 9 | s-a1-cpt | QA | Gate 4 R6 7.7/10. Fixes R4-R6: grid stack (no absolute), color semantic (danger→warning/neutral S0, Von Restorff S1 only), anti-flash E66, dead CSS -160L, source-tag PMIDs, H2 encurtado. **PENDENTE:** cores S0 ainda insatisfatorias (Lucas), Gate 4 prompt cego a motion+cor (E67). |
 | 10 | s-a1-meld | CONTENT | Act 1 restante. |
 | 11 | s-cp1 | CONTENT | **ATENCAO:** H2 e lsm desatualizados (21→26 kPa). narrativeCritical=true. |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
@@ -43,7 +43,7 @@
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
 **Resumo:** 8 DONE* · 1 QA · 0 DRAFT · 35 CONTENT (44 total)
-**Proximo:** Re-rodar QA s-a1-cpt R4 com scripts melhorados. Depois: s-a1-meld, s-cp1 (cascata LSM 26 kPa).
+**Proximo:** Melhorar prompt Gate 4 (motion + cor semantica, E67) → re-rodar QA s-a1-cpt. Depois: s-a1-meld, s-cp1 (cascata LSM 26 kPa).
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 

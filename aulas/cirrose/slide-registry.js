@@ -410,6 +410,10 @@ export const customAnimations = {
     if (ceiling) gsap.set(ceiling, { opacity: 0, y: 6 });
     if (ceilingResult) gsap.set(ceilingResult, { opacity: 0 });
 
+    // Pre-hide S1/S2 children — prevents flash when era fades in before postAnim fires
+    gsap.set(slide.querySelectorAll('.cpt-surgery-stat'), { opacity: 0, y: 12 });
+    gsap.set(slide.querySelectorAll('.cpt-guideline-card'), { opacity: 0, y: 12 });
+
     // Nodes stagger
     gsap.to(nodes, { opacity: 1, y: 0, duration: 0.35, stagger: 0.1, delay: 0.3, ease: 'power2.out' });
     // Kappa callout after nodes
@@ -451,6 +455,13 @@ export const customAnimations = {
       if (busy || state >= maxState) return false;
       state++;
       busy = true;
+      // Pre-hide incoming era children before fade-in (prevents content flash)
+      if (state === 1) {
+        gsap.set(slide.querySelectorAll('.cpt-surgery-stat'), { opacity: 0, y: 12 });
+        slide.querySelectorAll('.cpt-surgery-pct[data-target]').forEach(el => { el.textContent = '0'; });
+      } else if (state === 2) {
+        gsap.set(slide.querySelectorAll('.cpt-guideline-card'), { opacity: 0, y: 12 });
+      }
       const postAnim = state === 1 ? runS1Anims : state === 2 ? runS2Anims : null;
       showEra(state, () => {
         busy = false;

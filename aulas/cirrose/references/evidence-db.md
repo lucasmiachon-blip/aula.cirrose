@@ -221,7 +221,7 @@
 | s-a1-elasto | XL probe cutoff F avancada: M=12,0 vs XL=10,7 kPa | EASL NITs 2021 (PMID 34166721) |
 | s-a1-elasto | SSM Cochrane 2026: sensibilidade 72,9% a especificidade 90% para CSPH | Vranic 2026 (PMID 41498616) |
 | s-a1-elasto | Esteatose severa (S3): discordancia >=2 estagios em 38,6% | Losurdo 2025 (PMID 40807038) |
-| s-a1-cpt | CTP historia 1964→1973, limitacoes (kappa 0,41, ceiling, sem Cr), uso atual (cirurgia A10%/B30%/C75%, TIPS preemptivo, recompensacao) | Pugh 1973 (PMID 4541913) + Durand & Valla 2005 (DOI 10.1016/j.jhep.2004.11.015) + Baveno VII (PMID 35120736) |
+| s-a1-cpt | CTP historia 1964→1973, limitacoes (kappa 0,41, ceiling, sem Cr), uso atual (cirurgia A10%/B30%/C75%, TIPS preemptivo, recompensacao) | Pugh 1973 (PMID 4541913) + Durand & Valla 2005 (PMID 15777564) + Baveno VII (PMID 35120736) + AASLD 2024 (PMID 37870298) |
 | s-a1-baveno | Paradigma cACLD/dACLD + PREDESCI HR 0,51 (IC 0,26-0,97) descomp 3a | Baveno VII (PMID 35120736) + PREDESCI (PMID 30910320) |
 | s-a2-01 | Gatilhos descomp: infeccao (33%), alcool, nao-adesao | PREDICT (PMID 32673741) + EASL CPG 2024 |
 | s-a2-02 | Ascite DX: GASA >1,1 confirma hipertensao portal | EASL CPG 2024 |

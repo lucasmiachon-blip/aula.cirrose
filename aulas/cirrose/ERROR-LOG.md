@@ -166,7 +166,30 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra:** Containers animados DEVEM ter `opacity: 0` no CSS base. GSAP revela com `set(container, { opacity: 1 })`. `animate()` DEVE rodar no primeiro evento de navegacao, nao apos transicao.
 **Status:** ✅ Corrigido (2026-03-30). Afeta TODOS os slides com custom animations.
 
-*Ultima atualizacao: 2026-03-30 · 65 erros registrados, 65 fechados (62 corrigidos, 2 processo, 1 workaround), 0 pendentes.*
+### ERRO-066 · HIGH · global (FOUC intra-slide — era children flash)
+**Children de eras stacked ficam visiveis por ~0.45s ao trocar de era (showEra fade-in completa antes de postAnim esconder filhos)**
+**Root cause:** `showEra(idx)` faz `gsap.to(era, { autoAlpha: 1 })`. O `onComplete` callback chama `runS*Anims()` que faz `gsap.set(children, { opacity: 0 })` + animacao. Entre autoAlpha atingir ~0.1 e onComplete, filhos ficam visiveis no estado HTML cru — flash perceptivel.
+**Root cause 2:** CSS nao tinha `opacity: 0` para filhos de eras S1/S2 (surgery-stats, guideline-cards). Apenas S0 tinha anti-flash.
+**Relacao com ERRO-065:** 065 = FOUC cross-slide (slide:entered vs slide:changed). 066 = FOUC intra-slide (era transition children).
+**Fixes (3):**
+1. CSS: Todos os filhos animados de TODAS as eras recebem `opacity: 0` no CSS base (anti-flash).
+2. JS init: `gsap.set()` pre-esconde filhos de eras futuras (S1, S2) no momento do init.
+3. JS advance: `gsap.set()` re-esconde filhos ANTES de `showEra()`, nao depois no callback.
+**Regra derivada:** §5 slide-rules.md — "Anti-flash intra-slide". TODO filho animado de era stacked DEVE ter `opacity: 0` no CSS + `gsap.set({opacity:0})` no init + re-hide no advance() ANTES do showEra().
+**Status:** ✅ Corrigido em s-a1-cpt (2026-03-31). Verificar outros slides com era stacking.
+
+### ERRO-067 · HIGH · processo (Gate 4 cego a motion e cor semantica)
+**Gate 4 (Gemini) e Gate 2 (Opus) falham em avaliar: (a) video/motion design, (b) hierarquia de cor semantica clinica**
+**Root cause:** Prompt Gate 4 envia video .webm mas nao instrui Gemini a analisar motion (timing, flash, stagger, easing). Prompt inclui tabela de cores mas sem criterios de avaliacao (e.g., --danger so para risco clinico real, progressao safe→warning→danger). Opus (Gate 2) tambem nao flaggou --danger no ceiling (flaw, nao perigo clinico).
+**Root cause 2:** Sem criterio explicito, ambos os modelos tratam cor como decoracao, nao como linguagem clinica.
+**Fixes:**
+1. Gate 4 prompt: adicionar secao explicita de avaliacao de motion design (timing, flash, stagger quality, era transitions).
+2. Gate 4 prompt: adicionar criterios de avaliacao de cor semantica (--danger = intervir agora, --warning = investigar, NUNCA misturar).
+3. Gate 2 protocolo: adicionar verificacao de cor semantica como MUST check.
+**Regra derivada:** Prompts QA DEVEM incluir criterios explicitos de avaliacao para motion e cor semantica. Modelo sem criterio = modelo cego.
+**Status:** PENDENTE — fixes de prompt a implementar.
+
+*Ultima atualizacao: 2026-03-31 · 67 erros registrados, 66 fechados (63 corrigidos, 2 processo, 1 workaround), 1 pendente.*
 
 ---
 
@@ -174,9 +197,9 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
-| CRITICAL   | 8     | 8          | 0 |
-| HIGH       | 30    | 30         | 0 |
+| CRITICAL   | 9     | 9          | 0 |
+| HIGH       | 32    | 31         | 1 |
 | MEDIUM     | 20    | 20         | 0 |
 | LOW        | 3     | 3          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **64**| **64**     | **0** |
+| **Total**  | **67**| **66**     | **1** |

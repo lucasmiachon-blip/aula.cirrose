@@ -2150,16 +2150,14 @@ section#s-a1-01 .slide-inner {
   gap: 0.5rem;
 }
 #s-a1-cpt .scores-era { gap: 4px; }
-#s-a1-cpt .scores-ctp-classes,
-#s-a1-cpt .scores-era-tag { margin-top: 0; }
 .scores-era-track {
-  position: relative;
+  display: grid;
+  grid-template-areas: "stack";
   flex: 1;
-  min-height: 240px;
+  align-items: start;
 }
 .scores-era {
-  position: absolute;
-  inset: 0;
+  grid-area: stack;
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
@@ -2171,15 +2169,12 @@ section#s-a1-01 .slide-inner {
 /* Plan B + no-js: all eras visible, stacked */
 .stage-bad .scores-era-track,
 .no-js .scores-era-track {
-  position: static;
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  min-height: unset;
 }
 .stage-bad .scores-era,
 .no-js .scores-era {
-  position: static;
   opacity: 1 !important;
   visibility: visible !important;
 }
@@ -2197,172 +2192,12 @@ section#s-a1-01 .slide-inner {
   letter-spacing: 0.04em;
   width: fit-content;
 }
-.scores-era-badge--alert {
-  color: var(--warning-on-light);
-  background: var(--warning-light);
-}
 .scores-era-title {
   font-family: var(--font-display);
   font-size: var(--text-h3);
   color: var(--text-primary);
   margin: 0;
 }
-
-/* Era boxes (Child/CTP criteria) */
-.scores-era-boxes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-}
-.scores-era-box {
-  padding: 4px var(--space-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-}
-.scores-era-box--new {
-  background: var(--ui-accent-light);
-  border-color: var(--ui-accent);
-  color: var(--ui-accent);
-  font-weight: 600;
-}
-.scores-era-box--clinical {
-  background: var(--warning-light);
-  border-color: var(--warning);
-  color: var(--warning-on-light);
-}
-
-/* CTP classes */
-.scores-ctp-classes {
-  display: flex;
-  gap: var(--space-sm);
-  margin-top: var(--space-xs);
-}
-.ctp-class {
-  padding: 2px var(--space-sm);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-  font-weight: 700;
-}
-.ctp-class--a { background: var(--safe-light); color: var(--safe); }
-.ctp-class--b { background: var(--warning-light); color: var(--warning-on-light); }
-.ctp-class--c { background: var(--danger-light); color: var(--danger); }
-
-/* Formula */
-.scores-formula {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-  margin-top: var(--space-xs);
-}
-.formula-term {
-  padding: 3px var(--space-xs);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-}
-.formula-term--new {
-  background: var(--ui-accent-light);
-  border-color: var(--ui-accent);
-  color: var(--ui-accent);
-  font-weight: 600;
-}
-.formula-term--highlight {
-  background: var(--ui-accent-light);
-  border-color: var(--ui-accent);
-  border-radius: var(--radius-sm);
-  padding: 3px var(--space-xs);
-}
-.formula-op {
-  color: var(--text-muted);
-  font-weight: 300;
-}
-
-/* c-statistic display */
-.scores-cstat-block {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-xs);
-  margin-top: var(--space-xs);
-}
-.scores-cstat-label {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-secondary);
-}
-.scores-cstat-value {
-  font-family: var(--font-mono);
-  font-size: var(--text-h2);
-  font-weight: 700;
-  color: var(--ui-accent);
-}
-.scores-cstat-ctx {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-}
-
-/* c-stat comparative (MELD 3.0) */
-.scores-cstat-compare {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-top: var(--space-xs);
-}
-.cstat-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.cstat-label { font-family: var(--font-body); font-size: var(--text-caption); color: var(--text-secondary); }
-.cstat-value { font-family: var(--font-mono); font-size: var(--text-h3); font-weight: 700; color: var(--text-secondary); }
-.cstat-value--new { color: var(--ui-accent); font-size: var(--text-h2); }
-.cstat-vs { font-family: var(--font-body); font-size: var(--text-caption); color: var(--text-muted); }
-
-/* Era labels */
-.scores-era-tag {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-top: var(--space-xs);
-}
-.scores-era-tag--danger { color: var(--danger); font-style: normal; font-weight: 600; }
-.scores-era-limitation {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--warning-on-light);
-  margin-top: var(--space-xs);
-}
-.scores-era-source {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  margin-top: var(--space-xs);
-}
-
-/* Alert box */
-.scores-alert-box {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--warning-light);
-  border: 1px solid var(--warning);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--warning-on-light);
-  font-weight: 600;
-  margin-top: var(--space-xs);
-  width: fit-content;
-}
-
-/* D'Amico legacy classes removed — content in _archive/02b-a1-damico-backup.html */
 
 /* ── s-a1-cpt — Gemini co-design (30/mar/2026) ── */
 
@@ -2390,63 +2225,63 @@ section#s-a1-01 .slide-inner {
 
 /* S0: Kappa callout */
 .cpt-flaw-callout {
-  display: flex;
-  align-items: baseline;
+  display: inline-flex;
+  align-items: center;
   gap: var(--space-xs);
-  margin-top: var(--space-sm);
-  margin-left: 140px; /* Gestalt proximity: alinha sob nós Ascite/EH */
+  margin: var(--space-xs) auto 0;
+  background: var(--warning-light);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--warning);
 }
 .cpt-kappa-label {
   font-family: var(--font-body);
   font-size: var(--text-caption);
-  color: var(--text-secondary);
+  color: var(--warning-on-light);
+  font-weight: 600;
 }
 .cpt-kappa-value {
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--ui-accent);
+  color: var(--warning);
 }
 
-/* S0: Ceiling effect */
+/* S0: Ceiling effect — typography-driven, no chrome */
 .cpt-ceiling {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-top: var(--space-sm);
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid var(--ui-accent);
-  width: fit-content;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: var(--space-md) auto 0;
+  padding: 0;
 }
 .cpt-ceiling-label {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
   color: var(--text-secondary);
-  font-weight: 600;
+  font-weight: 400;
 }
 .cpt-ceiling-compare {
   display: flex;
   align-items: baseline;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
 }
 .cpt-ceiling-low {
   font-family: var(--font-mono);
-  font-size: var(--text-h3);
-  font-weight: 700;
+  font-size: var(--text-h2);
+  font-weight: 400;
   color: var(--text-primary);
 }
 .cpt-ceiling-arrow {
-  font-size: var(--text-body);
+  font-size: var(--text-h3);
   color: var(--text-muted);
 }
 .cpt-ceiling-high {
   font-family: var(--font-mono);
-  font-size: var(--text-h3);
+  font-size: var(--text-h1);
   font-weight: 700;
-  color: var(--ui-accent);
+  color: var(--text-primary);
 }
 .cpt-ceiling-unit {
   font-family: var(--font-body);
@@ -2455,9 +2290,13 @@ section#s-a1-01 .slide-inner {
 }
 .cpt-ceiling-result {
   font-family: var(--font-mono);
-  font-size: var(--text-body);
+  font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--ui-accent);
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 4px;
 }
 
 /* S1: Surgical mortality stats */
@@ -2492,15 +2331,16 @@ section#s-a1-01 .slide-inner {
   font-weight: 700;
 }
 .cpt-surgery-stat--safe {
-  background: var(--safe-light);
   color: var(--safe);
+  border: 1px solid var(--safe);
 }
 .cpt-surgery-stat--warning {
-  background: var(--warning-light);
   color: var(--warning-on-light);
+  border: 1px solid var(--warning);
 }
 .cpt-surgery-stat--danger {
   background: var(--danger-light);
+  border: 2px solid var(--danger);
   color: var(--danger);
 }
 
@@ -2552,6 +2392,11 @@ section#s-a1-01 .slide-inner {
 #s-a1-cpt .source-tag {
   visibility: hidden;
   opacity: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 85%;
+  margin: 0 auto;
+  text-align: center;
 }
 .stage-bad #s-a1-cpt .source-tag,
 .no-js #s-a1-cpt .source-tag {
@@ -2559,58 +2404,21 @@ section#s-a1-01 .slide-inner {
   opacity: 1 !important;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CTP Limitações — Estado 1 do novo 02b
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.scores-limitations {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: var(--space-xs);
+/* Anti-flash: GSAP-animated elements start hidden, GSAP reveals */
+#s-a1-cpt .cpt-node,
+#s-a1-cpt .cpt-flaw-callout,
+#s-a1-cpt .cpt-ceiling,
+#s-a1-cpt .cpt-ceiling-result,
+#s-a1-cpt .cpt-surgery-stat,
+#s-a1-cpt .cpt-guideline-card {
+  opacity: 0;
 }
-.limitation {
-  padding: 4px var(--space-sm);
-  background: var(--warning-light);
-  border-left: 3px solid var(--warning);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  font-weight: 600;
-  color: var(--text-primary);
-}
-.limitation-detail {
-  display: block;
-  font-weight: 400;
-  font-size: var(--text-caption);
-  color: var(--text-secondary);
-  margin-top: 2px;
-}
-.limitation-source {
-  font-family: var(--font-mono);
-  opacity: 0.7;
-}
-.scores-transition {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-  margin-top: var(--space-sm);
-}
-
-/* Failsafe Plan B + no-js (usa !important para override de GSAP inline styles) */
-.no-js .scores-limitations, .stage-bad .scores-limitations,
-.no-js .limitation, .stage-bad .limitation,
-.no-js .scores-transition, .stage-bad .scores-transition {
+/* Failsafe Plan B + no-js: all cpt- elements visible */
+.no-js #s-a1-cpt [class*="cpt-"],
+.stage-bad #s-a1-cpt [class*="cpt-"] {
   opacity: 1 !important;
   transform: none !important;
-}
-.no-js .screening-hero, .stage-bad .screening-hero,
-.no-js .screening-metrics, .stage-bad .screening-metrics,
-.no-js .screening-criteria, .stage-bad .screening-criteria,
-.no-js .screening-tool-card, .stage-bad .screening-tool-card,
-.no-js .screening-predesci-pill, .stage-bad .screening-predesci-pill {
-  opacity: 1 !important;
-  transform: none !important;
+  visibility: visible !important;
 }
 
 /* (FIB-4 old styles removed — now uses shared .calc-* in archetypes.css) */

@@ -87,6 +87,7 @@ NUNCA `gsap.to()` inline. Usar atributos declarativos no HTML:
 - `registerCustom` (via `wireAll`) DEVE ser chamado ANTES de `connect()`.
 - **Retreat:** restaurar estado DOM explicitamente (`classList.remove`, reset textContent). NUNCA confiar apenas em `killTweensOf` — mata tweens mas não desfaz DOM.
 - **Leave/return:** `slide:changed` DEVE resetar classes de estado (`.revealed`, `.dimmed`, `.correct`). Usuário pode sair e voltar a qualquer momento.
+- **Anti-flash intra-slide (E66):** Slides com eras stacked (grid-area: stack) — TODO filho animado de era futura DEVE: (1) ter `opacity: 0` no CSS base (anti-flash), (2) `gsap.set({opacity:0})` no init do handler, (3) `gsap.set({opacity:0})` no `advance()` ANTES de `showEra()`. Failsafe `.no-js`/`.stage-bad` via `[class*="prefix-"]` cobre todos.
 
 ---
 
