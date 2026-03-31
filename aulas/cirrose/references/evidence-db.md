@@ -208,7 +208,7 @@
 | s-a1-meld | MELD derivacao: TIPS 2000, validacao ESLD 2001, UNOS 2002. c-stat 0,83 (n=3437) | Malinchoc 2000 (PMID 10733541) + Kamath 2001 (PMID 11172350) + Wiesner 2003 (PMID 12512033) |
 | s-a1-meld | MELD-Na: +Na (125-140). HR 1,05/mEq/L. Adotado UNOS jan 2016 | Kim 2008 NEJM (PMID 18768945) + Biggins 2006 (PMID 16697729) |
 | s-a1-meld | MELD 3.0: +albumina, +sexo (+1,33 fem), Cr cap 3,0. c-stat 0,869 vs 0,862. 8,8% reclassificados. OPTN jul 2023 | Kim 2021 (PMID 34481845) |
-| s-a1-meld | Brasil: MELD original (Portaria 1160/2006). MELD 3.0 NAO adotado (mar 2026). SP MELD otimo=26 (n=22522) | Chaib 2023 (PMID 37729279) |
+| s-a1-meld | Brasil: MELD original (Portaria 1160/2006). MELD 3.0 adotado via Portaria GM/MS 8.041/2025 (set 2025, republicada jan 2026). SP MELD otimo=26 (n=22522) | Chaib 2023 (PMID 37729279) + Portaria 8.041/2025 (DOU) + Editora Pasteur 2025 (confirmacao secundaria) |
 | s-a1-meld | MELD >40: 30d mort 58% (40-44), 82% (≥50). Cap em 40 perde discriminacao | Tarlow 2022 (PMID 36052665) |
 | s-a1-meld | Vies sexo: TODAS 4 variaveis MELD-Na desfavorecem mulheres (n=623931) | Sealock 2022 JAMA Surg (PMID 35583884) |
 | s-a1-meld | GEMA-Na: Hc 0,753 vs MELD 3.0 0,726 (P=.001). Supera em TODAS validacoes externas. Nao adotado | Rodriguez-Peralvarez 2024 (PMID 39114271) |

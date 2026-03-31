@@ -731,6 +731,61 @@
   color: var(--text-on-dark);
 }
 
+/* --- MELD tabs (3-mode calculator) --- */
+.panel-calc-area .pcalc-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.panel-calc-area .pcalc-tab {
+  flex: 1;
+  padding: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.panel-calc-area .pcalc-tab:hover {
+  color: var(--text-primary);
+}
+.panel-calc-area .pcalc-tab--active {
+  background: var(--ui-accent);
+  color: var(--text-on-dark);
+}
+
+/* --- Sex toggle (MELD 3.0) --- */
+.panel-calc-area .pcalc-sex-toggle {
+  display: flex;
+  gap: 2px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.panel-calc-area .pcalc-sex-btn {
+  flex: 1;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.panel-calc-area .pcalc-sex-btn:hover {
+  color: var(--text-primary);
+}
+.panel-calc-area .pcalc-sex-btn--active {
+  background: var(--ui-accent);
+  color: var(--text-on-dark);
+}
+
 /* --- Appendix slides: full width (no panel) --- */
 section[id^="s-app"] .slide-inner {
   --panel-width: 0px;

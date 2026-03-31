@@ -73,6 +73,13 @@ Ha dead CSS (seletores que nao matcham nenhum elemento no HTML)? Conflitos de sp
 **5. FAILSAFES (1-10)**
 .no-js e .stage-bad cobrem todos os elementos animados? opacity: 0 tem fallback? Elementos com data-animate tem CSS pre-hide? print-pdf funciona? Algum estado quebra se JS falhar?
 
+### REGRA ANTI-GANGORRA
+
+Se o resultado visual (PNG) mostra problema de LAYOUT (elementos acumulados num canto, whitespace morto, desbalanco visual):
+- O fix DEVE propor mudanca de ESTRUTURA HTML (grid, flex-direction, wrappers), NAO apenas CSS properties (gap, margin, padding)
+- Ajustar gap/margin/padding no MESMO container NUNCA resolve distribuicao — so desloca elementos dentro do mesmo layout quebrado
+- No campo "tipo" do proposal, use "html" quando o fix muda a arvore DOM, "css" para propriedades, "js" para handlers
+
 ### OUTPUT
 
 {
@@ -85,6 +92,6 @@ Ha dead CSS (seletores que nao matcham nenhum elemento no HTML)? Conflitos de sp
   "dead_css": ["seletor1", "seletor2"],
   "specificity_conflicts": ["descricao1"],
   "proposals": [
-    { "severity": "MUST|SHOULD|COULD", "titulo": "...", "fix": "snippet de codigo", "arquivo": "cirrose.css|slide-registry.js|etc" }
+    { "severity": "MUST|SHOULD|COULD", "titulo": "...", "fix": "snippet de codigo", "arquivo": "slide.html|cirrose.css|slide-registry.js", "tipo": "html|css|js" }
   ]
 }

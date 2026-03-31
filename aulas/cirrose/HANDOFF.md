@@ -5,18 +5,19 @@
 
 ---
 
-## Estado — 2026-04-01T00:30-03:00
+## Estado — 2026-04-01
 
-**Ultima sessao (1/abr):** Gate 4 v3.1 — campo `evidencia` obrigatorio em todas dimensoes (A/B/C). Call C: +dimensao `proposito` (6 dims), anti-sancofancia reforçada. s-a1-cpt R15: Visual 6.0 (+2.2 vs R14 3.8), UX+Code 5.8, Motion 9.2, Overall 7.0. CSS fixes: ceiling-result --danger→neutro, callout/nodes align-self flex-start. Virgula fantasma archetypes = falso positivo Gemini (descartado).
+**Ultima sessao (1/abr):** s-a1-meld redesign completo (HTML+CSS+JS+calc). s-a1-cpt DONE* R19 6.7. MELD 3.0 Brasil confirmado (Portaria 8.041/2025). Campo `stage` removido de todos panelStates.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
-**Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
+**Slides:** 44 buildados · 9 DONE* · 1 QA (s-a1-meld) · 34 CONTENT · **Build/Lint:** ✅
 **Branch:** `feat/cirrose-mvp`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO** (echo stub em settings.json — RE-HABILITAR apos sprint).
-**QA pipeline:** Gate 4 **v3.1** — 3 chamadas paralelas + campo `evidencia` obrigatorio. Call C: 6 dims (timing, easing, narrativa, crossfade, **proposito**, artefatos). Anti-sycophancy reforçada em Call C. Gate 0 **v1.3** (9 checks). Gate 2 em repouso.
-**Research completo:** s-a1-meld (17 PMIDs verificados), s-cp1 (11 PMIDs). MELD research pendente (MELD 3.0 Brasil).
+**QA pipeline:** Gate 4 **v3.1** — 3 chamadas paralelas + campo `evidencia` obrigatorio. Call C: 6 dims. Gate 0 **v1.3** (9 checks). Gate 2 em repouso.
+**Research completo:** s-a1-meld (9 PMIDs verificados + MELD 3.0 formula Kim 2021), s-cp1 (11 PMIDs).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
+**Calc 3-mode:** case-panel.js agora suporta MELD original + MELD-Na + MELD 3.0 (tabs). Formula MELD 3.0 verificada (Kim 2021, PMID 34481845, PMC + OPTN).
 
 ---
 
@@ -34,14 +35,14 @@
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
 | 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
-| 9 | s-a1-cpt | QA | Gate 4 R15: Visual 6.0 | UX+Code 5.8 | Motion 9.2 | Overall 7.0. Fixes aplicados: ceiling-result --danger→neutro, callout/nodes align-self flex-start. Pendente: redesign estrutural S2 (guideline cards), tipografia (serif stray no ceiling effect), distribuicao vertical. |
-| 10 | s-a1-meld | CONTENT | Act 1 restante. |
+| 9 | s-a1-cpt | DONE* | R19 6.7 (Visual 5 | UX+Code 7.2 | Motion 7.6). H2 simplificado. S2 cards lado-a-lado. Serif→sans. Warning→ui-accent nos/ceiling. S1 stats hero-size+backgrounds. Teto visual=era-based (aceito). |
+| 10 | s-a1-meld | QA | Redesign: 3 evo cards + mortality bar + limitations. Calc 3-mode (MELD/MELD-Na/MELD 3.0). Pendente: screenshots + Gate 0 + Gate 4 R1. |
 | 11 | s-cp1 | CONTENT | LSM 26 kPa atualizado (HTML+manifest+notes). Logica Baveno corrigida (CSPH confirmado, nao rule-out). |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 8 DONE* · 1 QA · 0 DRAFT · 35 CONTENT (44 total)
+**Resumo:** 9 DONE* · 1 QA (s-a1-meld) · 0 DRAFT · 34 CONTENT (44 total)
 
 ### Proxima sessao — checklist de prontidao
 
@@ -54,17 +55,21 @@
 | ✅ | Research s-a1-meld | 17 PMIDs verificados (evidence-db) |
 | ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
 | ✅ | Scripts hardened | gemini-qa3 + content-research + qa-batch-screenshot (video delay 2500ms, dev server check) |
-| ❌ | MELD 3.0 Brasil | Lucas tem docs oficiais mostrando MELD 3.0 em vigor. Pesquisa atual errou. |
-| ❌ | s-a1-cpt REDESIGN ESTRUTURAL | Visual 6.0 (R15), subiu de 3.8 (R14) com fixes CSS. Pendente: redesign S2 (guideline cards subdimensionados), tipografia (serif no ceiling effect→sans-serif), distribuicao vertical (conteudo acumulado no topo). |
+| ✅ | MELD 3.0 Brasil | Portaria GM/MS 8.041/2025 confirmada. evidence-db atualizado. |
+| ✅ | s-a1-cpt DONE* | R19 6.7. Teto visual era-based aceito. |
+| ✅ | s-a1-meld redesign | HTML+CSS+JS+calc reescritos. 3 evo cards + mortality bar + limits. |
+| ✅ | Calc 3-mode | MELD/MELD-Na/MELD 3.0 no sidebar. Formula verificada Kim 2021. |
+| ❌ | s-a1-meld QA pipeline | Screenshots + Gate 0 + Gate 4 R1 pendentes. |
 | ❌ | Gate 2 em repouso | So Gate 4 por questao de tempo. |
 
 **Fluxo na proxima sessao:**
 1. `npm run dev` (port 4100)
-2. **s-a1-cpt redesign estrutural S2** — guideline cards subdimensionados, distribuicao vertical, tipografia serif stray
-3. Screenshots: `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
-4. Gate 4 R16: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 16`
-5. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
-6. Se visual >=7: avancar para s-a1-meld
+2. Verificar s-a1-meld visualmente (cards, mortality bar, calc tabs)
+3. Screenshots: `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-meld --video`
+4. Gate 0: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-meld --inspect`
+5. Gate 4 R1: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-meld --editorial --round 1`
+6. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
+7. Se overall >=7: avancar para s-cp1
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 

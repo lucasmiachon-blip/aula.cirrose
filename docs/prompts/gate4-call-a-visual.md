@@ -32,6 +32,18 @@ Para cada dimensao, PRIMEIRO descreva o que voce VE no screenshot (S0 e S2 separ
 O campo `evidencia` e sua prova de que voce olhou — sem ele, a nota sera descartada.
 Formato: "S0: [descricao concreta]. S2: [descricao concreta]. Ref: [comparacao com slide anterior]."
 
+### CLASSIFICACAO DE FIX (OBRIGATORIA)
+
+Cada fix DEVE ser classificado em uma categoria:
+- **CSS** — ajuste de propriedade CSS (cor, padding, font-size, gap, margin)
+- **LAYOUT** — mudanca de estrutura HTML (trocar stack vertical para grid 2-col, adicionar wrapper, reorganizar DOM). Use quando nenhum ajuste CSS sozinho resolve distribuicao ou composicao.
+- **SPLIT** — dividir o slide em 2+ slides fisicos
+
+Se distribuicao <= 5 ou composicao <= 5, avalie OBRIGATORIAMENTE se a causa e layout HTML (ex: todos os elementos numa unica coluna flex) em vez de spacing CSS.
+NUNCA proponha "aumentar gap" ou "adicionar margin" como fix se o real problema e que os elementos estao TODOS empilhados no MESMO container.
+
+No campo "fixes", prefixe cada fix com a categoria: "CSS: ...", "LAYOUT: ...", "SPLIT: ...".
+
 ### DIMENSOES
 
 **1. DISTRIBUICAO (1-10)**

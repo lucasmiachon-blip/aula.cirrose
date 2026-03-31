@@ -218,8 +218,13 @@ export class CasePanel {
 
   renderMeld() {
     if (!this.calcEl) return;
+    this.meldMode = this.meldMode || 'meld-na';
     this.calcEl.innerHTML = `
-      <span class="pcalc-title">MELD-Na</span>
+      <div class="pcalc-tabs">
+        <button class="pcalc-tab${this.meldMode === 'meld' ? ' pcalc-tab--active' : ''}" data-meld-mode="meld">MELD</button>
+        <button class="pcalc-tab${this.meldMode === 'meld-na' ? ' pcalc-tab--active' : ''}" data-meld-mode="meld-na">MELD-Na</button>
+        <button class="pcalc-tab${this.meldMode === 'meld-3' ? ' pcalc-tab--active' : ''}" data-meld-mode="meld-3">MELD 3.0</button>
+      </div>
       <div class="pcalc-inputs">
         <div class="pcalc-field">
           <label class="pcalc-label">Bilirrubina</label>
@@ -233,9 +238,20 @@ export class CasePanel {
           <label class="pcalc-label">INR</label>
           <input class="pcalc-input" type="number" data-pf="inr" placeholder="--" min="0.1" step="0.1">
         </div>
-        <div class="pcalc-field">
+        <div class="pcalc-field pcalc-field--na"${this.meldMode === 'meld' ? ' style="display:none"' : ''}>
           <label class="pcalc-label">S\u00f3dio (Na\u207a)</label>
           <input class="pcalc-input" type="number" data-pf="na" placeholder="--" min="100" max="160" step="1">
+        </div>
+        <div class="pcalc-field pcalc-field--alb"${this.meldMode !== 'meld-3' ? ' style="display:none"' : ''}>
+          <label class="pcalc-label">Albumina</label>
+          <input class="pcalc-input" type="number" data-pf="alb" placeholder="--" min="0.5" max="6" step="0.1">
+        </div>
+        <div class="pcalc-field pcalc-field--sex"${this.meldMode !== 'meld-3' ? ' style="display:none"' : ''}>
+          <label class="pcalc-label">Sexo</label>
+          <div class="pcalc-sex-toggle">
+            <button class="pcalc-sex-btn pcalc-sex-btn--active" data-pf-sex="M">M</button>
+            <button class="pcalc-sex-btn" data-pf-sex="F">F</button>
+          </div>
         </div>
       </div>
       <div class="pcalc-result">
@@ -244,19 +260,59 @@ export class CasePanel {
       </div>
       <button class="pcalc-case-btn" data-pcalc-case="meld">Ant\u00f4nio</button>
     `;
+    /* Tab switching */
+    this.calcEl.querySelectorAll('.pcalc-tab').forEach(tab =>
+      tab.addEventListener('click', () => {
+        this.meldMode = tab.dataset.meldMode;
+        /* Preserve current input values across tab switch */
+        const saved = {};
+        this.calcEl.querySelectorAll('.pcalc-input').forEach(i => {
+          if (i.dataset.pf && i.value) saved[i.dataset.pf] = i.value;
+        });
+        const sexBtn = this.calcEl.querySelector('.pcalc-sex-btn--active');
+        if (sexBtn) saved._sex = sexBtn.dataset.pfSex;
+        this.renderMeld();
+        /* Restore values */
+        Object.entries(saved).forEach(([f, v]) => {
+          if (f === '_sex') return;
+          const input = this.calcEl.querySelector(`[data-pf="${f}"]`);
+          if (input) input.value = v;
+        });
+        if (saved._sex) {
+          this.calcEl.querySelectorAll('.pcalc-sex-btn').forEach(b => {
+            b.classList.toggle('pcalc-sex-btn--active', b.dataset.pfSex === saved._sex);
+          });
+        }
+        this.calcMeld();
+      })
+    );
+    /* Input listeners */
     this.calcEl.querySelectorAll('.pcalc-input').forEach(i =>
       i.addEventListener('input', () => this.calcMeld())
     );
+    /* Sex toggle */
+    this.calcEl.querySelectorAll('.pcalc-sex-btn').forEach(btn =>
+      btn.addEventListener('click', () => {
+        this.calcEl.querySelectorAll('.pcalc-sex-btn').forEach(b => b.classList.remove('pcalc-sex-btn--active'));
+        btn.classList.add('pcalc-sex-btn--active');
+        this.calcMeld();
+      })
+    );
+    /* Case button */
     this.calcEl.querySelector('[data-pcalc-case="meld"]')
       ?.addEventListener('click', () => this.loadMeldCase());
   }
 
   loadMeldCase() {
     if (!this.calcEl) return;
-    const vals = { bil: 1.8, cr: 1.1, inr: 1.3, na: 136 };
+    const vals = { bil: 1.8, cr: 1.1, inr: 1.3, na: 136, alb: 3.6 };
     Object.entries(vals).forEach(([f, v]) => {
       const input = this.calcEl.querySelector(`[data-pf="${f}"]`);
       if (input) input.value = v;
+    });
+    /* Sex = M for Ant\u00f4nio */
+    this.calcEl.querySelectorAll('.pcalc-sex-btn').forEach(b => {
+      b.classList.toggle('pcalc-sex-btn--active', b.dataset.pfSex === 'M');
     });
     this.calcMeld();
   }
@@ -264,10 +320,25 @@ export class CasePanel {
   calcMeld() {
     if (!this.calcEl) return;
     const get = f => parseFloat(this.calcEl.querySelector(`[data-pf="${f}"]`)?.value);
-    const bil = get('bil'), cr = get('cr'), inr = get('inr'), na = get('na');
-    if ([bil, cr, inr, na].some(isNaN)) return;
+    const bil = get('bil'), cr = get('cr'), inr = get('inr');
+    if ([bil, cr, inr].some(isNaN)) return;
 
-    const score = CasePanel.meldNa(bil, cr, inr, na);
+    let score;
+    const mode = this.meldMode || 'meld-na';
+
+    if (mode === 'meld') {
+      score = CasePanel.meldOriginal(bil, cr, inr);
+    } else if (mode === 'meld-na') {
+      const na = get('na');
+      if (isNaN(na)) return;
+      score = CasePanel.meldNa(bil, cr, inr, na);
+    } else {
+      const na = get('na'), alb = get('alb');
+      if (isNaN(na) || isNaN(alb)) return;
+      const sexBtn = this.calcEl.querySelector('.pcalc-sex-btn--active');
+      const isFemale = sexBtn?.dataset.pfSex === 'F';
+      score = CasePanel.meld3(bil, cr, inr, na, alb, isFemale);
+    }
 
     const scoreEl = this.calcEl.querySelector('.pcalc-score');
     const actionEl = this.calcEl.querySelector('.pcalc-action');
@@ -282,6 +353,20 @@ export class CasePanel {
 
     if (resultEl) resultEl.dataset.zone = zone;
     if (actionEl) actionEl.textContent = text;
+  }
+
+  /** MELD original — Bil/Cr/INR only. Cr cap 4, floors 1. Range 6-40. */
+  static meldOriginal(bil, cr, inr) {
+    const cBil = Math.max(1, bil);
+    const cCr = Math.min(4, Math.max(1, cr));
+    const cInr = Math.max(1, inr);
+    const meld = 10 * (
+      0.957 * Math.log(cCr) +
+      0.378 * Math.log(cBil) +
+      1.120 * Math.log(cInr) +
+      0.643
+    );
+    return Math.max(6, Math.min(40, Math.round(meld)));
   }
 
   /** MELD-Na formula — Cr cap 4, Bil/Cr/INR floor 1, Na clamped 125-137 */
@@ -305,6 +390,32 @@ export class CasePanel {
     return Math.max(6, Math.min(40, meld));
   }
 
+  /**
+   * MELD 3.0 — Kim 2021 (PMID 34481845). Verified from PMC + OPTN.
+   * Cr cap 3 (not 4), Alb clamped 1.5-3.5, Na clamped 125-137.
+   * Bil/Cr/INR floor 1. Female = +1.33. Range 6-40.
+   */
+  static meld3(bil, cr, inr, na, alb, isFemale) {
+    const cBil = Math.max(1, bil);
+    const cCr = Math.min(3, Math.max(1, cr));
+    const cInr = Math.max(1, inr);
+    const cNa = Math.max(125, Math.min(137, na));
+    const cAlb = Math.max(1.5, Math.min(3.5, alb));
+
+    const score =
+      (isFemale ? 1.33 : 0) +
+      4.56 * Math.log(cBil) +
+      0.82 * (137 - cNa) -
+      0.24 * (137 - cNa) * Math.log(cBil) +
+      9.09 * Math.log(cInr) +
+      11.14 * Math.log(cCr) +
+      1.85 * (3.5 - cAlb) -
+      1.83 * (3.5 - cAlb) * Math.log(cCr) +
+      6;
+
+    return Math.max(6, Math.min(40, Math.round(score)));
+  }
+
   // ── Field/Event rendering ──────────────────────
 
   /**
@@ -320,9 +431,8 @@ export class CasePanel {
       fib4: 'FIB-4',
       lsm: 'LSM',
       plq: 'PLQ',
-      meld: 'MELD-Na',
-      albumin: 'Albumina',
-      stage: 'Est\u00e1dio'
+      meld: 'MELD',
+      albumin: 'Albumina'
     };
 
     for (const [key, val] of Object.entries(values)) {

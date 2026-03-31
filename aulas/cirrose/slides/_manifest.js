@@ -29,8 +29,8 @@ export const slides = [
   { id: 's-a1-fib4', file: '03b-a1-fib4calc.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Modelos Preditivos: FIB-4', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-fib4', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-elasto', file: '03c-a1-elasto.html', act: 'A1', archetype: null, sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Fibroscan, MRE e outros métodos não invasivos', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-elasto', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-a1-rule5', file: '03d-a1-rule5.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Rule of Five', panelState: 'neutral', clickReveals: 1, customAnim: 's-a1-rule5', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
-  { id: 's-a1-cpt', file: '02b-a1-cpt.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Child-Pugh-Turcotte: aspectos históricos, limitações e uso atual', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-cpt', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
-  { id: 's-a1-meld', file: '04-a1-meld.html', act: 'A1', archetype: 'hero-stat', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'MELD-Na estratifica urgência: cada faixa muda a conduta', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-meld', timing: 150, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
+  { id: 's-a1-cpt', file: '02b-a1-cpt.html', act: 'A1', archetype: 'flow', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'Child-Pugh-Turcotte', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-cpt', timing: 120, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
+  { id: 's-a1-meld', file: '04-a1-meld.html', act: 'A1', archetype: 'custom', sectionTag: 'ATO 1 — CLASSIFICAR', headline: 'MELD: história, importância e evoluções', panelState: 'neutral', clickReveals: 2, customAnim: 's-a1-meld', timing: 150, narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
   { id: 's-cp1', file: '07-cp1.html', act: 'CP', archetype: 'checkpoint', sectionTag: null, headline: 'LSM 26 kPa, plaquetas 112k. Como você estadia?', panelState: 'caution', clickReveals: 3, customAnim: null, timing: 180, narrativeRole: 'checkpoint', tensionLevel: 3, narrativeCritical: true },
 
   // ── Act 2: INTERVIR (16 slides + CP2) ──
@@ -81,57 +81,57 @@ export const panelStates = {
   // s-hook: panel hidden (Gemini: "spoiler/ruído no hook")
   's-a1-01': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—', stage: '?' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—' },
     visibleFields: ['AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
   },
   's-a1-baveno': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—', stage: '?' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—' },
     visibleFields: ['AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
   },
   's-a1-fib4': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '—', meld: '—', stage: '?' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '—', meld: '—' },
     visibleFields: ['fib4', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
     calc: 'fib4',
   },
   's-a1-elasto': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '—', meld: '—', stage: '?' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '—', meld: '—' },
     visibleFields: ['fib4', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
   },
   's-a1-rule5': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '26 kPa', meld: '—', stage: '?' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '26 kPa', meld: '—' },
     visibleFields: ['fib4', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR', 'lsm'],
     events: [],
   },
   's-a1-cpt': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '26 kPa', CTP: 'A (5)', meld: '—', stage: '?', VE: '—', HDA: '—', Ascite: '—', HE: '—', HCC: '—' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '5,91', lsm: '26 kPa', CTP: 'A (5)', meld: '—', VE: '—', HDA: '—', Ascite: '—', HE: '—', HCC: '—' },
     visibleFields: ['CTP', 'fib4', 'lsm', 'AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR', 'VE', 'HDA', 'Ascite', 'HE', 'HCC'],
     events: [],
   },
   's-a1-meld': {
     severity: 'neutral',
-    values: { fib4: '5,91', lsm: '26 kPa', plq: '112k', CTP: 'A (5)', meld: '—', albumin: '3,6', stage: '?', VE: '—', HDA: '—', Ascite: '—', HE: '—', HCC: '—' },
-    visibleFields: ['fib4', 'lsm', 'plq', 'CTP', 'meld', 'albumin', 'stage', 'VE', 'HDA', 'Ascite', 'HE', 'HCC'],
+    values: { fib4: '5,91', lsm: '26 kPa', plq: '112k', CTP: 'A (5)', meld: '—', albumin: '3,6', VE: '—', HDA: '—', Ascite: '—', HE: '—', HCC: '—' },
+    visibleFields: ['fib4', 'lsm', 'plq', 'CTP', 'meld', 'albumin', 'VE', 'HDA', 'Ascite', 'HE', 'HCC'],
     events: [],
     calc: 'meld',
   },
   's-a1-classify': {
     severity: 'neutral',
-    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—', stage: '?' },
+    values: { AST: '67', ALT: '31', plq: '112k', albumin: '3,6', Bili: '1,3', INR: '1,2', fib4: '—', lsm: '—', meld: '—' },
     visibleFields: ['AST', 'ALT', 'plq', 'albumin', 'Bili', 'INR'],
     events: [],
   },
   's-cp1': {
     severity: 'caution',
-    values: { fib4: '5,91', lsm: '26 kPa', plq: '112k', meld: '~10', albumin: '3,6', stage: 'CSPH confirmado' },
+    values: { fib4: '5,91', lsm: '26 kPa', plq: '112k', meld: '~10', albumin: '3,6' },
     events: ['Elastografia realizada'],
     calc: 'meld',
   },
@@ -141,54 +141,54 @@ export const panelStates = {
   // Apenas transições significativas são registradas aqui.
   's-a2-01': {
     severity: 'caution',
-    values: { fib4: '5,91', lsm: '26 kPa', plq: '108k', meld: '~12', albumin: '3,4', stage: 'cACLD → gatilho' },
+    values: { fib4: '5,91', lsm: '26 kPa', plq: '108k', meld: '~12', albumin: '3,4' },
     events: ['Etilismo mantido', 'Carvedilol abandonado'],
   },
   's-a2-02': {
     severity: 'warning',
-    values: { fib4: '—', lsm: '—', plq: '98k', meld: '~14', albumin: '3,0', stage: 'dACLD' },
+    values: { fib4: '—', lsm: '—', plq: '98k', meld: '~14', albumin: '3,0' },
     events: ['Ascite nova'],
   },
   's-a2-05': {
     severity: 'warning',
-    values: { fib4: '—', lsm: '—', plq: '95k', meld: '~17', albumin: '2,8', stage: 'dACLD' },
+    values: { fib4: '—', lsm: '—', plq: '95k', meld: '~17', albumin: '2,8' },
     events: ['Ascite', 'PBE (PMN 380)'],
   },
   's-a2-06': {
     severity: 'warning',
-    values: { fib4: '—', lsm: '—', plq: '89k', meld: '~18', albumin: '2,6', stage: 'dACLD' },
+    values: { fib4: '—', lsm: '—', plq: '89k', meld: '~18', albumin: '2,6' },
     events: ['Ascite', 'PBE', 'HDA varicosa'],
   },
   's-a2-08': {
     severity: 'warning',
-    values: { fib4: '—', lsm: '—', plq: '89k', meld: '~18', albumin: '2,5', stage: 'dACLD' },
+    values: { fib4: '—', lsm: '—', plq: '89k', meld: '~18', albumin: '2,5' },
     events: ['Ascite', 'PBE', 'HDA', 'EH'],
   },
   's-a2-10': {
     severity: 'danger',
-    values: { fib4: '—', lsm: '—', plq: '89k', meld: '18', albumin: '2,5', stage: 'dACLD' },
+    values: { fib4: '—', lsm: '—', plq: '89k', meld: '18', albumin: '2,5' },
     events: ['Ascite', 'PBE', 'HDA', 'EH', 'TX: avaliar'],
   },
   's-a2-11': {
     severity: 'danger',
-    values: { fib4: '3,2', lsm: '32 kPa', plq: '89k', meld: '28', albumin: '2,4', stage: 'dACLD/ACLF' },
+    values: { fib4: '3,2', lsm: '32 kPa', plq: '89k', meld: '28', albumin: '2,4' },
     events: ['Ascite', 'PBE', 'HDA', 'EH', 'ACLF G2', 'Cr 2,8'],
   },
   's-a2-12': {
     severity: 'danger',
-    values: { fib4: '—', lsm: '—', plq: '89k', meld: '24', albumin: '2,6', stage: 'dACLD' },
+    values: { fib4: '—', lsm: '—', plq: '89k', meld: '24', albumin: '2,6' },
     events: ['Ascite refratária', 'ACLF resolvido', 'LVP semanal'],
   },
   's-cp2': {
     severity: 'danger',
-    values: { fib4: '3,2', lsm: '32 kPa', plq: '89k', meld: '28', albumin: '2,4', stage: 'dACLD' },
+    values: { fib4: '3,2', lsm: '32 kPa', plq: '89k', meld: '28', albumin: '2,4' },
     events: ['Ascite +++', 'PBE', 'HRS-AKI', 'Cr 2,8'],
   },
 
   // ── Act 3 + Close ──
   's-cp3': {
     severity: 'hope',
-    values: { fib4: '2,1', lsm: '18 kPa', plq: '132k', meld: '12', albumin: '3,8', stage: 'Recompensando' },
+    values: { fib4: '2,1', lsm: '18 kPa', plq: '132k', meld: '12', albumin: '3,8' },
     events: ['Abstinente 10m', 'Sem ascite 8m', 'SVR confirmado'],
   },
   's-close': {

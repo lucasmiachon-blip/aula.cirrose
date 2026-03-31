@@ -823,36 +823,66 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-meld — MELD-Na semáforo + threshold
-     States: 0=bands stagger (auto), 1=threshold line, 2=source
+     s-a1-meld — MELD: história, importância e evoluções
+     States: 0=evolution cards stagger (auto), 1=mortality bar, 2=limitations+source
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-meld': (slide, gsap) => {
     let state = 0;
     const maxState = 2;
 
-    const bands = slide.querySelectorAll('.meld-band');
-    const threshold = slide.querySelector('.meld-threshold');
+    const cards = slide.querySelectorAll('.meld-evo-card');
+    const mortSection = slide.querySelector('.meld-mort-section');
+    const mortBands = slide.querySelectorAll('.meld-mort-band');
+    const limits = slide.querySelector('.meld-limits');
     const sourceTag = slide.querySelector('.source-tag');
 
-    gsap.set(bands, { opacity: 0, y: 12 });
-    gsap.to(bands, { opacity: 1, y: 0, duration: 0.4, stagger: 0.15, delay: 0.3, ease: 'power2.out' });
+    /* S0 init — hide all animated elements */
+    gsap.set(cards, { opacity: 0, y: 16 });
+    gsap.set(mortSection, { opacity: 0 });
+    gsap.set(limits, { opacity: 0, y: 8 });
+    gsap.set(sourceTag, { opacity: 0 });
+
+    /* S0 auto — cards stagger with internal build */
+    cards.forEach((card, i) => {
+      const children = card.querySelectorAll('.meld-evo-year, .meld-evo-name, .meld-evo-insight, .meld-evo-stat');
+      gsap.set(children, { opacity: 0, y: 6 });
+      const cardDelay = 0.3 + i * 0.2;
+      gsap.to(card, { opacity: 1, y: 0, duration: 0.4, delay: cardDelay, ease: 'power2.out' });
+      gsap.to(children, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08, delay: cardDelay + 0.15, ease: 'power2.out' });
+    });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
-      if (state === 1 && threshold) {
-        gsap.to(threshold, { width: '100%', duration: 0.8, ease: 'power2.out' });
+      if (state === 1) {
+        /* Mortality bar: section fades, bands stagger, percentages pulse */
+        gsap.to(mortSection, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        gsap.set(mortBands, { opacity: 0, y: 8 });
+        gsap.to(mortBands, { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, delay: 0.15, ease: 'power2.out' });
+        /* Pulse the percentage numbers after they appear */
+        mortBands.forEach((band, i) => {
+          const pct = band.querySelector('.meld-mort-pct');
+          if (pct) {
+            gsap.fromTo(pct, { scale: 0.8 }, { scale: 1, duration: 0.3, delay: 0.3 + i * 0.12, ease: 'power2.out' });
+          }
+        });
       }
       if (state === 2) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
+        gsap.to(limits, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+        gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 0.15 });
       }
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 2) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      if (state === 1 && threshold) gsap.to(threshold, { width: 0, duration: 0.3 });
+      if (state === 2) {
+        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+        gsap.to(limits, { opacity: 0, y: 8, duration: 0.3 });
+      }
+      if (state === 1) {
+        gsap.to(mortSection, { opacity: 0, duration: 0.3 });
+      }
       state--;
       return true;
     }

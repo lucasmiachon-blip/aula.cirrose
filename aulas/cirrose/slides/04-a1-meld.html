@@ -1,74 +1,117 @@
 <!-- ============================================================
-     s-a1-meld — MELD-Na estratifica urgência
-     Archetype: hero-stat (semáforo + threshold + urgency)
-     States: 0=bands stagger, 1=threshold (generic), 2=source
-     Calc: sidebar panel width 280px
+     s-a1-meld — MELD: história, importância e evoluções
+     Archetype: custom (3 evolution cards + mortality comparison)
+     States: 0=cards stagger (auto), 1=mortality bar, 2=limitations+source
+     Calc: sidebar panel calc 'meld' (3-mode: MELD/MELD-Na/MELD 3.0)
      ============================================================ -->
 <section id="s-a1-meld"
          data-timing="150"
          data-panel-state="neutral">
 
-  <div class="slide-inner archetype-hero-stat">
+  <div class="slide-inner">
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">MELD-Na estratifica urgência: cada faixa muda a conduta</h2>
+    <h2 class="slide-headline">MELD: história, importância e evoluções</h2>
 
-    <div class="hero-block">
-      <div class="meld-semaphore">
-        <div class="meld-band meld-band--green">
-          <span class="meld-band-dot" aria-hidden="true"></span>
-          <span class="meld-range">&lt; 15</span>
-          <span class="meld-action">✓ Acompanhar</span>
-          <span class="meld-mortality">Mortalidade 90d: &lt;2%</span>
-        </div>
-        <div class="meld-band meld-band--yellow">
-          <span class="meld-band-dot" aria-hidden="true"></span>
-          <span class="meld-range">15 – 19</span>
-          <span class="meld-action">⚠ Encaminhar hepatologista</span>
-          <span class="meld-mortality">Mortalidade 90d: 6%</span>
-        </div>
-        <div class="meld-band meld-band--orange">
-          <span class="meld-band-dot" aria-hidden="true"></span>
-          <span class="meld-range">20 – 24</span>
-          <span class="meld-action">✕ Planejar transplante</span>
-          <span class="meld-mortality">Mortalidade 90d: 20%</span>
-        </div>
-        <div class="meld-band meld-band--red">
-          <span class="meld-band-dot" aria-hidden="true"></span>
-          <span class="meld-range">≥ 25</span>
-          <span class="meld-action">✕✕ URGÊNCIA</span>
-          <span class="meld-mortality">Mortalidade 90d: >40%</span>
-        </div>
+    <!-- S0: Three evolution cards (auto stagger) -->
+    <div class="meld-evo-grid">
+      <div class="meld-evo-card">
+        <span class="meld-evo-year">2001</span>
+        <span class="meld-evo-name">MELD</span>
+        <span class="meld-evo-insight">Substituiu tempo de fila</span>
+        <span class="meld-evo-stat">c-stat 0,83</span>
+      </div>
+      <div class="meld-evo-card">
+        <span class="meld-evo-year">2016</span>
+        <span class="meld-evo-name">MELD-Na</span>
+        <span class="meld-evo-insight">Na corrigiu hiponatremia invisível</span>
+        <span class="meld-evo-stat">UNOS jan/2016</span>
+      </div>
+      <div class="meld-evo-card">
+        <span class="meld-evo-year">2025 BR</span>
+        <span class="meld-evo-name">MELD 3.0</span>
+        <span class="meld-evo-insight">Albumina + sexo corrigiram viés contra mulheres</span>
+        <span class="meld-evo-stat">Portaria 8.041/2025</span>
+      </div>
+    </div>
 
-        <!-- Threshold line (drawn after bands) -->
-        <div class="meld-threshold">
-          <span class="meld-threshold-label">MELD elevado → acelerar encaminhamento para centro transplantador</span>
+    <!-- Click 1: Mortality comparison bar -->
+    <div class="meld-mort-section">
+      <p class="meld-mort-title">Mortalidade 90 dias</p>
+      <div class="meld-mort-bar">
+        <div class="meld-mort-band meld-mort-band--safe">
+          <span class="meld-mort-range">&lt; 15</span>
+          <span class="meld-mort-pct">&lt; 2%</span>
+          <span class="meld-mort-icon">✓</span>
+        </div>
+        <div class="meld-mort-band meld-mort-band--warning">
+          <span class="meld-mort-range">15 – 19</span>
+          <span class="meld-mort-pct">6%</span>
+          <span class="meld-mort-icon">⚠</span>
+        </div>
+        <div class="meld-mort-band meld-mort-band--caution">
+          <span class="meld-mort-range">20 – 24</span>
+          <span class="meld-mort-pct">20%</span>
+          <span class="meld-mort-icon">⚠</span>
+        </div>
+        <div class="meld-mort-band meld-mort-band--danger">
+          <span class="meld-mort-range">≥ 25</span>
+          <span class="meld-mort-pct">&gt; 40%</span>
+          <span class="meld-mort-icon">✕</span>
         </div>
       </div>
     </div>
 
-    <p class="source-tag" style="opacity:0">Kamath PS Hepatology 2001 · Kim WR Hepatology 2008 · UNOS/OPTN 2016</p>
+    <!-- Click 2: Limitations + source -->
+    <div class="meld-limits">
+      <div class="meld-limit-badge">
+        <span class="meld-limit-label">ACLF</span>
+        <span class="meld-limit-text">CLIF-C ACLF supera MELD em todos timepoints</span>
+      </div>
+      <div class="meld-limit-badge">
+        <span class="meld-limit-label">Sarcopenia</span>
+        <span class="meld-limit-text">RR 1,84 pós-TX — MELD não captura frailty</span>
+      </div>
+    </div>
+
+    <p class="source-tag">Kamath 2001 · Kim 2008 · Kim 2021 · Portaria 8.041/2025</p>
   </div>
 
   <aside class="notes">
-[0:00-0:30] Bandas entram em stagger (green→red)
-"MELD-Na. Quatro variáveis: bilirrubina, creatinina, INR, sódio.
-O resultado é um número. E esse número é um semáforo."
-"Verde: MELD abaixo de 15. Mortalidade em 90 dias menor que 2%. Acompanhar."
-"Amarelo: 15 a 19. 6% em 90 dias. Encaminhar hepatologista."
-"Laranja: 20 a 24. 20% em 90 dias. Planejar transplante."
-"Vermelho: acima de 25. Mais de 40% em 90 dias. Urgência."
+[0:00-0:30] Cards entram em stagger
+"MELD. Três gerações em 25 anos."
+"2001: Malinchoc e Kamath. Criado para prognosticar mortalidade pós-TIPS.
+Funcionou tão bem que UNOS adotou para alocação de órgãos em 2002.
+Acabou a fila cronológica."
 
-[0:30-1:00] Click 1 → threshold line
-Linha threshold desenha da esquerda (width 0→100%).
-"Quando o MELD sobe, a urgência muda.
-A partir da faixa amarela, já considerar encaminhamento.
-A calculadora está no painel lateral — experimentem com os dados do Antônio."
+"2016: MELD-Na. Hiponatremia é marcador de gravidade que o MELD original
+não via. Kim mostrou HR 1,05 por mEq/L. UNOS incorporou o sódio."
 
-[1:00-1:30] Click 2 → source
-→ avançar
+"2025 no Brasil: MELD 3.0. Kim 2021 mostrou que todas as 4 variáveis
+do MELD-Na desfavorecem mulheres. Sealock 2022: 623 mil pacientes.
+MELD 3.0 adiciona albumina e correção por sexo. Portaria 8.041/2025."
 
-[DATA] MELD-Na: Kamath PS et al. Hepatology 2001 (PMID 11172350) · Kim WR Hepatology 2008 (PMID 16697729) | Verificado
-[DATA] Mortalidade 90d por faixa: WR Kim et al. Hepatology 2008 + UNOS/OPTN data | Verificado: evidence-db.md
-[DATA] Faixas MELD e conduta: baseado em Kim WR et al. Hepatology 2008 + dados UNOS/OPTN | Verificado: evidence-db.md
+[0:30-1:00] Click 1 → Mortality comparison
+"E por que isso importa? Porque o número do MELD é um semáforo.
+Abaixo de 15: mortalidade em 90 dias menor que 2%. Acompanhar.
+15 a 19: 6%. Encaminhar.
+Acima de 25: mais de 40%. Urgência."
+"A calculadora no painel lateral calcula as 3 versões — experimentem."
+
+[1:00-1:20] Click 2 → Limitations
+"Mas o MELD tem pontos cegos. Na ACLF, o CLIF-C ACLF supera em todos
+os timepoints. E sarcopenia: RR 1,84 pós-transplante — frailty
+que o MELD não captura."
+
+[NOTA] GEMA-Na (Rodriguez-Peralvarez 2024): Hc 0,753 vs MELD 3.0 0,726,
+supera em todas validações externas. Não adotado. Mencionar só se
+houver pergunta da plateia.
+
+[DATA] MELD: Kamath 2001 (PMID 11172350) | Verificado: evidence-db.md
+[DATA] MELD-Na: Kim 2008 (PMID 18768945), Biggins 2006 (PMID 16697729) | Verificado
+[DATA] MELD 3.0: Kim 2021 (PMID 34481845), Sealock 2022 (PMID 35583884) | Verificado
+[DATA] Brasil: Portaria GM/MS 8.041/2025 (DOU) | Verificado
+[DATA] ACLF: Jalan 2014 (PMID 24950482) | Verificado
+[DATA] Sarcopenia: Markakis 2025 (PMID 39876624) | Verificado
+[DATA] Mortalidade 90d por faixa: Kim WR et al. Hepatology 2008 + UNOS/OPTN data | Verificado: evidence-db.md
   </aside>
 </section>

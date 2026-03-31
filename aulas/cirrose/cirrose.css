@@ -184,76 +184,167 @@
 }
 
 /* ============================================
-   MELD SEMAPHORE (A1-03)
+   MELD EVOLUTION + MORTALITY (s-a1-meld)
    ============================================ */
-.meld-semaphore {
+
+/* — Evolution cards grid — */
+.meld-evo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+.meld-evo-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  max-width: min(600px, 100%);
-  margin: var(--space-md) auto;
-  position: relative;
-}
-.meld-band {
-  display: grid;
-  grid-template-columns: 2rem auto 1fr auto;
   gap: var(--space-xs);
-  align-items: center;
-  padding: var(--space-sm) var(--space-md);
+  align-items: flex-start;
+  padding: var(--space-lg);
+  background: var(--surface-alt);
+  border-left: 4px solid var(--ui-accent);
   border-radius: var(--radius-md);
-  font-family: var(--font-body);
+  opacity: 0;
 }
-.meld-band-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex: 1;
-}
-.meld-band--green  .meld-band-dot { background: var(--safe); }
-.meld-band--yellow .meld-band-dot { background: var(--warning); }
-.meld-band--orange .meld-band-dot { background: oklch(55% 0.16 40); }
-.meld-band--red    .meld-band-dot { background: var(--danger); }
-.meld-range {
+.meld-evo-year {
   font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--ui-accent);
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.meld-evo-name {
+  font-family: var(--font-body);
   font-size: var(--text-h3);
-  min-width: 4ch;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
 }
-.meld-action {
+.meld-evo-insight {
+  font-family: var(--font-body);
   font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 1.3;
 }
-.meld-mortality {
+.meld-evo-stat {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   color: var(--text-muted);
-  text-align: right;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
-.meld-band--green  { background: oklch(from var(--safe) l c h / 0.15); border-left: 4px solid var(--safe); }
-.meld-band--yellow { background: oklch(from var(--warning) l c h / 0.15); border-left: 4px solid var(--warning); }
-.meld-band--orange { background: oklch(from var(--danger) l c h / 0.20); border-left: 4px solid oklch(55% 0.16 40); }
-.meld-band--red    { background: oklch(from var(--danger) l c h / 0.15); border-left: 4px solid var(--danger); font-weight: 700; }
 
-.meld-threshold {
-  display: flex;
-  align-items: center;
-  margin-top: var(--space-xs);
-  padding: var(--space-xs) var(--space-sm);
-  border-top: 2px solid var(--danger);
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
+/* — Mortality comparison bar — */
+.meld-mort-section {
+  margin-top: var(--space-lg);
   opacity: 0;
 }
-.meld-threshold-label {
-  font-family: var(--font-display);
+.meld-mort-title {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+}
+.meld-mort-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.meld-mort-band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-xs);
+}
+.meld-mort-range {
+  font-family: var(--font-mono);
   font-size: var(--text-body);
-  color: var(--danger);
-  font-weight: 600;
+  font-weight: 700;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.meld-mort-pct {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.meld-mort-icon {
+  font-size: var(--text-body);
 }
 
-.no-js .meld-threshold,
-.stage-bad .meld-threshold {
-  width: 100%;
+/* Mortality band colors — --danger ONLY on >=25 */
+.meld-mort-band--safe {
+  background: oklch(from var(--safe) l c h / 0.12);
+  border-bottom: 3px solid var(--safe);
+  color: var(--text-primary);
+}
+.meld-mort-band--safe .meld-mort-icon { color: var(--safe); }
+
+.meld-mort-band--warning {
+  background: oklch(from var(--warning) l c h / 0.12);
+  border-bottom: 3px solid var(--warning);
+  color: var(--text-primary);
+}
+.meld-mort-band--warning .meld-mort-icon { color: var(--warning); }
+
+.meld-mort-band--caution {
+  background: oklch(from var(--warning) l c h / 0.20);
+  border-bottom: 3px solid var(--warning);
+  color: var(--text-primary);
+}
+.meld-mort-band--caution .meld-mort-icon { color: var(--warning); }
+
+.meld-mort-band--danger {
+  background: oklch(from var(--danger) l c h / 0.12);
+  border-bottom: 3px solid var(--danger);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.meld-mort-band--danger .meld-mort-icon { color: var(--danger); }
+
+/* — Limitations badges — */
+.meld-limits {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  opacity: 0;
+}
+.meld-limit-badge {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+}
+.meld-limit-label {
+  font-weight: 700;
+  color: var(--ui-accent);
+  white-space: nowrap;
+}
+.meld-limit-text {
+  color: var(--text-muted);
+}
+
+/* Source tag hidden by default (GSAP reveals) */
+#s-a1-meld .source-tag {
+  opacity: 0;
+}
+
+/* — Failsafes — */
+.no-js .meld-evo-card,
+.stage-bad .meld-evo-card,
+.no-js .meld-mort-section,
+.stage-bad .meld-mort-section,
+.no-js .meld-limits,
+.stage-bad .meld-limits,
+.no-js #s-a1-meld .source-tag,
+.stage-bad #s-a1-meld .source-tag {
   opacity: 1;
 }
 
@@ -2155,6 +2246,7 @@ section#s-a1-01 .slide-inner {
   grid-template-areas: "stack";
   flex: 1;
   align-items: start;
+  padding-top: var(--space-lg);
 }
 .scores-era {
   grid-area: stack;
@@ -2193,76 +2285,98 @@ section#s-a1-01 .slide-inner {
   width: fit-content;
 }
 .scores-era-title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--text-h3);
+  font-weight: 700;
   color: var(--text-primary);
   margin: 0;
 }
 
-/* ── s-a1-cpt — Gemini co-design (30/mar/2026) ── */
+/* ── s-a1-cpt — Redesign S0 (31/mar/2026) ── */
+
+/* S0: 2-column grid — subjectivity | ceiling */
+#s-a1-cpt .scores-era[data-era="0"] {
+  justify-content: flex-start;
+}
+.cpt-s0-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  flex: 1;
+  align-items: flex-start;
+}
+.cpt-s0-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.cpt-s0-heading {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 /* S0: 5 variable nodes */
 .cpt-nodes {
   display: flex;
-  align-self: flex-start;
+  flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-top: var(--space-sm);
 }
 .cpt-node {
-  padding: 6px var(--space-sm);
+  padding: 8px var(--space-md);
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: var(--text-small);
+  font-size: var(--text-body);
   font-weight: 600;
   color: var(--text-secondary);
 }
 .cpt-node--flaw {
-  background: var(--warning-light);
-  border-color: var(--warning);
-  color: var(--warning-on-light);
+  background: var(--ui-accent-light);
+  border-color: var(--ui-accent);
+  color: var(--ui-accent);
 }
 
 /* S0: Kappa callout */
 .cpt-flaw-callout {
   display: inline-flex;
-  align-items: center;
   align-self: flex-start;
+  align-items: center;
   gap: var(--space-xs);
-  margin: var(--space-xs) 0 0 0;
-  background: var(--warning-light);
-  padding: 4px 12px;
+  background: var(--ui-accent-light);
+  padding: 6px 14px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--warning);
+  border: 1px solid var(--ui-accent);
 }
 .cpt-kappa-label {
   font-family: var(--font-body);
   font-size: var(--text-caption);
-  color: var(--warning-on-light);
+  color: var(--text-secondary);
   font-weight: 600;
 }
 .cpt-kappa-value {
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--warning);
+  color: var(--ui-accent);
 }
 
-/* S0: Ceiling effect — typography-driven, no chrome */
+/* S0: Ceiling effect */
 .cpt-ceiling {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-xs);
-  margin: var(--space-md) 0 0 0;
-  padding: 0;
+  gap: var(--space-sm);
 }
 .cpt-ceiling-label {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   color: var(--text-secondary);
-  font-weight: 400;
+  font-weight: 600;
 }
 .cpt-ceiling-compare {
   display: flex;
@@ -2287,16 +2401,16 @@ section#s-a1-01 .slide-inner {
 }
 .cpt-ceiling-unit {
   font-family: var(--font-body);
-  font-size: var(--text-caption);
+  font-size: var(--text-body);
   color: var(--text-muted);
 }
 .cpt-ceiling-result {
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--text-secondary);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  color: var(--ui-accent);
+  background: var(--ui-accent-light);
+  border: 1px solid var(--ui-accent);
   padding: 4px 12px;
   border-radius: var(--radius-sm);
 }
@@ -2304,27 +2418,28 @@ section#s-a1-01 .slide-inner {
 /* S1: Surgical mortality stats */
 .cpt-surgery {
   display: flex;
-  gap: var(--space-md);
-  margin-top: var(--space-sm);
+  justify-content: center;
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
   align-items: flex-end;
 }
 .cpt-surgery-stat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius-md);
-  min-width: 120px;
+  min-width: 150px;
   transform-origin: bottom center;
 }
 .cpt-surgery-class {
-  font-family: var(--font-display);
-  font-size: var(--text-h3);
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-size: var(--text-h2);
+  font-weight: 700;
 }
 .cpt-surgery-pct {
   font-family: var(--font-mono);
-  font-size: var(--text-h1);
+  font-size: var(--text-hero);
   font-weight: 700;
   line-height: 1;
 }
@@ -2335,10 +2450,12 @@ section#s-a1-01 .slide-inner {
 }
 .cpt-surgery-stat--safe {
   color: var(--safe);
+  background: var(--safe-light);
   border: 1px solid var(--safe);
 }
 .cpt-surgery-stat--warning {
   color: var(--warning-on-light);
+  background: var(--warning-light);
   border: 1px solid var(--warning);
 }
 .cpt-surgery-stat--danger {
@@ -2349,16 +2466,17 @@ section#s-a1-01 .slide-inner {
 
 /* S2: Guideline cards */
 .cpt-guidelines {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  margin-top: var(--space-sm);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
 }
 .cpt-guideline-card {
   display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md) var(--space-lg);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -2370,8 +2488,9 @@ section#s-a1-01 .slide-inner {
   border-left: 4px solid var(--warning);
 }
 .cpt-guideline-icon {
-  font-size: var(--text-h3);
+  font-size: var(--text-h2);
   flex-shrink: 0;
+  line-height: 1;
 }
 .cpt-guideline-card--recomp .cpt-guideline-icon { color: var(--safe); }
 .cpt-guideline-card--tips .cpt-guideline-icon { color: var(--warning-on-light); }

@@ -14,37 +14,44 @@
   <div class="slide-inner archetype-flow">
 
     <p class="section-tag">ATO 1 — CLASSIFICAR</p>
-    <h2 class="slide-headline">Child-Pugh-Turcotte: história, limitações e uso atual</h2>
+    <h2 class="slide-headline">Child-Pugh-Turcotte</h2>
 
     <div class="scores-era-track">
 
-      <!-- ─── S0: Falhas matemáticas (auto) ─── -->
+      <!-- ─── S0: Falhas matemáticas (auto) — 2-col grid ─── -->
       <div class="scores-era" data-era="0">
+        <div class="cpt-s0-grid">
 
-        <div class="cpt-nodes">
-          <span class="cpt-node">Bili</span>
-          <span class="cpt-node">Alb</span>
-          <span class="cpt-node cpt-node--flaw">⚠ Ascite</span>
-          <span class="cpt-node cpt-node--flaw">⚠ EH</span>
-          <span class="cpt-node">INR</span>
-        </div>
-
-        <div class="cpt-flaw-callout">
-          <span class="cpt-kappa-label">Inter-observador</span>
-          <span class="cpt-kappa-value">κ ≤ 0,41</span>
-        </div>
-
-        <div class="cpt-ceiling">
-          <span class="cpt-ceiling-label">Ceiling effect — Bilirrubina</span>
-          <div class="cpt-ceiling-compare">
-            <span class="cpt-ceiling-low">3,1</span>
-            <span class="cpt-ceiling-arrow">→</span>
-            <span class="cpt-ceiling-high" data-target="30">30</span>
-            <span class="cpt-ceiling-unit">mg/dL</span>
+          <div class="cpt-s0-col">
+            <span class="cpt-s0-heading">5 variáveis — 2 subjetivas</span>
+            <div class="cpt-nodes">
+              <span class="cpt-node">Bili</span>
+              <span class="cpt-node">Alb</span>
+              <span class="cpt-node cpt-node--flaw">⚠ Ascite</span>
+              <span class="cpt-node cpt-node--flaw">⚠ EH</span>
+              <span class="cpt-node">INR</span>
+            </div>
+            <div class="cpt-flaw-callout">
+              <span class="cpt-kappa-label">Inter-observador</span>
+              <span class="cpt-kappa-value">κ ≤ 0,41</span>
+            </div>
           </div>
-          <span class="cpt-ceiling-result">= mesmos 3 pontos</span>
-        </div>
 
+          <div class="cpt-s0-col">
+            <span class="cpt-s0-heading">Ceiling effect</span>
+            <div class="cpt-ceiling">
+              <span class="cpt-ceiling-label">Bilirrubina</span>
+              <div class="cpt-ceiling-compare">
+                <span class="cpt-ceiling-low">3,1</span>
+                <span class="cpt-ceiling-arrow">→</span>
+                <span class="cpt-ceiling-high" data-target="30">30</span>
+                <span class="cpt-ceiling-unit">mg/dL</span>
+              </div>
+              <span class="cpt-ceiling-result">= mesmos 3 pontos</span>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <!-- ─── S1: Mortalidade cirúrgica (click) ─── -->
