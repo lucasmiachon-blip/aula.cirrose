@@ -738,6 +738,8 @@ Se nao identificar transicoes no video, diga "transicoes indistinguiveis" e pont
 3. PURPOSE: didatica (guia raciocinio) | decorativa (so estetica)
 4. LEGIBILIDADE: texto parado=ok | texto em movimento=ruim
 5. ARTEFATO: se viu artefato visual, descrever QUANDO e O QUE viu
+6. COR SEMANTICA: mudanca de cor durante transicao segue o arco narrativo? (ex: estado 0 = warning/neutro → estado 1 = danger = escalacao correta). Se multiplos elementos gritam a mesma cor no mesmo estado → "Von Restorff diluido"
+7. HIERARQUIA: dentro de cada estado, o olho sabe onde ir PRIMEIRO? Descrever o caminho visual (maior/negrito/colorido → menor/leve/neutro)
 
 **PARTE C — Adicionar ao JSON de resposta:**
 

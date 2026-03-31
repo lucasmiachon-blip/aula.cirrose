@@ -149,6 +149,7 @@ RACE: opacity — GSAP autoAlpha:0 + CSS [data-animate] opacity:0 — redundante
 ### 2. IMPRESSAO (max 3 frases)
 Video (se houver) PRIMEIRO → PNGs → codigo.
 O que funciona, o que incomoda, e UMA coisa que mudaria primeiro.
+**HIERARQUIA:** Em cada estado (S0, S1, S2), descrever o caminho do olho: qual elemento atrai primeiro? segundo? terceiro? Se nao ha hierarquia clara (tudo grita igual), declarar "hierarquia achatada".
 
 ### 3. SCORECARD (11 dimensoes — com criterios mensuráveis)
 
@@ -157,9 +158,9 @@ Para CADA dimensao: dar nota + listar os criterios CONCRETOS avaliados e o resul
 | Dim | Nota | Criterios avaliados (obrigatorio) |
 |-----|------|-----------------------------------|
 | Tipografia e hierarquia | ?/10 | h2 font-size=?px, body=?px, caption=?px; font-family match tokens?; escala hierarquica coerente?; vw ilegal (E52)?  |
-| Cor, contraste e superficie | ?/10 | cor texto vs fundo (estimar ratio); tokens usados corretamente?; **cor semantica clinica verificada: danger = risco real (morte, sangramento, falencia orgao). warning = investigar/monitorar. safe = manter conduta. ui-accent = chrome/UI, NUNCA clinico. Se danger/warning usado para enfase teorica sem risco clinico real, flaggear como SHOULD**; superficies (bg-card, bg-elevated) presentes? |
+| Cor, contraste e superficie | ?/10 | **MUST CHECKS (cada um = sim/nao):** (C1) Para CADA elemento com --danger no CSS: representa risco clinico REAL (morte, sangramento, falencia)? Se nao → MUST. (C2) Para CADA elemento com --warning: representa investigar/monitorar (limitacao, zona cinza)? Se nao → SHOULD. (C3) --ui-accent usado em contexto clinico? → MUST. (C4) Contar elementos com background colorido por estado: se >1 elemento com mesma cor de fundo → Von Restorff diluido, flaggear. (C5) Arco de cor entre estados: a progressao de cores segue a narrativa (ex: warning→danger = escalacao, danger→safe = resolucao)? **Medicoes:** cor texto vs fundo (estimar ratio); tokens var() vs hardcoded; superficies (bg-card, bg-elevated) presentes? |
 | Composicao e respiro | ?/10 | fill ratio estimado (%); padding principal (px); gap entre elementos; alinhamento (left/center/mixed); espaco desperdicado vs intencional |
-| Motion e timing | ?/10 | transicoes contadas (#); duracoes (ms); delays (ms); overlap entre saida/entrada (ms); easing usado; artefatos visiveis no video (sim/nao, descrever) |
+| Motion e timing | ?/10 | **MUST CHECKS (cada um via VIDEO, nao codigo):** (M1) Flash/FOUC: algum conteudo aparece visivel por >100ms antes de ser escondido por GSAP? (E66). (M2) Transicao entre estados (click): descreva o que acontece com o slide INTEIRO — nao so elementos individuais. O conteudo anterior some ANTES do novo aparecer? Ha gap vazio? (M3) Stagger: elementos em grupo entram com delay progressivo ou todos de uma vez? (M4) CountUp: numeros animados sao legiveis durante a contagem ou flasham rapido demais? **Medicoes:** transicoes contadas (#); duracoes (ms); delays (ms); overlap saida/entrada (ms); easing; artefatos (ghosting, flash, layout shift). **Se nao assistiu video: declarar explicitamente e pontuar max 5/10.** |
 | Legibilidade a 5m | ?/10 | menor texto visivel (estimado px); contraste minimo; elementos que desaparecem em projecao; text-small aceitavel? |
 | Impacto emocional | ?/10 | hero element presente?; Von Restorff aplicado?; pausa narrativa existe?; dado de impacto destacado? |
 | Craft front-end | ?/10 | dead CSS no bloco slide-specific (# seletores — ignorar tokens/archetype); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |
@@ -171,7 +172,7 @@ Para CADA dimensao: dar nota + listar os criterios CONCRETOS avaliados e o resul
 
 **Regras de pontuacao:**
 - Nota SEM criterios = invalida. CADA nota deve listar O QUE foi medido/observado.
-- Se video foi anexado: nota Motion DEVE refletir o que ASSISTIU (citar timestamps). Se nao assistiu video: declarar "nota baseada em codigo, sem video".
+- Se video foi anexado: notas Motion E Cor DEVEM refletir o que ASSISTIU no video (citar timestamps). Motion sem video = max 5/10. Cor sem avaliar arco entre estados = max 6/10.
 - Scores <=7: justificar com o criterio que falhou.
 - Scores >=8: listar os criterios que sustentam a nota alta.
 
