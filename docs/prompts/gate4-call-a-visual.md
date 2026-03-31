@@ -26,6 +26,12 @@ Nota >= 7 = aceitavel. Nota < 7 = MUST fix (descreva exatamente o que mudar).
 
 Seja DURO. Nao elogie. Foque no que FALHA. Um slide projetado a 6m e MUITO diferente de uma tela de laptop.
 
+### REGRA DE EVIDENCIA (OBRIGATORIA)
+
+Para cada dimensao, PRIMEIRO descreva o que voce VE no screenshot (S0 e S2 separados). Cite elementos especificos, posicoes, tamanhos relativos. SO DEPOIS liste problemas e de nota.
+O campo `evidencia` e sua prova de que voce olhou — sem ele, a nota sera descartada.
+Formato: "S0: [descricao concreta]. S2: [descricao concreta]. Ref: [comparacao com slide anterior]."
+
 ### DIMENSOES
 
 **1. DISTRIBUICAO (1-10)**
@@ -46,11 +52,11 @@ Existe uma ancora visual clara (o elemento que domina o slide)? O olho flui natu
 ### OUTPUT
 
 {
-  "distribuicao": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "proporcao": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "cor": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "tipografia": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "composicao": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "distribuicao": { "evidencia": "S0: ... S2: ... Ref: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "proporcao": { "evidencia": "S0: ... S2: ... Ref: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "cor": { "evidencia": "S0: ... S2: ... Ref: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "tipografia": { "evidencia": "S0: ... S2: ... Ref: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "composicao": { "evidencia": "S0: ... S2: ... Ref: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
   "media_visual": N,
   "impressao_geral": "uma frase descrevendo a impressao dominante do slide"
 }

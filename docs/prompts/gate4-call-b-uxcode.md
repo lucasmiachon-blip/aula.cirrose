@@ -50,6 +50,12 @@ Com base no codigo-fonte e materiais acima, avalie o slide:
 Avalie o slide combinando principios de UI/UX com analise de codigo. Para cada dimensao, de nota 1-10.
 Nota >= 7 = aceitavel. Nota < 7 = MUST fix com snippet de codigo corrigido.
 
+### REGRA DE EVIDENCIA (OBRIGATORIA)
+
+Para cada dimensao, PRIMEIRO cite o codigo especifico (seletor CSS, classe HTML, funcao JS) e o resultado visual correspondente no PNG. SO DEPOIS liste problemas e de nota.
+O campo `evidencia` e sua prova de analise — sem ele, a nota sera descartada.
+Formato: "CSS: [seletor/regra]. HTML: [elemento/classe]. Visual: [o que aparece no PNG como resultado]."
+
 ### DIMENSOES
 
 **1. GESTALT (1-10)**
@@ -70,11 +76,11 @@ Ha dead CSS (seletores que nao matcham nenhum elemento no HTML)? Conflitos de sp
 ### OUTPUT
 
 {
-  "gestalt": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "carga_cognitiva": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "information_design": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "css_cascade": { "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "failsafes": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "gestalt": { "evidencia": "CSS: ... HTML: ... Visual: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "carga_cognitiva": { "evidencia": "CSS: ... HTML: ... Visual: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "information_design": { "evidencia": "CSS: ... HTML: ... Visual: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "css_cascade": { "evidencia": "CSS: ... HTML: ... Visual: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "failsafes": { "evidencia": "CSS: ... HTML: ... Visual: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
   "media_uxcode": N,
   "dead_css": ["seletor1", "seletor2"],
   "specificity_conflicts": ["descricao1"],

@@ -914,7 +914,7 @@ async function runEditorial(slideId, round, qaDir) {
     if (val !== null) allDims[key] = val;
   }
   // Call C — motion dimensions
-  for (const key of ['timing', 'easing', 'narrativa_motion', 'crossfade', 'artefatos']) {
+  for (const key of ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito', 'artefatos']) {
     const val = safeNum(callC_result, key, 'nota');
     if (val !== null) allDims[key] = val;
   }

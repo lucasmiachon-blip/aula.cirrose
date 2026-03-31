@@ -5,15 +5,15 @@
 
 ---
 
-## Estado — 2026-03-31T23:59-03:00
+## Estado — 2026-04-01T00:30-03:00
 
-**Ultima sessao (31/mar, final):** Prompt engineering session. Gate 4 prompts otimizados (reasoning before score, context-first, ~400 tokens salvos). Gate 0 v1.3: removido DISTRIBUTION (Flash incapaz, 3+ tentativas PASS), 10→9 checks, INVISIBLE limpo. Call A: +Prev/Next context, +per-state S0/S2 evaluation (S2 pesa mais). s-a1-cpt: visual estagnado 4.8/10, redesign estrutural S2 pendente.
+**Ultima sessao (1/abr):** Gate 4 v3.1 — campo `evidencia` obrigatorio em todas dimensoes (A/B/C). Call C: +dimensao `proposito` (6 dims), anti-sancofancia reforçada. s-a1-cpt R15: Visual 6.0 (+2.2 vs R14 3.8), UX+Code 5.8, Motion 9.2, Overall 7.0. CSS fixes: ceiling-result --danger→neutro, callout/nodes align-self flex-start. Virgula fantasma archetypes = falso positivo Gemini (descartado).
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
 **Branch:** `feat/cirrose-mvp`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO** (echo stub em settings.json — RE-HABILITAR apos sprint).
-**QA pipeline:** Gate 4 **v3.0** — 3 chamadas paralelas: A (visual+per-state, sem codigo), B (UX+codigo, sem video), C (motion, video+JS). Anti-sycophancy em todos prompts. Gate 0 **v1.3** (9 checks, puramente mecanico). Gate 2 em repouso.
+**QA pipeline:** Gate 4 **v3.1** — 3 chamadas paralelas + campo `evidencia` obrigatorio. Call C: 6 dims (timing, easing, narrativa, crossfade, **proposito**, artefatos). Anti-sycophancy reforçada em Call C. Gate 0 **v1.3** (9 checks). Gate 2 em repouso.
 **Research completo:** s-a1-meld (17 PMIDs verificados), s-cp1 (11 PMIDs). MELD research pendente (MELD 3.0 Brasil).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
@@ -34,7 +34,7 @@
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
 | 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
-| 9 | s-a1-cpt | QA | Gate 4 R13 (3-call): Visual 4.8 | UX+Code 7.0 | Motion 8.4 | Overall 6.7. Failsafes 5→9 (HTML 10/30/75). Visual estagnado 3 rounds: distribuicao(4), composicao(4), proporcao(5), tipografia(5). Problema ESTRUTURAL: S2 guideline cards sao faixas finas horizontais, nao ocupam espaco. Precisa redesign arquitetural do layout S2, nao CSS tweaks. Call B: ceiling-result em --danger = erro semantico (trocar pra neutro). Dead CSS: 11 seletores .flow-* orfaos. Call C: pulse CTP conflita com callout (separar no tempo). |
+| 9 | s-a1-cpt | QA | Gate 4 R15: Visual 6.0 | UX+Code 5.8 | Motion 9.2 | Overall 7.0. Fixes aplicados: ceiling-result --danger→neutro, callout/nodes align-self flex-start. Pendente: redesign estrutural S2 (guideline cards), tipografia (serif stray no ceiling effect), distribuicao vertical. |
 | 10 | s-a1-meld | CONTENT | Act 1 restante. |
 | 11 | s-cp1 | CONTENT | LSM 26 kPa atualizado (HTML+manifest+notes). Logica Baveno corrigida (CSPH confirmado, nao rule-out). |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
@@ -47,23 +47,23 @@
 
 | Preparado? | Item | Notas |
 |------------|------|-------|
-| ✅ | Gate 4 v3.0 hardened | fetchWithRetry (network+timeout), uploadFile retry, cleanup try/finally, safeNum. Testado R13. |
-| ✅ | Gate 0 v1.3 | 9 checks puramente mecanicos. DISTRIBUTION removido (Flash incapaz). INVISIBLE limpo. |
-| ✅ | Gate 4 prompts otimizados | Reasoning before score, context-first (Call B), per-state eval (Call A), ~400 tokens salvos. |
-| ✅ | Anti-sycophancy | Todos 3 prompts + Gate 0 anti-sycophancy. |
+| ✅ | Gate 4 v3.1 hardened | fetchWithRetry, campo `evidencia` obrigatorio, 16 dims total. Testado R15. |
+| ✅ | Gate 0 v1.3 | 9 checks puramente mecanicos. DISTRIBUTION removido. INVISIBLE limpo. |
+| ✅ | Gate 4 prompts v3.1 | Evidencia obrigatoria (A/B/C), proposito dim (Call C), anti-sancofancia reforçada. |
+| ✅ | Anti-sycophancy | Todos 3 prompts + Gate 0. Call C reforçado (reavalie 9/10, proposito por animacao). |
 | ✅ | Research s-a1-meld | 17 PMIDs verificados (evidence-db) |
 | ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
 | ✅ | Scripts hardened | gemini-qa3 + content-research + qa-batch-screenshot (video delay 2500ms, dev server check) |
 | ❌ | MELD 3.0 Brasil | Lucas tem docs oficiais mostrando MELD 3.0 em vigor. Pesquisa atual errou. |
-| ❌ | s-a1-cpt REDESIGN ESTRUTURAL | Visual 4.8/10 estagnado 3 rounds. Problema: S2 guideline cards = faixas horizontais finas. Precisa redesign arquitetural, NAO CSS tweaks. Itens pendentes do R13: (1) ceiling-result --danger→neutro (erro semantico), (2) dead CSS .flow-* 11 seletores, (3) callout align-self flex-start, (4) pulse CTP separar no tempo do callout. |
+| ❌ | s-a1-cpt REDESIGN ESTRUTURAL | Visual 6.0 (R15), subiu de 3.8 (R14) com fixes CSS. Pendente: redesign S2 (guideline cards subdimensionados), tipografia (serif no ceiling effect→sans-serif), distribuicao vertical (conteudo acumulado no topo). |
 | ❌ | Gate 2 em repouso | So Gate 4 por questao de tempo. |
 
 **Fluxo na proxima sessao:**
 1. `npm run dev` (port 4100)
-2. **s-a1-cpt redesign estrutural S2** — repensar guideline cards como elementos verticais/hero que dominam o espaco. NAO iterar CSS tweaks.
-3. Aplicar itens pendentes R13 (ceiling semantics, dead CSS, callout stretch, pulse timing)
-4. Gate 4 R14: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 14`
-5. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims, problemas, fixes, inventario)
+2. **s-a1-cpt redesign estrutural S2** — guideline cards subdimensionados, distribuicao vertical, tipografia serif stray
+3. Screenshots: `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
+4. Gate 4 R16: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 16`
+5. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
 6. Se visual >=7: avancar para s-a1-meld
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
