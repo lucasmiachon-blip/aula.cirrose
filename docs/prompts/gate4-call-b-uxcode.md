@@ -38,6 +38,13 @@ Se nao achou problemas numa dimensao, olhe de novo — todo slide tem melhorias 
 {{NOTES}}
 ```
 
+### Round Context
+{{ROUND_CTX}}
+
+{{ERROR_DIGEST}}
+
+Com base no codigo-fonte e materiais acima, avalie o slide:
+
 ## TAREFA
 
 Avalie o slide combinando principios de UI/UX com analise de codigo. Para cada dimensao, de nota 1-10.
@@ -60,21 +67,14 @@ Ha dead CSS (seletores que nao matcham nenhum elemento no HTML)? Conflitos de sp
 **5. FAILSAFES (1-10)**
 .no-js e .stage-bad cobrem todos os elementos animados? opacity: 0 tem fallback? Elementos com data-animate tem CSS pre-hide? print-pdf funciona? Algum estado quebra se JS falhar?
 
-### ROUND CONTEXT
-{{ROUND_CTX}}
-
-{{ERROR_DIGEST}}
-
 ### OUTPUT
 
-Responda em JSON valido (sem markdown fences):
-
 {
-  "gestalt": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "carga_cognitiva": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "information_design": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "css_cascade": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "failsafes": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
+  "gestalt": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "carga_cognitiva": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "information_design": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "css_cascade": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "failsafes": { "problemas": ["..."], "fixes": ["..."], "nota": N },
   "media_uxcode": N,
   "dead_css": ["seletor1", "seletor2"],
   "specificity_conflicts": ["descricao1"],

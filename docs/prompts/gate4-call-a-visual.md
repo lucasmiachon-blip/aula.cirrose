@@ -38,14 +38,12 @@ Existe uma ancora visual clara (o elemento que domina o slide)? O olho flui natu
 
 ### OUTPUT
 
-Responda em JSON valido (sem markdown fences):
-
 {
-  "distribuicao": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "proporcao": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "cor": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "tipografia": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "composicao": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
+  "distribuicao": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "proporcao": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "cor": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "tipografia": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "composicao": { "problemas": ["..."], "fixes": ["..."], "nota": N },
   "media_visual": N,
   "impressao_geral": "uma frase descrevendo a impressao dominante do slide"
 }

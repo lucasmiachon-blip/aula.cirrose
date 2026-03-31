@@ -66,14 +66,12 @@ Exemplo RUIM: "~1.5s: stagger com delay 0.1s" (isso e codigo, nao observacao vis
 
 ### OUTPUT
 
-Responda em JSON valido (sem markdown fences):
-
 {
-  "timing": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "easing": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "narrativa_motion": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "crossfade": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
-  "artefatos": { "nota": N, "problemas": ["..."], "fixes": ["..."] },
+  "timing": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "easing": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "narrativa_motion": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "crossfade": { "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "artefatos": { "problemas": ["..."], "fixes": ["..."], "nota": N },
   "media_motion": N,
   "inventory": ["~X.Xs: descricao | tipo | ~Xms | artefato: sim/nao"],
   "animation_value": "didatica|decorativa|prejudicial"
