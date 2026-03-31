@@ -5,15 +5,15 @@
 
 ---
 
-## Estado — 2026-03-31T23:00-03:00
+## Estado — 2026-03-31T23:59-03:00
 
-**Ultima sessao (31/mar):** Hardening scripts (gemini-qa3, content-research, qa-batch-screenshot). Gate 0 v1.2 (+DISTRIBUTION +READABILITY projecao, Flash nao pega). s-a1-cpt: failsafes 5→9, CSS tweaks insuficientes (visual estagnado 4/10 x3 rounds). Gate 4 R13 apresentado completo. Proximo: redesign estrutural S2.
+**Ultima sessao (31/mar, final):** Prompt engineering session. Gate 4 prompts otimizados (reasoning before score, context-first, ~400 tokens salvos). Gate 0 v1.3: removido DISTRIBUTION (Flash incapaz, 3+ tentativas PASS), 10→9 checks, INVISIBLE limpo. Call A: +Prev/Next context, +per-state S0/S2 evaluation (S2 pesa mais). s-a1-cpt: visual estagnado 4.8/10, redesign estrutural S2 pendente.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
 **Branch:** `feat/cirrose-mvp`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO** (echo stub em settings.json — RE-HABILITAR apos sprint).
-**QA pipeline:** Gate 4 **v3.0** — 3 chamadas paralelas: A (visual, sem codigo), B (UX+codigo, sem video), C (motion, video+JS). Anti-sycophancy em todos prompts. Gate 2 **v1.1**: +C6 cross-state, +C7 per-state, S1 blind spot.
+**QA pipeline:** Gate 4 **v3.0** — 3 chamadas paralelas: A (visual+per-state, sem codigo), B (UX+codigo, sem video), C (motion, video+JS). Anti-sycophancy em todos prompts. Gate 0 **v1.3** (9 checks, puramente mecanico). Gate 2 em repouso.
 **Research completo:** s-a1-meld (17 PMIDs verificados), s-cp1 (11 PMIDs). MELD research pendente (MELD 3.0 Brasil).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
@@ -48,7 +48,8 @@
 | Preparado? | Item | Notas |
 |------------|------|-------|
 | ✅ | Gate 4 v3.0 hardened | fetchWithRetry (network+timeout), uploadFile retry, cleanup try/finally, safeNum. Testado R13. |
-| ✅ | Gate 0 v1.2 | +DISTRIBUTION +READABILITY projecao. Flash nao pega distribuicao — manter como pre-filter mecanico, nao confiar para layout. |
+| ✅ | Gate 0 v1.3 | 9 checks puramente mecanicos. DISTRIBUTION removido (Flash incapaz). INVISIBLE limpo. |
+| ✅ | Gate 4 prompts otimizados | Reasoning before score, context-first (Call B), per-state eval (Call A), ~400 tokens salvos. |
 | ✅ | Anti-sycophancy | Todos 3 prompts + Gate 0 anti-sycophancy. |
 | ✅ | Research s-a1-meld | 17 PMIDs verificados (evidence-db) |
 | ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
@@ -93,14 +94,16 @@ Todas 9 superficies sincronizadas: CASE.md, narrative.md, evidence-db.md, 07-cp1
 
 ---
 
-## Gate 4 v3.0 — 3 chamadas paralelas (01/abr)
+## Gate 4 v3.0 — 3 chamadas paralelas
 
 **Problema:** Chamada unica com codigo+visuals causava Gemini focar no codigo (dava 10/10 craft) e dar nota de cortesia para visual (9.3/10 quando era 2.7). Lucas identificou: "front end e UI UX design muito ruins em classificar".
 
 **Fix:** 3 chamadas paralelas via `Promise.all`:
-- **Call A — Visual Design:** PNGs + video, ZERO codigo. Foco em distribuicao, proporcao, cor, tipografia, composicao.
-- **Call B — UI/UX + Code:** PNGs + raw HTML/CSS/JS, SEM video. Gestalt, carga cognitiva, information design, CSS cascade, failsafes.
+- **Call A — Visual Design:** PNGs + video, ZERO codigo. Foco em distribuicao, proporcao, cor, tipografia, composicao. **Per-state S0/S2 eval, S2 pesa mais.** Prev/Next context.
+- **Call B — UI/UX + Code:** PNGs + raw HTML/CSS/JS, SEM video. Gestalt, carga cognitiva, information design, CSS cascade, failsafes. Context-first layout (materiais antes da tarefa).
 - **Call C — Motion Design:** PNGs + video + animation JS. Timing, easing, narrativa, crossfade, artefatos. Inventario com timestamps obrigatorio.
+
+**Prompt optimizations (31/mar):** Reasoning before score (problemas→fixes→nota em todos JSONs). Context-first em Call B (materiais antes da tarefa — Gemini 3 esquece contexto que vem depois). Removido `responseMimeType` JSON instruction redundante (~400 tokens total salvos). Per-state eval em Call A (S0 vs S2 separados, S2 pesa mais).
 
 **Arquivos:**
 - `scripts/gemini-qa3.mjs` — `buildSplitCallPayload()` + `runEditorial()` reescrito
@@ -108,9 +111,7 @@ Todas 9 superficies sincronizadas: CASE.md, narrative.md, evidence-db.md, 07-cp1
 - `@repo/docs/prompts/gate4-call-b-uxcode.md` — prompt UX+code
 - `@repo/docs/prompts/gate4-call-c-motion.md` — prompt motion (video obrigatorio)
 
-**Resultado R10 s-a1-cpt:** Visual 4.6 (HONESTO) | UX+Code 8.4 | Motion 9.0. Custo ~$0.10 total.
-
-**Dead code removido:** `buildPrompt()`, `extractGlobalClassCSS()`, consts `GATE4_PROMPT_PATH`/`DIAGNOSTIC`/`CONTEXT_PARAGRAPH`.
+**Resultado R13 s-a1-cpt:** Visual 4.8 | UX+Code 7.0 | Motion 8.4 | Overall 6.7. Custo ~$0.10 total.
 
 ---
 
