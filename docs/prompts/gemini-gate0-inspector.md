@@ -2,7 +2,7 @@
 # Versão: 1.2
 # Modelo: gemini-3-flash-preview
 # Input: 1-2 PNGs (S0 obrigatório, S2 se slide tem click-reveals) de um slide 1280×720
-# Output: JSON com 10 checks binários
+# Output: JSON com 9 checks binários
 # Contexto: Projeção em TV 55" a 6 metros. Audiência: hepatologistas seniores.
 # Custo estimado: ~800 tokens input, ~200 tokens output (~$0.002/slide)
 
@@ -19,7 +19,7 @@ Se receber apenas S0, o slide é estático — avaliar apenas esse estado.
 Inspecionar CADA screenshot procurando defeitos visuais concretos.
 NÃO avaliar beleza, craft, ou impacto emocional.
 NÃO sugerir melhorias estéticas.
-Reportar defeitos mecânicos E de distribuição espacial.
+Reportar APENAS defeitos mecânicos (clipping, overflow, overlap, invisibilidade, mídia faltando, estado de animação).
 
 CALIBRAÇÃO: Você tem um viés documentado de marcar PASS em slides com layout
 vazio. Se você sente que um check é "quase FAIL mas vou dar o benefício da
@@ -48,30 +48,13 @@ Em caso de dúvida: FAIL.
 4. **INVISIBLE**: Existe espaço vazio onde deveria ter conteúdo?
    Procurar: áreas grandes vazias no meio do layout, placeholders sem
    conteúdo, elementos com texto da mesma cor do fundo.
-   TAMBÉM: conteúdo espremido em uma faixa (topo ou base) enquanto o centro
-   do slide está vazio. Se >40% da área útil não tem conteúdo visível e o
-   conteúdo existente está aglomerado em <50% da altura, marcar FAIL.
 
-5. **DISTRIBUTION**: O conteúdo PRINCIPAL ocupa a área útil do slide?
-   IGNORAR título (h2) e source-tag (rodapé) — eles são moldura, não conteúdo.
-   Avaliar apenas a zona central entre título e rodapé.
-   Procurar:
-   - Zona central com grande área vazia e conteúdo espremido em faixa estreita.
-   - Cards ou blocos que são finos (pouca altura) e largos, parecendo faixas
-     perdidas no espaço em vez de elementos com presença visual.
-   - Estado final (S2) especialmente: se o slide tem state machine, o estado
-     final é o que a audiência vê por mais tempo — ele DEVE ocupar o espaço.
-   Regra: se o conteúdo central (excluindo título e source-tag) ocupa menos
-   de 40% da área entre eles, marcar FAIL.
-   Err on the side of FAIL — é melhor bloquear um slide com vazio excessivo
-   do que deixar passar um layout desequilibrado.
-
-6. **MISSING_MEDIA**: Existe imagem, ícone ou gráfico faltando?
+5. **MISSING_MEDIA**: Existe imagem, ícone ou gráfico faltando?
    Procurar: boxes vazios com borda, ícones de imagem quebrada,
    áreas retangulares sem conteúdo visual onde o layout sugere que
    deveria haver imagem.
 
-7. **ANIMATION_STATE**: Todos os elementos que deveriam estar visíveis estão visíveis?
+6. **ANIMATION_STATE**: Todos os elementos que deveriam estar visíveis estão visíveis?
    Se recebeu S0 e S2: comparar ambos.
    - **Additive reveals (padrão):** S2 deve ter MAIS conteúdo que S0 (click-reveals adicionam elementos).
      Se S2 tem MENOS conteúdo que S0, a animação pode estar escondendo elementos.
@@ -82,15 +65,15 @@ Em caso de dúvida: FAIL.
 
 ### SHOULD-PASS (FAIL é warning, não bloqueia)
 
-8. **ALIGNMENT**: Elementos similares estão visualmente alinhados?
+7. **ALIGNMENT**: Elementos similares estão visualmente alinhados?
    Procurar: bullets desalinhados, colunas com início irregular,
    títulos off-center quando deveriam estar centrados.
 
-9. **SPACING**: O espaçamento entre elementos similares é consistente?
+8. **SPACING**: O espaçamento entre elementos similares é consistente?
    Procurar: gaps desiguais entre items de lista, margens inconsistentes
    entre seções, um card com mais padding que outro.
 
-10. **READABILITY**: Todo texto é legível para projeção a 6 metros em TV 55"?
+9. **READABILITY**: Todo texto é legível para projeção a 6 metros em TV 55"?
     Procurar: texto de corpo ou dados clínicos menor que ~18px equivalente
     (no viewport 1280×720). Captions e source-tags podem ser menores.
     Texto com contraste baixo contra o fundo. Texto condensado demais.
@@ -109,7 +92,6 @@ Responder APENAS com JSON válido, sem markdown, sem explicação, sem preâmbul
     "OVERFLOW":        { "pass": true },
     "OVERLAP":         { "pass": true },
     "INVISIBLE":       { "pass": true },
-    "DISTRIBUTION":    { "pass": true },
     "MISSING_MEDIA":   { "pass": true },
     "ANIMATION_STATE": { "pass": true },
     "ALIGNMENT":       { "pass": true },
@@ -124,8 +106,8 @@ Responder APENAS com JSON válido, sem markdown, sem explicação, sem preâmbul
 
 Regras do JSON:
 - "pass": true se OK, false se defeito encontrado
-- "must_pass": true se checks 1-7 são TODOS true. false se qualquer um é false.
-- "should_pass": true se checks 8-10 são TODOS true. false se qualquer um é false.
+- "must_pass": true se checks 1-6 são TODOS true. false se qualquer um é false.
+- "should_pass": true se checks 7-9 são TODOS true. false se qualquer um é false.
 - "summary": string vazia se tudo OK. Se qualquer FAIL, descrever o defeito em
   1 frase por FAIL. Exemplo: "CLIPPING: título cortado na borda direita em S2.
   OVERLAP: source-tag sobre o gráfico no canto inferior esquerdo em S0."

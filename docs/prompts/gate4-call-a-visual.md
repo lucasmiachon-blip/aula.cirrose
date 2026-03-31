@@ -10,6 +10,13 @@ Voce recebera:
 {{MEDIA_LIST}}
 
 Slide {{SLIDE_ID}} (posicao {{SLIDE_POS}}).
+Prev: {{PREV_SLIDE}} | Next: {{NEXT_SLIDE}}
+
+Voce recebera 1-2 screenshots (S0 obrigatorio, S2 se slide tem click-reveals) + video.
+Se recebeu S0 e S2: avaliar CADA estado separadamente.
+- S0: estado inicial (o que a audiencia ve ao entrar). Avaliar impacto de entrada.
+- S2: estado final apos click-reveals. E o estado que FICA NA TELA por mais tempo — pesar MAIS na nota final.
+Se S0 e S2 divergem em qualidade, reportar problema especificando qual estado.
 </system>
 
 ## TAREFA
