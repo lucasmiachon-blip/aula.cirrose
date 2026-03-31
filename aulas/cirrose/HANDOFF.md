@@ -9,7 +9,7 @@
 
 **Ultima sessao (31/mar, sessao 2):** CSS single-file (base.css absorvido em cirrose.css). FA definido (89 U/L). GGT+FA no s-hook. Git convertido para repo standalone (worktree orfa → git init + push origin main).
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
-**Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global. CSS single-file: cirrose.css (4695 linhas — tokens, stages, componentes, per-slide). Sem base.css, sem archetypes.
+**Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global. CSS single-file: cirrose.css (3224 linhas — tokens, stages, componentes, per-slide). Sem base.css, sem archetypes.
 **Slides:** 11 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · **Build/Lint:** ✅
 **Branch:** `main` (repo standalone `lucasmiachon-blip/aula.cirrose`).
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO**.
@@ -54,12 +54,12 @@
 | ✅ | 33 slides removidos | CONTENT → _archive. Manifest 11 slides. Build/lint OK. |
 | ✅ | GGT/FA no caso | GGT 210, FA 89. CASE.md + panelStates + s-hook OK. |
 | ✅ | Git standalone | Repo `lucasmiachon-blip/aula.cirrose`, branch `main`. |
-| ❌ | Dead CSS cleanup | ~680 linhas de CSS orfao (33 slides arquivados). Mapeado, nao executado. |
+| ✅ | Dead CSS cleanup | 1471 linhas removidas (4695→3224). 27 blocos: componentes arquivados, Stage A, archetypes genericos, calc inline, utilities orfas. Build+lint OK. |
 | ❌ | s-a1-meld SPLIT | Gemini recomenda split. Lucas nao decidiu. |
 | ❌ | s-cp1 centering | Verificar no viewport Lucas. |
 
 **Fluxo na proxima sessao:**
-1. Dead CSS cleanup (~680 linhas orfas dos 33 slides arquivados)
+1. ~~Dead CSS cleanup~~ — DONE (31/mar sessao 3)
 2. QA s-a1-meld (SPLIT decision) e s-cp1 (centering viewport)
 3. Comecar Act 2 slide-a-slide (criar do zero)
 
@@ -68,7 +68,7 @@
 ## Caminho critico
 
 1. ~~Act 1 (9 slides)~~ — 9 DONE* (31/mar)
-2. **Dead CSS** — ~680 linhas mapeadas, cleanup pendente
+2. ~~Dead CSS~~ — DONE (31/mar, 4695→3224 linhas)
 3. **s-a1-meld** — QA. Gate 4 R2 5.6. SPLIT decision pendente.
 4. **s-cp1** — QA. Centering pendente.
 5. **Act 2** — reconstruir do zero (slides removidos, conteudo em narrative.md + evidence-db)
@@ -135,8 +135,8 @@ Todas 9 superficies sincronizadas: CASE.md, narrative.md, evidence-db.md, 07-cp1
 
 ## Backlog
 
-- Dead CSS cleanup: ~680 linhas orfas dos 33 slides arquivados (mapeado)
-- Dead CSS cleanup: ~20 instancias `oklch(0% 0 0` restantes (ERRO-063)
+- ~~Dead CSS cleanup~~ — DONE (31/mar, 1471 linhas removidas)
+- ~~Dead CSS oklch(0% 0 0) ERRO-063~~ — resolvido (instancias restantes sao tokens root, fallbacks e sombras com alpha — legitimadas)
 - PDF export (DeckTape) — nao bloqueia congresso
 - Playwright MCP nao navega deck.js (E56) — script Node standalone
 - P4: mapear E-codes (slide-rules.md §8 vs ERROR-LOG)
