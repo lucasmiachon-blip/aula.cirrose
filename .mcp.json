@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp"
+      ]
+    },
+    "eslint": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "@eslint/mcp"
+      ]
+    },
+    "a11y": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "a11y-mcp-server"
+      ]
+    },
+    "sharp": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "sharp-mcp"
+      ]
+    }
+  }
+}

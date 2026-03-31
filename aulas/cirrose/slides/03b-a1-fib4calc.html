@@ -1,0 +1,94 @@
+<!-- ============================================================
+     s-a1-fib4 — FIB-4: triagem vs diagnóstico
+     Archetype: none — layout via #s-a1-fib4 in cirrose.css
+     Design: persistent horizontal spectrum + progressive annotations
+     States: 0=safe+danger zones grow (auto), 1=gray zone fills (click),
+             2=pitfall flags + source (click)
+     Sidebar: card padrão + calculadora FIB-4 (case-panel.js)
+     ============================================================ -->
+<section id="s-a1-fib4"
+         data-timing="120"
+         data-panel-state="neutral">
+
+  <div class="slide-inner">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Modelos Preditivos: FIB-4</h2>
+
+    <!-- Persistent FIB-4 spectrum — never disappears once shown -->
+    <div class="fib4-spectrum">
+
+      <!-- Colored bar segments -->
+      <div class="fib4-bar">
+        <div class="fib4-seg fib4-seg--safe"><span>&lt; 1,30</span></div>
+        <div class="fib4-seg fib4-seg--gray"><span>1,30 &ndash; 2,67</span></div>
+        <div class="fib4-seg fib4-seg--danger"><span>&ge; 2,67</span></div>
+      </div>
+
+      <!-- Annotations aligned below each segment -->
+      <div class="fib4-annots">
+        <div class="fib4-annot fib4-annot--safe">
+          <span class="fib4-annot-stat">✓ VPN &gt; 90%</span>
+          <span class="fib4-annot-label">Exclui</span>
+        </div>
+        <div class="fib4-annot fib4-annot--gray">
+          <span class="fib4-annot-stat">30&ndash;60%</span>
+          <span class="fib4-annot-label">⚠ &rarr; Elastografia</span>
+        </div>
+        <div class="fib4-annot fib4-annot--danger">
+          <span class="fib4-annot-stat">✕ VPP ~35%</span>
+          <span class="fib4-annot-label">N&atilde;o confirma</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pitfall flags — appear below spectrum on beat 2 -->
+    <div class="fib4-flags">
+      <div class="fib4-flag">
+        <span class="fib4-flag-icon">⚠</span>
+        <span class="fib4-flag-title">Idade &ge; 65 a</span>
+        <span class="fib4-flag-detail">Cutoff &rarr; 2,0</span>
+      </div>
+      <div class="fib4-flag">
+        <span class="fib4-flag-icon">⚠</span>
+        <span class="fib4-flag-title">&Aacute;lcool</span>
+        <span class="fib4-flag-detail">AST/ALT &gt; 2 infla</span>
+      </div>
+      <div class="fib4-flag">
+        <span class="fib4-flag-icon">⚠</span>
+        <span class="fib4-flag-title">MASLD ativa</span>
+        <span class="fib4-flag-detail">ALT &uarr; mascara</span>
+      </div>
+    </div>
+
+    <p class="source-tag">EASL NITs 2021 (PMID 34166721) &middot; Lindvig 2025 (PMID 39674225) &middot; Baveno VII (PMID 35120736)</p>
+  </div>
+
+  <aside class="notes">
+[0:00-0:30] Auto: barra safe cresce da esquerda, danger da direita. Assimetria visual.
+"FIB-4 abaixo de 1,30: pode parar ali. VPN acima de 90% — a forca esta na exclusao."
+"Acima de 2,67? Nao confirma. De cada 3 FIB-4 'alto risco', so 1 tem fibrose na biopsia."
+
+[0:30-1:00] Click 1 → Zona cinza preenche o meio
+"FIB-4 entre 1,30 e 2,67 — 30 a 60% dos pacientes caem aqui. E a regra, nao a excecao. Proximo passo: elastografia."
+"Baveno VII posiciona o FIB-4 como gateway. Nao como destino."
+
+[1:00-1:30] Click 2 → 3 armadilhas praticas
+"Tres armadilhas do dia a dia."
+"Idade: entra no numerador. Paciente de 70 anos com FIB-4 de 2,5 — com cutoff ajustado de 2,0, isso ja e alto risco. McPherson 2017."
+"Alcool: AST/ALT acima de 2. Deplecao de piridoxal baixa a ALT, dano mitocondrial sobe a AST. Score inflado."
+"MASLD ativa: ALT alta infla o denominador. FIB-4 fica falsamente baixo. Retestar quando ALT normalizar."
+PAUSA — olhar para sidebar (calc mostra 5,91).
+"Antonio: AST/ALT >2. O alcool esta inflando. Mas 5,91 ultrapassa qualquer cutoff."
+"E agora? O que voces fariam?" → estimular audiencia pela fala.
+→ avancar para elastografia / Rule-of-5
+
+[DATA] VPN >90%: EASL NITs CPG 2021 (PMID 34166721) | Verificado: evidence-db.md
+[DATA] VPP ~35%: LiverPRO Lindvig 2025 (PMID 39674225) — cenario terciario | Verificado: evidence-db.md
+[DATA] FIB-4 calculado: (55 x 67) / (112 x sqrt31) = 5,91 | Verificado: 2026-03-05
+[DATA] Cutoff >=65a: 2,0 — McPherson 2017 (PMID 27530706) | DEBATIDO: Hep Comm 2024 contesta
+[DATA] Alcool distorce: piridoxal-5P depletion ↓ALT + dano mitocondrial ↑AST | Schiff's 12th Ed Ch28
+[DATA] Zona cinza 30-60%: range comumente citado em coortes rastreamento | [TBD — verificar fonte primaria]
+[DATA] Baveno VII gateway: PMID 35120736 — FIB-4 como 1o passo do pathway
+  </aside>
+</section>

@@ -1,0 +1,168 @@
+/**
+ * deck.js — Vanilla navigation engine (replaces Reveal.js)
+ *
+ * Events dispatched on document:
+ *   slide:changed  { currentSlide, previousSlide, indexh } — immediate on navigate
+ *   slide:entered  { currentSlide, indexh } — after CSS transition + fallback 600ms
+ *
+ * State machines attach __hookAdvance / __hookRetreat to the section element.
+ * ClickReveal attaches __clickRevealNext to the section element.
+ *
+ * Scale: transform scale() via scaleDeck() — centered letterbox on any aspect ratio.
+ */
+
+let sections = [];
+let currentIndex = 0;
+let enteredTimer = null;
+let lastEnteredSlide = null;
+
+function dispatch(name, detail) {
+  document.dispatchEvent(new CustomEvent(name, { detail, bubbles: false }));
+}
+
+function goTo(next) {
+  if (next < 0 || next >= sections.length || next === currentIndex) return;
+
+  const previousSlide = sections[currentIndex];
+  const currentSlide = sections[next];
+
+  dispatch('slide:changed', { currentSlide, previousSlide, indexh: next });
+
+  previousSlide.classList.remove('slide-active');
+  currentIndex = next;
+  currentSlide.classList.add('slide-active');
+
+  // Update slide ID label
+  const label = document.getElementById('slide-id-label');
+  if (label) label.textContent = currentSlide.id || `slide-${next}`;
+
+  // Fire slide:entered after CSS transition. Guard with lastEnteredSlide to
+  // deduplicate transitionend (which fires per-property) + fallback timer.
+  lastEnteredSlide = null;
+  clearTimeout(enteredTimer);
+
+  function fireEntered() {
+    if (lastEnteredSlide === currentSlide) return;
+    lastEnteredSlide = currentSlide;
+    dispatch('slide:entered', { currentSlide, indexh: next });
+  }
+
+  currentSlide.addEventListener('transitionend', function onEnd(evt) {
+    if (evt.target !== currentSlide) return; // ignore child transitions bubbling up
+    currentSlide.removeEventListener('transitionend', onEnd);
+    fireEntered();
+  });
+
+  // Fallback: --duration-normal is 400ms; 600ms gives comfortable buffer
+  enteredTimer = setTimeout(fireEntered, 600);
+}
+
+function navigate(delta) {
+  const slide = sections[currentIndex];
+
+  if (delta > 0 && typeof slide.__hookAdvance === 'function') {
+    if (slide.__hookAdvance()) return;
+  }
+  if (delta < 0 && typeof slide.__hookRetreat === 'function') {
+    if (slide.__hookRetreat()) return;
+  }
+
+  if (delta > 0 && typeof slide.__clickRevealNext === 'function') {
+    if (slide.__clickRevealNext()) return;
+  }
+
+  goTo(currentIndex + delta);
+}
+
+function onKeydown(e) {
+  switch (e.key) {
+    case 'ArrowRight':
+    case ' ':
+    case 'PageDown':
+      navigate(+1);
+      e.preventDefault();
+      break;
+    case 'ArrowLeft':
+    case 'ArrowUp':
+      navigate(-1);
+      e.preventDefault();
+      break;
+    case 'f':
+    case 'F':
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+      break;
+    case 'c':
+    case 'C':
+      document.documentElement.classList.toggle('high-contrast');
+      break;
+  }
+}
+
+/**
+ * Initialize the deck.
+ * @param {string} viewportSelector — CSS selector for #slide-viewport
+ */
+export function initDeck(viewportSelector = '#slide-viewport') {
+  const viewport = document.querySelector(viewportSelector);
+  if (!viewport) {
+    console.error('[deck] viewport not found:', viewportSelector);
+    return;
+  }
+
+  sections = Array.from(viewport.querySelectorAll(':scope > section'));
+  if (!sections.length) {
+    console.error('[deck] no sections found inside', viewportSelector);
+    return;
+  }
+
+  // Activate first slide
+  sections[0].classList.add('slide-active');
+
+  // Slide ID label (top-left) — dev helper, remove before production
+  let label = document.getElementById('slide-id-label');
+  if (!label) {
+    label = document.createElement('div');
+    label.id = 'slide-id-label';
+    label.style.cssText = 'position:fixed;top:8px;left:12px;font:11px/1 var(--font-mono,monospace);color:oklch(50% 0 0);opacity:0.55;z-index:9999;pointer-events:none;';
+    document.body.appendChild(label);
+  }
+  label.textContent = sections[0]?.id || '';
+
+  document.addEventListener('keydown', onKeydown);
+
+  viewport.addEventListener('click', () => navigate(+1));
+
+  // Dispatch initial slide:entered so engine animations run on first slide
+  setTimeout(() => {
+    dispatch('slide:entered', { currentSlide: sections[0], indexh: 0 });
+  }, 100);
+
+  scaleDeck();
+  window.addEventListener('resize', scaleDeck);
+  document.addEventListener('fullscreenchange', scaleDeck);
+}
+
+function scaleDeck() {
+  const deck = document.getElementById('deck');
+  if (!deck) return;
+  const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+  deck.style.transform = `translate(-50%, -50%) scale(${s})`;
+}
+
+export function getCurrentSlide() {
+  return sections[currentIndex];
+}
+
+export function getCurrentIndex() {
+  return currentIndex;
+}
+
+export function getTotalSlides() {
+  return sections.length;
+}
+
+export { goTo, navigate };

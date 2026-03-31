@@ -1,0 +1,84 @@
+<!-- ============================================================
+     s-a1-01 — Rastreio de hepatopatia na atenção primária
+     Layout: CSS Grid 6:4 · Bloomberg monolith · Ghost Rows (R11)
+     States: auto (SplitText → countUp → reactive metrics → guideline → scan → match punch)
+     ============================================================ -->
+<section id="s-a1-01"
+         data-timing="90"
+         data-panel-state="neutral">
+
+  <div class="slide-inner">
+
+    <!-- Data side: left column — section tag + headline + hero + metrics -->
+    <div class="hero-block">
+      <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+      <h2 class="slide-headline">Por que rastrear?</h2>
+      <div class="screening-hero">
+        <span class="screening-hero-number">0</span>
+        <span class="screening-hero-unit">%</span>
+      </div>
+      <p class="screening-hero-label">dos diagnósticos de cACLD eram novos</p>
+      <div class="screening-metrics" style="opacity:0">
+        <div class="screening-metric">
+          <span class="screening-metric-value">6,4&times;</span>
+          <span class="screening-metric-label">detecção vs rotina</span>
+        </div>
+        <div class="screening-metric">
+          <span class="screening-metric-value">&gt;85%</span>
+          <span class="screening-metric-label">não sabem nos EUA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guideline panel: right column, Ghost Rows (R11 — Gemini Option D) -->
+    <div class="guideline-rec" style="opacity:0">
+      <p class="guideline-rec-title">Rastrear fibrose hepática</p>
+      <div class="guideline-stack">
+        <div class="stack-row" data-match="dm2">
+          <span class="status-dot"></span>
+          <span class="row-text">DM2</span>
+        </div>
+        <div class="stack-row">
+          <span class="status-dot"></span>
+          <span class="row-text">Obesidade + fator metabólico</span>
+        </div>
+        <div class="stack-row" data-match="enzimas">
+          <span class="status-dot"></span>
+          <span class="row-text">Enzimas alteradas</span>
+        </div>
+      </div>
+      <p class="guideline-rec-source">Recomendação forte · EASL 2024 · AASLD 2023 · ADA 2025</p>
+    </div>
+
+    <p class="source-tag" style="opacity:0">Prince 2024 · NHANES 2025 · EASL-EASD-EASO 2024</p>
+  </div>
+
+  <aside class="notes">
+[0:00-0:30] "Antônio chegou assintomático. ALT normal. A maioria não pediria mais nada."
+PAUSA 2s.
+"Mas o médico da UBS pediu um FIB-4."
+"E é isso que faz a diferença."
+
+[0:30-1:00] "Prince publicou em 2024 o Liver Toolkit: rastrearam mais de 32 mil adultos em 9 clínicas de atenção primária."
+"83% dos casos de doença hepática avançada eram diagnósticos novos."
+PAUSA 3s.
+"Esses pacientes estavam na sala de espera. Sem queixas. Igual ao Antônio."
+→ métricas aparecem: "E não é achado isolado. NHANES 2025, amostra nacional americana: mais de 85% dos pacientes com cACLD não sabem que têm a doença. O screening detecta 6,4 vezes mais que o referenciamento de rotina."
+
+[1:00-1:20] → guideline-rec aparece automaticamente
+"EASL, AASLD e ADA convergem: rastrear fibrose em diabéticos tipo 2, obesidade abdominal com fator metabólico, ou enzimas alteradas."
+ÊNFASE: "Antônio tem dois dos três."
+"Pela primeira vez, a maior sociedade de diabetes do mundo recomenda FIB-4 de rotina em todo diabético."
+
+[1:20-1:30] "Antônio tem FIB-4 de 5,91. Não tem como ignorar."
+→ avançar
+
+[DATA] Prince DS et al., Hepatol Commun 2024 (PMID 38934697) — Liver Toolkit screening &gt;32k adultos: 83% cACLD eram diagnósticos novos; 6,4x yield vs GP referral (22,9% vs 3,6%, p=0,021) | Verificado: evidence-db.md · PubMed 2026-03-19
+[DATA] NHANES cACLD Epidemiology 2025 (PMID 40581070) — 2,4% prevalência cACLD EUA; &gt;85% não sabem; ~5 milhões adultos | Verificado: PubMed 2026-03-19
+[DATA] EASL-EASD-EASO CPG MASLD 2024 (PMID 38851997, DOI 10.1016/j.jhep.2024.04.031) — Case-finding: DM2, obesidade+FR, LFTs alterados (LoE 3, strong) | Verificado: PubMed 2026-03-19
+[DATA] ADA 2025 Consensus Report (PMID 40434108) — Primeira recomendação ADA de FIB-4 screening em todo DM2/pré-DM | Verificado: PubMed 2026-03-19
+[DATA] AASLD MASLD Practice Guidance 2023 (PMID 36727674) — FIB-4 cutoffs: &lt;1.3 rule-out, ≥1.3 → VCTE/ELF, &gt;2.67 → refer | Verificado: PubMed 2026-03-19
+[DATA] Baveno VII: de Franchis R et al., J Hepatol 2022 (PMID 35120736) — FIB-4 → elastografia → CSPH pathway | Verificado: evidence-db.md
+[DATA] Park H et al., Liver Int 2024 (PMID 38291809) — FIB-4+TE screening: ICER $14.949/QALY (altamente custo-efetivo) | Verificado: PubMed 2026-03-19
+  </aside>
+</section>

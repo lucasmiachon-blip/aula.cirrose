@@ -1,0 +1,154 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git branch*)",
+      "Bash(git show*)",
+      "Bash(git stash*)",
+      "Bash(git fetch*)",
+      "Bash(git checkout*)",
+      "Bash(git restore*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git merge*)",
+      "Bash(git check-*)",
+      "Bash(git remote*)",
+      "Bash(git -C *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(find *)",
+      "Bash(ls *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(cat *)",
+      "Bash(echo *)",
+      "Bash(pwd*)",
+      "Bash(xxd *)",
+      "Bash(curl *)",
+      "Bash(for *)",
+      "Bash(bash *)",
+      "Bash(powershell *)",
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(git clean -df*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|StrReplace",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/guard-generated.sh",
+            "timeout": 10,
+            "statusMessage": "Verificando arquivo gerado..."
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/check-evidence-db.sh",
+            "timeout": 15,
+            "statusMessage": "Verificando evidence-db..."
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/guard-evidence-db.sh",
+            "timeout": 5,
+            "statusMessage": "Verificando permissão evidence-db..."
+          },
+          {
+            "type": "command",
+            "command": "echo SPRINT_MODE_ACTIVE",
+            "timeout": 5,
+            "statusMessage": "Sprint mode (guard-product-files suprimido ate 2026-03-31)"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/guard-secrets.sh",
+            "timeout": 10,
+            "statusMessage": "Escaneando secrets..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/build-monitor.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/build-monitor.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-init.sh",
+            "timeout": 5,
+            "statusMessage": "Inicializando sessao..."
+          }
+        ]
+      },
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-compact-reinject.sh",
+            "timeout": 10,
+            "statusMessage": "Re-injetando contexto pós-compact..."
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/task-completed-gate.sh",
+            "timeout": 10,
+            "statusMessage": "Verificando task completion..."
+          }
+        ]
+      }
+    ]
+  }
+}

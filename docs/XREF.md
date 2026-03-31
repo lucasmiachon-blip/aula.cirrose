@@ -1,0 +1,171 @@
+# XREF — Referências Cruzadas
+
+> Mapa canônico de dependências entre documentos do projeto.
+> Atualizar ao criar, mover ou deletar qualquer .md.
+> Gerado: 2026-03-07. Última revisão: 2026-03-31.
+
+---
+
+## Legenda
+
+- **Canônico** = fonte da verdade para aquele assunto
+- **→** = "referencia" ou "depende de"
+- **←** = "é referenciado por"
+
+---
+
+## Hierarquia de Autoridade
+
+```
+CLAUDE.md (root)              ← fonte de verdade operacional (absorveu AGENTS.md)
+├── .claude/rules/*.md        ← regras detalhadas (2 arquivos consolidados)
+├── .claude/hooks/*.sh        ← safety gates determinísticos (100% enforcement)
+├── .claude/skills/*/SKILL.md ← skills invocáveis
+├── docs/*.md                 ← referência expandida
+└── aulas/cirrose/HANDOFF.md   ← estado da aula
+```
+
+**Conflito:** conteúdo mais detalhado prevalece, independente do diretório.
+
+---
+
+## Mapa de Referências
+
+### CLAUDE.md (root) — canônico operacional
+| Referencia | Tipo |
+|-----------|------|
+| → aulas/cirrose/HANDOFF.md | Estado (via Projects table) |
+| → docs/css-error-codes.md | On-demand (slide-rules.md §8) |
+| → docs/design-principles.md | On-demand (27 princípios) |
+| → docs/README.md | Índice docs |
+
+### .claude/rules/ (consolidado 2026-03-25: 10 → 2 arquivos)
+
+| Arquivo | Conteúdo | Referenciado por |
+|---------|----------|-----------------|
+| slide-rules.md | §1-6 deck.js, §7 slide identity (9 superfícies), §8 CSS errors, §9 motion QA | ← CLAUDE.md, skills, agents |
+| design-reference.md | §1 OKLCH, §2 tipografia, §3 layout, §4 design principles (27), §5 dados médicos | ← CLAUDE.md, skills, agents |
+
+### docs/
+
+| Arquivo | Referencia | Referenciado por |
+|---------|-----------|-----------------|
+| README.md | → todos docs/*.md | (índice) |
+| XREF.md | (este arquivo) | ← README.md |
+| SYNC-NOTION-REPO.md | → .env.example (IDs Notion) | ← README.md |
+| blueprint-cirrose.md | (autônomo) | ← README.md |
+| biblia-narrativa.md | (autônomo) | ← README.md |
+| slide-pedagogy.md | (autônomo — teorias pedagógicas) | ← README.md |
+| MCP-ACADEMICOS.md | (autônomo) | ← README.md |
+| MCP-ENV-VARS.md | (autônomo) | ← README.md |
+| lessons.md | (self-improvement) | ← post-compact-reinject.sh |
+| css-error-codes.md | 52 E-codes completos | ← slide-rules.md §8, CLAUDE.md on-demand |
+| design-principles.md | 27 princípios (Cowan, Gestalt, Tufte, Duarte) | ← CLAUDE.md on-demand, design-reference.md |
+| HARDENING-SCRIPTS.md | Roadmap hardening scripts | ← HANDOFF.md |
+
+### docs/prompts/
+
+| Arquivo | Referencia | Referenciado por |
+|---------|-----------|-----------------|
+| prompts/weekly-updates.md | (prompt template) | ← README.md |
+| prompts/research-best-practices.md | (prompt template) | ← README.md |
+| prompts/gemini-deck-audit.md | (prompt template — Gemini, deck completo) | ← README.md |
+| prompts/gemini-gate0-inspector.md | → (9 checks: 6 MUST + 3 SHOULD) | ← WT-OPERATING.md §4, AUDIT-VISUAL.md, gemini-qa3.mjs, CLAUDE.md |
+| prompts/error-digest.md | (prompt template — error digest para Gemini) | ← README.md |
+| prompts/gemini-paper-extraction.md | (prompt template — Gemini) | ← README.md |
+| prompts/gemini-transcript-comparison.md | (prompt template — Gemini) | ← README.md |
+| prompts/gate2-opus-visual.md | Gate 2 Opus visual audit protocol | ← CLAUDE.md §QA Pipeline, WT-OPERATING.md, AUDIT-VISUAL.md |
+| prompts/gemini-gate4-editorial.md | Gate 4 editorial Gemini prompt | ← WT-OPERATING.md §4, gemini-qa3.mjs |
+| prompts/content-research-prompt.md | Content research prompt template | ← content-research.mjs (planned) |
+| prompts/cron-patterns.md | Cron pattern reference | — |
+| prompts/mcp-research-queries.md | MCP research query templates | — |
+
+### .claude/agents/ (custom subagents)
+
+| Arquivo | MCPs scoped | Papel |
+|---------|------------|-------|
+| qa-engineer.md | playwright, lighthouse, eslint, perplexity, ui-ux-pro, design-comparison, floto | QA perfection loop 14 dimensoes |
+| medical-researcher.md | pubmed, crossref, semantic-scholar, scite, biomcp | Pesquisa profunda multi-MCP + triangulacao + rubrica profundidade |
+| repo-janitor.md | — | Audit orphan files, broken links |
+
+### .claude/hooks/ (safety gates — determinísticos)
+
+| Arquivo | Wired em settings.json | Função |
+|---------|----------------------|--------|
+| build-monitor.sh | PostToolUse, PostToolUseFailure (Bash) | Detecta falhas de build |
+| check-evidence-db.sh | PreToolUse (Write) | Valida dados clínicos antes de escrever |
+| guard-evidence-db.sh | PreToolUse (Write) | Protege evidence-db de edições não autorizadas |
+| guard-generated.sh | PreToolUse (Write\|Edit\|StrReplace) | exit 2 bloqueia Write em index.html gerado |
+| guard-secrets.sh | PreToolUse (Bash) | WARN-only: escaneia staged files por padrões de secrets |
+| post-compact-reinject.sh | SessionStart (compact) | Reinjecta HANDOFF + git log após /compact |
+| task-completed-gate.sh | TaskCompleted | Verificação de quality gates em task completada |
+| session-init.sh | SessionStart | Inicializa sessão (branch, dirty files, hooks check) |
+| guard-product-files.sh | PreToolUse (Write\|Edit\|StrReplace) | exit 2 bloqueia edição em arquivos de produto sem confirmação humana |
+
+### scripts/ (git hooks — versionados)
+
+| Arquivo | Função | Wired via |
+|---------|--------|-----------|
+| pre-commit.sh | Guard 3 (slide-count regression) + Guard 4 (slide-integrity build) + Guard 6 (ghost canary) + lint | .git/hooks/pre-commit (delegator) |
+| pre-push.sh | done-gate --strict para aula detectada na branch | .git/hooks/pre-push (delegator) |
+| post-merge.sh | Anti-rollback: slide count loss + content diff detection pós-merge | .git/hooks/post-merge (delegator) |
+| install-hooks.sh | Instala pre-commit + pre-push + post-merge em .git/hooks/ | Manual: `bash scripts/install-hooks.sh` |
+
+### aulas/cirrose/
+
+| Arquivo | Referencia | Referenciado por |
+|---------|-----------|-----------------|
+| HANDOFF.md | → NEXT-SESSION.md (contexto slide ativo) | ← CLAUDE.md (operational record) |
+| NEXT-SESSION.md | (contexto profundo do slide em QA) | ← HANDOFF.md |
+| references/archetypes.md | (layout archetypes) | ← CLAUDE.md |
+| references/decision-protocol.md | (protocolo decisões narrativeCritical) | ← slide-rules.md |
+| references/coautoria.md | (regras coautoria) | — |
+| references/must-read-trials.md | (trials leitura obrigatória) | — |
+| DONE-GATE.md | (checklist done-gate) | ← WT-OPERATING.md |
+| CHANGELOG.md | (append-only — histórico de batches) | ← CLAUDE.md (operational record) |
+| ERROR-LOG.md | (append-only — erros → regras) | ← CLAUDE.md (operational record) |
+| NOTES.md | (log de decisões entre agentes) | ← CLAUDE.md (operational record) |
+| AUDIT-VISUAL.md | → WT-OPERATING.md §4, gemini-gate0-inspector.md | ← CLAUDE.md, slide identity (9 superfícies) |
+| WT-OPERATING.md | → gemini-gate0-inspector.md, AUDIT-VISUAL.md, HANDOFF.md | ← CLAUDE.md, HANDOFF.md |
+| scripts/gemini-qa3.mjs | → gate0-inspector.md, error-digest.md, gemini-gate4-editorial.md, _manifest.js, cirrose.css, slide-registry.js | ← WT-OPERATING.md, CLAUDE.md |
+| scripts/qa-batch-screenshot.mjs | → _manifest.js, qa-screenshots/ | ← WT-OPERATING.md §4 QA.3, CLAUDE.md §QA Pipeline |
+| references/evidence-db.md | Dados clinicos canonicos — PMID verificados, tabela por slide | ← CLAUDE.md (#2 authority), WT-OPERATING.md §4 QA.1, guard-evidence-db.sh |
+| references/narrative.md | Arco narrativo, tensionLevel, narrativeRole, pacing | ← CLAUDE.md (#3 authority), lint:narrative-sync, _manifest.js |
+| references/CASE.md | Dados canonicos do paciente Antonio (labs, inputs) | ← CLAUDE.md (#1 authority), lint:case-sync, slide-registry.js panelStates |
+| qa-rounds/{slideId}.md | (append-only — gitignored, round context per slide) | ← gemini-qa3.mjs |
+
+---
+
+## Canônicos por Assunto
+
+| Assunto | Arquivo canônico | Fallback |
+|---------|-----------------|----------|
+| Operacional (stack, regras, workflow) | CLAUDE.md | — |
+| Tokens OKLCH | .claude/rules/design-reference.md §1 | aulas/cirrose/cirrose.css :root |
+| Erros CSS | .claude/rules/slide-rules.md §8 | — |
+| Dados médicos (regras) | .claude/rules/design-reference.md §5 | — |
+| Dados médicos (por slide) | aulas/cirrose/references/evidence-db.md | .claude/rules/design-reference.md §5 |
+| Arco narrativo | aulas/cirrose/references/narrative.md | HANDOFF.md (slide table) |
+| Dados do paciente (caso) | aulas/cirrose/references/CASE.md | — |
+| Animações GSAP | .claude/rules/slide-rules.md §9 | aulas/cirrose/shared/js/engine.js |
+| Deck.js patterns (ativo) | .claude/rules/slide-rules.md §1-6 | — |
+| Assertion-Evidence | .claude/rules/slide-rules.md §2 | design-reference.md §4 |
+| Notion IDs | .env.example (variáveis `NOTION_*_ID`) | docs/SYNC-NOTION-REPO.md |
+| MCP profiles | .mcp-profiles/*.json | .mcp.json (perfil ativo) |
+| Estado Cirrose | aulas/cirrose/HANDOFF.md | — |
+| Contexto slide ativo | aulas/cirrose/NEXT-SESSION.md | ← HANDOFF.md |
+| Manifesto slides (cirrose) | aulas/cirrose/slides/_manifest.js | CLAUDE.md tabela |
+| Pedagogia | docs/slide-pedagogy.md | .claude/rules/design-reference.md §4 |
+| Pesquisa médica profunda | .claude/skills/medical-researcher/SKILL.md | .claude/rules/design-reference.md §5, docs/MCP-ACADEMICOS.md |
+| Safety gates (hooks) | .claude/settings.json + .claude/hooks/ | — |
+| QA pipeline (cirrose) | aulas/cirrose/WT-OPERATING.md §4 | CLAUDE.md §Auditoria Visual |
+| Gate 0 (critérios 9 checks) | docs/prompts/gemini-gate0-inspector.md | WT-OPERATING.md §4 |
+| Scorecards visuais (14 dims) | aulas/cirrose/AUDIT-VISUAL.md | WT-OPERATING.md §4 |
+
+---
+
+## Como Manter
+
+1. **Novo doc:** adicionar aqui + em docs/README.md
+2. **Mover/deletar:** atualizar referências aqui + grep por nome antigo
+3. **Auditoria periódica:** rodar skill `docs-audit` ou `audit-docs`

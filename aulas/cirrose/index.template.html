@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cirrose — Plano C</title>
+</head>
+<body class="stage-c">
+<div id="deck">
+  <div class="case-panel hidden" id="case-panel" data-severity="neutral">
+    <div class="panel-header">
+      <div class="panel-dot"></div>
+      <span class="panel-name">Antônio, 55a</span>
+    </div>
+    <div class="panel-fields"></div>
+    <div class="panel-events"></div>
+    <div class="panel-calc-area"></div>
+  </div>
+
+  <div id="slide-viewport">
+%%SLIDES%%
+  </div>
+</div>
+<script type="module">
+  import gsap from 'gsap';
+  import { SplitText } from 'gsap/SplitText';
+  import { Flip } from 'gsap/Flip';
+  import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+  import { CustomEase } from 'gsap/CustomEase';
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+  gsap.registerPlugin(SplitText, Flip, ScrambleTextPlugin, CustomEase, DrawSVGPlugin, MotionPathPlugin);
+  import './cirrose.css';
+  import { initAula, createAnimationDispatcher } from './shared/js/engine.js';
+  import { initDeck } from './shared/js/deck.js';
+  import { ClickReveal } from './shared/js/click-reveal.js';
+  import { CasePanel } from './shared/js/case-panel.js';
+  import { wireAll } from './slide-registry.js';
+
+  initDeck('#slide-viewport');
+  initAula(gsap);
+  const anim = createAnimationDispatcher(gsap);
+  wireAll(gsap, { anim, CasePanel, ClickReveal });
+  anim.connect();
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+# Variáveis de Ambiente para MCPs (Aula Cirrose)
+
+**Template:** defina as variáveis de ambiente do usuário (sysdm.cpl → Variáveis de Ambiente).
+
+Claude Code e Cursor leem `${VAR}` do mcp.json a partir dessas variaveis.
+
+---
+
+## Obrigatórias (para MCPs que precisam)
+
+| Variável | MCP | Onde obter |
+|----------|-----|------------|
+| `NOTION_TOKEN` | Notion | [notion.so/my-integrations](https://www.notion.so/my-integrations) |
+| `NCBI_API_KEY` | PubMed (ambos) | [ncbi.nlm.nih.gov/account](https://www.ncbi.nlm.nih.gov/account/) |
+| `PUBMED_EMAIL` | PubMed Simple | Seu e-mail (obrigatório para NCBI) |
+| `ZOTERO_API_KEY` | Zotero (Web API) | [zotero.org/settings/keys](https://www.zotero.org/settings/keys) |
+| `ZOTERO_LIBRARY_ID` | Zotero (Web API) | [zotero.org/settings](https://www.zotero.org/settings) → User ID |
+
+---
+
+## PubMed: dois servidores
+
+| Servidor | Stack | Windows | Recursos |
+|----------|-------|---------|----------|
+| `pubmed` | Node (@cyanheads) | ✅ (fix via wrapper) | Busca, citações BibTeX/RIS, artigos relacionados |
+| `pubmed-simple` | Python (uvx) | ✅ | Busca, abstracts, full text open access |
+
+O `pubmed` usa `scripts/run-pubmed-mcp.js` para corrigir o bug tiktoken no Windows.
+
+---
+
+## Zotero: Local vs Web API
+
+- **Local:** Zotero aberto, `ZOTERO_LOCAL: "true"` no mcp.json; API key pode ficar vazia
+- **Web:** Definir `ZOTERO_API_KEY` e `ZOTERO_LIBRARY_ID`
+
+---
+
+## Troubleshooting: PubMed (Node)
+
+| Fix | Quando usar |
+|-----|-------------|
+| **Node 18 ou 20 LTS** | Node 24+ pode ter incompatibilidade; use `fnm use 20` |
+| **Limpar cache npx** | `npx clear-npx-cache` (fechar Cursor antes) |
+
+---
+
+## Opcionais — research
+
+| Variável | MCP | Onde obter |
+|----------|-----|------------|
+| `SEMANTIC_SCHOLAR_API_KEY` | semantic-scholar | [semanticscholar.org/product/api](https://www.semanticscholar.org/product/api) |
+| `PERPLEXITY_API_KEY` | perplexity | [perplexity.ai/settings/api](https://www.perplexity.ai/settings/api) (assinatura paga) |
+
+---
+
+## Opcionais — visual QA
+
+| Variável | MCP | Onde obter |
+|----------|-----|------------|
+| `GEMINI_API_KEY` | gemini | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
+| `HYPERBOLIC_API_KEY` | frontend-review | [app.hyperbolic.xyz](https://app.hyperbolic.xyz/) |
+| `ATTENTION_INSIGHT_API_KEY` | attention-insight | Não usar a princípio |
+
+---
+
+## Opcionais — smart diff / design QA
+
+| Variavel | MCP | Onde obter |
+|----------|-----|------------|
+| `FLOTO_API_KEY` | floto | [floto.dev](https://floto.dev/) |

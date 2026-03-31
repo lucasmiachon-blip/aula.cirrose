@@ -1,0 +1,65 @@
+<!-- ============================================================
+     s-a1-baveno — Doença hepática avançada é espectro + PREDESCI
+     Archetype: hero-stat (state machine)
+     States: 0=auto SplitText dissolve + PREDESCI, 1=source
+     ============================================================ -->
+<section id="s-a1-baveno"
+         data-timing="120"
+         data-panel-state="neutral">
+
+  <div class="slide-inner">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">O novo paradigma: doença hepática como espectro</h2>
+
+    <div class="paradigm-container">
+
+      <!-- Old term: dissolves via SplitText -->
+      <div class="paradigm-old" aria-hidden="true">Cirrose</div>
+
+      <!-- New spectrum: cACLD ━━━ dACLD -->
+      <div class="paradigm-spectrum">
+        <span class="paradigm-term paradigm-term--cacld">cACLD</span>
+        <div class="paradigm-bar" aria-hidden="true"></div>
+        <span class="paradigm-term paradigm-term--dacld">dACLD</span>
+      </div>
+      <!-- PREDESCI lockup (movido de classify) -->
+      <div class="classify-predesci-lockup" style="opacity:0">
+        <div class="classify-predesci-header">
+          <span class="classify-predesci-label">PREDESCI</span>
+          <span class="classify-predesci-outcome">&#8595; 1ª descompensação em compensados com CSPH</span>
+        </div>
+        <div class="classify-predesci-content">
+          <div class="classify-predesci-hero">
+            <span class="classify-predesci-value">0,51</span>
+            <div class="classify-predesci-meta">
+              <span class="classify-predesci-stat">HR · p=0,041</span>
+              <span class="classify-predesci-ci">IC 95%: 0,26–0,97</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="source-tag" style="opacity:0">de Franchis, J Hepatol 2022 (PMID 35120736) · Villanueva, Lancet 2019 (PMID 30910320)</p>
+  </div>
+
+  <aside class="notes">
+[0:00-0:30] Auto: "Cirrose" dissolve via SplitText → espectro cACLD/dACLD
+"Esqueçam a palavra 'cirrose'. Baveno VII em 2022 enterrou esse rótulo binário."
+"Agora pensamos em espectro: cACLD — compensated advanced chronic liver disease.
+E dACLD — decompensated."
+"Não é sim-ou-não. É um continuum."
+PAUSA 3s.
+
+[0:30-1:00] Click 1 → PREDESCI lockup
+"E já sabemos que intervir nesse espectro muda desfecho."
+→ click
+"PREDESCI, 2019: betabloqueadores em compensados com CSPH reduziram a primeira descompensação pela metade. HR 0,51."
+PAUSA 2s.
+→ avançar
+
+[DATA] Baveno VII: PMID 35120736 | cACLD/dACLD nomenclatura | Verificado: 2026-03-04
+[DATA] PREDESCI: Villanueva 2019 PMID 30910320 | HR 0,51 (IC 95% 0,26–0,97) | Verificado: usuario
+  </aside>
+</section>

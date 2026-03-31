@@ -1,0 +1,148 @@
+<!-- ============================================================
+     s-a1-cpt — Child-Turcotte-Pugh: o paradoxo
+     Archetype: flow  |  Timing: 120s
+     Design: Gemini co-design (30/mar/2026)
+     Arco: falhas conhecidas → sobrevivência cirúrgica → redenção Baveno VII
+     States (controlados por data-era):
+       0 = Falhas matemáticas (auto) — 5 nós, 2 destacam, ceiling countUp
+       1 = Mortalidade cirúrgica (click) — 3 stats A/B/C com Von Restorff no C
+       2 = Baveno VII / Insubstituível (click) — 2 guideline cards
+     ============================================================ -->
+<section id="s-a1-cpt"
+         data-timing="120"
+         data-panel-state="neutral">
+  <div class="slide-inner">
+
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Child-Pugh-Turcotte</h2>
+
+    <div class="scores-era-track">
+
+      <!-- ─── S0: Falhas matemáticas (auto) — 2-col grid ─── -->
+      <div class="scores-era" data-era="0">
+        <div class="cpt-s0-grid">
+
+          <div class="cpt-s0-col">
+            <span class="cpt-s0-heading">5 variáveis — 2 subjetivas</span>
+            <div class="cpt-nodes">
+              <span class="cpt-node">Bili</span>
+              <span class="cpt-node">Alb</span>
+              <span class="cpt-node cpt-node--flaw">⚠ Ascite</span>
+              <span class="cpt-node cpt-node--flaw">⚠ EH</span>
+              <span class="cpt-node">INR</span>
+            </div>
+            <div class="cpt-flaw-callout">
+              <span class="cpt-kappa-label">Inter-observador</span>
+              <span class="cpt-kappa-value">κ ≤ 0,41</span>
+            </div>
+          </div>
+
+          <div class="cpt-s0-col">
+            <span class="cpt-s0-heading">Ceiling effect</span>
+            <div class="cpt-ceiling">
+              <span class="cpt-ceiling-label">Bilirrubina</span>
+              <div class="cpt-ceiling-compare">
+                <span class="cpt-ceiling-low">3,1</span>
+                <span class="cpt-ceiling-arrow">→</span>
+                <span class="cpt-ceiling-high" data-target="30">30</span>
+                <span class="cpt-ceiling-unit">mg/dL</span>
+              </div>
+              <span class="cpt-ceiling-result">= mesmos 3 pontos</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ─── S1: Mortalidade cirúrgica (click) ─── -->
+      <div class="scores-era" data-era="1">
+        <span class="scores-era-badge">Cirurgia</span>
+        <h3 class="scores-era-title">Mortalidade perioperatória</h3>
+
+        <div class="cpt-surgery">
+          <div class="cpt-surgery-stat cpt-surgery-stat--safe">
+            <span class="cpt-surgery-class">A</span>
+            <span class="cpt-surgery-pct" data-target="10">10</span>
+            <span class="cpt-surgery-unit">%</span>
+          </div>
+          <div class="cpt-surgery-stat cpt-surgery-stat--warning">
+            <span class="cpt-surgery-class">B</span>
+            <span class="cpt-surgery-pct" data-target="30">30</span>
+            <span class="cpt-surgery-unit">%</span>
+          </div>
+          <div class="cpt-surgery-stat cpt-surgery-stat--danger">
+            <span class="cpt-surgery-class">C</span>
+            <span class="cpt-surgery-pct" data-target="75">75</span>
+            <span class="cpt-surgery-unit">%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── S2: Baveno VII / Insubstituível (click) ─── -->
+      <div class="scores-era" data-era="2">
+        <span class="scores-era-badge">Baveno VII · AASLD 2024</span>
+
+        <div class="cpt-guidelines">
+          <div class="cpt-guideline-card cpt-guideline-card--recomp">
+            <span class="cpt-guideline-icon">✓</span>
+            <span class="cpt-guideline-label">Recompensação</span>
+            <span class="cpt-guideline-criteria">Child-Pugh A + MELD &lt;10</span>
+          </div>
+          <div class="cpt-guideline-card cpt-guideline-card--tips">
+            <span class="cpt-guideline-icon">⚠</span>
+            <span class="cpt-guideline-label">TIPS pre-emptivo</span>
+            <span class="cpt-guideline-criteria">CTP C 10–13 · B ≥8 + sangramento</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="source-tag">
+      Pugh 1973 (PMID 4541913) · Durand &amp; Valla 2005 (PMID 15777564) ·
+      Baveno VII 2022 (PMID 35120736) · AASLD 2024 (PMID 37870298)
+    </p>
+
+  </div>
+
+  <aside class="notes">
+[0:00-0:30] [S0 — auto, Falhas matemáticas]
+"Cinco variáveis. Três objetivas — bilirrubina, albumina, INR."
+Nós aparecem em stagger. Ascite e EH destacam em --warning.
+"Duas subjetivas. Ascite e encefalopatia. Kappa inter-observador: 0,41.
+Dois médicos, mesmo paciente, classificações diferentes."
+PAUSA 2s.
+"Ceiling effect."
+CountUp: 3,1 → 30 mg/dL.
+"Bilirrubina de 3 e de 30: mesmos 3 pontos. O escore é cego ao extremo."
+"= mesmos 3 pontos" entra com emphasis --danger.
+PAUSA 2s.
+
+[0:30-0:55] [CLICK → S1, Mortalidade cirúrgica]
+"Mas o CTP sobrevive. Por quê?"
+3 stats entram. CountUp: 10, 30, 75.
+"Mortalidade cirúrgica. Classe A: 10%. Classe B: 30%.
+Classe C..." PAUSA. C escala 1.2x, Von Restorff.
+"...mais de 75%. Nenhum cirurgião opera eletiva em Child C.
+Esse dado, o MELD não substituiu."
+PAUSA 2s.
+
+[0:55-1:30] [CLICK → S2, Baveno VII]
+"E em 2022, o Baveno VII consagrou."
+2 cards entram com fadeUp.
+"Recompensação: a definição operacional é Child-Pugh A sustentado com MELD menor que 10.
+Não MELD sozinho — precisa do CTP."
+"TIPS pre-emptivo: CTP C 10 a 13, ou B ≥8 com sangramento ativo.
+Critério que salva vida — definido pelo Child-Pugh."
+"Durand e Valla chamaram: 'almost intuitive score at bedside'. 60 anos depois, é insubstituível."
+PAUSA 3s → avançar
+
+[DATA] Pugh 1973: PMID 4541913 | Br J Surg | Verificado
+[DATA] Durand & Valla 2005: DOI 10.1016/j.jhep.2004.11.015 | 628 citações | Verificado
+[DATA] Ruf et al. 2022: DOI 10.1016/j.aohep.2021.100535 | Historical review | Verificado
+[DATA] Kappa inter-observer CTP: até 0,41 | Múltiplas séries (Durand & Valla review) | [TBD — PMID não localizado]
+[DATA] Mortalidade cirúrgica CTP A/B/C: ~10%/~30%/>75% | Múltiplas séries | Verificado
+[DATA] TIPS preemptivo: Baveno VII 2022 (DOI 10.1016/j.jhep.2021.12.012) | Verificado
+[DATA] Recompensação: Baveno VII definição operacional | Verificado
+  </aside>
+</section>

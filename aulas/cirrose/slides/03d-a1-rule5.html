@@ -1,0 +1,110 @@
+<!-- ============================================================
+     s-a1-rule5 — Rule-of-5 (reference scale + holofote ≥25)
+     States: 0=zones stagger+gray (auto), 1=holofote ≥25+sidebar LSM (click)
+     SLIDE MAIS IMPORTANTE DO BLOCO 1
+     ============================================================ -->
+<section id="s-a1-rule5"
+         data-timing="120"
+         data-panel-state="neutral">
+
+  <div class="slide-inner">
+    <p class="section-tag">ATO 1 — CLASSIFICAR</p>
+    <h2 class="slide-headline">Rule of Five</h2>
+
+    <!-- Rule-of-5 scale -->
+    <div class="rule-of-5">
+      <div class="rule-scale">
+        <div class="rule-zone rule-zone--safe" data-zone-idx="0">
+          <span class="rule-zone-icon" aria-hidden="true">✓</span>
+          <span class="rule-zone-range">&lt;10</span>
+          <span class="rule-zone-label">cACLD excluído</span>
+          <span class="rule-zone-directive">Manter na APS</span>
+        </div>
+        <div class="rule-zone rule-zone--gray" data-zone-idx="1">
+          <span class="rule-zone-icon" aria-hidden="true">?</span>
+          <span class="rule-zone-range">10–15</span>
+          <span class="rule-zone-label">Zona cinzenta</span>
+          <span class="rule-zone-directive">Elastografia + PLQ</span>
+        </div>
+        <div class="rule-zone rule-zone--caution" data-zone-idx="2">
+          <span class="rule-zone-icon" aria-hidden="true">▲</span>
+          <span class="rule-zone-range">15–20</span>
+          <span class="rule-zone-label">cACLD provável</span>
+          <span class="rule-zone-directive">Rastreio de varizes</span>
+        </div>
+        <div class="rule-zone rule-zone--danger" data-zone-idx="3">
+          <span class="rule-zone-icon" aria-hidden="true">⚠</span>
+          <span class="rule-zone-range">20–25</span>
+          <span class="rule-zone-label">cACLD + CSPH provável</span>
+          <span class="rule-zone-directive">NSBB · Rastreio HCC</span>
+        </div>
+        <div class="rule-zone rule-zone--critical" data-zone-idx="4">
+          <span class="rule-zone-icon" aria-hidden="true">⛔</span>
+          <span class="rule-zone-range">≥25</span>
+          <span class="rule-zone-label">CSPH confirmado</span>
+          <span class="rule-zone-directive">Risco hemorrágico alto</span>
+        </div>
+      </div>
+
+      <!-- Gray zone overlay (appears after zones) -->
+      <div class="rule-gray-zone">
+        <span class="rule-gray-zone-label">Zona cinzenta — CSPH possível</span>
+        <span class="rule-gray-zone-range">10–25 kPa</span>
+      </div>
+
+      <!-- axis label removed — redundant with H2 -->
+    </div>
+
+    <!-- Caveats: appear on click 1 (holofote) -->
+    <div class="rule-caveats">
+      <div class="rule-caveat">
+        <span class="rule-caveat-marker">&ne;</span>
+        <span class="rule-caveat-text"><strong>fibrose</strong> &mdash; F2/F3: 7&ndash;10 kPa &middot; VCTE AUROC 0,87 (F3) vs 0,94 (F4)</span>
+      </div>
+      <div class="rule-caveat">
+        <span class="rule-caveat-marker">&uarr;</span>
+        <span class="rule-caveat-text"><strong>&gt;50 kPa</strong> = CSPH cr&iacute;tica &middot; 2&times; descompensa&ccedil;&atilde;o vs 25&ndash;50</span>
+      </div>
+    </div>
+
+    <p class="source-tag">Baveno VII (PMID 35120736) &middot; Barrett 2026 (PMID 41546486) &middot; Vutien 2025 (PMID 39689352)</p>
+  </div>
+
+  <aside class="notes">
+[0:00-0:40] Beat 0 (auto): Zonas crescem com scaleY stagger (0.15s).
+[STAGING CUE: Deixar o stagger orquestrar — NÃO falar antes da zona aparecer.]
+"A ferramenta-chave para posicionar o paciente nesse espectro: elastografia.
+Rule-of-5: a cada 5 kPa, muda o estágio e a conduta."
+"Abaixo de 10: descartado, mantém na APS.
+10 a 15: zona cinza, precisa de mais dados.
+15 a 20: cACLD provável, rastreio de varizes.
+20 a 25: CSPH provável, considerar NSBB e HCC.
+Acima de 25: CSPH confirmado."
+Gray zone overlay (10-25 kPa) aparece com borda tracejada.
+
+[0:40-1:40] Click 1 → Holofote zona ≥25 + sidebar LSM + caveats
+Zonas &lt;25 dimmed + grayscale. Zona ≥25 glow danger + scale.
+Sidebar: LSM '—' → '26 kPa' com row flash + scale punch.
+Caveats aparecem abaixo das zonas.
+
+"Antônio: 26 kPa. Zona mais grave. CSPH confirmado."
+PAUSA 3s.
+
+[Apontar para as notas abaixo]
+"Duas ressalvas importantes."
+"Primeiro: esta escala classifica hipertensão portal — não fibrose.
+F2 e F3 acontecem em 7 a 10 kPa — abaixo do 10 que a Rule of 5 usa para excluir.
+E nenhum teste não invasivo discrimina bem F3 de F4: AUROC 0,87 versus 0,94. É um contínuo, não um degrau."
+"Segundo: acima de 25, a Rule of 5 para. Mas o risco não.
+Vutien mostrou em 17 mil pacientes: LSM acima de 50 — o que ele chamou de CSPH crítica — dobra a taxa de descompensação. 11 contra 4 por 100 pacientes-ano."
+PAUSA 2s.
+→ avançar
+
+[DATA] Baveno VII: PMID 35120736 | Rule-of-5 | Verificado: 2026-03-04
+[DATA] Duarte-Rojo &amp; Sterling: PMID 38489521 | LSM + PLQ thresholds | Verificado: 2026-03-05
+[DATA] Barrett 2026: PMID 41546486 | F3/F4 NIT discrimination, Liver Int | Verificado: 2026-03-30
+[DATA] Vutien 2025: PMID 39689352 | Critical CSPH >50 kPa, Hepatology, N=17076 | Verificado: 2026-03-30
+[DATA] Chon 2024: PMID 39165159 | VCTE AUROC F3 0.87 vs F4 0.94, 63 estudos | Verificado: 2026-03-30
+[DATA] Antônio: LSM 26 kPa, PLQ 112k, FIB-4 5,91 | Caso fictício
+  </aside>
+</section>
