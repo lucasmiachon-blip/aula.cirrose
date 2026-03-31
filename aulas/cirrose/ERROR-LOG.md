@@ -215,7 +215,27 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Status:** PENDENTE — prompt Call C a ser enriquecido.
 **Relacao com ERRO-067/068:** 067 = cego a motion. 068 = atencao diluida (fix: 3 calls). 069 = motion isolado mas sem criterio profissional.
 
-*Ultima atualizacao: 2026-04-01 · 69 erros registrados, 67 fechados (64 corrigidos, 2 processo, 1 workaround), 2 pendentes.*
+### ERRO-070 · MEDIUM · CSS (specificity loss — slide-inner override ignorado)
+**`#s-cp1 .slide-inner` (1-1-0) perdia para `#slide-viewport > section .slide-inner` (1-1-1). Grid layout nunca aplicava — flex do base vencia. Strip ficava left-aligned.**
+**Root cause:** Seletor com ID+class tem especificidade menor que ID+element+class. Contagem: ids iguais, classes iguais, mas base tem 1 element type a mais.
+**Fix:** Nao lutar contra o base. Seguir padrao de `.slide-title`: herdar flex do base, adicionar apenas `align-items: center; text-align: center`. Nao sobrescrever `display`.
+**Regra derivada:** Para slides com layout custom, NUNCA sobrescrever `display` do `.slide-inner`. Adicionar propriedades ao flex existente (como `.slide-title` faz).
+**Status:** CORRIGIDO — s-cp1 usa padrao s-title.
+
+### ERRO-071 · MEDIUM · CSS (stage-c token override — dark tokens viram light)
+**`--text-on-dark` em stage-c = `oklch(12%...)` (quase preto). `--bg-navy` em stage-c = `oklch(95%...)` (quase branco). Slide navy fica light-on-light em stage-c.**
+**Root cause:** stage-c inverte TODOS os tokens dark para light. Slide cinematic navy precisa re-declarar os valores Plan A em escopo local.
+**Fix:** Override de todos `--*-on-dark` + `--bg-navy*` + `--border-navy` no `#s-cp1 .slide-inner`. Color explícita no `h2`.
+**Regra derivada:** Slide navy em stage-c DEVE re-declarar TODOS os dark tokens no `.slide-inner`. Nao confiar em heranca de `.slide-navy` class.
+**Status:** CORRIGIDO.
+
+### ERRO-072 · LOW · CSS (oklch from syntax — CSS Color 5 incompatibilidade)
+**`oklch(from var(--safe) l c h / 0.12)` = CSS Color 5 (relative color syntax). Nao suportado em todos browsers.**
+**Fix:** `color-mix(in oklch, var(--token) N%, oklch(97% 0 0))` = CSS Color 4, amplamente suportado.
+**Regra derivada:** Usar `color-mix()` (Color 4) em vez de `oklch(from ...)` (Color 5) para derivacoes de cor.
+**Status:** CORRIGIDO — mortality bands usam color-mix.
+
+*Ultima atualizacao: 2026-03-31 · 72 erros registrados, 70 fechados, 2 pendentes.*
 
 ---
 
@@ -225,7 +245,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 9     | 9          | 0 |
 | HIGH       | 34    | 32         | 2 |
-| MEDIUM     | 20    | 20         | 0 |
-| LOW        | 3     | 3          | 0 |
+| MEDIUM     | 22    | 22         | 0 |
+| LOW        | 4     | 4          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **69**| **67**     | **2** |
+| **Total**  | **72**| **70**     | **2** |

@@ -5,12 +5,12 @@
 
 ---
 
-## Estado — 2026-04-01
+## Estado — 2026-03-31
 
-**Ultima sessao (1/abr):** s-a1-meld redesign completo (HTML+CSS+JS+calc). s-a1-cpt DONE* R19 6.7. MELD 3.0 Brasil confirmado (Portaria 8.041/2025). Campo `stage` removido de todos panelStates.
+**Ultima sessao (31/mar):** s-cp1 rewrite (poll→breathing slide navy). s-a1-meld Gate 4 R2 fixes (hierarquia cards, mortality colors, stagger, limits vertical). Gate 2 CONDITIONAL (0 MUST). Gate 4 R1 5.9, R2 5.6 (screenshots parcialmente stale). SPLIT question aberta.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
-**Slides:** 44 buildados · 9 DONE* · 1 QA (s-a1-meld) · 34 CONTENT · **Build/Lint:** ✅
+**Slides:** 44 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · 33 CONTENT · **Build/Lint:** ✅
 **Branch:** `feat/cirrose-mvp`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO** (echo stub em settings.json — RE-HABILITAR apos sprint).
 **QA pipeline:** Gate 4 **v3.1** — 3 chamadas paralelas + campo `evidencia` obrigatorio. Call C: 6 dims. Gate 0 **v1.3** (9 checks). Gate 2 em repouso.
@@ -36,13 +36,13 @@
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
 | 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
 | 9 | s-a1-cpt | DONE* | R19 6.7 (Visual 5 | UX+Code 7.2 | Motion 7.6). H2 simplificado. S2 cards lado-a-lado. Serif→sans. Warning→ui-accent nos/ceiling. S1 stats hero-size+backgrounds. Teto visual=era-based (aceito). |
-| 10 | s-a1-meld | QA | Redesign: 3 evo cards + mortality bar + limitations. Calc 3-mode (MELD/MELD-Na/MELD 3.0). Pendente: screenshots + Gate 0 + Gate 4 R1. |
-| 11 | s-cp1 | CONTENT | LSM 26 kPa atualizado (HTML+manifest+notes). Logica Baveno corrigida (CSPH confirmado, nao rule-out). |
+| 10 | s-a1-meld | QA | Gate 2 CONDITIONAL. Gate 4 R1 5.9, R2 5.6. Fixes: hierarquia cards progressiva, mortality color-mix, stagger removido, limits vertical. SPLIT question aberta (composicao 3/10). |
+| 11 | s-cp1 | QA | Rewrite: poll→breathing slide navy. Token overrides stage-c. Panel hidden. Body bg handler. Centering pendente verificacao viewport usuario. |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
 | 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
 | 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
 
-**Resumo:** 9 DONE* · 1 QA (s-a1-meld) · 0 DRAFT · 34 CONTENT (44 total)
+**Resumo:** 9 DONE* · 2 QA (s-a1-meld, s-cp1) · 0 DRAFT · 33 CONTENT (44 total)
 
 ### Proxima sessao — checklist de prontidao
 
@@ -59,17 +59,19 @@
 | ✅ | s-a1-cpt DONE* | R19 6.7. Teto visual era-based aceito. |
 | ✅ | s-a1-meld redesign | HTML+CSS+JS+calc reescritos. 3 evo cards + mortality bar + limits. |
 | ✅ | Calc 3-mode | MELD/MELD-Na/MELD 3.0 no sidebar. Formula verificada Kim 2021. |
-| ❌ | s-a1-meld QA pipeline | Screenshots + Gate 0 + Gate 4 R1 pendentes. |
-| ❌ | Gate 2 em repouso | So Gate 4 por questao de tempo. |
+| ✅ | s-a1-meld Gate 2 | CONDITIONAL (0 MUST). Layer A/B/C completas. |
+| ✅ | s-a1-meld Gate 4 R1+R2 | R1 5.9, R2 5.6. Fixes aplicados. R2 parcialmente stale (pre-color-fix). |
+| ✅ | s-cp1 rewrite | Poll→breathing slide. Navy token overrides. Panel hidden. |
+| ❌ | s-a1-meld SPLIT decision | Gemini recomenda split (composicao 3/10). Lucas nao decidiu. |
+| ❌ | s-cp1 centering viewport | Strip pode parecer off-center em viewports != 16:9. Aguardando viewport Lucas. |
+| ❌ | s-a1-meld Gate 4 R3 | Re-screenshot + R3 refletiria todos fixes atuais. |
 
 **Fluxo na proxima sessao:**
 1. `npm run dev` (port 4100)
-2. Verificar s-a1-meld visualmente (cards, mortality bar, calc tabs)
-3. Screenshots: `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-meld --video`
-4. Gate 0: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-meld --inspect`
-5. Gate 4 R1: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-meld --editorial --round 1`
-6. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
-7. Se overall >=7: avancar para s-cp1
+2. s-a1-meld: decidir SPLIT (sim→criar 2 slides, nao→Gate 4 R3 com screenshots atualizados)
+3. s-cp1: verificar centering no viewport do Lucas
+4. Gate 0 pendente para ambos slides
+5. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -86,9 +88,9 @@
 2. ~~s-a1-baveno~~ — DONE 27/mar
 3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
 4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
-5. **s-a1-cpt** — QA R13. Visual 4.8 | UX+Code 7.0 | Motion 8.4. Failsafes 9 (fix OK). Visual estagnado — redesign estrutural S2 pendente
-6. **s-cp1** — cascata LSM 26 kPa (narrativeCritical). Aprovar com Lucas.
-7. **s-a1-meld** — sequencia manifest, slide a slide
+5. ~~s-a1-cpt~~ — DONE* R19 6.7. Teto visual era-based aceito.
+6. **s-a1-meld** — QA. Gate 4 R2 5.6. SPLIT decision pendente.
+7. **s-cp1** — QA. Rewrite breathing slide. Centering pendente.
 7. **Act 2 → Act 3** — apos Act 1 DONE
 
 ---
