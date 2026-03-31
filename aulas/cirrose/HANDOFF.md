@@ -11,9 +11,9 @@
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m. `--text-caption` clamp(11px) no limite a 6m. Source-tags ponto critico de legibilidade.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint/Scaling/CSS cascade:** ✅
-**Branch:** `feat/cirrose-mvp`.
+**Branch:** `feat/cirrose-mvp` · Commit `636e78f`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated. ~~guard-product-files~~ removido.
-**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). **PENDENTE:** Gate 4 prompt precisa avaliar motion (video) + cor semantica (E67).
+**QA pipeline:** `WT-OPERATING.md` §4. **4 passos:** Screenshots → Gate 0 (Flash, $0) → Gate 2 (Opus, $0) → Gate 4 (Pro, ~$0.03). Gate 4 prompt atualizado (E67): MUST checks cor semantica + motion via video.
 **QA scripts (v2 — 2026-03-30):** extractSlideCSS multi-section, extractArchetypeCSS filtrado, auto --ref-slide.
 **Research scripts (v3):** content-research.mjs com SOURCE PRIORITY, Tier-1 list, PMID verification. Claude MCP protocol documentado (SCite→PubMed→Consensus→Gemini).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview` ($2/$12 per 1M).

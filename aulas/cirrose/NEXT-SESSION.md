@@ -1,6 +1,6 @@
 # NEXT-SESSION — Proximo trabalho
 
-> Contexto para rehidratacao. Atualizado: 2026-03-30.
+> Contexto para rehidratacao. Atualizado: 2026-03-31.
 
 ---
 
@@ -21,83 +21,81 @@
 - Source-tags sao o ponto critico
 
 **Acoes pendentes:**
-- Testar fullscreen 1920x1080 (resolucao real da TV) — slides podem subir de Plan C 1280x720 para 1080p
+- Testar fullscreen 1920x1080 (resolucao real da TV)
 - Revisar `--text-caption` minimo: 11px pode ser pequeno demais a 6m. Considerar 13-14px min
-- Source-tags com 3+ citacoes: testar legibilidade nessa configuracao
-- Prompt Gate 4 ja atualizado com contexto venue (sala TV 55" 1080p, 6m)
 
 ---
 
-## Prioridade 1: Re-rodar QA s-a1-cpt R4
+## Prioridade 1: s-a1-cpt — cores + re-QA
 
-Scripts e prompts foram melhorados (commit `3e03eb6`). Mudancas relevantes para R4:
+### Estado atual (2026-03-31, commit `636e78f`)
 
-| Mudanca | Impacto esperado em R4 |
-|---------|------------------------|
-| extractSlideCSS multi-section (A1) | CSS completo enviado, nao mais stub |
-| extractArchetypeCSS filtrado (A2) | Menos dead CSS reportado, craft_frontend nao penalizado |
-| Auto --ref-slide (A3) | Comparacao automatica com s-a1-rule5 (slide anterior) |
-| Dead CSS scoping (B1) | Gemini so penaliza dead CSS no bloco slide-specific |
-| Cross-slide parallelism (B2) | Consistencia tipografica/spacing verificada vs rule5 |
-| Color semantics (B3) | Semantica clinica verificada (danger/warning/safe) |
-| State machine exemption (C1) | Gate 0 ANIMATION_STATE nao mais false positive |
+**O que ja foi feito (R4-R6 + fixes manuais):**
+- Grid stack (no absolute positioning)
+- Dead CSS removido (~160 linhas)
+- Anti-flash E66 (CSS + JS pre-hide para S1/S2 children)
+- H2 encurtado, "Insubstituivel" removido, PMIDs adicionados
+- Source-tag: max-width 85%, overflow-wrap, centered
+- Color semantic: danger removido do S0, Von Restorff S1 (only C has bg+border)
+- Ceiling result: neutro (bg-card + border, nao warning/danger)
+- Surgery stats: progressao none → outline → fill+border
 
-**Sequencia:**
-1. Re-rodar screenshots (`qa-batch-screenshot.mjs --slide s-a1-cpt --video`)
-2. Gate 0 (deve dar PASS, state machine exempted)
-3. Gate 2 (Opus visual — MCP sharp + a11y + Read)
-4. Gate 4 (Gemini editorial R4 — comparar score vs R3 8.3/10)
+**O que FALTA (Lucas insatisfeito com cores S0):**
+- S0 ainda tem repeticao de cores (amber em nodes + kappa + ceiling area)
+- Hierarquia visual nao esta clara — olho nao sabe onde ir primeiro
+- Lucas quer entrar no loop de cor antes de re-rodar QA
+- Gate 4 prompt agora atualizado com MUST checks para cor semantica + motion (commit `636e78f`)
 
-**Dead CSS cleanup (~80 linhas orfas):** Lucas cancelou P3 na R2. Reavaliar se R4 score > 8.5.
+**Sequencia proposta:**
+1. Lucas ajusta cores ao vivo (ou co-design com Gemini MCP)
+2. Recapturar screenshots
+3. Gate 0 → Gate 2 → Gate 4 R7 com prompt melhorado
+4. Se score > 8.5 → DONE*
+
+### Historico de rounds
+
+| Round | Score | Status |
+|-------|-------|--------|
+| R1 | 5.2 | CSS incompleto |
+| R2 | 7.7 | Stub removido, autoAlpha |
+| R3 | 8.3 | Source-tag, color semantics, guideline font |
+| R4 | 8.3 | Dead CSS, padding, source-tag failsafe |
+| R5 | 7.5 | Parcial — dead CSS, failsafes, padding restaurado |
+| R6 | 7.7 | Grid stack, kappa fix, cor semantica |
+
+Gate 0: PASS (state machine exempted).
+Gate 2: PASS (0 MUST FAIL).
 
 ---
 
 ## Prioridade 2: s-a1-meld → s-cp1
 
 Sequencia Act 1. s-cp1 tem narrativeCritical=true (cascata LSM 26 kPa).
-
 **s-cp1 requer aprovacao Lucas** — H2 e LSM desatualizados (21→26 kPa).
 
 ---
 
 ## Prioridade 3: Research pipeline com MCPs
 
-Testar o workflow dual-channel melhorado no proximo slide que precisar de pesquisa:
+Workflow dual-channel:
 1. `node content-research.mjs --slide {id}` (Gemini, v3 com Tier-1 list)
-2. Claude MCPs: SCite → PubMed → Consensus → Gemini deep-research (protocolo D3)
-3. Cross-validation checklist (10 criterios com regras de resolucao)
+2. Claude MCPs: SCite → PubMed → Consensus → Gemini deep-research
+3. Cross-validation checklist (10 criterios)
 
 ---
 
-## Dados da sessao anterior (referencia)
+## Erros recentes relevantes
 
-| Round | Score | Fixes aplicados |
-|-------|-------|-----------------|
-| R1 | 5.1 | (CSS incompleto — 186 linhas) |
-| R2 | 7.7 | Stub removido (587 linhas), kappa h3, autoAlpha |
-| R3 | 8.3 | Source-tag CSS, color semantics danger→ui-accent, guideline font-body, kappa alignment |
-
-Gate 0: PASS (ANIMATION_STATE false positive aceito — agora corrigido no prompt).
-Gate 2: PASS (0 MUST FAIL, kappa AAA miss aceitavel).
+- **E066** (HIGH): FOUC intra-slide — era children flash antes de postAnim. Fix: CSS anti-flash + JS pre-hide. Regra em slide-rules.md §5.
+- **E067** (HIGH, PENDENTE): Gate 4 cego a motion + cor semantica. Fix: prompt atualizado com MUST checks. Validar no proximo R7.
 
 ---
 
-## Mudancas implementadas nesta sessao (2026-03-30, commit `3e03eb6`)
+## Prompt improvements (2026-03-31, commit `636e78f`)
 
-### Script `gemini-qa3.mjs`
-- **A1** extractSlideCSS: coleta TODOS os blocos CSS matching (nao para no primeiro)
-- **A2** extractArchetypeCSS: filtra sub-selectors ausentes no HTML do slide (com fallback safety)
-- **A3** auto --ref-slide do manifest prev; `--no-ref` para desabilitar
-
-### Prompt `gemini-gate4-editorial.md`
-- **B1** Dead CSS scoped ao bloco slide-specific (tokens/archetype = contexto)
-- **B2** Secao CONSISTENCIA CROSS-SLIDE com 5 eixos (quando REF presente)
-- **B3** Color semantics clinica: danger/warning/safe com definicao explicita
-
-### Prompt `gemini-gate0-inspector.md`
-- **C1** ANIMATION_STATE: state machines exempted (conteudo DIFERENTE != defeito)
-
-### Research `content-research.mjs` + docs
-- **D1** SOURCE PRIORITY 1-5, lista Tier-1 hepatologia, PMID verification obrigatoria
-- **D2** Cross-validation checklist com regras de resolucao
-- **D3** CLAUDE OPUS PROTOCOL: SCite → PubMed → Consensus → Gemini deep-research
+### Gate 4 (`gemini-gate4-editorial.md` + `gemini-qa3.mjs`)
+- **Dimensao 2 (cor):** 5 MUST checks — danger=clinico only, Von Restorff diluicao, arco entre estados
+- **Dimensao 4 (motion):** 4 MUST checks via video — FOUC/flash, full-slide transitions, stagger, countUp
+- **Animation Part B:** pontos 6 (cor semantica) e 7 (hierarquia) por transicao
+- **Impressao:** auditoria de hierarquia (eye path) por estado
+- **Scoring:** cor sem arco cross-state = max 6/10. Motion sem video = max 5/10.
