@@ -7,7 +7,7 @@
 
 ## Estado — 2026-03-31T23:00-03:00
 
-**Ultima sessao (31/mar):** Hardening gemini-qa3.mjs — 6 fixes de resiliencia (fetchWithRetry network catch + AbortController, uploadFile retry, waitForProcessing guard, runEditorial try/finally cleanup, safeNum defensivo). Gate 0 s-a1-cpt PASS apos fix.
+**Ultima sessao (31/mar):** Hardening scripts (gemini-qa3, content-research, qa-batch-screenshot). Gate 0 v1.2 (+DISTRIBUTION +READABILITY projecao, Flash nao pega). s-a1-cpt: failsafes 5→9, CSS tweaks insuficientes (visual estagnado 4/10 x3 rounds). Gate 4 R13 apresentado completo. Proximo: redesign estrutural S2.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
@@ -34,7 +34,7 @@
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
 | 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
-| 9 | s-a1-cpt | QA | Gate 4 R10 (3-call): Visual 4.6 | UX+Code 8.4 | Motion 9.0 | Overall 7.3. CSS fixes: spacing var(), source-tag font-body, CTP sidebar pulse, P1 ceiling-result neutral, P2 transform-origin. MUST: distribuicao(4), proporcao(5), cor(5), tipografia(5), composicao(4). Visual precisa redesign significativo. |
+| 9 | s-a1-cpt | QA | Gate 4 R13 (3-call): Visual 4.8 | UX+Code 7.0 | Motion 8.4 | Overall 6.7. Failsafes 5→9 (HTML 10/30/75). Visual estagnado 3 rounds: distribuicao(4), composicao(4), proporcao(5), tipografia(5). Problema ESTRUTURAL: S2 guideline cards sao faixas finas horizontais, nao ocupam espaco. Precisa redesign arquitetural do layout S2, nao CSS tweaks. Call B: ceiling-result em --danger = erro semantico (trocar pra neutro). Dead CSS: 11 seletores .flow-* orfaos. Call C: pulse CTP conflita com callout (separar no tempo). |
 | 10 | s-a1-meld | CONTENT | Act 1 restante. |
 | 11 | s-cp1 | CONTENT | LSM 26 kPa atualizado (HTML+manifest+notes). Logica Baveno corrigida (CSPH confirmado, nao rule-out). |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
@@ -53,7 +53,7 @@
 | ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
 | ❌ | MELD 3.0 Brasil | Lucas tem docs oficiais mostrando MELD 3.0 em vigor. Pesquisa atual errou. |
 | ❌ | Gate 2 redesign | Separar atencao Opus (visual vs code) como Gate 4 |
-| ❌ | s-a1-cpt visual redesign | Visual 4.6/10 — distribuicao(4), composicao(4) precisam redesign |
+| ❌ | s-a1-cpt visual redesign | Visual 4.8/10 R13 — problema estrutural S2 (cards horizontais finos). Redesign arquitetural necessario. Call B: --danger no ceiling = erro semantico. Dead CSS .flow-* a limpar. Call C: separar pulse CTP do callout no tempo. |
 
 **Fluxo na proxima sessao:**
 1. `npm run dev` (port 4100)
