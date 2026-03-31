@@ -5,9 +5,9 @@
 
 ---
 
-## Estado — 2026-04-01T01:30-03:00
+## Estado — 2026-04-01T02:00-03:00
 
-**Ultima sessao (31/mar-01/abr):** Gate 4 refatorado: 3 chamadas paralelas (visual/UX+code/motion). CSS fixes s-a1-cpt (spacing, source-tag tipografia, CTP sidebar animation, P1 ceiling-result cor, P2 transform-origin). Gate 4 R10 = Visual 4.6 | UX+Code 8.4 | Motion 9.0 | Overall 7.3/10. MELD research iniciado (Gemini + medical-researcher). Dead code removido (buildPrompt, extractGlobalClassCSS).
+**Ultima sessao (31/mar-01/abr):** Gate 4 v3.0 (3 chamadas paralelas). CSS fixes s-a1-cpt. R10: V4.6|U8.4|M9.0|7.3. ERRO-068/069 registrados. Memoria consolidada 31→8 arquivos (anti-entulho). Dead code removido.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
