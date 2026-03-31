@@ -187,9 +187,35 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 2. Gate 4 prompt: adicionar criterios de avaliacao de cor semantica (--danger = intervir agora, --warning = investigar, NUNCA misturar).
 3. Gate 2 protocolo: adicionar verificacao de cor semantica como MUST check.
 **Regra derivada:** Prompts QA DEVEM incluir criterios explicitos de avaliacao para motion e cor semantica. Modelo sem criterio = modelo cego.
-**Status:** PENDENTE — fixes de prompt a implementar.
+**Status:** RESOLVIDO — Gate 4 v3.0 (3 chamadas paralelas) separa atencao visual/code/motion. Cor semantica agora avaliada isoladamente na Call A.
 
-*Ultima atualizacao: 2026-03-31 · 67 erros registrados, 66 fechados (63 corrigidos, 2 processo, 1 workaround), 1 pendente.*
+### ERRO-068 · HIGH · processo (Gate 4 atencao diluida — chamada unica)
+**Gate 4 v1/v2 usava chamada unica com codigo+PNGs+video. Modelo focava no codigo (nota 10/10) e dava nota de cortesia para visual (9.3/10 quando era 2.7/10 real).**
+**Root cause:** Atencao do LLM e finita. Codigo estruturado (CSS, HTML, JS) domina a atencao vs imagens/video. Gemini Pro com prompt visual-puro deu 2.7/10 para o mesmo slide que recebeu 9.3 com codigo junto. Lucas identificou: "front end e UI UX design muito ruins em classificar".
+**Root cause 2:** Prompt unico pedia avaliacao de 15+ dimensoes (visual + CSS + failsafes + motion) num so output. Modelo priorizava o que sabia responder bem (CSS cascade) e inflava o resto.
+**Fix:** Gate 4 v3.0 — 3 chamadas paralelas via Promise.all:
+- Call A (visual): PNGs + video, ZERO codigo. Foco exclusivo em distribuicao, proporcao, cor, tipografia, composicao.
+- Call B (UX+code): PNGs + raw HTML/CSS/JS, SEM video. Gestalt, carga cognitiva, information design, cascade, failsafes.
+- Call C (motion): PNGs + video + animation JS. Timing, easing, narrativa, crossfade, artefatos.
+**Resultado:** Visual caiu de 9.3 → 4.6/10 (honesto). UX+Code 8.4/10. Custo ~$0.10/slide (antes ~$0.07).
+**Regra derivada:** NUNCA avaliar visual design e craft de codigo na mesma chamada LLM. Atencao finita = misturar inputs = inflar notas.
+**Status:** RESOLVIDO — Gate 4 v3.0 em producao.
+
+### ERRO-069 · HIGH · processo (Gate 4 Call C motion inflado — 9-10/10 irreal)
+**Call C (motion) deu 10/10 (R9) e 9/10 (R10) para animacoes que nao sao de nivel profissional. Anti-sycophancy superficial nao resolve.**
+**Root cause:** Gemini Pro nao tem baseline de motion design profissional. Nao conhece os 12 principios de animacao (Disney), nao distingue stagger mecanico de organico, nao avalia anticipation/follow-through/secondary action. O prompt diz "seja duro" mas nao define O QUE e "bom" em motion.
+**Root cause 2:** Criterios atuais (timing 300-800ms, easing power2.out) sao necessarios mas insuficientes. Verificam correcao tecnica, nao qualidade artistica. Um stagger com timing correto e easing correto pode ser completamente mecanico e sem narrativa.
+**Root cause 3:** Inventario de timestamps (prova de visualizacao) prova que o modelo VIU as transicoes, mas nao que AVALIOU a qualidade. "Vi fade de 400ms sem artefato" ≠ "a animacao e boa".
+**Fixes pendentes:**
+1. Prompt Call C: adicionar criterios de motion design profissional (12 principios, anticipation, follow-through, secondary action, staging focal)
+2. Prompt Call C: adicionar exemplos concretos de penalizacao (stagger uniforme = mecanico → max 7, countUp sem pausa dramatica → max 6)
+3. Prompt Call C: definir ceiling por tipo (apresentacao medica com GSAP realista = 6-8 se bem feita, 9 = excepcional com narrativa cinematografica)
+4. Considerar: video de referencia (WWDC/TED) como benchmark visual ou descricao textual de benchmark
+**Regra derivada:** Anti-sycophancy sem criterios profissionais = inutil. "Seja duro" sem definir "bom" = notas arbitrarias. Prompt DEVE incluir rubrica com ceiling e exemplos de penalizacao.
+**Status:** PENDENTE — prompt Call C a ser enriquecido.
+**Relacao com ERRO-067/068:** 067 = cego a motion. 068 = atencao diluida (fix: 3 calls). 069 = motion isolado mas sem criterio profissional.
+
+*Ultima atualizacao: 2026-04-01 · 69 erros registrados, 67 fechados (64 corrigidos, 2 processo, 1 workaround), 2 pendentes.*
 
 ---
 
@@ -198,8 +224,8 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | Severidade | Total | Corrigidos | Pendentes |
 |------------|-------|------------|-----------|
 | CRITICAL   | 9     | 9          | 0 |
-| HIGH       | 32    | 31         | 1 |
+| HIGH       | 34    | 32         | 2 |
 | MEDIUM     | 20    | 20         | 0 |
 | LOW        | 3     | 3          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **67**| **66**     | **1** |
+| **Total**  | **69**| **67**     | **2** |
