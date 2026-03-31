@@ -7,17 +7,18 @@
 
 ## Estado — 2026-03-31
 
-**Ultima sessao (31/mar):** CSS infra cleanup: 600 linhas removidas (6 archetypes mortos, 23 hardcoded shadows/borders→tokens, 3 orphaned vars, WCAG fix). s-cp1 rewrite (poll→breathing slide navy). s-a1-meld Gate 4 R2 fixes. SPLIT question aberta.
+**Ultima sessao (31/mar):** Apresentacao realizada. Eliminacao total de archetypes.css (cascata 3→2 camadas). 33 slides CONTENT removidos (→ _archive). Source-tag padronizado. GGT/FA adicionados ao caso.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
-**Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
-**Slides:** 44 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · 33 CONTENT · **Build/Lint:** ✅
+**Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global. Cascata CSS: base.css → cirrose.css (2 camadas, sem archetypes).
+**Slides:** 11 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · **Build/Lint:** ✅
 **Branch:** `feat/cirrose-mvp`.
-**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO** (echo stub em settings.json — RE-HABILITAR apos sprint).
-**QA pipeline:** Gate 4 **v3.1** — 3 chamadas paralelas + campo `evidencia` obrigatorio. Call C: 6 dims. Gate 0 **v1.3** (9 checks). Gate 2 em repouso.
+**Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO**.
+**QA pipeline:** Gate 4 **v3.1** — 3 chamadas paralelas + campo `evidencia` obrigatorio. Gate 0 **v1.3**. Gate 2 em repouso.
 **Research completo:** s-a1-meld (9 PMIDs verificados + MELD 3.0 formula Kim 2021), s-cp1 (11 PMIDs).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
-**Calc 3-mode:** case-panel.js agora suporta MELD original + MELD-Na + MELD 3.0 (tabs). Formula MELD 3.0 verificada (Kim 2021, PMID 34481845, PMC + OPTN).
+**Calc 3-mode:** case-panel.js suporta MELD original + MELD-Na + MELD 3.0 (tabs). Formula verificada Kim 2021.
+**Caso:** GGT (210) e FA ([TBD]) adicionados a panelStates e CASE.md.
 
 ---
 
@@ -30,69 +31,43 @@
 | 1 | s-title | DONE | QA 5-stage PASS 18/mar. |
 | 2 | s-hook | DONE | v17 (19/mar). QA 5-stage PASS. |
 | 3 | s-a1-01 | DONE | Gate 0 PASS. Gate 4 R7 8.5/10. Aprovado 27/mar. |
-| 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 7.3/10. Aprovado 27/mar. |
-| 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Aprovado 27/mar. |
+| 4 | s-a1-classify | DONE | Gate 0 PASS. Gate 4 R7 7.3/10. Aprovado 27/mar. Archetype removido 31/mar. |
+| 5 | s-a1-baveno | DONE | Gate 0 PASS. Gate 4 R5. Aprovado 27/mar. Archetype removido 31/mar. |
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
-| 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
-| 9 | s-a1-cpt | DONE* | R19 6.7 (Visual 5 | UX+Code 7.2 | Motion 7.6). H2 simplificado. S2 cards lado-a-lado. Serif→sans. Warning→ui-accent nos/ceiling. S1 stats hero-size+backgrounds. Teto visual=era-based (aceito). |
-| 10 | s-a1-meld | QA | Gate 2 CONDITIONAL. Gate 4 R1 5.9, R2 5.6. Fixes: hierarquia cards progressiva, mortality color-mix, stagger removido, limits vertical. SPLIT question aberta (composicao 3/10). |
-| 11 | s-cp1 | QA | Rewrite: poll→breathing slide navy. Token overrides stage-c. Panel hidden. Body bg handler. Centering pendente verificacao viewport usuario. |
-| 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
-| 26-34 | s-a3-01 → s-close | CONTENT | Act 3 + fechamento. |
-| 35-44 | s-app-01 → s-app-etio | CONTENT | Appendix. |
+| 8 | s-a1-rule5 | DONE* | R4 8.7/10. Archetype-flow removido 31/mar. |
+| 9 | s-a1-cpt | DONE* | R19 6.7. Archetype-flow removido 31/mar. |
+| 10 | s-a1-meld | QA | Gate 2 CONDITIONAL. Gate 4 R2 5.6. SPLIT question aberta. |
+| 11 | s-cp1 | QA | Breathing slide navy. Centering pendente viewport. |
 
-**Resumo:** 9 DONE* · 2 QA (s-a1-meld, s-cp1) · 0 DRAFT · 33 CONTENT (44 total)
+**Resumo:** 9 DONE* · 2 QA (s-a1-meld, s-cp1) · 11 total
+**Removidos:** 33 slides CONTENT → `slides/_archive/`. Serao reconstruidos 1-a-1.
 
 ### Proxima sessao — checklist de prontidao
 
 | Preparado? | Item | Notas |
 |------------|------|-------|
-| ✅ | Gate 4 v3.1 hardened | fetchWithRetry, campo `evidencia` obrigatorio, 16 dims total. Testado R15. |
-| ✅ | Gate 0 v1.3 | 9 checks puramente mecanicos. DISTRIBUTION removido. INVISIBLE limpo. |
-| ✅ | Gate 4 prompts v3.1 | Evidencia obrigatoria (A/B/C), proposito dim (Call C), anti-sancofancia reforçada. |
-| ✅ | Anti-sycophancy | Todos 3 prompts + Gate 0. Call C reforçado (reavalie 9/10, proposito por animacao). |
-| ✅ | Research s-a1-meld | 17 PMIDs verificados (evidence-db) |
-| ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
-| ✅ | Scripts hardened | gemini-qa3 + content-research + qa-batch-screenshot (video delay 2500ms, dev server check) |
-| ✅ | MELD 3.0 Brasil | Portaria GM/MS 8.041/2025 confirmada. evidence-db atualizado. |
-| ✅ | s-a1-cpt DONE* | R19 6.7. Teto visual era-based aceito. |
-| ✅ | s-a1-meld redesign | HTML+CSS+JS+calc reescritos. 3 evo cards + mortality bar + limits. |
-| ✅ | Calc 3-mode | MELD/MELD-Na/MELD 3.0 no sidebar. Formula verificada Kim 2021. |
-| ✅ | s-a1-meld Gate 2 | CONDITIONAL (0 MUST). Layer A/B/C completas. |
-| ✅ | s-a1-meld Gate 4 R1+R2 | R1 5.9, R2 5.6. Fixes aplicados. R2 parcialmente stale (pre-color-fix). |
-| ✅ | s-cp1 rewrite | Poll→breathing slide. Navy token overrides. Panel hidden. |
-| ✅ | CSS infra cleanup | 600 linhas mortas removidas, shadows/borders tokenizados, WCAG fix, orphaned vars. |
-| ❌ | s-a1-meld SPLIT decision | Gemini recomenda split (composicao 3/10). Lucas nao decidiu. |
-| ❌ | s-cp1 centering viewport | Strip pode parecer off-center em viewports != 16:9. Aguardando viewport Lucas. |
-| ❌ | s-a1-meld Gate 4 R3 | Re-screenshot + R3 refletiria todos fixes atuais. |
-| ❌ | JS/scripts/prompts cleanup | Proxima fase infra: slide-registry, scripts QA, prompts. |
+| ✅ | Archetypes eliminados | archetypes.css deletado. Cascata 2 camadas. 0 classes archetype-* no repo. |
+| ✅ | 33 slides removidos | CONTENT → _archive. Manifest 11 slides. Build/lint OK. |
+| ✅ | GGT/FA no caso | panelStates atualizados. FA [TBD] em CASE.md. |
+| ✅ | Source-tag padronizado | Left-align, 0.85rem, width calc escapa padding. |
+| ❌ | FA valor | Lucas precisa definir valor em CASE.md. |
+| ❌ | s-a1-meld SPLIT | Gemini recomenda split. Lucas nao decidiu. |
+| ❌ | s-cp1 centering | Verificar no viewport Lucas. |
 
 **Fluxo na proxima sessao:**
-1. Continuar infra cleanup (JS/scripts/prompts) ou retomar QA s-a1-meld/s-cp1
-2. s-a1-meld: decidir SPLIT (sim→criar 2 slides, nao→Gate 4 R3 com screenshots atualizados)
-3. s-cp1: verificar centering no viewport do Lucas
-4. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims + evidencia + inventario)
-
-### [TBD SOURCE] em notes (nao bloqueia QA visual)
-
-- s-a2-04: PPI meta-analise OR ~2.17 PBE
-- s-a2-09: sarcopenia prevalencia meta-analise
-- s-a3-04: taxa recompensacao alcool "1/3 em 5a"
-- s-app-04: PMID Turco 2024 IPD
+1. Definir valor de FA para caso (CASE.md [TBD])
+2. QA s-a1-meld (SPLIT decision) e s-cp1 (centering viewport)
+3. Comecar Act 2 slide-a-slide (criar do zero, sem archetypes)
 
 ---
 
 ## Caminho critico
 
-1. ~~s-a1-classify~~ — DONE 27/mar
-2. ~~s-a1-baveno~~ — DONE 27/mar
-3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
-4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
-5. ~~s-a1-cpt~~ — DONE* R19 6.7. Teto visual era-based aceito.
-6. **s-a1-meld** — QA. Gate 4 R2 5.6. SPLIT decision pendente.
-7. **s-cp1** — QA. Rewrite breathing slide. Centering pendente.
-7. **Act 2 → Act 3** — apos Act 1 DONE
+1. ~~Act 1 (9 slides)~~ — 9 DONE* (31/mar)
+2. **s-a1-meld** — QA. Gate 4 R2 5.6. SPLIT decision pendente.
+3. **s-cp1** — QA. Centering pendente.
+4. **Act 2** — reconstruir do zero (slides removidos, conteudo em narrative.md + evidence-db)
 
 ---
 

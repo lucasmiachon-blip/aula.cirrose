@@ -24,6 +24,7 @@
 | ALT | 31 U/L | "Normal" — ARMADILHA: hepatócito burnt-out normaliza ALT |
 | PLQ | 112.000/mm³ | Marcador de hipertensão portal |
 | GGT | 210 U/L | Marcador de uso crônico de álcool |
+| FA | [TBD] U/L | Fosfatase alcalina — valor a definir |
 | Albumina | 3,6 g/dL | Função hepática limítrofe |
 | Bilirrubina | 1,3 mg/dL | Ainda normal — muda na descompensação |
 | INR | 1,2 | Discretamente alargado |
@@ -38,7 +39,10 @@
 - Resumo visual: cACLD · CSPH · Carvedilol 6,25 mg BID · MELD 14
 - Estado: CSPH confirmado (LSM ≥25 kPa)
 
-### Checkpoint 2 (s-cp2) — Danger (nadir narrativo)
+<!-- Checkpoint 2, 3, close: slides removidos para _archive (2026-03-31).
+     Dados preservados abaixo para reconstrucao futura. -->
+
+### Checkpoint 2 (futuro) — Danger (nadir narrativo)
 - Creatinina: 2,8 mg/dL
 - Sódio: 126 mEq/L
 - Albumina: 2,4 g/dL
@@ -48,7 +52,7 @@
 - MELD-Na: 28
 - Complicações: Ascite tensa + PBE + HRS-AKI
 
-### Checkpoint 3 (s-cp3) — Hope
+### Checkpoint 3 (futuro) — Hope
 - FIB-4: 2,1
 - LSM: 18 kPa (era 32 → 18)
 - PLQ: 132k
@@ -58,7 +62,7 @@
 - Sem ascite: 8 meses
 - SVR: sim (confirmado)
 
-### s-close — Resolved
+### Close (futuro) — Resolved
 - Timeline completa dos 4 estados
 - Eco narrativo: "5 números classificaram. 3 decisões salvaram."
 

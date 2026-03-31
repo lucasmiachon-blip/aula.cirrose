@@ -141,7 +141,7 @@ function parseManifest(path) {
 
 // ── Compare ────────────────────────────────────────────────────
 function compare(caseStates, manifestStates) {
-  const checkpoints = ['s-cp1', 's-cp2', 's-cp3'];
+  const checkpoints = Object.keys(manifestStates).filter(id => id.startsWith('s-cp'));
 
   for (const cpId of checkpoints) {
     const caseCp = caseStates[cpId];
