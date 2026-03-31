@@ -1,6 +1,6 @@
 # NEXT-SESSION — Proximo trabalho
 
-> Contexto para rehidratacao. Atualizado: 2026-03-31.
+> Contexto para rehidratacao. Atualizado: 2026-04-01.
 
 ---
 
@@ -26,50 +26,47 @@
 
 ---
 
-## Prioridade 1: s-a1-cpt — Gate 4 R8
+## Prioridade 1: s-a1-cpt — Visual Redesign
 
-### Estado atual (2026-03-31)
+### Estado atual (2026-04-01)
 
-**Fixes aplicados (R4-R7 + manuais):**
-- Grid stack (no absolute positioning)
-- Dead CSS removido (~160 linhas)
-- Anti-flash E66 (CSS + JS pre-hide para S1/S2 children)
-- H2 encurtado, PMIDs adicionados
-- Source-tag: always visible, font-mono, text-muted (consistente com outros slides)
-- Color semantic: danger removido S0, Von Restorff S1 only (scale 1.16, box-shadow)
-- Ceiling result: --danger (bg-danger-light + border)
-- align-items: center no .scores-era-track
-- overflow-y: hidden removido de .scores-era
-- Sidebar: CTP A(5) + LSM visivel ('—') + complications (VE, HDA, Ascite, HE, HCC)
+Gate 4 v3.0 R10 (3 chamadas paralelas):
+- **Visual: 4.6/10** — distribuicao(4), proporcao(5), cor(5), tipografia(5), composicao(4)
+- **UX+Code: 8.4/10** — gestalt(7), carga_cognitiva(9), info_design(8), css_cascade(8), failsafes(10)
+- **Motion: 9.0/10** — timing(9), easing(9), narrativa(10), crossfade(9), artefatos(8)
 
-**O que FALTA:**
-- S0 cores insatisfatorias (Lucas < 3/10) — hierarquia visual fraca
-- Screenshots desatualizados (sidebar mudou: LSM + complications adicionados)
-- Gate 4 R8 com prompt v2.2 (nao rodado ainda)
+**Problemas visuais identificados (Call A):**
+- Layout colapsado: S0 elementos dispersos sem coesao, S2 whitespace morto massivo
+- Tags de variaveis (Bili, Alb) minusculas para projecao a 6m
+- Transicao S0→S2 destroi continuidade visual (parecem dois slides costurados)
+- Sem ancora visual clara em nenhum estado
 
-**Prompts atualizados:**
-- Gate 4 v2.2: §1D per-state composition, §1E cross-state consistency, M6 clipping, M7 layout shift
-- Gate 2 v1.1: C6 cross-state, C7 per-state, S1 blind spot explicito
+**CSS fixes ja aplicados nesta sessao:**
+- Spacing: gap var(--space-sm/xs) em .archetype-flow, .scores-era, .cpt-nodes
+- Source-tag: font-family var(--font-body) (era --font-mono)
+- CTP sidebar: scale pulse animation apos nodes stagger
+- P1 ceiling-result: cor neutra (--text-primary/--border) em vez de --danger
+- P2 transform-origin: bottom center em .cpt-surgery-stat
 
 **Sequencia:**
-1. `npm run dev` (port 4100)
-2. Recapturar: `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
-3. Gate 0: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --inspect`
-4. Gate 2 conversacional (sharp + a11y)
-5. Gate 4 R8: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 8`
-6. Lucas aprova → fixes → recapturar → loop ate PASS
+1. Decidir: redesign visual s-a1-cpt OU avancar s-a1-meld
+2. Se redesign: refazer layout S0/S2 para fill ratio + composicao
+3. Recapturar + Gate 4 R11
 
 ### Historico de rounds
 
-| Round | Score | Status |
-|-------|-------|--------|
-| R1 | 5.2 | CSS incompleto |
-| R2 | 7.7 | Stub removido, autoAlpha |
-| R3 | 8.3 | Source-tag, color semantics, guideline font |
-| R4 | 8.3 | Dead CSS, padding, source-tag failsafe |
-| R5 | 7.5 | Parcial — dead CSS, failsafes |
-| R6 | 7.7 | Grid stack, kappa fix, cor semantica |
-| R7 | 8.6 | CSS P1-P4, source-tag always visible, Von Restorff enhanced |
+| Round | Score | Pipeline | Status |
+|-------|-------|----------|--------|
+| R1 | 5.2 | v1 (single) | CSS incompleto |
+| R2 | 7.7 | v1 | Stub removido, autoAlpha |
+| R3 | 8.3 | v1 | Source-tag, color semantics |
+| R4 | 8.3 | v1 | Dead CSS, padding |
+| R5 | 7.5 | v1 | Parcial |
+| R6 | 7.7 | v1 | Grid stack, kappa fix |
+| R7 | 8.6 | v2.2 | CSS P1-P4, Von Restorff |
+| R8 | 9.3 | v2.2 | REJEITADO — sycophantic (visual=9.3, real=2.7) |
+| R9 | 7.5 | v3.0 (3-call) | Primeiro teste. Call B truncado (317 tok) |
+| R10 | 7.3 | v3.0 (3-call) | Visual 4.6 | UX+Code 8.4 | Motion 9.0. HONESTO. |
 
 Gate 0: PASS.
 Gate 2: PASS (v1.1 pronta, nao re-rodada).
@@ -84,14 +81,32 @@ Research completo para ambos (evidence-db atualizado):
 
 s-cp1 tem narrativeCritical=true. Cascata LSM 26 kPa ja resolvida em todas 9 superficies.
 
-**Sidebar evolui paulatinamente:** dados e complicacoes entram progressivamente no panel card. Cada slide adiciona conceito novo ao sidebar — nao customizado por slide, mas sim narrativamente progressivo.
+**Sidebar evolui paulatinamente:** dados e complicacoes entram progressivamente no panel card.
+
+---
+
+## Pendencias — Pipeline & Prompts
+
+### Gate 4 Call C (Motion) — precisa melhorar
+**Problema:** Motion deu 9/10, longe da realidade. Nao e so sycophancy — falta criterio profissional de motion design. Gemini Pro nao tem vocabulario nem baseline de motion design de elite (Apple Keynote, After Effects, Principle).
+**Acoes possiveis:**
+- Enriquecer prompt com criterios de motion design profissional (12 principios de animacao, anticipation, follow-through, secondary action)
+- Adicionar exemplos concretos de penalizacao (stagger uniforme = mecanico, countUp sem pausa = decorativo)
+- Considerar benchmark: gravar video de referencia WWDC/TED para calibrar notas
+- Talvez usar modelo diferente para motion (ex: Gemini com thinking budget maior)
+
+### Gate 2 — redesign
+Separar atencao Opus (visual vs code) como foi feito no Gate 4. Planejar na proxima sessao.
+
+### MELD 3.0 Brasil — pesquisa incorreta
+Lucas tem documentos oficiais mostrando MELD 3.0 entrando/em vigor ate 2026-03-31. Tanto Gemini quanto medical-researcher disseram que nao foi adotado. Requer pesquisa direcionada com docs oficiais como input.
 
 ---
 
 ## Erros recentes relevantes
 
-- **E066** (HIGH, RESOLVIDO): FOUC intra-slide — era children flash antes de postAnim. Fix: CSS anti-flash + JS pre-hide.
-- **E067** (HIGH, MITIGADO): Gate 4 cego a motion + cor semantica. Fix: prompt v2.2 com §1D, §1E, M6, M7. Validar no R8.
+- **E066** (HIGH, RESOLVIDO): FOUC intra-slide — era children flash antes de postAnim.
+- **E067** (HIGH, RESOLVIDO): Gate 4 cego a motion + cor semantica. Fix: Gate 4 v3.0 (3 chamadas paralelas com atencao separada).
 
 ---
 

@@ -2147,9 +2147,9 @@ section#s-a1-01 .slide-inner {
 #s-a1-cpt .archetype-flow {
   grid-template-rows: auto auto 1fr auto;
   padding: 24px 48px 16px;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
-#s-a1-cpt .scores-era { gap: 4px; }
+#s-a1-cpt .scores-era { gap: var(--space-xs); }
 .scores-era-track {
   display: grid;
   grid-template-areas: "stack";
@@ -2203,7 +2203,7 @@ section#s-a1-01 .slide-inner {
 /* S0: 5 variable nodes */
 .cpt-nodes {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   margin-top: var(--space-sm);
 }
 .cpt-node {
@@ -2291,9 +2291,9 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--danger);
-  background: var(--danger-light);
-  border: 1px solid var(--danger);
+  color: var(--text-primary);
+  background: var(--border);
+  border: 1px solid var(--text-muted);
   padding: 4px 12px;
   border-radius: 4px;
 }
@@ -2312,6 +2312,7 @@ section#s-a1-01 .slide-inner {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
   min-width: 120px;
+  transform-origin: bottom center;
 }
 .cpt-surgery-class {
   font-family: var(--font-display);
@@ -2394,7 +2395,7 @@ section#s-a1-01 .slide-inner {
   max-width: 85%;
   margin: 0 auto;
   text-align: center;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   color: var(--text-muted);
 }
 .stage-bad #s-a1-cpt .source-tag,

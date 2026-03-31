@@ -427,6 +427,20 @@ export const customAnimations = {
     // Ceiling result punch ("= mesmos 3 pontos")
     if (ceilingResult) gsap.to(ceilingResult, { opacity: 1, duration: 0.3, delay: 3.2, ease: 'power2.out' });
 
+    // CTP panel field: scale pulse after nodes stagger in
+    const ctpLabel = [...document.querySelectorAll('.panel-field-label')]
+      .find(el => el.textContent.trim() === 'CTP');
+    if (ctpLabel) {
+      const ctpVal = ctpLabel.closest('.panel-field')?.querySelector('.panel-field-value');
+      if (ctpVal) {
+        gsap.fromTo(ctpVal,
+          { scale: 1 },
+          { scale: 1.15, duration: 0.3, delay: 1.0, ease: 'power2.inOut',
+            yoyo: true, repeat: 1 }
+        );
+      }
+    }
+
     function runS1Anims() {
       const stats = slide.querySelectorAll('.cpt-surgery-stat');
       const pcts = slide.querySelectorAll('.cpt-surgery-pct[data-target]');

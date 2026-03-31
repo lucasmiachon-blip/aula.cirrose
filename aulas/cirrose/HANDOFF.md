@@ -5,16 +5,16 @@
 
 ---
 
-## Estado — 2026-04-01T00:15-03:00
+## Estado — 2026-04-01T01:30-03:00
 
-**Ultima sessao (31/mar):** Gate 4 R7 (8.6/10). Fixes CSS P1-P4. Prompts Gate 4 v2.2 + Gate 2 v1.1. Cascata LSM 26 kPa resolvida. "Seu Antonio" → "Antonio" (global). Sidebar s-a1-cpt: CTP A(5) + LSM visivel + complications (VE/HDA/Ascite/HE/HCC). Evidence-db: +9 rows s-a1-meld, +4 rows s-cp1. Research completo. guard-product-files suprimido (sprint).
+**Ultima sessao (31/mar-01/abr):** Gate 4 refatorado: 3 chamadas paralelas (visual/UX+code/motion). CSS fixes s-a1-cpt (spacing, source-tag tipografia, CTP sidebar animation, P1 ceiling-result cor, P2 transform-origin). Gate 4 R10 = Visual 4.6 | UX+Code 8.4 | Motion 9.0 | Overall 7.3/10. MELD research iniciado (Gemini + medical-researcher). Dead code removido (buildPrompt, extractGlobalClassCSS).
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global.
 **Slides:** 44 buildados · 8 DONE* · 1 QA (s-a1-cpt) · 35 CONTENT · **Build/Lint:** ✅
 **Branch:** `feat/cirrose-mvp`.
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO** (echo stub em settings.json — RE-HABILITAR apos sprint).
-**QA pipeline:** Gate 4 **v2.2**: +§1D per-state composition, +§1E cross-state consistency, +M6 clipping, +M7 layout shift. Gate 2 **v1.1**: +C6 cross-state, +C7 per-state, S1 blind spot.
-**Research completo:** s-a1-meld (17 PMIDs verificados), s-cp1 (11 PMIDs).
+**QA pipeline:** Gate 4 **v3.0** — 3 chamadas paralelas: A (visual, sem codigo), B (UX+codigo, sem video), C (motion, video+JS). Anti-sycophancy em todos prompts. Gate 2 **v1.1**: +C6 cross-state, +C7 per-state, S1 blind spot.
+**Research completo:** s-a1-meld (17 PMIDs verificados), s-cp1 (11 PMIDs). MELD research pendente (MELD 3.0 Brasil).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
 
@@ -34,7 +34,7 @@
 | 6 | s-a1-fib4 | DONE* | R9 8.8/10. CSS anti-flash adicionado (30/mar). |
 | 7 | s-a1-elasto | DONE* | R4 8.5/10. CSS anti-flash adicionado (30/mar). |
 | 8 | s-a1-rule5 | DONE* | R4 8.7/10. H2 "Rule of Five". 1 click holofote ≥25 + sidebar 26 kPa + caveats. 3 refs tier-1. Source-tag PMIDs adicionados (31/mar). |
-| 9 | s-a1-cpt | QA | Gate 4 R7 8.6/10. Fixes R4-R7: grid stack, color semantic, anti-flash E66, dead CSS -160L, source-tag (always visible, mono+muted), Von Restorff scale 1.16+shadow, ceiling-result danger, align-items center, overflow-y removed. Sidebar: CTP A(5) + LSM (visible, '—') + complications (VE/HDA/Ascite/HE/HCC). Prompts v2.2+v1.1 prontos. **PENDENTE:** S0 cores insatisfatorias (Lucas <3/10), recapturar screenshots (sidebar atualizado) → Gate 4 R8 com v2.2. |
+| 9 | s-a1-cpt | QA | Gate 4 R10 (3-call): Visual 4.6 | UX+Code 8.4 | Motion 9.0 | Overall 7.3. CSS fixes: spacing var(), source-tag font-body, CTP sidebar pulse, P1 ceiling-result neutral, P2 transform-origin. MUST: distribuicao(4), proporcao(5), cor(5), tipografia(5), composicao(4). Visual precisa redesign significativo. |
 | 10 | s-a1-meld | CONTENT | Act 1 restante. |
 | 11 | s-cp1 | CONTENT | LSM 26 kPa atualizado (HTML+manifest+notes). Logica Baveno corrigida (CSPH confirmado, nao rule-out). |
 | 12-25 | s-a2-01 → s-cp2 | CONTENT | Act 2 completo. |
@@ -47,21 +47,19 @@
 
 | Preparado? | Item | Notas |
 |------------|------|-------|
-| ✅ | Gate 4 prompt v2.2 | §1D per-state, §1E cross-state, M6 clipping, M7 layout shift |
-| ✅ | Gate 2 protocol v1.1 | C6 cross-state, C7 per-state, S1 blind spot |
+| ✅ | Gate 4 v3.0 (3 chamadas) | Visual/UX+Code/Motion paralelas. Testado R9+R10. |
+| ✅ | Anti-sycophancy | Todos 3 prompts com calibracao anti-inflacao |
 | ✅ | Research s-a1-meld | 17 PMIDs verificados (evidence-db) |
 | ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
-| ✅ | Sidebar s-a1-cpt | CTP A(5) + LSM + complications VE/HDA/Ascite/HE/HCC |
-| ❌ | Screenshots s-a1-cpt frescos | Sidebar mudou (LSM + complications) — recapturar |
-| ❌ | Gate 4 R8 s-a1-cpt | Rodar com prompt v2.2 apos screenshots |
+| ❌ | MELD 3.0 Brasil | Lucas tem docs oficiais mostrando MELD 3.0 em vigor. Pesquisa atual errou. |
+| ❌ | Gate 2 redesign | Separar atencao Opus (visual vs code) como Gate 4 |
+| ❌ | s-a1-cpt visual redesign | Visual 4.6/10 — distribuicao(4), composicao(4) precisam redesign |
 
 **Fluxo na proxima sessao:**
 1. `npm run dev` (port 4100)
-2. `node aulas/cirrose/scripts/qa-batch-screenshot.mjs --slide s-a1-cpt --video`
-3. Gate 0 re-check: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --inspect`
-4. Gate 2 conversacional (sharp + a11y)
-5. Gate 4 R8: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 8`
-6. Se score ≥ 8.5 + Lucas OK → DONE*. Senao: fix → recapturar → R9.
+2. Decidir: fix visual s-a1-cpt (redesign layout) OU avancar para s-a1-meld
+3. Gate 4: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N`
+4. Gate 2 redesign para separar atencao Opus (planejar)
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -78,7 +76,7 @@
 2. ~~s-a1-baveno~~ — DONE 27/mar
 3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
 4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
-5. **s-a1-cpt** — QA R7 8.6/10. Prompts v2.2 + v1.1 prontos. Sidebar atualizado (CTP+LSM+complications). Proximo: screenshots → Gate 4 R8
+5. **s-a1-cpt** — QA R10. Gate 4 v3.0: Visual 4.6 | UX+Code 8.4 | Motion 9.0. Visual precisa redesign (distribuicao+composicao 4/10)
 6. **s-cp1** — cascata LSM 26 kPa (narrativeCritical). Aprovar com Lucas.
 7. **s-a1-meld** — sequencia manifest, slide a slide
 7. **Act 2 → Act 3** — apos Act 1 DONE
@@ -88,6 +86,27 @@
 ## ~~Cascata LSM 26 kPa~~ — RESOLVIDA 2026-03-31
 
 Todas 9 superficies sincronizadas: CASE.md, narrative.md, evidence-db.md, 07-cp1.html (H2+data+notes+feedback), _manifest.js (headline+panelState s-cp1+s-a2-01). Logica Baveno corrigida: LSM ≥25 = CSPH confirmado → NSBB → dispensa EDA (Statement 5.17).
+
+---
+
+## Gate 4 v3.0 — 3 chamadas paralelas (01/abr)
+
+**Problema:** Chamada unica com codigo+visuals causava Gemini focar no codigo (dava 10/10 craft) e dar nota de cortesia para visual (9.3/10 quando era 2.7). Lucas identificou: "front end e UI UX design muito ruins em classificar".
+
+**Fix:** 3 chamadas paralelas via `Promise.all`:
+- **Call A — Visual Design:** PNGs + video, ZERO codigo. Foco em distribuicao, proporcao, cor, tipografia, composicao.
+- **Call B — UI/UX + Code:** PNGs + raw HTML/CSS/JS, SEM video. Gestalt, carga cognitiva, information design, CSS cascade, failsafes.
+- **Call C — Motion Design:** PNGs + video + animation JS. Timing, easing, narrativa, crossfade, artefatos. Inventario com timestamps obrigatorio.
+
+**Arquivos:**
+- `scripts/gemini-qa3.mjs` — `buildSplitCallPayload()` + `runEditorial()` reescrito
+- `@repo/docs/prompts/gate4-call-a-visual.md` — prompt visual (sem codigo)
+- `@repo/docs/prompts/gate4-call-b-uxcode.md` — prompt UX+code
+- `@repo/docs/prompts/gate4-call-c-motion.md` — prompt motion (video obrigatorio)
+
+**Resultado R10 s-a1-cpt:** Visual 4.6 (HONESTO) | UX+Code 8.4 | Motion 9.0. Custo ~$0.10 total.
+
+**Dead code removido:** `buildPrompt()`, `extractGlobalClassCSS()`, consts `GATE4_PROMPT_PATH`/`DIAGNOSTIC`/`CONTEXT_PARAGRAPH`.
 
 ---
 
