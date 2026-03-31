@@ -47,19 +47,23 @@
 
 | Preparado? | Item | Notas |
 |------------|------|-------|
-| ✅ | Gate 4 v3.0 (3 chamadas) | Visual/UX+Code/Motion paralelas. Testado R9+R10. |
-| ✅ | Anti-sycophancy | Todos 3 prompts com calibracao anti-inflacao |
+| ✅ | Gate 4 v3.0 hardened | fetchWithRetry (network+timeout), uploadFile retry, cleanup try/finally, safeNum. Testado R13. |
+| ✅ | Gate 0 v1.2 | +DISTRIBUTION +READABILITY projecao. Flash nao pega distribuicao — manter como pre-filter mecanico, nao confiar para layout. |
+| ✅ | Anti-sycophancy | Todos 3 prompts + Gate 0 anti-sycophancy. |
 | ✅ | Research s-a1-meld | 17 PMIDs verificados (evidence-db) |
 | ✅ | Research s-cp1 | 11 PMIDs verificados (evidence-db) |
+| ✅ | Scripts hardened | gemini-qa3 + content-research + qa-batch-screenshot (video delay 2500ms, dev server check) |
 | ❌ | MELD 3.0 Brasil | Lucas tem docs oficiais mostrando MELD 3.0 em vigor. Pesquisa atual errou. |
-| ❌ | Gate 2 redesign | Separar atencao Opus (visual vs code) como Gate 4 |
-| ❌ | s-a1-cpt visual redesign | Visual 4.8/10 R13 — problema estrutural S2 (cards horizontais finos). Redesign arquitetural necessario. Call B: --danger no ceiling = erro semantico. Dead CSS .flow-* a limpar. Call C: separar pulse CTP do callout no tempo. |
+| ❌ | s-a1-cpt REDESIGN ESTRUTURAL | Visual 4.8/10 estagnado 3 rounds. Problema: S2 guideline cards = faixas horizontais finas. Precisa redesign arquitetural, NAO CSS tweaks. Itens pendentes do R13: (1) ceiling-result --danger→neutro (erro semantico), (2) dead CSS .flow-* 11 seletores, (3) callout align-self flex-start, (4) pulse CTP separar no tempo do callout. |
+| ❌ | Gate 2 em repouso | So Gate 4 por questao de tempo. |
 
 **Fluxo na proxima sessao:**
 1. `npm run dev` (port 4100)
-2. Decidir: fix visual s-a1-cpt (redesign layout) OU avancar para s-a1-meld
-3. Gate 4: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide {id} --editorial --round N`
-4. Gate 2 redesign para separar atencao Opus (planejar)
+2. **s-a1-cpt redesign estrutural S2** — repensar guideline cards como elementos verticais/hero que dominam o espaco. NAO iterar CSS tweaks.
+3. Aplicar itens pendentes R13 (ceiling semantics, dead CSS, callout stretch, pulse timing)
+4. Gate 4 R14: `node aulas/cirrose/scripts/gemini-qa3.mjs --slide s-a1-cpt --editorial --round 14`
+5. **HARD CONSTRAINT:** Apresentar resultado Gate 4 completo (todas dims, problemas, fixes, inventario)
+6. Se visual >=7: avancar para s-a1-meld
 
 ### [TBD SOURCE] em notes (nao bloqueia QA visual)
 
@@ -76,7 +80,7 @@
 2. ~~s-a1-baveno~~ — DONE 27/mar
 3. ~~s-a1-elasto~~ — DONE* 30/mar R4 8.5
 4. ~~s-a1-rule5~~ — DONE* 30/mar R4 8.7
-5. **s-a1-cpt** — QA R10. Gate 4 v3.0: Visual 4.6 | UX+Code 8.4 | Motion 9.0. Visual precisa redesign (distribuicao+composicao 4/10)
+5. **s-a1-cpt** — QA R13. Visual 4.8 | UX+Code 7.0 | Motion 8.4. Failsafes 9 (fix OK). Visual estagnado — redesign estrutural S2 pendente
 6. **s-cp1** — cascata LSM 26 kPa (narrativeCritical). Aprovar com Lucas.
 7. **s-a1-meld** — sequencia manifest, slide a slide
 7. **Act 2 → Act 3** — apos Act 1 DONE
