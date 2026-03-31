@@ -437,7 +437,7 @@ function getSlideMetadata(slideId) {
       file: get('file'),
       headline: get('headline'),
       archetype: get('archetype'),
-      narrativeRole: get('narrativeRole') || 'null',
+      narrativeRole: get('narrativeRole') || null,
       tensionLevel: getNum('tensionLevel'),
       clickReveals: getNum('clickReveals'),
     });
@@ -793,7 +793,7 @@ Seja forense: leia a cascade inteira, identifique conflitos de specificity, posi
     '{{MEDIA_LIST}}': mediaList,
     '{{ANIMATION_SECTION}}': animationSection,
     '{{DIAGNOSTIC_TASK}}': diagnosticTask,
-    '{{MAX_TOKENS}}': mediaUris.video ? '5000' : '2500',
+    '{{MAX_TOKENS}}': mediaUris.video ? '8000' : '4000',
   };
 
   for (const [placeholder, value] of Object.entries(replacements)) {
@@ -809,7 +809,12 @@ Seja forense: leia a cascade inteira, identifique conflitos de specificity, posi
 
   return {
     contents: [{ parts }],
-    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 16384 },
+    generationConfig: {
+      temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
+      topP: 0.95,
+      maxOutputTokens: 16384,
+      thinkingConfig: { thinkingLevel: 'HIGH' },
+    },
   };
 }
 
