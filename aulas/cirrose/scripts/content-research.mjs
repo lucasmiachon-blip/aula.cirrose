@@ -338,6 +338,27 @@ function classifyWeakness(ctx, manualReason) {
   return { category: 'missing-nuance', description: 'Evidência presente mas pode faltar nuance ou atualização', severity: 1 };
 }
 
+/**
+ * Classify clinical content type from h2 headline → recommended MCP template.
+ * Templates A-H defined in docs/prompts/mcp-research-queries.md.
+ * Returns { templateType: 'E', templateLabel: 'Tratamento/Intervenção', fields: [...] }
+ */
+function classifyContentType(h2) {
+  const t = (h2 || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const rules = [
+    { pattern: /agud|emergenc|hrs|aclf|hda|hemorrag|sbp|peritonite|choque/, type: 'H', label: 'Complicação/Emergência',     fields: ['COMPLICACAO','CRITERIO_DIAGNOSTICO','INTERVENCAO_URGENTE','JANELA_TERAPEUTICA'] },
+    { pattern: /manejo|escalonam|algoritm|quando|stepwise|refrat/,          type: 'G', label: 'Manejo/Algoritmo',            fields: ['CONDICAO','INTERVENCAO_ESCALONADA','CRITERIO_FALHA'] },
+    { pattern: /trat|dose|previne|reduz|nnt|nsh|carvedilol|terlipres|rifaxim|lactulose|albumin|nsbb|diuret/, type: 'E', label: 'Tratamento/Intervenção', fields: ['DROGA','CONDICAO','COMPARADOR','POPULACAO'] },
+    { pattern: /mortalid|incidenc|prevalenc|historia natural|prognost|sobrevid|descompens/, type: 'F', label: 'Epidemiologia/Prognóstico', fields: ['CONDICAO','DESFECHO','POPULACAO','PERIODO'] },
+    { pattern: /diagnos|test|score|fib-?4|meld|elastogr|apri|elf|auroc|sensib|especif/, type: 'A/B/D', label: 'Performance Diagnóstica', fields: ['TESTE','CONDICAO','ETIOLOGIA'] },
+    { pattern: /guideline|consenso|baveno|easl|aasld|diverge/,             type: 'C', label: 'Divergências Guidelines',      fields: ['TOPICO'] },
+  ];
+  for (const r of rules) {
+    if (r.pattern.test(t)) return { templateType: r.type, templateLabel: r.label, fields: r.fields };
+  }
+  return { templateType: 'generic', templateLabel: 'Genérico (sem template específico)', fields: [] };
+}
+
 // ============================================================
 // PHASE 3: PROMPT ASSEMBLY
 // ============================================================
@@ -712,6 +733,7 @@ Date: ${date} | Weakness: ${weakness.category} (${weakness.severity}/3)
 - **Narrative role:** ${slide?.narrativeRole || 'none'}
 - **Existing PMIDs:** ${ctx.existingPMIDs.length > 0 ? ctx.existingPMIDs.join(', ') : 'NONE'}
 - **Weakness:** ${weakness.description}
+- **MCP Template:** ${weakness.templateType || 'generic'} (${weakness.templateLabel || 'N/A'})${weakness.templateFields?.length ? ` — fields: ${weakness.templateFields.join(', ')}` : ''}
 
 ---
 
@@ -769,15 +791,33 @@ async function main() {
   console.log(`  PMIDs: ${ctx.existingPMIDs.length > 0 ? ctx.existingPMIDs.join(', ') : 'none'}`);
   console.log(`  Position: ${ctx.meta.position} | Act: ${ctx.meta.slide?.act || 'N/A'} | Role: ${ctx.meta.slide?.narrativeRole || 'none'}`);
 
-  // Phase 2: Detect weakness
+  // Phase 2: Detect weakness + content type
   const weakness = classifyWeakness(ctx, REASON);
   console.log(`  Weakness: ${weakness.category} (severity ${weakness.severity}/3) — ${weakness.description}`);
+
+  const contentType = classifyContentType(ctx.h2);
+  weakness.templateType = contentType.templateType;
+  weakness.templateLabel = contentType.templateLabel;
+  weakness.templateFields = contentType.fields;
+  console.log(`  Content type: Template ${contentType.templateType} (${contentType.templateLabel})`);
+  if (contentType.fields.length > 0) {
+    console.log(`  MCP fields to fill: ${contentType.fields.join(', ')}`);
+  }
 
   // Phase 3: Build prompts
   const systemPrompt = buildSystemPrompt();
   const userPrompt = buildUserPrompt(ctx, weakness);
 
   if (PROMPT_ONLY) {
+    console.log('\n' + '='.repeat(60));
+    console.log('MCP TEMPLATE RECOMMENDATION:');
+    console.log('='.repeat(60));
+    console.log(`Template: ${contentType.templateType} — ${contentType.templateLabel}`);
+    console.log(`Reference: docs/prompts/mcp-research-queries.md`);
+    if (contentType.fields.length > 0) {
+      console.log(`Fields to fill:`);
+      for (const f of contentType.fields) console.log(`  - ${f}: _____`);
+    }
     console.log('\n' + '='.repeat(60));
     console.log('SYSTEM PROMPT:');
     console.log('='.repeat(60));

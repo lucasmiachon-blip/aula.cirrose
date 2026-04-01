@@ -7,7 +7,7 @@
 
 ## Estado — 2026-04-01
 
-**Ultima sessao (01/abr, sessao 4):** Infra cleanup — repo janitor + purge refs stale (archetypes.css/base.css em 11 arquivos). responseSchema adicionado a Gate 0 + Gate 4 (constrained decoding). extractArchetypeCSS deletado (73 linhas dead code). content-research.mjs: archetype dead refs removidos, adversarial framing (disprove-first), attention bleed prevention (data block delimiters). qa-batch-screenshot: try/catch unlinkSync (Windows lock) + video.delete() (cleanup temp Playwright). AUDIT-VISUAL 44→11 slides.
+**Ultima sessao (01/abr, sessao 4):** Infra cleanup — repo janitor + purge refs stale (archetypes.css/base.css em 11 arquivos). responseSchema adicionado a Gate 0 + Gate 4 (constrained decoding). extractArchetypeCSS deletado (73 linhas dead code). content-research.mjs: archetype dead refs removidos, adversarial framing (disprove-first), attention bleed prevention (data block delimiters), current date injection, classificador de tipo clinico (h2→Template A-H). MCP research templates E/F/G/H adicionados (tratamento, epidemio, manejo, emergencia) + framing adversarial nos existentes (A-D). qa-batch-screenshot: try/catch unlinkSync (Windows lock) + video.delete() (cleanup temp Playwright). AUDIT-VISUAL 44→11 slides.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global. CSS single-file: cirrose.css (3224 linhas — tokens, stages, componentes, per-slide). Sem base.css, sem archetypes.
 **Slides:** 11 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · **Build/Lint:** ✅
@@ -58,6 +58,8 @@
 | ✅ | Stale refs purged | archetypes.css/base.css refs eliminadas de 10 arquivos (prompts, scripts, skills). |
 | ✅ | responseSchema | Gate 0 + Gate 4 (3 calls) com constrained decoding. JSON deterministico. |
 | ✅ | Playwright hardening | try/catch unlinkSync + video.delete() em qa-batch-screenshot. |
+| ✅ | MCP research templates | Templates E-H (tratamento, epidemio, manejo, emergencia) + adversarial framing A-D. |
+| ✅ | Content type classifier | content-research.mjs auto-detecta tipo clinico do h2 → sugere template MCP. |
 | ❌ | s-a1-meld SPLIT | Gemini recomenda split. Lucas nao decidiu. |
 | ❌ | s-cp1 centering | Verificar no viewport Lucas. |
 
