@@ -66,10 +66,10 @@
   --warning-on-dark:  oklch(80% 0.14 85);
   --warning-on-light: oklch(45% 0.10 85);
 
-  /* --- Danger / Red (L=50) --- */
-  --danger:          oklch(50% 0.18 25);
+  /* --- Danger / Red (L=48, hue 8 = pure red, was 25 = terracotta) --- */
+  --danger:          oklch(48% 0.21 8);
   --danger-light:    color-mix(in oklch, var(--danger) 15%, oklch(97% 0 0));
-  --danger-on-dark:  oklch(72% 0.16 25);
+  --danger-on-dark:  oklch(72% 0.19 8);
 
   /* --- Downgrade / Ocre (L=30, auxiliar, sempre com ícone ↓) --- */
   --downgrade:          oklch(30% 0.08 55);
@@ -142,7 +142,7 @@
     --safe: #2a8a7a; --safe-light: #e0f4f0; --safe-on-dark: #60d0b8;
     --warning: #c4922a; --warning-light: #f4ecd8; --warning-on-dark: #e0c060;
     --warning-on-light: #7a5a18;
-    --danger: #cc4a3a; --danger-light: #f4e0dc; --danger-on-dark: #e08070;
+    --danger: #dc3545; --danger-light: #f5d5d8; --danger-on-dark: #e88090;
     --downgrade: #8a7040; --downgrade-light: #f0eadc; --downgrade-on-dark: #c0a870;
     --border: #d8d8e0; --divider: #e8e8ec; --border-navy: #2a3a50;
   }
