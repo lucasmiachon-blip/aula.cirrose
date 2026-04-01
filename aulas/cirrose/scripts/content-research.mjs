@@ -395,12 +395,12 @@ When relevant (and briefly), note:
 
 === NARRATIVE METADATA (use to calibrate your response) ===
 
-The slide metadata includes archetype, narrative role, and tension level. Interpret them:
-- Archetype "hero-stat": slide centers on ONE powerful number (NNT, HR, AUROC). Ensure that number has CI95% and source.
-- Archetype "comparison": side-by-side data. Ensure both sides have equal evidence quality.
+The slide metadata includes narrative role and tension level. Interpret them:
 - Narrative role "setup": establishing foundation — prioritize clarity and sourcing over drama.
 - Narrative role "payoff": revealing key insight — evidence must be rock-solid.
 - Narrative role "pivot": changing direction — flag if evidence supports the pivot.
+- Narrative role "hook": opening case — anchor evidence to the patient scenario.
+- Narrative role "checkpoint": decision moment — evidence must enable a clear clinical action.
 - Tension 1-2/5: low stakes, educational. Tension 4-5/5: high stakes, clinical decision moment.
 
 === SOURCE PRIORITY (follow this order) ===
@@ -514,8 +514,7 @@ NARRATIVE CONTEXT:
 - Next slide will claim: ${ctx.nextClaim}
 - Patient anchor: ${extractPatientAnchor()}
 
-ARCHETYPE & ROLE GLOSSARY (for this slide):
-- Archetype "${slide?.archetype || '?'}": see NARRATIVE METADATA in system prompt
+NARRATIVE CALIBRATION:
 - Role "${narrativeRole}": see NARRATIVE METADATA in system prompt
 - Tension ${tensionLevel}/5: calibrate evidence depth accordingly
 
@@ -681,7 +680,6 @@ Date: ${date} | Weakness: ${weakness.category} (${weakness.severity}/3)
 ## Slide Context
 - **h2:** ${ctx.h2}
 - **Act:** ${slide?.act || 'N/A'} | Position: ${ctx.meta.position} | Tension: ${slide?.tensionLevel ?? '?'}/5
-- **Archetype:** ${slide?.archetype || '?'}
 - **Narrative role:** ${slide?.narrativeRole || 'none'}
 - **Existing PMIDs:** ${ctx.existingPMIDs.length > 0 ? ctx.existingPMIDs.join(', ') : 'NONE'}
 - **Weakness:** ${weakness.description}
