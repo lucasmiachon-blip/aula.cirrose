@@ -316,7 +316,9 @@ async function main() {
 
     // Delete previous round's PNGs and old videos (keep gate0.json and metrics.json)
     const oldFiles = readdirSync(slideDir).filter(f => f.endsWith('.png') || f.endsWith('.webm'));
-    for (const f of oldFiles) unlinkSync(join(slideDir, f));
+    for (const f of oldFiles) {
+      try { unlinkSync(join(slideDir, f)); } catch (e) { console.warn(`  [I/O WARN] Skipping locked file: ${f}`); }
+    }
     if (oldFiles.length > 0) console.log(`  Cleaned ${oldFiles.length} old file(s)`);
 
     // Navigate to target slide (direct jump — never ArrowRight between slides)
@@ -410,8 +412,10 @@ async function main() {
         await videoPage.waitForTimeout(500);
         // saveAs waits for ffmpeg flush — no race condition vs renameSync
         const destVideo = join(slideDir, 'animation-1280x720.webm');
+        const videoObj = videoPage.video();
         await videoPage.close();
-        await videoPage.video().saveAs(destVideo);
+        await videoObj.saveAs(destVideo);
+        await videoObj.delete().catch(() => {});
         hasVideo = true;
         console.log(`  Video: animation-1280x720.webm`);
       } finally {

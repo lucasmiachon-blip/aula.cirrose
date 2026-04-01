@@ -146,6 +146,84 @@ const CALL_B_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gate4-call-b-uxco
 const CALL_C_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gate4-call-c-motion.md');
 const ERROR_DIGEST_PATH = join(REPO_ROOT, 'docs', 'prompts', 'error-digest.md');
 
+// --- Response schemas (Gemini constrained decoding) ---
+const BOOLEAN_NODE = { type: "OBJECT", properties: { pass: { type: "BOOLEAN" } } };
+const GATE0_SCHEMA = {
+  type: "OBJECT",
+  properties: {
+    slide_id: { type: "STRING" },
+    states_received: { type: "ARRAY", items: { type: "STRING" } },
+    must_pass: { type: "BOOLEAN" },
+    should_pass: { type: "BOOLEAN" },
+    summary: { type: "STRING" },
+    checks: {
+      type: "OBJECT",
+      properties: Object.fromEntries(
+        ['CLIPPING', 'OVERFLOW', 'OVERLAP', 'INVISIBLE', 'MISSING_MEDIA',
+         'ANIMATION_STATE', 'ALIGNMENT', 'SPACING', 'READABILITY']
+          .map(k => [k, BOOLEAN_NODE])
+      ),
+    },
+  },
+  required: ["slide_id", "states_received", "checks", "must_pass", "should_pass", "summary"],
+};
+
+const DIM_PROP = {
+  type: "OBJECT",
+  properties: {
+    evidencia: { type: "STRING" },
+    problemas: { type: "ARRAY", items: { type: "STRING" } },
+    fixes: { type: "ARRAY", items: { type: "STRING" } },
+    nota: { type: "NUMBER" },
+  },
+  required: ["evidencia", "problemas", "fixes", "nota"],
+};
+
+const SCHEMAS_GATE4 = {
+  visual: {
+    type: "OBJECT",
+    properties: {
+      distribuicao: DIM_PROP, proporcao: DIM_PROP, cor: DIM_PROP,
+      tipografia: DIM_PROP, composicao: DIM_PROP,
+      media_visual: { type: "NUMBER" },
+      impressao_geral: { type: "STRING" },
+    },
+    required: ["distribuicao", "proporcao", "cor", "tipografia", "composicao", "media_visual"],
+  },
+  uxcode: {
+    type: "OBJECT",
+    properties: {
+      gestalt: DIM_PROP, carga_cognitiva: DIM_PROP, information_design: DIM_PROP,
+      css_cascade: DIM_PROP, failsafes: DIM_PROP,
+      media_uxcode: { type: "NUMBER" },
+      dead_css: { type: "ARRAY", items: { type: "STRING" } },
+      specificity_conflicts: { type: "ARRAY", items: { type: "STRING" } },
+      proposals: {
+        type: "ARRAY",
+        items: {
+          type: "OBJECT",
+          properties: {
+            severity: { type: "STRING" }, titulo: { type: "STRING" },
+            fix: { type: "STRING" }, arquivo: { type: "STRING" }, tipo: { type: "STRING" },
+          },
+        },
+      },
+    },
+    required: ["gestalt", "carga_cognitiva", "information_design", "css_cascade", "failsafes", "media_uxcode", "proposals"],
+  },
+  motion: {
+    type: "OBJECT",
+    properties: {
+      timing: DIM_PROP, easing: DIM_PROP, narrativa_motion: DIM_PROP,
+      crossfade: DIM_PROP, proposito: DIM_PROP, artefatos: DIM_PROP,
+      media_motion: { type: "NUMBER" },
+      inventory: { type: "ARRAY", items: { type: "STRING" } },
+      animation_value: { type: "STRING" },
+    },
+    required: ["timing", "easing", "narrativa_motion", "crossfade", "proposito", "artefatos", "media_motion", "inventory"],
+  },
+};
+
 // --- Dynamic source extraction (E42) ---
 
 function findSlideFile(slideId) {
@@ -273,81 +351,7 @@ function extractBaseTokens() {
   return rootMatch[0];
 }
 
-function extractArchetypeCSS(html) {
-  const archPath = join(AULA_DIR, 'archetypes.css');
-  if (!existsSync(archPath)) return '/* archetypes.css not found */';
-  const css = readFileSync(archPath, 'utf8');
-
-  // Find archetype class used by this slide
-  const archMatch = html.match(/archetype-([a-z-]+)/);
-  if (!archMatch) return '/* No archetype class found in HTML */';
-  const archClass = `.archetype-${archMatch[1]}`;
-
-  // A2: Extract classes, IDs, and tag names from slide HTML for relevance filtering
-  const htmlClasses = new Set([...(html.matchAll(/class="([^"]+)"/g))].flatMap(m => m[1].split(/\s+/)));
-  const htmlTags = new Set([...(html.matchAll(/<([a-z][a-z0-9]*)/gi))].map(m => m[1].toLowerCase()));
-  const htmlIds = new Set([...(html.matchAll(/id="([^"]+)"/g))].map(m => m[1]));
-
-  // Extract all rule blocks that reference this archetype class
-  const lines = css.split('\n');
-  const allBlocks = [];
-  let currentBlock = [];
-  let capturing = false;
-  let braceDepth = 0;
-  let selectorLine = '';
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (!capturing && line.includes(archClass)) {
-      capturing = true;
-      braceDepth = 0;
-      selectorLine = line;
-      currentBlock = [];
-    }
-    if (capturing) {
-      currentBlock.push(line);
-      braceDepth += (line.match(/\{/g) || []).length;
-      braceDepth -= (line.match(/\}/g) || []).length;
-      if (braceDepth === 0 && currentBlock.length > 1) {
-        allBlocks.push({ selector: selectorLine, lines: [...currentBlock] });
-        currentBlock = [];
-        capturing = false;
-      }
-    }
-  }
-
-  // A2: Filter — keep blocks whose selector references elements present in HTML
-  // A block is relevant if: it's the base archetype class alone, OR its child selectors
-  // reference classes/tags/IDs found in the slide HTML
-  const filtered = allBlocks.filter(block => {
-    const sel = block.selector.trim();
-    // Base archetype rule (e.g., ".archetype-hero-stat {") — always keep
-    if (sel.match(new RegExp(`^\\${archClass}\\s*\\{`)) || sel === archClass + ' {') return true;
-    // Check if any child selector references something in the HTML
-    // Extract child parts after the archetype class
-    const afterArch = sel.replace(new RegExp(`\\${archClass.replace('.', '\\.')}`), '').trim();
-    if (!afterArch || afterArch === '{') return true; // bare archetype class
-    // Check for class references (.foo)
-    const childClasses = [...afterArch.matchAll(/\.([a-z][a-z0-9_-]*)/gi)].map(m => m[1]);
-    if (childClasses.some(c => htmlClasses.has(c))) return true;
-    // Check for tag references
-    const childTags = [...afterArch.matchAll(/(?:^|\s)([a-z][a-z0-9]*)/gi)].map(m => m[1].toLowerCase());
-    if (childTags.some(t => htmlTags.has(t) && !['and', 'not', 'or'].includes(t))) return true;
-    // Check for ID references
-    const childIds = [...afterArch.matchAll(/#([a-z][a-z0-9_-]*)/gi)].map(m => m[1]);
-    if (childIds.some(id => htmlIds.has(id))) return true;
-    return false;
-  });
-
-  // Safety: if filter removes everything, fall back to unfiltered
-  const blocks = filtered.length > 0 ? filtered : allBlocks;
-  const skipped = allBlocks.length - filtered.length;
-  if (skipped > 0) console.log(`  Archetype CSS: ${filtered.length}/${allBlocks.length} blocks relevant (${skipped} filtered)`);
-
-  return blocks.flatMap(b => [...b.lines, '']).join('\n');
-}
-
-function extractCSS(slideId, html) {
+function extractCSS(slideId) {
   const sections = [];
 
   // 1. Design tokens from cirrose.css :root
@@ -355,14 +359,7 @@ function extractCSS(slideId, html) {
   sections.push('/* === Design Tokens (:root) === */');
   sections.push(tokens);
 
-  // 2. Archetype CSS (matched to this slide's archetype class)
-  const archCSS = extractArchetypeCSS(html);
-  if (archCSS && !archCSS.startsWith('/*')) {
-    sections.push('\n/* === Archetype CSS === */');
-    sections.push(archCSS);
-  }
-
-  // 3. Slide-specific CSS from cirrose.css (#slideId selectors)
+  // 2. Slide-specific CSS from cirrose.css (#slideId selectors)
   const slideLines = extractSlideCSS(slideId);
   if (slideLines.length > 0) {
     sections.push('\n/* === Slide-specific CSS (cirrose.css) === */');
@@ -371,7 +368,7 @@ function extractCSS(slideId, html) {
 
   const combined = sections.join('\n');
   const lineCount = combined.split('\n').length;
-  console.log(`  CSS: ${lineCount} lines (tokens + archetype + slide-specific)`);
+  console.log(`  CSS: ${lineCount} lines (tokens + slide-specific)`);
   return combined;
 }
 
@@ -506,7 +503,8 @@ function buildGate0Payload(slideId, qaDir) {
       contents: [{ parts }],
       generationConfig: {
         temperature: 0.1, topP: 0.9, maxOutputTokens: 8192,
-        responseMimeType: 'application/json', // G1: guaranteed valid JSON
+        responseMimeType: 'application/json',
+        responseSchema: GATE0_SCHEMA,
       },
     },
     statesReceived,
@@ -745,15 +743,15 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
   if (includeMedia.s2 && mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
   if (includeMedia.ref && mediaUris.ref) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.ref } });
 
-  return {
-    contents: [{ parts }],
-    generationConfig: {
-      temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
-      topP: 0.95,
-      maxOutputTokens: maxTokens || 8192,
-      responseMimeType: 'application/json',
-    },
+  const config = {
+    temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
+    topP: 0.95,
+    maxOutputTokens: maxTokens || 8192,
+    responseMimeType: 'application/json',
   };
+  if (SCHEMAS_GATE4[callType]) config.responseSchema = SCHEMAS_GATE4[callType];
+
+  return { contents: [{ parts }], generationConfig: config };
 }
 
 function safeNum(obj, ...path) {
@@ -770,7 +768,7 @@ async function runEditorial(slideId, round, qaDir) {
   // Step 0: Extract source code dynamically (E42)
   console.log('0. Extracting source code from files...');
   const rawHTML = extractHTML(slideId);
-  const rawCSS = extractCSS(slideId, rawHTML);
+  const rawCSS = extractCSS(slideId);
   const rawJS = extractJS(slideId);
   const notes = extractNotes(rawHTML);
   const meta = getSlideMetadata(slideId);

@@ -23,7 +23,7 @@ Se nao achou problemas numa dimensao, olhe de novo — todo slide tem melhorias 
 {{RAW_HTML}}
 ```
 
-### CSS (tokens + archetype + slide-specific)
+### CSS (tokens + slide-specific)
 ```css
 {{RAW_CSS}}
 ```
@@ -68,7 +68,7 @@ Cowan 4+-1: quantos chunks de informacao por estado? Sweller: ha carga extrinsec
 Tufte: cada pixel de tinta carrega informacao? Ha elementos decorativos sem funcao? Os dados numericos sao apresentados com clareza (tabular-nums, alinhamento, unidades)? A hierarquia de informacao (o que importa mais → menos) esta refletida no tamanho/peso/cor dos elementos?
 
 **4. CSS CASCADE (1-10)**
-Ha dead CSS (seletores que nao matcham nenhum elemento no HTML)? Conflitos de specificity? Cascade flui corretamente (base → archetype → slide-specific)? Valores hardcoded que deveriam ser var()? Tokens OKLCH corretos?
+Ha dead CSS (seletores que nao matcham nenhum elemento no HTML)? Conflitos de specificity? Cascade flui corretamente (tokens → slide-specific)? Tudo em cirrose.css (single-file). Valores hardcoded que deveriam ser var()? Tokens OKLCH corretos?
 
 **5. FAILSAFES (1-10)**
 .no-js e .stage-bad cobrem todos os elementos animados? opacity: 0 tem fallback? Elementos com data-animate tem CSS pre-hide? print-pdf funciona? Algum estado quebra se JS falhar?

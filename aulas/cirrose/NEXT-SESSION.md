@@ -24,7 +24,7 @@
 5. **Dead CSS mapeado** — ~680 linhas orfas identificadas, nao removidas ainda.
 
 ### Sessao anterior (31/mar, sessao 1)
-1. archetypes.css eliminado — cascata 3→2 camadas.
+1. archetypes.css + base.css eliminados — CSS single-file (cirrose.css).
 2. 33 slides CONTENT removidos → `slides/_archive/`. Manifest 44→11.
 3. Source-tag padronizado — left-align, 0.85rem.
 4. GGT (210) adicionado a panelStates e CASE.md.

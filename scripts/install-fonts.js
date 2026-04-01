@@ -15,7 +15,7 @@ import https from 'node:https';
 const FONTS_DIR = resolve('shared', 'assets', 'fonts');
 mkdirSync(FONTS_DIR, { recursive: true });
 
-// Expected files (must match base.css @font-face declarations)
+// Expected files (must match cirrose.css @font-face declarations)
 const EXPECTED = [
   'InstrumentSerif-Regular.woff2',
   'InstrumentSerif-Italic.woff2',

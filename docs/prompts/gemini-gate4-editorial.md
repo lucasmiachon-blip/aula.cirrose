@@ -38,7 +38,7 @@ Voce foi contratado como **editor final criativo + auditor tecnico**. Autoridade
 - Stage-C: fundo creme (oklch 95%), texto quase-preto. NAO dark.
 - Tipografia: Instrument Serif (display), DM Sans (corpo), JetBrains Mono (dados)
 - OKLCH: safe/teal L40, warning/amber L60, danger/red L50. UI accent navy.
-- Cascata CSS: base.css (tokens) → archetypes.css (layouts) → cirrose.css (slide-specific)
+- CSS single-file: cirrose.css (tokens + componentes + slide-specific). Nao ha base.css nem archetypes.css.
 - Failsafes obrigatorios: `.no-js [data-animate] { opacity: 1; }` e `.stage-bad` (sem animacao)
 
 ### GSAP 3.14 Business: SplitText, Flip importados. Disponiveis: ScrambleText, MorphSVG, DrawSVG, MotionPath, TextPlugin, CustomEase, EasePack, Physics2D, CSSRule.
@@ -134,8 +134,8 @@ Avaliacao DETALHADA por material — cada analise DEVE citar observacoes concret
 ### 1. ANALISE CSS OBRIGATORIA (antes das propostas)
 Voce recebeu HTML + CSS + JS raw. ANTES de propor, execute esta analise:
 
-1. **Cascade trace:** Para cada propriedade visual critica do slide (background, color, font-size, display, grid/flex), identifique QUAL regra vence (base.css → archetypes.css → cirrose.css → inline). Confirme que o seletor EXISTE no CSS enviado.
-2. **Dead CSS:** Liste seletores do bloco **Slide-specific CSS (cirrose.css)** que NAO matcham NENHUM elemento no HTML enviado. APENAS este bloco conta como dead CSS. Seletores de Design Tokens e Archetype CSS sao CONTEXTO — incluidos para referencia de cascade, NAO penalizam craft_frontend.
+1. **Cascade trace:** Para cada propriedade visual critica do slide (background, color, font-size, display, grid/flex), identifique QUAL regra vence (tokens :root → slide-specific → inline). Tudo esta em cirrose.css (single-file). Confirme que o seletor EXISTE no CSS enviado.
+2. **Dead CSS:** Liste seletores do bloco **Slide-specific CSS** que NAO matcham NENHUM elemento no HTML enviado. Seletores de Design Tokens (:root) sao CONTEXTO — NAO penalizam craft_frontend.
 3. **Specificity conflicts:** Se mais de uma regra compete pela mesma propriedade no mesmo elemento, declare o vencedor (usando specificity ID, Class, Type) e se o override e intencional ou acidental.
 4. **Failsafes:** Verifique se o CSS tem regras `.no-js` e `.stage-bad` para os elementos animados deste slide. Se NAO tiver, marque como [MUST] na secao de propostas.
 5. **GSAP vs CSS race:** Identifique propriedades controladas TANTO por GSAP (JS) quanto por CSS transitions/classes. Race condition = GSAP seta inline (max specificity), CSS perde. Reportar.
@@ -144,7 +144,7 @@ Formato:
 ```
 CASCADE: .fib4-stat background ← cirrose.css .fib4-stat--safe (0,1,0) | OK
 DEAD: .fib4-formula (no match in HTML)
-CONFLICT: .fib4-stat font-size ← base.css :root --text-body vs cirrose.css .fib4-stat-number (0,1,0 wins) | intencional
+CONFLICT: .fib4-stat font-size ← :root --text-body vs .fib4-stat-number (0,1,0 wins) | intencional
 FAILSAFE: .no-js .fib4-stage — MISSING
 RACE: opacity — GSAP autoAlpha:0 + CSS [data-animate] opacity:0 — redundante mas safe
 ```
@@ -260,7 +260,7 @@ Para CADA dimensao: dar nota + listar os criterios CONCRETOS avaliados e o resul
 | Motion e timing | ?/10 | **Baseado no MOTION LOG §1C (obrigatorio se video presente).** Sem log preenchido = max 5/10. Verificar M1-M7 do §1C. **Medicoes:** transicoes contadas (#); duracoes (ms); delays (ms); overlap saida/entrada (ms); easing; artefatos (ghosting, flash, layout shift, clipping M6, gravity shift M7). |
 | Legibilidade a 5m | ?/10 | menor texto visivel (estimado px); contraste minimo; elementos que desaparecem em projecao; text-small aceitavel? |
 | Impacto emocional | ?/10 | hero element presente?; Von Restorff aplicado?; pausa narrativa existe?; dado de impacto destacado? |
-| Craft front-end | ?/10 | dead CSS no bloco slide-specific (# seletores — ignorar tokens/archetype); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |
+| Craft front-end | ?/10 | dead CSS no bloco slide-specific (# seletores — ignorar tokens :root); seletores fantasma?; tokens var() vs valores hardcoded (#); box-model correto? |
 | CSS Cascade e especificidade | ?/10 | conflitos encontrados (#); !important count; cascade intencional vs acidental; failsafes .no-js presentes?; .stage-bad presente? |
 | Gestalt e carga cognitiva | ?/10 | # grupos visuais; Cowan respeitado (<=4)?; proximidade e similaridade OK?; conceitos por estado (1=bom, 3+=ruim) |
 | Estrutura semantica e a11y | ?/10 | heading hierarchy OK?; contraste body >=4.5:1?; contraste large >=3:1?; ARIA para transicoes?; visibility para .no-js? |

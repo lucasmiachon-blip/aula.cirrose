@@ -44,8 +44,6 @@ const JS_FILES = [
 
 const CSS_FILES = [
   join(aulaDir, 'cirrose.css'),
-  join(aulaDir, 'archetypes.css'),
-  join(aulaDir, 'shared', 'css', 'base.css'),
 ];
 
 // Properties that cause race conditions when both GSAP and CSS control them

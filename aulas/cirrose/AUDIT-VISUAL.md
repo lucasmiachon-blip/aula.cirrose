@@ -1,7 +1,7 @@
 # AUDIT-VISUAL — Cirrose (por Atos)
 
 > Auditoria visual organizada por Atos narrativos.
-> Deck: 44 slides (2 pre + 8 Act 1 + 15 Act 2 + 7 Act 3 + 3 CP + 1 close + 8 app)
+> Deck: 11 slides ativos (33 arquivados em slides/_archive/)
 > Rubrica: **14 dimensoes**, scoring 1-10 (min 9 para PASS).
 > Metodo: Playwright screenshot 1280x720 por estado (S0..SN) + constraint check + checklist.
 > Referencia: AASLD/EASL Postgraduate Course slides + Duarte Sparkline + Sweller CLT + Knowles.

@@ -15,7 +15,7 @@ Cria slide para `$ARGUMENTS`. Exemplo: `/new-slide cirrose "Carvedilol reduz pri
 
 1. Verificar `_manifest.js` da aula para posição correta
 2. Confirmar que assertion tem dado clínico verificável (com fonte)
-3. Escolher archetype adequado (ver `aulas/{aula}/archetypes.css` ou CSS da aula)
+3. Usar CSS da aula (`cirrose.css` — single-file com tokens + componentes + slide-specific)
 
 ## Template HTML
 
