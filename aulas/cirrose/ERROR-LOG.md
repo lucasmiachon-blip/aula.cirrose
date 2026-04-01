@@ -251,7 +251,15 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra derivada:** Dentro de um slide state, o punchline DEVE ter tratamento visual superior aos elementos de suporte. Mesma cor semantica e aceitavel entre suportes, mas o elemento culminante precisa de cor elevada, tamanho/peso maior, ou ambos. Icones DEVEM ter cor explicita matching severity — nunca herdar generico.
 **Status:** CORRIGIDO.
 
-*Ultima atualizacao: 2026-04-01 · 74 erros registrados, 72 fechados, 2 pendentes.*
+### ERRO-075 · MEDIUM · CSS (cor semantica redundante em texto de dados — "gold em tudo")
+**Quando icone + borda ja carregam o sinal de severidade, tingir o TEXTO dos dados com a mesma cor cria ruido visual, nao informacao. Repeticao em 3+ cards identicos transforma sinal em parede monocromatica. Mesmo problema com elementos de role distinto (label vs evidencia) recebendo tratamento identico (filled bg) dentro da mesma cor semantica.**
+**Exemplos:** Elasto S0: 3 warning cards com magnitude amber (+17-21%, PVC, 15 kPa) — 6 elementos amber em 75% do slide. CPT S0: flaw pills (⚠ Ascite, ⚠ EH) e kappa callout (κ ≤ 0,41) todos com bg filled ochre identico.
+**Root cause:** Aplicacao maximalista de cor semantica — TODOS os textos de um severity recebem a cor, sem avaliar quais elementos ja carregam o sinal (icone, borda) e quais precisam de legibilidade (dados numericos).
+**Fix:** (1) Warning magnitude text: --warning-on-light → --text-primary (dados legíveis, icone+borda carregam sinal). (2) Flaw pills: bg filled → bg-card (outline only), kappa callout mantem filled. Cria 3 tiers: outline (labels) → filled (evidencia) → amber (punchline).
+**Regra derivada:** Cor semantica em texto so se justifica quando o texto E o elemento semantico primario (titulo, punchline). Dados numericos, magnitudes e labels de suporte usam --text-primary — o sinal vem de icone + borda + bg, nao do texto. Dentro da mesma cor, diferenciar roles via peso visual (outline vs filled), nao via mais cor.
+**Status:** CORRIGIDO.
+
+*Ultima atualizacao: 2026-04-01 · 75 erros registrados, 73 fechados, 2 pendentes.*
 
 ---
 
@@ -261,7 +269,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 |------------|-------|------------|-----------|
 | CRITICAL   | 9     | 9          | 0 |
 | HIGH       | 34    | 32         | 2 |
-| MEDIUM     | 22    | 22         | 0 |
+| MEDIUM     | 23    | 23         | 0 |
 | LOW        | 4     | 4          | 0 |
 | SHOULD     | 2     | 2          | 0 |
 | **Total**  | **74**| **72**     | **2** |

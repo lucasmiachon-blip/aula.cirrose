@@ -5,9 +5,9 @@
 
 ---
 
-## Estado — 2026-03-31
+## Estado — 2026-04-01
 
-**Ultima sessao (31/mar, sessao 2):** CSS single-file (base.css absorvido em cirrose.css). FA definido (89 U/L). GGT+FA no s-hook. Git convertido para repo standalone (worktree orfa → git init + push origin main).
+**Ultima sessao (01/abr, sessao 3):** Cor semantica sistêmica — 4 commits: danger hue 25→8 (ERRO-073), mix ratios 15→25-40% + text semantico, hierarquia intra-slide punchline vs suporte (ERRO-074), redundancia cor-em-dados + role differentiation outline/filled (ERRO-075). Slides afetados: s-a1-elasto, s-a1-rule5, s-a1-cpt. Von Restorff JS hue fix.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global. CSS single-file: cirrose.css (3224 linhas — tokens, stages, componentes, per-slide). Sem base.css, sem archetypes.
 **Slides:** 11 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · **Build/Lint:** ✅

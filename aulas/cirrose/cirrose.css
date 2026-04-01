@@ -2133,7 +2133,7 @@ section#s-a1-01 .slide-inner {
   color: var(--text-secondary);
 }
 .cpt-node--flaw {
-  background: color-mix(in oklch, var(--downgrade) 25%, var(--bg-card));
+  background: var(--bg-card);
   border-color: var(--downgrade);
   color: var(--downgrade);
 }
@@ -2641,7 +2641,7 @@ section#s-a1-01 .slide-inner {
   color: var(--danger);
 }
 .elasto-conf[data-severity="warning"] .elasto-conf-magnitude {
-  color: var(--warning-on-light);
+  color: var(--text-primary);
 }
 
 .elasto-conf-action {
