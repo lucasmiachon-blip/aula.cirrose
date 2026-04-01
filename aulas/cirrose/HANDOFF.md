@@ -7,13 +7,13 @@
 
 ## Estado — 2026-04-01
 
-**Ultima sessao (01/abr, sessao 3):** Cor semantica sistêmica — 4 commits: danger hue 25→8 (ERRO-073), mix ratios 15→25-40% + text semantico, hierarquia intra-slide punchline vs suporte (ERRO-074), redundancia cor-em-dados + role differentiation outline/filled (ERRO-075). Slides afetados: s-a1-elasto, s-a1-rule5, s-a1-cpt. Von Restorff JS hue fix.
+**Ultima sessao (01/abr, sessao 4):** Infra cleanup — repo janitor + purge refs stale (archetypes.css/base.css em 10 arquivos). responseSchema adicionado a Gate 0 + Gate 4 (constrained decoding). extractArchetypeCSS deletado (73 linhas dead code). qa-batch-screenshot: try/catch unlinkSync (Windows lock) + video.delete() (cleanup temp Playwright). AUDIT-VISUAL 44→11 slides.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global. CSS single-file: cirrose.css (3224 linhas — tokens, stages, componentes, per-slide). Sem base.css, sem archetypes.
 **Slides:** 11 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · **Build/Lint:** ✅
 **Branch:** `main` (repo standalone `lucasmiachon-blip/aula.cirrose`).
 **Guardrails:** pre-commit (3 guards + lint) + evidence-db + guard-generated + **guard-product-files SUPRIMIDO**.
-**QA pipeline:** Gate 4 **v3.1** — 3 chamadas paralelas + campo `evidencia` obrigatorio. Gate 0 **v1.3**. Gate 2 em repouso.
+**QA pipeline:** Gate 4 **v3.2** — 3 chamadas paralelas + `responseSchema` (constrained decoding) + campo `evidencia` obrigatorio. Gate 0 **v1.4** (responseSchema). Gate 2 em repouso.
 **Research completo:** s-a1-meld (9 PMIDs verificados + MELD 3.0 formula Kim 2021), s-cp1 (11 PMIDs).
 **Modelos Gemini:** Gate 0 = `gemini-3-flash-preview` ($0). Gate 4 = `gemini-3.1-pro-preview`.
 **Env:** GEMINI_API_KEY OK. PERPLEXITY_API_KEY ausente.
@@ -54,14 +54,16 @@
 | ✅ | 33 slides removidos | CONTENT → _archive. Manifest 11 slides. Build/lint OK. |
 | ✅ | GGT/FA no caso | GGT 210, FA 89. CASE.md + panelStates + s-hook OK. |
 | ✅ | Git standalone | Repo `lucasmiachon-blip/aula.cirrose`, branch `main`. |
-| ✅ | Dead CSS cleanup | 1471 linhas removidas (4695→3224). 27 blocos: componentes arquivados, Stage A, archetypes genericos, calc inline, utilities orfas. Build+lint OK. |
+| ✅ | Dead CSS cleanup | 1471 linhas removidas (4695→3224). Build+lint OK. |
+| ✅ | Stale refs purged | archetypes.css/base.css refs eliminadas de 10 arquivos (prompts, scripts, skills). |
+| ✅ | responseSchema | Gate 0 + Gate 4 (3 calls) com constrained decoding. JSON deterministico. |
+| ✅ | Playwright hardening | try/catch unlinkSync + video.delete() em qa-batch-screenshot. |
 | ❌ | s-a1-meld SPLIT | Gemini recomenda split. Lucas nao decidiu. |
 | ❌ | s-cp1 centering | Verificar no viewport Lucas. |
 
 **Fluxo na proxima sessao:**
-1. ~~Dead CSS cleanup~~ — DONE (31/mar sessao 3)
-2. QA s-a1-meld (SPLIT decision) e s-cp1 (centering viewport)
-3. Comecar Act 2 slide-a-slide (criar do zero)
+1. QA s-a1-meld (SPLIT decision) e s-cp1 (centering viewport)
+2. Comecar Act 2 slide-a-slide (criar do zero)
 
 ---
 
@@ -69,9 +71,10 @@
 
 1. ~~Act 1 (9 slides)~~ — 9 DONE* (31/mar)
 2. ~~Dead CSS~~ — DONE (31/mar, 4695→3224 linhas)
-3. **s-a1-meld** — QA. Gate 4 R2 5.6. SPLIT decision pendente.
-4. **s-cp1** — QA. Centering pendente.
-5. **Act 2** — reconstruir do zero (slides removidos, conteudo em narrative.md + evidence-db)
+3. ~~Stale refs + responseSchema~~ — DONE (01/abr, sessao 4)
+4. **s-a1-meld** — QA. Gate 4 R2 5.6. SPLIT decision pendente.
+5. **s-cp1** — QA. Centering pendente.
+6. **Act 2** — reconstruir do zero (slides removidos, conteudo em narrative.md + evidence-db)
 
 ---
 
