@@ -2205,9 +2205,9 @@ section#s-a1-01 .slide-inner {
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--downgrade);
-  background: color-mix(in oklch, var(--downgrade) 25%, var(--bg-card));
-  border: 1px solid var(--downgrade);
+  color: var(--warning-on-light);
+  background: color-mix(in oklch, var(--warning) 25%, var(--bg-card));
+  border: 1px solid var(--warning);
   padding: 4px 12px;
   border-radius: var(--radius-sm);
 }
@@ -2247,16 +2247,16 @@ section#s-a1-01 .slide-inner {
 }
 .cpt-surgery-stat--safe {
   color: var(--safe);
-  background: var(--safe-light);
+  background: color-mix(in oklch, var(--safe) 25%, var(--bg-card));
   border: 1px solid var(--safe);
 }
 .cpt-surgery-stat--warning {
   color: var(--warning-on-light);
-  background: var(--warning-light);
+  background: color-mix(in oklch, var(--warning) 25%, var(--bg-card));
   border: 1px solid var(--warning);
 }
 .cpt-surgery-stat--danger {
-  background: var(--danger-light);
+  background: color-mix(in oklch, var(--danger) 35%, oklch(97% 0 0));
   border: 2px solid var(--danger);
   color: var(--danger);
 }
@@ -2606,6 +2606,8 @@ section#s-a1-01 .slide-inner {
 .elasto-conf[data-severity="warning"] {
   border-left-color: var(--warning-on-light);
 }
+.elasto-conf[data-severity="danger"] .elasto-conf-icon { color: var(--danger); }
+.elasto-conf[data-severity="warning"] .elasto-conf-icon { color: var(--warning-on-light); }
 
 .elasto-conf-icon {
   font-size: var(--text-body);

@@ -453,7 +453,7 @@ export const customAnimations = {
       // Von Restorff: scale C stat after countUp
       const cStat = slide.querySelector('.cpt-surgery-stat--danger');
       if (cStat) {
-        gsap.to(cStat, { scale: 1.16, boxShadow: '0 8px 24px oklch(0.65 0.15 25 / 0.4)', duration: 0.5, delay: 1.2, ease: 'power2.out' });
+        gsap.to(cStat, { scale: 1.16, boxShadow: '0 8px 24px oklch(0.65 0.19 8 / 0.4)', duration: 0.5, delay: 1.2, ease: 'power2.out' });
         gsap.to(cStat, { scale: 1, boxShadow: 'none', duration: 0.4, delay: 2.5, ease: 'power2.inOut' });
       }
     }

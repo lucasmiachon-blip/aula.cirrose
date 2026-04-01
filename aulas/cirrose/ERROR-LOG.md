@@ -235,7 +235,23 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 **Regra derivada:** Usar `color-mix()` (Color 4) em vez de `oklch(from ...)` (Color 5) para derivacoes de cor.
 **Status:** CORRIGIDO — mortality bands usam color-mix.
 
-*Ultima atualizacao: 2026-03-31 · 72 erros registrados, 70 fechados, 2 pendentes.*
+### ERRO-073 · HIGH · CSS (danger root token hue 25° = terracotta, nao vermelho)
+**`--danger: oklch(50% 0.18 25)` / `#cc4a3a` = hue 25° OKLCH = laranja-avermelhado. Renderiza como terracotta/coral/tijolo — nao vermelho puro. Todos os 47 usos downstream (color-mix, -light, -on-dark) herdaram o warm shift. `-light` variants (#f4e0dc) viravam bege em vez de rosa-claro.**
+**Root cause:** Hue 25° em OKLCH cai na faixa orange-red, nao pure red (0-10°). Chroma 0.18 insuficiente para compensar. Compare: Bootstrap #dc3545 (hue ~1°), Tailwind #ef4444 (hue ~0°).
+**Agravantes:** (1) Texto dos cards/zones usava --text-primary generico em vez de cor semantica da zona. (2) Backgrounds usavam 15% mix ratio — projetado para badges, nao para cards em projecao a 6m. (3) Cards danger no elasto tinham bg branco identico aos warning.
+**Fix:** Token raiz: `oklch(48% 0.21 8)` / `#dc3545`. Propaga automaticamente. Mix ratios escalados (25-40%) nos componentes. Texto das zones usa cor semantica da severidade.
+**Regra derivada:** (1) Danger root DEVE ter hue ≤10° e chroma ≥0.20. (2) Backgrounds de severidade em area grande (cards, zones) usam 25-40% color-mix, nao tokens -light (15%). (3) Texto dentro de elementos com cor semantica DEVE usar a cor semantica, nao --text-primary generico.
+**Status:** CORRIGIDO — 3 commits (f38b0b8, 9bf5f6f).
+
+### ERRO-074 · HIGH · CSS/JS (hierarquia intra-slide — elementos identicos, punchline invisivel)
+**Dentro de um slide state, multiplos elementos recebiam tratamento visual identico (mesma cor + tamanho + peso). Punchline indistinguivel dos elementos de suporte. Viewer nao sabe onde olhar primeiro.**
+**Exemplos:** CPT S0: flaw nodes, kappa callout, ceiling result — todos `--downgrade` identico. CPT S1: surgery stats com -light (15% mix) — A/B/C quase iguais. Elasto: icones sem cor explicita (herdavam --text-primary generico). Von Restorff JS com hue 25 hardcoded (terracotta).
+**Root cause:** Aplicacao uniforme de tokens sem considerar hierarquia narrativa. O punchline do argumento recebia o mesmo tratamento que labels de suporte.
+**Fix:** (1) Ceiling result: downgrade→warning (punchline sobe de nivel). (2) Surgery stats: -light→25-35% color-mix. (3) Icones elasto: cor explicita por severity. (4) Von Restorff hue 25→8.
+**Regra derivada:** Dentro de um slide state, o punchline DEVE ter tratamento visual superior aos elementos de suporte. Mesma cor semantica e aceitavel entre suportes, mas o elemento culminante precisa de cor elevada, tamanho/peso maior, ou ambos. Icones DEVEM ter cor explicita matching severity — nunca herdar generico.
+**Status:** CORRIGIDO.
+
+*Ultima atualizacao: 2026-04-01 · 74 erros registrados, 72 fechados, 2 pendentes.*
 
 ---
 
@@ -248,4 +264,4 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 | MEDIUM     | 22    | 22         | 0 |
 | LOW        | 4     | 4          | 0 |
 | SHOULD     | 2     | 2          | 0 |
-| **Total**  | **72**| **70**     | **2** |
+| **Total**  | **74**| **72**     | **2** |
