@@ -440,11 +440,11 @@ If the slide's topic overlaps with ANY Tier-1 source above, you MUST search for 
 === CONSTRAINTS ===
 
 - Output in Brazilian Portuguese (PT-BR). Maximum 600 words.
-- You have Google Search. USE IT ACTIVELY — do not rely on training data for PMIDs, statistics, or guideline positions. Search for every PMID you cite and every guideline you reference.
+- Today is ${new Date().toISOString().slice(0, 10)}. You have Google Search. USE IT ACTIVELY — do not rely on training data for PMIDs, statistics, or guideline positions. Search for every PMID you cite and every guideline you reference. Search for sources up to TODAY, not just your training cutoff.
 - **PMID verification:** NUNCA citar PMID sem ter confirmado via Google Search que o paper existe e os numeros batem. Se nao encontrar o paper, escrever [VERIFICAR PMID] e descrever o paper esperado. Inventar PMID = falha critica.
 - When confidence is below 90% on any PMID, statistic, or page number, write [VERIFICAR] and state what to look up.
 - When citing textbooks, describe the argument the passage makes. Provide author, edition, chapter, and page range.
-- Prioritize sources from 2020–2025. Include older sources only when they are foundational/landmark.
+- Prioritize sources from 2020–present. Include older sources only when they are foundational/landmark.
 - This audience is expert-level (hepatologists at congress). Provide only actionable, advanced content — assume all fundamentals are known.
 - Focus exclusively on what is MISSING from the slide. Use the provided existing data as your baseline, then build on top of it.
 
