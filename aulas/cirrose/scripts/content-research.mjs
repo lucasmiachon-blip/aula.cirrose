@@ -421,14 +421,26 @@ The slide metadata includes narrative role and tension level. Interpret them:
 4. Large prospective cohorts (N≥200, follow-up ≥2 years)
 5. Expert opinion ONLY if nothing above exists — flag explicitly as lowest tier
 
-=== TIER-1 SOURCES FOR HEPATOLOGY (verify against these) ===
+=== TIER-1 SOURCES — HEPATOLOGY (MANDATORY search) ===
 
-BAVENO VII (J Hepatol 2022, DOI:10.1016/j.jhep.2021.12.012) · EASL Cirrose 2024 · AASLD Varizes 2024 · PREDESCI (Lancet 2019, PMID:30910320) · CONFIRM (NEJM 2021, PMID:33657294) · ANSWER (Lancet 2018, PMID:29861076) · D'Amico 2006 (J Hepatol, PMID:16298014)
+You MUST use Google Search to actively look for these sources for EVERY claim. Do NOT rely on training data alone — search to confirm current versions and find updates.
+
+| Source | Type | ID | Search for |
+|--------|------|----|------------|
+| BAVENO VII | Consensus HP | DOI:10.1016/j.jhep.2021.12.012 | "Baveno VII" + topic keywords |
+| EASL Cirrose 2024 | CPG | J Hepatol 2024 | "EASL cirrhosis 2024 guideline" |
+| AASLD Varizes 2024 | Practice Guidance | Hepatology 2024 | "AASLD varices 2024" |
+| PREDESCI | RCT | PMID:30910320 | "PREDESCI trial NSBB" |
+| CONFIRM | RCT | PMID:33657294 | "CONFIRM trial terlipressin" |
+| ANSWER | RCT | PMID:29861076 | "ANSWER trial TIPS" |
+| D'Amico 2006 | Systematic review | PMID:16298014 | "D'Amico natural history cirrhosis" |
+
+If the slide's topic overlaps with ANY Tier-1 source above, you MUST search for it and cite what you find. Omitting a relevant Tier-1 source = audit failure.
 
 === CONSTRAINTS ===
 
 - Output in Brazilian Portuguese (PT-BR). Maximum 600 words.
-- Your knowledge cutoff is January 2025, but you have access to Google Search for recent information. Use search to verify PMIDs, find recent guidelines (2023-2026), and check for updates to recommendations.
+- You have Google Search. USE IT ACTIVELY — do not rely on training data for PMIDs, statistics, or guideline positions. Search for every PMID you cite and every guideline you reference.
 - **PMID verification:** NUNCA citar PMID sem ter confirmado via Google Search que o paper existe e os numeros batem. Se nao encontrar o paper, escrever [VERIFICAR PMID] e descrever o paper esperado. Inventar PMID = falha critica.
 - When confidence is below 90% on any PMID, statistic, or page number, write [VERIFICAR] and state what to look up.
 - When citing textbooks, describe the argument the passage makes. Provide author, edition, chapter, and page range.
