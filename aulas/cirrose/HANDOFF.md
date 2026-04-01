@@ -7,7 +7,7 @@
 
 ## Estado — 2026-04-01
 
-**Ultima sessao (01/abr, sessao 4):** Infra cleanup — repo janitor + purge refs stale (archetypes.css/base.css em 10 arquivos). responseSchema adicionado a Gate 0 + Gate 4 (constrained decoding). extractArchetypeCSS deletado (73 linhas dead code). qa-batch-screenshot: try/catch unlinkSync (Windows lock) + video.delete() (cleanup temp Playwright). AUDIT-VISUAL 44→11 slides.
+**Ultima sessao (01/abr, sessao 4):** Infra cleanup — repo janitor + purge refs stale (archetypes.css/base.css em 11 arquivos). responseSchema adicionado a Gate 0 + Gate 4 (constrained decoding). extractArchetypeCSS deletado (73 linhas dead code). content-research.mjs: archetype dead refs removidos dos prompts. qa-batch-screenshot: try/catch unlinkSync (Windows lock) + video.delete() (cleanup temp Playwright). AUDIT-VISUAL 44→11 slides.
 **Venue:** Samsung UN55F6400, 55", Full HD 1920x1080 nativo, 16:9. Distancia ~6m.
 **Infra:** Porta Vite 4100 (strictPort). deck.js/engine.js com fix de timing global. CSS single-file: cirrose.css (3224 linhas — tokens, stages, componentes, per-slide). Sem base.css, sem archetypes.
 **Slides:** 11 buildados · 9 DONE* · 2 QA (s-a1-meld, s-cp1) · **Build/Lint:** ✅
